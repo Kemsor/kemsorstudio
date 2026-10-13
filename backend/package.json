@@ -1,0 +1,26 @@
+{
+  "name": "kemsor-phase-one-cms",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch src/server.js",
+    "start": "node --env-file=.env src/server.js",
+    "setup": "node --env-file=.env src/setup.js",
+    "test": "node --env-file=.env --test tests/*.test.js",
+    "export": "node --env-file=.env src/export.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "ejs": "^7.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "multer": "^2.4.0",
+    "mysql2": "^3.24.5"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}

@@ -1,0 +1,31 @@
+/* Quiet hierarchy: let the content and selected motion carry the design. */
+.creative-site :is(.section-heading h2,.motion-editorial h2,.india-copy h2,.process-layout h2,.page-next-layout h2,.page-section-heading h2){background-image:none;-webkit-background-clip:initial;background-clip:initial;color:inherit}
+.creative-site :is(.studio-section,.capabilities-section,.process-section,.notes-section,.page-next,.page-hero-text)::before{opacity:.18}
+.creative-site .page-hero-image::after{background:linear-gradient(transparent 55%,#080808af)}
+.creative-site .page-hero-docket{font-size:10px;color:var(--muted)}
+.creative-site .page-hero-docket>a{letter-spacing:.06em}
+.creative-site .page-eyebrow{letter-spacing:.065em}
+.creative-site .line-link{gap:18px;line-height:1.6}
+.site-icon{display:inline-block;flex-shrink:0;vertical-align:middle}
+.creative-site .creative-cta .cta-arrow{display:grid;place-items:center}
+.creative-site :is(.creative-cta,.line-link) .site-icon{transition:transform .2s ease}
+.creative-site :is(.creative-cta,.line-link):hover .site-icon{transform:translateX(3px)}
+.creative-site .mobile-bottom-bar :is(a,button){gap:5px}
+.creative-site .mobile-bottom-bar .site-icon{width:20px;height:20px}
+.creative-site .index-label{letter-spacing:.04em}
+.creative-site .index-right{color:var(--muted)}
+.creative-site .page-card>p,.creative-site .page-copy>p{max-width:62ch}
+.creative-site .page-section-heading>p{font-size:16px;line-height:1.8}
+.creative-site .experience-guide-launch{box-shadow:0 4px 18px #00000008;font-size:12px}
+.creative-site .studio-guide{border-radius:16px;box-shadow:0 24px 80px #00000020}
+.creative-site .studio-guide-options button{border-radius:8px}
+.creative-site .footer-jumbo::before{opacity:.3}
+.creative-site .footer-signature{color:#f4f1ea;opacity:.85}
+.creative-site .about-lifecycle .lifecycle-cinema-card{box-shadow:none}
+.creative-site .lifecycle-cinema-card::after{opacity:.45}
+.creative-site .lifecycle-card-light{opacity:.6}
+.creative-site .directory-card{box-shadow:none}
+.creative-site .directory-hero{background-image:none;background-color:var(--panel-bg)}
+.creative-site .talent-intro{background-image:none}
+@media(max-width:760px){.creative-site .index-right{display:none}.creative-site .page-section-heading>p{font-size:15px}.creative-site .footer-signature{padding-bottom:16px}}
+@media(prefers-reduced-motion:reduce){.creative-site :is(.creative-cta,.line-link) .site-icon{transition:none}.creative-site :is(.creative-cta,.line-link):hover .site-icon{transform:none}}

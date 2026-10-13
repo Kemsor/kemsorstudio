@@ -1,0 +1,17 @@
+# Dependencies and generated builds
+node_modules/
+dist/
+.DS_Store
+
+# Local credentials and private data
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+backend/storage/
+
+# Local archives, exports, screenshots and unrelated deployment work
+Archive.zip
+output/
+outputs/

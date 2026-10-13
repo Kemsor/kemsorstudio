@@ -1,0 +1,14 @@
+.cms-paragraph{white-space:pre-wrap;overflow-wrap:anywhere}
+.cms-heading{font-size:clamp(32px,4vw,56px);margin-bottom:32px}
+.cms-published-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}
+.cms-entry{min-width:0}.cms-entry>img{width:100%;height:auto;aspect-ratio:1.6;object-fit:cover;margin-bottom:24px}
+.cms-entry .cms-paragraph{margin-top:18px}.cms-entry .line-link{margin-top:24px}
+.cms-compact{padding:0}.cms-compact .cms-published-grid{grid-template-columns:1fr}
+.enquiry-honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.cms-enquiry-status{padding:16px;border:1px solid var(--line);margin-top:24px;overflow-wrap:anywhere}
+.cms-enquiry-form .check{display:flex;align-items:flex-start;gap:12px;line-height:1.6;font-size:14px;margin:24px 0}
+.cms-enquiry-form .check input{width:20px;min-height:20px;flex-shrink:0;margin-top:3px}
+.cms-enquiry-notice{font-size:14px;color:var(--muted);white-space:pre-wrap;margin:24px 0}
+@media(max-width:760px){.cms-published-grid{grid-template-columns:1fr;gap:28px}}
+
+.cinema-hero h1.cms-hero-title{white-space:normal;font-size:clamp(32px,5.5vw,100px);overflow-wrap:break-word}

@@ -1,0 +1,191 @@
+/* KEMSOR / GOLD ON BLACK — shared identity tokens and applications. */
+:root{
+  --brand-black:#090909;
+  --brand-charcoal:#181614;
+  --brand-gold:#D9A441;
+  --brand-highlight:#F5D890;
+  --brand-bronze:#85511E;
+  --brand-ivory:#F4EFE5;
+  --brand-muted:#B6ADA0;
+  --brand-metal:linear-gradient(115deg,#85511E 0%,#D9A441 34%,#F5D890 55%,#D9A441 75%,#85511E 100%);
+  --ink:var(--brand-black);--paper:var(--brand-ivory);--muted:var(--brand-muted);--gold:var(--brand-gold);
+  --light-line:#09090926;--dark-line:#D9A44133;
+  background:var(--brand-black);color:var(--brand-ivory);
+}
+body{background:var(--brand-black)}
+.music-bar,.site-loader,.site-footer,.showcase,.careers{background:var(--brand-black)}
+.music-bar{border-color:var(--dark-line);color:var(--brand-highlight)}
+.music-credit,.music-status,.loader-caption,.loader-status{color:var(--brand-muted)}
+.music-controls button{border-color:#D9A44155;color:var(--brand-highlight)}
+.music-controls button:hover{background:#D9A44118;border-color:var(--gold)}
+.site-header{border-color:#D9A44133;background:linear-gradient(#090909aa,#09090911)}
+.site-header .nav-cta{border-color:#D9A44180;color:var(--brand-highlight)}
+.site-header .nav-cta:hover{background:var(--gold);color:var(--ink)}
+.cinema-hero{background:var(--brand-black)}
+.cinema-hero .hero-image{filter:brightness(.88) saturate(.85)}
+.cinema-hero .hero-shade{background:linear-gradient(90deg,#090909d9,#09090944 68%,#09090911),linear-gradient(0deg,#090909f2,transparent 70%)}
+.cinema-hero h1 .hero-name,.hero-tagline{color:var(--brand-ivory)}
+.cinema-hero h1 .hero-studios{color:var(--brand-gold)}
+.hero-description,.hero-topline,.hero-bottom,.hero-motion{color:var(--brand-ivory)}
+.hero-bottom{border-color:var(--dark-line)}
+.button-gold{background:var(--brand-gold);color:var(--brand-black);border-color:var(--brand-gold)}
+.button-gold:hover{background:var(--brand-highlight);border-color:var(--brand-highlight)}
+.hero-secondary{background:#09090955;border-color:#D9A44180;color:var(--brand-ivory)}
+.hero-secondary:hover{background:var(--brand-ivory);color:var(--brand-black)}
+.section-label{position:relative;align-items:center}
+.section-label>span:first-child::before{content:'';display:inline-block;width:7px;height:7px;background:var(--brand-gold);transform:rotate(45deg);margin-right:13px}
+.light-section .section-label>span:first-child::before,.contact .section-label>span:first-child::before{background:var(--brand-bronze)}
+.light-section h2>span{color:var(--brand-bronze)}
+.studio-copy .lead{color:#28231D}.studio-copy>p+p,.studio-note{color:#655B4D}
+.formats,.process{background:var(--brand-charcoal)}
+.formats{border-block:1px solid var(--dark-line)}
+.format-image{background:var(--brand-black);border-bottom:2px solid var(--brand-gold)}
+.format-number{border-color:#D9A44180;background:#09090988;color:var(--brand-highlight)}
+.format-image-shade{background:linear-gradient(0deg,#090909cc,transparent 60%)}
+.service-showcase,.vision-scroll{background:var(--brand-black)}
+.service-card{border:1px solid #D9A44144;border-radius:4px}
+.service-card h3>span,.service-section-end a,.step-icon,.step-number{color:var(--brand-gold)}
+.service-card-link{border:1px solid #D9A44166;background:#09090977;color:var(--brand-ivory)}
+.service-card-link:hover{background:var(--gold);color:var(--ink)}
+.service-card-shade{background:linear-gradient(0deg,#090909f5,#090909bf 25%,#09090922 65%),linear-gradient(180deg,#09090980,transparent 30%)}
+.process h2>span{color:var(--brand-gold)}
+.process-art::after{border-color:#D9A44180}
+.step-description p{color:var(--brand-muted)}
+.process-step{border-color:var(--dark-line)}
+.process-step:last-child{border-color:var(--dark-line)}
+.careers h2>span,.careers-heading>.eyebrow{color:var(--brand-gold)}
+.careers-intro,.careers-art figcaption{color:var(--brand-muted)}
+.careers-button{border-color:#D9A44166;background:#D9A4410d;color:var(--brand-ivory)}
+.careers-button:hover{background:var(--brand-gold);color:var(--brand-black)}
+.career-opportunities{background:var(--brand-charcoal);border-color:var(--dark-line)}
+.career-opportunities h3{color:var(--brand-highlight)}
+.contact{background:var(--brand-gold);color:var(--brand-black);position:relative;border-top:6px solid var(--brand-highlight)}
+.contact h2>span{color:#573412}
+.contact .section-label>span:last-child,.contact-bottom>p,.contact-bottom small{color:#44321A}
+.contact-bottom{border-color:#09090933}
+.contact-arrow{border-color:#09090977;box-shadow:0 0 0 9px #0909090a,0 0 0 10px #09090922}
+.contact-arrow:hover{background:var(--brand-black);color:var(--brand-highlight)}
+.footer-bottom{color:var(--brand-muted)}
+/* The scroll reveal becomes a pool of warm gold from the logo's metallic finish. */
+.vision-panel{background:radial-gradient(ellipse at 90% 12%,#F5D890,transparent 58%),linear-gradient(115deg,#B67724,#D9A441 50%,#F5D890)}
+.vision-copy,.vision-copy h2>span,.vision-description,.vision-signoff,.vision-endline{color:var(--brand-black);text-shadow:none}
+.vision-copy>.eyebrow{color:#573412}.vision-signoff{border-color:#09090944}
+.vision-word{color:var(--brand-ivory)}
+.vision-scroll-note{color:var(--brand-muted)}
+.vision-photo{border-color:var(--brand-ivory);background:var(--brand-ivory);color:var(--brand-black);box-shadow:0 22px 55px #09090940}
+.loader-name>span,.site-loader>button{color:var(--brand-gold)}
+.loader-progress{background:#D9A44122}.loader-progress>span{background:var(--brand-metal)}
+.loader-progress{height:3px}.site-loader>button{border-color:#D9A44155}
+/* A quiet film-perforation motif, taken from the K emblem. */
+.showcase .section-meta::after{content:'';width:68px;height:5px;background:repeating-linear-gradient(90deg,var(--brand-gold) 0 7px,transparent 7px 13px);flex-shrink:0}
+@media(max-width:800px){.site-header nav{background:var(--brand-black);border-color:var(--dark-line)}}
+@media(max-width:560px){.showcase .section-meta::after{display:none}.service-card{border-radius:4px}.service-card-shade{background:linear-gradient(0deg,#090909fa,#090909d9 28%,#09090944 58%,transparent 80%),linear-gradient(180deg,#09090999,transparent 30%)}}
+@media(prefers-reduced-motion:reduce),(max-height:620px){.vision-stage{background:linear-gradient(115deg,#B67724,#D9A441 50%,#F5D890)}}
+
+/* Let the film take the foreground on desktop pointer hover. */
+.cinema-hero .hero-image{transition:filter .65s ease}
+.cinema-hero .hero-shade{transition:opacity .65s ease}
+.cinema-hero h1,.cinema-hero .hero-content>.eyebrow,.cinema-hero .hero-summary>div:first-child,.cinema-hero .hero-topline,.cinema-hero .hero-edge{transition:opacity .5s ease}
+@media(hover:hover) and (pointer:fine){
+  .cinema-hero:hover:not(:has(:focus-visible)) .hero-image{filter:brightness(1.08) saturate(1)}
+  .cinema-hero:hover:not(:has(:focus-visible)) .hero-shade{opacity:.22}
+  .cinema-hero:hover:not(:has(:focus-visible)) h1,
+  .cinema-hero:hover:not(:has(:focus-visible)) .hero-content>.eyebrow,
+  .cinema-hero:hover:not(:has(:focus-visible)) .hero-summary>div:first-child{opacity:.12}
+  .cinema-hero:hover:not(:has(:focus-visible)) .hero-topline,
+  .cinema-hero:hover:not(:has(:focus-visible)) .hero-edge{opacity:.2}
+}
+@media(prefers-reduced-motion:reduce){
+  .cinema-hero .hero-image,.cinema-hero .hero-shade,.cinema-hero h1,.cinema-hero .hero-content>.eyebrow,.cinema-hero .hero-summary>div:first-child,.cinema-hero .hero-topline,.cinema-hero .hero-edge{transition:none}
+}
+
+/* Make the browser's sound permission fallback visible on every screen. */
+.music-bar[data-needs-play=true] .music-status{display:inline;color:var(--brand-highlight)}
+.music-bar[data-needs-play=true] .music-controls button{border-color:var(--brand-gold);background:#D9A44118}
+@media(max-width:560px){.music-bar[data-needs-play=true] .music-title{font-size:7px}.music-bar[data-needs-play=true] .music-status{font-size:8px;margin-right:0}.music-bar[data-needs-play=true] .music-controls{gap:7px}.music-bar[data-needs-play=true] .music-controls button{min-width:58px}}
+
+/* Three matched photographic views create a scroll-driven chair turn. */
+.careers-turn{height:260svh;padding:0;position:relative;background:#000}
+.careers-stage{position:sticky;top:0;height:100svh;min-height:701px;padding:35px 6% 20px;display:flex;flex-direction:column;align-items:center;overflow:clip}
+.careers-turn .careers-heading{flex-shrink:0;width:100%}
+.careers-turn .careers-heading>.eyebrow{margin-bottom:16px}
+.careers-turn h2{font-size:clamp(38px,3.8vw,58px)}
+.careers-turn .careers-intro{font-size:11px;line-height:1.7;margin-top:14px}
+.careers-turn .careers-button{margin-top:16px;padding:10px 18px}
+.careers-turn .career-opportunities{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:min(470px,100%);z-index:4;margin-top:12px;box-shadow:0 18px 45px #000b}
+.chair-scene{margin:0;width:100%;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.chair-perspective{flex:1;min-height:0;width:100%;position:relative;perspective:1800px}
+.chair-turntable{position:absolute;inset:0;transform:rotateY(var(--chair-angle,0deg));transform-origin:50% 70%;will-change:transform}
+.chair-view{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;pointer-events:none;mask-image:linear-gradient(0deg,transparent,#000 12%,#000 94%,transparent);-webkit-mask-image:linear-gradient(0deg,transparent,#000 12%,#000 94%,transparent)}
+.chair-turntable[data-view=empty] .chair-empty,.chair-turntable[data-view=back] .chair-back,.chair-turntable[data-view=seated] .chair-seated{opacity:1}
+.chair-scene figcaption{position:relative;flex-shrink:0;height:22px;width:100%;font-size:8px;letter-spacing:1.6px;color:var(--brand-gold);margin-top:8px}
+.chair-scroll-hint,.chair-reveal-caption{position:absolute;inset:0;transition:opacity .2s}
+.chair-scroll-hint>span{margin-left:15px}.chair-reveal-caption{opacity:0}
+.careers-turn[data-finished=true] .chair-scroll-hint{opacity:0}.careers-turn[data-finished=true] .chair-reveal-caption{opacity:1}
+@media(max-width:560px){.careers-turn{height:235svh}.careers-stage{padding:35px 6% 18px}.careers-turn h2{font-size:clamp(34px,9.5vw,48px)}.careers-turn .careers-intro{font-size:10px}.chair-perspective{width:155vw;max-width:650px;flex:0 1 370px;aspect-ratio:1672/941}.chair-scene{justify-content:center}.chair-scene figcaption{font-size:6px;letter-spacing:1px}.careers-turn .careers-button{font-size:10px}}
+@media(prefers-reduced-motion:reduce),(max-height:700px){.careers-turn{height:auto}.careers-stage{position:relative;height:auto;min-height:0;padding-block:55px 30px}.chair-scene{flex:none}.chair-perspective{flex:none;height:auto;aspect-ratio:1672/941;width:min(1000px,100vw)}.chair-turntable{transform:none!important}.chair-turntable .chair-view{opacity:0!important}.chair-turntable .chair-seated{opacity:1!important}.chair-scroll-hint{display:none}.chair-reveal-caption{opacity:1}.chair-scroll-hint,.chair-reveal-caption{transition:none}}
+@media(max-width:560px) and (prefers-reduced-motion:reduce),(max-width:560px) and (max-height:700px){.chair-perspective{width:150vw;max-width:650px}}
+
+/* Real 3D chair: the canvas stays flat; only mesh geometry rotates. */
+.chair-volume-frame{position:relative;width:100%;flex:1;min-height:0;--portrait-reveal:0}
+.chair-webgl{position:absolute;inset:0;opacity:0;mask-image:linear-gradient(0deg,transparent,#000 12%,#000 95%,transparent)}
+.chair-webgl canvas{display:block;width:100%;height:100%}
+.chair-volume-placeholder,.chair-portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;mask-image:linear-gradient(0deg,transparent,#000 12%,#000 95%,transparent)}
+.chair-portrait{opacity:var(--portrait-reveal)}
+.chair-volume-frame[data-model=ready] .chair-webgl{opacity:calc(1 - var(--portrait-reveal))}
+.chair-volume-frame[data-model=ready] .chair-volume-placeholder{opacity:0}
+.careers-turn[data-static=true]{height:auto}
+.careers-turn[data-static=true] .careers-stage{position:relative;height:auto;min-height:0;padding-block:55px 30px}
+.careers-turn[data-static=true] .chair-scene{flex:none}
+.careers-turn[data-static=true] .chair-volume-frame{flex:none;height:auto;aspect-ratio:1672/941;width:min(1100px,100vw)}
+.careers-turn[data-static=true] .chair-webgl,.careers-turn[data-static=true] .chair-volume-placeholder{display:none}
+.careers-turn[data-static=true] .chair-portrait{opacity:1}
+.careers-turn[data-static=true] .chair-scroll-hint{display:none}
+.careers-turn[data-static=true] .chair-reveal-caption{opacity:1}
+@media(max-width:560px){.chair-volume-frame{width:155vw;max-width:650px;flex:0 1 370px;aspect-ratio:1672/941}.careers-turn[data-static=true] .chair-volume-frame{width:150vw;max-width:650px}}
+
+/* A single rear-to-front reveal, paced like an introduction. */
+.careers-turn{height:215svh}
+.chair-webgl{mask-image:radial-gradient(ellipse 62% 65% at 50% 52%,#000 48%,transparent 95%)}
+.chair-portrait{transform:translateY(calc((1 - var(--portrait-reveal)) * 8px))}
+.careers-turn[data-static=true]{height:auto}
+.careers-turn[data-static=true] .chair-portrait{transform:none}
+@media(max-width:560px){.careers-turn{height:205svh}.careers-turn[data-static=true]{height:auto}}
+@media(prefers-reduced-motion:reduce),(max-height:700px){.careers-turn{height:auto}.chair-portrait{transform:none}}
+
+/* Five-second hero chapters: a gentle camera move and dissolve. */
+.cinema-hero .hero-slide-video{opacity:0;transform:scale(1.045);transition:opacity 1s ease,transform 1.6s cubic-bezier(.2,.7,.2,1),filter .65s ease;pointer-events:none}
+.cinema-hero .hero-slide-video.is-active{opacity:1;transform:scale(1)}
+.cinema-hero .hero-copy-in{animation:hero-detail-in .8s .12s backwards}
+.hero-slide-controls{display:flex;gap:10px;align-items:center}
+.hero-slide-controls button{font-size:9px;letter-spacing:1px;border:0;border-bottom:2px solid #D9A44133;background:#09090944;color:var(--brand-ivory);padding:10px 12px;min-height:38px;transition:border-color .3s,color .3s}
+.hero-slide-controls button[aria-pressed=true]{color:var(--brand-highlight);border-color:var(--brand-gold)}
+.hero-slide-controls button:hover{background:#09090999}
+@media(max-width:560px){.hero-slide-controls{gap:5px}.hero-slide-controls button{font-size:8px;padding:10px 8px}.hero-carousel .hero-bottom{gap:6px}.hero-carousel .hero-bottom>a{font-size:5px;letter-spacing:.7px;gap:6px}.hero-carousel .hero-motion{padding-inline:3px;font-size:6px}.hero-carousel .hero-actions{gap:8px}.hero-carousel .hero-actions .button{font-size:9px;padding-inline:12px}}
+@media(prefers-reduced-motion:reduce){.cinema-hero .hero-slide-video{transition:none;transform:none}.cinema-hero .hero-copy-in{animation:none}.hero-slide-controls button{transition:none}}
+
+/* A translucent editorial panel frames both hero chapters. */
+.cinema-hero.hero-carousel .hero-content{position:relative;isolation:isolate;width:min(780px,65vw);margin-left:-6vw;padding:32px 38px 32px 6vw}
+.hero-carousel .hero-content::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,#090909cc,#090909a3);border:1px solid #D9A44138;border-left:0;border-radius:0 46px 46px 0;backdrop-filter:blur(3px);transition:opacity .65s ease}
+.hero-carousel .hero-shade{background:linear-gradient(0deg,#090909c9,transparent 58%,#09090944)}
+.cinema-hero.hero-carousel h1 .hero-name{font-size:clamp(105px,12.5vw,180px)}
+.cinema-hero.hero-carousel h1 .hero-studios{font-size:clamp(18px,1.8vw,26px);margin-top:13px}
+.cinema-hero.hero-carousel .hero-content>.eyebrow{margin-bottom:20px}
+.cinema-hero.hero-carousel .hero-summary{flex-direction:column;align-items:flex-start;margin-top:24px;gap:22px}
+.hero-carousel .hero-tagline{font-size:clamp(27px,2.5vw,36px)}
+.hero-carousel .hero-description{font-size:12px;line-height:1.75;margin-top:12px}
+.hero-carousel .hero-actions{gap:10px;padding:0}
+.hero-carousel .hero-actions .button{font-size:10px;gap:22px;padding:14px 17px;min-height:48px}
+.studio-camera{position:relative;margin:46px 0 0;height:clamp(260px,31vw,440px);background:var(--brand-black);overflow:hidden;border-radius:0 34px 34px 0}
+.studio-camera img{height:100%;width:100%;object-fit:cover;object-position:65% 46%}
+.studio-camera::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#090909cc,transparent 60%)}
+.studio-camera figcaption{position:absolute;z-index:1;left:30px;bottom:28px;color:var(--brand-ivory);display:flex;flex-direction:column;gap:10px}
+.studio-camera figcaption>span{font-size:8px;letter-spacing:2px;color:var(--brand-highlight)}
+.studio-camera figcaption>strong{font:400 clamp(24px,3vw,40px)/1.05 var(--display)}
+.process-art img{filter:brightness(.92) saturate(.88);object-position:53% center}
+.process-art{border-radius:0 24px 24px 0}
+.process-art-label{padding:9px 12px;background:#090909aa;color:var(--brand-highlight)}
+@media(hover:hover) and (pointer:fine){.hero-carousel:hover:not(:has(:focus-visible)) .hero-content::before{opacity:.16}}
+@media(max-width:1000px){.cinema-hero.hero-carousel .hero-content{width:78vw}.hero-carousel .hero-actions{flex-wrap:wrap}}
+@media(max-width:560px){.cinema-hero.hero-carousel .hero-content{width:calc(100% + 6vw);padding:27px 6vw;margin-block:auto}.hero-carousel .hero-content::before{border-radius:0 27px 27px 0}.cinema-hero.hero-carousel h1 .hero-name{font-size:24vw}.cinema-hero.hero-carousel h1 .hero-studios{font-size:17px;letter-spacing:.6em;margin-top:12px}.cinema-hero.hero-carousel .hero-content>.eyebrow{font-size:7px;margin-bottom:20px}.cinema-hero.hero-carousel .hero-summary{margin-top:23px;gap:19px}.hero-carousel .hero-tagline{font-size:27px}.hero-carousel .hero-description{font-size:10px;line-height:1.8}.hero-carousel .hero-actions .button{font-size:9px;padding:11px 12px;gap:11px;min-height:44px}.studio-camera{margin-top:30px;height:290px;border-radius:0 24px 24px 0}.studio-camera figcaption{left:20px;right:20px;bottom:22px}.studio-camera figcaption>span{font-size:7px}.studio-camera figcaption>strong{font-size:27px}}
+@media(prefers-reduced-motion:reduce){.hero-carousel .hero-content::before{transition:none}}

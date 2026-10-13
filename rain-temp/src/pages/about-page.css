@@ -1,0 +1,40 @@
+.about-banner-actions{display:flex;align-items:center;gap:24px 36px;flex-wrap:wrap;padding:0 var(--page-gutter) 56px;margin-top:-36px}
+.about-banner-actions .creative-cta{font-size:14px}.about-banner-actions .line-link{font-size:14px}
+.about-mission{display:flex;align-items:center;gap:36px;background:var(--panel-bg);border-block:1px solid var(--line);padding:28px var(--page-gutter)}
+.about-mission>span{font-size:10px;letter-spacing:.1em;white-space:nowrap;color:var(--brand-bronze)}.about-mission>p{font-size:17px;line-height:1.8;max-width:1000px}
+.about-lifecycle{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 5%}.about-lifecycle .page-card>p{font-size:16px}.about-lifecycle .page-card h3{font-size:24px}
+.about-ground{display:grid;grid-template-columns:1fr 2fr;gap:32px;border-top:1px solid var(--line);padding-top:32px;margin-top:42px}.about-ground ul{display:grid;grid-template-columns:1fr 1fr;gap:16px 32px;padding:0;list-style:none}.about-ground li{font-size:14px;line-height:1.8;padding-left:16px;position:relative}.about-ground li::before{content:'—';position:absolute;left:0;color:var(--brand-bronze)}
+.about-scope{margin-top:36px;font-size:16px;line-height:1.8;color:var(--muted);border-left:2px solid var(--brand-bronze);padding-left:20px}
+.about-formats{background:var(--panel-bg)}.about-format-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.about-format-grid article{padding:28px;border:1px solid var(--line);background:var(--page-bg)}.about-format-grid article h3{font-size:24px;margin:24px 0 16px}.about-format-grid article p{font-size:15px;line-height:1.8;color:var(--muted)}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:24px 8%}.about-values .page-card h3{font-size:26px}
+.about-audience-tags{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0}.about-audience-tags>span{padding:10px 16px;border:1px solid var(--line);font-size:12px;line-height:1.6}.about-leadership-anchor{display:block;scroll-margin-top:100px}
+@media(max-width:900px){.about-lifecycle,.about-format-grid{grid-template-columns:1fr 1fr}.about-ground{grid-template-columns:1fr}.about-mission{align-items:flex-start;gap:24px}.about-mission>p{font-size:15px}}
+@media(max-width:600px){.about-banner-actions{padding-bottom:36px;margin-top:-20px;gap:20px}.about-mission{flex-direction:column;gap:12px;padding-block:24px}.about-lifecycle,.about-format-grid,.about-values{grid-template-columns:1fr}.about-ground ul{grid-template-columns:1fr;gap:12px}.about-format-grid article{padding:24px}.about-audience-tags>span{font-size:11px;padding:8px 12px}}
+
+/* Cinematic lifecycle panels: local artwork, scanlines and a slow light pass. */
+.about-lifecycle .lifecycle-cinema-card{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;min-height:370px;padding:28px;border:1px solid #ffffff22;background:#171914;color:#fff;border-radius:14px;box-shadow:0 10px 30px #00000008;transition:box-shadow .3s,border-color .3s}
+.lifecycle-card-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;opacity:.65;transform:scale(1.03);transition:transform 1s ease,opacity .7s}
+.lifecycle-cinema-card::before{content:'';position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,#0b100c28 0%,#10120e70 35%,#080b09ed 100%);pointer-events:none}
+.lifecycle-cinema-card::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(transparent,transparent);pointer-events:none}
+.about-lifecycle .lifecycle-cinema-card>.page-number{display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin:0;background:#0b100c55;border:1px solid #ffffff45;border-radius:50%;color:#f4d393;font-size:11px;backdrop-filter:blur(5px)}
+.lifecycle-card-copy{margin-top:100px;position:relative}
+.about-lifecycle .lifecycle-card-copy h3{font-size:clamp(22px,2vw,29px);line-height:1.23;letter-spacing:-.035em;max-width:340px;color:#fff;margin:0}
+.lifecycle-card-copy p{font-size:15px;line-height:1.8;color:#e0dfd7;margin-top:18px;max-width:42ch}
+.lifecycle-card-frame{position:absolute;top:28px;right:28px;width:22px;height:22px;border-top:1px solid #f4d39388;border-right:1px solid #f4d39388;pointer-events:none}
+.lifecycle-card-light{position:absolute;inset:-80% -60%;z-index:-1;background:linear-gradient(115deg,transparent 43%,#f6d49a12 50%,transparent 57%);transform:translateX(-35%);animation:lifecycle-light-pass 12s ease-in-out infinite;animation-delay:var(--card-delay);pointer-events:none}
+@keyframes lifecycle-light-pass{0%,15%{transform:translateX(-35%)}65%,100%{transform:translateX(35%)}}
+@media(hover:hover){.lifecycle-cinema-card:hover .lifecycle-card-art{transform:scale(1.09);opacity:.85}.about-lifecycle .lifecycle-cinema-card:hover{border-color:#dcb66f88;box-shadow:0 16px 40px #00000018}}
+[data-motion=paused] .lifecycle-card-light{animation-play-state:paused}
+[data-motion=paused] .lifecycle-card-art{transition:none}
+@media(max-width:760px){.about-lifecycle .lifecycle-cinema-card{min-height:330px;padding:24px}.lifecycle-card-copy{margin-top:80px}.lifecycle-card-frame{top:24px;right:24px}.lifecycle-card-light{animation:none}.lifecycle-card-copy p{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.lifecycle-card-light{animation:none}.lifecycle-card-art,.about-lifecycle .lifecycle-cinema-card{transition:none}.lifecycle-cinema-card:hover .lifecycle-card-art{transform:scale(1.03)}}
+
+/* Colour-only lifecycle artwork. */
+.about-lifecycle .lifecycle-cinema-card{--card-colour:#725037;background:radial-gradient(ellipse at 100% 0%,var(--card-colour),transparent 75%),linear-gradient(145deg,#25271f,#121610)}
+.about-lifecycle .lifecycle-cinema-card:nth-child(2){--card-colour:#596844}
+.about-lifecycle .lifecycle-cinema-card:nth-child(3){--card-colour:#465b71}
+.about-lifecycle .lifecycle-cinema-card:nth-child(4){--card-colour:#74514f}
+.about-lifecycle .lifecycle-cinema-card:nth-child(5){--card-colour:#5d4d76}
+.about-lifecycle .lifecycle-cinema-card:nth-child(6){--card-colour:#3e7169}
+.about-lifecycle .lifecycle-cinema-card:nth-child(7){--card-colour:#78643e}
+.lifecycle-cinema-card::before{background:radial-gradient(ellipse at 0% 0%,#ffffff0a,transparent 70%),linear-gradient(180deg,transparent 20%,#080b0970 100%)}

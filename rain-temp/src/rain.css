@@ -1,0 +1,15 @@
+.rain-atmosphere{position:fixed;left:0;top:var(--site-header-height,72px);width:100%;height:calc(100dvh - var(--site-header-height,72px));z-index:90;pointer-events:none;opacity:1}
+.creative-header .creative-rain-toggle{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:52px;min-height:44px;padding:0;background:transparent;border:0;font-size:14px;font-weight:500;white-space:nowrap}
+.creative-rain-track{position:relative;display:block;width:52px;height:28px;border:1px solid var(--muted);border-radius:999px;background:var(--panel-bg);transition:background .24s}
+.creative-rain-thumb{position:absolute;top:2px;left:2px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--page-bg);color:var(--ink);box-shadow:0 1px 3px #211a1426;transition:transform .24s}
+.creative-rain-thumb svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.creative-rain-toggle[aria-checked=true] .creative-rain-track{background:#7898af;border-color:#7898af}
+.creative-rain-toggle[aria-checked=true] .creative-rain-thumb{transform:translateX(24px);background:#182e3d;color:#e9f5ff}
+.creative-rain-toggle:disabled{opacity:.45;cursor:default}
+.creative-header .weather-sound-toggle{display:grid;place-items:center;width:40px;min-height:44px;border:0;background:transparent;color:var(--ink);padding:8px}
+.weather-sound-toggle svg{width:23px;height:23px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.weather-sound-toggle[aria-pressed=true]{color:#7898af}
+.weather-sound-toggle:disabled{opacity:.4;cursor:default}
+@media(max-width:1700px){.creative-rain-label,.creative-header .creative-theme-label{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.creative-header .creative-theme-toggle{width:52px;gap:0}}
+@media(max-width:480px){.creative-header-controls{gap:8px}.creative-header .creative-nav-toggle{min-width:36px}.creative-nav-toggle>span:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.creative-header-inner{gap:12px}}
+@media(prefers-reduced-motion:reduce){.rain-atmosphere{display:none}.creative-rain-track,.creative-rain-thumb{transition:none}}

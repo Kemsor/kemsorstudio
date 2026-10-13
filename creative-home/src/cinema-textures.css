@@ -1,0 +1,103 @@
+/* A shared, static line finish across the studio's pages. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .creative-site .film-title > span,
+  .creative-site .story-copy h2 > span,
+  .creative-site .project-copy h2 > span,
+  .creative-site .section-heading h2,
+  .creative-site .motion-editorial h2,
+  .creative-site .india-copy h2,
+  .creative-site .process-layout h2,
+  .creative-site .page-next-layout h2,
+  .creative-site .page-section-heading h2 {
+    --texture-ink: var(--ink, #29221a);
+    background-image: repeating-linear-gradient(
+      0deg,
+      var(--texture-ink) 0 2px,
+      color-mix(in srgb, var(--texture-ink) 72%, transparent) 2px 3px
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .creative-site .film-title > span { --texture-ink: var(--brand-gold); }
+  .creative-site .story-copy h2 > span,
+  .creative-site .project-copy h2 > span { --texture-ink: #29221a; }
+  /* Keep the gold title's ink consistent when the page switches theme. */
+  html[data-theme=dark] .project-copy h2 > span { color: transparent; }
+}
+
+/* A fine monitor raster over the opening film, below its captions. */
+.hero-film::after {
+  background:
+    repeating-linear-gradient(0deg, #00000018 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 35%, #09090935),
+    linear-gradient(180deg, #09090910, #09090920 45%, #0909097a);
+}
+
+/* Fine horizontal film lines on the expanding gold panel. */
+.story-panel::after,
+.story-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(0deg, #29221a12 0 1px, transparent 1px 4px);
+  opacity: .6;
+}
+/* The growing panel carries the lines; static layouts use the stage instead. */
+.story-stage::after { display: none; }
+.story-scroll[data-story-static=true] .story-stage::after { display: block; }
+
+/* One direction only: airy parallel lines behind selected editorial sections. */
+.creative-site :is(.studio-section, .capabilities-section, .process-section, .notes-section, .page-next, .page-hero-text, .creative-footer) {
+  position: relative;
+  isolation: isolate;
+}
+.creative-site :is(.studio-section, .capabilities-section, .process-section, .notes-section, .page-next, .page-hero-text, .creative-footer)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg, color-mix(in srgb, var(--ink) 5%, transparent) 0 1px, transparent 1px 7px
+  );
+  mask-image: linear-gradient(110deg, transparent 5%, #000 45%, transparent 95%);
+}
+/* A denser raster ties the motion artwork and still-image heroes to the film. */
+.creative-site .motion-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, #29221a0d 0 1px, transparent 1px 4px);
+}
+.creative-site .page-hero-image::after {
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, #00000015 0 1px, transparent 1px 3px),
+    linear-gradient(transparent 55%, #080808af);
+}
+
+@media (max-width: 760px), (max-height: 620px), (prefers-reduced-motion: reduce) {
+  .story-stage::after { display: block; }
+}
+@media (max-width: 760px) {
+  .creative-site :is(.studio-section, .capabilities-section, .process-section, .notes-section, .page-next, .page-hero-text, .creative-footer)::before {
+    mask-image: linear-gradient(180deg, #000, transparent 45%);
+    opacity: .7;
+  }
+}
+@media (forced-colors: active) {
+  .creative-site .film-title > span, .creative-site .story-copy h2 > span, .creative-site .project-copy h2 > span,
+  .creative-site .section-heading h2, .creative-site .motion-editorial h2,
+  .creative-site .india-copy h2, .creative-site .process-layout h2,
+  .creative-site .page-next-layout h2, .creative-site .page-section-heading h2,
+  html[data-theme=dark] .project-copy h2 > span {
+    background-image: none;
+    color: CanvasText;
+  }
+  .story-panel::after, .story-stage::after,
+  .creative-site .motion-stage::after,
+  .creative-site :is(.studio-section, .capabilities-section, .process-section, .notes-section, .page-next, .page-hero-text, .creative-footer)::before { display: none; }
+}

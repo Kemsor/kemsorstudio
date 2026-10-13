@@ -1,0 +1,7 @@
+export const guideFlows = [
+  { id: 'discover', title: 'Explore the studio', text: 'Meet the studio and explore the supplied production images and story formats.', links: [['Meet Kemsor', '/about/'], ['Explore productions', '/projects/']] },
+  { id: 'project', title: 'Plan a film or series', text: 'Find support for your project’s current stage, then prepare a brief. The brief downloads to your device; it does not send an enquiry.', links: [['Find production support', '/services/'], ['Prepare a project brief', '/contact/#project-brief']] },
+  { id: 'india', title: 'Shoot in India', text: 'Explore locations, casting, crew and on-ground support. Prepare your proposed dates, locations and production needs for a conversation.', links: [['India production services', '/services/#india-production-services'], ['International productions', '/contact/#international-productions']] },
+  { id: 'careers', title: 'Find a role or collaboration', text: 'Check current opportunities. No open roles or application form are listed yet. For a production partnership, explore working together.', links: [['Current opportunities', '/careers/#openings'], ['Production partnerships', '/contact/#filmmakers']] },
+  { id: 'experience', title: 'Adjust the experience', text: 'Use the top-bar switches for light or dark mode and optional rain. Enable rain before turning on its sound. The footer Motion switch pauses background animation. Scroll up to bring the top bar back.', links: [['Experience controls', '#top']] },
+];

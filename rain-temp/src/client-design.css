@@ -1,0 +1,97 @@
+/* Client direction: restrained headings, rounded actions and a warm gold footer. */
+.creative-site{--action-gold:linear-gradient(105deg,#eac16f 0%,#d3a349 52%,#b3812c 100%)}
+.creative-site :is(.creative-hero h1,.cinema-hero h1,.cinema-hero h1.cms-hero-title,.inner-page .page-hero h1,.talent-intro h1,.directory-hero h1,.production-hero h1,.tool-launch h1,.auth-story-copy h1){font-size:clamp(34px,4.2vw,64px);line-height:1.12;letter-spacing:-.045em}
+.creative-site :is(.studio-layout h2,.section-heading h2,.capabilities-heading h2,.india-copy h2,.process-layout h2,.collaborate-note h2,.project-copy h2,.motion-editorial h2,.film-desk-intro h2,.story-copy h2,.page-section h2,.page-next-layout h2,.production-section-heading h2,.production-script-sheet h2,.footer-invitation h2){font-size:clamp(28px,3vw,46px);line-height:1.16;letter-spacing:-.035em}
+.creative-site :is(.auth-panel h2,.talent-side h2,.talent-empty h2,.talent-detail h2,.directory-profile h2,.directory-bottom-cta h2,.production-project-head h2){font-size:clamp(26px,2.5vw,36px);line-height:1.2}
+.creative-site .page-card h2{font-size:clamp(25px,2.4vw,34px)}
+.creative-site :is(.stage-name,.studio-note h3){font-size:clamp(25px,2.8vw,40px);line-height:1.2}
+.creative-site .project-copy h2{width:auto}
+.creative-site .capability-trigger{grid-template-columns:1fr 1.1fr 30px}
+.creative-site .capability-panel{margin-left:24px}
+.creative-site .process-layout li{display:block}
+.creative-site .opening-status{grid-template-columns:1fr}
+/* Both reference treatments use the same black circular arrow. */
+.creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation){display:inline-flex;align-items:center;justify-content:space-between;gap:22px;min-height:54px;width:auto;max-width:100%;padding:9px 12px 9px 24px;border:1px solid transparent;border-radius:999px;clip-path:none;background:var(--action-gold);color:#14130f;font-size:15px;font-weight:500;line-height:1.35;letter-spacing:-.02em;text-decoration:none;box-shadow:none;transition:filter .2s ease,transform .2s ease}
+.creative-site :is(.creative-cta .cta-arrow,.creative-header .header-script-tool>span,.footer-conversation>span){display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:#11110f;color:#fff;font-size:20px;line-height:1;transform:none}
+.creative-site .creative-cta .cta-arrow .site-icon{width:18px;height:18px;transform:rotate(-45deg)}
+.creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation):hover{filter:brightness(1.06);color:#14130f;transform:translateY(-1px)}
+.creative-site .creative-header .header-script-tool{background:#faf9f6;border-color:#e9e5dc;font-size:12px;min-height:44px;padding:6px 8px 6px 18px;gap:14px}
+.creative-site .creative-header .header-script-tool>span{width:30px;height:30px;flex-basis:30px;color:#d6ab54;font-size:18px}
+.creative-site .creative-header .header-script-tool:hover{background:var(--action-gold);border-color:transparent}
+.creative-site .creative-header .header-script-tool:hover>span{color:#fff}
+.creative-site :is(.talent-button,.auth-register-button){border-radius:999px;clip-path:none;background:var(--action-gold);border-color:transparent;color:#14130f;font-weight:500;min-height:48px;padding:12px 24px}
+.creative-site .auth-register-button{background:#faf9f6;border:1px solid var(--line)}
+.creative-site :is(.talent-button,.auth-register-button):hover{filter:brightness(1.05);color:#14130f}
+/* Use a consistent gold surface in both light and dark themes. */
+.creative-site .creative-footer.footer-jumbo{--ink:#241a0c;--muted:#4e391c;--line:#49300f40;--brand-bronze:#241a0c;background:linear-gradient(115deg,#f0d799 0%,#dfb45f 42%,#c5943d 76%,#b78530 100%);color:#241a0c}
+.creative-site .footer-jumbo::before{opacity:.15}
+.creative-site .footer-jumbo :is(.footer-kicker,.footer-invitation-copy>p,.footer-link-group h3,.footer-social-caption,.footer-baseline){color:#49351a}
+.creative-site .footer-jumbo :is(.footer-invitation h2 span,.footer-social-icon,.footer-top-link,.footer-logout,.footer-baseline button){color:#241a0c}
+.creative-site .footer-signature{color:#49300f;opacity:.26;font-size:clamp(48px,10vw,160px)}
+.creative-site .footer-jumbo .footer-conversation{background:#faf9f6;border-color:#ffffff80;font-size:15px;padding:9px 12px 9px 24px}
+.creative-site .footer-jumbo .footer-conversation>span{color:#d6ab54}
+.creative-site .footer-jumbo a:hover,.creative-site .footer-jumbo a[aria-current=page],.creative-site .footer-jumbo .footer-logout:hover{color:#171006}
+.creative-site .footer-jumbo :is(a,button):focus-visible{outline:2px solid #241a0c;outline-offset:5px}
+@media(max-width:760px){
+ .creative-site :is(.creative-hero h1,.cinema-hero h1,.cinema-hero h1.cms-hero-title,.inner-page .page-hero h1,.talent-intro h1,.directory-hero h1,.production-hero h1,.tool-launch h1,.auth-story-copy h1){font-size:clamp(30px,7vw,44px);line-height:1.14}
+ .creative-site :is(.studio-layout h2,.section-heading h2,.capabilities-heading h2,.india-copy h2,.process-layout h2,.collaborate-note h2,.project-copy h2,.motion-editorial h2,.film-desk-intro h2,.story-copy h2,.page-section h2,.page-next-layout h2,.footer-invitation h2){font-size:clamp(27px,6.2vw,36px);line-height:1.18}
+ .creative-site .capability-trigger{grid-template-columns:1fr 24px;gap:12px}
+ .creative-site .capability-panel{margin-left:15px}
+ .creative-site :is(.creative-cta,.footer-conversation){font-size:14px;gap:16px;min-height:50px;padding-left:20px}
+}
+@media(prefers-reduced-motion:reduce){.creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation){transition:none}.creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation):hover{transform:none}}
+.creative-site .film-title{font-size:clamp(30px,3.5vw,52px);line-height:1.12}
+.creative-site .tool-console .production-section-heading h2{font-size:26px}
+.creative-site .tool-flow-heading h2{font-size:22px}
+.creative-site .about-format-grid article h3{margin-top:0}
+@media(max-width:760px){.creative-site .film-title{font-size:clamp(28px,6.5vw,40px)}}
+
+/* Brand palette: white space, golden highlights, a little orange and chocolate ink. */
+:root{--brand-gold:#edb94f;--brand-bronze:#a4531f;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;--page-bg:#fff;--panel-bg:#fff6e9}
+html[data-theme=dark]{--page-bg:#271811;--panel-bg:#38241b;--ink:#fff7ed;--muted:#d8bfa9;--soft-ink:#edb94f;--line:#ffe8d32b;--brand-bronze:#f1bb62;background:#271811;color:var(--ink)}
+.creative-site{--action-gold:linear-gradient(110deg,#f4d17c 0%,#eab44c 50%,#e5943e 100%)}
+html .creative-site.site-page-home :is(#studio,#process,#project-brief){--page-bg:#fff;--panel-bg:#fff;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;--brand-bronze:#a4531f;background:#fff;color:var(--ink)}
+html .creative-site.site-page-home #productions{--page-bg:#fff2d5;--panel-bg:#fffbf3;--ink:#3b241b;--muted:#77594a;--line:#4b2b1d26;background:linear-gradient(125deg,#fff8e8,#f9e3ad);color:var(--ink)}
+html .creative-site.site-page-home #capabilities{--page-bg:#ffe6c7;--panel-bg:#fff8ee;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;background:linear-gradient(120deg,#fff1dd,#f9d6a5);color:var(--ink)}
+html .creative-site.site-page-home #india-production-services{--page-bg:#f9e8cd;--ink:#3b241b;--muted:#77594a;--line:#4b2b1d26;background:linear-gradient(120deg,#fff7e8,#f2d9b0);color:var(--ink)}
+html .creative-site.site-page-home #studio-notes{--page-bg:#fff2df;--panel-bg:#fff;--ink:#3b241b;--muted:#77594a;--line:#4b2b1d26;background:linear-gradient(120deg,#fff9ef,#ffe9cc);color:var(--ink)}
+html .creative-site.site-page-home #studio-notes .studio-note,
+html .creative-site.site-page-home #project-brief .project-form{background:var(--panel-bg);border-color:var(--line);color:var(--ink)}
+html .creative-site.site-page-home #process :is(.index-label,.process-layout h2,.process-layout h3){color:var(--ink)}
+html .creative-site.site-page-home #process :is(p,li p,.process-copy,.process-note){color:var(--muted)}
+html .creative-site.site-page-home #process :is(.process-layout li,.index-label){border-color:var(--line)}
+html .creative-site.site-page-home #process .line-link{color:var(--brand-bronze)}
+/* Preserve the requested theme swap: coloured sections become white. */
+html[data-theme=dark] .creative-site.site-page-home :is(#productions,#capabilities,#india-production-services,#studio-notes){--page-bg:#fff;--panel-bg:#fff;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;--brand-bronze:#a4531f;background:#fff;color:var(--ink)}
+/* White sections become chocolate in dark mode. */
+html[data-theme=dark] .creative-site.site-page-home :is(#studio,#process,#project-brief){--page-bg:#271811;--panel-bg:#38241b;--ink:#fff7ed;--muted:#d8bfa9;--soft-ink:#edb94f;--line:#ffe8d32b;--brand-bronze:#f1bb62;background:#271811;color:var(--ink)}
+.creative-site .project-copy h2>span{background-image:none;background-clip:initial;-webkit-background-clip:initial;color:var(--brand-bronze)}
+html[data-theme=dark] .creative-site .project-copy h2>span{color:var(--brand-bronze)}
+.creative-site .creative-footer.footer-jumbo{--ink:#3b241b;--muted:#65412b;--line:#4b2b1d35;background:linear-gradient(115deg,#f8dfa0 0%,#edbf61 45%,#e8a54d 78%,#e39843 100%);color:var(--ink)}
+.creative-site .footer-jumbo :is(.footer-kicker,.footer-invitation-copy>p,.footer-link-group h3,.footer-social-caption,.footer-baseline){color:#65412b}
+.creative-site .footer-jumbo :is(.footer-invitation h2 span,.footer-social-icon,.footer-top-link,.footer-logout,.footer-baseline button){color:#3b241b}
+.creative-site .footer-signature{color:#754220}
+.creative-site :is(.creative-cta .cta-arrow,.creative-header .header-script-tool>span,.footer-conversation>span){background:#302019}
+.creative-site .story-scroll{--story-gold-panel:linear-gradient(120deg,#f7d47f,#edb451 60%,#e79a43);--story-copy-ink:#3b241b}
+.creative-site .motion-stage{background:var(--panel-bg);--motion-ink:#d89532}
+.creative-site .auth-story{background:#302019}
+.creative-site .auth-story::before{background:linear-gradient(180deg,#302019a6,#302019eb),url('/assets/services/filming.webp') center/cover}
+
+/* Dark mode changes coloured sections only; white sections and gold footer stay consistent. */
+html[data-theme=dark]{--page-bg:#fff;--panel-bg:#fff;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;--brand-bronze:#a4531f;background:#fff;color:var(--ink)}
+html[data-theme=dark] .creative-site.site-page-home :is(#studio,#process,#project-brief){--page-bg:#fff;--panel-bg:#fff;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;--brand-bronze:#a4531f;background:#fff;color:var(--ink)}
+html[data-theme=dark] .creative-site.site-page-home :is(#productions,#capabilities,#india-production-services,#studio-notes){--page-bg:#000;--panel-bg:#000;--ink:#fff7ed;--muted:#d8bfa9;--soft-ink:#edb94f;--line:#ffe8d32b;--brand-bronze:#f1bb62;background:#000;color:var(--ink)}
+html[data-theme=dark] .creative-site .story-scroll{--story-gold-panel:#000;--story-copy-ink:#fff7ed}
+html[data-theme=dark] .creative-site .motion-stage{background:#000;--motion-ink:#edb94f}
+html[data-theme=dark] .creative-site .auth-story{background:#000;color:#fff7ed}
+html[data-theme=dark] .creative-site .auth-story::before{background:linear-gradient(180deg,#000a,#000e),url('/assets/services/filming.webp') center/cover}
+
+/* Navigation keeps a black surface when dark mode is selected. */
+html[data-theme=dark] .creative-site .creative-header{--page-bg:#000;--panel-bg:#000;--ink:#fff7ed;--muted:#d8bfa9;--soft-ink:#edb94f;--line:#ffe8d32b;--brand-bronze:#f1bb62;background:#000;color:var(--ink);border-color:var(--line)}
+html[data-theme=dark] .creative-site .creative-header :is(.creative-nav,.creative-dropdown,.creative-nav-drawer-head){background:#000;color:var(--ink);border-color:var(--line)}
+
+
+/* Clean typography and smooth surfaces, without the previous raster finish. */
+.creative-site :is(h1,h2,h3){font-family:var(--display);font-weight:600;letter-spacing:-.025em}
+.creative-site :is(.studio-section,.capabilities-section,.process-section,.notes-section,.page-next,.page-hero-text,.creative-footer)::before,
+.creative-site :is(.story-panel,.story-stage,.motion-stage,.auth-story,.lifecycle-cinema-card)::after{background-image:none}
