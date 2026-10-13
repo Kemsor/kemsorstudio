@@ -14,6 +14,12 @@ import './experience.css';
 import './workspace-clean.css';
 import './design-refinement.css';
 import './client-design.css';
+import './homepage-direction.css';
+import './navbar-showcase.css';
+import './motion-polish.css';
+import './sleek-effects.css';
+import './color-system.css';
+import './footer-cinematic.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 
 const routes={
@@ -80,7 +86,7 @@ function App() {
   document.body.style.overflow='hidden';
   return()=>{document.body.style.overflow=previous;};
  },[opening]);
- const [paused,setPaused]=useState(()=>{try{return localStorage.getItem('rain-temp-motion-paused')==='true';}catch{return false;}});
+ const paused=false;
  const [theme,setTheme]=useState(()=>document.documentElement.dataset.theme||'light');
  useEffect(()=>{
   document.documentElement.dataset.theme=theme;
@@ -88,7 +94,6 @@ function App() {
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#10100E':'#ffffff');
   try{localStorage.setItem('rain-temp-theme',theme);}catch{}
  },[theme]);
- useEffect(()=>{try{localStorage.setItem('rain-temp-motion-paused',String(paused));}catch{}},[paused]);
  useEffect(()=>{
   document.title=pageInfo[page].title;
   document.querySelector('meta[name="description"]')?.setAttribute('content',pageInfo[page].description);
@@ -97,8 +102,8 @@ function App() {
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page} theme={theme} onThemeToggle={()=>setTheme(value=>value==='dark'?'light':'dark')}/>
   <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page'}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/><CmsPageSections page={page}/></ReadyPage></Suspense></main>
-  <Footer page={page} paused={paused} reduced={reduced} onToggle={()=>setPaused(value=>!value)}/>
-  <ExperienceTools page={page} reduced={reduced}/>
+  <Footer page={page} reduced={reduced}/>
+  <ExperienceTools page={page}/>
  </div></>;
 }
 createRoot(document.getElementById('root')).render(<CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider>);

@@ -15,6 +15,7 @@ export default function Header({ theme = 'light', onThemeToggle, page = 'home' }
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activePanel, setActivePanel] = useState(null);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 24);
   const [currentHash, setCurrentHash] = useState(() => typeof window !== 'undefined' ? window.location?.hash || '' : '');
   const headerRef = useRef(null);
   const navRef = useRef(null);
@@ -27,9 +28,10 @@ export default function Header({ theme = 'light', onThemeToggle, page = 'home' }
     let distance = 0;
     const update = () => {
       const current = Math.max(0, window.scrollY);
+      setScrolled(current > 24);
       const delta = current - previous;
       distance = Math.sign(delta) === Math.sign(distance) ? distance + delta : delta;
-      if (current < 100 || drawerOpen || activePanel || headerRef.current?.contains(document.activeElement)) {
+      if (page === 'home' || current < 100 || drawerOpen || activePanel || headerRef.current?.contains(document.activeElement)) {
         setHidden(false); distance = 0;
       } else if (Math.abs(distance) > 16) { setHidden(distance > 0); distance = 0; }
       previous = current;
@@ -37,7 +39,7 @@ export default function Header({ theme = 'light', onThemeToggle, page = 'home' }
     update();
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
-  }, [drawerOpen, activePanel]);
+  }, [drawerOpen, activePanel, page]);
   let currentItem = { 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', careers: 'studio', services: 'capabilities', projects: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
   if (page === 'services' && currentHash === '#india-production-services') currentItem = 'india';
   if (page === 'services' && currentHash === '#production-process') currentItem = 'studio';
@@ -178,7 +180,7 @@ export default function Header({ theme = 'light', onThemeToggle, page = 'home' }
   };
 
   return <>
-    <header ref={headerRef} className="creative-header" data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel} onFocusCapture={() => setHidden(false)}>
+    <header ref={headerRef} className="creative-header" data-page={page} data-overlay={page === 'home'} data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel} onFocusCapture={() => setHidden(false)}>
       <div className="creative-header-inner">
         <a className="creative-header-brand" href="/#home" onClick={event => followLink('/#home', event)} aria-label="Kemsor Studios home">
           <picture><source srcSet="/assets/kemsor-logo.webp" type="image/webp" /><img src="/assets/kemsor-logo.svg" alt="" width="3650" height="3300" decoding="async" /></picture>

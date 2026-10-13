@@ -51,7 +51,7 @@
 html[data-theme=dark]{--page-bg:#271811;--panel-bg:#38241b;--ink:#fff7ed;--muted:#d8bfa9;--soft-ink:#edb94f;--line:#ffe8d32b;--brand-bronze:#f1bb62;background:#271811;color:var(--ink)}
 .creative-site{--action-gold:linear-gradient(110deg,#f4d17c 0%,#eab44c 50%,#e5943e 100%)}
 html .creative-site.site-page-home :is(#studio,#process,#project-brief){--page-bg:#fff;--panel-bg:#fff;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;--brand-bronze:#a4531f;background:#fff;color:var(--ink)}
-html .creative-site.site-page-home #productions{--page-bg:#fff2d5;--panel-bg:#fffbf3;--ink:#3b241b;--muted:#77594a;--line:#4b2b1d26;background:linear-gradient(125deg,#fff8e8,#f9e3ad);color:var(--ink)}
+html .creative-site.site-page-home #productions{--page-bg:#fffaf0;--panel-bg:#fffbf3;--ink:#3b241b;--muted:#77594a;--line:#4b2b1d26;background:linear-gradient(125deg,#fff8e8,#f9e3ad);color:var(--ink)}
 html .creative-site.site-page-home #capabilities{--page-bg:#ffe6c7;--panel-bg:#fff8ee;--ink:#3b241b;--muted:#77594a;--soft-ink:#8a6148;--line:#4b2b1d26;background:linear-gradient(120deg,#fff1dd,#f9d6a5);color:var(--ink)}
 html .creative-site.site-page-home #india-production-services{--page-bg:#f9e8cd;--ink:#3b241b;--muted:#77594a;--line:#4b2b1d26;background:linear-gradient(120deg,#fff7e8,#f2d9b0);color:var(--ink)}
 html .creative-site.site-page-home #studio-notes{--page-bg:#fff2df;--panel-bg:#fff;--ink:#3b241b;--muted:#77594a;--line:#4b2b1d26;background:linear-gradient(120deg,#fff9ef,#ffe9cc);color:var(--ink)}

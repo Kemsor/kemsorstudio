@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import MotionStudio from './MotionStudio';
 import ScrollStory from './ScrollStory';
 import VideoShowcase from './VideoShowcase';
 import './cinema-hero.css';
@@ -9,16 +8,60 @@ import { useCms, CmsText, CmsEntries } from './CmsContent';
 
 import { Arrow, CTA, FrameMark, IndexLabel } from './PageUI';
 
-function Studio() {
+const studioClips = [
+  { src:'/assets/motion-films/city-conversation-preview.mp4', poster:'/assets/motion-films/city-conversation.webp', label:'City stories' },
+  { src:'/assets/motion-films/period-intrigue-preview.mp4', poster:'/assets/motion-films/period-intrigue.webp', label:'Period worlds' },
+  { src:'/assets/motion-films/field-encounter-preview.mp4', poster:'/assets/motion-films/field-encounter.webp', label:'Stories in motion' },
+  { src:'/assets/motion-films/theatre-facade.mp4', poster:'/assets/motion-films/theatre-facade.jpg', label:'The big screen' },
+];
+
+function StudioClipRail({ paused, reduced }) {
+  const [active, setActive] = useState(0);
+  const videos = useRef([]);
+  useEffect(() => {
+    videos.current.forEach((video,index) => {
+      if (!video) return;
+      if (index === active && !paused && !reduced && !document.hidden) video.play().catch(() => {});
+      else video.pause();
+    });
+  }, [active,paused,reduced]);
+  useEffect(() => {
+    if (paused || reduced) return undefined;
+    const advance = () => setActive(index => (index + 1) % studioClips.length);
+    const timer = window.setInterval(advance, 4800);
+    const visibility = () => videos.current[active]?.[document.hidden ? 'pause' : 'play']()?.catch?.(() => {});
+    document.addEventListener('visibilitychange', visibility);
+    return () => { window.clearInterval(timer); document.removeEventListener('visibilitychange', visibility); };
+  }, [active,paused,reduced]);
+  return <figure className="studio-cinema-strip" data-reveal>
+    <div className="studio-clip-stage">{studioClips.map((clip,index) => <video
+      key={clip.src}
+      ref={node => { videos.current[index] = node; }}
+      className={index === active ? 'is-active' : ''}
+      src={reduced && index !== 0 ? undefined : clip.src}
+      poster={clip.poster}
+      muted loop playsInline preload={index < 2 ? 'metadata' : 'none'}
+      aria-hidden="true"
+    />)}</div>
+    <div className="studio-clip-label" aria-live="polite">{studioClips[active].label}</div>
+    <figcaption><span>ONE IDEA.</span><strong>EVERY MOVING PART.</strong><span>ONE FINISHED FRAME.</span></figcaption>
+    <div className="studio-clip-controls" aria-label="Choose a film clip">{studioClips.map((clip,index) => <button key={clip.src} type="button" aria-label={`Show ${clip.label}`} aria-pressed={active === index} onClick={() => setActive(index)}><span /></button>)}</div>
+  </figure>;
+}
+
+function Studio({ paused, reduced }) {
   const { entries } = useCms();
   const intro = entries.find(entry => entry.type === 'home' && entry.slug === 'home-intro');
   return <section id="studio" className="studio-section section-space">
-    <IndexLabel index="01" right="A STUDIO WITH A PRACTICAL SIDE">THE PEOPLE BEHIND THE FRAME</IndexLabel>
+    <IndexLabel index="01" right="A STUDIO WITH A PRACTICAL SIDE">ABOUT KEMSOR</IndexLabel>
     <div className="studio-layout" data-reveal>
       <h2>{intro && intro.title !== 'The script is just the beginning.' ? intro.title : <>The script is<br />just the <span className="hand-circle">beginning.<svg viewBox="0 0 410 115" aria-hidden="true"><path d="M404 54C389-8 21-1 7 51S369 132 398 65" /></svg></span></>}</h2>
-      <div className="studio-description"><FrameMark className="studio-frame-mark" />{intro ? <><p>{intro.summary}</p><CmsText text={intro.body}/></> : <><p>Kemsor works with filmmakers, studios and production partners on films, series and documentaries.</p><p>Some projects need a team from the first draft. Others need people on the ground, a hand through post, or a plan for release. We shape our role around the work.</p></>}<a className="line-link" href="/services/">Explore the production services <Arrow /></a></div>
+      <div className="studio-description"><FrameMark className="studio-frame-mark" />{intro ? <><p>{intro.summary}</p><CmsText text={intro.body}/></> : <><p>Kemsor is a production studio built around stories, collaboration and the practical work of bringing an idea to the screen.</p><p>We work with filmmakers, studios and production partners across films, series and documentaries, shaping our role around what each production needs.</p></>}<a className="line-link" href="/about/">Discover Kemsor <Arrow /></a></div>
     </div>
-    <div className="format-rail" aria-label="Story formats"><span>FEATURE FILMS</span><FrameMark /><span>SERIES & OTT</span><FrameMark /><span>DOCUMENTARIES</span><FrameMark /><span>SHORT FILMS</span></div>
+    <StudioClipRail paused={paused} reduced={reduced}/>
+    <div className="format-rail" aria-label="Story formats"><div className="format-track">
+      {[0,1].map(copy => <div className="format-group" aria-hidden={copy === 1 ? 'true' : undefined} key={copy}><span>FEATURE FILMS</span><FrameMark /><span>SERIES & OTT</span><FrameMark /><span>DOCUMENTARIES</span><FrameMark /><span>SHORT FILMS</span><FrameMark /></div>)}
+    </div></div>
   </section>;
 }
 
@@ -37,7 +80,7 @@ function Productions() {
   const frame = collection[selected];
   return <section id="productions" className="productions-section section-space">
     <IndexLabel index="02" right="A CLOSER LOOK">IN FRAME</IndexLabel>
-    <div className="section-heading" data-reveal><h2>A few frames.<br />A whole world.</h2><p>Characters, costumes, atmosphere.<br />A story begins long before<br />the camera starts rolling.</p></div>
+    <div className="section-heading" data-reveal><h2>The world<br />inside a frame.</h2><p>A performance. A place. A point of view.<br />A selection from the studio’s visual collection.</p></div>
     <div className="frames-grid">{collection.map((item,index) => <figure className={`collection-frame ${item.className}`} key={item.file} data-reveal>
       <button className="frame-image" onClick={event => show(index,event)} aria-label={`View full image: ${item.title}`}><img src={`/assets/stills/${item.file}.webp`} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" /><span className="frame-view">Take a closer look <span aria-hidden="true">+</span></span></button>
       <figcaption><h3>{item.title}</h3><span>{item.category}</span></figcaption>
@@ -70,27 +113,18 @@ function Capabilities() {
   }, []);
   return <section id="capabilities" className="capabilities-section section-space">
     <IndexLabel index="04" right="JOIN AT ANY STAGE">FROM FIRST DRAFT TO FINAL CUT</IndexLabel>
-    <div className="capabilities-heading" data-reveal><h2>Big picture.<br /><span>Every little detail.</span></h2><p>A production is a thousand moving parts.<br />We help them move together.</p></div>
-    <div className="capability-directory" data-reveal>{chapters.map((chapter,index) => <article id={`stage-${chapter.name.toLowerCase()}`} className={`capability-row ${active===index?'is-active':''}`} key={chapter.name}>
+    <div className="capabilities-editorial">
+      <div className="capabilities-intro" data-reveal><p className="capabilities-kicker">THE PRODUCTION PATH</p><h2>Big picture.<br /><span>Every little detail.</span></h2><p>A production is a thousand moving parts. We help them move together, from the first conversation to the finished frame.</p><div className="capabilities-path" aria-hidden="true">{chapters.map((chapter,index) => <span className={active===index?'is-current':''} key={chapter.name}/>)}</div></div>
+      <div className="capability-directory" data-reveal>{chapters.map((chapter,index) => <article id={`stage-${chapter.name.toLowerCase()}`} className={`capability-row ${active===index?'is-active':''}`} key={chapter.name}>
       <h3><button className="capability-trigger" id={`stage-trigger-${index}`} aria-expanded={active===index} aria-controls={`stage-panel-${index}`} onClick={() => setActive(active===index?null:index)}><span className="stage-name">{chapter.name}</span><span className="stage-tagline">{chapter.tagline}</span><span className="stage-toggle" aria-hidden="true">{active===index?'−':'+'}</span></button></h3>
       <div id={`stage-panel-${index}`} className="capability-panel" role="region" aria-labelledby={`stage-trigger-${index}`} hidden={active!==index}><p>{chapter.text}</p><div className="stage-tags">{chapter.tags.map(tag => <span key={tag}>{tag}</span>)}</div><a className="line-link" href="/contact/#project-brief">Talk about this stage <Arrow /></a></div>
-    </article>)}</div>
-  </section>;
-}
-
-function India() {
-  return <section id="india-production-services" className="india-section section-space">
-    <IndexLabel index="05" right="LOCAL KNOWLEDGE. SHARED VISION.">INDIA PRODUCTION SERVICES</IndexLabel>
-    <div className="india-layout" data-reveal><div className="india-copy"><span className="india-pin" aria-hidden="true">⌖</span><h2>Your story.<br />Our ground.</h2><p>Bringing a production to India? Start with the locations, people and practical support the project needs.</p><p>We coordinate location planning, casting, crew, equipment, travel and on-ground production management.</p><CTA href="/contact/#project-brief">Plan a shoot in India</CTA></div><figure className="india-image"><img src="/assets/stills/period-costume.webp" alt="A performer in a gold period costume standing in a traditional colonnade." width="1079" height="1541" loading="lazy" decoding="async" /><figcaption><span>PLACE. PEOPLE. POSSIBILITY.</span><span aria-hidden="true">⌖</span></figcaption><div className="india-image-label" aria-hidden="true">ON<br />LOCATION.</div></figure></div>
+      </article>)}</div>
+    </div>
   </section>;
 }
 
 function Process() {
-  return <section id="process" className="process-section section-space"><IndexLabel index="06">HOW THE WORK BEGINS</IndexLabel><div className="process-layout" data-reveal><h2>One story.<br />A shared plan.</h2><ol>{[['Show us the starting point.','A script, a concept, a brief, or a production already in progress.'],['Work out the way forward.','The stage, scope, collaborators and support the project needs.'],['Bring the pieces together.','A practical plan for the people, decisions and details ahead.']].map(([title,text],index) => <li key={title}><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol></div></section>;
-}
-
-function StudioNotes() {
-  return <section id="studio-notes" className="notes-section section-space"><IndexLabel index="07" right="FROM THE STUDIO">KEEP THE CONVERSATION GOING</IndexLabel><div className="notes-grid"><div id="collaborate" className="collaborate-note" data-reveal><FrameMark /><h2>Different crafts.<br />One film crew.</h2><p>Filmmaker, creator, studio or production partner? Share where the work stands and what the next chapter needs.</p><a className="line-link" href="/contact/#project-brief">Find a way to work together <Arrow /></a></div><div className="studio-note" data-reveal><p className="note-eyebrow">NEWSROOM / NEXT CHAPTER</p><h3>There’s more<br />to come.</h3><p>Studio announcements and production updates will appear here as they are published.</p><a href="/news/" className="line-link">Read the studio notes <Arrow /></a></div></div></section>;
+  return <section id="process" className="process-section section-space"><IndexLabel index="06">HOW THE WORK BEGINS</IndexLabel><div className="process-layout"><h2 data-reveal>One story.<br />A shared plan.</h2><ol>{[['Show us the starting point.','A script, a concept, a brief, or a production already in progress.'],['Work out the way forward.','The stage, scope, collaborators and support the project needs.'],['Bring the pieces together.','A practical plan for the people, decisions and details ahead.']].map(([title,text],index) => <li key={title} data-reveal style={{'--process-delay':`${index * 110}ms`}}><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol></div></section>;
 }
 
 function ProjectBrief() {
@@ -99,5 +133,5 @@ function ProjectBrief() {
 export default function HomePage({paused,reduced}) {
  const { entries } = useCms();
  const promotions = entries.filter(entry => entry.type === 'home' && !['home-hero','home-intro'].includes(entry.slug));
- return <><HeroSequence reduced={reduced} motionPaused={paused}/><Studio/><CmsEntries entries={promotions}/><Productions/><VideoShowcase paused={paused} reduced={reduced}/><MotionStudio paused={paused}/><Capabilities/><ScrollStory paused={paused}/><India/><Process/><StudioNotes/><ProjectBrief/></>;
+ return <><HeroSequence reduced={reduced} motionPaused={paused}/><Studio paused={paused} reduced={reduced}/><CmsEntries entries={promotions}/><ScrollStory paused={paused} reduced={reduced}/><VideoShowcase paused={paused} reduced={reduced}/><Productions/><Capabilities/><div className="work-project-block"><Process/><ProjectBrief/></div></>;
 }

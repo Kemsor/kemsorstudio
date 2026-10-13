@@ -13,6 +13,4 @@ export const navigation = [
   ] },
   { id:'india', label:'India Production Services', page:'services', href:`${pageHref('services')}#india-production-services` },
   { id:'productions', label:'Productions', page:'projects', groups:[{links:[link('All Productions','projects','project-showcase')]}] },
-  { id:'partners', label:'Partner With Us', page:'contact', groups:[{links:[link('For Filmmakers & Creators','contact','filmmakers'),link('For Studios & Platforms','contact','studios'),link('For Co-Producers & Financiers','contact','co-producers'),link('For International Productions','contact','international-productions')]}] },
-  { id:'newsroom', label:'Newsroom', page:'news', groups:[{links:[link('News','news'),link('Press & Media','news','press-media')]}] },
 ];

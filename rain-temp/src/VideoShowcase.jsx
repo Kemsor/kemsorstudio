@@ -6,7 +6,6 @@ import { motionFilms } from './motionFilms';
 import './video-showcase.css';
 import { TaskLoader, useMediaProgress } from './Loading';
 
-const clamp = (value, minimum, maximum) => Math.min(maximum, Math.max(minimum, value));
 const durationLabel = value => {
   const seconds = Math.round(Number(value));
   return Number.isFinite(seconds) ? `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}` : '';
@@ -14,116 +13,7 @@ const durationLabel = value => {
 const ExpandIcon = () => <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5" /></svg>;
 const SoundIcon = ({ muted }) => <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z" />{muted ? <path d="m16 9 6 6m0-6-6 6" /> : <><path d="M15 8a6 6 0 0 1 0 8" /><path d="M18 5a10 10 0 0 1 0 14" /></>}</svg>;
 
-function useFilmRail(disabled) {
-  const scene = useRef(null);
-  const viewport = useRef(null);
-  const track = useRef(null);
-  const geometry = useRef({ pinned: false, travel: 0, top: 112, cards: [], gutter: 0 });
-  const currentIndex = useRef(0);
-  const movingFocus = useRef(false);
-  const [pinned, setPinned] = useState(false);
-  const [current, setCurrent] = useState(0);
-
-  useLayoutEffect(() => {
-    const outer = scene.current;
-    const windowNode = viewport.current;
-    const row = track.current;
-    if (!outer || !windowNode || !row) return;
-    let frame = 0;
-    let visible = false;
-    let alive = true;
-    const update = () => {
-      frame = 0;
-      const { pinned: isPinned, travel, top } = geometry.current;
-      const offset = isPinned ? clamp(top - outer.getBoundingClientRect().top, 0, travel) : windowNode.scrollLeft;
-      if (isPinned) row.style.setProperty('--film-offset', `${offset}px`);
-      const nearest = travel > 0 ? clamp(Math.round(offset / travel * (motionFilms.length - 1)), 0, motionFilms.length - 1) : 0;
-      if (nearest !== currentIndex.current) {
-        currentIndex.current = nearest;
-        setCurrent(nearest);
-      }
-    };
-    const schedule = () => { if (visible && !frame) frame = requestAnimationFrame(update); };
-    const measure = () => {
-      if (!alive) return;
-      const header = document.querySelector('.creative-header');
-      const top = Math.ceil((header?.getBoundingClientRect().height || 99) + 13);
-      const isPinned = !disabled && window.matchMedia('(min-width: 900px) and (min-height: 650px) and (hover: hover) and (pointer: fine)').matches;
-      const modeChanged = geometry.current.pinned !== isPinned;
-      outer.dataset.pinned = String(isPinned);
-      outer.style.setProperty('--film-sticky-top', `${top}px`);
-      setPinned(isPinned);
-      if (modeChanged) {
-        windowNode.scrollLeft = 0;
-        row.style.setProperty('--film-offset', '0px');
-      }
-      const travel = Math.max(0, row.scrollWidth - windowNode.clientWidth);
-      outer.style.setProperty('--film-travel', `${isPinned ? travel : 0}px`);
-      const rowBounds = row.getBoundingClientRect();
-      geometry.current = {
-        pinned: isPinned, travel, top,
-        gutter: parseFloat(getComputedStyle(row).paddingLeft) || 0,
-        cards: [...row.querySelectorAll('.film-desk-card')].map(card => {
-          const bounds = card.getBoundingClientRect();
-          return { left: bounds.left - rowBounds.left, width: bounds.width };
-        }),
-      };
-      update();
-    };
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); }, { rootMargin: '100px 0px' });
-    observer.observe(outer);
-    const sizing = new ResizeObserver(measure);
-    sizing.observe(windowNode);
-    sizing.observe(row);
-    const header = document.querySelector('.creative-header');
-    if (header) sizing.observe(header);
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', measure);
-    windowNode.addEventListener('scroll', schedule, { passive: true });
-    document.fonts.ready.then(measure);
-    measure();
-    return () => {
-      alive = false;
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      sizing.disconnect();
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', measure);
-      windowNode.removeEventListener('scroll', schedule);
-    };
-  }, [disabled]);
-
-  const goTo = (index, focus = false) => {
-    const position = geometry.current;
-    const target = clamp(index, 0, motionFilms.length - 1);
-    const card = position.cards[target];
-    if (!card) return;
-    const offset = clamp(card.left - position.gutter, 0, position.travel);
-    if (position.pinned) {
-      viewport.current.scrollLeft = 0;
-      window.scrollTo({ top: window.scrollY + scene.current.getBoundingClientRect().top - position.top + offset, behavior: 'instant' });
-    } else viewport.current.scrollTo({ left: offset, behavior: 'instant' });
-    if (focus) {
-      movingFocus.current = true;
-      track.current.querySelectorAll('.film-enlarge')[target]?.focus({ preventScroll: true });
-      movingFocus.current = false;
-    }
-  };
-  const onKeyDown = event => {
-    const focusedCard = event.target.closest('.film-desk-card');
-    const index = focusedCard ? Number(focusedCard.dataset.filmIndex) : currentIndex.current;
-    const target = event.key === 'ArrowRight' ? index + 1 : event.key === 'ArrowLeft' ? index - 1 : event.key === 'Home' ? 0 : event.key === 'End' ? motionFilms.length - 1 : null;
-    if (target === null) return;
-    event.preventDefault();
-    goTo(target, true);
-  };
-  const onCardFocus = (index, event) => {
-    if (!movingFocus.current && event.target.matches(':focus-visible')) goTo(index);
-  };
-  return { scene, viewport, track, pinned, current, onKeyDown, onCardFocus };
-}
-
-function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlarge, onFocus }) {
+function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlarge }) {
   const card = useRef(null);
   const video = useRef(null);
   const mounted = useRef(true);
@@ -182,7 +72,7 @@ function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlar
   }, [stop]);
   const message = status === 'error' ? 'Preview unavailable. Use the corner icon to watch the full film.' : status === 'loading' ? 'Loading preview.' : status === 'playing' ? 'Silent preview in motion.' : 'Use the corner icon to watch the full film with sound.';
   return (
-    <article className={`film-desk-card film-desk-card-${index + 1}`} data-film-index={index} ref={card} onFocusCapture={event => onFocus(index, event)}>
+    <article className={`film-desk-card film-desk-card-${index + 1}`} data-film-index={index} ref={card}>
       <div className="film-preview" data-playing={String(status === 'playing')} style={{ '--film-ratio': `${film.width} / ${film.height}` }}
         onPointerEnter={event => { if (event.pointerType === 'mouse') start(); }} onPointerLeave={event => { if (event.pointerType === 'mouse') stop(); }}
         onFocus={event => { if (event.target.matches(':focus-visible')) start(); }} onBlur={stop}>
@@ -191,9 +81,8 @@ function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlar
         {status === 'loading' && <TaskLoader overlay progress={bufferProgress} label="Preparing preview" />}
         <span className="film-preview-shade" aria-hidden="true" />
         
-        <button className="film-enlarge" type="button" onClick={event => onEnlarge(film, event.currentTarget)} aria-label={`Enlarge ${film.title}`} aria-describedby={`film-preview-status-${film.id}`} title={`Enlarge ${film.title}`}><ExpandIcon /></button>
+        <button className="film-enlarge" type="button" onClick={event => onEnlarge(film, event.currentTarget)} aria-label={`Enlarge ${film.title}`} aria-describedby={`film-preview-status-${film.id}`} title={`Enlarge ${film.title}`}><span className="film-play-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z" fill="currentColor" stroke="none" /></svg></span><span className="film-watch-label">Watch film <span aria-hidden="true">↗</span></span></button>
       </div>
-      <div className="film-frame-ruler" aria-hidden="true" />
       <div className="film-desk-card-caption"><h3>{film.title}</h3><span>{durationLabel(film.duration)}</span></div>
       <p className="film-desk-description">{film.description}</p>
       <p className="sr-only" id={`film-preview-status-${film.id}`} role="status">{message}</p>
@@ -216,7 +105,6 @@ export default function VideoShowcase({ paused = false, reduced = false } = {}) 
   const opener = useRef(null);
   const fullRequest = useRef(0);
   const resumeOnVisible = useRef(false);
-  const rail = useFilmRail(paused || reduced || systemReduced || saveData);
   const stopPreviews = useCallback(() => { activePreview.current?.(); activePreview.current = null; }, []);
   const takePlayback = useCallback(stop => { if (activePreview.current !== stop) activePreview.current?.(); activePreview.current = stop; }, []);
   const releasePlayer = useCallback(() => {
@@ -309,19 +197,14 @@ export default function VideoShowcase({ paused = false, reduced = false } = {}) 
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) closeViewer();
   };
   return (
-    <section className="video-showcase" id="films-in-motion" aria-labelledby="video-showcase-title">
+    <section className="video-showcase film-gallery" id="films-in-motion" aria-labelledby="video-showcase-title">
       <div className="film-desk-top"><IndexLabel index="03" right="STORIES, SEEN IN MOTION">THE MOVING IMAGE</IndexLabel>
-        <div className="film-desk-intro" data-reveal><h2 id="video-showcase-title">A closer look.<br /><span>In motion.</span></h2><p>The movement. The detail. The feeling.<br />Step inside the frame.</p></div>
+        <div className="film-desk-intro" data-reveal><h2 id="video-showcase-title">Stories that move.<br /><span>Frames that stay.</span></h2><p>The quiet before a scene. The energy inside it.<br />Take a moment. Watch a little closer.</p></div>
       </div>
-      <div className="film-scroll-scene" ref={rail.scene} data-pinned={String(rail.pinned)}>
-        <div className="film-scroll-sticky">
-          <div className="film-rail-viewport" ref={rail.viewport} tabIndex={0} role="region" aria-label={`Browse ${motionFilms.length} films`} aria-describedby="film-rail-hint" onKeyDown={rail.onKeyDown}>
-            <div className="film-rail-track" ref={rail.track}>{motionFilms.map((film, index) => <FilmCard key={film.id} film={film} index={index} paused={paused} automaticBlocked={reduced || systemReduced || saveData || Boolean(selected)} takePlayback={takePlayback} onEnlarge={enlarge} onFocus={rail.onCardFocus} />)}</div>
-          </div>
-          <div className="film-rail-footer"><div className="film-scroll-note"><span>{rail.pinned ? 'SCROLL TO EXPLORE' : 'SWIPE TO EXPLORE'}</span><svg viewBox="0 0 72 16" fill="none" aria-hidden="true"><path d="M1 8h68m-7-6 7 6-7 6" /></svg></div><span className="film-rail-count">{String(rail.current + 1).padStart(2, '0')} / {String(motionFilms.length).padStart(2, '0')}</span></div>
-        </div>
+      <div className="film-gallery-grid" role="region" aria-label={`Explore ${motionFilms.length} films`}>
+        {motionFilms.map((film, index) => <FilmCard key={film.id} film={film} index={index} paused={paused} automaticBlocked={reduced || systemReduced || saveData || Boolean(selected)} takePlayback={takePlayback} onEnlarge={enlarge} />)}
       </div>
-      <p className="sr-only" id="film-rail-hint">Scroll through the films, or use the left and right arrow keys. Use a corner icon to enlarge a film with sound.</p>
+      <p className="film-gallery-note">A selection of supplied footage and visual references. Production credits are not attributed.</p>
       <dialog className="film-viewer" ref={dialog} aria-labelledby="film-viewer-title" onCancel={event => { event.preventDefault(); closeViewer(); }} onClose={finishClose} onClick={backdropClick}>
         <div className="film-viewer-content" ref={viewerContent}>
         <div className="film-viewer-heading"><div><p>{selected?.kicker || 'IN MOTION'}</p><h3 id="film-viewer-title">{selected?.title || 'Film viewer'}</h3></div><div className="film-viewer-actions"><button type="button" className="film-viewer-close" autoFocus onClick={closeViewer} aria-label="Close film"><span aria-hidden="true">×</span></button></div></div>

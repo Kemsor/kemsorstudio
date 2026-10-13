@@ -1,27 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import SiteIcon from './SiteIcon';
 import { guideFlows } from './guideFlows';
 import { useCms } from './CmsContent';
 
-export default function ExperienceTools({ page, reduced }) {
+export default function ExperienceTools({ page }) {
   const { entries, settings } = useCms();
   const dialog = useRef(null);
   const opener = useRef(null);
   const [flow, setFlow] = useState(null);
-  const [showTop, setShowTop] = useState(false);
-  useEffect(() => {
-    const update = () => setShowTop(window.scrollY > 400);
-    update(); window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
-  }, []);
   const openGuide = event => { opener.current = event.currentTarget; setFlow(null); dialog.current.showModal(); };
-  const top = () => {
-    window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
-    document.getElementById('main')?.focus({ preventScroll: true });
-  };
   return <aside className="experience-tools" aria-label="Site tools">
     <div className="experience-floating">
-      {showTop && <button className="experience-top" type="button" onClick={top} aria-label="Back to top"><span aria-hidden="true">↑</span></button>}
+      <button className="experience-top" type="button" aria-label="Back to top" title="Back to top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>↑</button>
       <button className="experience-guide-launch" type="button" onClick={openGuide} aria-haspopup="dialog">Studio guide <span aria-hidden="true">↗</span></button>
     </div>
     <nav className="mobile-bottom-bar" aria-label="Mobile quick navigation">
