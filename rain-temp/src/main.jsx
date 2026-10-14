@@ -87,20 +87,13 @@ function App() {
   return()=>{document.body.style.overflow=previous;};
  },[opening]);
  const paused=false;
- const [theme,setTheme]=useState(()=>document.documentElement.dataset.theme||'light');
- useEffect(()=>{
-  document.documentElement.dataset.theme=theme;
-  document.documentElement.style.colorScheme=theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#10100E':'#ffffff');
-  try{localStorage.setItem('rain-temp-theme',theme);}catch{}
- },[theme]);
  useEffect(()=>{
   document.title=pageInfo[page].title;
   document.querySelector('meta[name="description"]')?.setAttribute('content',pageInfo[page].description);
  },[page]);
  return <>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
-  <Header page={page} theme={theme} onThemeToggle={()=>setTheme(value=>value==='dark'?'light':'dark')}/>
+  <Header page={page}/>
   <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page'}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/><CmsPageSections page={page}/></ReadyPage></Suspense></main>
   <Footer page={page} reduced={reduced}/>
   <ExperienceTools page={page}/>

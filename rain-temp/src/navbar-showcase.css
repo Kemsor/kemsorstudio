@@ -152,6 +152,20 @@ html[data-theme=dark] .creative-header:not([data-overlay=true]) .creative-header
   .creative-header .creative-dropdown{animation:none}
 }
 
+/* Compact drawer: the production CTA lives inside the menu on drawer layouts. */
+.creative-nav-mobile-cta{display:none}
+@media(max-width:1440px){
+  .creative-header .header-script-tool{display:none!important}
+  .creative-nav-mobile-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:56px;margin:24px 22px 0;padding:10px 12px 10px 20px;border-radius:999px;background:var(--action-gold,linear-gradient(110deg,#f4d17c,#e5943e));color:#24150e!important;font-size:14px;font-weight:700}
+  .creative-nav-mobile-cta>span{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:#24150e;color:#f4d17c;font-size:18px}
+  .creative-nav-mobile-cta:hover,.creative-nav-mobile-cta:focus-visible{filter:brightness(1.05);transform:translateY(-1px)}
+}
+@media(max-width:480px){
+  .creative-header-inner{min-height:64px!important;padding:6px 9px 6px 12px!important}
+  .creative-header-brand img{width:42px!important}
+  .creative-nav-mobile-cta{margin-inline:18px}
+}
+
 /* Keep this final navigation treatment above the legacy theme selectors. */
 @media(min-width:1441px){
   html .creative-site .creative-header .creative-dropdown,

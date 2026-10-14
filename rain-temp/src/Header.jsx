@@ -9,7 +9,7 @@ function RollingLabel({ children }) {
   return <span className="creative-nav-roll"><span className="creative-nav-roll-track"><span>{children}</span><span aria-hidden="true">{children}</span></span></span>;
 }
 
-export default function Header({ theme = 'light', onThemeToggle, page = 'home' } = {}) {
+export default function Header({ page = 'home' } = {}) {
   const {user,loading}=useMember();
   const [drawerMode, setDrawerMode] = useState(() => typeof window !== 'undefined' && window.matchMedia(drawerQuery).matches);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -197,15 +197,12 @@ export default function Header({ theme = 'light', onThemeToggle, page = 'home' }
               </>}
             </div>)}
           </div>
+          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="creative-nav-mobile-cta" aria-current={page==='script-to-production'?'page':undefined} onClick={event => followLink('/script-to-production/', event)}>Script to Production <span aria-hidden="true">↗</span></a>}
           <p className="creative-nav-drawer-foot">Film. Series. Documentaries.<br />Good stories start with a conversation.</p>
         </nav>
         <div className="creative-header-controls">
           {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}>Script to Production <span aria-hidden="true">↗</span></a>}
           <div className="header-account-links" aria-label="Account links">{!loading&&(user?<LogoutButton className="header-login"/>:<a href="/login/" className="header-login" aria-current={page==='login'?'page':undefined}>Login</a>)}</div>
-          <button type="button" className="creative-theme-toggle" role="switch" aria-label="Dark mode" aria-checked={theme === 'dark'} title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'} onClick={() => { clearHoverTimer(); if (!drawerOpen) setActivePanel(null); onThemeToggle?.(); }}>
-            <span className="creative-theme-label">Dark mode</span>
-            <span className="creative-theme-track" aria-hidden="true"><span className="creative-theme-thumb"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{theme === 'dark' ? <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" /> : <><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></>}</svg></span></span>
-          </button>
           <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { clearHoverTimer(); setDrawerOpen(!drawerOpen); setActivePanel(null); }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true" />
           </button>
