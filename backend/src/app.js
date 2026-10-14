@@ -77,7 +77,7 @@ export function createApp(db, options={}) {
   const editor=(req,res,next)=>canEdit(req.user) ? next() : next(Object.assign(new Error('Publishing access required.'),{status:403}));
   const manager=(req,res,next)=>canEnquire(req.user) ? next() : next(Object.assign(new Error('Enquiry access required.'),{status:403}));
   app.get('/health',async(req,res)=>{await rows(db,'SELECT 1');res.json({status:'ok',service:'Kemsor Phase 1 CMS'});});
-  app.get('/',(req,res)=>res.redirect('/admin'));
+  app.get('/',(req,res)=>res.status(200).json({status:'ok',service:'Kemsor Phase 1 CMS',admin:'/admin'}));
   app.get('/admin/login',(req,res)=>req.user ? res.redirect('/admin') : res.render('login',{error:null}));
   app.post('/admin/login',async(req,res)=>{
     const email=text(req.body.email,254,'Email',true).toLowerCase();
