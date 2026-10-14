@@ -229,9 +229,9 @@ export function createApp(db, options={}) {
     if(res.headersSent)return next(error);
     const status=error.code==='ER_DUP_ENTRY'?422:error instanceof multer.MulterError?422:error.status || 500;
     const message=error.code==='ER_DUP_ENTRY'?'That email or content slug already exists.':error instanceof multer.MulterError?'Upload one file of at most 5 MB.':status===500?'The CMS could not complete this request. Please try again.':error.message;
-    if(status===500)console.error('CMS request failed:',error.code || error.name);
+    if(status===500)console.error('CMS request failed:',error);
     if(req.path.startsWith('/api/'))return res.status(status).json({error:message});
-    res.status(status).render('error',{message,status});
+    res.status(status).render('error',{message,status,title:`Error ${status} — Kemsor CMS`,user:null,unreadCount:0,csrf:'',saved:false,currentPath:req.path,currentType:'',notifications:[],websiteUrl:process.env.WEBSITE_URL || '/',types});
   });
   return app;
 }
