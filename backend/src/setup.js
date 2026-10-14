@@ -3,7 +3,11 @@ import { randomBytes } from 'node:crypto';
 import { createPool, rows } from './db.js';
 import { hashPassword } from './security.js';
 import { notes } from '../../rain-temp/src/productionNotes.js';
-const db=createPool({user:process.env.DB_MIGRATION_USER || process.env.DB_USER,password:process.env.DB_MIGRATION_PASSWORD ?? process.env.DB_PASSWORD});
+const useMigrationCredentials=process.env.USE_MIGRATION_CREDENTIALS==='true';
+const db=createPool({
+  user:useMigrationCredentials ? process.env.DB_MIGRATION_USER : process.env.DB_USER,
+  password:useMigrationCredentials ? process.env.DB_MIGRATION_PASSWORD : process.env.DB_PASSWORD
+});
 try{
   await rows(db,'CREATE TABLE IF NOT EXISTS cms_migrations (name VARCHAR(190) PRIMARY KEY, applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)');
   for(const name of (await readdir(new URL('../migrations/',import.meta.url))).filter(n=>/^\d.*\.sql$/.test(n)).sort()){
