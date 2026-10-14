@@ -2,6 +2,8 @@
 
 A React website built with Vite, with seven designed pages: Home, About, Services, Projects, News, Careers and Contact. Internal navigation keeps the shared music player mounted. Each page also has a real HTML entry for direct URLs and static hosting.
 
+The canonical source repository is `Kemsor/kemsorstudio`, with production work maintained on the `main` branch.
+
 ## Run
 
 ```sh
