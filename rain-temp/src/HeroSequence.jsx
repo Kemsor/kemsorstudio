@@ -75,14 +75,20 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
     <div className="opening-shade" aria-hidden="true" />
     <div className="opening-docket"><span><i aria-hidden="true" /> KEMSOR STUDIOS</span><span>STORY. CRAFT. CINEMA.</span></div>
     <div className="opening-copy">
-      <p className="opening-eyebrow">YOUR STORY, REALISED.</p>
+      <p className="opening-eyebrow">FILM &amp; PRODUCTION PARTNER</p>
       <h1 id="opening-title">{customTitle ? hero.title : <><span>From your first page.</span><span>To the <em>big screen.</em></span></>}</h1>
-      <p className="opening-description">{customSummary ? hero.summary : 'Creative ambition. Practical production. A studio for the journey in between.'}</p>
-      <div className="opening-actions"><CTA href="/contact/#project-brief">Bring us your story</CTA><a className="opening-watch" href="#films-in-motion"><span aria-hidden="true">▶</span>Step inside the frame</a></div>
+      <p className="opening-description">{customSummary ? hero.summary : 'Creative ambition. Practical production. Kemsor is the studio for the journey in between — from development and financing to the shoot, post and release.'}</p>
+      <div className="opening-actions"><CTA href="/script-to-production/">Bring us your story</CTA><a className="opening-watch" href="#showreel"><span aria-hidden="true">▶</span>Watch the showreel</a></div>
     </div>
     <div className="opening-bottom">
       <div className="opening-chapters" role="group" aria-label="Hero film selection">{films.map((film, index) => <button type="button" key={film.label} aria-pressed={active === index} onClick={() => setActive(index)}><span className="opening-chapter-line" aria-hidden="true" />{film.label}</button>)}</div>
       <a className="opening-scroll" href="#studio">Discover the studio <span aria-hidden="true">↓</span></a>
     </div>
+    <nav className="journey-router" aria-label="Where are you in the journey?"><p>WHERE ARE YOU IN THE JOURNEY?</p><div>
+      <a href="/script-to-production/"><strong>I have a script or idea</strong><span>Script to Production ↗</span></a>
+      <a href="#services"><strong>I need a production partner</strong><span>Production services ↓</span></a>
+      <a href="/contact/#co-producers"><strong>I’m a financier or platform</strong><span>Business &amp; Partnerships ↗</span></a>
+      <a href="/services/#india-production-services"><strong>I’m filming in India</strong><span>India Production Services ↗</span></a>
+    </div></nav>
   </section>;
 }

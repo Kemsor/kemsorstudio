@@ -28,7 +28,7 @@ const footerGroups = [
   { title: 'The studio', links: [['Home','home'],['About Kemsor','about'],['Leadership','about','leadership'],['Productions','projects'],['Careers','careers']] },
   { title: 'Production support', links: [['All services','services'],['Development & planning','services','development'],['Film financing','services','capability-financing'],['Casting & talent','services','capability-casting'],['Filming & production','services','capability-filming'],['Design & post-production','services','capability-post'],['India production services','services','india-production-services']] },
   { title: 'Talent & tools', links: [['Find Talent','find-talent'],['Join KEMSOR','join'],['Login','login'],['My Profile','profile'],['Script to Production','script-to-production']] },
-  { title: 'Stay connected', links: [['Contact','contact'],['Legal & privacy','legal']] },
+  { title: 'Stay connected', links: [['Contact','contact'],['Press & media','news','press-media'],['Legal & privacy','legal']] },
 ];
 
 function FooterLinkIcon({ type, anchor }) {
@@ -58,11 +58,7 @@ function FooterLinkIcon({ type, anchor }) {
 export default function Footer({ reduced, page = 'home' }) {
   const {user,loading}=useMember();
   return <footer className="creative-footer footer-jumbo">
-    <div className="footer-invitation"><div><p className="footer-kicker">THE NEXT GREAT STORY</p><h2>Let’s make<br/><span>a scene.</span></h2></div><div className="footer-invitation-copy"><p>From the first idea to the finished frame.<br/>Bring your story. We’ll find the next step.</p><a href={pageHref('contact')} className="footer-conversation">Talk to the studio <span aria-hidden="true">↗</span></a></div></div>
-    <nav className="footer-feature-nav" aria-label="Partnerships and newsroom">
-      <section><p className="footer-kicker">WORK WITH KEMSOR</p><h3>Partner with us.</h3><p>Find the right starting point for your production.</p><div><a href={`${pageHref('contact')}#filmmakers`}>Filmmakers & creators <span aria-hidden="true">↗</span></a><a href={`${pageHref('contact')}#studios`}>Studios & platforms <span aria-hidden="true">↗</span></a><a href={`${pageHref('contact')}#co-producers`}>Co-producers & financiers <span aria-hidden="true">↗</span></a><a href={`${pageHref('contact')}#international-productions`}>International productions <span aria-hidden="true">↗</span></a></div></section>
-      <section><p className="footer-kicker">FROM THE STUDIO</p><h3>Newsroom.</h3><p>Announcements, production notes and press resources.</p><div><a href={pageHref('news')}>Latest news <span aria-hidden="true">↗</span></a><a href={`${pageHref('news')}#press-media`}>Press & media <span aria-hidden="true">↗</span></a><a href={pageHref('blog')}>Studio journal <span aria-hidden="true">↗</span></a></div></section>
-    </nav>
+    <div className="footer-invitation"><div><p className="footer-kicker">THE NEXT GREAT STORY</p><h2>Let’s make<br/><span>a scene.</span></h2></div><div className="footer-invitation-copy"><p>From the first idea to the finished frame.<br/>Bring us your story — we’ll find the next step.</p><a href={pageHref('contact')} className="footer-conversation">Talk to the studio <span aria-hidden="true">↗</span></a></div></div>
     <div className="footer-directory"><nav className="footer-link-groups" aria-label="Footer navigation">{footerGroups.map(group=><div className="footer-link-group" key={group.title}><h3>{group.title}</h3>{group.links.filter(([,key])=>(!['join','login'].includes(key)||(!user&&!loading))&&(key!=='script-to-production'||(!loading&&user?.role!=='artist'))).map(([label,key,anchor])=><a key={label} href={`${pageHref(key)}${anchor?'#'+anchor:''}`} aria-current={page===key&&!anchor?'page':undefined}><FooterLinkIcon type={key} anchor={anchor}/><span>{label}</span><span className="footer-link-arrow" aria-hidden="true">↗</span></a>)}{group.title==='Talent & tools'&&user&&<LogoutButton className="footer-logout"/>}</div>)}</nav><div className="footer-social-column"><p className="footer-kicker">FOLLOW THE FRAME</p><SocialIcons/><p className="footer-social-caption">Facebook · Instagram · YouTube</p></div></div>
     <div className="footer-signature" aria-hidden="true">KEMSOR<span>STUDIOS</span></div>
     <div className="footer-baseline"><span>© {new Date().getFullYear()} Kemsor Studios</span><span>STORY · CRAFT · CINEMA</span></div>
