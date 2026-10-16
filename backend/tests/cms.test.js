@@ -6,7 +6,7 @@ import { readFile, unlink } from 'node:fs/promises';
 import { createApp } from '../src/app.js';
 import { recoverAdmin } from '../src/admin-recovery.js';
 import { hashPassword, csrfValid } from '../src/security.js';
-import { rows } from '../src/db.js';
+import { rows, createPool, settings } from '../src/db.js';
 let db, root, app, admin, editor, manager, csrfAdmin, csrfEditor, csrfManager;
 const database=`kemsor_cms_test_${process.pid}`;
 const options={host:process.env.DB_HOST || '127.0.0.1',socketPath:process.env.DB_SOCKET || undefined,user:process.env.DB_MIGRATION_USER || process.env.DB_USER || 'root',password:process.env.DB_MIGRATION_PASSWORD || '',timezone:'Z',dateStrings:true};
@@ -438,4 +438,11 @@ test('Deployment recovery migration targets only the existing active bootstrap a
  assert.notEqual(updated,original);assert.match(updated,/^scrypt:/);
  assert.equal((await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash,other);
  assert.equal((await rows(db,'SELECT id FROM cms_sessions WHERE id=?',['a'.repeat(64)])).length,0);
+});
+
+test('MySQL JSON string settings are decoded once, including empty strings and booleans',async()=>{
+ const pool=createPool({host:'127.0.0.1'});
+ assert.equal(pool.pool.config.connectionConfig.jsonStrings,true);await pool.end();
+ const fake={execute:async()=>[[{name:'facebook',value:'""'},{name:'contact_note',value:'"Sample details"'},{name:'enquiries_enabled',value:'false'}]]};
+ const config=await settings(fake);assert.equal(config.facebook,'');assert.equal(config.contact_note,'Sample details');assert.equal(config.enquiries_enabled,false);
 });
