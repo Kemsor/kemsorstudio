@@ -426,3 +426,16 @@ test('Hosted admin recovery is single-use, revokes sessions and rejects non-admi
  assert.equal((await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash,original);
  const log=await rows(db,'SELECT * FROM cms_audit WHERE action="recover_password"');assert.equal(log.length,1);
 });
+
+test('Deployment recovery migration targets only the existing active bootstrap administrator',async()=>{
+ const original=await hashPassword('Original-migration-password');
+ const result=await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES("Recovery admin","admin@kemsor.local",?,"admin")',[original]);
+ const other=(await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash;
+ await rows(db,'INSERT INTO cms_sessions(id,data,expires_at) VALUES(?,?,DATE_ADD(UTC_TIMESTAMP(),INTERVAL 1 HOUR))',['a'.repeat(64),JSON.stringify({userId:result.insertId})]);
+ const sql=await readFile(new URL('../migrations/008_admin_recovery.sql',import.meta.url),'utf8');
+ for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ const updated=(await rows(db,'SELECT password_hash FROM cms_users WHERE id=?',[result.insertId]))[0].password_hash;
+ assert.notEqual(updated,original);assert.match(updated,/^scrypt:/);
+ assert.equal((await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash,other);
+ assert.equal((await rows(db,'SELECT id FROM cms_sessions WHERE id=?',['a'.repeat(64)])).length,0);
+});
