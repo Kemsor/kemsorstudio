@@ -4,6 +4,7 @@ import mysql from 'mysql2/promise';
 import request from 'supertest';
 import { readFile, unlink } from 'node:fs/promises';
 import { createApp } from '../src/app.js';
+import { recoverAdmin } from '../src/admin-recovery.js';
 import { hashPassword, csrfValid } from '../src/security.js';
 import { rows } from '../src/db.js';
 let db, root, app, admin, editor, manager, csrfAdmin, csrfEditor, csrfManager;
@@ -407,4 +408,21 @@ test('Image library searches, filters, previews and protects referenced images',
  await admin.post(`/admin/media/${media.id}/delete`).type('form').send({_csrf:csrfAdmin}).expect(302);
  assert.equal((await rows(db,'SELECT id FROM cms_media WHERE id=?',[media.id])).length,0);
  await request(app).get(`/media/${media.id}`).expect(404);
+});
+
+test('Hosted admin recovery is single-use, revokes sessions and rejects non-admin targets',async()=>{
+ assert.equal(await recoverAdmin(db,{}),false);
+ await assert.rejects(recoverAdmin(db,{ADMIN_RESET_EMAIL:'admin@test.local'}),/requires/);
+ const env={ADMIN_RESET_EMAIL:'manager@test.local',ADMIN_RESET_PASSWORD:'Recovery-test-password-2026',ADMIN_RESET_ID:'test_recovery_request_0001'};
+ await assert.rejects(recoverAdmin(db,env),/administrator/);
+ await assert.rejects(recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin@test.local',ADMIN_RESET_PASSWORD:'short'}),/16–128/);
+ await admin.get('/admin').expect(200);
+ assert.equal(await recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin@test.local'}),true);
+ await admin.get('/admin').expect(302);
+ const recovered=request.agent(app),token=(await recovered.get('/api/csrf')).body.token;
+ await recovered.post('/admin/login').type('form').send({_csrf:token,email:'admin@test.local',password:env.ADMIN_RESET_PASSWORD}).expect(302);
+ const original=(await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash;
+ assert.equal(await recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin@test.local',ADMIN_RESET_PASSWORD:'Different-test-password-2026'}),false);
+ assert.equal((await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash,original);
+ const log=await rows(db,'SELECT * FROM cms_audit WHERE action="recover_password"');assert.equal(log.length,1);
 });

@@ -1,8 +1,10 @@
 import { createPool } from './db.js';
 import { createApp } from './app.js';
+import { recoverAdmin } from './admin-recovery.js';
 import { hashPassword, token } from './security.js';
 const db=createPool();
 await db.execute('SELECT 1');
+await recoverAdmin(db);
 const app=createApp(db,{dummyHash:await hashPassword(token())});
 const port=Number(process.env.PORT || 8100), host=process.env.HOST || '0.0.0.0';
 const server=app.listen(port,host,()=>console.log(`Kemsor CMS: http://${host}:${port}/admin`));

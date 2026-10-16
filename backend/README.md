@@ -108,3 +108,18 @@ Member registration, successful login/logout and profile edits now appear in the
 Local website: http://127.0.0.1:3007/ (real studio directory by default). Admin: http://127.0.0.1:8100/admin or http://127.0.0.1:3007/admin through Vite's proxy. Static preview builds still explicitly disable membership when `VITE_PUBLIC_PREVIEW=true`. No migration is required for these changes.
 
 Verification: 16 isolated MySQL integration tests pass, including every publishing module, member review notifications, role isolation, suspension, and access to registrations beyond the previous 200-record limit. Both frontend builds pass with the existing large 3D chunk warning. Browser automation is unavailable in this environment; visual/device QA remains outstanding.
+
+## Hosted admin password recovery
+
+If the generated credentials file is unavailable, add three temporary secrets to the
+hosting environment you want to recover (Preview and Published are separate):
+
+- `ADMIN_RESET_EMAIL`: the existing active administrator email, initially `admin@kemsor.local`.
+- `ADMIN_RESET_PASSWORD`: a new password of 16–128 characters.
+- `ADMIN_RESET_ID`: a fresh random identifier of 16–100 letters, digits, underscores or hyphens.
+
+Restart that app or deploy the latest version. Recovery runs once per identifier,
+invalidates the administrator's existing sessions and records an audit event.
+Remove all three recovery secrets after successful login. A future recovery needs
+a new identifier. Passwords and recovery secret values are never written to logs.
+This is a hosting-owner operation; no public password reset endpoint is exposed.
