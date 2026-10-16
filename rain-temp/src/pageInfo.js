@@ -9,10 +9,10 @@ export const pageInfo = {
   about: { label: 'Studio', title: 'The studio — Kemsor Studios', description: 'Creative ambition, grounded in production. Kemsor connects ideas, collaborators and execution from development to audiences.' },
   services: { label: 'Services', title: 'Production services — Kemsor Studios', description: 'Production support from development and financing to locations, casting, crew, post-production and release.' },
   projects: { label: 'Productions', title: 'Productions & story formats — Kemsor Studios', description: 'Explore film, series, documentary and short film formats, and the supplied visual collection.' },
-  news: { label: 'Newsroom', title: 'Newsroom & studio notes — Kemsor Studios', description: 'Practical studio notes on project briefs, production planning and the journey from idea to audience.' },
+  news: { label: 'Newsroom', title: 'Newsroom & studio notes — Kemsor Studios', description: 'Latest Kemsor studio news and media partners.' },
   blog: { label: 'Blog', title: 'Blog — Kemsor Studios', description: 'Explore Kemsor production notes on development, planning, post-production and bringing stories to screen.' },
   careers: { label: 'Careers', title: 'Careers — Kemsor Studios', description: 'The creative, production and post-production disciplines behind the frame. Find the current opportunities at Kemsor.' },
-  contact: { label: 'Contact', title: 'Start a project — Kemsor Studios', description: 'Prepare your project brief and find a starting point for working with Kemsor Studios.' },
+  contact: { label: 'Contact', title: 'Start a project — Kemsor Studios', description: 'Contact Kemsor Studios with a general enquiry and find studio contact details and location.' },
   legal: { label: 'Legal', title: 'Legal centre — Kemsor Studios', description: 'Official studio notices, privacy information and website terms published by Kemsor Studios.' },
 };
-export const pageHref = page => page === 'home' ? '/#home' : `/${page}/`;
+export const pageHref = page => page === 'home' ? '/' : `/${page}/`;

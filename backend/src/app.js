@@ -7,11 +7,13 @@ import { mkdir, writeFile, unlink, readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import { rows, json, settings, audit } from './db.js';
 import { token, hashPassword, verifyPassword, canEdit, canEnquire, csrfValid, MysqlSessionStore, rateLimited } from './security.js';
-import { notifications, dashboard } from './dashboard.js';
+import { notifications, dashboard, notificationPreferences, notificationCategories } from './dashboard.js';
 import { talentRouter } from './talent.js';
+import { careersRouter } from './careers.js';
+import {tableView,bulkRouter} from './admin-tables.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const types = { news:'Newsroom', blog:'Blog', career:'Careers', team:'Leadership & team', home:'Homepage & promotions', page:'Page content', legal:'Legal centre' };
+export const types = { news:'Newsroom', media_partner:'Media partners', blog:'Blog', career:'Careers', team:'Leadership & team', home:'Homepage & promotions', page:'Page content', legal:'Legal centre' };
 export const categories = { business:'Business', partnerships:'Partnerships / co-production / distribution / brands', press:'Press & media', careers:'Careers / work with us', production:'Production / service partners', copyright:'Copyright / anti-piracy', general:'General / other' };
 export const statuses = ['new','in_review','contacted','closed','spam'];
 const text = (value, max, label, required = false) => {
@@ -64,13 +66,20 @@ export function createApp(db, options={}) {
   });
   const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024,files:1,fields:25,fieldSize:70000}}).fields([{name:'image',maxCount:1},{name:'attachment',maxCount:1}]);
   app.use((req,res,next)=>req.is('multipart/form-data') ? upload(req,res,next) : next());
-  app.use((req,res,next)=>{
+  app.use(async(req,res,next)=>{
     if(!['POST','PUT','PATCH','DELETE'].includes(req.method))return next();
     if(req.headers.origin){
       const allowed=new Set([process.env.WEBSITE_URL || 'http://127.0.0.1:3007',`${req.protocol}://${req.get('host')}`]);
       if(!allowed.has(req.headers.origin))return next(Object.assign(new Error('Request origin is not allowed.'),{status:403}));
     }
-    if(!csrfValid(req.session.csrf,req.get('X-CSRF-Token') || req.body?._csrf))return next(Object.assign(new Error('Your session expired. Reload the form and try again.'),{status:403}));
+    if(!csrfValid(req.session.csrf,req.get('X-CSRF-Token') || req.body?._csrf)){
+      if(req.path==='/admin/login'){
+        req.session.csrf=token();
+        await saveSession(req);
+        return res.redirect(303,'/admin/login?expired=1');
+      }
+      return next(Object.assign(new Error('Your session expired. Reload the form and try again.'),{status:403}));
+    }
     next();
   });
   const admin=(req,res,next)=>req.user?.role==='admin' ? next() : next(Object.assign(new Error('Administrator access required.'),{status:403}));
@@ -78,7 +87,7 @@ export function createApp(db, options={}) {
   const manager=(req,res,next)=>canEnquire(req.user) ? next() : next(Object.assign(new Error('Enquiry access required.'),{status:403}));
   app.get('/health',async(req,res)=>{await rows(db,'SELECT 1');res.json({status:'ok',service:'Kemsor Phase 1 CMS'});});
   app.get('/',(req,res)=>res.status(200).json({status:'ok',service:'Kemsor Phase 1 CMS',admin:'/admin'}));
-  app.get('/admin/login',(req,res)=>req.user ? res.redirect('/admin') : res.render('login',{error:null}));
+  app.get('/admin/login',(req,res)=>req.user ? res.redirect('/admin') : res.render('login',{error:req.query.expired==='1'?'Your sign-in session was refreshed. Please submit the form again.':null}));
   app.post('/admin/login',async(req,res)=>{
     const email=text(req.body.email,254,'Email',true).toLowerCase();
     if(await rateLimited(db,`login:${req.ip}:${email}`,5,900) || await rateLimited(db,`login-ip:${req.ip}`,30,900))return res.status(429).render('login',{error:'Too many attempts. Try again in 15 minutes.'});
@@ -93,47 +102,123 @@ export function createApp(db, options={}) {
     res.render('dashboard',await dashboard(db,req.user));
   });
   app.get('/admin/notifications.json',(req,res)=>res.json({items:res.locals.notifications,unread:res.locals.unreadCount}));
-  app.get('/admin/notifications',(req,res)=>res.render('notifications'));
+  app.get('/admin/notifications',async(req,res)=>{
+    const view=['all','unread','read','history'].includes(req.query.view)?req.query.view:'all';
+    const feedUnread=res.locals.unreadCount;
+    if(view==='history')res.locals.notifications=await notifications(db,req.user,{includeMuted:true});
+    res.render('notifications',{view,kind:['all','enquiry','application','draft','talent','setup'].includes(req.query.kind)?req.query.kind:'all',preferences:await notificationPreferences(db,req.user),feedUnread});
+  });
+  app.post('/admin/notifications/preferences',async(req,res)=>{
+    const conn=await db.getConnection();try{await conn.beginTransaction();for(const category of Object.keys(notificationCategories(req.user)))await rows(conn,'INSERT INTO cms_notification_preferences(user_id,category,enabled) VALUES(?,?,?) ON DUPLICATE KEY UPDATE enabled=VALUES(enabled)',[req.user.id,category,req.body[`pref_${category}`]==='on'?1:0]);await conn.commit();}catch(error){await conn.rollback();throw error;}finally{conn.release();}
+    res.redirect('/admin/notifications?saved=1');
+  });
   app.post('/admin/notifications/read',async(req,res)=>{
-    const items=await notifications(db,req.user);
+    const items=await notifications(db,req.user,{includeMuted:true});
     const selected=req.body.key==='all' ? items : items.filter(item=>item.key===req.body.key);
     ensure(selected.length || req.body.key==='all','Notification not found.',404);
     for(const item of selected)await rows(db,'INSERT IGNORE INTO cms_notification_reads(user_id,notification_key) VALUES(?,?)',[req.user.id,item.key]);
+    if(req.get('Accept')?.includes('application/json'))return res.json({ok:true,redirect:'/admin/notifications'});
     res.redirect('/admin/notifications');
+  });
+  app.get('/admin/pages',editor,async(req,res)=>{
+    const counts=await rows(db,'SELECT type,COUNT(*) AS total FROM cms_entries GROUP BY type');
+    res.render('pages',{counts});
   });
   app.get('/admin/content',editor,async(req,res)=>{
     const type=req.query.type==='all' ? 'all' : Object.hasOwn(types,req.query.type) ? req.query.type : 'news';
     const state=['draft','published','archived'].includes(req.query.status) ? req.query.status : '';
     const search=text(req.query.q,100,'Search');
-    const entries=await rows(db,'SELECT id,type,title,slug,status,updated_at FROM cms_entries WHERE (?="all" OR type=?) AND (?="" OR status=?) AND title LIKE ? ORDER BY updated_at DESC LIMIT 200',[type,type,state,state,`%${search}%`]);
-    res.render('content',{entries,type,state,search});
+    const pageFilter=type==='page' && ['about','services','projects','contact','home','news','blog','careers','legal'].includes(req.query.page)?req.query.page:'';
+    const where='WHERE (?="all" OR type=?) AND (?="" OR status=?) AND title LIKE ? AND (?="" OR JSON_UNQUOTE(JSON_EXTRACT(metadata,"$.page"))=?)';
+    const params=[type,type,state,state,`%${search}%`,pageFilter,pageFilter];
+    const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM cms_entries ${where}`,params))[0].total);
+    const table=tableView(req,total,{title:'title',status:'status',updated:'updated_at'},'updated',{type,status:state,q:search,page:pageFilter});
+    const entries=await rows(db,`SELECT id,type,title,slug,status,updated_at FROM cms_entries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
+    res.render('content',{entries,type,state,search,pageFilter,table});
   });
-  app.get('/admin/content/new',editor,async(req,res)=>res.render('edit',{entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{}},media:await rows(db,'SELECT * FROM cms_media ORDER BY id DESC LIMIT 200')}));
+  app.get('/admin/content/new',editor,async(req,res)=>res.render(req.query.type==='blog'?'blog-edit':req.query.type==='news'?'news-edit':req.query.type==='career'?'career-edit':'edit',{entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{page:req.query.type==='page'&&['about','services','projects','contact','home','news','blog','careers','legal'].includes(req.query.page)?req.query.page:''}},media:await rows(db,'SELECT m.* FROM cms_media m WHERE NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')}));
+  app.get('/admin/content/:id/preview',editor,async(req,res)=>{
+    const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
+    const image=entry.image_id?(await rows(db,'SELECT alt FROM cms_media WHERE id=?',[entry.image_id]))[0]:null;
+    res.render('content-preview',{entry,image});
+  });
   app.get('/admin/content/:id',editor,async(req,res)=>{
     const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
-    res.render('edit',{entry,media:await rows(db,'SELECT * FROM cms_media ORDER BY id DESC LIMIT 200')});
+    res.render(entry.type==='blog'?'blog-edit':entry.type==='news'?'news-edit':entry.type==='career'?'career-edit':'edit',{entry,media:await rows(db,'SELECT m.* FROM cms_media m WHERE NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')});
   });
-  app.post('/admin/content/save',editor,async(req,res)=>{
-    const b=req.body,type=b.type;ensure(Object.hasOwn(types,type),'Choose a valid content area.');
-    const title=text(b.title,200,'Title',true),slug=text(b.slug,190,'Slug',true);ensure(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug),'Use lowercase letters, numbers and hyphens in the slug.');
+  app.post(['/admin/content/save','/admin/blog/save','/admin/career/save','/admin/news/save'],editor,async(req,res)=>{
+    const b=req.body,type=b.type;
+    if(['draft','published'].includes(b.publish_action))b.status=b.publish_action;
+    if(req.path==='/admin/career/save')ensure(type==='career','This form only publishes career opportunities.');
+    if(req.path==='/admin/news/save')ensure(type==='news','This form only publishes news posts.');
+    if(req.path==='/admin/blog/save')ensure(type==='blog','This form only publishes blog posts.');
+    ensure(Object.hasOwn(types,type),'Choose a valid content area.');
+    const title=text(b.title,200,'Title',true);
+    const automatic=!b.slug;
+    const base=title.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,180).replace(/-$/,'') || 'content';
+    let slug=automatic?base:text(b.slug,190,'Slug',true);ensure(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug),'Use lowercase letters, numbers and hyphens in the slug.');
     const summary=text(b.summary,2000,'Summary'),body=text(b.body,60000,'Body');ensure(['draft','published','archived'].includes(b.status),'Choose a valid publishing status.');
-    const metadata={};for(const key of ['category','role','location','page','seo_title','seo_description'])metadata[key]=text(b[key],key==='seo_description'?300:200,key);
+    const metadata={};for(const key of (['blog','news'].includes(type)?['seo_title','seo_description']:type==='career'?['category','role','location']:['category','role','location','page','seo_title','seo_description']))metadata[key]=text(b[key],key==='seo_description'?300:200,key);
     if(['page','legal'].includes(type))ensure(['home','about','services','projects','news','blog','careers','contact','legal'].includes(metadata.page),'Choose a valid page.');
-    const imageId=b.image_id ? Number(b.image_id) : null;
-    if(imageId)ensure((await rows(db,'SELECT id FROM cms_media WHERE id=?',[imageId])).length,'Selected image does not exist.');
+    let imageId=b.image_id ? Number(b.image_id) : null;
+    if(imageId)ensure((await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[imageId])).length,'Selected image does not exist.');
     const id=b.id ? Number(b.id) : null;
-    if(id){const old=(await rows(db,'SELECT type FROM cms_entries WHERE id=?',[id]))[0];ensure(old,'Content not found.',404);ensure(old.type===type,'Content area cannot be changed.');}
+    if(id){const old=(await rows(db,'SELECT type,slug FROM cms_entries WHERE id=?',[id]))[0];ensure(old,'Content not found.',404);ensure(old.type===type,'Content area cannot be changed.');slug=old.slug;}
+    const banner=req.files?.image?.[0];
+    let uploaded=null,contentSaved=false;
+    if(banner){
+      ensure(['blog','news'].includes(type),'Upload content images from the image library.');
+      const kind=imageKind(banner);ensure(kind,'Only valid PNG, JPEG and WebP banners are allowed.');
+      const alt=text(b.banner_alt,300,'Banner description',true);
+      const filename=await fileSave(banner,kind[0]);
+      try{const media=await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by) VALUES(?,?,?,?,?,?)',[filename,path.basename(banner.originalname).slice(0,255),kind[1],banner.size,alt,req.user.id]);imageId=media.insertId;uploaded={id:imageId,filename};}
+      catch(error){await unlink(path.join(root,'storage/uploads',filename)).catch(()=>{});throw error;}
+    }
+    try {
     const values=[title,slug,summary,body,imageId,JSON.stringify(metadata),b.status,b.status==='published'?new Date():null,req.user.id];
     let result;
     if(id)result=await rows(db,'UPDATE cms_entries SET title=?,slug=?,summary=?,body=?,image_id=?,metadata=?,status=?,published_at=?,updated_by=? WHERE id=?',[...values,id]);
-    else result=await rows(db,'INSERT INTO cms_entries(title,slug,summary,body,image_id,metadata,status,published_at,updated_by,type,created_by) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[...values,type,req.user.id]);
+    else {
+      let suffix=1;
+      while(true){
+        if(automatic){slug=suffix===1?base:`${base}-${suffix}`;values[1]=slug;}
+        try{result=await rows(db,'INSERT INTO cms_entries(title,slug,summary,body,image_id,metadata,status,published_at,updated_by,type,created_by) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[...values,type,req.user.id]);break;}
+        catch(error){if(!automatic || error.code!=='ER_DUP_ENTRY')throw error;suffix++;}
+      }
+    }
+    contentSaved=true;
     await audit(db,req.user,b.status==='published'?'publish':'save','content',id || result.insertId);
     res.redirect(`/admin/content?type=${type}&saved=1`);
+    }catch(error){
+      if(uploaded&&!contentSaved){await rows(db,'DELETE FROM cms_media WHERE id=?',[uploaded.id]).catch(()=>{});await unlink(path.join(root,'storage/uploads',uploaded.filename)).catch(()=>{});}
+      throw error;
+    }
+
+  });
+  app.post('/admin/content/:id/delete',editor,async(req,res)=>{
+    const entry=(await rows(db,'SELECT id,type FROM cms_entries WHERE id=?',[req.params.id]))[0];
+    ensure(entry,'Content not found.',404);ensure(entry.type==='blog','Only blog posts can be deleted here.');
+    await rows(db,'DELETE FROM cms_notification_history WHERE category="draft" AND source_id=?',[entry.id]);
+    await rows(db,'DELETE FROM cms_entries WHERE id=? AND type="blog"',[entry.id]);
+    await audit(db,req.user,'delete','content',entry.id);
+    res.redirect('/admin/content?type=blog&saved=1');
   });
   app.post('/admin/content/:id/archive',editor,async(req,res)=>{
     await rows(db,'UPDATE cms_entries SET status="archived",updated_by=? WHERE id=?',[req.user.id,req.params.id]);await audit(db,req.user,'archive','content',req.params.id);res.redirect('/admin/content?saved=1');
   });
-  app.get('/admin/media',editor,async(req,res)=>res.render('media',{media:await rows(db,'SELECT * FROM cms_media ORDER BY id DESC LIMIT 200')}));
+  app.get('/admin/media',editor,async(req,res)=>{
+    const search=text(req.query.q,100,'Search'),format=['image/png','image/jpeg','image/webp'].includes(req.query.format)?req.query.format:'',usage=['used','unused'].includes(req.query.usage)?req.query.usage:'';
+    const media=await rows(db,`SELECT m.*, (SELECT COUNT(*) FROM cms_entries e WHERE e.image_id=m.id) AS uses FROM cms_media m WHERE NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) AND (m.original_name LIKE ? OR m.alt LIKE ?) AND (?='' OR m.mime=?) HAVING (?='' OR (?='used' AND uses>0) OR (?='unused' AND uses=0)) ORDER BY m.id DESC`,[`%${search}%`,`%${search}%`,format,format,usage,usage,usage]);
+    res.render('media',{media,search,format,usage});
+  });
+  app.post('/admin/media/:id/delete',editor,async(req,res)=>{
+    const connection=await db.getConnection();let image;
+    try{await connection.beginTransaction();image=(await rows(connection,'SELECT * FROM cms_media WHERE id=? FOR UPDATE',[req.params.id]))[0];ensure(image,'Image not found.',404);
+      const used=await rows(connection,'SELECT id FROM cms_entries WHERE image_id=? UNION ALL SELECT id FROM talent_accounts WHERE image_id=?',[image.id,image.id]);ensure(!used.length,'This image is in use. Remove it from its content before deleting it.',409);
+      await rows(connection,'DELETE FROM cms_media WHERE id=?',[image.id]);await connection.commit();
+    }catch(error){await connection.rollback();throw error;}finally{connection.release();}
+    await unlink(path.join(root,'storage/uploads',image.filename)).catch(()=>{});await audit(db,req.user,'delete','media',image.id);res.redirect('/admin/media?saved=1');
+  });
   app.post('/admin/media',editor,async(req,res)=>{
     const file=req.files?.image?.[0];ensure(file,'Choose an image.');const kind=imageKind(file);ensure(kind,'Only valid PNG, JPEG and WebP images are allowed.');
     const alt=text(req.body.alt,300,'Alternative text',true),filename=await fileSave(file,kind[0]);
@@ -148,8 +233,11 @@ export function createApp(db, options={}) {
   });
   app.get('/admin/enquiries',manager,async(req,res)=>{
     const state=statuses.includes(req.query.status)?req.query.status:'',category=Object.hasOwn(categories,req.query.category)?req.query.category:'',search=text(req.query.q,100,'Search');
-    const enquiries=await rows(db,'SELECT id,category,name,email,subject,status,created_at FROM cms_enquiries WHERE (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ?) ORDER BY id DESC LIMIT 200',[state,state,category,category,...Array(3).fill(`%${search}%`)]);
-    res.render('enquiries',{enquiries,state,category,search});
+    const where='WHERE (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ?)';const params=[state,state,category,category,...Array(3).fill(`%${search}%`)];
+    const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM cms_enquiries ${where}`,params))[0].total);
+    const table=tableView(req,total,{name:'name',subject:'subject',category:'category',status:'status',received:'created_at'},'received',{status:state,category,q:search});
+    const enquiries=await rows(db,`SELECT id,category,name,email,subject,status,created_at FROM cms_enquiries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
+    res.render('enquiries',{enquiries,state,category,search,table});
   });
   app.get('/admin/enquiries/:id',manager,async(req,res)=>{
     const enquiry=(await rows(db,'SELECT * FROM cms_enquiries WHERE id=?',[req.params.id]))[0];ensure(enquiry,'Enquiry not found.',404);
@@ -172,21 +260,29 @@ export function createApp(db, options={}) {
   });
   app.post('/admin/enquiries/:id/delete',admin,async(req,res)=>{
     const e=(await rows(db,'SELECT attachment_filename FROM cms_enquiries WHERE id=?',[req.params.id]))[0];ensure(e,'Enquiry not found.',404);
+    await rows(db,'DELETE FROM cms_notification_history WHERE category="enquiry" AND source_id=?',[req.params.id]);
     await rows(db,'DELETE FROM cms_enquiries WHERE id=?',[req.params.id]);if(e.attachment_filename)await unlink(path.join(root,'storage/uploads',e.attachment_filename)).catch(()=>{});
     await audit(db,req.user,'delete_personal_data','enquiry',req.params.id);res.redirect('/admin/enquiries?saved=1');
   });
   app.get('/admin/settings',admin,async(req,res)=>res.render('settings',{settings:await settings(db)}));
   app.post('/admin/settings',admin,async(req,res)=>{
     const b=req.body;const values={};
-    for(const name of ['facebook','instagram','youtube']){
+    for(const name of ['facebook','instagram','youtube','linkedin']){
       values[name]=text(b[name],500,name);
-      if(values[name]){let parsed;try{parsed=new URL(values[name]);}catch{}ensure(parsed?.protocol==='https:',`Use a complete HTTPS URL for ${name}.`);const domains={facebook:['facebook.com','www.facebook.com'],instagram:['instagram.com','www.instagram.com'],youtube:['youtube.com','www.youtube.com','youtu.be']}[name];ensure(domains.includes(parsed.hostname),`Choose an official ${name} profile URL.`);}
+      if(values[name]){let parsed;try{parsed=new URL(values[name]);}catch{}ensure(parsed?.protocol==='https:',`Use a complete HTTPS URL for ${name}.`);const domains={facebook:['facebook.com','www.facebook.com'],instagram:['instagram.com','www.instagram.com'],youtube:['youtube.com','www.youtube.com','youtu.be'],linkedin:['linkedin.com','www.linkedin.com']}[name];ensure(domains.includes(parsed.hostname),`Choose an official ${name} profile URL.`);}
     }
+    const publicTextFields={contact_email:254,contact_phone:40,contact_address:1000,contact_note:300,map_location:300,map_caption:300,footer_kicker:100,footer_title:100,footer_accent:100,footer_description:1000,footer_cta_label:60,footer_copyright:150,footer_social_label:60};
+    for(const [name,max]of Object.entries(publicTextFields))if(Object.hasOwn(b,name))values[name]=text(b[name],max,name);
+    if(values.contact_email)ensure(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.contact_email),'Enter a valid contact email address.');
+    if(values.contact_phone)ensure(/^[+\d\s().-]+$/.test(values.contact_phone),'Use numbers and standard phone punctuation for the contact phone.');
     values.enquiries_enabled=b.enquiries_enabled==='on';values.attachments_enabled=b.attachments_enabled==='on';
     values.privacy_notice=text(b.privacy_notice,4000,'Privacy notice');values.consent_version=text(b.consent_version,100,'Consent version');
     if(values.enquiries_enabled)ensure(values.privacy_notice && values.consent_version,'Add the approved privacy notice and its version before enabling enquiries.');
-    for(const [name,value] of Object.entries(values))await rows(db,'INSERT INTO cms_settings(name,value) VALUES(?,?) ON DUPLICATE KEY UPDATE value=VALUES(value)',[name,JSON.stringify(value)]);
-    await audit(db,req.user,'update','settings','site');res.redirect('/admin/settings?saved=1');
+    const conn=await db.getConnection();try{await conn.beginTransaction();
+      for(const [name,value] of Object.entries(values))await rows(conn,'INSERT INTO cms_settings(name,value) VALUES(?,?) ON DUPLICATE KEY UPDATE value=VALUES(value)',[name,JSON.stringify(value)]);
+      await audit(conn,req.user,'update','settings','site');await conn.commit();
+    }catch(error){await conn.rollback();throw error;}finally{conn.release();}
+    res.redirect('/admin/settings?saved=1');
   });
   app.get('/admin/users',admin,async(req,res)=>res.render('users',{users:await rows(db,'SELECT id,name,email,role,active FROM cms_users ORDER BY id')}));
   app.post('/admin/users',admin,async(req,res)=>{
@@ -206,7 +302,7 @@ export function createApp(db, options={}) {
   app.get('/api/csrf',async(req,res)=>{await saveSession(req);res.json({token:req.session.csrf});});
   app.get('/api/site',async(req,res)=>{
     const config=await settings(db);const entries=await rows(db,'SELECT e.id,e.type,e.title,e.slug,e.summary,e.body,e.metadata,e.published_at,m.id AS media_id,m.alt AS image_alt FROM cms_entries e LEFT JOIN cms_media m ON m.id=e.image_id WHERE e.status="published" AND e.published_at<=UTC_TIMESTAMP() ORDER BY e.published_at DESC,e.id DESC LIMIT 300');
-    res.json({entries:entries.map(e=>({...e,metadata:json(e.metadata),image_url:e.media_id?`/media/${e.media_id}`:null})),settings:Object.fromEntries(['facebook','instagram','youtube','enquiries_enabled','attachments_enabled','privacy_notice','consent_version'].map(key=>[key,config[key]??'']))});
+    res.json({entries:entries.map(e=>({...e,metadata:json(e.metadata),image_url:e.media_id?`/media/${e.media_id}`:null})),settings:Object.fromEntries(['facebook','instagram','youtube','linkedin','contact_email','contact_phone','contact_address','contact_note','map_location','map_caption','footer_kicker','footer_title','footer_accent','footer_description','footer_cta_label','footer_copyright','footer_social_label','enquiries_enabled','attachments_enabled','privacy_notice','consent_version'].map(key=>[key,config[key]??'']))});
   });
   app.post('/api/enquiries',async(req,res)=>{
     const config=await settings(db);ensure(config.enquiries_enabled,'Enquiries are not enabled yet.',503);
@@ -223,6 +319,8 @@ export function createApp(db, options={}) {
       res.status(201).json({reference:`KEM-${String(result.insertId).padStart(6,'0')}`,message:'Your enquiry has been recorded for the studio.'});
     }catch(error){if(filename)await unlink(path.join(root,'storage/uploads',filename)).catch(()=>{});throw error;}
   });
+  app.use(bulkRouter(db));
+  app.use(careersRouter(db));
   app.use(talentRouter(db,{imageKind}));
   app.use((req,res)=>res.status(404).render('error',{message:'Page not found.',status:404}));
   app.use((error,req,res,next)=>{
@@ -230,7 +328,13 @@ export function createApp(db, options={}) {
     const status=error.code==='ER_DUP_ENTRY'?422:error instanceof multer.MulterError?422:error.status || 500;
     const message=error.code==='ER_DUP_ENTRY'?'That email or content slug already exists.':error instanceof multer.MulterError?'Upload one file of at most 5 MB.':status===500?'The CMS could not complete this request. Please try again.':error.message;
     if(status===500)console.error('CMS request failed:',error);
-    if(req.path.startsWith('/api/'))return res.status(status).json({error:message});
+    if(req.path.startsWith('/api/') || (req.path.startsWith('/admin/') && req.get('Accept')?.includes('application/json'))){
+      const fields={};
+      const mappings=[[/contact email/i,'contact_email'],[/contact phone/i,'contact_phone'],[/^Title|^Title is/,'title'],[/^Name /,'name'],[/^Email |email address|valid email/i,'email'],[/^Summary/,'summary'],[/^Body/,'body'],[/slug|lowercase letters/i,'slug'],[/publishing status/i,'status'],[/valid page/i,'page'],[/selected image/i,'image_id'],[/banner description/i,'banner_alt'],[/banners|banner|content images/i,'image'],[/privacy notice.*version|approved privacy/i,'privacy_notice'],[/current password/i,'current'],[/password/i,'password']];
+      const match=mappings.find(([pattern])=>pattern.test(message));if(match)fields[match[1]]=message;
+      if(error instanceof multer.MulterError)fields[error.field || (['/admin/blog/save','/admin/news/save'].includes(req.path)?'image':'attachment')]=message;
+      return res.status(status).json({error:message,fields});
+    }
     res.status(status).render('error',{message,status,title:`Error ${status} — Kemsor CMS`,user:null,unreadCount:0,csrf:'',saved:false,currentPath:req.path,currentType:'',notifications:[],websiteUrl:process.env.WEBSITE_URL || '/',types});
   });
   return app;

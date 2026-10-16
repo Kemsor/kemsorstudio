@@ -1,0 +1,23 @@
+/* Match text colours to the final backgrounds after shared theme rules. */
+html .creative-site .talent-directory .directory-hero{background:#fffdf8;color:#30251e}
+html .creative-site .talent-directory .directory-hero h1{color:#30251e}
+html .creative-site .talent-directory .directory-hero h1>span{color:#975025}
+html .creative-site .talent-directory .directory-hero .page-eyebrow{color:#875027}
+html .creative-site .talent-directory .directory-hero>div>p:not(.page-eyebrow){color:#5d4c40}
+html .creative-site .talent-directory .directory-hero .directory-join{color:#704325}
+html .creative-site .talent-directory .directory-hero .directory-portrait-stack>span{color:#694d36}
+html .creative-site .talent-directory .directory-bottom-cta{background:linear-gradient(120deg,#281713,#5b2d1f);color:#fff5e9}
+html .creative-site .talent-directory .directory-content .directory-bottom-cta h2{color:#fff5e9}
+html .creative-site .talent-directory .directory-content .directory-bottom-cta p:not(.page-eyebrow){color:#f0dfca}
+html .creative-site .talent-directory .directory-content .directory-bottom-cta .page-eyebrow{color:#f4ce85}
+html .creative-site .talent-directory .directory-content .directory-profile :is(h2,h3,label,.directory-close){color:#fff5e9}
+html .creative-site .talent-directory .directory-content .directory-profile :is(p,dd){color:#f0dfca}
+html .creative-site.site-page-script-to-production .tool-console{background:#fffdf8;color:#30251e}
+html .creative-site.site-page-script-to-production .tool-console .tool-titlebar{color:#655043}
+html .creative-site.site-page-script-to-production .tool-console .tool-launch{background:#fff;color:#30251e}
+html .creative-site.site-page-script-to-production .tool-console .tool-launch h1{color:#30251e}
+html .creative-site.site-page-script-to-production .tool-console .tool-launch h1>span{color:#975025}
+html .creative-site.site-page-script-to-production .tool-console .tool-launch .page-eyebrow{color:#875027}
+html .creative-site.site-page-script-to-production .tool-console .tool-launch-copy>p:not(.page-eyebrow),html .creative-site.site-page-script-to-production .tool-console .tool-private{color:#5d4c40}
+html .creative-site.site-page-script-to-production .tool-console .tool-preview-bar{background:#f4eee5;color:#594738}
+html .creative-site .creative-footer.footer-jumbo .footer-invitation-copy>p{color:#eee0d1}

@@ -15,7 +15,7 @@ export default function ExperienceTools({ page }) {
       <button className="experience-guide-launch" type="button" onClick={openGuide} aria-haspopup="dialog">Studio guide <span aria-hidden="true">↗</span></button>
     </div>
     <nav className="mobile-bottom-bar" aria-label="Mobile quick navigation">
-      <a href="/#home" aria-current={page === 'home' ? 'page' : undefined}><SiteIcon name="home"/>Home</a>
+      <a href="/" aria-current={page === 'home' ? 'page' : undefined}><SiteIcon name="home"/>Home</a>
       <a href="/projects/" aria-current={page === 'projects' ? 'page' : undefined}><SiteIcon name="film"/>Productions</a>
       <button type="button" onClick={openGuide} aria-haspopup="dialog"><SiteIcon name="guide"/>Guide</button>
       <a href="/contact/" aria-current={page === 'contact' ? 'page' : undefined}><SiteIcon name="contact"/>Contact</a>

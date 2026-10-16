@@ -38,3 +38,114 @@
 .about-lifecycle .lifecycle-cinema-card:nth-child(6){--card-colour:#3e7169}
 .about-lifecycle .lifecycle-cinema-card:nth-child(7){--card-colour:#78643e}
 .lifecycle-cinema-card::before{background:radial-gradient(ellipse at 0% 0%,#ffffff0a,transparent 70%),linear-gradient(180deg,transparent 20%,#080b0970 100%)}
+
+/* About page — cinematic studio profile. */
+.page-about{--about-ink:#2f1e18;--about-copper:#b95722;--about-cream:#f6efe6;--about-night:#17100e;background:#fbf7f1;color:var(--about-ink)}
+.page-about :is(h1,h2,h3){font-family:'Space Grotesk','Manrope',Arial,sans-serif;text-wrap:balance}
+.page-about .page-hero{position:relative;padding-top:clamp(2rem,4vw,4.5rem);padding-bottom:clamp(4rem,7vw,7.5rem);background:radial-gradient(circle at 8% 12%,rgba(185,87,34,.12),transparent 32%),#fbf7f1}
+.page-about .page-hero-grid{grid-template-columns:minmax(0,.88fr) minmax(28rem,1.12fr);gap:clamp(3rem,7vw,8rem)}
+.page-about .page-hero h1{max-width:11ch;color:var(--about-ink);font-size:clamp(3.8rem,6.5vw,7.4rem);font-weight:500;line-height:1.02;letter-spacing:-.055em}
+.page-about .page-hero h1>span{color:var(--about-copper)}
+.page-about .page-hero-image{min-height:clamp(31rem,47vw,43rem);border-radius:2rem;box-shadow:0 30px 80px rgba(48,27,18,.18)}
+.page-about .page-hero-image>img{min-height:100%;max-height:none;object-position:center center;transform:scale(1.015);transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.page-about .page-hero-image:hover>img{transform:scale(1.055)}
+.page-about .page-image-bracket{position:absolute;inset:1.1rem;border:1px solid rgba(255,255,255,.4);border-radius:1.2rem;pointer-events:none}
+.page-about .about-banner-actions{position:relative;z-index:2;margin-top:-2.2rem;padding-bottom:clamp(3rem,6vw,6rem)}
+.page-about .about-mission{display:grid;grid-template-columns:minmax(10rem,.35fr) minmax(0,1.65fr);gap:clamp(2rem,7vw,8rem);padding:clamp(2.5rem,5vw,5rem) var(--page-gutter);background:var(--about-night);color:#fff7ef;border:0}
+.page-about .about-mission>span{color:#e5a15e;font-weight:700;letter-spacing:.18em}
+.page-about .about-mission>p{max-width:45ch;font-family:'Space Grotesk','Manrope',sans-serif;font-size:clamp(1.65rem,3vw,3.25rem);line-height:1.28;letter-spacing:-.035em}
+.page-about .page-section{position:relative;padding-block:clamp(5rem,8vw,8.5rem)}
+.page-about .page-section h2{font-size:clamp(2.7rem,4.6vw,5rem);font-weight:500;line-height:1.08;letter-spacing:-.045em}
+.page-about .page-section-heading{align-items:start}
+.page-about .page-section-heading>p{max-width:31rem;color:#6e594e}
+.page-about .page-grid{gap:clamp(3rem,9vw,10rem)}
+.page-about .page-copy .page-lead{font-size:clamp(1.15rem,1.55vw,1.5rem);line-height:1.65;color:var(--about-ink)}
+.page-about .about-lifecycle{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,2vw,1.75rem)}
+.page-about .about-lifecycle .lifecycle-cinema-card{min-height:clamp(25rem,38vw,35rem);padding:clamp(1.5rem,3vw,2.5rem);border:0;border-radius:1.65rem;box-shadow:0 22px 55px rgba(30,16,10,.15)}
+.page-about .about-lifecycle .lifecycle-cinema-card:last-child{grid-column:1/-1;min-height:30rem}
+.page-about .lifecycle-card-art{opacity:.78;filter:saturate(.82) contrast(1.02)}
+.page-about .lifecycle-cinema-card::before{background:linear-gradient(180deg,rgba(13,8,6,.08) 10%,rgba(13,8,6,.24) 42%,rgba(13,8,6,.94) 100%)}
+.page-about .lifecycle-card-number{position:relative;z-index:2;display:grid;place-items:center;width:3rem;height:3rem;border:1px solid rgba(255,255,255,.58);border-radius:50%;color:#fff;font-size:.7rem;letter-spacing:.1em;backdrop-filter:blur(8px)}
+.page-about .lifecycle-card-copy{margin-top:auto}
+.page-about .about-lifecycle .lifecycle-card-copy h3{max-width:20ch;font-size:clamp(1.65rem,2.6vw,2.7rem);line-height:1.1}
+.page-about .lifecycle-card-copy p{color:#ece1d7;font-size:clamp(.95rem,1.1vw,1.08rem);line-height:1.65}
+.page-about .about-ground{margin-top:clamp(3rem,6vw,6rem);padding:clamp(2rem,4vw,4rem);border:0;border-radius:1.6rem;background:#efe4d7}
+.page-about .about-ground h3{font-size:clamp(1.8rem,3vw,3rem)}
+.page-about .about-ground li{padding:1rem 0 1rem 1.5rem;border-bottom:1px solid rgba(47,30,24,.14)}
+.page-about .about-formats{background:var(--about-night);color:#fff7ef}
+.page-about .about-formats .index-label,.page-about .about-formats .page-section-heading>p{color:#cdbbad}
+.page-about .about-formats .page-section-heading h2{color:#fff7ef!important}
+.page-about .about-format-grid{grid-template-columns:repeat(12,minmax(0,1fr));gap:1rem}
+.page-about .about-format-grid article{position:relative;isolation:isolate;grid-column:span 4;min-height:18rem;display:flex;flex-direction:column;padding:clamp(1.5rem,3vw,2.5rem);border:1px solid rgba(255,255,255,.2);border-radius:1.3rem;background:linear-gradient(145deg,#673525,#281713)!important;color:#fff7ef!important;box-shadow:0 16px 40px rgba(0,0,0,.16);transition:transform .4s,filter .4s,border-color .4s}
+.page-about .about-format-grid article:nth-child(4),.page-about .about-format-grid article:nth-child(5){grid-column:span 6}
+.page-about .about-format-grid article:nth-child(2){background:linear-gradient(145deg,#4d5940,#19231b)!important}
+.page-about .about-format-grid article:nth-child(3){background:linear-gradient(145deg,#334f65,#17212c)!important}
+.page-about .about-format-grid article:nth-child(4){background:linear-gradient(145deg,#684653,#241820)!important}
+.page-about .about-format-grid article:nth-child(5){background:linear-gradient(145deg,#6a5730,#211b11)!important}
+.page-about .about-format-grid article:hover{transform:translateY(-5px);filter:brightness(1.14) saturate(1.12);border-color:rgba(255,211,155,.62);color:#fff!important}
+.page-about .about-format-grid article>span{position:relative;z-index:1;color:#ffc470!important;font-size:.7rem;letter-spacing:.15em}
+.page-about .about-format-grid article h3{position:relative;z-index:1;margin:auto 0 1rem;color:#fff!important;font-size:clamp(1.5rem,2.2vw,2.25rem)}
+.page-about .about-format-grid article p{position:relative;z-index:1;color:#eadfd7!important}
+.page-about .about-format-grid article:hover>span{color:#ffc470!important}
+.page-about .about-format-grid article:hover h3{color:#fff!important}
+.page-about .about-format-grid article:hover p{color:#f1e7df!important}
+.page-about .about-approach{background:linear-gradient(145deg,#f8f0e6,#fff)}
+.page-about .page-principles{gap:1rem}
+.page-about .page-principles .page-card{min-height:21rem;padding:2rem;border:0;border-radius:1.3rem;background:#fff;box-shadow:0 16px 45px rgba(70,39,24,.08);transition:transform .4s}
+.page-about .page-principles .page-card:hover{transform:translateY(-6px)}
+.page-about :is(.page-principles,.about-values) .page-card>b{display:block;margin-bottom:clamp(3rem,7vw,6rem);color:var(--about-copper);font-size:.72rem;letter-spacing:.14em}
+.page-about .about-values{gap:1rem}
+.page-about .about-values .page-card{min-height:18rem;padding:2rem;border:1px solid rgba(47,30,24,.12);border-radius:1.3rem;background:rgba(255,255,255,.45)}
+.page-about .about-collaboration{background:linear-gradient(135deg,#ae5222,#e69a39);color:#25150f}
+.page-about .about-collaboration .page-eyebrow,.page-about .about-collaboration .page-copy>p{color:#25150f}
+.page-about .about-audience-tags>span{border-color:rgba(37,21,15,.3);border-radius:999px;background:rgba(255,255,255,.18);font-weight:650}
+.page-about .about-scope{color:#6e594e}
+
+@media(max-width:900px){.page-about .page-hero-grid{grid-template-columns:1fr}.page-about .page-hero h1{max-width:12ch}.page-about .page-hero-image{min-height:0;aspect-ratio:1.2}.page-about .about-format-grid article{grid-column:span 6}.page-about .about-format-grid article:last-child{grid-column:1/-1}}
+@media(max-width:650px){.page-about .page-hero h1{font-size:clamp(2.9rem,13vw,4.3rem);line-height:1.06}.page-about .page-hero-image{border-radius:1.3rem}.page-about .about-mission{grid-template-columns:1fr;gap:1.2rem}.page-about .about-mission>p{font-size:clamp(1.45rem,7vw,2.2rem)}.page-about .about-lifecycle{grid-template-columns:1fr}.page-about .about-lifecycle .lifecycle-cinema-card:last-child{grid-column:auto}.page-about .about-format-grid article,.page-about .about-format-grid article:nth-child(4),.page-about .about-format-grid article:nth-child(5){grid-column:1/-1;min-height:15rem}.page-about .page-principles .page-card,.page-about .about-values .page-card{min-height:auto}.page-about :is(.page-principles,.about-values) .page-card>b{margin-bottom:2.5rem}}
+
+/* About page motion and cinematic detail. */
+.page-about .page-hero:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#40251a 0.55px,transparent .7px);background-size:5px 5px;mask-image:linear-gradient(90deg,#000,transparent 58%)}
+.page-about .page-hero-copy{position:relative;z-index:1}
+.page-about .page-hero-copy:after{content:"";display:block;width:clamp(4.5rem,8vw,8rem);height:3px;margin-top:2rem;background:linear-gradient(90deg,var(--about-copper),#e6a34e);transform-origin:left;animation:about-line-breathe 4.8s ease-in-out infinite}
+.page-about .page-hero-image{isolation:isolate;animation:about-frame-float 8s ease-in-out infinite}
+.page-about .page-hero-image:before{content:"";position:absolute;z-index:2;inset:-45% -80%;background:linear-gradient(110deg,transparent 43%,rgba(255,235,197,.18) 50%,transparent 57%);transform:translateX(-35%);animation:about-light-pass 9s ease-in-out infinite;pointer-events:none}
+.page-about .page-image-bracket{z-index:3;animation:about-bracket-pulse 3.8s ease-in-out infinite}
+.page-about .about-mission{position:relative;overflow:hidden}
+.page-about .about-mission:before{content:"";position:absolute;width:36rem;height:36rem;right:-13rem;top:-24rem;border-radius:50%;background:radial-gradient(circle,rgba(201,103,45,.32),transparent 68%);animation:about-orbit-glow 9s ease-in-out infinite alternate;pointer-events:none}
+.page-about .about-mission>*{position:relative;z-index:1}
+.page-about .page-section-heading h2{position:relative}
+.page-about .page-section-heading h2:after{content:"";display:block;width:3.4rem;height:2px;margin-top:1.2rem;background:var(--about-copper);transition:width .55s cubic-bezier(.2,.7,.2,1)}
+.page-about .page-section:hover .page-section-heading h2:after{width:7rem}
+.page-about .lifecycle-cinema-card{transform:translateZ(0);transition:transform .65s cubic-bezier(.2,.75,.2,1),box-shadow .55s!important}
+.page-about .lifecycle-cinema-card:nth-child(even){transform:translateY(clamp(0rem,2vw,1.5rem))}
+.page-about .lifecycle-cinema-card:hover{transform:translateY(-8px) rotate(.18deg)!important;box-shadow:0 34px 75px rgba(30,16,10,.3)!important}
+.page-about .lifecycle-card-number{transition:background .4s,color .4s,transform .4s}
+.page-about .lifecycle-cinema-card:hover .lifecycle-card-number{background:#f0a126;color:#21140f;transform:rotate(-8deg) scale(1.08)}
+.page-about .about-format-grid article{overflow:hidden}
+.page-about .about-format-grid article:before{content:"";position:absolute;z-index:-1;width:14rem;height:14rem;right:-8rem;top:-8rem;border-radius:50%;background:radial-gradient(circle,rgba(255,214,154,.3),transparent 68%);transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .5s;opacity:.55}
+.page-about .about-format-grid article:after{content:"";position:absolute;z-index:-1;left:0;bottom:0;width:0;height:3px;background:#ffc470;transition:width .55s cubic-bezier(.2,.75,.2,1)}
+.page-about .about-format-grid article:hover:before{transform:translate(-3rem,3rem) scale(1.35);opacity:.85}
+.page-about .about-format-grid article:hover:after{width:100%}
+.page-about .about-approach:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 35%,rgba(185,87,34,.07) 50%,transparent 65%);background-size:220% 100%;animation:about-soft-wash 12s linear infinite}
+.page-about .page-principles .page-card{position:relative;overflow:hidden}
+.page-about .page-principles .page-card:after{content:"";position:absolute;width:9rem;height:9rem;right:-6rem;bottom:-6rem;border-radius:50%;background:linear-gradient(145deg,#e69a39,#a84920);opacity:.16;transition:transform .6s,opacity .5s}
+.page-about .page-principles .page-card:hover:after{transform:scale(1.65);opacity:.25}
+.page-about .about-values .page-card{position:relative;transition:transform .45s,background .45s,border-color .45s}
+.page-about .about-values .page-card:hover{transform:translateX(.5rem);background:#fff;border-color:rgba(185,87,34,.45)}
+.page-about .about-collaboration{position:relative;overflow:hidden}
+.page-about .about-collaboration:after{content:"";position:absolute;width:38rem;height:38rem;right:-16rem;bottom:-26rem;border-radius:50%;border:1px solid rgba(37,21,15,.2);box-shadow:0 0 0 4rem rgba(255,255,255,.045),0 0 0 8rem rgba(255,255,255,.035);animation:about-collab-drift 8s ease-in-out infinite alternate;pointer-events:none}
+.page-about .about-collaboration>*{position:relative;z-index:1}
+.page-about .about-audience-tags>span{transition:transform .3s,background .3s}
+.page-about .about-audience-tags>span:hover{transform:translateY(-3px);background:rgba(255,255,255,.34)}
+
+@keyframes about-line-breathe{0%,100%{transform:scaleX(.62);opacity:.65}50%{transform:scaleX(1);opacity:1}}
+@keyframes about-frame-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes about-light-pass{0%,20%{transform:translateX(-38%)}65%,100%{transform:translateX(38%)}}
+@keyframes about-bracket-pulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.9;transform:scale(.987)}}
+@keyframes about-orbit-glow{to{transform:translate(-6rem,5rem) scale(1.18)}}
+@keyframes about-soft-wash{to{background-position:-220% 0}}
+@keyframes about-collab-drift{to{transform:translate(-5rem,-3rem) scale(1.08)}}
+
+@media(max-width:650px){.page-about .lifecycle-cinema-card:nth-child(even){transform:none}.page-about .page-section-heading h2:after{margin-top:.9rem}.page-about .about-values .page-card:hover{transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.page-about .page-hero-copy:after,.page-about .page-hero-image,.page-about .page-hero-image:before,.page-about .page-image-bracket,.page-about .about-mission:before,.page-about .about-approach:before,.page-about .about-collaboration:after{animation:none}.page-about :is(.lifecycle-cinema-card,.lifecycle-card-number,.about-format-grid article,.page-principles .page-card,.about-values .page-card,.about-audience-tags>span){transition:none!important}}

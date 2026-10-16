@@ -16,11 +16,18 @@ import './design-refinement.css';
 import './client-design.css';
 import './homepage-direction.css';
 import './navbar-showcase.css';
-import './motion-polish.css';
 import './sleek-effects.css';
 import './color-system.css';
 import './footer-cinematic.css';
+import './motion-polish.css';
+import './readability-fixes.css';
+import './typography-scale.css';
+import './compact-buttons.css';
 import { OpeningLoader, TaskLoader } from './Loading';
+
+if (location.hash === '#home') history.replaceState(history.state, '', `${location.pathname}${location.search}`);
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 const routes={
  'find-talent':lazy(()=>import('./pages/TalentPages').then(m=>({default:m.FindTalentPage}))),
@@ -75,8 +82,9 @@ function App() {
  const requested=document.body.dataset.page||location.pathname.slice(import.meta.env.BASE_URL.length).split('/').filter(Boolean)[0]||'home';
  const page=routes[requested]?requested:'home';
  const Page=routes[page];
+ const formOnly=page==='contact' && ['filmmakers','studios','co-producers','international-productions'].includes(new URLSearchParams(location.search).get('partner'));
  const reduced=useReducedMotion();
- const [opening,setOpening]=useState(shouldShowOpening);
+ const [opening,setOpening]=useState(()=>!formOnly && shouldShowOpening());
  const [ready,setReady]=useState(false);
  const onReady=useCallback(()=>setReady(true),[]);
  const finishOpening=useCallback(()=>setOpening(false),[]);
@@ -88,15 +96,22 @@ function App() {
  },[opening]);
  const paused=false;
  useEffect(()=>{
+  if(location.hash)return;
+  const reset=()=>window.scrollTo({top:0,left:0,behavior:'instant'});
+  reset();
+  const frame=requestAnimationFrame(reset);
+  return()=>cancelAnimationFrame(frame);
+ },[page]);
+ useEffect(()=>{
   document.title=pageInfo[page].title;
   document.querySelector('meta[name="description"]')?.setAttribute('content',pageInfo[page].description);
  },[page]);
  return <>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
-  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page'}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/><CmsPageSections page={page}/></ReadyPage></Suspense></main>
+  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page'}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && !['news','blog','contact','careers'].includes(page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></main>
   <Footer page={page} reduced={reduced}/>
-  <ExperienceTools page={page}/>
+  {!formOnly && <ExperienceTools page={page}/>}
  </div></>;
 }
 createRoot(document.getElementById('root')).render(<CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider>);

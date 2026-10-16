@@ -3,8 +3,8 @@ import { useCms } from './CmsContent';
 import { CTA } from './PageUI';
 
 const films = [
-  { label: 'On location', src: '/assets/hero-films/studio-intro.mp4', poster: '/assets/hero-films/studio-intro.jpg', startAt: 5.5 },
-  { label: 'In motion', src: '/assets/hero-films/martial-arts.mp4', poster: '/assets/hero-films/martial-arts.jpg' },
+  { label: 'Story in motion', src: '/assets/hero-films/kemsor-story.mp4', poster: '/assets/hero-films/kemsor-story.jpg' },
+  { label: 'Behind the frame', src: '/assets/hero-films/kemsor-production.mp4', poster: '/assets/hero-films/kemsor-production.jpg' },
 ];
 
 export default function HeroSequence({ motionPaused = false, reduced = false }) {
@@ -73,6 +73,9 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
         onError={() => setFailed(previous => previous.map((value, position) => position === index ? true : value))} />
     </div>)}</div>
     <div className="opening-shade" aria-hidden="true" />
+    <button type="button" className="opening-next-film" onClick={() => { setActive(index => (index + 1) % films.length); setPaused(false); }} aria-label={`Play next hero film: ${films[(active + 1) % films.length].label}`}>
+      <b aria-hidden="true">→</b>
+    </button>
     <div className="opening-docket"><span><i aria-hidden="true" /> KEMSOR STUDIOS</span><span>STORY. CRAFT. CINEMA.</span></div>
     <div className="opening-copy">
       <p className="opening-eyebrow">FILM &amp; PRODUCTION PARTNER</p>

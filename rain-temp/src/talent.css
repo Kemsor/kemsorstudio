@@ -34,3 +34,28 @@
 .auth-panel .talent-form .auth-register-button{display:flex;justify-content:space-between;align-items:center;gap:18px;width:100%;min-height:52px;padding:14px 20px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:14px;font-weight:600}
 .auth-register-button:hover{background:var(--panel-bg)}
 .talent-intro nav>button{font:inherit;background:transparent;color:inherit;border:0;border-bottom:1px solid currentColor;padding:0 0 7px;cursor:pointer}
+
+/* Shared form language: warm glass, clear focus and tactile controls. */
+.talent-form,.talent-side form{--field-surface:rgba(255,252,244,.82);--field-line:rgba(72,47,30,.18)}
+.talent-field{gap:10px;color:color-mix(in srgb,currentColor 88%,transparent);font-size:11px;letter-spacing:.105em;text-transform:uppercase}
+.talent-field input,.talent-field textarea,.talent-field select,.talent-form select{border:1px solid var(--field-line);border-radius:15px;background:var(--field-surface);box-shadow:inset 0 1px rgba(255,255,255,.72),0 8px 24px rgba(67,39,21,.035);padding:15px 17px;color:inherit;letter-spacing:0;text-transform:none;transition:border-color .28s ease,box-shadow .28s ease,background .28s ease,transform .28s ease}
+.talent-field input:hover,.talent-field textarea:hover,.talent-field select:hover{border-color:rgba(184,106,45,.42);background:rgba(255,253,248,.95)}
+.talent-field input:focus,.talent-field textarea:focus,.talent-field select:focus{outline:0;border-color:#c57732;background:#fffdf7;box-shadow:0 0 0 4px rgba(216,149,71,.14),0 18px 35px rgba(67,39,21,.08);transform:translateY(-1px)}
+.talent-field input::placeholder,.talent-field textarea::placeholder{color:color-mix(in srgb,currentColor 42%,transparent)}
+.talent-field input[type=file]{padding:10px}.talent-field input[type=file]::file-selector-button{border:0;border-radius:10px;background:#29211d;color:#fff;padding:10px 14px;margin-right:13px;font:inherit;cursor:pointer}
+.talent-role label{border-radius:15px;background:rgba(255,252,244,.7);transition:.25s ease;cursor:pointer}.talent-role label:has(input:checked){border-color:#cf8738;background:linear-gradient(135deg,#fff5d6,#f7d48a);box-shadow:0 10px 26px rgba(160,92,31,.14);transform:translateY(-2px)}
+.talent-check input,.talent-role input{accent-color:#b86627}
+.talent-button{border:0;border-radius:999px;background:linear-gradient(105deg,#f6d06e,#ee9d37);color:#241812;min-height:54px;padding:14px 24px;font-weight:700;box-shadow:0 12px 28px rgba(181,104,34,.2);transition:transform .28s ease,box-shadow .28s ease,filter .28s ease}
+.talent-button:hover{transform:translateY(-3px);box-shadow:0 18px 35px rgba(181,104,34,.29);filter:saturate(1.08)}
+.talent-button:focus-visible{outline:3px solid rgba(197,119,50,.35);outline-offset:4px}
+.talent-notice{border-radius:0 14px 14px 0;box-shadow:0 10px 30px rgba(54,35,20,.06)}
+@media(prefers-reduced-motion:reduce){.talent-field input,.talent-field textarea,.talent-field select,.talent-button,.talent-role label{transition:none!important}}
+
+/* Form contrast across directory, account and profile surfaces. */
+.site-page-find-talent :is(.talent-section,.directory-content),.site-page-join .auth-panel,.site-page-login .auth-panel,.site-page-profile .talent-section{color:#3c281f}
+.creative-site .talent-field{color:#52372b}
+.creative-site .talent-field :is(input,textarea,select),.creative-site .talent-form>select{border-color:#cbb9a7;background:#fffdf9;color:#33221b;box-shadow:inset 0 1px rgba(255,255,255,.9),0 7px 20px rgba(65,39,24,.045)}
+.creative-site .talent-field :is(input,textarea,select):hover{border-color:#a98e75}
+.creative-site .talent-field :is(input,textarea,select)::placeholder{color:#8b786b;opacity:1}
+.site-page-join .auth-page,.site-page-login .auth-page{margin-top:clamp(14px,1.7vw,28px)}
+@media(max-width:760px){.site-page-join .auth-page,.site-page-login .auth-page{margin-top:12px}}

@@ -1,0 +1,15 @@
+<%- include('head') %>
+<p class="eyebrow">Career publishing</p><h1><%= entry.id?'Edit career opportunity':'Create career opportunity' %></h1>
+<form action="/admin/career/save" method="post" class="panel editor career-editor">
+<input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="id" value="<%= entry.id || '' %>"><input type="hidden" name="type" value="career">
+<%- include('publishing-toolbar') %><div class="field-grid">
+<label>Opportunity title<input name="title" value="<%= entry.title || '' %>" required maxlength="200"></label>
+<label>Slug (automatic)<input data-auto-slug data-existing-slug="<%= entry.slug || '' %>" value="<%= entry.slug || '' %>" readonly placeholder="Generated from the title"><small><%= entry.id?'Kept unchanged to preserve existing links.':'Generated automatically when saved.' %></small></label>
+<label>Employment / engagement type<input name="role" value="<%= entry.metadata.role || '' %>" maxlength="200" placeholder="e.g. Full-time, freelance, project-based"></label>
+<label>Location<input name="location" value="<%= entry.metadata.location || '' %>" maxlength="200" placeholder="e.g. Mumbai or remote"></label>
+<label>Department / listing label<input name="category" value="<%= entry.metadata.category || '' %>" maxlength="200" placeholder="e.g. Production, post-production"></label>
+<label>Publishing status<select name="status"><% ['draft','published','archived'].forEach(status=>{ %><option value="<%= status %>" <%= entry.status===status?'selected':'' %>><%= status %></option><% }) %></select></label>
+<label class="wide">Short description<textarea name="summary" rows="3" maxlength="2000"><%= entry.summary || '' %></textarea></label>
+<label class="wide">Role details<textarea name="body" rows="14" maxlength="60000"><%= entry.body || '' %></textarea><small>Include responsibilities, requirements and how to apply. Separate paragraphs with a blank line.</small></label>
+</div><div class="form-actions"><button class="quiet" name="publish_action" value="draft">Save draft</button><button name="publish_action" value="published">Publish opportunity</button><% if(entry.id){ %><button class="quiet">Save selected status</button><% } %></div><p class="form-help">Drafts are private. Published opportunities appear on the careers page.</p>
+</form><p><a class="button quiet" href="/admin/content?type=career">Back to career opportunities</a></p><%- include('foot') %>

@@ -10,3 +10,34 @@
 a.footer-social-icon:focus-visible{outline:2px solid var(--brand-bronze);outline-offset:8px;border-radius:50%}
 @media(max-width:760px){.footer-navigation-row{flex-direction:column;align-items:flex-start;gap:24px}.footer-navigation-row .footer-page-links{gap:10px 25px}.footer-socials{gap:24px}.footer-social-icon{width:52px;height:52px}}
 @media(prefers-reduced-motion:reduce){.footer-social-icon{transition:none}.footer-social-icon:hover{transform:none}}
+
+/* Uniform navigation icons and compact social badges. */
+html .creative-site .creative-footer.footer-jumbo .footer-link-group .footer-link-icon{color:#fff;opacity:1}
+html .creative-site .creative-footer.footer-jumbo .footer-socials{gap:10px}
+html .creative-site .creative-footer.footer-jumbo .footer-social-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid #fff;border-radius:50%;background:#fff;color:#111!important;filter:none;box-shadow:none;transition:background .2s,border-color .2s,transform .2s}
+html .creative-site .creative-footer.footer-jumbo .footer-social-icon svg{width:20px;height:20px;flex-shrink:0;color:#111}
+html .creative-site .creative-footer.footer-jumbo .footer-social-icon:is(:hover,:focus-visible){color:#111!important;filter:none;transform:translateY(-2px);border-color:transparent}
+html .creative-site .creative-footer.footer-jumbo .footer-social-facebook:is(:hover,:focus-visible){background:#1877f2}
+html .creative-site .creative-footer.footer-jumbo .footer-social-instagram:is(:hover,:focus-visible){background:linear-gradient(135deg,#f9ce34,#ee2a7b 60%,#a844b8)}
+html .creative-site .creative-footer.footer-jumbo .footer-social-youtube:is(:hover,:focus-visible){background:#ff0000}
+html .creative-site .creative-footer.footer-jumbo .footer-social-linkedin:is(:hover,:focus-visible){background:#0a66c2}
+@media(prefers-reduced-motion:reduce){html .creative-site .creative-footer.footer-jumbo .footer-social-icon{transition:none}html .creative-site .creative-footer.footer-jumbo .footer-social-icon:hover{transform:none}}
+
+/* A single balanced social row in the footer baseline. */
+html .creative-site .creative-footer.footer-jumbo .footer-directory{display:block}
+html .creative-site .creative-footer.footer-jumbo .footer-link-groups{width:100%}
+html .creative-site .creative-footer.footer-jumbo .footer-baseline{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials{display:flex;align-items:center;gap:16px;margin-left:auto;flex-shrink:0}
+html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials>span{font-size:12px;color:#ddcdbb;letter-spacing:.04em}
+html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials .footer-socials{display:flex;flex-direction:row;flex-wrap:nowrap;gap:10px;align-items:center}
+html .creative-site .creative-footer.footer-jumbo .footer-social-icon{width:36px;height:36px;flex:0 0 36px;border:0;background:#fff;border-radius:50%;box-shadow:0 2px 8px #00000010}
+html .creative-site .creative-footer.footer-jumbo .footer-social-icon svg{width:18px;height:18px;overflow:visible;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:600px){html .creative-site .creative-footer.footer-jumbo .footer-baseline>span{flex-basis:auto}html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials{margin-left:0;gap:12px}}
+
+html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials{order:-1;margin-left:0;margin-right:auto;justify-content:flex-start}
+html .creative-site .creative-footer.footer-jumbo .footer-baseline>span{margin-left:24px}
+@media(max-width:760px){html .creative-site .creative-footer.footer-jumbo .footer-baseline{padding-bottom:64px}html .creative-site .creative-footer.footer-jumbo .footer-baseline>span{margin-left:0;width:100%}}
+
+/* Hover changes only the social symbol colour; existing circle fills stay intact. */
+html .creative-site .creative-footer.footer-jumbo .footer-social-icon:is(:hover,:focus-visible),
+html .creative-site .creative-footer.footer-jumbo .footer-social-icon:is(:hover,:focus-visible) svg{color:#fff!important}

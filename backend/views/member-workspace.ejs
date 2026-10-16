@@ -1,12 +1,12 @@
 <%- include('head') %>
 <p class="eyebrow">TALENT NETWORK / <%= section.toUpperCase() %></p><h1><%= section==='enquiries'?'Talent enquiries':'Production projects' %></h1>
 <p><%= section==='enquiries'?'Review conversations between registered hirers and artists. Artists manage their own responses.':'Projects saved by registered casting directors and producers. Private scripts remain in the member’s workspace.' %></p>
-<div class="workspace-links"><a href="/admin/talent">All registrations →</a><a href="/admin/talent/enquiries">Talent enquiries →</a><a href="/admin/talent/projects">Production projects →</a></div>
+<div class="workspace-links"><a href="/admin/talent">All registrations </a><a href="/admin/talent/enquiries">Talent enquiries </a><a href="/admin/talent/projects">Production projects </a></div>
 <% if(section==='enquiries'){ %>
 <% if(!enquiries.length){ %><div class="panel empty">No talent enquiries yet.</div><% } %>
-<% enquiries.forEach(e=>{ %><article class="panel"><div class="panel-heading"><h2><%= e.project %></h2><span class="badge badge-<%= e.status %>"><%= e.status %></span></div><p><strong><%= e.sender %></strong> → <strong><%= e.artist %></strong> · <%= e.created_at %> UTC</p><p class="member-message"><%= e.message %></p></article><% }) %>
+<% enquiries.forEach(e=>{ %><article class="panel"><div class="panel-heading"><h2><%= e.project %></h2><span class="badge badge-<%= e.status %>"><%= e.status %></span></div><p><strong><%= e.sender %></strong> to <strong><%= e.artist %></strong> · <%= e.created_at %> UTC</p><p class="member-message"><%= e.message %></p></article><% }) %>
 <% }else{ %>
 <% if(!projects.length){ %><div class="panel empty">No production projects yet.</div><% } %>
-<% projects.forEach(p=>{ %><article class="panel"><div class="panel-heading"><h2><%= p.title %></h2><a href="/admin/talent?q=<%= encodeURIComponent(p.name) %>"><%= p.name %> ↗</a></div><p>Budget: <%= p.currency %> <%= Number(p.budget).toLocaleString('en-IN') %> · Language: <%= p.language || 'Not specified' %></p><p>Timeline: <%= p.timeline || 'Not specified' %></p><small>Updated <%= p.updated_at %> UTC</small></article><% }) %>
+<% projects.forEach(p=>{ %><article class="panel"><div class="panel-heading"><h2><%= p.title %></h2><a href="/admin/talent?q=<%= encodeURIComponent(p.name) %>"><%= p.name %> </a></div><p>Budget: <%= p.currency %> <%= Number(p.budget).toLocaleString('en-IN') %> · Language: <%= p.language || 'Not specified' %></p><p>Timeline: <%= p.timeline || 'Not specified' %></p><small>Updated <%= p.updated_at %> UTC</small></article><% }) %>
 <% } %><p>Showing the latest <%= section==='enquiries'?enquiries.length:projects.length %> records (up to 200).</p>
 <%- include('foot') %>

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { cmsApi, useCms } from './CmsContent';
 import { TaskLoader } from './Loading';
+import EnquirySuccess from './EnquirySuccess';
 const categories = { business: 'Business', partnerships: 'Partnerships / co-production / distribution / brands', press: 'Press & media', careers: 'Careers / work with us', production: 'Production / service partners', copyright: 'Copyright / anti-piracy', general: 'General / other' };
-export default function EnquiryForm() {
+export default function EnquiryForm({ standalone = false, title = 'Studio enquiry', initialCategory = 'business', initialSubject = '', showHeading = true }) {
   const { settings, connected } = useCms();
   const request = useRef(null);
   const mounted = useRef(true);
@@ -42,24 +43,26 @@ export default function EnquiryForm() {
     } catch (reason) { if (mounted.current) setError(reason.message); }
     finally { request.current = null; if (mounted.current) setBusy(false); }
   };
-  return <section className="page-section page-split" id="send-enquiry">
-    <div className="page-copy"><p className="page-eyebrow">CONTACT / THE STUDIO INBOX</p><h2>A conversation<br />starts here.</h2><p>Choose the kind of enquiry and tell the studio what you need. Keep the downloadable project brief above for your own records.</p></div>
-    {!connected || !settings.enquiries_enabled ? <div className="page-copy"><p>Studio enquiries will open here when the contact workspace is ready.</p></div> : <form className="project-form page-brief-form cms-enquiry-form" onSubmit={submit} aria-label="Send a studio enquiry">
+  return <section className={standalone ? "partner-enquiry-page" : "page-section page-split"} id="send-enquiry">
+    {standalone ? (showHeading && <header className="partner-enquiry-heading"><a href="/" aria-label="Kemsor Studios home">KEMSOR STUDIOS</a><h1>{title}</h1></header>) : <div className="page-copy"><p className="page-eyebrow">CONTACT / THE STUDIO INBOX</p><h2>A conversation<br />starts here.</h2><p>Choose the kind of enquiry and tell the studio what you need. Keep the downloadable project brief above for your own records.</p></div>}
+    {(!connected || !settings.enquiries_enabled) && !standalone ? <div className="page-copy"><p>Studio enquiries will open here when the contact workspace is ready.</p></div> : result ? <EnquirySuccess reference={result.reference} onAnother={()=>setResult(null)}/> : <form className="project-form page-brief-form cms-enquiry-form" onSubmit={submit} aria-label="Send a studio enquiry">
+      {standalone && (!connected || !settings.enquiries_enabled) && <p role="status">Enquiry submissions are currently unavailable. Please try again later.</p>}
+      <fieldset className="enquiry-fields" disabled={busy || !connected || !settings.enquiries_enabled}>
       <div className="form-fields">
-        <label>Enquiry category<select name="category" required>{Object.entries(categories).map(([key,label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+        <label>Enquiry category<select name="category" required defaultValue={initialCategory}>{Object.entries(categories).map(([key,label]) => <option key={key} value={key}>{label}</option>)}</select></label>
         <label>Your name<input name="name" required maxLength="100" autoComplete="name" /></label>
         <label>Email<input type="email" name="email" required maxLength="254" autoComplete="email" /></label>
         <label>Organisation<input name="organisation" maxLength="150" autoComplete="organization" /></label>
-        <label className="story-field">Subject<input name="subject" required maxLength="200" /></label>
+        <label className="story-field">Subject<input name="subject" defaultValue={initialSubject} required maxLength="200" /></label>
         <label className="story-field">Your enquiry<textarea name="message" rows="6" required maxLength="8000" /></label>
         {settings.attachments_enabled && <label className="story-field">Optional attachment<input name="attachment" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><span>PDF, JPEG, PNG or WebP. Maximum 5 MB.</span></label>}
       </div>
       <label className="enquiry-honeypot" aria-hidden="true">Website<input name="website" tabIndex="-1" autoComplete="off" /></label>
       <p className="cms-enquiry-notice">{settings.privacy_notice}</p>
       <label className="check"><input type="checkbox" name="consent" value="true" required />I agree to my details being used for this enquiry as described above.</label>
-      <button type="submit" className="creative-cta" disabled={busy}><span>{busy ? 'Sending enquiry…' : 'Send enquiry'}</span><span aria-hidden="true">→</span></button>
+      <button type="submit" className="creative-cta" disabled={busy}><span>{busy ? 'Sending enquiry…' : 'Send enquiry'}</span></button>
+      </fieldset>
       {showLoader && <TaskLoader progress={progress} label="Sending your enquiry" />}
-      {result && <p className="cms-enquiry-status" role="status">100% complete. {result.message} Your reference is {result.reference}.</p>}
       {error && <p className="cms-enquiry-status" role="alert">{error}</p>}
     </form>}
   </section>;

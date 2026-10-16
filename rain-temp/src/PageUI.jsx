@@ -17,7 +17,7 @@ export function TextLink({href,children}) {
 }
 export function PageHero({eyebrow,title,accent,description,image,alt,caption='FROM IDEA TO SCREEN'}) {
  return <section className={`page-hero ${image?'':'page-hero-text'}`}>
-  <div className="page-hero-docket"><a href="/#home">KEMSOR STUDIOS</a><span>{eyebrow}</span></div>
+  <div className="page-hero-docket"><a href="/">KEMSOR STUDIOS</a><span>{eyebrow}</span></div>
   <div className="page-hero-grid"><div className="page-hero-copy"><p className="page-eyebrow">{eyebrow}</p><h1 tabIndex="-1">{title}{accent&&<><br/><span>{accent}</span></>}</h1>{description&&<p className="page-lead">{description}</p>}</div>
    {image&&<figure className="page-hero-image"><img src={image} alt={alt||''} width="1672" height="941" fetchPriority="high" decoding="async"/><span className="page-image-bracket" aria-hidden="true"/><figcaption>{caption}<FrameMark/></figcaption></figure>}
   </div>

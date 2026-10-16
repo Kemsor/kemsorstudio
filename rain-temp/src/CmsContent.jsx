@@ -20,8 +20,10 @@ export function CmsProvider({ children }) {
       } catch { /* Keep the supplied website content available if the API is offline. */ }
       finally { clearTimeout(timeout); }
     };
-    refresh(); window.addEventListener('focus', refresh);
-    return () => { current?.abort(); window.removeEventListener('focus', refresh); };
+    const onVisible=()=>{if(!document.hidden)refresh();};
+    const timer=setInterval(onVisible,30000);
+    refresh(); window.addEventListener('focus', refresh);document.addEventListener('visibilitychange',onVisible);
+    return () => { current?.abort();clearInterval(timer);window.removeEventListener('focus',refresh);document.removeEventListener('visibilitychange',onVisible); };
   }, []);
   return <ContentContext.Provider value={content}>{children}</ContentContext.Provider>;
 }

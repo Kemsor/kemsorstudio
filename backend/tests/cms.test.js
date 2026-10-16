@@ -25,11 +25,19 @@ before(async()=>{
  for(const statement of notificationSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  const talentSql=await readFile(new URL('../migrations/003_talent_network.sql',import.meta.url),'utf8');
  for(const statement of talentSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ const partnerSql=await readFile(new URL('../migrations/004_media_partners.sql',import.meta.url),'utf8');
+ for(const statement of partnerSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ const applicationsSql=await readFile(new URL('../migrations/005_career_applications.sql',import.meta.url),'utf8');
+ for(const statement of applicationsSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ const recruitmentSql=await readFile(new URL('../migrations/006_recruitment_tools.sql',import.meta.url),'utf8');
+ for(const statement of recruitmentSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ const historySql=await readFile(new URL('../migrations/007_notification_history.sql',import.meta.url),'utf8');
+ for(const statement of historySql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const role of ['admin','editor','enquiry_manager'])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[role,`${role}@test.local`,await hashPassword('A-secure-test-password'),role]);
  app=createApp(db,{cookieName:'kemsor.test',dummyHash:await hashPassword('dummy-test-password')});
  [admin,csrfAdmin]=await login('admin');[editor,csrfEditor]=await login('editor');[manager,csrfManager]=await login('enquiry_manager');
 });
-after(async()=>{if(db){const files=await rows(db,'SELECT filename FROM cms_media');for(const file of files)await unlink(new URL(`../storage/uploads/${file.filename}`,import.meta.url)).catch(()=>{});}await db?.end();if(root){assert.match(database,/^kemsor_cms_test_\d+$/);await root.query(`DROP DATABASE IF EXISTS \`${database}\``);await root.end();}});
+after(async()=>{if(db){const resumes=await rows(db,'SELECT resume_filename FROM career_applications');for(const file of resumes)await unlink(new URL(`../storage/career-resumes/${file.resume_filename}`,import.meta.url)).catch(()=>{});const files=await rows(db,'SELECT filename FROM cms_media');for(const file of files)await unlink(new URL(`../storage/uploads/${file.filename}`,import.meta.url)).catch(()=>{});}await db?.end();if(root){assert.match(database,/^kemsor_cms_test_\d+$/);await root.query(`DROP DATABASE IF EXISTS \`${database}\``);await root.end();}});
 test('CSRF comparison rejects missing or mismatched values',()=>{assert.equal(csrfValid('abc','abd'),false);assert.equal(csrfValid('abc',undefined),false);assert.equal(csrfValid('abc','abc'),true);});
 test('Unauthenticated admin requests are redirected and mutations require CSRF',async()=>{
  await request(app).get('/admin/enquiries').expect(302).expect('Location','/admin/login');
@@ -99,7 +107,7 @@ test('Login throttles repeated invalid passwords',async()=>{
  await guest.post('/admin/login').type('form').send({_csrf:token,email:'absent@test.local',password:'wrong'}).expect(429);
 });
 test('Dashboard cards and notification routes respect each role',async()=>{
- const adminDashboard=await admin.get('/admin').expect(200);assert.match(adminDashboard.text,/Big ideas/);assert.match(adminDashboard.text,/Recent content/);
+ const adminDashboard=await admin.get('/admin').expect(200);assert.match(adminDashboard.text,/Manage your studio/);assert.match(adminDashboard.text,/Recent content/);
  const editorDashboard=await editor.get('/admin').expect(200);assert.doesNotMatch(editorDashboard.text,/Latest conversations/);
  const managerDashboard=await manager.get('/admin').expect(200);assert.doesNotMatch(managerDashboard.text,/Recent content/);
  await admin.get('/admin/notifications').expect(200);await editor.get('/admin/notifications').expect(200);await manager.get('/admin/notifications').expect(200);
@@ -112,12 +120,15 @@ test('Notification reads persist per user and cannot mark inaccessible notificat
  assert.ok(!editorItems.some(n=>n.key===key));
  await editor.post('/admin/notifications/read').type('form').send({_csrf:csrfEditor,key}).expect(404);
  let items=(await manager.get('/admin/notifications.json').expect(200)).body.items;assert.equal(items.find(n=>n.key===key).read,false);
- await manager.post('/admin/notifications/read').type('form').send({_csrf:csrfManager,key}).expect(302);
+ await manager.post('/admin/notifications/read').set('Accept','application/json').type('form').send({_csrf:csrfManager,key}).expect(200).then(response=>assert.equal(response.body.ok,true));
  items=(await manager.get('/admin/notifications.json')).body.items;assert.equal(items.find(n=>n.key===key).read,true);
  const adminItems=(await admin.get('/admin/notifications.json')).body.items;assert.equal(adminItems.find(n=>n.key===key).read,false);
  await admin.post('/admin/notifications/read').type('form').send({key:'all'}).expect(403);
  await admin.post('/admin/notifications/read').type('form').send({_csrf:csrfAdmin,key:'all'}).expect(302);
  assert.equal((await admin.get('/admin/notifications.json')).body.unread,0);
+ const readPage=await manager.get('/admin/notifications?view=read&kind=enquiry').expect(200);assert.match(readPage.text,/notification-inbox-row is-read/);
+ const unreadPage=await manager.get('/admin/notifications?view=unread&kind=enquiry').expect(200);assert.ok(!unreadPage.text.includes('notification-inbox-row is-read'));
+ await manager.get('/admin/notifications?view=unread&kind=application').expect(200);
  await admin.post(`/admin/enquiries/${result.insertId}/delete`).type('form').send({_csrf:csrfAdmin}).expect(302);
 });
 test('Self-disable is rejected and disabled users lose access immediately',async()=>{
@@ -185,11 +196,11 @@ test('Talent registration, review, directory privacy, enquiries and private proj
 
 
 test('Every publishing module saves and publishes through the shared editor',async()=>{
- for(const type of ['news','blog','career','team','home','page','legal']){
+ for(const type of ['news','blog','career','team','home','page','legal','media_partner']){
   await admin.get(`/admin/content?type=${type}`).expect(200);
   await admin.get(`/admin/content/new?type=${type}`).expect(200);
-  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type,title:`Module ${type}`,slug:`module-${type}`,summary:'Module verification',body:'Test content',status:'published',page:type==='legal'?'legal':'about'}).expect(302);
-  const entry=(await request(app).get('/api/site')).body.entries.find(e=>e.slug===`module-${type}`);assert.ok(entry);assert.equal(entry.type,type);
+  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type,title:`Module ${type}`,slug:`module-${type.replaceAll("_","-")}`,summary:'Module verification',body:'Test content',status:'published',page:type==='legal'?'legal':'about'}).expect(302);
+  const entry=(await request(app).get('/api/site')).body.entries.find(e=>e.slug===`module-${type.replaceAll("_","-")}`);assert.ok(entry);assert.equal(entry.type,type);
  }
 });
 
@@ -199,4 +210,201 @@ test('Registration pagination reaches records beyond the old 200 limit',async()=
  const first=await admin.get('/admin/talent?q=Pagination').expect(200);assert.match(first.text,/205 matching registrations/);assert.doesNotMatch(first.text,/page0@example.test/);
  const last=await admin.get('/admin/talent?q=Pagination&page=9').expect(200);assert.match(last.text,/page0@example.test/);
  const past=await admin.get('/admin/talent?q=Pagination&page=999').expect(200);assert.match(past.text,/Page 9 of 9/);
+});
+
+test('Blog deletion requires publishing access and CSRF, and removes the public post',async()=>{
+ const result=await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status,published_at) VALUES("blog","Delete test","delete-blog-test","Summary","Body",?,"published",UTC_TIMESTAMP())',[JSON.stringify({})]);
+ const id=result.insertId;
+ await admin.post(`/admin/content/${id}/delete`).expect(403);
+ await manager.post(`/admin/content/${id}/delete`).type('form').send({_csrf:csrfManager}).expect(403);
+ await admin.post(`/admin/content/${id}/delete`).type('form').send({_csrf:csrfAdmin}).expect(302);
+ assert.equal((await rows(db,'SELECT id FROM cms_entries WHERE id=?',[id])).length,0);
+ assert.ok(!(await request(app).get('/api/site')).body.entries.some(entry=>entry.id===id));
+ await admin.post(`/admin/content/${id}/delete`).type('form').send({_csrf:csrfAdmin}).expect(404);
+ const nonBlog=await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata) VALUES("news","Retain news","retain-news-test","Summary","Body",?)',[JSON.stringify({})]);
+ await admin.post(`/admin/content/${nonBlog.insertId}/delete`).type('form').send({_csrf:csrfAdmin}).expect(422);
+ assert.equal((await rows(db,'SELECT id FROM cms_entries WHERE id=?',[nonBlog.insertId])).length,1);
+});
+
+test('Slugs generate from titles, handle duplicates, and remain stable on edits',async()=>{
+ for(const type of ['blog','career','news','team','home','page','legal','media_partner']){
+  const data={_csrf:csrfAdmin,type,title:'Café & Studio: New Story!',status:'draft',page:'about'};
+  await admin.post('/admin/content/save').type('form').send(data).expect(302);
+  await admin.post('/admin/content/save').type('form').send(data).expect(302);
+  const items=await rows(db,'SELECT id,slug FROM cms_entries WHERE type=? AND title=? ORDER BY id',[type,data.title]);
+  assert.deepEqual(items.map(item=>item.slug),['cafe-studio-new-story','cafe-studio-new-story-2']);
+  await admin.post('/admin/content/save').type('form').send({...data,id:items[0].id,title:'Changed title'}).expect(302);
+  assert.equal((await rows(db,'SELECT slug FROM cms_entries WHERE id=?',[items[0].id]))[0].slug,items[0].slug);
+ }
+ await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'blog',title:'🎬',status:'draft'}).expect(302);
+ assert.equal((await rows(db,'SELECT slug FROM cms_entries WHERE title=?',['🎬']))[0].slug,'content');
+});
+
+test('Dedicated blog editor uploads banners and cannot publish other content types',async()=>{
+ const form=await admin.get('/admin/content/new?type=blog').expect(200);
+ assert.match(form.text,/Upload banner/);assert.ok(form.text.includes('action="/admin/blog/save"'));
+ for(const name of ['category','role','location','page','author'])assert.ok(!form.text.includes(`name="${name}"`));
+ await admin.post('/admin/blog/save').type('form').send({_csrf:csrfAdmin,type:'news',title:'Wrong form',status:'draft'}).expect(422);
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ await admin.post('/admin/blog/save').field('_csrf',csrfAdmin).field('type','blog').field('title','Banner upload post').field('body','Blog body').field('status','published').field('banner_alt','Test banner description').attach('image',image,{filename:'blog-banner.png',contentType:'image/png'}).expect(302);
+ const post=(await request(app).get('/api/site')).body.entries.find(entry=>entry.slug==='banner-upload-post');
+ assert.ok(post.image_url);assert.equal(post.image_alt,'Test banner description');assert.equal(post.type,'blog');
+ await request(app).get(post.image_url).expect(200);
+ await admin.post('/admin/blog/save').field('_csrf',csrfAdmin).field('type','blog').field('title','Invalid banner post').field('status','draft').field('banner_alt','Bad banner').attach('image',Buffer.from('<html>fake</html>'),{filename:'fake.png',contentType:'image/png'}).expect(422);
+});
+
+test('Career editor is dedicated and page management respects publishing permissions',async()=>{
+ const form=await admin.get('/admin/content/new?type=career').expect(200);
+ assert.ok(form.text.includes('action="/admin/career/save"'));assert.ok(form.text.includes('Role details'));
+ for(const name of ['page','author','image_id'])assert.ok(!form.text.includes(`name="${name}"`));
+ await admin.post('/admin/career/save').type('form').send({_csrf:csrfAdmin,type:'blog',title:'Wrong content',status:'draft'}).expect(422);
+ await admin.post('/admin/career/save').type('form').send({_csrf:csrfAdmin,type:'career',title:'Dedicated role',summary:'Role summary',body:'Responsibilities',role:'Freelance',location:'Remote',category:'Production',status:'draft',publish_action:'published'}).expect(302);
+ const role=(await request(app).get('/api/site')).body.entries.find(entry=>entry.slug==='dedicated-role');assert.equal(role.type,'career');assert.equal(role.metadata.location,'Remote');assert.equal(role.metadata.page,undefined);
+ const hub=await admin.get('/admin/pages').expect(200);assert.match(hub.text,/Website pages/);assert.match(hub.text,/USERS & MEMBERS/);assert.match(hub.text,/ENQUIRIES/);
+ await manager.get('/admin/pages').expect(403);
+ const pageForm=await admin.get('/admin/content/new?type=page&page=services').expect(200);assert.match(pageForm.text,/<option selected>services/);
+ await admin.get('/admin/content?type=page&page=services').expect(200);
+});
+
+test('Career applications submit privately and are reviewed by enquiry staff',async()=>{
+ const career=await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status,published_at) VALUES("career","Application role","application-role","Summary","Details",?,"published",UTC_TIMESTAMP())',[JSON.stringify({})]);
+ const guest=request.agent(app),csrf=(await guest.get('/api/csrf')).body.token;
+ const send=()=>guest.post(`/api/careers/${career.insertId}/applications`).set('X-CSRF-Token',csrf).field('name','Test applicant').field('email','applicant@example.test').field('phone','1234567890').field('city','Mumbai').field('experience','Two years').field('message','Test application').field('consent','true');
+ const response=await send().attach('attachment',Buffer.from('%PDF-1.4 Test resume'),{filename:'resume.pdf',contentType:'application/pdf'}).expect(201);assert.match(response.body.reference,/APP-/);
+ const application=(await rows(db,'SELECT * FROM career_applications WHERE email=?',['applicant@example.test']))[0];
+ await guest.get(`/admin/applications/${application.id}/resume`).expect(302);
+ await admin.get(`/admin/applications/${application.id}`).expect(200).then(r=>assert.match(r.text,/Test applicant/));
+ await manager.get(`/admin/applications/${application.id}/resume`).expect(200).expect('Content-Disposition',/attachment/);
+ await manager.post(`/admin/applications/${application.id}`).type('form').send({_csrf:csrfManager,status:'shortlisted'}).expect(302);
+ assert.equal((await rows(db,'SELECT status FROM career_applications WHERE id=?',[application.id]))[0].status,'shortlisted');
+ const publicSite=await request(app).get('/api/site');assert.ok(!publicSite.text.includes('applicant@example.test'));assert.ok(!publicSite.text.includes(application.resume_filename));
+ await send().attach('attachment',Buffer.from('<script>bad</script>'),{filename:'fake.pdf',contentType:'application/pdf'}).expect(422);
+ await rows(db,'UPDATE cms_entries SET status="archived" WHERE id=?',[career.insertId]);await send().expect(404);
+});
+test('Member lists filter roles and detail pages never expose password hashes',async()=>{
+ const accounts=await rows(db,'SELECT id,role,name FROM talent_accounts ORDER BY id LIMIT 2');
+ for(const role of ['artist','hirer'])await admin.get(`/admin/talent?role=${role}`).expect(200).then(r=>assert.match(r.text,/View/));
+ for(const account of accounts)await admin.get(`/admin/talent/${account.id}`).expect(200).then(r=>{assert.ok(r.text.includes(account.name));assert.ok(!r.text.includes('scrypt:'));});
+ await manager.get(`/admin/talent/${accounts[0].id}`).expect(403);
+});
+
+test('Enhanced admin forms return field errors without saving invalid content',async()=>{
+ const form=await admin.get('/admin/content/new?type=blog').expect(200);assert.match(form.text,/admin-ui.css/);
+ const badTitle=await admin.post('/admin/blog/save').set('Accept','application/json').type('form').send({_csrf:csrfAdmin,type:'blog',title:'',summary:'Keep this summary',body:'Keep my draft body',status:'draft'}).expect(422);
+ assert.ok(badTitle.body.fields.title);
+ const image=await admin.post('/admin/blog/save').set('Accept','application/json').field('_csrf',csrfAdmin).field('type','blog').field('title','Failed upload should not save').field('body','Preserved body').field('status','draft').field('banner_alt','Banner').attach('image',Buffer.from('<html>fake</html>'),{filename:'bad.png',contentType:'image/png'}).expect(422);
+ assert.ok(image.body.fields.image);assert.equal((await rows(db,'SELECT id FROM cms_entries WHERE title=?',['Failed upload should not save'])).length,0);
+ await admin.post('/admin/blog/save').set('Accept','application/json').type('form').send({_csrf:csrfAdmin,type:'blog',title:'Enhanced save',body:'Saved draft',status:'draft'}).expect(302).expect('Location','/admin/content?type=blog&saved=1');
+});
+
+test('Publishing previews remain private and draft actions do not publish',async()=>{
+ await admin.post('/admin/blog/save').type('form').send({_csrf:csrfAdmin,type:'blog',title:'Private preview',body:'<script>not executable</script>',status:'published',publish_action:'draft'}).expect(302);
+ const entry=(await rows(db,'SELECT id,status FROM cms_entries WHERE title=?',['Private preview']))[0];assert.equal(entry.status,'draft');
+ await request(app).get(`/admin/content/${entry.id}/preview`).expect(302);
+ await manager.get(`/admin/content/${entry.id}/preview`).expect(403);
+ const preview=await admin.get(`/admin/content/${entry.id}/preview`).expect(200);assert.match(preview.text,/&lt;script&gt;not executable&lt;\/script&gt;/);assert.match(preview.text,/Private publishing preview/);
+ assert.ok(!(await request(app).get('/api/site')).body.entries.some(item=>item.id===entry.id));
+ const editor=await admin.get(`/admin/content/${entry.id}`).expect(200);assert.match(editor.text,/Preview changes/);assert.match(editor.text,/Save selected status/);
+ await admin.post('/admin/blog/save').type('form').send({_csrf:csrfAdmin,type:'blog',id:entry.id,title:'Private preview',status:'draft',publish_action:'published'}).expect(302);
+ assert.equal((await rows(db,'SELECT status FROM cms_entries WHERE id=?',[entry.id]))[0].status,'published');
+});
+
+test('Dedicated news editor handles banners, previews, and publishing without unrelated fields',async()=>{
+ const form=await admin.get('/admin/content/new?type=news').expect(200);assert.ok(form.text.includes('action="/admin/news/save"'));assert.match(form.text,/Upload banner/);assert.match(form.text,/Preview changes/);
+ for(const name of ['category','role','location','page','author'])assert.ok(!form.text.includes(`name="${name}"`));
+ await admin.post('/admin/news/save').type('form').send({_csrf:csrfAdmin,type:'career',title:'Wrong form',status:'draft'}).expect(422);
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ await admin.post('/admin/news/save').field('_csrf',csrfAdmin).field('type','news').field('title','Studio news banner').field('body','News text').field('status','published').field('publish_action','draft').field('banner_alt','News banner description').attach('image',image,{filename:'news-banner.png',contentType:'image/png'}).expect(302);
+ const draft=(await rows(db,'SELECT id,slug,image_id,status FROM cms_entries WHERE title=?',['Studio news banner']))[0];assert.equal(draft.status,'draft');assert.ok(draft.image_id);
+ assert.ok(!(await request(app).get('/api/site')).body.entries.some(e=>e.id===draft.id));
+ const edit=await admin.get(`/admin/content/${draft.id}`).expect(200);assert.match(edit.text,/Edit news post/);assert.match(edit.text,/Current news banner/);
+ await admin.post('/admin/news/save').type('form').send({_csrf:csrfAdmin,type:'news',id:draft.id,title:'Updated news title',body:'Published news text',image_id:draft.image_id,status:'draft',publish_action:'published'}).expect(302);
+ const published=(await request(app).get('/api/site')).body.entries.find(e=>e.id===draft.id);assert.equal(published.slug,draft.slug);assert.equal(published.image_alt,'News banner description');assert.ok(published.image_url);
+ await admin.get(`/admin/content/${draft.id}/preview`).expect(200);
+ await admin.post('/admin/news/save').set('Accept','application/json').field('_csrf',csrfAdmin).field('type','news').field('title','Invalid news upload').field('status','draft').field('banner_alt','Bad file').attach('image',Buffer.from('fake'),{filename:'fake.png',contentType:'image/png'}).expect(422).then(r=>assert.ok(r.body.fields.image));
+});
+
+test('Admin tables sort and paginate filtered records while bulk actions stay permission-checked and atomic',async()=>{
+ const ids=[];for(let i=0;i<30;i++){const r=await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status) VALUES("news",?,?,"","",?,"draft")',[`Table item ${String(i).padStart(2,'0')}`,`table-item-${i}`,JSON.stringify({})]);ids.push(r.insertId);}
+ const first=await admin.get('/admin/content?type=news&q=Table%20item&sort=title&dir=asc').expect(200);assert.match(first.text,/Showing 1–25 of 30/);assert.match(first.text,/Table item 00/);assert.ok(!first.text.split('<tbody>')[1].split('</tbody>')[0].includes('Table item 29'));
+ const second=await admin.get('/admin/content?type=news&q=Table%20item&sort=title&dir=asc&p=2').expect(200);assert.match(second.text,/Table item 29/);assert.match(second.text,/Showing 26–30 of 30/);
+ const descending=await admin.get('/admin/content?type=news&q=Table%20item&sort=title&dir=desc&per_page=50').expect(200);assert.match(descending.text,/Showing 1–30 of 30/);const sortedBody=descending.text.split('<tbody>')[1].split('</tbody>')[0];assert.ok(sortedBody.indexOf('Table item 29')<sortedBody.indexOf('Table item 00'));
+ await admin.get('/admin/content?sort=title%3BDROP%20TABLE%20cms_entries&dir=unsafe&per_page=999').expect(200);
+ await manager.post('/admin/tables/content/bulk').type('form').send({_csrf:csrfManager,ids:[ids[0]],status:'archived'}).expect(403);
+ await admin.post('/admin/tables/content/bulk').type('form').send({ids:[ids[0]],status:'archived'}).expect(403);
+ await admin.post('/admin/tables/content/bulk').type('form').send({_csrf:csrfAdmin,ids:[ids[0],999999999],status:'archived'}).expect(422);
+ assert.equal((await rows(db,'SELECT status FROM cms_entries WHERE id=?',[ids[0]]))[0].status,'draft');
+ await admin.post('/admin/tables/content/bulk').type('form').send({_csrf:csrfAdmin,ids:ids.slice(0,2),status:'archived',return_to:'/admin/content?type=news&q=Table%20item'}).expect(302);
+ assert.equal((await rows(db,'SELECT COUNT(*) AS total FROM cms_entries WHERE id IN (?,?) AND status="archived"',ids.slice(0,2)))[0].total,2);
+ await admin.post('/admin/tables/content/bulk').type('form').send({_csrf:csrfAdmin,ids:[ids[2]],status:'published'}).expect(422);
+ await admin.post('/admin/tables/content/bulk').type('form').send({_csrf:csrfAdmin,ids:[ids[2]],status:'draft',return_to:'https://example.com/'}).expect(422);
+ const application=(await rows(db,'SELECT id FROM career_applications LIMIT 1'))[0];await manager.post('/admin/tables/applications/bulk').type('form').send({_csrf:csrfManager,ids:[application.id],status:'reviewing'}).expect(302);
+ const enquiryInsert=await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,consent_at,consent_version) VALUES("general","Bulk enquiry","bulk@example.test","Bulk test","Test message",UTC_TIMESTAMP(),"test")');const enquiry={id:enquiryInsert.insertId};await manager.post('/admin/tables/enquiries/bulk').type('form').send({_csrf:csrfManager,ids:[enquiry.id],status:'closed'}).expect(302);
+ const member=(await rows(db,'SELECT id FROM talent_accounts LIMIT 1'))[0];await admin.post('/admin/tables/members/bulk').type('form').send({_csrf:csrfAdmin,ids:[member.id],status:'approved'}).expect(422);
+ await admin.post('/admin/tables/members/bulk').type('form').send({_csrf:csrfAdmin,ids:[member.id],status:'pending'}).expect(302);
+ for(const url of ['/admin/enquiries?sort=name&dir=asc','/admin/applications?sort=opportunity&dir=asc','/admin/talent?sort=name&dir=asc'])await admin.get(url).expect(200);
+});
+
+test('Recruitment notes, history and PDF previews stay private and record status changes',async()=>{
+ const application=(await rows(db,'SELECT * FROM career_applications LIMIT 1'))[0];
+ await manager.post(`/admin/applications/${application.id}`).type('form').send({_csrf:csrfManager,status:'shortlisted',note:'<script>Private interview feedback</script>'}).expect(302);
+ assert.equal((await rows(db,'SELECT note FROM career_application_notes WHERE application_id=?',[application.id]))[0].note,'<script>Private interview feedback</script>');
+ let history=await rows(db,'SELECT * FROM career_application_history WHERE application_id=? ORDER BY id DESC',[application.id]);assert.equal(history[0].to_status,'shortlisted');
+ const count=history.length;await manager.post(`/admin/applications/${application.id}`).type('form').send({_csrf:csrfManager,status:'shortlisted',note:'Second note'}).expect(302);
+ assert.equal((await rows(db,'SELECT id FROM career_application_history WHERE application_id=?',[application.id])).length,count);
+ const page=await admin.get(`/admin/applications/${application.id}`).expect(200);assert.match(page.text,/&lt;script&gt;Private interview feedback&lt;\/script&gt;/);assert.match(page.text,/Applicant history/);
+ await request(app).get(`/admin/applications/${application.id}/resume/preview`).expect(302);
+ await manager.get(`/admin/applications/${application.id}/resume/preview`).expect(200).expect('Content-Type',/application\/pdf/).expect('Content-Disposition',/inline/).expect('X-Frame-Options','SAMEORIGIN').expect('Cache-Control','private, no-store');
+ const site=await request(app).get('/api/site');assert.ok(!site.text.includes('Private interview feedback'));
+ await manager.post('/admin/tables/applications/bulk').type('form').send({_csrf:csrfManager,ids:[application.id],status:'reviewing'}).expect(302);
+ history=await rows(db,'SELECT * FROM career_application_history WHERE application_id=? ORDER BY id DESC',[application.id]);assert.equal(history[0].from_status,'shortlisted');assert.equal(history[0].to_status,'reviewing');
+});
+
+test('Contact, map and footer settings are editable, validated and publicly available',async()=>{
+ const data={_csrf:csrfAdmin,contact_email:'studio@example.test',contact_phone:'+91 12345 67890',contact_address:'Studio building\nMumbai',contact_note:'',map_location:'Mumbai studio address',map_caption:'Visit our studio',footer_kicker:'WORK WITH US',footer_title:'Make your',footer_accent:'next film.',footer_description:'A studio conversation.\nA shared starting point.',footer_cta_label:'Get in touch',footer_copyright:'Kemsor Studios',footer_social_label:'Connect',privacy_notice:'Enquiry privacy notice',consent_version:'test-v1',enquiries_enabled:'on'};
+ await admin.post('/admin/settings').type('form').send(data).expect(302);
+ const site=(await request(app).get('/api/site')).body;assert.equal(site.settings.contact_email,data.contact_email);assert.equal(site.settings.contact_address,data.contact_address);assert.equal(site.settings.map_location,data.map_location);assert.equal(site.settings.footer_title,data.footer_title);assert.equal(site.settings.contact_note,'');
+ const form=await admin.get('/admin/settings').expect(200);assert.match(form.text,/Footer content/);assert.match(form.text,/Location map/);
+ await manager.post('/admin/settings').type('form').send({...data,_csrf:csrfManager}).expect(403);
+ await admin.post('/admin/settings').set('Accept','application/json').type('form').send({...data,contact_email:'invalid'}).expect(422).then(r=>assert.ok(r.body.fields.contact_email));
+ await admin.post('/admin/settings').type('form').send({...data,contact_phone:'<script>'}).expect(422);
+ assert.equal((await request(app).get('/api/site')).body.settings.contact_phone,data.contact_phone);
+ await admin.post('/admin/settings').type('form').send({...data,map_location:''}).expect(302);assert.equal((await request(app).get('/api/site')).body.settings.map_location,'');
+});
+
+ test('Notification history persists and category preferences are private to each account',async()=>{
+ const result=await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,consent_at,consent_version) VALUES("general","History test","history@example.test","History enquiry","Test only",UTC_TIMESTAMP(),"test")');
+ const key=`enquiry:${result.insertId}`;
+ let feed=(await manager.get('/admin/notifications.json').expect(200)).body;
+ assert.equal(feed.items.find(item=>item.key===key).active,true);
+ await manager.post('/admin/notifications/preferences').type('form').send({_csrf:csrfManager,pref_application:'on',pref_talent:'on'}).expect(302);
+ feed=(await manager.get('/admin/notifications.json')).body;
+ assert.ok(!feed.items.some(item=>item.key===key));
+ assert.ok((await admin.get('/admin/notifications.json')).body.items.some(item=>item.key===key));
+ await rows(db,'UPDATE cms_enquiries SET status="closed" WHERE id=?',[result.insertId]);
+ const history=await manager.get('/admin/notifications?view=history&kind=enquiry').expect(200);
+ assert.match(history.text,/History enquiry/);assert.match(history.text,/Completed/);
+ await manager.post('/admin/notifications/preferences').type('form').send({_csrf:csrfManager,pref_enquiry:'on',pref_application:'on'}).expect(302);
+ const item=(await manager.get('/admin/notifications.json')).body.items.find(item=>item.key===key);
+ assert.equal(item.active,false);assert.equal(item.read,true);
+ const prefs=await rows(db,'SELECT category FROM cms_notification_preferences WHERE user_id=(SELECT id FROM cms_users WHERE email=?)',['manager@example.test']);
+ assert.ok(!prefs.some(item=>item.category==='talent'));
+ });
+
+test('Image library searches, filters, previews and protects referenced images',async()=>{
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ await admin.post('/admin/media').field('_csrf',csrfAdmin).field('alt','Library unique description').attach('image',image,{filename:'library-unique.png',contentType:'image/png'}).expect(302);
+ const media=(await rows(db,'SELECT * FROM cms_media WHERE original_name="library-unique.png"'))[0];
+ const page=await admin.get('/admin/media?q=Library%20unique&format=image%2Fpng&usage=unused').expect(200);assert.match(page.text,/library-unique.png/);assert.match(page.text,/data-image-preview/);
+ const absent=await admin.get('/admin/media?q=Library%20unique&format=image%2Fjpeg').expect(200);assert.ok(!absent.text.includes('library-unique.png'));
+ await manager.post(`/admin/media/${media.id}/delete`).type('form').send({_csrf:csrfManager}).expect(403);
+ await admin.post(`/admin/media/${media.id}/delete`).type('form').send({}).expect(403);
+ const entry=await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status,image_id) VALUES("blog","Library reference","library-reference","","",?,"draft",?)',['{}',media.id]);
+ await admin.post(`/admin/media/${media.id}/delete`).type('form').send({_csrf:csrfAdmin}).expect(409);
+ const used=await admin.get('/admin/media?q=Library%20unique&usage=used').expect(200);assert.match(used.text,/In use/);assert.ok(!used.text.includes(`/admin/media/${media.id}/delete`));
+ const editorPage=await admin.get(`/admin/content/${entry.insertId}`).expect(200);assert.match(editorPage.text,/data-library-banner/);assert.match(editorPage.text,/data-selected-preview/);
+ await rows(db,'DELETE FROM cms_entries WHERE id=?',[entry.insertId]);
+ await admin.post(`/admin/media/${media.id}/delete`).type('form').send({_csrf:csrfAdmin}).expect(302);
+ assert.equal((await rows(db,'SELECT id FROM cms_media WHERE id=?',[media.id])).length,0);
+ await request(app).get(`/media/${media.id}`).expect(404);
 });

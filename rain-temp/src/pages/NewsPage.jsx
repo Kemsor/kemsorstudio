@@ -1,27 +1,26 @@
-import React from 'react';
-import { PageHero, SectionHeading, PageCTA, TextLink } from '../PageUI.jsx';
-
-import { notes } from '../productionNotes';
-import { CmsEntries } from '../CmsContent';
+import React, { useState } from 'react';
+import { CmsText, useCms } from '../CmsContent';
+import './news-page.css';
 
 export function NewsPage() {
-  return <>
-    <PageHero eyebrow="NEWSROOM / STUDIO NOTES" title="A closer look" accent="at the work." description="Notes on the process, the practical details and the conversations that bring stories to screen." image="/assets/stills/office-scene.webp" alt="A character seated across a desk in a supplied dramatic scene." caption="SUPPLIED SCREEN IMAGE / IN CONVERSATION" />
-    <CmsEntries type="news" heading="Studio updates." />
-    <section className="page-section" id="studio-notes">
-      <SectionHeading index="01" label="FROM THE STUDIO" title={<>Useful things<br />to start with.</>} description="Three practical notes for a project’s next chapter." />
-      <div className="page-principles">{notes.map(note => <article className="page-card" key={note.id} data-reveal><p className="page-eyebrow">{note.category}</p><h3>{note.title}</h3><p>{note.summary}</p><TextLink href={`#${note.id}`}>Read the note</TextLink></article>)}</div>
-    </section>
-    <section className="page-section" aria-label="Production notes">{notes.map(note => <article className="editorial-note page-split" id={note.id} key={note.id} data-reveal>
-      <div className="page-copy"><p className="page-eyebrow">{note.category}</p><h2>{note.title}</h2></div>
-      <div className="page-copy"><p className="page-lead">{note.introduction}</p>{note.sections.map(([title, copy]) => <section key={title}><h3>{title}</h3><p>{copy}</p></section>)}<TextLink href="#studio-notes">Back to the notes</TextLink></div>
-    </article>)}</section>
-    <section className="page-section page-grid" id="press-media" data-reveal>
-      <div className="page-copy"><p className="page-eyebrow">PRESS & MEDIA</p><h2>Information<br />from the studio.</h2><p className="page-lead">Press materials and a direct media contact will be published here when they are available.</p><p>For now, use the downloadable brief to record the publication, subject, material requested and your deadline. Keep the copy ready for a future conversation.</p><TextLink href="/contact/#project-brief">Prepare a media request</TextLink></div>
-      <div className="page-card"><p className="page-eyebrow">STUDIO ANNOUNCEMENTS</p><h3>More to share.<br />When it is ready.</h3><p>No studio announcements are published here yet. Project updates and official news will appear in this space as they are made available.</p><p className="page-caption">The production notes above are practical guidance, separate from studio announcements.</p></div>
-    </section>
-    <PageCTA eyebrow="PUT THE IDEA INTO WORDS" title={<>The first conversation<br />starts with a few details.</>} description="Tell us what you are working on and which part of the journey needs support." href="/contact/#project-brief">Prepare your brief</PageCTA>
-  </>;
+ const { entries, connected } = useCms();
+ const [paused,setPaused] = useState(false);
+ const news = entries.filter(entry => entry.type === 'news');
+ const partners = entries.filter(entry => entry.type === 'media_partner');
+ return <div className="newsroom-page">
+  <header className="newsroom-heading"><p className="page-eyebrow">KEMSOR STUDIOS</p><h1>News</h1></header>
+  <section className="newsroom-stories" aria-label="Studio news">
+   {!news.length && <p className="newsroom-empty" role="status">{connected ? 'Studio news will appear here as updates are published.' : 'Loading studio news…'}</p>}
+   {news.map(entry => <article className="newsroom-story" key={entry.id} id={entry.slug}>
+    {entry.image_url && <img src={entry.image_url} alt={entry.image_alt || ''} loading="lazy"/>}
+    <div>{entry.published_at && <time dateTime={entry.published_at.replace(' ','T')+'Z'}>{new Date(entry.published_at.replace(' ','T')+'Z').toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</time>}<h2>{entry.title}</h2>{entry.summary && <p className="newsroom-summary">{entry.summary}</p>}<CmsText text={entry.body}/></div>
+   </article>)}
+  </section>
+  <section className="media-partners" id="press-media" aria-labelledby="media-partners-title">
+   <div className="media-partners-heading"><h2 id="media-partners-title">Media partners</h2>{partners.length>0 && <button type="button" onClick={()=>setPaused(value=>!value)} aria-pressed={paused}>{paused?'Play slider':'Pause slider'}</button>}</div>
+   {partners.some(partner=>partner.metadata?.category==='sample') && <p className="media-partners-note">Sample partner logos — the studio will update this list.</p>}
+   {!partners.length ? <p>Media partners will appear here when published.</p> : <div className="media-partners-window" aria-label="Media partner logos"><div className={`media-partners-track${paused?' is-paused':''}`} style={{'--partner-duration':`${Math.max(8,partners.length*1.6)}s`}}>{[0,1,2,3].map(copy=><div className="media-partners-set" key={copy} aria-hidden={copy>0?true:undefined}>{partners.map((partner,index)=><div className="media-partner-logo" key={partner.id}>{partner.image_url?<img src={partner.image_url} alt={partner.title} loading="lazy"/>:<span className={`sample-wordmark wordmark-${index%3}`}><b aria-hidden="true">{partner.title.split(' ').map(word=>word[0]).join('')}</b>{partner.title}</span>}</div>)}</div>)}</div></div>}
+  </section>
+ </div>;
 }
-
 export default NewsPage;

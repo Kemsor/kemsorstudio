@@ -172,6 +172,8 @@ html[data-theme=dark] .page-hero h1>span{color:#211A14}
 
 /* Supporting pages share a more spacious editorial rhythm. */
 .inner-page .page-hero{padding-top:40px;padding-bottom:clamp(64px,7vw,112px)}
+.creative-site:not(.site-page-home) main.inner-page{padding-top:clamp(112px,7vw,132px)}
+.creative-site:not(.site-page-home) main.inner-page :is(section[id],article[id],[id="leadership"]){scroll-margin-top:86px}
 .inner-page .page-hero-docket{color:var(--muted);padding-bottom:24px;margin-bottom:36px}
 .inner-page .page-hero-grid{gap:7%;align-items:center}
 .inner-page .page-hero h1{font-size:clamp(52px,6.2vw,108px);line-height:1.04;letter-spacing:-.06em;overflow-wrap:break-word}
@@ -188,3 +190,19 @@ html[data-theme=dark] .page-hero h1>span{color:#211A14}
 .inner-page .page-jump-nav a{min-height:44px;font-size:14px}
 @media(max-width:760px){.inner-page .page-hero{padding-top:24px;padding-bottom:56px}.inner-page .page-hero-docket{margin-bottom:28px;gap:16px}.inner-page .page-hero-grid{gap:32px}.inner-page .page-hero h1{font-size:clamp(44px,9.5vw,72px)}.inner-page .page-section{padding-block:60px}.inner-page .page-principles,.inner-page .process-grid{gap:30px 24px}.inner-page .page-jump-nav a{font-size:13px}}
 @media(max-width:480px){.inner-page .page-hero h1{font-size:clamp(40px,11vw,54px)}}
+
+/* Reserve the complete fixed-header footprint on every secondary route. */
+@media(max-width:1440px){.creative-site:not(.site-page-home) main.inner-page{padding-top:96px}}
+@media(max-width:760px){.creative-site:not(.site-page-home) main.inner-page{padding-top:78px}}
+
+/* Partnership links open a focused enquiry form within the site header and footer. */
+.creative-site.site-page-contact:has(.partner-enquiry-page){min-height:100svh;background:#f7f3ec}
+.creative-site .inner-page:has(.partner-enquiry-page){padding:0;min-height:70svh}
+.partner-enquiry-page{width:min(100% - 40px,780px);margin:0 auto;padding:40px 0 64px}
+.partner-enquiry-heading{margin-bottom:28px}.partner-enquiry-heading>a{font-size:13px;letter-spacing:.14em;font-weight:700;color:#765039;text-decoration:none}
+.partner-enquiry-heading h1{margin:20px 0 0;font-size:clamp(28px,4vw,42px);line-height:1.2;color:#34251c}
+.enquiry-fields{border:0;padding:0;margin:0;min-width:0}.enquiry-fields:disabled{opacity:.65}
+.partner-enquiry-page .cms-enquiry-form{width:100%;margin:0;padding:28px;background:#fffdf9;border:1px solid #d8cbbd;border-radius:12px}
+.partner-enquiry-page label,.partner-enquiry-page input,.partner-enquiry-page select,.partner-enquiry-page textarea{font-size:16px}
+.partner-enquiry-page .creative-cta{margin-top:20px}
+@media(max-width:600px){.partner-enquiry-page{width:calc(100% - 28px);padding-top:24px}.partner-enquiry-page .cms-enquiry-form{padding:20px}.partner-enquiry-page .form-fields{grid-template-columns:1fr}}

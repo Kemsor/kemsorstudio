@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useReducedMotion } from './useMotion';
 import './ember.css';
 
 // The earlier template's fire-filled letterforms, rendered at 12fps only in view.
 export default function EmberWordmark({ paused: externalPaused = false }) {
   const surface=useRef(null), host=useRef(null), flameTime=useRef(2.7);
-  const [paused,setPaused]=useState(false);
   const reduced=useReducedMotion();
-  const stopped=paused||externalPaused||reduced;
+  const stopped=externalPaused||reduced;
   useEffect(() => {
     const canvas=surface.current;
     const context=canvas.getContext('2d');
@@ -52,5 +51,5 @@ export default function EmberWordmark({ paused: externalPaused = false }) {
     document.fonts.load('700 100px "Manrope"').then(()=>{if(!disposed&&inView)resize();});
     return()=>{disposed=true;cancelAnimationFrame(frame);observer.disconnect();sizes.disconnect();document.removeEventListener('visibilitychange',sync);};
   },[stopped]);
-  return <div className="ember-panel" ref={host} data-motion="paused"><div className="ember-top"><span>KEMSOR / IN MOTION</span><button type="button" disabled={externalPaused||reduced} onClick={()=>setPaused(value=>!value)} aria-label={stopped?'Play wordmark animation':'Pause wordmark animation'} aria-pressed={stopped}>{stopped?'▶':'Ⅱ'}</button></div><div className="ember-wordmark"><span>KEMSOR</span><canvas ref={surface} aria-hidden="true" /></div><p>BRING THE IDEA.<br />LET’S FIND A STARTING POINT.</p></div>;
+  return <div className="ember-panel ember-wordmark-only" ref={host} data-motion="paused"><div className="ember-wordmark"><span>KEMSOR</span><canvas ref={surface} aria-hidden="true" /></div></div>;
 }

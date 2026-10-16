@@ -31,9 +31,8 @@ export default function Header({ page = 'home' } = {}) {
       setScrolled(current > 24);
       const delta = current - previous;
       distance = Math.sign(delta) === Math.sign(distance) ? distance + delta : delta;
-      if (page === 'home' || current < 100 || drawerOpen || activePanel || headerRef.current?.contains(document.activeElement)) {
-        setHidden(false); distance = 0;
-      } else if (Math.abs(distance) > 16) { setHidden(distance > 0); distance = 0; }
+      setHidden(false);
+      distance = 0;
       previous = current;
     };
     update();
@@ -180,9 +179,9 @@ export default function Header({ page = 'home' } = {}) {
   };
 
   return <>
-    <header ref={headerRef} className="creative-header" data-page={page} data-overlay={page === 'home'} data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel} onFocusCapture={() => setHidden(false)}>
+    <header ref={headerRef} className="creative-header" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel} onFocusCapture={() => setHidden(false)}>
       <div className="creative-header-inner">
-        <a className="creative-header-brand" href="/#home" onClick={event => followLink('/#home', event)} aria-label="Kemsor Studios home">
+        <a className="creative-header-brand" href="/" onClick={event => followLink('/', event)} aria-label="Kemsor Studios home">
           <picture><source srcSet="/assets/kemsor-logo.webp" type="image/webp" /><img src="/assets/kemsor-logo.svg" alt="" width="3650" height="3300" decoding="async" /></picture>
         </a>
         <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerOpen} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
@@ -198,10 +197,13 @@ export default function Header({ page = 'home' } = {}) {
             </div>)}
           </div>
           {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="creative-nav-mobile-cta" aria-current={page==='script-to-production'?'page':undefined} onClick={event => followLink('/script-to-production/', event)}>Script to Production <span aria-hidden="true">↗</span></a>}
+          <div className="creative-nav-mobile-account" aria-label="Account">
+            {!loading&&(user?<LogoutButton className="creative-nav-mobile-login"/>:<a href="/login/" className="creative-nav-mobile-login" aria-current={page==='login'?'page':undefined} onClick={event => followLink('/login/', event)}>Login <span aria-hidden="true">↗</span></a>)}
+          </div>
           <p className="creative-nav-drawer-foot">Film. Series. Documentaries.<br />Good stories start with a conversation.</p>
         </nav>
         <div className="creative-header-controls">
-          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}>Script to Production <span aria-hidden="true">↗</span></a>}
+          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">Script to Production</b> <span aria-hidden="true">↗</span></a>}
           <div className="header-account-links" aria-label="Account links">{!loading&&(user?<LogoutButton className="header-login"/>:<a href="/login/" className="header-login" aria-current={page==='login'?'page':undefined}>Login</a>)}</div>
           <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { clearHoverTimer(); setDrawerOpen(!drawerOpen); setActivePanel(null); }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true" />

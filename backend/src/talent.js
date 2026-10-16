@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import {tableView} from './admin-tables.js';
 import { rows, json, audit } from './db.js';
 import { hashPassword, verifyPassword, rateLimited, token } from './security.js';
 import { mkdir, writeFile, unlink } from 'node:fs/promises';
@@ -54,10 +55,11 @@ export function talentRouter(db,{imageKind}){
  const administrator=(req,res,next)=>req.user?.role==='admin'?next():next(Object.assign(new Error('Administrator access required.'),{status:403}));
  router.get('/admin/talent',administrator,async(req,res)=>{
   const search=value(req.query.q,100),state=['pending','approved','suspended'].includes(req.query.status)?req.query.status:'',role=['artist','hirer'].includes(req.query.role)?req.query.role:'';
-  const page=Math.max(1,Math.floor(Number(req.query.page)||1)),where="WHERE (?='' OR status=?) AND (?='' OR role=?) AND (name LIKE ? OR email LIKE ? OR city LIKE ?)",params=[state,state,role,role,...Array(3).fill(`%${search}%`)];
+  const where="WHERE (?='' OR status=?) AND (?='' OR role=?) AND (name LIKE ? OR email LIKE ? OR city LIKE ?)",params=[state,state,role,role,...Array(3).fill(`%${search}%`)];
   const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM talent_accounts ${where}`,params))[0].total);
-  const accounts=await rows(db,`SELECT ${fields},email,created_at FROM talent_accounts ${where} ORDER BY id DESC LIMIT 25 OFFSET ${(Math.min(page,Math.max(1,Math.ceil(total/25)))-1)*25}`,params);
-  res.render('talent',{accounts,search,state,role,page:Math.min(page,Math.max(1,Math.ceil(total/25))),total});
+  const table=tableView(req,total,{name:'name',email:'email',role:'role',city:'city',status:'status',registered:'id'},'registered',{q:search,status:state,role});
+  const accounts=await rows(db,`SELECT ${fields},email,created_at FROM talent_accounts ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
+  res.render('talent',{accounts,search,state,role,page:table.page,total,table});
  });
  router.get('/admin/talent/enquiries',administrator,async(req,res)=>{
   const enquiries=await rows(db,'SELECT e.*,s.name AS sender,a.name AS artist FROM talent_enquiries e JOIN talent_accounts s ON s.id=e.sender_id JOIN talent_accounts a ON a.id=e.artist_id ORDER BY e.id DESC LIMIT 200');
@@ -67,12 +69,15 @@ export function talentRouter(db,{imageKind}){
   const projects=await rows(db,'SELECT p.id,p.title,p.budget,p.currency,p.language,p.timeline,p.updated_at,a.name,a.id AS account_id FROM production_projects p JOIN talent_accounts a ON a.id=p.account_id ORDER BY p.id DESC LIMIT 200');
   res.render('member-workspace',{section:'projects',projects,enquiries:[]});
  });
+ router.get('/admin/talent/:id',administrator,async(req,res)=>{
+  const account=(await rows(db,`SELECT ${fields},email,created_at FROM talent_accounts WHERE id=?`,[req.params.id]))[0];fail(account,'Member not found.',404);res.render('talent-detail',{account});
+ });
  router.post('/admin/talent/:id',administrator,async(req,res)=>{
   fail(['pending','approved','suspended'].includes(req.body.status),'Choose a valid status.');fail(req.body.status!=='approved'||req.body.contact_checked==='on','Check contact details before approval.');
   fail((await rows(db,'SELECT id FROM talent_accounts WHERE id=?',[req.params.id])).length,'Registration not found.',404);
   await rows(db,'UPDATE talent_accounts SET status=?,contact_checked=? WHERE id=?',[req.body.status,req.body.contact_checked==='on'?1:0,req.params.id]);
   if(req.body.status==='suspended')await rows(db,"DELETE FROM cms_sessions WHERE JSON_EXTRACT(data,'$.memberId')=?",[Number(req.params.id)]);
-  await audit(db,req.user,'review','talent',req.params.id);res.redirect('/admin/talent?saved=1');
+  await audit(db,req.user,'review','talent',req.params.id);res.redirect(`/admin/talent/${req.params.id}?saved=1`);
  });
  router.use('/api/production',member,(req,res,next)=>req.member.role==='hirer'?next():next(Object.assign(new Error('Production planning is available to casting directors and producers.'),{status:403})));
  router.get('/api/production/projects',member,async(req,res)=>res.json({projects:await rows(db,'SELECT id,title,budget,currency,language,timeline,updated_at FROM production_projects WHERE account_id=? ORDER BY id DESC',[req.member.id])}));
