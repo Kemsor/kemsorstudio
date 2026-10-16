@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "echo \"Backend is ready for deployment\"",
-    "start": "node backend/src/setup.js && node backend/src/server.js"
+    "start": "node backend/src/setup.js && node backend/src/server.js",
+    "dev": "npm start"
   },
   "dependencies": {
     "ejs": "^7.0.1",
