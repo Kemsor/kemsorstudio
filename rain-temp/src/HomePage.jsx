@@ -25,30 +25,41 @@ const studioClips=[
  {src:'/assets/motion-films/city-conversation-preview.mp4',poster:'/assets/motion-films/city-conversation.webp',label:'City stories'},
  {src:'/assets/motion-films/period-intrigue-preview.mp4',poster:'/assets/motion-films/period-intrigue.webp',label:'Period worlds'},
  {src:'/assets/motion-films/field-encounter-preview.mp4',poster:'/assets/motion-films/field-encounter.webp',label:'Stories in motion'},
- {src:'/assets/motion-films/theatre-facade.mp4',poster:'/assets/motion-films/theatre-facade.jpg',label:'The big screen'},
+ {src:'/assets/motion-films/theatre-facade.mp4',poster:'/assets/motion-films/theatre-facade-960.webp',label:'The big screen'},
 ];
 function StudioClipRail({paused,reduced}){
  const [active,setActive]=useState(0);
+ const rail=useRef(null);
+ const [near,setNear]=useState(false),[visible,setVisible]=useState(false),[tabVisible,setTabVisible]=useState(!document.hidden);
+ const saveData=Boolean(navigator.connection?.saveData);
+ useEffect(()=>{
+  const preload=new IntersectionObserver(([entry])=>setNear(entry.isIntersecting),{rootMargin:'300px'});
+  const playback=new IntersectionObserver(([entry])=>setVisible(entry.isIntersecting));
+  preload.observe(rail.current);playback.observe(rail.current);
+  const update=()=>setTabVisible(!document.hidden);document.addEventListener('visibilitychange',update);
+  return()=>{preload.disconnect();playback.disconnect();document.removeEventListener('visibilitychange',update);};
+ },[]);
  const [hovered,setHovered]=useState(false),[focused,setFocused]=useState(false);
  const videos=useRef([]);
  useEffect(()=>{
-  videos.current.forEach((video,index)=>{if(!video)return;if(index===active&&!paused&&!reduced&&!document.hidden)video.play().catch(()=>{});else video.pause();});
- },[active,paused,reduced]);
+  videos.current.forEach((video,index)=>{if(!video)return;if(index===active&&near&&visible&&tabVisible&&!paused&&!reduced&&!saveData)video.play().catch(()=>{});else video.pause();});
+ },[active,paused,reduced,near,visible,tabVisible,saveData]);
  useEffect(()=>{
-  if(paused||reduced||hovered||focused)return;
+  if(paused||reduced||saveData||!visible||!tabVisible||hovered||focused)return;
   const timer=window.setInterval(()=>setActive(index=>(index+1)%studioClips.length),4200);
   return()=>window.clearInterval(timer);
- },[paused,reduced,hovered,focused]);
- return <figure className="final-cinema-rail" data-reveal onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)} onFocusCapture={()=>setFocused(true)} onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocused(false);}}>
-  <div className="final-cinema-stage">{studioClips.map((clip,index)=><video key={clip.src} ref={node=>{videos.current[index]=node}} className={index===active?'is-active':''} src={reduced&&index!==0?undefined:clip.src} poster={clip.poster} muted loop playsInline preload={index<2?'metadata':'none'} aria-hidden="true"/>)}</div>
+ },[paused,reduced,saveData,visible,tabVisible,hovered,focused]);
+ return <figure ref={rail} className="final-cinema-rail" data-reveal onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)} onFocusCapture={()=>setFocused(true)} onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocused(false);}}>
+  <div className="final-cinema-stage">{studioClips.map((clip,index)=><video key={clip.src} ref={node=>{videos.current[index]=node}} className={index===active?'is-active':''} src={near&&!reduced&&!saveData&&index===active?clip.src:undefined} poster={near?clip.poster:undefined} muted loop playsInline preload="none" aria-hidden="true"/>)}</div>
   <div className="final-cinema-wash" aria-hidden="true"/>
   <figcaption><span>ONE IDEA.</span><strong>EVERY MOVING PART.</strong><span>ONE FINISHED FRAME.</span></figcaption>
   <div className="final-cinema-controls" aria-label="Choose a film clip">{studioClips.map((clip,index)=><button key={clip.src} type="button" aria-label={`Show ${clip.label}`} aria-pressed={active===index} onMouseEnter={()=>setActive(index)} onFocus={()=>setActive(index)} onClick={()=>setActive(index)}><i/><span>{clip.label}</span></button>)}</div>
  </figure>;
 }
+function HomeImage({name,alt,sizes}){const base=`/assets/stills/${name}`;return <img src={`${base}-960.webp`} srcSet={`${base}-640.webp 640w, ${base}-960.webp 960w, ${base}-1600.webp 1600w`} sizes={sizes} alt={alt} loading="lazy" decoding="async"/>}
 function Formats(){return <div className="final-formats" aria-label={`Formats: ${formats.join(', ')}`}><div className="final-formats-track" aria-hidden="true">{[0,1,2,3].map(copy=><div className="final-formats-set" key={copy}>{formats.map(x=><React.Fragment key={x}><span>{x}</span><i>✦</i></React.Fragment>)}</div>)}</div></div>}
 function About({paused,reduced}){return <section className="final-about section-space" id="studio"><IndexLabel right="THE DISTANCE BETWEEN IDEA AND AUDIENCE">ABOUT KEMSOR</IndexLabel><div className="final-about-grid" data-reveal><div><h2>First, a page.<br/>Then, a <em>possibility.</em></h2><p className="final-lead">A line on a page becomes a place. A performance. A moment that stays with you.</p></div><div><p>Kemsor is a film and production partner for creators, filmmakers, studios, and platforms. We bring the creative vision and the practical pieces together — the planning, people, and production discipline a story needs to reach its audience.</p><a className="line-link" href="/about/">About Kemsor <Arrow/></a></div></div><div className="proof-strip" data-reveal>{[['7','lifecycle stages, from development to release'],['5','formats, from short films to co-productions'],['1','partner, at any stage you need us']].map(x=><div key={x[0]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</div><StudioClipRail paused={paused} reduced={reduced}/></section>}
-function Services(){return <section className="final-services section-space" id="services"><IndexLabel right="SERVICES, WITH THE WORK BESIDE THEM">WHAT WE OFFER</IndexLabel><div className="final-section-head"><h2>Everything a story needs<br/>to reach the screen.</h2><p>Bring us in at the start, or at the stage where you need us most. Each service sits beside the work, so you can see the craft, not just read about it.</p></div><div className="service-stack">{services.map(([no,tag,stage,title,text,includes,href,image],index)=><article key={no} style={{'--service-index':index}}><img src={`/assets/stills/${image.includes('.')?image:`${image}.webp`}`} alt="" loading="lazy"/><div className="service-shade" aria-hidden="true"/><div className="service-copy"><div className="service-meta"><span>{no} / 06 · {tag}</span><i>{stage}</i></div><div className="service-body"><h3>{title}</h3><p>{text}</p><small>{includes}</small><a href={href}>Explore service <Arrow/></a></div></div></article>)}</div><div className="services-close"><p>Scope is shaped to the project — never imposed as a fixed package.</p><a href="/services/">All services <Arrow/></a></div></section>}
+function Services(){return <section className="final-services section-space" id="services"><IndexLabel right="SERVICES, WITH THE WORK BESIDE THEM">WHAT WE OFFER</IndexLabel><div className="final-section-head"><h2>Everything a story needs<br/>to reach the screen.</h2><p>Bring us in at the start, or at the stage where you need us most. Each service sits beside the work, so you can see the craft, not just read about it.</p></div><div className="service-stack">{services.map(([no,tag,stage,title,text,includes,href,image],index)=><article key={no} style={{'--service-index':index}}><HomeImage name={image.replace(/\.[^.]+$/,'')} alt="" sizes="100vw"/><div className="service-shade" aria-hidden="true"/><div className="service-copy"><div className="service-meta"><span>{no} / 06 · {tag}</span><i>{stage}</i></div><div className="service-body"><h3>{title}</h3><p>{text}</p><small>{includes}</small><a href={href}>Explore service <Arrow/></a></div></div></article>)}</div><div className="services-close"><p>Scope is shaped to the project — never imposed as a fixed package.</p><a href="/services/">All services <Arrow/></a></div></section>}
 function Work({reduced}){
  const runway=useRef(null),stage=useRef(null),viewport=useRef(null),track=useRef(null);
  useEffect(()=>{
@@ -119,7 +130,7 @@ function Work({reduced}){
    <div ref={stage} className="work-scroll-stage">
     <div className="work-scroll-caption"><span>SELECTED PRODUCTIONS</span><span>{reduced?'Explore the collection':'Scroll or drag to explore'}</span></div>
     <div ref={viewport} className="work-scroll-viewport">
-     <div ref={track} className="work-scroll-track">{work.map(([file,format,title,role],i)=><a href="/projects/" key={file}><div className="work-image"><img src={`/assets/stills/${file}`} alt={title} loading="lazy"/><b>{String(i+1).padStart(2,'0')}</b><i>VIEW ↗</i></div><span className="work-category">{format}</span><h3>{title}</h3><p>Kemsor role: {role}</p></a>)}</div>
+     <div ref={track} className="work-scroll-track">{work.map(([file,format,title,role],i)=><a href="/projects/" key={file}><div className="work-image"><HomeImage name={file.replace(/\.[^.]+$/,'')} alt={title} sizes="(max-width: 700px) 85vw, 45vw"/><b>{String(i+1).padStart(2,'0')}</b><i>VIEW ↗</i></div><span className="work-category">{format}</span><h3>{title}</h3><p>Kemsor role: {role}</p></a>)}</div>
     </div>
    </div>
   </div>

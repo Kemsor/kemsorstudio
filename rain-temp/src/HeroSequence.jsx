@@ -15,6 +15,10 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
   const section = useRef(null);
   const videos = useRef([]);
   const [active, setActive] = useState(0);
+  const [requestedPosters, setRequestedPosters] = useState([true, false]);
+  useEffect(() => {
+    setRequestedPosters(previous => previous.map((value, index) => value || index === active));
+  }, [active]);
   const [enabled, setEnabled] = useState(false);
   const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -63,7 +67,7 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
 
   return <section id="home" ref={section} className="cinema-opening" aria-labelledby="opening-title">
     <div className="opening-films" aria-hidden="true">{films.map((film, index) => <div className="opening-film" key={film.src} data-active={active === index} data-ready={!blocked && ready[index] && !failed[index]}>
-      <img src={film.poster} alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} decoding="async" />
+      <img src={(requestedPosters[index] || index===active) ? film.poster.replace('.jpg','-960.webp') : undefined} srcSet={(requestedPosters[index] || index===active) ? `${film.poster.replace('.jpg','-640.webp')} 640w, ${film.poster.replace('.jpg','-960.webp')} 960w, ${film.poster.replace('.jpg','-1600.webp')} 1600w` : undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} decoding="async" />
       <video ref={element => { videos.current[index] = element; }} src={enabled && !blocked && (index === 0 || active === index) ? film.src : undefined} muted loop playsInline preload="none"
         onLoadedMetadata={event => { if (film.startAt && event.currentTarget.currentTime < film.startAt) event.currentTarget.currentTime = film.startAt; }}
         onTimeUpdate={event => {
