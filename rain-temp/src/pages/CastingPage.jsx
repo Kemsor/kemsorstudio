@@ -1,0 +1,65 @@
+import React from 'react';
+import { Arrow, CTA, TextLink } from '../PageUI';
+import './produce-page.css';
+import './line-production-page.css';
+import './casting-page.css';
+
+// Kemsor_Produce_02_Casting_and_Talent_Coordination.docx.pdf.
+// Its unconfirmed agreement-coordination and applicant-privacy claims are omitted.
+// No online casting-call workflow is advertised; existing talent pages remain linked.
+const included = [
+  ['Casting calls & auditions', 'Briefs written, calls published and auditions organised around the director’s vision.'],
+  ['Shortlisting', 'Options presented clearly to the director and producers for decision.'],
+  ['Kemsor Talent Network', 'Access to performers and crew who have joined the Kemsor network.'],
+  ['Availability & scheduling', 'Talent availability aligned with the shooting schedule and call times.'],
+  ['On-set talent care', 'Talent supported on shoot days, so performances get the focus they deserve.'],
+];
+const steps = [
+  ['Understand the characters', 'We start with the script, the characters and what the director is looking for.'],
+  ['Search & audition', 'Casting calls, Talent Network searches and auditions.'],
+  ['Shortlist & confirm', 'Options presented, choices made and availability confirmed.'],
+  ['Coordinate to wrap', 'Schedules, call times and on-set support through to the last shoot day.'],
+];
+const audiences = [
+  ['Directors & producers', 'Directors and producers casting a film, series or short'],
+  ['Platforms & studios', 'Platforms and studios that need casting coordinated alongside production'],
+  ['Actors & performers', 'Actors and performers looking to join the Kemsor Talent Network'],
+];
+const related = [
+  ['01', 'Line Production & Production Management', '/produce/line-production/', 'Explore service'],
+  ['02', 'Crew & Equipment', '/services/#capability-filming', 'Explore service'],
+  ['03', 'Talent Network — Find Talent', '/find-talent/', 'Find talent'],
+  ['04', 'Talent Network — Join KEMSOR', '/join/', 'Join KEMSOR'],
+];
+const questions = [
+  ['Can actors apply to work with Kemsor?', 'Yes. Performers can join the Kemsor Talent Network.'],
+  ['Can you coordinate talent we have already cast?', 'Yes. We can take on scheduling and on-set coordination for talent you have already confirmed.'],
+];
+function Label({ children, end }) {
+  return <div className="produce-label"><span>{children}</span>{end && <span>{end}</span>}</div>;
+}
+
+export default function CastingPage() {
+  return <div className="produce-hub casting-page">
+    <nav className="produce-breadcrumb" aria-label="Breadcrumb"><a href="/">Kemsor Studios</a><span aria-hidden="true">/</span><a href="/produce/">Produce</a><span aria-hidden="true">/</span><span aria-current="page">Casting &amp; Talent</span></nav>
+
+    <section className="produce-hero line-production-hero casting-hero" aria-labelledby="casting-title"><figure className="produce-hero-image" aria-hidden="true"><img src="/assets/services/casting-1600.webp" srcSet={[640, 960, 1600].map(width => `/assets/services/casting-${width}.webp ${width}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async"/></figure><div className="produce-hero-content"><p className="produce-kicker">PRODUCE · PRE-PRODUCTION</p><h1 id="casting-title">Casting &amp;{' '}<br />Talent Coordination.<span>The right faces for the story.</span></h1><p>From casting call to call time, Kemsor finds and coordinates the talent your story needs — drawing on the Kemsor Talent Network.</p><div className="produce-actions"><CTA href="/contact/?partner=filmmakers">Talk to us about casting</CTA><TextLink href="/join/">Join the Talent Network</TextLink></div></div><div className="produce-hero-foot"><a href="/produce/">← Back to Produce</a><a href="#casting-included">What’s included <span aria-hidden="true">↓</span></a></div></section>
+
+    <section className="produce-section produce-intro" aria-labelledby="casting-why-title"><div><Label>WHY IT MATTERS</Label><h2 id="casting-why-title">The performance.<br /><em>The preparation behind it.</em></h2></div><div className="produce-copy"><p>Casting shapes how an audience meets your story. Coordination decides whether that talent arrives prepared, on time, and looked after.</p><p>We handle both — finding performers who fit the director’s vision, then managing the availability, schedules, and on-set care that let them do their best work. We treat talent as partners in the work.</p></div></section>
+
+    <section className="produce-section line-production-included" id="casting-included" aria-labelledby="casting-included-title"><Label end="FROM CASTING CALL TO CALL TIME">WHAT’S INCLUDED</Label><h2 id="casting-included-title">What’s included.</h2><div className="line-production-scope"><dl className="line-production-deliverables">{included.map(([title, description], index) => <div key={title}><dt><span aria-hidden="true">0{index + 1}</span>{title}</dt><dd>{description}</dd></div>)}</dl><figure className="line-production-planning casting-preparation"><img src="/assets/stills/pre-production-casting-960.webp" alt="Illustrative production scene showing collaborators preparing for a shoot" width="960" height="540" loading="lazy" decoding="async"/><figcaption><span>TALENT AS PARTNERS IN THE WORK</span><p>The availability, schedules, and on-set care that let them do their best work.</p></figcaption></figure></div></section>
+
+    <section className="produce-section produce-process" aria-labelledby="casting-process-title"><Label end="CHARACTER → CASTING → CALL TIME">HOW WE WORK</Label><h2 id="casting-process-title">How we work.</h2><ol className="produce-steps line-production-steps">{steps.map(([title, description], index) => <li key={title}><span className="produce-step-number">0{index + 1}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></section>
+
+    <section className="produce-section produce-audiences" aria-labelledby="casting-audiences-title"><div><Label>WHO IT’S FOR</Label><h2 id="casting-audiences-title">Who it’s for.</h2><div className="casting-network"><span>KEMSOR TALENT NETWORK</span><div><TextLink href="/find-talent/">Find talent</TextLink><TextLink href="/join/">Join KEMSOR</TextLink></div></div></div><ul>{audiences.map(([title, description], index) => <li key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul></section>
+
+    {/* No cleared project title, format, year or casting credit was supplied. */}
+    <section className="produce-section produce-work" id="casting-work" aria-labelledby="casting-work-title"><Label>RELATED WORK</Label><div><h2 id="casting-work-title">Related work.</h2><TextLink href="/projects/">Explore productions</TextLink></div></section>
+
+    <section className="produce-section produce-related line-production-related" aria-labelledby="casting-related-title"><Label>THE PEOPLE. THE PRODUCTION.</Label><h2 id="casting-related-title">Related services.</h2><div className="produce-related-grid">{related.map(([number, title, href, action]) => <a href={href} key={title}><span className="produce-related-number">{number}</span><h3>{title}</h3><span className="line-production-related-link">{action}<Arrow /></span></a>)}</div></section>
+
+    <section className="produce-section produce-questions" aria-labelledby="casting-questions-title"><div><Label>A FEW THINGS TO KNOW</Label><h2 id="casting-questions-title">Questions.</h2></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></section>
+
+    <section className="produce-section produce-closing" aria-labelledby="casting-closing-title"><Label>YOUR NEXT PRODUCTION</Label><div><h2 id="casting-closing-title">Casting<br /><em>a project?</em></h2><div><p>Tell us about the story and the roles. We’ll help you find the right people.</p><CTA href="/contact/?partner=filmmakers">Start a conversation</CTA></div></div></section>
+  </div>;
+}

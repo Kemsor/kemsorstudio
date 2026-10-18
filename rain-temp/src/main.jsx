@@ -38,6 +38,10 @@ const routes={
 
  home:lazy(()=>import('./HomePage')),
  about:lazy(()=>import('./pages/StudioPages').then(module=>({default:module.AboutPage}))),
+ 'what-we-make':lazy(()=>import('./pages/WhatWeMakePage')),
+ casting:lazy(()=>import('./pages/CastingPage')),
+ 'line-production':lazy(()=>import('./pages/LineProductionPage')),
+ produce:lazy(()=>import('./pages/ProducePage')),
  services:lazy(()=>import('./pages/ServicesPage').then(module=>({default:module.ServicesPage}))),
  projects:lazy(()=>import('./pages/ProjectsPage').then(module=>({default:module.ProjectsPage}))),
  news:lazy(()=>import('./pages/NewsPage').then(module=>({default:module.NewsPage}))),

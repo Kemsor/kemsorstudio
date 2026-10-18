@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { navigation } from './navigation';
+import { pageHref } from './pageInfo';
 import './header.css';
 import {useMember,LogoutButton} from './MemberSession';
 
@@ -39,11 +40,11 @@ export default function Header({ page = 'home' } = {}) {
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, [drawerOpen, activePanel, page]);
-  let currentItem = { 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', careers: 'studio', services: 'capabilities', projects: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
+  let currentItem = { 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', careers: 'studio', 'what-we-make': 'capabilities', casting: 'capabilities', 'line-production': 'capabilities', produce: 'capabilities', services: 'capabilities', projects: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
   if (page === 'services' && currentHash === '#india-production-services') currentItem = 'india';
   if (page === 'services' && currentHash === '#production-process') currentItem = 'studio';
   if (page === 'contact' && ['#filmmakers', '#studios', '#co-producers', '#international-productions'].includes(currentHash)) currentItem = 'partners';
-  const currentSubLink = navigation.flatMap(item => item.groups?.flatMap(group => group.links) || []).find(link => link.href === `/${page}/${currentHash}`)?.label;
+  const currentSubLink = navigation.flatMap(item => item.groups?.flatMap(group => group.links) || []).find(link => link.href === `${pageHref(page)}${currentHash}`)?.label;
 
   const clearHoverTimer = () => {
     clearTimeout(hoverTimer.current);

@@ -26,8 +26,8 @@ function SocialIcons() {
 }
 
 const footerGroups = [
-  { title: 'The studio', links: [['Home','home'],['About Kemsor','about'],['Leadership','about','leadership'],['Productions','projects'],['Careers','careers']] },
-  { title: 'Production support', links: [['All services','services'],['Development & planning','services','development'],['Film financing','services','capability-financing'],['Casting & talent','services','capability-casting'],['Filming & production','services','capability-filming'],['Design & post-production','services','capability-post'],['India production services','services','india-production-services']] },
+  { title: 'The studio', links: [['Home','home'],['About Kemsor','about'],['What We Make','what-we-make'],['Leadership','about','leadership'],['Productions','projects'],['Careers','careers']] },
+  { title: 'Production support', links: [['All services','services'],['Produce','produce'],['Line Production','line-production'],['Development & planning','services','development'],['Film financing','services','capability-financing'],['Casting & talent','casting'],['Filming & production','services','capability-filming'],['Design & post-production','services','capability-post'],['India production services','services','india-production-services']] },
   { title: 'Talent & tools', links: [['Find Talent','find-talent'],['Join KEMSOR','join'],['Login','login'],['My Profile','profile'],['Script to Production','script-to-production']] },
   { title: 'Stay connected', links: [['Contact','contact'],['Blog','blog'],['News','news'],['Press & media','news','press-media'],['Legal & privacy','legal']] },
 ];
