@@ -1,0 +1,17 @@
+/* Keep artwork unobscured; readable copy sits on a separate warm surface. */
+.produce-hero.produce-hero-light{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0;min-height:0;padding:0;background:var(--produce-warm);color:var(--ink);isolation:auto}
+.produce-hero-light::before{display:none}
+.produce-hero-light .produce-hero-image{position:relative;inset:auto;z-index:auto;grid-column:2;grid-row:1;min-height:520px;overflow:hidden}
+.produce-hero-light .produce-hero-image img{width:100%;height:100%;object-fit:cover}
+.produce-hero-light .produce-hero-content{grid-column:1;grid-row:1;max-width:none;align-self:center;padding:58px 44px 58px var(--page-gutter)}
+html .creative-site #main .produce-hero.produce-hero-light h1{font-size:clamp(32px,3.2vw,46px);line-height:1.16}
+.produce-hero-light h1>span{color:var(--produce-accent);margin-top:16px}
+.produce-hero-light .produce-kicker{color:var(--produce-accent)}
+html .creative-site #main .produce-hero-light .produce-hero-content>p:not(.produce-kicker){color:var(--muted);font-size:16px;line-height:1.8;margin:24px 0 28px}
+.produce-hero-light .produce-actions{gap:20px;align-items:flex-start}
+.produce-hero-light .produce-actions .line-link{color:var(--ink);border-color:var(--line)}
+.produce-hero-light .produce-hero-foot{grid-column:1/-1;grid-row:2;margin:0;padding:18px var(--page-gutter);border-top:1px solid var(--line);color:var(--muted);background:var(--produce-paper)}
+@media(max-width:1000px){.produce-hero.produce-hero-light{grid-template-columns:1fr 1fr}.produce-hero-light .produce-hero-content{padding-right:28px}.produce-hero-light .produce-actions{flex-direction:column}}
+@media(max-width:700px){.produce-hero.produce-hero-light{grid-template-columns:minmax(0,1fr)}.produce-hero-light .produce-hero-content{padding:40px var(--page-gutter);grid-column:1;grid-row:1}.produce-hero-light .produce-hero-image{grid-column:1;grid-row:2;min-height:0;aspect-ratio:1.65}.produce-hero-light .produce-hero-foot{grid-row:3;gap:10px}.produce-hero-light .produce-hero-image img{height:100%;object-position:center}html .creative-site #main .produce-hero.produce-hero-light h1{font-size:32px}.produce-hero-light .produce-hero-foot>a{font-size:12px}}
+.make-hero.produce-hero-light .produce-hero-image img{object-position:30% center}
+html .creative-site #main .produce-hero.produce-hero-light h1>span{color:var(--produce-accent)}

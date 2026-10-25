@@ -1,0 +1,6 @@
+/* Lenis owns wheel easing; avoid running browser smooth scrolling on top of it. */
+html.lenis,html.lenis body{scroll-behavior:auto!important}
+/* Fade sections without lifting the page content against the scroll direction. */
+html .creative-site [data-reveal]{transition-duration:700ms!important}
+html .creative-site .reveal-waiting{transform:none!important}
+@media(prefers-reduced-motion:reduce){html .creative-site .reveal-waiting{transform:none}}

@@ -1,3 +1,5 @@
+import MotionHeading, { MotionCopy } from '../TextMotion';
+import EditorialPage from '../EditorialPage';
 import React from 'react';
 import { PageHero, SectionHeading, PageCTA, CTA, TextLink } from '../PageUI';
 
@@ -14,7 +16,7 @@ const chapters = [
       ['Story & script development', 'Shape the concept, treatment and screenplay around a clear creative direction. Share the format, language, intended audience and any references that explain the world of the story.'],
       ['Packaging & talent attachment', 'Bring the project materials and attached collaborators into one picture. Identify the creative roles, talent conversations and production support you want to discuss.'],
     ],
-    link: ['Prepare a development brief', '/contact/#project-brief'],
+    link: ['Explore Develop', '/develop/'],
   },
   {
     id: 'capability-financing',
@@ -100,7 +102,7 @@ const chapters = [
       ['Post-production supervision', 'Oversee the path from captured material to the finished cut. Clarify the responsibilities and handovers across editing, sound, finishing and delivery.'],
       ['Distribution & release support', 'Prepare the strategy and supporting materials needed for release. Discuss the format, audience and production partners involved in the next stage.'],
     ],
-    link: ['Discuss your post-production plan', '/contact/#project-brief'],
+    link: ['Post-Production Supervision', '/post-production/'],
   },
 ];
 
@@ -122,7 +124,7 @@ const jumpLinks = [
 
 export function ServicesPage() {
   return (
-    <div className="inner-page page-services">
+    <EditorialPage page="services"><div className="inner-page page-services">
       <PageHero
         eyebrow="CAPABILITIES / PRODUCTION SUPPORT"
         title="From the first idea."
@@ -141,11 +143,11 @@ export function ServicesPage() {
         <div className="page-grid">
           <div data-reveal>
             <p className="page-eyebrow">SHAPED AROUND YOUR PROJECT</p>
-            <h2>Start where<br />you are.</h2>
+            <MotionHeading as="h2">Start where<br />you are.</MotionHeading>
           </div>
           <div className="page-copy" data-reveal>
-            <p className="page-lead">A project in development needs a different conversation from a shoot already in motion.</p>
-            <p>Tell us what is ready, which collaborators are attached and the support you want to discuss. We shape our role around the stage and scope of the production.</p>
+            <MotionCopy className="page-lead">A project in development needs a different conversation from a shoot already in motion.</MotionCopy>
+            <MotionCopy>Tell us what is ready, which collaborators are attached and the support you want to discuss. We shape our role around the stage and scope of the production.</MotionCopy>
             <TextLink href="/contact/#project-brief">Prepare a clear starting point</TextLink>
           </div>
         </div>
@@ -160,7 +162,7 @@ export function ServicesPage() {
             </figure>
             <div className="page-copy" data-reveal>
               <p className="page-eyebrow">{chapter.index} / {chapter.label}</p>
-              <h2 id={`${chapter.id}-title`}>{chapter.title}</h2>
+              <MotionHeading as="h2" id={`${chapter.id}-title`}>{chapter.title}</MotionHeading>
               <p className="page-lead">{chapter.description}</p>
               <div className="service-details">
                 {chapter.details.map(([title, description]) => (
@@ -179,12 +181,12 @@ export function ServicesPage() {
       <section className="page-section page-split" id="india-production-services" aria-labelledby="india-support-title">
         <div className="page-copy" data-reveal>
           <p className="page-eyebrow">08 / INDIA PRODUCTION SERVICES</p>
-          <h2 id="india-support-title">A production team<br />on the ground.</h2>
-          <p className="page-lead">Local planning and coordination for your shoot in India.</p>
-          <p>Locations, casting coordination, crew and equipment, logistics and line production. Outline your intended locations in India, shooting dates and production requirements so the scope of support can be discussed.</p>
+          <MotionHeading as="h2" id="india-support-title">A production team<br />on the ground.</MotionHeading>
+          <MotionCopy className="page-lead">Local planning and coordination for your shoot in India.</MotionCopy>
+          <MotionCopy>Locations, casting coordination, crew and equipment, logistics and line production. Outline your intended locations in India, shooting dates and production requirements so the scope of support can be discussed.</MotionCopy>
           <div className="service-details">
-            <article><h3>Before the shoot</h3><p>Bring location plans, crew requirements and the proposed schedule into one practical production brief.</p></article>
-            <article><h3>On the ground</h3><p>Coordinate the people, resources and logistics needed to support the production plan.</p></article>
+            <article><h3>Before the shoot</h3><MotionCopy>Bring location plans, crew requirements and the proposed schedule into one practical production brief.</MotionCopy></article>
+            <article><h3>On the ground</h3><MotionCopy>Coordinate the people, resources and logistics needed to support the production plan.</MotionCopy></article>
           </div>
           <CTA href="/contact/#international-productions">Plan your production in India</CTA>
         </div>
@@ -198,12 +200,12 @@ export function ServicesPage() {
         <div className="page-grid">
           <div data-reveal>
             <p className="page-eyebrow">09 / FESTIVAL &amp; AWARDS PLANNING</p>
-            <h2 id="festival-strategy-title">Think beyond<br />the final frame.</h2>
+            <MotionHeading as="h2" id="festival-strategy-title">Think beyond<br />the final frame.</MotionHeading>
           </div>
           <div className="page-copy" data-reveal>
-            <p className="page-lead">Festival submissions and awards planning begin with the project’s release priorities.</p>
-            <p>If they are part of your release plan, include your intended festivals, deadlines and available materials in the brief. The appropriate scope can then be discussed alongside the wider release strategy.</p>
-            <TextLink href="/contact/#project-brief">Discuss your release plan</TextLink>
+            <MotionCopy className="page-lead">Festival submissions and awards planning begin with the project’s release priorities.</MotionCopy>
+            <MotionCopy>If they are part of your release plan, include your intended festivals, deadlines and available materials in the brief. The appropriate scope can then be discussed alongside the wider release strategy.</MotionCopy>
+            <TextLink href="/release/festival-awards-strategy/">Festival &amp; Awards Strategy</TextLink>
           </div>
         </div>
       </section>
@@ -224,7 +226,7 @@ export function ServicesPage() {
       <PageCTA eyebrow="YOUR NEXT STEP" title="Bring us the starting point." description="A script, a brief or a production already in progress. Share the project stage, proposed schedule and the support you need.">
         Discuss your production
       </PageCTA>
-    </div>
+    </div></EditorialPage>
   );
 }
 

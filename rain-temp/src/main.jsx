@@ -1,12 +1,14 @@
 import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import Header from './Header';
+import { TextMotionProvider } from './TextMotion';
 import {MemberSessionProvider} from './MemberSession';
 import Footer from './Footer';
 import ExperienceTools from './ExperienceTools';
 import { CmsProvider, CmsPageSections } from './CmsContent';
 import { pageInfo } from './pageInfo';
 import { useReducedMotion, useReveals } from './useMotion';
+import { useSmoothScroll } from './useSmoothScroll';
 import './home.css';
 import './theme.css';
 import './pages.css';
@@ -23,6 +25,10 @@ import './motion-polish.css';
 import './readability-fixes.css';
 import './typography-scale.css';
 import './compact-buttons.css';
+import './light-production-heroes.css';
+import './editorial-page.css';
+import './inner-white-surfaces.css';
+import './header-motion.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 
 if (location.hash === '#home') history.replaceState(history.state, '', `${location.pathname}${location.search}`);
@@ -36,8 +42,25 @@ const routes={
  'profile':lazy(()=>import('./pages/TalentPages').then(m=>({default:m.ProfilePage}))),
  'script-to-production':lazy(()=>import('./pages/ProductionTool')),
 
+ post:lazy(()=>import('./pages/PostOverviewPage')),
+ 'post-production':lazy(()=>import('./pages/PostProductionPage')),
+ release:lazy(()=>import('./pages/ReleaseOverviewPage')),
+ 'distribution-release':lazy(()=>import('./pages/DistributionReleasePage')),
+ 'festival-awards':lazy(()=>import('./pages/FestivalAwardsPage')),
  home:lazy(()=>import('./HomePage')),
  about:lazy(()=>import('./pages/StudioPages').then(module=>({default:module.AboutPage}))),
+ 'shooting-on-location':lazy(()=>import('./pages/ShootingProductionPage')),
+ 'set-production-design':lazy(()=>import('./pages/SetProductionDesignPage')),
+ 'locations-logistics':lazy(()=>import('./pages/LocationsLogisticsPage')),
+ 'crew-equipment':lazy(()=>import('./pages/CrewEquipmentPage')),
+ 'budgeting-scheduling': lazy(() => import('./pages/BudgetingSchedulingPage')),
+ 'packaging-talent': lazy(() => import('./pages/PackagingTalentPage')),
+ 'story-script': lazy(() => import('./pages/StoryScriptPage')),
+ develop: lazy(() => import('./pages/DevelopPage')),
+ 'co-production': lazy(() => import('./pages/CoProductionPage')),
+ 'finance-structuring': lazy(() => import('./pages/FinanceStructuringPage')),
+ 'international-co-productions': lazy(() => import('./pages/InternationalCoProductionsPage')),
+  finance:lazy(()=>import('./pages/FinancePage')),
  'what-we-make':lazy(()=>import('./pages/WhatWeMakePage')),
  casting:lazy(()=>import('./pages/CastingPage')),
  'line-production':lazy(()=>import('./pages/LineProductionPage')),
@@ -99,6 +122,7 @@ function App() {
   return()=>{document.body.style.overflow=previous;};
  },[opening]);
  const paused=false;
+ useSmoothScroll(reduced || opening || paused || !ready);
  useEffect(()=>{
   if(location.hash)return;
   const reset=()=>window.scrollTo({top:0,left:0,behavior:'instant'});
@@ -113,7 +137,7 @@ function App() {
  return <>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
-  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page'}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && !['news','blog','contact','careers'].includes(page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></main>
+  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && !['news','blog','contact','careers'].includes(page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>
   <Footer page={page} reduced={reduced}/>
   {!formOnly && <ExperienceTools page={page}/>}
  </div></>;

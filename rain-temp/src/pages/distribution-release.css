@@ -1,0 +1,16 @@
+.distribution-hero{display:grid;grid-template-columns:1.1fr 1fr;gap:6%;align-items:center;padding-block:55px}
+.distribution-hero h1 em{display:block;font-style:italic;font-weight:400;margin-top:10px}
+.distribution-hero p:not(.release-label){line-height:1.8;max-width:680px}
+.distribution-board{margin:0;min-width:0}.distribution-board-scroll{overflow:auto;padding:22px;border:1px solid #3b241b29;scrollbar-width:thin}
+.distribution-board-grid{display:grid;grid-template-columns:110px repeat(4,minmax(45px,1fr));grid-template-rows:32px repeat(5,47px);min-width:330px}
+.distribution-board-key,.distribution-quarter{font-size:10px;letter-spacing:.06em;border-bottom:1px solid #3b241b29;color:#805021}.distribution-quarter{text-align:center}
+.distribution-lane{grid-column:1;align-self:center;font-size:12px}.distribution-plan-track{position:relative;border-bottom:1px solid #3b241b15;background:repeating-linear-gradient(to right,transparent 0,transparent calc(25% - 1px),#3b241b15 calc(25% - 1px),#3b241b15 25%)}
+.distribution-plan-track i{position:absolute;top:15px;height:14px;border:1px solid #b58a42;border-left:3px solid #94612d}
+.distribution-board figcaption{font-size:11px;line-height:1.7;color:#725b4c;margin-top:12px}
+.distribution-board-scroll:focus-visible{outline:2px solid #94612d;outline-offset:4px}
+.distribution-windows{counter-reset:window;list-style:none;padding:0;margin:35px 0 0}.distribution-windows li{counter-increment:window;display:grid;grid-template-columns:40px 1fr 1.5fr;gap:24px;padding:24px 0;border-top:1px solid #3b241b29;align-items:baseline}.distribution-windows li:before{content:'0' counter(window);font-size:11px;color:#94612d}.distribution-windows p{margin:0;line-height:1.8}
+.distribution-checklists{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:35px;margin-top:35px}.distribution-checklists fieldset{min-width:0;padding:0;border:0}.distribution-checklists legend{font:500 20px/1.4 Manrope,sans-serif;padding:0 0 20px}.distribution-checklists label{display:flex;gap:12px;align-items:center;min-height:56px;padding:12px 0;border-top:1px solid #3b241b29;cursor:pointer;line-height:1.7}.distribution-checklists input{appearance:auto;width:17px;height:17px;flex:none;margin:0;accent-color:#94612d}.distribution-checklists input:focus-visible{outline:2px solid #94612d;outline-offset:4px}.distribution-checklists input:checked+span{text-decoration:line-through;text-decoration-color:#b58a42}
+.distribution-steps p{line-height:1.8;margin-bottom:0}.distribution-steps h3{overflow-wrap:anywhere}
+@media(max-width:1000px){.distribution-hero{grid-template-columns:1fr;gap:35px}.distribution-board{max-width:700px;width:100%}.distribution-checklists{gap:20px}}
+@media(max-width:700px){.distribution-hero{padding-block:35px}.distribution-hero .release-actions{align-items:flex-start;flex-direction:column}.distribution-board-scroll{padding:14px}.distribution-windows li{grid-template-columns:25px 1fr;gap:12px}.distribution-windows p{grid-column:2}.distribution-checklists{grid-template-columns:1fr;gap:28px}.distribution-steps{grid-template-columns:1fr}.distribution-checklists legend{padding-bottom:15px}.distribution-board-grid{min-width:310px}}
+html .creative-site #main .distribution-checklists label{font-size:13px!important}

@@ -1,3 +1,4 @@
+import MotionHeading from './TextMotion';
 import React from 'react';
 import SiteIcon from './SiteIcon';
 
@@ -18,14 +19,14 @@ export function TextLink({href,children}) {
 export function PageHero({eyebrow,title,accent,description,image,alt,caption='FROM IDEA TO SCREEN'}) {
  return <section className={`page-hero ${image?'':'page-hero-text'}`}>
   <div className="page-hero-docket"><a href="/">KEMSOR STUDIOS</a><span>{eyebrow}</span></div>
-  <div className="page-hero-grid"><div className="page-hero-copy"><p className="page-eyebrow">{eyebrow}</p><h1 tabIndex="-1">{title}{accent&&<><br/><span>{accent}</span></>}</h1>{description&&<p className="page-lead">{description}</p>}</div>
+  <div className="page-hero-grid"><div className="page-hero-copy"><p className="page-eyebrow">{eyebrow}</p><MotionHeading as="h1" tabIndex="-1">{title}{accent&&<><br/><span>{accent}</span></>}</MotionHeading>{description&&<p className="page-lead">{description}</p>}</div>
    {image&&<figure className="page-hero-image"><img src={image} alt={alt||''} width="1672" height="941" fetchPriority="high" decoding="async"/><span className="page-image-bracket" aria-hidden="true"/><figcaption>{caption}<FrameMark/></figcaption></figure>}
   </div>
  </section>;
 }
 export function SectionHeading({index,label,title,description}) {
- return <><IndexLabel index={index}>{label}</IndexLabel><div className="page-section-heading" data-reveal><h2>{title}</h2>{description&&<p>{description}</p>}</div></>;
+ return <><IndexLabel index={index}>{label}</IndexLabel><div className="page-section-heading" data-reveal><MotionHeading as="h2">{title}</MotionHeading>{description&&<p>{description}</p>}</div></>;
 }
 export function PageCTA({eyebrow='YOUR NEXT CHAPTER',title='What are you working on?',description='Start with a script, a concept or a production already in progress. Tell us where the work stands.',href='/contact/#project-brief',children='Start with a story'}) {
- return <section className="page-next page-section"><IndexLabel index="+">{eyebrow}</IndexLabel><div className="page-next-layout" data-reveal><h2>{title}</h2><div><p>{description}</p><CTA href={href}>{children}</CTA></div><FrameMark className="page-next-mark"/></div></section>;
+ return <section className="page-next page-section"><IndexLabel index="+">{eyebrow}</IndexLabel><div className="page-next-layout" data-reveal><MotionHeading as="h2">{title}</MotionHeading><div><p>{description}</p><CTA href={href}>{children}</CTA></div><FrameMark className="page-next-mark"/></div></section>;
 }

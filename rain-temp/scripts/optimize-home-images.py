@@ -14,6 +14,9 @@ images = [
     ("hero-films/kemsor-production", "jpg"),
     ("motion-films/theatre-facade", "jpg"),
     ("services/casting", "webp"),
+    ("services/filming", "webp"),
+    ("services/planning", "webp"),
+    ("services/design", "webp"),
 ]
 for name, extension in images:
     for width in (640, 960, 1600):

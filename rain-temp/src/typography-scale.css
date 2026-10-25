@@ -1,5 +1,5 @@
 /* Shared website hierarchy: page title, section title, card title, body, actions, labels. */
-.creative-site{--type-page:clamp(32px,3.4vw,44px);--type-section:clamp(25px,2.5vw,32px);--type-card:clamp(20px,1.8vw,24px);--type-body:16px;--type-action:14px;--type-label:12px}
+.creative-site{--type-page:clamp(32px,3.4vw,44px);--type-section:clamp(25px,2.5vw,32px);--type-card:clamp(20px,1.8vw,24px);--type-body:13px;--type-action:14px;--type-label:12px}
 html .creative-site #main h1{font-size:var(--type-page);line-height:1.16;font-weight:600;letter-spacing:-.035em}
 html .creative-site #main h2{font-size:var(--type-section);line-height:1.22;font-weight:500;letter-spacing:-.025em}
 html .creative-site #main h3{font-size:var(--type-card);line-height:1.3;font-weight:500;letter-spacing:-.02em}
@@ -11,9 +11,14 @@ html .creative-site #main :is(.line-link,.text-link,.creative-cta,.talent-button
 html .creative-site #main :is(.blog-card h2,.newsroom-story h2,.career-listing h2,.directory-card h3,.service-body h3){font-size:var(--type-card);line-height:1.3}
 html .creative-site #main :is(.career-meta,.directory-location,.directory-tags span,.chart-caption,.page-caption,.blog-result-count,.newsroom-story time){font-size:14px;line-height:1.6}
 html .creative-site #main :is(input,select,textarea){font-size:16px;line-height:1.5}
-html .creative-site .creative-header :is(.creative-nav a,.creative-nav button,.header-script-tool){font-size:14px}
+html .creative-site .creative-header :is(.creative-nav a,.creative-nav button,.header-script-tool,.creative-nav-toggle,.header-account-links .header-login,.creative-nav-mobile-cta,.creative-nav-mobile-login){font-size:13px}
 html .creative-site .footer-jumbo .footer-invitation h2{font-size:clamp(32px,3.8vw,48px);line-height:1.14;letter-spacing:-.035em}
 html .creative-site .footer-jumbo .footer-invitation-copy>p{font-size:16px;line-height:1.7}
 html .creative-site .footer-jumbo .footer-link-group h3{font-size:15px;line-height:1.5}
-html .creative-site .footer-jumbo .footer-link-group a{font-size:14px;line-height:1.5}
+html .creative-site .footer-jumbo .footer-link-group a{font-size:13px;line-height:1.5}
 @media(max-width:600px){.creative-site{--type-page:32px;--type-section:26px;--type-card:21px}.creative-site #main .directory-hero h1{max-width:12ch}}
+
+/* Shared reading size across home and inner pages, including introductory copy. */
+html .creative-site #main :is(p,li,dt,dd){font-size:13px!important}
+
+html .creative-site .creative-footer.footer-jumbo :is(a,.footer-logout,.footer-conversation .cta-label){font-size:13px}

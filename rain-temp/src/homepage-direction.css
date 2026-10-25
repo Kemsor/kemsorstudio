@@ -79,7 +79,7 @@ html[data-theme=dark] .creative-site .creative-header[data-overlay=true][data-sc
 .screenplay-visual{position:relative;min-width:0;height:min(66svh,620px);min-height:440px}
 .screenplay-page{position:absolute;inset:0 10%;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:32px;background:#fff;color:#3b241b;border:1px solid #4b2b1d15;border-radius:3px;box-shadow:0 22px 65px #75422018;transform:translateY(calc(-24px * var(--scene-reveal))) rotate(var(--page-turn));opacity:var(--page-fade);overflow:hidden}
 .screenplay-page-head{display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:7px;letter-spacing:.07em;color:#8a6148;border-bottom:1px solid #4b2b1d20;padding-bottom:16px}
-.screenplay-type{font-family:'Courier New',monospace;font-size:clamp(11px,1vw,15px);line-height:1.9}
+.screenplay-type{font-family:var(--body);font-size:clamp(11px,1vw,15px);line-height:1.9}
 .screenplay-type p{margin-bottom:22px}
 .screenplay-type p:last-child{margin-bottom:0}
 .screenplay-slug{font-weight:700;font-size:inherit}

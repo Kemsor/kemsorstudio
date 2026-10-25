@@ -1,0 +1,8 @@
+/* A slow word flow with a short travel distance; layout never animates. */
+html .creative-site .text-flow-word{display:inline-block;vertical-align:baseline;white-space:nowrap;opacity:.12;transform:translateY(6px);transition:opacity 1150ms cubic-bezier(.22,.61,.36,1),transform 1250ms cubic-bezier(.22,.61,.36,1);transition-delay:var(--text-word-delay,0ms);color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit}
+html .creative-site .text-flow-copy{opacity:.25;transition:opacity 1200ms cubic-bezier(.22,.61,.36,1)}
+html .creative-site .text-flow-copy.is-seen{opacity:1}
+html .creative-site .text-flow-word.is-seen{opacity:1;transform:none}
+/* Word motion replaces the old whole-block lift on text-containing groups. */
+html .creative-site [data-reveal]:has([data-text-flow]){opacity:1;transform:none;transition:none!important}
+@media(prefers-reduced-motion:reduce){html .creative-site .text-flow-word,html .creative-site .text-flow-copy{opacity:1;transform:none!important;transition:none!important}}

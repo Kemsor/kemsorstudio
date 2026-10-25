@@ -1,0 +1,8 @@
+.script-card{position:relative;isolation:isolate;overflow:hidden}
+.script-card>div:not(.script-card-illustration){position:relative;z-index:1}
+.script-card-illustration{position:absolute;inset:0;z-index:0;pointer-events:none;color:#e7bc74;opacity:.2;mask-image:linear-gradient(180deg,transparent 8%,#000 65%);-webkit-mask-image:linear-gradient(180deg,transparent 8%,#000 65%)}
+.script-card-illustration svg{display:block;width:100%;height:100%}
+.script-card .script-art-route{transition:stroke-dashoffset 1.4s ease}
+.script-card:hover .script-art-route{stroke-dashoffset:-42}
+@media(max-width:800px){.script-card-illustration{opacity:.15;mask-image:linear-gradient(180deg,transparent,#000 45%,#000);-webkit-mask-image:linear-gradient(180deg,transparent,#000 45%,#000)}.script-card-illustration svg{width:150%;margin-left:-25%}}
+@media(prefers-reduced-motion:reduce){.script-card .script-art-route{transition:none}.script-card:hover .script-art-route{stroke-dashoffset:0}}

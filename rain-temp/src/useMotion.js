@@ -22,7 +22,7 @@ export function useReveals(disabled) {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.remove('reveal-waiting'); observer.unobserve(entry.target); }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px 25px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 160px 0px' });
     nodes.forEach(node => {
       if (node.getBoundingClientRect().top > window.innerHeight) node.classList.add('reveal-waiting');
       observer.observe(node);

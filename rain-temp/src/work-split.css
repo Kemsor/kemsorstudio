@@ -1,0 +1,34 @@
+/* Keep the introduction beside the scroll-driven, two-frame collection. */
+.final-work .work-scroll-runway{margin-top:0}
+.final-work .work-scroll-stage{display:grid;grid-template-columns:minmax(0,30fr) minmax(0,70fr);gap:0;align-items:center;justify-content:normal}
+.work-sidebar{min-width:0;padding-right:clamp(24px,3.5vw,60px)}
+.work-sidebar .work-kicker{font-size:10px;line-height:1.7;letter-spacing:.13em;margin-bottom:25px}
+html .creative-site .work-sidebar h2{font:500 clamp(32px,3.5vw,56px)/1.05 Manrope,sans-serif;letter-spacing:-.045em;margin:0 0 24px}.work-sidebar h2 em{font-style:normal;color:#94612d}
+.work-sidebar>p{font-size:13px;line-height:1.8;margin:0 0 24px;max-width:350px}
+.work-sidebar .line-link{font-size:13px;min-height:44px;max-width:100%}
+.work-sidebar .work-scroll-caption{display:flex;align-items:flex-start;flex-direction:column;gap:10px;font-size:10px;line-height:1.7;letter-spacing:.08em;margin-top:40px}
+.work-sidebar .work-scroll-caption span:last-child{font-size:11px;letter-spacing:0;text-transform:none}
+.work-sidebar .work-credit-note{font-size:11px;line-height:1.8;color:#725f55;margin:22px 0 0}
+.final-work .work-scroll-viewport{min-width:0;box-sizing:border-box;padding:0;container-type:inline-size}
+.final-work .work-scroll-track{gap:24px}
+.final-work .work-scroll-track>a{width:calc((100cqw - 24px)/2);min-width:0}
+.final-work .work-scroll-track .work-image img{height:clamp(180px,calc(100svh - 330px),560px)}
+.final-work .work-scroll-track h3{font-size:clamp(18px,1.8vw,28px);overflow-wrap:anywhere}
+.final-work .work-scroll-track .work-category{font-size:11px;font-weight:500;padding:4px 7px;max-width:100%;box-sizing:border-box;line-height:1.5}
+.final-work .work-scroll-track p{font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.final-work .work-scroll-track>a:focus-visible{outline-offset:-3px}
+@media(max-width:760px){
+ .final-work .work-scroll-stage{display:flex;flex-direction:column;align-items:stretch;justify-content:center;height:auto;min-height:calc(100svh - 98px);gap:25px}
+ .work-sidebar{padding-right:0}.work-sidebar .work-kicker{margin-bottom:14px}
+ html .creative-site .work-sidebar h2{font-size:32px;margin-bottom:15px}
+ .work-sidebar>p{max-width:550px;margin-bottom:12px}.work-sidebar .work-scroll-caption{margin-top:18px;flex-direction:row;justify-content:space-between;gap:15px}
+ .work-sidebar .work-credit-note{margin-top:8px;font-size:10px}
+ .final-work .work-scroll-track{gap:14px}.final-work .work-scroll-track>a{width:calc((100cqw - 14px)/2)}
+ .final-work .work-scroll-track .work-image img{height:auto;aspect-ratio:4/5}
+ .final-work .work-scroll-track h3{font-size:18px;margin-bottom:6px}
+ .final-work .work-scroll-track .work-category{margin:10px 0 8px;font-size:9px;padding:3px 5px;letter-spacing:0}
+ .final-work .work-scroll-track p{font-size:11px;line-height:1.6}
+ .final-work .work-image b{left:8px;top:8px;width:26px;height:26px;font-size:9px}
+ .final-work .work-image i{right:8px;bottom:10px;font-size:9px}
+}
+.final-work .is-reduced .work-scroll-stage{height:auto;min-height:0}

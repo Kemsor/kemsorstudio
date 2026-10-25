@@ -16,7 +16,7 @@ export default function Header({ page = 'home' } = {}) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activePanel, setActivePanel] = useState(null);
   const [hidden, setHidden] = useState(false);
-  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 24);
+  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY >= 48);
   const [currentHash, setCurrentHash] = useState(() => typeof window !== 'undefined' ? window.location?.hash || '' : '');
   const headerRef = useRef(null);
   const navRef = useRef(null);
@@ -25,22 +25,29 @@ export default function Header({ page = 'home' } = {}) {
   const triggerRefs = useRef({});
   const hoverTimer = useRef(null);
   useEffect(() => {
-    let previous = window.scrollY;
-    let distance = 0;
+    let frame = 0;
+    let compact = window.scrollY >= 48;
+    // Separate entry and exit points prevent trackpad inertia and small scroll
+    // corrections from reversing the header transition around a single pixel.
     const update = () => {
+      frame = 0;
       const current = Math.max(0, window.scrollY);
-      setScrolled(current > 24);
-      const delta = current - previous;
-      distance = Math.sign(delta) === Math.sign(distance) ? distance + delta : delta;
-      setHidden(false);
-      distance = 0;
-      previous = current;
+      const next = compact ? current > 12 : current >= 48;
+      if (next !== compact) {
+        compact = next;
+        setScrolled(next);
+      }
     };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
-  }, [drawerOpen, activePanel, page]);
-  let currentItem = { 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', careers: 'studio', 'what-we-make': 'capabilities', casting: 'capabilities', 'line-production': 'capabilities', produce: 'capabilities', services: 'capabilities', projects: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+  let currentItem = { post:'capabilities', 'post-production':'capabilities', release:'capabilities', 'distribution-release':'capabilities', 'festival-awards':'capabilities', 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', careers: 'studio', 'shooting-on-location': 'capabilities', 'set-production-design': 'capabilities', 'locations-logistics': 'capabilities', 'crew-equipment': 'capabilities', 'story-script': 'capabilities', 'packaging-talent': 'capabilities', 'budgeting-scheduling': 'capabilities', develop: 'capabilities', finance: 'capabilities', 'co-production': 'capabilities', 'finance-structuring': 'capabilities', 'international-co-productions': 'capabilities', 'what-we-make': 'capabilities', casting: 'capabilities', 'line-production': 'capabilities', produce: 'capabilities', services: 'capabilities', projects: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
   if (page === 'services' && currentHash === '#india-production-services') currentItem = 'india';
   if (page === 'services' && currentHash === '#production-process') currentItem = 'studio';
   if (page === 'contact' && ['#filmmakers', '#studios', '#co-producers', '#international-productions'].includes(currentHash)) currentItem = 'partners';

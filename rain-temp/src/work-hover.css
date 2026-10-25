@@ -1,0 +1,24 @@
+/* Square film frames with a camera-tracking graphic on interaction. */
+.work-scroll-track .work-image,.work-scroll-track .work-image img,.work-scroll-track>a:focus-visible{border-radius:0}
+.work-scroll-track .work-image img{transform:scale(1);transition:transform .85s cubic-bezier(.2,.7,.2,1),filter .65s}
+.work-scroll-track .work-image b{border-radius:0;border-color:#f4d17c99;background:#24150e55;color:#fffaf0;z-index:3;transition:border-color .3s,background .3s}
+.work-scroll-track .work-image i{z-index:3;transition:opacity .35s,transform .45s cubic-bezier(.2,.7,.2,1)}
+.work-motion-graphic{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .4s}
+.work-motion-frame{position:absolute;inset:0;width:100%;height:100%;stroke:#f4d17c;stroke-width:1.5}
+.work-motion-frame path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .85s cubic-bezier(.2,.7,.2,1)}
+.work-motion-target{position:absolute;left:57%;top:37%;width:60px;height:60px;opacity:0;transform:translate(-12px,8px);transition:opacity .45s .12s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.work-motion-target svg{display:block;width:100%;height:100%;stroke:#fffaf0;stroke-width:1}
+.work-motion-target circle{fill:#f4d17c;stroke:none}
+.work-motion-line{position:absolute;left:5%;right:5%;bottom:16%;height:1px;background:#f4d17c80;transform:scaleX(0);transform-origin:left;transition:transform .7s .1s cubic-bezier(.2,.7,.2,1)}
+.work-motion-note{position:absolute;left:7%;bottom:8%;font:500 10px/1.6 Inter,sans-serif;letter-spacing:.14em;color:#f4d17c;opacity:0;transform:translateY(6px);transition:opacity .4s .2s,transform .5s .15s}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-image img{transform:scale(1.045);filter:saturate(1.06) contrast(1.03)}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-image:after{opacity:.9}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-motion-graphic,.work-scroll-track>a:is(:hover,:focus-visible) .work-motion-target{opacity:1}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-motion-frame path{stroke-dashoffset:0}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-motion-target{transform:translate(0,0);animation:work-focus-track 3s .8s ease-in-out infinite alternate}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-motion-line{transform:scaleX(1)}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-motion-note,.work-scroll-track>a:is(:hover,:focus-visible) .work-image i{opacity:1;transform:translateY(0)}
+.work-scroll-track>a:is(:hover,:focus-visible) .work-image b{background:#3b241b99;border-color:#f4d17c}
+@keyframes work-focus-track{from{translate:0 0}to{translate:6px -4px}}
+@media(hover:none){.work-scroll-track .work-image i{opacity:1;transform:none}.work-motion-graphic{opacity:.45}.work-motion-frame path{stroke-dashoffset:0}.work-motion-target,.work-motion-line,.work-motion-note{display:none}}
+@media(prefers-reduced-motion:reduce){.work-scroll-track .work-image img,.work-scroll-track .work-image :is(b,i),.work-motion-graphic,.work-motion-frame path,.work-motion-target,.work-motion-line,.work-motion-note{animation:none!important;transition:none!important}.work-scroll-track>a:is(:hover,:focus-visible) .work-image img{transform:none;filter:none}.work-scroll-track>a:is(:hover,:focus-visible) .work-motion-target{translate:none;transform:none}}

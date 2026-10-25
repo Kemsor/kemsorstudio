@@ -1,0 +1,15 @@
+/* Light Kemsor palette for the homepage service introduction and closing links. */
+.creative-site #services.final-services{
+  --ink:#3b241b;
+  --muted:#725442;
+  --soft-ink:#94602c;
+  --brand-bronze:#9a5c25;
+  --line:#8a5b282e;
+  color:#3b241b;
+  background:radial-gradient(ellipse at 100% 0%,#f4d17c30,transparent 45%),linear-gradient(180deg,#fff 0%,#fffaf0 55%,#fff 100%);
+}
+.creative-site #services .index-label{border-color:#8a5b282e;color:#805021}
+.creative-site #services .index-right{color:#805b3c}
+.creative-site #services .final-section-head h2{color:#3b241b}
+.creative-site #services .final-section-head>p,.creative-site #services .services-close>p{color:#725442}
+.creative-site #services .services-close a{color:#805021}

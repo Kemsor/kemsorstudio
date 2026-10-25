@@ -1,0 +1,48 @@
+/* Shared white content surfaces for every inner page. The home, header and footer
+   remain outside this scope; images, illustrations and action accents are retained. */
+html .creative-site #main.inner-page{
+ --page-bg:#fff;--panel-bg:#fff;--produce-paper:#fff;--produce-warm:#fff;
+ --ep-paper:#fff;--ep-warm:#fff;--fl-paper:#fff;--fl-warm:#fff;
+ --studio-paper:#fff;--tool-surface:#fff;--ink:#3b241b;--muted:#725b4c;--line:#3b241b29;
+ background:#fff!important;color:#3b241b;
+}
+html .creative-site #main.inner-page :is(
+ section,article,aside,header,form,fieldset,table,thead,tbody,tr,th,td,
+ .ep-page,.finance-layout,.production-layout,.produce-hub,.studio-about,
+ .newsroom-page,.blog-page,.contact-simple,.partner-enquiry-page,
+ .auth-page,.auth-panel,.talent-directory,.production-tool-page,
+ .section-submenu,.section-submenu-width,.section-submenu-links,
+ .ep-file-card,.ep-mobile-study,.ep-mobile-study-content,.ep-auth-drawing,
+ .ep-body,.ep-board,.ep-hero-heading,.ep-hero-foot,.ep-workspace-nav,
+ .studio-stage-tabs,.studio-stage-panels,.studio-stage-copy,.studio-ground,
+ .finance-pack,.finance-comparison,.finance-comparison-scroll,
+ .line-production-planning,.produce-services,.produce-process,.produce-questions,
+ .directory-toolbar,.directory-tabs,.directory-card-info,.directory-profile-copy,
+ .directory-tags span,.directory-empty,.directory-bottom-cta,
+ .production-availability,.production-project-head,.production-editor,
+ .production-new,.talent-empty,.talent-notice,.talent-side,
+ .blog-filters,.cms-published,.cms-entry,.cms-published-grid,
+ .make-format-image figcaption,.fl-hero-foot,.pl-hero-foot
+){background:#fff!important}
+/* Dark-panel copy gets the same readable ink as the white reading surfaces. */
+html .creative-site #main.inner-page :is(h1,h2,h3,h4,p,li,dt,dd,label,legend,summary){color:#3b241b!important}
+html .creative-site #main.inner-page :is(h1,h2,h3,h4)>:is(span,em){color:#94612d!important}
+html .creative-site #main.inner-page :is(
+ .page-eyebrow,.produce-kicker,.produce-label,.produce-label>span,.studio-label,
+ .ep-eyebrow,.ep-file-heading,.ep-motion-toggle,.produce-step-number,
+ .produce-related-number,.finance-audience-label,.finance-card-index,
+ .structuring-small,.coproduction-small,.international-small-label,
+ .studio-stage-index,.studio-method-steps li>span,.ep-step-number
+){color:#94612d!important}
+html .creative-site #main.inner-page :is(.line-link,.text-link,.production-text-link,.directory-join){color:#805021!important;border-color:#80502166}
+html .creative-site #main.inner-page :is(.studio-method,.ep-process,.fl-closing,.pl-closing,.produce-closing,.make-coproduction){--ink:#3b241b;--muted:#725b4c;--line:#3b241b29;color:#3b241b!important}
+html .creative-site #main.inner-page :is(.studio-method-steps li,.produce-steps li,.ep-process li,.fl-closing,.pl-closing){border-color:#3b241b29!important}
+html .creative-site #main.inner-page :is(
+ .studio-frame-location,.ep-image-window,.fl-hero-image,.pl-panorama,
+ .produce-service-image,.make-sheet-photo,.make-format-image,
+ .story-sample-paper,.story-formats,.budgeting-schedule,
+ .budgeting-stripboard>span,.budgeting-stripboard>div,
+ .structuring-formats,.coproduction-benefits
+){background:#fff!important}
+html .creative-site #main.inner-page .budgeting-stripboard :is(span,div){color:#3b241b!important}
+html .creative-site #main.inner-page :is(.studio-method,.ep-process,.fl-closing,.pl-closing,.produce-closing,.make-coproduction){--ink:#3b241b!important;--muted:#725b4c!important;--line:#3b241b29!important}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useCms } from './CmsContent';
 import { CTA } from './PageUI';
+import JourneyRouter from './JourneyRouter';
 
 const films = [
   { label: 'Story in motion', src: '/assets/hero-films/kemsor-story.mp4', poster: '/assets/hero-films/kemsor-story.jpg' },
@@ -91,11 +92,6 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
       <div className="opening-chapters" role="group" aria-label="Hero film selection">{films.map((film, index) => <button type="button" key={film.label} aria-pressed={active === index} onClick={() => setActive(index)}><span className="opening-chapter-line" aria-hidden="true" />{film.label}</button>)}</div>
       <a className="opening-scroll" href="#studio">Discover the studio <span aria-hidden="true">↓</span></a>
     </div>
-    <nav className="journey-router" aria-label="Where are you in the journey?"><p>WHERE ARE YOU IN THE JOURNEY?</p><div>
-      <a href="/script-to-production/"><strong>I have a script or idea</strong><span>Script to Production ↗</span></a>
-      <a href="#services"><strong>I need a production partner</strong><span>Production services ↓</span></a>
-      <a href="/contact/#co-producers"><strong>I’m a financier or platform</strong><span>Business &amp; Partnerships ↗</span></a>
-      <a href="/services/#india-production-services"><strong>I’m filming in India</strong><span>India Production Services ↗</span></a>
-    </div></nav>
+    <JourneyRouter/>
   </section>;
 }
