@@ -1,4 +1,4 @@
-import { saveWithReceipt } from './mail.js';
+import { saveWithReceipt, mailConfiguration, verifyMailConnection } from './mail.js';
 import { website } from './website.js';
 import express from 'express';
 import session from 'express-session';
@@ -268,6 +268,26 @@ export function createApp(db, options={}) {
     await audit(db,req.user,'delete_personal_data','enquiry',req.params.id);res.redirect('/admin/enquiries?saved=1');
   });
   app.get('/admin/settings',admin,async(req,res)=>res.render('settings',{settings:await settings(db)}));
+  app.get('/admin/email',admin,async(req,res)=>res.render('email',{
+    configuration:mailConfiguration(options.smtpEnvironment || process.env),check:req.session.mailCheck || null,
+    deliveries:await rows(db,'SELECT id,receipt_key,status,attempts,available_at,sent_at,last_error FROM cms_email_outbox ORDER BY id DESC LIMIT 50')
+  }));
+  app.post('/admin/email/verify',admin,async(req,res)=>{
+    ensure(!await rateLimited(db,`smtp-check:${req.user.id}`,5,60),'Wait a minute before checking the SMTP connection again.',429);
+    const result=await verifyMailConnection(options.smtpEnvironment || process.env,options.mailTransport);
+    req.session.mailCheck={...result,at:new Date().toISOString()};await saveSession(req);
+    await audit(db,req.user,'verify_connection','smtp',result.ok?'ok':'failed');
+    if(req.get('Accept')?.includes('application/json'))return res.json({redirect:'/admin/email'});
+    res.redirect(303,'/admin/email');
+  });
+  app.post('/admin/email/:id/retry',admin,async(req,res)=>{
+    ensure(mailConfiguration(options.smtpEnvironment || process.env).enabled,'Enable SMTP before retrying confirmation emails.');
+    const result=await rows(db,"UPDATE cms_email_outbox SET status='pending',attempts=0,available_at=UTC_TIMESTAMP(),last_error=NULL,claim_token=NULL WHERE id=? AND status='failed'",[req.params.id]);
+    ensure(result.affectedRows,'Only failed confirmations can be retried. Sent or in-progress emails were not changed.');
+    await audit(db,req.user,'retry','email_receipt',req.params.id);
+    if(req.get('Accept')?.includes('application/json'))return res.json({redirect:'/admin/email'});
+    res.redirect(303,'/admin/email');
+  });
   app.post('/admin/settings',admin,async(req,res)=>{
     const b=req.body;const values={};
     for(const name of ['facebook','instagram','youtube','linkedin']){

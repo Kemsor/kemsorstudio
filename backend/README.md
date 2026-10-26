@@ -171,3 +171,19 @@ GoDaddy should use the root build command `npm run build` and start command
 before publishing. To replace the separate Apache site, assign
 `app.kemsorstudio.com` to this Node app through its Domains settings; preserve the
 existing Apache deployment as a rollback until the domain and HTTPS are verified.
+
+
+### Diagnose hosted email delivery
+
+Open **Admin → Email delivery** (`/admin/email`) in the same Preview or Publish
+environment as the submitted form. The page shows SMTP configuration status,
+recent receipt references, attempt counts and safe failure reasons. **Check
+connection without sending** tests TLS/authentication without sending a message;
+it requires admin access and CSRF. Failed confirmations can be explicitly retried
+after correcting secrets. Successful SMTP acceptance does not prove inbox delivery.
+
+Migration 010 adds `last_error`; runtime logs also include a safe error code such
+as EAUTH (authentication) or ETIMEDOUT (connectivity). Raw provider responses,
+message content and passwords are never included. Old failed attempts may lack a
+reason until another attempt or connection check. Startup performs the same
+non-sending connection check. Configure both Preview and Publish secrets separately.

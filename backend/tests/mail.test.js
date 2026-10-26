@@ -16,3 +16,14 @@ test('SMTP is opt-in and enforces encrypted supported ports',()=>{
  assert.throws(()=>smtpConfig({...env,SMTP_PORT:'80'}));
  assert.throws(()=>smtpConfig({...env,SMTP_PASSWORD:''}));
 });
+
+test('SMTP diagnostics redact provider responses and credentials',async()=>{
+ const {mailError,mailConfiguration,verifyMailConnection}=await import('../src/mail.js');
+ const env={SMTP_ENABLED:'true',SMTP_HOST:'smtp.example.test',SMTP_USER:'test@example.test',SMTP_PASSWORD:'private-test-password'};
+ assert(!JSON.stringify(mailConfiguration(env)).includes(env.SMTP_PASSWORD));
+ const result=await verifyMailConnection(env,{verify:async()=>{throw Object.assign(new Error('private-test-password'),{code:'EAUTH',responseCode:535,response:'password and private provider response'});}});
+ assert.equal(result.ok,false);assert.match(result.message,/EAUTH \(535\)/);assert(!result.message.includes('password and private'));
+ assert(!mailError({code:'malicious secret',message:'private-test-password'}).includes('private-test-password'));
+ assert.equal((await verifyMailConnection({}, {verify:async()=>assert.fail('Disabled SMTP must not connect')})).ok,false);
+ assert.equal((await verifyMailConnection(env,{verify:async()=>true})).ok,true);
+});
