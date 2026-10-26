@@ -29,7 +29,7 @@ const footerGroups = [
   { id:'studio', title: 'The studio', links: [['Home','home'],['About Kemsor','about'],['What We Make','what-we-make'],['Leadership','about','leadership'],['Productions','projects'],['Careers','careers']] },
   { id:'talent', title: 'Talent & tools', links: [['Find Talent','find-talent'],['Join KEMSOR','join'],['Login','login'],['My Profile','profile'],['Script to Production','script-to-production']] },
   { id:'production', title: 'Production support', links: [['All services','services'],['Produce','produce'],['Line Production','line-production'],['Development & planning','develop'],['Film financing','finance'],['Casting & talent','casting'],['Crew & equipment','crew-equipment'],['Locations & logistics','locations-logistics'],['Set & production design','set-production-design'],['Shooting & on-location','shooting-on-location'],['Post','post'],['Post-production supervision','post-production'],['India production services','services','india-production-services'],['Release','release'],['Distribution & release support','distribution-release'],['Festival & awards strategy','festival-awards']] },
-  { id:'connected', title: 'Stay connected', links: [['Contact','contact'],['Blog','blog'],['News','news'],['Press & media','news','press-media'],['Legal & privacy','legal']] },
+  { id:'connected', title: 'Stay connected', links: [['Contact','contact'],['Blog','blog'],['Press & media','news'],['Legal & privacy','legal']] },
 ];
 
 export default function Footer({ reduced, page = 'home' }) {

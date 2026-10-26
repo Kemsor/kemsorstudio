@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node --env-file=.env --watch src/server.js",
     "build": "echo \"No build step required\"",
-    "start": "node src/server.js",
+    "start": "node --env-file-if-exists=.env src/server.js",
     "setup": "node --env-file=.env src/setup.js",
     "test": "node --env-file=.env --test tests/*.test.js",
     "export": "node --env-file=.env src/export.js"
@@ -19,7 +19,8 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "multer": "^2.4.0",
-    "mysql2": "^3.24.5"
+    "mysql2": "^3.24.5",
+    "nodemailer": "^10.2.1"
   },
   "devDependencies": {
     "supertest": "^7.3.1"

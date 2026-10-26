@@ -34,6 +34,8 @@ before(async()=>{
  for(const statement of recruitmentSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  const historySql=await readFile(new URL('../migrations/007_notification_history.sql',import.meta.url),'utf8');
  for(const statement of historySql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ const mailSql=await readFile(new URL('../migrations/009_email_outbox.sql',import.meta.url),'utf8');
+ for(const statement of mailSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const role of ['admin','editor','enquiry_manager'])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[role,`${role}@test.local`,await hashPassword('A-secure-test-password'),role]);
  app=createApp(db,{cookieName:'kemsor.test',dummyHash:await hashPassword('dummy-test-password')});
  [admin,csrfAdmin]=await login('admin');[editor,csrfEditor]=await login('editor');[manager,csrfManager]=await login('enquiry_manager');
@@ -75,6 +77,7 @@ test('Enquiries require consent, record notice version, and support follow-up',a
  const enquiry={category:'business',name:'Synthetic Test',email:'synthetic@example.test',subject:'Test enquiry',message:'Test only',consent:false};
  await guest.post('/api/enquiries').set('X-CSRF-Token',token).send(enquiry).expect(422);
  const result=await guest.post('/api/enquiries').set('X-CSRF-Token',token).send({...enquiry,consent:true}).expect(201);assert.match(result.body.reference,/^KEM-\d{6}$/);
+ const receipt=(await rows(db,'SELECT * FROM cms_email_outbox WHERE receipt_key=?',[result.body.reference]))[0];assert.equal(receipt.recipient,enquiry.email);assert.equal(receipt.status,'pending');assert.ok(receipt.body.includes('get back to you'));
  const row=(await rows(db,'SELECT * FROM cms_enquiries'))[0];assert.equal(row.consent_version,'test-v1');assert.equal(row.status,'new');
  await manager.get(`/admin/enquiries/${row.id}`).expect(200);
  await manager.post(`/admin/enquiries/${row.id}`).type('form').send({_csrf:csrfManager,status:'contacted',note:'Followed up in test'}).expect(302);
@@ -445,4 +448,21 @@ test('MySQL JSON string settings are decoded once, including empty strings and b
  assert.equal(pool.pool.config.connectionConfig.jsonStrings,true);await pool.end();
  const fake={execute:async()=>[[{name:'facebook',value:'""'},{name:'contact_note',value:'"Sample details"'},{name:'enquiries_enabled',value:'false'}]]};
  const config=await settings(fake);assert.equal(config.facebook,'');assert.equal(config.contact_note,'Sample details');assert.equal(config.enquiries_enabled,false);
+});
+
+test('Receipt delivery retries SMTP failures without losing the saved submission',async()=>{
+ const {saveWithReceipt,deliverReceipt}=await import('../src/mail.js');
+ await rows(db,'DELETE FROM cms_email_outbox');
+ const ref=await saveWithReceipt(db,'enquiry','Queue Test','queue@example.test',async()=>({insertId:999999}));
+ await assert.rejects(()=>saveWithReceipt(db,'enquiry','Queue Test','queue@example.test',async()=>({insertId:999999})));
+ assert.equal((await rows(db,'SELECT COUNT(*) AS total FROM cms_email_outbox'))[0].total,1);
+ await deliverReceipt(db,{sendMail:async()=>{throw new Error('Synthetic SMTP outage');}},'sender@example.test');
+ let mail=(await rows(db,'SELECT * FROM cms_email_outbox WHERE receipt_key=?',[ref]))[0];
+ assert.equal(mail.status,'pending');assert.equal(mail.attempts,1);
+ await rows(db,'UPDATE cms_email_outbox SET available_at=UTC_TIMESTAMP() WHERE id=?',[mail.id]);
+ const sent=[];
+ await deliverReceipt(db,{sendMail:async message=>{sent.push(message);}},'sender@example.test');
+ mail=(await rows(db,'SELECT * FROM cms_email_outbox WHERE id=?',[mail.id]))[0];
+ assert.equal(mail.status,'sent');assert.equal(sent.length,1);assert.equal(sent[0].to,'queue@example.test');
+ assert.equal(await deliverReceipt(db,{sendMail:async()=>assert.fail('Already sent')},'sender@example.test'),false);
 });

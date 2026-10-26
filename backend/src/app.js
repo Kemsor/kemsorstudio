@@ -1,3 +1,5 @@
+import { saveWithReceipt } from './mail.js';
+import { website } from './website.js';
 import express from 'express';
 import session from 'express-session';
 import multer from 'multer';
@@ -40,6 +42,7 @@ async function fileSave(file, extension) {
 export function createApp(db, options={}) {
   const app=express();
   app.disable('x-powered-by');
+  app.use(website(options.frontendDirectory));
   if(process.env.TRUST_PROXY==='true')app.set('trust proxy',1);
   app.set('view engine','ejs'); app.set('views',path.join(root,'views'));
   app.use((req,res,next)=>{
@@ -315,8 +318,8 @@ export function createApp(db, options={}) {
     let filename=null,fileName=null,mime=null;const file=req.files?.attachment?.[0];
     if(file){ensure(config.attachments_enabled,'Attachments are not enabled.');let kind=imageKind(file);if(file.mimetype==='application/pdf' && file.buffer.subarray(0,5).toString()==='%PDF-')kind=['pdf','application/pdf'];ensure(kind,'Only PDF, PNG, JPEG or WebP attachments are allowed.');filename=await fileSave(file,kind[0]);fileName=path.basename(file.originalname).slice(0,255);mime=kind[1];}
     try{
-      const result=await rows(db,'INSERT INTO cms_enquiries(category,name,email,organisation,subject,message,consent_at,consent_version,attachment_filename,attachment_name,attachment_mime) VALUES(?,?,?,?,?,?,UTC_TIMESTAMP(),?,?,?,?)',[b.category,name,email,organisation,subject,message,config.consent_version,filename,fileName,mime]);
-      res.status(201).json({reference:`KEM-${String(result.insertId).padStart(6,'0')}`,message:'Your enquiry has been recorded for the studio.'});
+      const reference=await saveWithReceipt(db,'enquiry',name,email,connection=>rows(connection,'INSERT INTO cms_enquiries(category,name,email,organisation,subject,message,consent_at,consent_version,attachment_filename,attachment_name,attachment_mime) VALUES(?,?,?,?,?,?,UTC_TIMESTAMP(),?,?,?,?)',[b.category,name,email,organisation,subject,message,config.consent_version,filename,fileName,mime]));
+      res.status(201).json({reference,message:'Your enquiry has been recorded for the studio.'});
     }catch(error){if(filename)await unlink(path.join(root,'storage/uploads',filename)).catch(()=>{});throw error;}
   });
   app.use(bulkRouter(db));

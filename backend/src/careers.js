@@ -1,3 +1,4 @@
+import { saveWithReceipt } from './mail.js';
 import {Router} from 'express';
 import {tableView} from './admin-tables.js';
 import {rows,audit} from './db.js';
@@ -20,7 +21,7 @@ export function careersRouter(db){
   fail(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),'Enter a valid email address.');fail(b.consent==='true'||b.consent==='on','Accept the application privacy notice.');
   const resume=req.files?.attachment?.[0];fail(resume,'Upload your résumé as a PDF.');fail(resume.mimetype==='application/pdf'&&path.extname(resume.originalname).toLowerCase()==='.pdf'&&resume.buffer.subarray(0,5).toString()==='%PDF-','Upload a PDF résumé, up to 5 MB.');
   const filename=`${randomUUID()}.pdf`;await mkdir(storage,{recursive:true});await writeFile(new URL(filename,storage),resume.buffer,{mode:0o600});
-  try{const result=await rows(db,'INSERT INTO career_applications(career_id,career_title,name,email,phone,city,experience,message,resume_filename,resume_name,consent_version) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[role.id,role.title,name,email,phone,city,experience,message,filename,path.basename(resume.originalname).slice(0,255),'career-application-v1']);res.status(201).json({reference:`APP-${String(result.insertId).padStart(6,'0')}`});}
+  try{const reference=await saveWithReceipt(db,'application',name,email,connection=>rows(connection,'INSERT INTO career_applications(career_id,career_title,name,email,phone,city,experience,message,resume_filename,resume_name,consent_version) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[role.id,role.title,name,email,phone,city,experience,message,filename,path.basename(resume.originalname).slice(0,255),'career-application-v1']));res.status(201).json({reference});}
   catch(error){await unlink(new URL(filename,storage)).catch(()=>{});throw error;}
  });
  router.get('/admin/applications',staff,async(req,res)=>{

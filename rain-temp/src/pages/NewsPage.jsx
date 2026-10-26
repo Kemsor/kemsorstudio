@@ -10,9 +10,9 @@ export function NewsPage() {
  const news = entries.filter(entry => entry.type === 'news');
  const partners = entries.filter(entry => entry.type === 'media_partner');
  return <div className="newsroom-page">
-  <EditorialHero compact page="news" eyebrow="NEWS" title="News"/>
-  <section className="newsroom-stories" aria-label="Studio news">
-   {!news.length && <MotionCopy className="newsroom-empty" role="status">{connected ? 'Studio news will appear here as updates are published.' : 'Loading studio news…'}</MotionCopy>}
+  <EditorialHero compact page="news" eyebrow="PRESS & MEDIA" title="Press & Media"/>
+  <section className="newsroom-stories" aria-label="Press and media updates">
+   {!news.length && <MotionCopy className="newsroom-empty" role="status">{connected ? 'Press and media updates will appear here as they are published.' : 'Loading press and media updates…'}</MotionCopy>}
    {news.map(entry => <article className="newsroom-story" key={entry.id} id={entry.slug}>
     {entry.image_url && <img src={entry.image_url} alt={entry.image_alt || ''} loading="lazy"/>}
     <div>{entry.published_at && <time dateTime={entry.published_at.replace(' ','T')+'Z'}>{new Date(entry.published_at.replace(' ','T')+'Z').toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</time>}<MotionHeading as="h2">{entry.title}</MotionHeading>{entry.summary && <p className="newsroom-summary">{entry.summary}</p>}<CmsText text={entry.body}/></div>

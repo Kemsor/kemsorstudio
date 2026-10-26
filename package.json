@@ -8,7 +8,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "echo \"Backend is ready for deployment\"",
+    "build": "npm ci --prefix rain-temp --include=dev && npm run build --prefix rain-temp",
     "start": "node backend/src/setup.js && node backend/src/server.js",
     "dev": "npm start"
   },
@@ -17,6 +17,7 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "multer": "^2.4.0",
-    "mysql2": "^3.24.5"
+    "mysql2": "^3.24.5",
+    "nodemailer": "^10.2.1"
   }
 }

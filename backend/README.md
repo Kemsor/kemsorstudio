@@ -14,7 +14,7 @@ npm run setup
 npm start
 ```
 
-`npm run dev` watches backend changes. In `rain-temp/`, run `npm run dev` for the website. The Vite proxy forwards `/api` and `/media` to port 8100. The original port 3006 design is unchanged.
+`npm start` loads the local `.env` when present. `npm run dev` watches backend changes; use `npm start` when the machine’s file-watcher limit is reached. In `rain-temp/`, run `npm run dev` for the website. The Vite proxy forwards `/api` and `/media` to port 8100. The original port 3006 design is unchanged.
 
 Initial local admin credentials are in `storage/local-admin.txt` with private filesystem permissions. Change the password after signing in. Create separate editor and enquiry-manager accounts under Users & roles. There is no public registration.
 
@@ -123,3 +123,51 @@ invalidates the administrator's existing sessions and records an audit event.
 Remove all three recovery secrets after successful login. A future recovery needs
 a new identifier. Passwords and recovery secret values are never written to logs.
 This is a hosting-owner operation; no public password reset endpoint is exposed.
+
+### Form confirmation emails
+
+Enquiry and career application submissions save a plain-text confirmation to
+`cms_email_outbox` in the same database transaction as the submission. The server
+checks the queue every five seconds and retries failed SMTP delivery up to five
+times, five minutes apart. Private script workspace saves are drafts and do not
+send a studio-review confirmation. Tests use a fake transport and send no mail.
+
+Run `npm run setup` to apply migration 009 before restarting an existing backend.
+For the local restricted runtime account, use `USE_MIGRATION_CREDENTIALS=true npm run setup`.
+Set these private environment variables in the backend `.env` locally, or in
+GoDaddy Web App **Manage Secrets** for the hosted Node application:
+
+```
+SMTP_ENABLED=true
+SMTP_HOST=smtpout.secureserver.net
+SMTP_PORT=465
+SMTP_USER=info@kemsorstudio.com
+SMTP_PASSWORD=<mailbox password>
+```
+
+Port 465 uses SSL/TLS; 587 uses required STARTTLS. The sender is the authenticated
+mailbox. Missing credentials with SMTP enabled prevent startup; disabled SMTP
+keeps receipts queued. Never add these values to Vite variables or CMS public
+settings. After changing hosted secrets, restart the backend. Mail status can be
+inspected in `cms_email_outbox` (`pending`, `sending`, `sent`, `failed`); logs omit
+credentials and message contents. A delivery interrupted after SMTP acceptance
+may be retried, so duplicate receipts are possible in that rare case.
+
+The admin and public website share MySQL data. Publishing CMS entries exposes
+those entries through `/api/site`; the frontend fetches that feed on page load and refreshes it every 30 seconds while the page is visible.
+Forms POST to the backend and appear in the appropriate admin inbox. Production
+hosting must route `/api`, `/media` and `/admin` to the Node backend (as the local
+Vite proxy does), with `WEBSITE_URL` set to the public frontend origin. Deploying
+only static frontend files does not deploy or connect the CMS.
+
+### Serve the website and CMS from the Node app
+
+The repository root `npm run build` installs frontend build dependencies and
+builds `rain-temp/dist`. When that build exists, the Node server serves the
+website at `/` and the CMS/API at their existing paths on the same origin.
+Backend-only installations without a frontend build retain the CMS status page.
+GoDaddy should use the root build command `npm run build` and start command
+`npm start`. Check the preview homepage, `/api/site`, `/health` and `/admin/login`
+before publishing. To replace the separate Apache site, assign
+`app.kemsorstudio.com` to this Node app through its Domains settings; preserve the
+existing Apache deployment as a rollback until the domain and HTTPS are verified.
