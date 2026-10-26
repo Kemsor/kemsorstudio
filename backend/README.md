@@ -128,37 +128,38 @@ This is a hosting-owner operation; no public password reset endpoint is exposed.
 
 Enquiry and career application submissions save a plain-text confirmation to
 `cms_email_outbox` in the same database transaction as the submission. The server
-checks the queue every five seconds and retries failed SMTP delivery up to five
-times, five minutes apart. Private script workspace saves are drafts and do not
-send a studio-review confirmation. Tests use a fake transport and send no mail.
+checks the queue every five seconds and retries failed delivery up to five times,
+five minutes apart. Private script workspace drafts do not send confirmations.
+Tests use fake transports and send no real mail.
 
-Run `npm run setup` to apply migration 009 before restarting an existing backend.
-For the local restricted runtime account, use `USE_MIGRATION_CREDENTIALS=true npm run setup`.
-Set these private environment variables in the backend `.env` locally, or in
-GoDaddy Web App **Manage Secrets** for the hosted Node application:
+**GoDaddy Node.js Hosting:** set `EMAIL_TRANSPORT=godaddy` in both Preview and
+Publish secrets. External SMTP ports are not routable from this platform. The
+app uses GoDaddy's built-in loopback email gateway, without SMTP credentials or
+third-party API keys. Production defaults to this transport. See the official
+[GoDaddy email contract](https://github.com/godaddy/nodejs-hosting-agent-skill/blob/main/skills/godaddy-nodejs-hosting/email.md).
 
-```
-SMTP_ENABLED=true
-SMTP_HOST=smtpout.secureserver.net
-SMTP_PORT=465
-SMTP_USER=info@kemsorstudio.com
-SMTP_PASSWORD=<mailbox password>
-```
+The gateway chooses the app's permitted sender. Replies go to the studio mailbox,
+`info@kemsorstudio.com`. This does not promise that the From address will be that
+mailbox: its domain must first be verified/attached to the app before a custom
+From address can be configured. User form fields never set the sender.
 
-Port 465 uses SSL/TLS; 587 uses required STARTTLS. The sender is the authenticated
-mailbox. Missing credentials with SMTP enabled prevent startup; disabled SMTP
-keeps receipts queued. Never add these values to Vite variables or CMS public
-settings. After changing hosted secrets, restart the backend. Mail status can be
-inspected in `cms_email_outbox` (`pending`, `sending`, `sent`, `failed`); logs omit
-credentials and message contents. A delivery interrupted after SMTP acceptance
-may be retried, so duplicate receipts are possible in that rare case.
+**Local SMTP or other hosts that permit it:** set `EMAIL_TRANSPORT=smtp`,
+`SMTP_ENABLED=true`, `SMTP_HOST`, `SMTP_PORT` (465 or 587), `SMTP_USER` and
+`SMTP_PASSWORD`. Port 465 uses TLS and 587 requires STARTTLS. These settings are
+ignored by the GoDaddy gateway transport. `EMAIL_ENABLED=false` pauses delivery
+and preserves queued receipts for either transport. Credentials stay private.
 
-The admin and public website share MySQL data. Publishing CMS entries exposes
-those entries through `/api/site`; the frontend fetches that feed on page load and refreshes it every 30 seconds while the page is visible.
-Forms POST to the backend and appear in the appropriate admin inbox. Production
-hosting must route `/api`, `/media` and `/admin` to the Node backend (as the local
-Vite proxy does), with `WEBSITE_URL` set to the public frontend origin. Deploying
-only static frontend files does not deploy or connect the CMS.
+Run migrations before restarting an existing backend. For the local restricted
+runtime account use `USE_MIGRATION_CREDENTIALS=true npm run setup`.
+
+Delivery status is in `cms_email_outbox`: pending, sending, sent or failed. Sent
+means accepted by the email service, not guaranteed inbox delivery. An interrupted
+request after acceptance can be retried, so rare duplicate receipts are possible.
+
+The admin and public website share MySQL data. Publishing exposes approved
+entries through `/api/site`; the frontend refreshes every 30 seconds while
+visible. Forms appear in the admin inbox. Deploying static files alone does not
+connect the CMS. Serve website and API on the Node app as described below.
 
 ### Serve the website and CMS from the Node app
 
@@ -176,14 +177,13 @@ existing Apache deployment as a rollback until the domain and HTTPS are verified
 ### Diagnose hosted email delivery
 
 Open **Admin → Email delivery** (`/admin/email`) in the same Preview or Publish
-environment as the submitted form. The page shows SMTP configuration status,
+environment as the submitted form. The page shows the email transport configuration,
 recent receipt references, attempt counts and safe failure reasons. **Check
-connection without sending** tests TLS/authentication without sending a message;
+connection without sending** tests SMTP authentication or GoDaddy gateway reachability without sending a message;
 it requires admin access and CSRF. Failed confirmations can be explicitly retried
 after correcting secrets. Successful SMTP acceptance does not prove inbox delivery.
 
-Migration 010 adds `last_error`; runtime logs also include a safe error code such
-as EAUTH (authentication) or ETIMEDOUT (connectivity). Raw provider responses,
+Migration 010 adds `last_error`; runtime logs include safe SMTP or gateway error codes. Raw provider responses,
 message content and passwords are never included. Old failed attempts may lack a
 reason until another attempt or connection check. Startup performs the same
 non-sending connection check. Configure both Preview and Publish secrets separately.

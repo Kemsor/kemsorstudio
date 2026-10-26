@@ -1,12 +1,12 @@
 <%- include('head') %>
 <p class="eyebrow">EMAIL DELIVERY</p><h1>Form confirmations.</h1>
-<section class="panel"><h2>SMTP connection</h2><p><%= configuration.message %></p>
+<section class="panel"><h2>Email connection</h2><p><%= configuration.message %></p>
 <% if(configuration.enabled){ %><p><%= configuration.host %> · Port <%= configuration.port %><br>Sender: <%= configuration.username %></p><% } %>
 <p class="form-help">Preview and Publish have separate GoDaddy secrets. This check uses this application's current environment and does not send an email.</p>
 <% if(check){ %><p class="notice" role="status"><strong><%= check.ok?'Connection verified':'Connection check failed' %></strong><br><%= check.message %><br><small><%= check.at %></small></p><% } %>
 <form method="post" action="/admin/email/verify"><input type="hidden" name="_csrf" value="<%= csrf %>"><button>Check connection without sending</button></form>
 </section>
-<section class="panel"><h2>Recent confirmations</h2><p class="form-help">Pending receipts retry after five minutes, up to five attempts. Sent means the mail server accepted the message; check spam or junk if it is not in the inbox. Failed receipts stop retrying. After correcting the SMTP settings, use Retry confirmation to queue a failed receipt again. Existing submissions do not need to be resubmitted.</p>
+<section class="panel"><h2>Recent confirmations</h2><p class="form-help">Pending receipts retry after five minutes, up to five attempts. Sent means the mail server accepted the message; check spam or junk if it is not in the inbox. Failed receipts stop retrying. After correcting the email settings, use Retry confirmation to queue a failed receipt again. Existing submissions do not need to be resubmitted.</p>
 <div class="table-wrap"><table><thead><tr><th>Reference</th><th>Status</th><th>Attempts</th><th>Delivery details</th></tr></thead><tbody>
 <% deliveries.forEach(mail=>{ %><tr><td><%= mail.receipt_key %></td><td><span class="badge"><%= mail.status %></span></td><td><%= mail.attempts %> / 5</td><td><% if(mail.status==='sent'){ %>Accepted <%= mail.sent_at %> UTC<% }else{ %><%= mail.last_error || (mail.attempts?'The earlier attempt did not record an error reason. Run the connection check.':'Waiting for the delivery worker.') %><% if(mail.status==='pending'){ %><br><small>Next attempt <%= mail.available_at %> UTC</small><% } %><% if(mail.status==='failed'){ %><form method="post" action="/admin/email/<%= mail.id %>/retry"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="quiet">Retry confirmation</button></form><% } %><% } %></td></tr><% }); %>
 </tbody></table></div><% if(!deliveries.length){ %><p class="empty">No confirmation emails have been queued.</p><% } %>

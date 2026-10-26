@@ -276,12 +276,12 @@ export function createApp(db, options={}) {
     ensure(!await rateLimited(db,`smtp-check:${req.user.id}`,5,60),'Wait a minute before checking the SMTP connection again.',429);
     const result=await verifyMailConnection(options.smtpEnvironment || process.env,options.mailTransport);
     req.session.mailCheck={...result,at:new Date().toISOString()};await saveSession(req);
-    await audit(db,req.user,'verify_connection','smtp',result.ok?'ok':'failed');
+    await audit(db,req.user,'verify_connection','email',result.ok?'ok':'failed');
     if(req.get('Accept')?.includes('application/json'))return res.json({redirect:'/admin/email'});
     res.redirect(303,'/admin/email');
   });
   app.post('/admin/email/:id/retry',admin,async(req,res)=>{
-    ensure(mailConfiguration(options.smtpEnvironment || process.env).enabled,'Enable SMTP before retrying confirmation emails.');
+    ensure(mailConfiguration(options.smtpEnvironment || process.env).enabled,'Enable email delivery before retrying confirmation emails.');
     const result=await rows(db,"UPDATE cms_email_outbox SET status='pending',attempts=0,available_at=UTC_TIMESTAMP(),last_error=NULL,claim_token=NULL WHERE id=? AND status='failed'",[req.params.id]);
     ensure(result.affectedRows,'Only failed confirmations can be retried. Sent or in-progress emails were not changed.');
     await audit(db,req.user,'retry','email_receipt',req.params.id);
