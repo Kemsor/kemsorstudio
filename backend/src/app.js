@@ -272,14 +272,17 @@ export function createApp(db, options={}) {
     configuration:mailConfiguration(options.smtpEnvironment || process.env),check:req.session.mailCheck || null,
     deliveries:await rows(db,'SELECT id,receipt_key,recipient,status,attempts,available_at,sent_at,last_error,provider_message_id FROM cms_email_outbox ORDER BY id DESC LIMIT 50')
   }));
-  app.post('/admin/email/verify',admin,async(req,res)=>{
+  const checkEmailConnection=supportRelay=>async(req,res)=>{
     ensure(!await rateLimited(db,`smtp-check:${req.user.id}`,5,60),'Wait a minute before checking the SMTP connection again.',429);
-    const result=await verifyMailConnection(options.smtpEnvironment || process.env,options.mailTransport);
-    req.session.mailCheck={...result,at:new Date().toISOString()};await saveSession(req);
-    await audit(db,req.user,'verify_connection','email',result.ok?'ok':'failed');
+    const current=options.smtpEnvironment || process.env;
+    const result=await verifyMailConnection(supportRelay?{...current,EMAIL_TRANSPORT:'relay'}:current,options.mailTransport);
+    req.session.mailCheck={...result,label:supportRelay?'Support relay test':'Configured email service',at:new Date().toISOString()};await saveSession(req);
+    await audit(db,req.user,'verify_connection',supportRelay?'support_relay':'email',result.ok?'ok':'failed');
     if(req.get('Accept')?.includes('application/json'))return res.json({redirect:'/admin/email'});
     res.redirect(303,'/admin/email');
-  });
+  };
+  app.post('/admin/email/verify',admin,checkEmailConnection(false));
+  app.post('/admin/email/verify-relay',admin,checkEmailConnection(true));
   app.post('/admin/email/:id/retry',admin,async(req,res)=>{
     ensure(mailConfiguration(options.smtpEnvironment || process.env).enabled,'Enable email delivery before retrying confirmation emails.');
     const result=await rows(db,"UPDATE cms_email_outbox SET status='pending',attempts=0,available_at=UTC_TIMESTAMP(),last_error=NULL,claim_token=NULL WHERE id=? AND status='failed'",[req.params.id]);

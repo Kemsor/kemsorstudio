@@ -200,3 +200,19 @@ time. The worker logs only the receipt reference and service ID (no recipient or
 message body). GoDaddy can use its gateway ID to correlate delivery logs. Older
 accepted confirmations have no saved ID; their missing IDs cannot be recovered
 from the app database. An accepted confirmation is not automatically resent.
+
+### Test the relay settings supplied by GoDaddy support
+
+GoDaddy support article 953 describes a cPanel relay at `localhost:25` with SMTP
+authentication and SSL/TLS disabled. The separate opt-in `EMAIL_TRANSPORT=relay`
+mode applies exactly these settings and sends from `info@kemsorstudio.com`. It
+does not use mailbox credentials and permits unencrypted SMTP only on loopback.
+See https://www.godaddy.com/en-in/help/send-form-mail-using-an-smtp-relay-server-953.
+
+Test this in Preview first, using Admin → Email delivery → Test support relay
+without sending. This separate check keeps the active delivery service unchanged.
+If it succeeds, set EMAIL_TRANSPORT=relay in Preview to test a real confirmation. A successful connection does not establish sender acceptance or
+inbox delivery; submit one confirmation to verify both. The Node app's localhost
+may not expose the cPanel relay; if it refuses or times out, report that exact
+result to support. `EMAIL_TRANSPORT=godaddy` restores the working platform sender.
+Only select relay in Publish after the hosted Preview delivery test succeeds.

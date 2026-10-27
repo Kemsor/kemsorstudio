@@ -27,3 +27,16 @@ test('SMTP diagnostics redact provider responses and credentials',async()=>{
  assert.equal((await verifyMailConnection({}, {verify:async()=>assert.fail('Disabled SMTP must not connect')})).ok,false);
  assert.equal((await verifyMailConnection(env,{verify:async()=>true})).ok,true);
 });
+
+test('Support relay mode uses localhost:25 with no authentication or TLS',async()=>{
+ const {relayConfig,mailConfiguration,verifyMailConnection,mailError}=await import('../src/mail.js');
+ const config=relayConfig();assert.equal(config.host,'localhost');assert.equal(config.port,25);
+ assert.equal(config.secure,false);assert.equal(config.ignoreTLS,true);assert.equal(config.auth,undefined);
+ const env={EMAIL_TRANSPORT:'relay',SMTP_HOST:'smtp.example.test',SMTP_USER:'ignored',SMTP_PASSWORD:'unused-private-password'};
+ const state=mailConfiguration(env);assert.equal(state.enabled,true);assert.equal(state.username,'info@kemsorstudio.com');
+ assert(!JSON.stringify(state).includes(env.SMTP_PASSWORD));
+ const verified=await verifyMailConnection(env,{verify:async()=>true});assert.equal(verified.ok,true);assert.match(verified.message,/without authentication or TLS/);
+ const rejected=await verifyMailConnection(env,{verify:async()=>{throw Object.assign(new Error('private error'),{code:'ESOCKET',originalCode:'ECONNREFUSED'});}});
+ assert.equal(rejected.ok,false);assert.match(rejected.message,/ESOCKET\/ECONNREFUSED/);assert(!rejected.message.includes('private error'));
+ assert(!mailError({code:'ESOCKET',originalCode:'private-secret'}).includes('private-secret'));
+});

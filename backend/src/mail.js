@@ -38,6 +38,19 @@ export function smtpConfig(env=process.env) {
     disableFileAccess:true,disableUrlAccess:true};
 }
 
+// Support's cPanel relay settings, deliberately limited to loopback.
+// Hosted support must confirm availability; this does not select it automatically.
+export function relayConfig() {
+  return {host:'localhost',port:25,secure:false,ignoreTLS:true,
+    connectionTimeout:10000,greetingTimeout:10000,socketTimeout:20000,
+    disableFileAccess:true,disableUrlAccess:true};
+}
+
+function createMailTransport(configuration,env) {
+  if(configuration.provider==='godaddy')return gatewayTransport();
+  return nodemailer.createTransport(configuration.provider==='relay'?relayConfig():smtpConfig(env));
+}
+
 // Provider errors may contain credentials or message data. Keep only known codes.
 export function mailError(error) {
   const descriptions={EAUTH:'Mailbox authentication failed. Check the SMTP username and password in this environment.',
@@ -52,8 +65,9 @@ export function mailError(error) {
     GATEWAY_REJECTED:'The GoDaddy email gateway rejected the message. Check the app email service and sending limits.',
     GATEWAY_RESPONSE:'The GoDaddy email gateway did not return a message identifier.'};
   const code=Object.hasOwn(descriptions,error?.code)?error.code:'SMTP_ERROR';
+  const original=Object.hasOwn(descriptions,error?.originalCode)?error.originalCode:null;
   const response=Number(error?.responseCode);
-  return `${code}${Number.isInteger(response)&&response>=400&&response<=599?` (${response})`:''}: ${descriptions[code] || 'Email delivery failed. Check the mail service configuration.'}`;
+  return `${code}${original&&original!==code?`/${original}`:''}${Number.isInteger(response)&&response>=400&&response<=599?` (${response})`:''}: ${descriptions[original || code] || 'Email delivery failed. Check the mail service configuration.'}`;
 }
 
 export function mailConfiguration(env=process.env) {
@@ -62,7 +76,9 @@ export function mailConfiguration(env=process.env) {
     if(env.EMAIL_ENABLED==='false')return {enabled:false,provider,host:'',port:'',message:'Confirmation email delivery is disabled by EMAIL_ENABLED.'};
     if(provider==='godaddy')return {enabled:true,provider,host:'GoDaddy built-in email gateway',port:2525,username:'sxqc7mdcy1@airoapp.ai; replies go to info@kemsorstudio.com',
       message:'Confirmation emails use the GoDaddy app gateway. External SMTP settings are not used.'};
-    if(provider!=='smtp')return {enabled:false,provider,host:'',port:'',message:'Choose EMAIL_TRANSPORT=godaddy on GoDaddy Node.js Hosting, or smtp on a host that allows SMTP.'};
+    if(provider==='relay')return {enabled:true,provider,host:'localhost',port:25,username:'info@kemsorstudio.com',
+      message:'Testing the relay settings supplied by GoDaddy support: localhost:25, SMTP authentication off, SSL/TLS off. The sender is info@kemsorstudio.com.'};
+    if(provider!=='smtp')return {enabled:false,provider,host:'',port:'',message:'Choose EMAIL_TRANSPORT=godaddy, smtp, or relay.'};
     const config=smtpConfig(env);
     return {enabled:!!config,provider,host:config?.host || '',port:config?.port || '',username:config?.auth.user || '',
       message:config?'SMTP delivery is enabled. Check the connection below.':'SMTP delivery is disabled in this environment. Set SMTP_ENABLED=true in its GoDaddy secrets.'};
@@ -74,9 +90,10 @@ export async function verifyMailConnection(env=process.env, suppliedTransport) {
   try {
     const state=mailConfiguration(env);
     if(!state.enabled)return {ok:false,message:state.message};
-    transport=suppliedTransport || (state.provider==='godaddy'?gatewayTransport():nodemailer.createTransport(smtpConfig(env)));
+    transport=suppliedTransport || createMailTransport(state,env);
     await transport.verify();
     if(state.provider==='godaddy')return {ok:true,message:'The GoDaddy email gateway is reachable. No email was sent. A form confirmation is still needed to verify acceptance and inbox delivery.'};
+    if(state.provider==='relay')return {ok:true,message:'The localhost:25 SMTP relay is reachable and accepts a connection without authentication or TLS. No email was sent. A form confirmation must still verify that info@kemsorstudio.com is accepted as sender and reaches the inbox.'};
     return {ok:true,message:'SMTP connection and authentication succeeded. No email was sent. This does not confirm inbox delivery.'};
   }catch(error){return {ok:false,message:mailError(error)};}
   finally{if(!suppliedTransport)transport?.close();}
@@ -107,12 +124,13 @@ export async function deliverReceipt(db, transport, from) {
 export function startMailWorker(db, env=process.env) {
   const configuration=mailConfiguration(env);
   if(!configuration.enabled){console.log(`Email receipts are queued. ${configuration.message}`);return async()=>{};}
-  const transport=configuration.provider==='godaddy'?gatewayTransport():nodemailer.createTransport(smtpConfig(env));
+  const transport=createMailTransport(configuration,env);
   const verification=verifyMailConnection(env,transport).then(result=>console.log(`Email startup check: ${result.message}`));
   let stopped=false, running=null;
   const tick=()=>{
     if(stopped || running)return;
-    running=(async()=>{for(let i=0;i<10 && !stopped;i++)if(!await deliverReceipt(db,transport,configuration.provider==='smtp'?`Kemsor Studios <${env.SMTP_USER}>`:undefined))break;})()
+    const from=configuration.provider==='relay'?'Kemsor Studios <info@kemsorstudio.com>':configuration.provider==='smtp'?`Kemsor Studios <${env.SMTP_USER}>`:undefined;
+    running=(async()=>{for(let i=0;i<10 && !stopped;i++)if(!await deliverReceipt(db,transport,from))break;})()
       .catch(()=>console.error('Email queue unavailable; delivery will retry.')).finally(()=>{running=null;});
   };
   const timer=setInterval(tick,5000);timer.unref();tick();

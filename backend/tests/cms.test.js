@@ -444,6 +444,14 @@ test('Email diagnostics and retries are admin-only, CSRF protected and keep secr
  assert.equal(verification.body.redirect,'/admin/email');
  const page=await admin.get('/admin/email').expect(200);
  assert.match(page.text,/connection and authentication succeeded/);assert.match(page.text,/test-gateway-receipt-123/);assert.match(page.text,/queue@example.test/);assert(!page.text.includes('synthetic-secret'));
+ await limited.post('/admin/email/verify-relay').send({_csrf:limitedCsrf}).expect(403);
+ await admin.post('/admin/email/verify-relay').expect(403);
+ const countBefore=(await rows(db,'SELECT COUNT(*) AS total FROM cms_email_outbox'))[0].total;
+ await admin.post('/admin/email/verify-relay').set('Accept','application/json').send({_csrf:csrfAdmin}).expect(200);
+ const relayPage=await admin.get('/admin/email').expect(200);
+ assert.match(relayPage.text,/Support relay test/);assert.match(relayPage.text,/localhost:25 SMTP relay is reachable/);
+ assert.match(relayPage.text,/SMTP delivery is enabled/);
+ assert.equal((await rows(db,'SELECT COUNT(*) AS total FROM cms_email_outbox'))[0].total,countBefore);
  const mail=(await rows(db,'SELECT id FROM cms_email_outbox ORDER BY id DESC LIMIT 1'))[0];
  await admin.post(`/admin/email/${mail.id}/retry`).send({_csrf:csrfAdmin}).expect(422);
  await rows(db,"UPDATE cms_email_outbox SET status='failed',attempts=5 WHERE id=?",[mail.id]);
