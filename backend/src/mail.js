@@ -60,7 +60,7 @@ export function mailConfiguration(env=process.env) {
   try {
     const provider=mailProvider(env);
     if(env.EMAIL_ENABLED==='false')return {enabled:false,provider,host:'',port:'',message:'Confirmation email delivery is disabled by EMAIL_ENABLED.'};
-    if(provider==='godaddy')return {enabled:true,provider,host:'GoDaddy built-in email gateway',port:2525,username:'GoDaddy-managed sender; replies go to info@kemsorstudio.com',
+    if(provider==='godaddy')return {enabled:true,provider,host:'GoDaddy built-in email gateway',port:2525,username:'sxqc7mdcy1@airoapp.ai; replies go to info@kemsorstudio.com',
       message:'Confirmation emails use the GoDaddy app gateway. External SMTP settings are not used.'};
     if(provider!=='smtp')return {enabled:false,provider,host:'',port:'',message:'Choose EMAIL_TRANSPORT=godaddy on GoDaddy Node.js Hosting, or smtp on a host that allows SMTP.'};
     const config=smtpConfig(env);

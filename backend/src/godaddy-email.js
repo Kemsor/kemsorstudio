@@ -9,7 +9,9 @@ export async function sendEmail({to,subject,text},request=globalThis.fetch) {
   try {
     response=await request(endpoint,{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({to:[to],subject,text,replyTo:'info@kemsorstudio.com'}),
+      // This app's original platform sender delivered successfully before domain attachment.
+      // Keep it literal so forms cannot override the sender or follow domain changes.
+      body:JSON.stringify({to:[to],subject,text,from:'sxqc7mdcy1@airoapp.ai',replyTo:'info@kemsorstudio.com'}),
       signal:AbortSignal.timeout(30000)
     });
     body=await response.json();
