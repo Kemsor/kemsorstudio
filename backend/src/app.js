@@ -270,7 +270,7 @@ export function createApp(db, options={}) {
   app.get('/admin/settings',admin,async(req,res)=>res.render('settings',{settings:await settings(db)}));
   app.get('/admin/email',admin,async(req,res)=>res.render('email',{
     configuration:mailConfiguration(options.smtpEnvironment || process.env),check:req.session.mailCheck || null,
-    deliveries:await rows(db,'SELECT id,receipt_key,status,attempts,available_at,sent_at,last_error FROM cms_email_outbox ORDER BY id DESC LIMIT 50')
+    deliveries:await rows(db,'SELECT id,receipt_key,recipient,status,attempts,available_at,sent_at,last_error,provider_message_id FROM cms_email_outbox ORDER BY id DESC LIMIT 50')
   }));
   app.post('/admin/email/verify',admin,async(req,res)=>{
     ensure(!await rateLimited(db,`smtp-check:${req.user.id}`,5,60),'Wait a minute before checking the SMTP connection again.',429);

@@ -187,3 +187,11 @@ Migration 010 adds `last_error`; runtime logs include safe SMTP or gateway error
 message content and passwords are never included. Old failed attempts may lack a
 reason until another attempt or connection check. Startup performs the same
 non-sending connection check. Configure both Preview and Publish secrets separately.
+
+
+Migration 011 preserves the email service message ID for accepted confirmations.
+Admin → Email delivery shows that ID, the stored recipient and UTC acceptance
+time. The worker logs only the receipt reference and service ID (no recipient or
+message body). GoDaddy can use its gateway ID to correlate delivery logs. Older
+accepted confirmations have no saved ID; their missing IDs cannot be recovered
+from the app database. An accepted confirmation is not automatically resent.

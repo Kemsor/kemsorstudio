@@ -38,6 +38,8 @@ before(async()=>{
  const mailSql=await readFile(new URL('../migrations/009_email_outbox.sql',import.meta.url),'utf8');
  for(const statement of mailSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const statement of diagnosticsSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ const trackingSql=await readFile(new URL('../migrations/011_email_message_tracking.sql',import.meta.url),'utf8');
+ for(const statement of trackingSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const role of ['admin','editor','enquiry_manager'])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[role,`${role}@test.local`,await hashPassword('A-secure-test-password'),role]);
  app=createApp(db,{cookieName:'kemsor.test',dummyHash:await hashPassword('dummy-test-password'),smtpEnvironment:{SMTP_ENABLED:'true',SMTP_HOST:'smtp.example.test',SMTP_USER:'test@example.test',SMTP_PASSWORD:'synthetic-secret'},mailTransport:{verify:async()=>true}});
  [admin,csrfAdmin]=await login('admin');[editor,csrfEditor]=await login('editor');[manager,csrfManager]=await login('enquiry_manager');
@@ -426,9 +428,9 @@ test('Receipt delivery retries SMTP failures without losing the saved submission
  assert.equal(mail.status,'pending');assert.equal(mail.attempts,1);assert.match(mail.last_error,/EAUTH \(535\)/);assert(!mail.last_error.includes('secret'));
  await rows(db,'UPDATE cms_email_outbox SET available_at=UTC_TIMESTAMP() WHERE id=?',[mail.id]);
  const sent=[];
- await deliverReceipt(db,{sendMail:async message=>{sent.push(message);}},'sender@example.test');
+ await deliverReceipt(db,{sendMail:async message=>{sent.push(message);return {messageId:'test-gateway-receipt-123'};}},'sender@example.test');
  mail=(await rows(db,'SELECT * FROM cms_email_outbox WHERE id=?',[mail.id]))[0];
- assert.equal(mail.status,'sent');assert.equal(mail.last_error,null);assert.equal(sent.length,1);assert.equal(sent[0].to,'queue@example.test');
+ assert.equal(mail.status,'sent');assert.equal(mail.last_error,null);assert.equal(mail.provider_message_id,'test-gateway-receipt-123');assert.equal(sent.length,1);assert.equal(sent[0].to,'queue@example.test');
  assert.equal(await deliverReceipt(db,{sendMail:async()=>assert.fail('Already sent')},'sender@example.test'),false);
 });
 
@@ -441,7 +443,7 @@ test('Email diagnostics and retries are admin-only, CSRF protected and keep secr
  const verification=await admin.post('/admin/email/verify').set('Accept','application/json').send({_csrf:csrfAdmin}).expect(200);
  assert.equal(verification.body.redirect,'/admin/email');
  const page=await admin.get('/admin/email').expect(200);
- assert.match(page.text,/connection and authentication succeeded/);assert(!page.text.includes('synthetic-secret'));
+ assert.match(page.text,/connection and authentication succeeded/);assert.match(page.text,/test-gateway-receipt-123/);assert.match(page.text,/queue@example.test/);assert(!page.text.includes('synthetic-secret'));
  const mail=(await rows(db,'SELECT id FROM cms_email_outbox ORDER BY id DESC LIMIT 1'))[0];
  await admin.post(`/admin/email/${mail.id}/retry`).send({_csrf:csrfAdmin}).expect(422);
  await rows(db,"UPDATE cms_email_outbox SET status='failed',attempts=5 WHERE id=?",[mail.id]);

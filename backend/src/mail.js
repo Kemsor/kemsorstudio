@@ -93,7 +93,9 @@ export async function deliverReceipt(db, transport, from) {
   try {
     const result=await transport.sendMail({from,to:mail.recipient,subject:mail.subject,text:mail.body});
     if(result?.rejected?.length && !result.accepted?.length)throw Object.assign(new Error('Recipient rejected'),{code:'EENVELOPE'});
-    await rows(db,"UPDATE cms_email_outbox SET status='sent',sent_at=UTC_TIMESTAMP(),claim_token=NULL,last_error=NULL WHERE id=? AND claim_token=?",[mail.id,claim]);
+    const messageId=typeof result?.messageId==='string'?result.messageId.slice(0,255):null;
+    await rows(db,"UPDATE cms_email_outbox SET status='sent',sent_at=UTC_TIMESTAMP(),claim_token=NULL,last_error=NULL,provider_message_id=? WHERE id=? AND claim_token=?",[messageId,mail.id,claim]);
+    console.info('Email service accepted confirmation:',JSON.stringify({reference:mail.receipt_key,messageId}));
   } catch(error) {
     const reason=mailError(error);
     await rows(db,"UPDATE cms_email_outbox SET status=IF(attempts>=5,'failed','pending'),available_at=DATE_ADD(UTC_TIMESTAMP(),INTERVAL 5 MINUTE),claim_token=NULL,last_error=? WHERE id=? AND claim_token=?",[reason,mail.id,claim]);
