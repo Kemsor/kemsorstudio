@@ -112,3 +112,21 @@ html[data-theme=dark] .creative-site .creative-header :is(.creative-nav,.creativ
 /* Keep the hover fill and border on the same rounded outline. */
 .creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation,.talent-button,.auth-register-button,.tool-start){clip-path:none!important;border:1px solid #9a9a9a;border-radius:999px;background-origin:border-box!important;background-clip:border-box!important;isolation:isolate}
 .creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation,.talent-button,.auth-register-button,.tool-start):is(:hover,:focus-visible){border-color:#8d8d8d}
+
+/* Black journey and studio sections on the main homepage. */
+html body #top.creative-site.site-page-home #main #journey,
+html body #top.creative-site.site-page-home #main #studio{
+ --page-bg:#000;--ink:#fff;--muted:#ccc;--soft-ink:#c6c6c6;--line:#ffffff29;
+ background:#000;color:#fff;border-color:#ffffff29;
+}
+html body #top.creative-site.site-page-home #main #journey>p{color:#ddd}
+html body #top.creative-site.site-page-home #main #journey>p::after{background:#ffffff29}
+html body #top.creative-site.site-page-home #main #journey a:focus-visible{outline-color:#dfbc7c}
+html body #top.creative-site.site-page-home #main #studio .index-label{color:#fff;border-color:#ffffff29}
+html body #top.creative-site.site-page-home #main #studio .index-right{color:#ccc}
+html body #top.creative-site.site-page-home #main #studio .final-about-grid p{color:#ddd}
+html body #top.creative-site.site-page-home #main #studio .line-link{color:#fff}
+html body #top.creative-site.site-page-home #main #studio .proof-strip{border-color:#ffffff29}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div{background:transparent;color:#ddd;border-color:#ffffff29}
+html body #top.creative-site.site-page-home #main #studio .proof-strip strong{color:#fff}
+html body #top.creative-site.site-page-home #main #studio h2{color:#fff}
