@@ -1,0 +1,55 @@
+/* Neutral studio UI with the approved CTA color. The numbered aliases keep
+   existing page components on the same shared palette. */
+:root{
+  --kemsor-60:#fff;
+  --kemsor-60-soft:#fff;
+  --kemsor-30:#222;
+  --kemsor-30-deep:#171717;
+  --kemsor-30-muted:#666;
+  --kemsor-10:#d3d3d3;
+  --kemsor-10-orange:#d3d3d3;
+  --brand-gold:#d3d3d3;
+  --brand-bronze:#555;
+  --cta-bg:#754626;
+  --cta-gradient:linear-gradient(115deg,#a57745 0%,#85532f 28%,#633b24 68%,#4b2c1e 100%);
+  --cta-gradient-hover:linear-gradient(115deg,#94653c 0%,#754626 28%,#54301f 68%,#3e2419 100%);
+  --cta-hover:#59341f;
+  --cta-ink:#fff;
+  --cta-icon-bg:#fff;
+  --action-gold:var(--cta-bg);
+}
+html body #top.creative-site{--brand-gold:#d3d3d3;--action-gold:var(--cta-bg)}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another){
+  background:var(--cta-gradient)!important;
+  border-color:var(--cta-bg)!important;
+  color:var(--cta-ink)!important;
+}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another)::before{
+  background:var(--cta-gradient-hover)!important;
+}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another):is(:hover,:focus-visible){
+  background:var(--cta-gradient-hover)!important;
+  border-color:var(--cta-hover)!important;
+  color:var(--cta-ink)!important;
+}
+html body #top.creative-site :is(.creative-cta .cta-arrow,.header-script-tool>span,.creative-nav-mobile-cta>span){background:var(--cta-icon-bg)!important;color:#171717!important}
+html body #top.creative-site .creative-footer.footer-jumbo .footer-studios-signature{color:var(--cta-bg)}
+html body #top.creative-site .footer-word>i:hover{color:#85532f;text-shadow:none}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+  html body #top.creative-site .footer-word>i:hover{
+    background-image:linear-gradient(115deg,#a57745 0%,#85532f 28%,#633b24 68%,#4b2c1e 100%);
+    background-size:100% 100%;background-position:center;
+    background-clip:text;-webkit-background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;
+  }
+}
+@media(forced-colors:active){html body #top.creative-site .footer-word>i:hover{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText}}
+html body #top.creative-site ::selection{background:var(--cta-bg);color:var(--cta-ink)}
+
+/* A light interlude beneath the opening film, with crisp black lettering. */
+html body #top.creative-site #main .final-formats{
+  background:#f5f5f5!important;color:#000!important;border-color:#e5e5e5;
+}
+html body #top.creative-site #main .final-formats :is(span,i){
+  color:#000!important;opacity:1;font-weight:500;
+}

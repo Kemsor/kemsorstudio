@@ -1,20 +1,20 @@
-/* KEMSOR 60 / 30 / 10 palette: warm white, chocolate, gold-orange. */
+/* KEMSOR 60 / 30 / 10 palette: white, charcoal, shared action accents. */
 :root{
-  --kemsor-60:#fffaf0;
-  --kemsor-60-soft:#fffdf8;
-  --kemsor-30:#3b241b;
-  --kemsor-30-deep:#211915;
-  --kemsor-30-muted:#77594a;
-  --kemsor-10:#f4d17c;
-  --kemsor-10-orange:#e5943e;
+  --kemsor-60:#ffffff;
+  --kemsor-60-soft:#ffffff;
+  --kemsor-30:#282828;
+  --kemsor-30-deep:#1a1a1a;
+  --kemsor-30-muted:#5e5e5e;
+  --kemsor-10:#d2d2d2;
+  --kemsor-10-orange:#9f9f9f;
   --page-bg:var(--kemsor-60);
   --panel-bg:var(--kemsor-60-soft);
   --ink:var(--kemsor-30);
   --muted:var(--kemsor-30-muted);
-  --soft-ink:#8a6148;
-  --line:#3b241b26;
+  --soft-ink:#686868;
+  --line:#28282826;
   --brand-gold:var(--kemsor-10);
-  --brand-bronze:#a4531f;
+  --brand-bronze:#606060;
 }
 
 html:not([data-theme=dark]),
@@ -22,50 +22,50 @@ html:not([data-theme=dark]) body,
 html:not([data-theme=dark]) .creative-site,
 html:not([data-theme=dark]) .inner-page{background:var(--kemsor-60);color:var(--kemsor-30)}
 
-/* Sixty percent: calm warm-white reading surfaces. */
+/* Sixty percent: clean white reading surfaces. */
 html:not([data-theme=dark]) .site-page-home :is(#studio,#productions,.screenplay-story,.film-gallery,.work-project-block,#process,#project-brief),
 html:not([data-theme=dark]) .inner-page :is(.page-hero,.page-section,.page-next,.talent-intro,.talent-section,.directory-content,.auth-panel,.tool-console){
   --page-bg:var(--kemsor-60);
   --panel-bg:var(--kemsor-60-soft);
   --ink:var(--kemsor-30);
   --muted:var(--kemsor-30-muted);
-  --line:#3b241b26;
+  --line:#28282826;
   background:var(--kemsor-60);
   color:var(--kemsor-30)
 }
 
 html:not([data-theme=dark]) .site-page-home #productions,
-html:not([data-theme=dark]) .site-page-home .film-gallery{background:linear-gradient(135deg,#fffaf0 0%,#fff4df 100%)}
-html:not([data-theme=dark]) .site-page-home .screenplay-story{background:#fffdf8}
+html:not([data-theme=dark]) .site-page-home .film-gallery{background:linear-gradient(135deg,#ffffff 0%,#ffffff 100%)}
+html:not([data-theme=dark]) .site-page-home .screenplay-story{background:#ffffff}
 
-/* Thirty percent: chocolate structure, focus and editorial contrast. */
+/* Thirty percent: charcoal structure, focus and editorial contrast. */
 html:not([data-theme=dark]) .site-page-home #capabilities{
   --page-bg:var(--kemsor-30-deep);
-  --panel-bg:#49342b;
-  --ink:#fffaf0;
-  --muted:#d8bfa9;
+  --panel-bg:#383838;
+  --ink:#ffffff;
+  --muted:#c3c3c3;
   --soft-ink:var(--kemsor-10);
-  --line:#fffaf024;
+  --line:#ffffff24;
   --brand-bronze:var(--kemsor-10);
-  background:linear-gradient(135deg,var(--kemsor-30-deep),var(--kemsor-30) 68%,#5a3424);
-  color:#fffaf0
+  background:linear-gradient(135deg,var(--kemsor-30-deep),var(--kemsor-30) 68%,#3b3b3b);
+  color:#ffffff
 }
-html:not([data-theme=dark]) .site-page-home #capabilities .capability-row:not(.is-active){background:#fffaf009;border-color:#fffaf020}
+html:not([data-theme=dark]) .site-page-home #capabilities .capability-row:not(.is-active){background:#ffffff09;border-color:#ffffff20}
 html:not([data-theme=dark]) .site-page-home #capabilities .capability-row.is-active{background:var(--kemsor-10);color:var(--kemsor-30-deep)}
 html:not([data-theme=dark]) .site-page-home #capabilities .capability-panel :is(p,.line-link){color:inherit}
 
-html:not([data-theme=dark]) :is(.page-card,.service-details article,.editorial-note,.opening-status,.talent-card,.directory-card,.project-item figcaption){border-color:#3b241b26}
-html:not([data-theme=dark]) :is(.project-side,.project-form,.studio-note,.page-form,.talent-field input,.talent-field textarea,.talent-field select,.talent-form select){background:var(--kemsor-60-soft);color:var(--kemsor-30);border-color:#3b241b2d}
+html:not([data-theme=dark]) :is(.page-card,.service-details article,.editorial-note,.opening-status,.talent-card,.directory-card,.project-item figcaption){border-color:#28282826}
+html:not([data-theme=dark]) :is(.project-side,.project-form,.studio-note,.page-form,.talent-field input,.talent-field textarea,.talent-field select,.talent-form select){background:var(--kemsor-60-soft);color:var(--kemsor-30);border-color:#2828282d}
 
 html:not([data-theme=dark]) :is(.page-caption,.page-section-heading>p,.service-details p,.collection-note,.studio-description p+p,.project-note,.talent-intro>p:not(.page-eyebrow)){color:var(--kemsor-30-muted)}
 
-/* Ten percent: gold and orange are reserved for signals and small highlights. */
-html:not([data-theme=dark]) :is(.page-eyebrow,.page-number,.index-right,.capabilities-kicker,.opening-eyebrow){color:#a4531f}
-html:not([data-theme=dark]) :is(.index-number,.talent-badge,.stage-tags span){border-color:#a4531f66}
+/* Ten percent: accents are reserved for signals and small highlights. */
+html:not([data-theme=dark]) :is(.page-eyebrow,.page-number,.index-right,.capabilities-kicker,.opening-eyebrow){color:#606060}
+html:not([data-theme=dark]) :is(.index-number,.talent-badge,.stage-tags span){border-color:#60606066}
 html:not([data-theme=dark]) ::selection{background:var(--kemsor-10);color:var(--kemsor-30-deep)}
 
-/* The agreed CTA gradients and always-gold footer remain exactly as designed. */
-.creative-site{--action-gold:linear-gradient(110deg,#f4d17c 0%,#eab44c 50%,#e5943e 100%)}
-.creative-site .creative-footer.footer-jumbo{background:linear-gradient(115deg,#f8dfa0 0%,#edbf61 45%,#e8a54d 78%,#e39843 100%)}
+/* Shared action and footer colours; final accents are set in neutral-palette.css. */
+.creative-site{--action-gold:linear-gradient(110deg,#d2d2d2 0%,#b8b8b8 50%,#9f9f9f 100%)}
+.creative-site .creative-footer.footer-jumbo{background:linear-gradient(115deg,#e0e0e0 0%,#c2c2c2 45%,#adadad 78%,#a2a2a2 100%)}
 
 @media(prefers-reduced-motion:reduce){html:not([data-theme=dark]) .site-page-home #capabilities{background:var(--kemsor-30-deep)}}

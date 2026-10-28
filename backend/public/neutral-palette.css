@@ -1,0 +1,2 @@
+/* Keep the admin's primary actions aligned with the public studio UI. */
+:root{--desk-paper:#fff;--desk-panel:#fff;--desk-dark:#171717;--desk-line:#dedede;--admin-primary:linear-gradient(110deg,#ffe84d,#ffdf00);--admin-primary-hover:linear-gradient(110deg,#fff36b,#ffe326)}

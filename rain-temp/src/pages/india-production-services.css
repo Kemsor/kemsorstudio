@@ -1,0 +1,51 @@
+.india-services-page{background:#fff;color:#282828;--india-line:#28282826;--india-accent:#686868}
+.india-width{width:min(1440px,100%);margin-inline:auto;padding-inline:clamp(20px,5vw,80px)}
+.india-hero{padding-top:clamp(28px,4vw,60px);padding-bottom:clamp(20px,3vw,40px)}
+.india-hero-top{display:flex;justify-content:space-between;gap:20px;padding-bottom:18px;border-bottom:1px solid var(--india-line);font-size:10px;letter-spacing:.1em}
+.india-hero-top a{color:inherit;text-decoration:none}.india-hero-top>span{color:var(--india-accent)}
+.india-hero-grid,.india-intro-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,7vw,100px);align-items:start}
+.india-hero-grid{padding-block:clamp(34px,5vw,70px)}
+.india-kicker{letter-spacing:.1em!important;margin:0 0 20px;color:var(--india-accent)}
+.india-services-page h1,.india-services-page h2{margin:0;max-width:640px}.india-services-page :is(h1,h2) em{display:block;font-weight:400;color:var(--india-accent)}
+.india-hero-copy{padding-top:37px}.india-services-page p{margin:0 0 20px;line-height:1.8}.india-services-page p:last-child{margin-bottom:0}
+.india-actions{display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin-top:28px}
+.india-hero-visual{margin:0}.india-hero-visual img{display:block;width:100%;height:auto;aspect-ratio:1600/679;object-fit:cover;border-radius:0}
+.india-hero-visual figcaption{padding-top:12px;font-size:9px;letter-spacing:.1em;color:#5f5f5f}
+.india-section{padding-block:clamp(36px,5.5vw,76px)}
+.india-label{display:flex;justify-content:space-between;gap:20px;padding-top:16px;border-top:1px solid var(--india-line);margin-bottom:32px;font-size:10px;letter-spacing:.1em;color:var(--india-accent)}
+.india-row-head,.india-row-list>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,7vw,100px)}
+.india-row-head{margin-top:38px;border-bottom:1px solid #282828;padding-block:14px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--india-accent)}
+.india-row-list{margin:0}.india-row-list>div{padding-block:22px;border-bottom:1px solid var(--india-line)}
+.india-row-list dt{font-weight:600}.india-row-list dd{margin:0;line-height:1.8;max-width:550px}
+.india-partnership-note{margin-top:28px!important}.india-services-page p a{color:#575757;text-decoration:underline;text-underline-offset:4px}
+.india-process{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:38px 0 0;border-top:1px solid var(--india-line)}
+.india-process>li{padding:28px clamp(20px,3vw,42px);border-right:1px solid var(--india-line);border-bottom:1px solid var(--india-line)}
+.india-process>li:nth-child(3n+1){padding-left:0}.india-process>li:nth-child(3n){padding-right:0;border-right:0}
+.india-step-number{display:block;font-size:12px;letter-spacing:.08em;color:var(--india-accent);margin-bottom:28px;font-variant-numeric:tabular-nums}
+.india-process h3{margin:0 0 16px}.india-process p{margin:0}
+.india-international-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--india-line)}
+.india-international-list>li{padding:24px 0;border-bottom:1px solid var(--india-line)}
+.india-international-list h3{margin:0 0 12px}.india-international-list p{margin:0}
+.india-faq details{border-bottom:1px solid var(--india-line);padding-block:21px}.india-faq details:first-child{border-top:1px solid var(--india-line)}
+.india-faq summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;font-size:15px;line-height:1.6;min-height:24px;font-weight:500}
+.india-faq summary::-webkit-details-marker{display:none}.india-faq summary>span{font-size:22px;line-height:1;flex-shrink:0;color:var(--india-accent);transition:transform .2s}
+.india-faq details[open] summary>span{transform:rotate(45deg)}.india-faq details p{margin-top:18px}
+.india-closing .india-intro-grid{padding-top:40px;border-top:1px solid #282828}
+.india-services-page :is(a,summary):focus-visible{outline:2px solid var(--india-accent);outline-offset:5px}
+#what-we-handle{scroll-margin-top:calc(var(--site-header-height,72px) + 20px)}
+@media(max-width:800px){
+ .india-hero-grid,.india-intro-grid{grid-template-columns:1fr;gap:26px}.india-hero-copy{padding-top:0}
+ .india-hero-grid{padding-block:32px}.india-hero-visual img{aspect-ratio:4/3}
+ .india-row-head{margin-top:28px}.india-row-head,.india-row-list>div{grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:24px}
+ .india-process{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .india-process>li:nth-child(n){padding:24px;border-right:1px solid var(--india-line)}
+ .india-process>li:nth-child(odd){padding-left:0}.india-process>li:nth-child(even){padding-right:0;border-right:0}
+}
+@media(max-width:480px){
+ .india-hero-top{font-size:9px;letter-spacing:.05em;gap:12px}.india-actions{gap:20px}
+ .india-row-head{display:none}.india-row-list{margin-top:28px;border-top:1px solid var(--india-line)}
+ .india-row-list>div{grid-template-columns:1fr;gap:9px;padding-block:20px}
+ .india-process{grid-template-columns:1fr}.india-process>li:nth-child(n){padding:24px 0;border-right:0}
+ .india-step-number{margin-bottom:16px}.india-label{margin-bottom:24px}
+}
+@media(prefers-reduced-motion:reduce){.india-faq summary>span{transition:none}}

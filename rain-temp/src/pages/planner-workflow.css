@@ -1,18 +1,18 @@
-.planner-workflow{align-self:center;min-width:0;background:#fff;border:1px solid #d9cbb8;border-radius:8px;overflow:hidden}
-.planner-workflow-top{display:flex;justify-content:space-between;gap:20px;padding:14px 18px;border-bottom:1px solid #e4d9ca;font:400 10px/1.5 Inter,sans-serif;letter-spacing:.08em;color:#94612d}
-.planner-workflow-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid #e4d9ca}
-.planner-workflow-controls button{position:relative;display:flex;align-items:center;justify-content:center;gap:9px;padding:12px 8px;min-height:48px;border:0;background:#fff;color:#71645a;cursor:pointer;font:500 12px/1.4 Inter,sans-serif}
-.planner-workflow-controls button+button{border-left:1px solid #e4d9ca}
-.planner-workflow-controls button[aria-pressed=true]{color:#35251d;background:#fff2e3;box-shadow:inset 0 -2px #b28035}
-.planner-workflow-controls button>span{font-size:10px;color:#94612d}
-.planner-workflow-controls button:focus-visible{outline:2px solid #94612d;outline-offset:-4px}
+.planner-workflow{align-self:center;min-width:0;background:#fff;border:1px solid #cdcdcd;border-radius:8px;overflow:hidden}
+.planner-workflow-top{display:flex;justify-content:space-between;gap:20px;padding:14px 18px;border-bottom:1px solid #dadada;font:400 10px/1.5 Inter,sans-serif;letter-spacing:.08em;color:#686868}
+.planner-workflow-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid #dadada}
+.planner-workflow-controls button{position:relative;display:flex;align-items:center;justify-content:center;gap:9px;padding:12px 8px;min-height:48px;border:0;background:#fff;color:#666666;cursor:pointer;font:500 12px/1.4 Inter,sans-serif}
+.planner-workflow-controls button+button{border-left:1px solid #dadada}
+.planner-workflow-controls button[aria-pressed=true]{color:#282828;background:#ffffff;box-shadow:inset 0 -2px #858585}
+.planner-workflow-controls button>span{font-size:10px;color:#686868}
+.planner-workflow-controls button:focus-visible{outline:2px solid #686868;outline-offset:-4px}
 .planner-workflow-drawing{display:block;width:100%;height:auto;max-height:265px;background:#fff}
 .planner-workflow-drawing>g{transition:opacity .35s ease}
 .planner-workflow:hover .planner-workflow-route{animation:planner-route 1.6s linear infinite}
 .planner-workflow-modules{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;padding:0 14px 16px}
-.planner-workflow-modules>span{font:400 11px/1.5 Inter,sans-serif;color:#805b3c;padding:5px 8px;border:1px solid #e4d9ca;border-radius:3px;background:#fff}
-.planner-workflow-caption{border-top:1px solid #e4d9ca;padding:14px 18px;min-height:72px;background:#fff}
-html .creative-site #main .planner-workflow-caption p{font-size:13px;line-height:1.7;color:#71645a;margin:0}
+.planner-workflow-modules>span{font:400 11px/1.5 Inter,sans-serif;color:#616161;padding:5px 8px;border:1px solid #dadada;border-radius:3px;background:#fff}
+.planner-workflow-caption{border-top:1px solid #dadada;padding:14px 18px;min-height:72px;background:#fff}
+html .creative-site #main .planner-workflow-caption p{font-size:13px;line-height:1.7;color:#666666;margin:0}
 @keyframes planner-route{to{stroke-dashoffset:-20}}
 @media(max-width:700px){.planner-workflow-controls button{gap:5px;font-size:11px;padding-inline:5px}.planner-workflow-top{padding-inline:12px;font-size:9px}.planner-workflow-modules{gap:5px;padding-inline:10px}.planner-workflow-modules>span{font-size:10px;padding:4px 6px}.planner-workflow-caption{padding:12px;min-height:90px}}
 @media(prefers-reduced-motion:reduce){.planner-workflow *{animation:none!important;transition:none!important}}

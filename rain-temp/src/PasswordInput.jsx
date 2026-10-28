@@ -1,3 +1,4 @@
+import SiteIcon from './SiteIcon';
 import React,{useState} from 'react';
 import './password-input.css';
-export default function PasswordInput(props){const [visible,setVisible]=useState(false);return <span className="password-control"><input {...props} type={visible?'text':'password'}/><button type="button" className="password-eye" aria-label={visible?'Hide password':'Show password'} aria-pressed={visible} onClick={event=>{event.preventDefault();setVisible(value=>!value);}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>{visible&&<path d="m4 4 16 16"/>}</svg></button></span>}
+export default function PasswordInput(props){const [visible,setVisible]=useState(false);return <span className="password-control"><input {...props} type={visible?'text':'password'}/><button type="button" className="password-eye" aria-label={visible?'Hide password':'Show password'} aria-pressed={visible} onClick={event=>{event.preventDefault();setVisible(value=>!value);}}><SiteIcon name={visible?'eye-off':'eye'} /></button></span>}

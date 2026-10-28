@@ -20,7 +20,7 @@ export function NewsPage() {
   </section>
   <section className="media-partners" id="press-media" aria-labelledby="media-partners-title">
    <div className="media-partners-heading"><MotionHeading as="h2" id="media-partners-title">Media partners</MotionHeading>{partners.length>0 && <button type="button" onClick={()=>setPaused(value=>!value)} aria-pressed={paused}>{paused?'Play slider':'Pause slider'}</button>}</div>
-   {partners.some(partner=>partner.metadata?.category==='sample') && <p className="media-partners-note">Sample partner logos — the studio will update this list.</p>}
+   {partners.some(partner=>partner.metadata?.category==='sample') && <p className="media-partners-note">Sample partner logos. The studio will update this list.</p>}
    {!partners.length ? <p>Media partners will appear here when published.</p> : <div className="media-partners-window" aria-label="Media partner logos"><div className={`media-partners-track${paused?' is-paused':''}`} style={{'--partner-duration':`${Math.max(8,partners.length*1.6)}s`}}>{[0,1,2,3].map(copy=><div className="media-partners-set" key={copy} aria-hidden={copy>0?true:undefined}>{partners.map((partner,index)=><div className="media-partner-logo" key={partner.id}>{partner.image_url?<img src={partner.image_url} alt={partner.title} loading="lazy"/>:<span className={`sample-wordmark wordmark-${index%3}`}><b aria-hidden="true">{partner.title.split(' ').map(word=>word[0]).join('')}</b>{partner.title}</span>}</div>)}</div>)}</div></div>}
   </section>
  </div>;

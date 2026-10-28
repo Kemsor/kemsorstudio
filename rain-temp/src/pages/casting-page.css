@@ -1,8 +1,8 @@
 .casting-hero .produce-hero-image img{object-position:78% 45%}
-.casting-hero::before{background:linear-gradient(90deg,#110f0cf5 0%,#110f0cdb 35%,#110f0c40 75%,#110f0c14),linear-gradient(0deg,#110f0ca6,transparent 32%)}
+.casting-hero::before{background:linear-gradient(90deg,#0f0f0ff5 0%,#0f0f0fdb 35%,#0f0f0f40 75%,#0f0f0f14),linear-gradient(0deg,#0f0f0fa6,transparent 32%)}
 .casting-network{margin-top:32px;border-top:1px solid var(--line);padding-top:24px;max-width:360px}
 .casting-network>span{color:var(--produce-accent);font-size:11px;font-weight:600;letter-spacing:.07em}
 .casting-network>div{display:flex;gap:24px;flex-wrap:wrap;margin-top:18px}
 .casting-network .line-link{font-size:14px}
 .casting-preparation img{object-position:55% 50%}
-@media(max-width:700px){.casting-hero .produce-hero-image img{object-position:70% 50%}.casting-hero::before{background:linear-gradient(90deg,#110f0ce6,#110f0c80),linear-gradient(0deg,#110f0cbf,transparent)}.casting-network{margin-top:24px;max-width:none}}
+@media(max-width:700px){.casting-hero .produce-hero-image img{object-position:70% 50%}.casting-hero::before{background:linear-gradient(90deg,#0f0f0fe6,#0f0f0f80),linear-gradient(0deg,#0f0f0fbf,transparent)}.casting-network{margin-top:24px;max-width:none}}

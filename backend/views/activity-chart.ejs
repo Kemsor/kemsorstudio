@@ -1,0 +1,16 @@
+<% const peak=Math.max(4,...series.map(day=>day.total));
+const ceiling=Math.ceil(peak/4)*4;
+const points=series.map((day,index)=>({x:48+index*104,y:184-(day.total/ceiling)*148,...day}));
+const line=points.map((point,index)=>`${index?'L':'M'}${point.x},${point.y}`).join(' '); %>
+<section class="panel dashboard-panel activity-panel" aria-labelledby="activity-title">
+  <div class="panel-heading"><div><p class="eyebrow">WORKSPACE PULSE</p><h2 id="activity-title">Studio activity</h2></div><span class="chart-legend"><i aria-hidden="true"></i>Recorded actions</span></div>
+  <div class="activity-summary"><strong><%= weeklyTotal.toLocaleString('en-IN') %></strong><span>actions in the last 7 days<small><%= user.role==='admin'?'Across the workspace':'Your account activity' %></small></span></div>
+  <svg class="activity-chart premium-activity-chart" viewBox="0 0 720 220" role="img" aria-label="<%= series.map(day=>day.label+': '+day.total+' actions').join(', ') %>">
+    <defs><linearGradient id="activity-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity=".24"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
+    <% for(let tick=0;tick<=4;tick++){const y=184-tick*37; %><line class="chart-grid" x1="48" y1="<%= y %>" x2="672" y2="<%= y %>"/><text class="chart-axis" x="28" y="<%= y+4 %>" text-anchor="end"><%= ceiling/4*tick %></text><% } %>
+    <path class="chart-area" d="<%= line %> L672,184 L48,184 Z" fill="url(#activity-fill)"/>
+    <path class="chart-line" d="<%= line %>" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <% points.forEach(point=>{ %><circle class="chart-point" cx="<%= point.x %>" cy="<%= point.y %>" r="4"><title><%= point.label %>: <%= point.total %> actions</title></circle><text class="chart-axis" x="<%= point.x %>" y="211" text-anchor="middle"><%= point.label %></text><% }) %>
+  </svg>
+  <p class="chart-caption"><%= user.role==='admin'?'Workspace':'Your' %> recorded actions, including sign-ins and content or enquiry updates. Daily totals use UTC.</p>
+</section>

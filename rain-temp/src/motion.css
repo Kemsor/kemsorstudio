@@ -1,7 +1,7 @@
 .motion-studio {
   --motion-ink: #161616;
-  --motion-lime: #E8B449;
-  --motion-orange: #A86E2B;
+  --motion-lime: #b7b7b7;
+  --motion-orange: #757575;
   display: grid;
   grid-template-columns: minmax(240px, .72fr) minmax(0, 1.55fr);
   gap: clamp(28px, 5vw, 86px);
@@ -27,10 +27,10 @@
 .motion-editorial h2 { margin: 0; font-size: clamp(62px, 6.7vw, 110px); line-height: .94; letter-spacing: -.065em; font-weight: 500; }
 .motion-editorial h2 em { font-style: normal; position: relative; z-index: 0; }
 .motion-editorial h2 em::after { content: ''; position: absolute; height: .13em; width: 103%; background: var(--motion-lime); left: 0; bottom: .03em; z-index: -1; transform: rotate(-2deg); }
-.motion-intro { max-width: 310px; margin: 34px 0 0; font-size: 18px; line-height: 1.65; color: #575751; }
+.motion-intro { max-width: 310px; margin: 34px 0 0; font-size: 18px; line-height: 1.65; color: #575757; }
 .motion-note { display: flex; align-items: center; gap: 19px; margin-top: 46px; }
 .motion-note-number { font-size: 71px; line-height: 1; font-weight: 400; letter-spacing: -.075em; }
-.motion-note p { margin: 0; line-height: 1.5; font-size: 15px; color: #77776e; }
+.motion-note p { margin: 0; line-height: 1.5; font-size: 15px; color: #767676; }
 .motion-note strong { font-weight: 500; color: var(--motion-ink); }
 .motion-artwork { min-width: 0; }
 .motion-stage {
@@ -41,7 +41,7 @@
   aspect-ratio: 1.16;
   overflow: hidden;
   isolation: isolate;
-  background: #FAF6EE;
+  background: #ffffff;
 }
 .motion-axis { position: absolute; background: #16161618; z-index: -1; }
 .motion-axis-x { top: 50%; height: 1px; width: 100%; }
@@ -53,7 +53,7 @@
   left: 11.5%;
   top: 4%;
   border: clamp(24px, 4.6vw, 74px) solid var(--motion-orange);
-  border-image: linear-gradient(135deg, #87521e 0%, #b67d36 34%, #d29e4b 53%, #a86e2b 82%) 1;
+  border-image: linear-gradient(135deg, #5a5a5a 0%, #848484 34%, #a3a3a3 53%, #757575 82%) 1;
   box-sizing: border-box;
   transform: rotate(-18deg);
   animation: motion-aperture-turn 22s ease-in-out infinite alternate;
@@ -93,7 +93,7 @@
 .motion-focus > span::before,.motion-focus > span::after { content: ''; position: absolute; background: var(--motion-lime); }
 .motion-focus > span::before { width: 9px; height: 1px; top: 4px; }
 .motion-focus > span::after { height: 9px; width: 1px; left: 4px; }
-.motion-scan-line { position: absolute; width: calc(100% - 30px); height: 1px; background: #e8b44970; left: 15px; top: 27%; animation: motion-focus-scan 9s ease-in-out infinite alternate; animation-play-state: paused; }
+.motion-scan-line { position: absolute; width: calc(100% - 30px); height: 1px; background: #b7b7b770; left: 15px; top: 27%; animation: motion-focus-scan 9s ease-in-out infinite alternate; animation-play-state: paused; }
 .motion-registration { position: absolute; width: 25px; height: 25px; }
 .motion-registration-a { top: 9%; left: 6%; }
 .motion-registration-b { right: 6%; bottom: 9%; }
@@ -105,10 +105,10 @@
 .motion-sprocket i { display: block; width: 11px; height: 5px; border: 1px solid #16161650; }
 .motion-corner-index { position: absolute; bottom: 3.7%; left: 4.3%; font-size: 11px; letter-spacing: .1em; }
 .motion-control-rail { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 18px; }
-.motion-control-rail p { margin: 0; font-size: 14px; line-height: 1.5; color: #66665e; }
+.motion-control-rail p { margin: 0; font-size: 14px; line-height: 1.5; color: #656565; }
 .motion-control-rail p > span { font-size: 21px; margin-right: 7px; color: var(--motion-ink); }
 .motion-playback { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.motion-status { font-size: 12px; color: #66665e; }
+.motion-status { font-size: 12px; color: #656565; }
 .motion-pause { width: 44px; height: 44px; padding: 10px; display: grid; place-items: center; border: 1px solid #16161645; border-radius: 50%; color: var(--motion-ink); background: #fff; cursor: pointer; transition: background .2s,border-color .2s; }
 .motion-pause svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.4; }
 .motion-pause:hover { background: var(--motion-lime); border-color: var(--motion-lime); }

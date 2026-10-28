@@ -1,5 +1,5 @@
 /* Refined cinematic depth and movement across image and card surfaces. */
-:root{--sleek-ease:cubic-bezier(.2,.72,.2,1);--sleek-shadow:0 22px 55px #47261318;--sleek-shadow-hover:0 34px 74px #4726132b}
+:root{--sleek-ease:cubic-bezier(.2,.72,.2,1);--sleek-shadow:0 22px 55px #2c2c2c18;--sleek-shadow-hover:0 34px 74px #2c2c2c2b}
 
 :is(.frame-image,.film-preview,.screenplay-direct-image,.directory-card-image,.project-card-image,.news-card-image){position:relative;isolation:isolate;overflow:hidden}
 .studio-clip-stage{isolation:isolate;overflow:hidden}

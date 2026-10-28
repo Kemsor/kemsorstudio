@@ -2,11 +2,11 @@
 :is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production){--workspace-bg:#f5f6f8;--workspace-panel:#fff;--workspace-line:#e5e7eb;--workspace-muted:#69717d;--workspace-ink:#20252b;--workspace-shadow:0 8px 32px #18223005}
 :is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main{background:var(--workspace-bg);color:var(--workspace-ink);--page-bg:var(--workspace-panel);--panel-bg:#f7f8fa;--line:var(--workspace-line);--ink:var(--workspace-ink);--muted:var(--workspace-muted)}
 :is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main :is(input:not([type=checkbox]):not([type=radio]),textarea,select){border:1px solid var(--workspace-line);border-radius:10px;background:#fff;color:var(--workspace-ink);padding:14px 16px;min-height:48px;transition:border-color .18s,box-shadow .18s}
-:is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main :is(input,textarea,select):focus{outline:none;border-color:#b18a46;box-shadow:0 0 0 3px #bd965720}
+:is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main :is(input,textarea,select):focus{outline:none;border-color:#8d8d8d;box-shadow:0 0 0 3px #9a9a9a20}
 :is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main :is(button,.talent-button,.tool-start,.auth-register-button){border-radius:10px}
 :is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main .talent-button{background:#262c32;color:#fff;border-color:#262c32;box-shadow:0 3px 8px #1822300a;font-size:14px;font-weight:500;min-height:48px;transition:background .18s,box-shadow .18s}
 :is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main .talent-button:hover:not(:disabled){background:#3c454f;box-shadow:0 5px 14px #18223012}
-:is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main :is(.talent-notice,.production-availability){border:1px solid #eadfc9;border-radius:12px;background:#fffaf0;color:#665b48;box-shadow:none}
+:is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main :is(.talent-notice,.production-availability){border:1px solid #e0e0e0;border-radius:12px;background:#ffffff;color:#5c5c5c;box-shadow:none}
 :is(.site-page-login,.site-page-join,.site-page-profile,.site-page-script-to-production) main .talent-field{font-size:12px;font-weight:500;gap:10px}
 :is(.site-page-login,.site-page-join) .auth-page{padding:clamp(20px,3vw,48px);gap:0;min-height:calc(100svh - 100px);max-width:1500px;margin:auto;align-items:stretch}
 :is(.site-page-login,.site-page-join) .auth-story{border-radius:20px 0 0 20px;min-height:620px;overflow:hidden}
@@ -15,7 +15,7 @@
 :is(.site-page-login,.site-page-join) .auth-panel h2{font-size:clamp(30px,3vw,44px);letter-spacing:-.04em}
 :is(.site-page-login,.site-page-join) .auth-description{font-size:15px;line-height:1.7;margin-bottom:28px}
 :is(.site-page-login,.site-page-join) .auth-panel .talent-role label{border-radius:12px;border-color:var(--workspace-line);background:#fff}
-:is(.site-page-login,.site-page-join) .auth-panel .talent-role label:has(input:checked){border-color:#b18a46;background:#fffbf3}
+:is(.site-page-login,.site-page-join) .auth-panel .talent-role label:has(input:checked){border-color:#8d8d8d;background:#ffffff}
 :is(.site-page-login,.site-page-join) .auth-register-button{border-color:var(--workspace-line)!important;background:#f8f9fa}
 .site-page-profile main{padding:clamp(20px,3vw,48px)}
 .site-page-profile .talent-intro{background:#fff;border:1px solid var(--workspace-line);border-radius:18px;padding:clamp(28px,4vw,56px);box-shadow:var(--workspace-shadow)}
@@ -26,7 +26,7 @@
 .site-page-profile .talent-intro nav :is(a,button):hover{background:#f7f8fa}
 .site-page-profile .talent-section{padding:24px 0 0}
 .site-page-profile .talent-dashboard-top{background:#fff;border:1px solid var(--workspace-line);border-radius:14px;padding:18px 22px;margin:0 0 24px;font-size:13px;gap:16px}
-.site-page-profile .talent-badge{background:#fffbf3;border:1px solid #ecdfc5;border-radius:8px;font-size:11px;padding:9px 12px}
+.site-page-profile .talent-badge{background:#ffffff;border:1px solid #e0e0e0;border-radius:8px;font-size:11px;padding:9px 12px}
 .site-page-profile .talent-layout{padding:0!important;gap:24px;grid-template-columns:minmax(240px,.65fr) 1.35fr;align-items:start}
 .site-page-profile .talent-side,.site-page-profile .talent-layout>.talent-form{background:#fff;border:1px solid var(--workspace-line);border-radius:16px;padding:clamp(24px,3vw,40px);box-shadow:var(--workspace-shadow);max-width:none}
 .site-page-profile .talent-side h2{font-size:28px;margin:24px 0 16px}
@@ -42,14 +42,14 @@
 .site-page-script-to-production :is(.tool-launch,.tool-preview,.tool-flow li,.production-workspace-section){border-radius:18px;border-color:var(--workspace-line);box-shadow:var(--workspace-shadow);background:#fff}
 .site-page-script-to-production .tool-preview{border-radius:14px;overflow:hidden}
 .site-page-script-to-production .tool-preview-bar{background:#f8f9fa;color:var(--workspace-muted);border-bottom:1px solid var(--workspace-line)}
-.site-page-script-to-production .tool-preview-bar i{background:#b18a46}
+.site-page-script-to-production .tool-preview-bar i{background:#8d8d8d}
 .site-page-script-to-production .tool-preview nav{background:#fff;border-color:var(--workspace-line)}
 .site-page-script-to-production .tool-preview-canvas{background:#fafbfc}
 .site-page-script-to-production .tool-preview nav button{border-radius:8px}
-.site-page-script-to-production .tool-preview nav button[aria-pressed=true]{background:#fbf3e4;color:#684e26}
+.site-page-script-to-production .tool-preview nav button[aria-pressed=true]{background:#ffffff;color:#515151}
 .site-page-script-to-production .tool-document-art{border-radius:10px;background:#fff}
 .site-page-script-to-production .tool-flow-art{border-radius:12px;background:#f7f8fa}
-.site-page-script-to-production .tool-start{border-radius:10px;box-shadow:0 4px 12px #a4762515}
+.site-page-script-to-production .tool-start{border-radius:10px;box-shadow:0 4px 12px #7a7a7a15}
 .site-page-script-to-production .production-projects button{border-color:var(--workspace-line);background:#fff;font-size:13px}
 .site-page-script-to-production .production-projects button[aria-pressed=true]{background:#262c32;color:#fff}
 .site-page-script-to-production :is(.production-new,.production-project-head,.production-editor){border-radius:14px;border-color:var(--workspace-line);background:#fff!important;box-shadow:none}

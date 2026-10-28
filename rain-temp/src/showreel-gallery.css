@@ -1,0 +1,72 @@
+/* Alternating film frames, moved by the page's existing scroll position. */
+.showreel-runway{position:relative;margin-top:48px;scroll-margin-top:100px}
+.showreel-gallery{position:relative;background:#fff;padding-block:22px 30px}
+.showreel-runway[data-pinned=true] .showreel-gallery{position:sticky;top:96px}
+.showreel-gallery-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px}
+.showreel-gallery-head>div>span{display:block;font:500 10px/1.5 Inter,sans-serif;letter-spacing:.12em;color:#666;margin-bottom:12px}
+html body #top.creative-site #main .showreel-gallery-head h3{margin:0;color:#171717;font:500 clamp(22px,2vw,30px)/1.2 Manrope,sans-serif;letter-spacing:-.035em}
+.showreel-scroll-hint{display:flex;align-items:center;gap:18px;font:400 10px/1.6 Inter,sans-serif;letter-spacing:.08em;color:#666}
+.showreel-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#bdbdbd transparent;overscroll-behavior-x:contain;padding-bottom:10px;outline-offset:4px}
+.showreel-runway[data-pinned=true] .showreel-viewport{overflow:hidden}
+.showreel-track{position:relative;display:flex;align-items:flex-start;gap:clamp(20px,3vw,48px);width:max-content}
+.showreel-runway[data-pinned=true] .showreel-track{will-change:transform}
+.showreel-card{flex:none;margin:0;width:32vw;min-width:260px}
+.showreel-card-large{width:52vw}
+.showreel-card-screen{position:relative;overflow:hidden;border-radius:18px;background:#101010;height:clamp(240px,42svh,460px)}
+.showreel-card-large .showreel-card-screen{height:clamp(320px,56svh,590px)}
+.showreel-card video{display:block;width:100%;height:100%;object-fit:cover}
+.showreel-card-expand{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:10px 13px;border:1px solid #ffffff70;border-radius:999px;background:#111e;color:#fff;font:400 11px/1.5 Inter,sans-serif;cursor:pointer;transition:background .25s}
+.showreel-card-expand:hover{background:#111}
+.showreel-card-expand:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.showreel-card figcaption{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:17px;color:#171717;font:400 13px/1.5 Inter,sans-serif}
+.showreel-card figcaption strong{font-weight:500}
+.showreel-card figcaption>span{font-size:10px;letter-spacing:.08em;color:#777}
+@media(max-width:900px){
+ .showreel-card{width:57vw;min-width:240px}
+ .showreel-card-large{width:76vw}
+ .showreel-card-screen{height:34svh;min-height:230px}
+ .showreel-card-large .showreel-card-screen{height:44svh;min-height:290px}
+ .showreel-viewport{scroll-snap-type:x proximity}
+ .showreel-card{scroll-snap-align:start}
+ .showreel-scroll-hint{font-size:9px;letter-spacing:0;gap:8px}
+}
+@media(max-width:600px){
+ .showreel-gallery-head{align-items:flex-end;gap:12px;margin-bottom:24px}
+ .showreel-scroll-hint{max-width:90px}
+ .showreel-scroll-hint svg{flex-shrink:0}
+ .showreel-card{width:64vw;min-width:210px}
+ .showreel-card-large{width:82vw}
+ .showreel-card-screen{height:240px;min-height:0;border-radius:14px}
+ .showreel-card-large .showreel-card-screen{height:320px;min-height:0}
+ .showreel-card-expand{right:10px;bottom:10px;min-width:40px;min-height:40px;padding:10px}
+ .showreel-card-expand>span{display:none}
+ .showreel-runway{margin-top:28px}
+}
+@media(prefers-reduced-motion:reduce){.showreel-card-expand{transition:none}}
+/* These films use editorial captions rather than the older figure overlays. */
+html body #top.creative-site #main #showreel .showreel-card{
+ display:block;padding:0;margin:0;min-height:0;max-width:none;border:0;border-radius:0;
+ background:transparent;box-shadow:none;overflow:visible;
+}
+html body #top.creative-site #main #showreel .showreel-card::before,
+html body #top.creative-site #main #showreel .showreel-card::after{content:none}
+html body #top.creative-site #main #showreel .showreel-card figcaption{
+ position:static;inset:auto;display:flex;align-items:center;justify-content:space-between;
+ padding:17px 0 0;margin:0;background:transparent;color:#171717;font:400 13px/1.5 Inter,sans-serif;
+}
+html body #top.creative-site #main #showreel .showreel-card figcaption strong{font:500 13px/1.5 Inter,sans-serif;letter-spacing:0;color:#171717}
+/* A black stage for the showreel, including the complete scroll runway. */
+html body #top.creative-site #main #showreel{
+ background:#080808;color:#fff;
+ margin-inline:calc(-1 * clamp(1.25rem,5vw,6.5rem));
+}
+html body #top.creative-site #main #showreel .showreel-gallery{
+ background:#080808;color:#fff;padding-inline:clamp(1.25rem,5vw,6.5rem);
+}
+html body #top.creative-site #main #showreel .showreel-gallery-head h3,
+html body #top.creative-site #main #showreel .showreel-card figcaption,
+html body #top.creative-site #main #showreel .showreel-card figcaption strong{color:#fff}
+html body #top.creative-site #main #showreel .showreel-gallery-head>div>span,
+html body #top.creative-site #main #showreel .showreel-scroll-hint,
+html body #top.creative-site #main #showreel .showreel-card figcaption>span{color:#bdbdbd}
+html body #top.creative-site #main #showreel .showreel-viewport:focus-visible{outline:2px solid #d4b17c}

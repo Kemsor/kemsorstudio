@@ -1,14 +1,35 @@
-/* Social platform icons; the navigation directory remains text-only. */
-html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials .footer-socials{display:flex;align-items:center;flex-wrap:nowrap;gap:10px}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials .footer-social-icon{display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;padding:0;border:1px solid #fffaf055;border-radius:50%;background:#fffaf009;color:#fffaf0;box-shadow:none;text-decoration:none;transition:background .25s,color .25s,border-color .25s,transform .25s}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials .footer-social-icon svg{display:block;width:20px;height:20px;stroke-linecap:round;stroke-linejoin:round}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials a.footer-social-icon:is(:hover,:focus-visible){background:#f4d17c;color:#3b241b;border-color:#f4d17c;transform:translateY(-2px)}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials a.footer-social-icon:focus-visible{outline:2px solid #f4d17c;outline-offset:4px}
-@media(prefers-reduced-motion:reduce){html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials .footer-social-icon{transition:none}html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials a.footer-social-icon:is(:hover,:focus-visible){transform:none}}
+/* Open brand marks beneath the studio invitation, with generous hit areas. */
+html body #top.creative-site .creative-footer.footer-jumbo .footer-invitation-copy .footer-socials{
+ display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:8px;margin-top:24px;margin-left:-10px;
+}
+html body #top.creative-site .creative-footer.footer-jumbo .footer-social-icon{
+ display:grid;place-items:center;width:40px;height:40px;flex:0 0 40px;padding:10px;
+ border:0!important;border-radius:0!important;background:transparent!important;
+ color:#fff;box-shadow:none;text-decoration:none;transition:color .25s,transform .25s;
+}
+html body #top.creative-site .creative-footer.footer-jumbo .footer-social-icon svg{display:block;width:20px;height:20px}
+html body #top.creative-site .creative-footer.footer-jumbo a.footer-social-icon:is(:hover,:focus-visible){color:#d4b17c;transform:translateY(-2px)}
+html body #top.creative-site .creative-footer.footer-jumbo a.footer-social-icon:focus-visible{outline:2px solid #d4b17c;outline-offset:2px}
 html .creative-site .creative-footer.footer-jumbo .footer-directory{display:block}
 html .creative-site .creative-footer.footer-jumbo .footer-link-groups{width:100%}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-color:var(--line);color:#cbb9aa}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials{display:flex;align-items:center;gap:20px;order:-1;margin-right:auto;justify-content:flex-start;flex-wrap:wrap}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials>span{font:400 12px/1.6 Inter,sans-serif;color:#ddcdbb;letter-spacing:.04em}
-html .creative-site .creative-footer.footer-jumbo .footer-baseline>span{margin-left:24px}
-@media(max-width:760px){html .creative-site .creative-footer.footer-jumbo .footer-baseline{padding-bottom:64px}html .creative-site .creative-footer.footer-jumbo .footer-baseline-socials{align-items:flex-start;gap:10px 20px}html .creative-site .creative-footer.footer-jumbo .footer-baseline>span{margin-left:0;width:100%}}
+html body #top.creative-site .creative-footer.footer-jumbo .footer-baseline{
+ display:flex;align-items:center;justify-content:flex-start;gap:16px;flex-wrap:wrap;
+ border-color:var(--line);color:#bcbcbc;text-align:left;
+}
+html body #top.creative-site .creative-footer.footer-jumbo .footer-baseline>span{margin-left:0;margin-right:auto;text-align:left}
+@media(max-width:760px){html body #top.creative-site .creative-footer.footer-jumbo .footer-baseline{padding-bottom:64px}}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site .creative-footer.footer-jumbo .footer-social-icon{transition:none;transform:none!important}}
+
+/* The main directory lives in the header. Keep only supplementary footer links. */
+html body #top.creative-site .creative-footer.footer-jumbo .footer-link-groups{
+ grid-template-columns:minmax(160px,.6fr) minmax(0,1.4fr);gap:24px 48px;
+}
+html body #top.creative-site .creative-footer.footer-jumbo .footer-link-group-connected{grid-column:auto}
+html body #top.creative-site .creative-footer.footer-jumbo .footer-link-group-connected .footer-link-list{
+ display:flex;align-items:flex-start;flex-wrap:wrap;gap:8px 32px;
+}
+@media(max-width:600px){
+ html body #top.creative-site .creative-footer.footer-jumbo .footer-link-groups{grid-template-columns:1fr;gap:20px}
+ html body #top.creative-site .creative-footer.footer-jumbo .footer-link-group{padding-top:0}
+ html body #top.creative-site .creative-footer.footer-jumbo .footer-link-group-connected .footer-link-list{gap:4px 24px}
+}

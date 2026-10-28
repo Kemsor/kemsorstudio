@@ -9,7 +9,7 @@
   .creative-site .process-layout h2,
   .creative-site .page-next-layout h2,
   .creative-site .page-section-heading h2 {
-    --texture-ink: var(--ink, #29221a);
+    --texture-ink: var(--ink, #232323);
     background-image: repeating-linear-gradient(
       0deg,
       var(--texture-ink) 0 2px,
@@ -21,7 +21,7 @@
   }
   .creative-site .film-title > span { --texture-ink: var(--brand-gold); }
   .creative-site .story-copy h2 > span,
-  .creative-site .project-copy h2 > span { --texture-ink: #29221a; }
+  .creative-site .project-copy h2 > span { --texture-ink: #232323; }
   /* Keep the gold title's ink consistent when the page switches theme. */
   html[data-theme=dark] .project-copy h2 > span { color: transparent; }
 }
@@ -41,7 +41,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: repeating-linear-gradient(0deg, #29221a12 0 1px, transparent 1px 4px);
+  background-image: repeating-linear-gradient(0deg, #23232312 0 1px, transparent 1px 4px);
   opacity: .6;
 }
 /* The growing panel carries the lines; static layouts use the stage instead. */
@@ -70,7 +70,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(0deg, #29221a0d 0 1px, transparent 1px 4px);
+  background: repeating-linear-gradient(0deg, #2323230d 0 1px, transparent 1px 4px);
 }
 .creative-site .page-hero-image::after {
   inset: 0;

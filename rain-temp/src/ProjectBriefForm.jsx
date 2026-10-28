@@ -1,3 +1,4 @@
+import SiteIcon from './SiteIcon';
 import React, { useId, useState } from 'react';
 
 export default function ProjectBriefForm() {
@@ -6,7 +7,7 @@ export default function ProjectBriefForm() {
   const submit=event=>{
     event.preventDefault();
     const form=new FormData(event.currentTarget);
-    const text=['KEMSOR STUDIOS — PROJECT BRIEF','',`Project: ${String(form.get('project')).trim()}`,`Name: ${String(form.get('name')).trim()}`,`Email: ${form.get('email')}`,`Format: ${form.get('format')}`,`Current stage: ${form.get('stage')}`,`Language / locations: ${String(form.get('location')).trim()}`,'','THE STORY / SUPPORT NEEDED',String(form.get('story')).trim(),'','Prepared locally. This brief has not been sent to Kemsor Studios.'].join('\n');
+    const text=['KEMSOR STUDIOS: PROJECT BRIEF','',`Project: ${String(form.get('project')).trim()}`,`Name: ${String(form.get('name')).trim()}`,`Email: ${form.get('email')}`,`Format: ${form.get('format')}`,`Current stage: ${form.get('stage')}`,`Language / locations: ${String(form.get('location')).trim()}`,'','THE STORY / SUPPORT NEEDED',String(form.get('story')).trim(),'','Prepared locally. This brief has not been sent to Kemsor Studios.'].join('\n');
     const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));
     const link=document.createElement('a');
     link.href=url; link.download='kemsor-project-brief.txt'; document.body.append(link); link.click(); link.remove();
@@ -24,7 +25,7 @@ export default function ProjectBriefForm() {
       <label>Language / locations<input name="location" maxLength="300" autoComplete="off" placeholder="If known"/></label>
       <label className="story-field">The story, the starting point, the support you need<textarea name="story" rows="5" required maxLength="6000"/></label>
     </div>
-    <button type="submit" className="creative-cta"><span>Download your brief</span><span className="cta-arrow" aria-hidden="true">↓</span></button>
+    <button type="submit" className="creative-cta"><span>Download your brief</span><span className="cta-arrow" aria-hidden="true"><SiteIcon name="arrow-down" size={16} /></span></button>
     {downloaded&&<p className="download-status" role="status">Your brief is ready. The download has started; nothing has been sent to the studio.</p>}
   </form>;
 }

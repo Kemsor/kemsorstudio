@@ -1,0 +1,22 @@
+<%- include('head') %>
+<p class="eyebrow">MY ACCOUNT</p>
+<h1>My profile.</h1>
+<p>Your studio account details and password settings.</p>
+<div class="profile-grid">
+  <section class="panel profile-details" aria-labelledby="profile-details-title">
+    <h2 id="profile-details-title">Account details</h2>
+    <dl>
+      <div><dt>Name</dt><dd><%= profile.name %></dd></div>
+      <div><dt>Email</dt><dd><%= profile.email %></dd></div>
+      <div><dt>Role</dt><dd><%= {admin:'Administrator',editor:'Editor',enquiry_manager:'Enquiry manager'}[profile.role] %></dd></div>
+      <div><dt>Account status</dt><dd><%= profile.active ? 'Active' : 'Disabled' %></dd></div>
+      <div><dt>Member since</dt><dd><%= String(profile.created_at).slice(0,10) %></dd></div>
+    </dl>
+  </section>
+  <section id="password" class="panel" aria-labelledby="profile-password-title">
+    <h2 id="profile-password-title">Change password</h2>
+    <p>Use at least 12 characters. Updating your password signs out your other sessions.</p>
+    <%- include('password-form') %>
+  </section>
+</div>
+<%- include('foot') %>

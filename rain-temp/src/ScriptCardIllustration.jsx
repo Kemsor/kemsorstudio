@@ -6,9 +6,9 @@ export default function ScriptCardIllustration(){return <div className="script-c
  <g className="script-art-pages" transform="translate(90 190) rotate(-12 175 180)">
   <path d="M26 25H312V385H26V25Z" stroke="currentColor" opacity=".32"/>
   <path d="M13 12H299V372H13V12Z" stroke="currentColor" opacity=".5"/>
-  <path d="M0 0H286V359H0V0Z" fill="#21140f" stroke="currentColor" strokeWidth="1.5"/>
+  <path d="M0 0H286V359H0V0Z" fill="#161616" stroke="currentColor" strokeWidth="1.5"/>
   <path d="M31 35H75M211 35H255M31 57H255" stroke="currentColor"/>
-  <text x="32" y="95" fill="currentColor" fontFamily="monospace" fontSize="11" letterSpacing="2">INT. A NEW STORY — DAY</text>
+  <text x="32" y="95" fill="currentColor" fontFamily="monospace" fontSize="11" letterSpacing="2">INT. A NEW STORY / DAY</text>
   <path d="M32 119H241M32 132H216M32 145H246M32 158H167M103 188H182M71 205H219M71 218H202M71 231H226M32 261H245M32 274H226M32 287H241M32 300H184" stroke="currentColor" opacity=".6"/>
   <ellipse cx="143" cy="188" rx="57" ry="14" transform="rotate(-4 143 188)" stroke="currentColor" strokeWidth="2"/>
   <path d="M228 213l13 8 21-26M24 112c-13 6-14 44-1 52M235 285l21-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>

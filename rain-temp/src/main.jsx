@@ -29,6 +29,10 @@ import './light-production-heroes.css';
 import './editorial-page.css';
 import './inner-white-surfaces.css';
 import './header-motion.css';
+import './neutral-palette.css';
+import './immersive-opening.css';
+import './hero-overlay-nav.css';
+import './heading-tones.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 
 if (location.hash === '#home') history.replaceState(history.state, '', `${location.pathname}${location.search}`);
@@ -36,6 +40,12 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 const routes={
+ 'documentaries':lazy(()=>import('./pages/DocumentariesPage')),
+ 'series-ott':lazy(()=>import('./pages/SeriesOttPage')),
+ 'short-films':lazy(()=>import('./pages/ShortFilmsPage')),
+ 'feature-films':lazy(()=>import('./pages/FeatureFilmsPage')),
+ 'india-production-services':lazy(()=>import('./pages/IndiaProductionServicesPage')),
+ 'how-we-work':lazy(()=>import('./pages/HowWeWorkPage')),
  'find-talent':lazy(()=>import('./pages/TalentPages').then(m=>({default:m.FindTalentPage}))),
  'join':lazy(()=>import('./pages/TalentPages').then(m=>({default:m.JoinPage}))),
  'login':lazy(()=>import('./pages/TalentPages').then(m=>({default:m.LoginPage}))),
@@ -143,3 +153,5 @@ function App() {
  </div></>;
 }
 createRoot(document.getElementById('root')).render(<CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider>);
+
+import './icons.css';

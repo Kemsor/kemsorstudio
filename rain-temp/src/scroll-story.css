@@ -1,10 +1,10 @@
 .story-scroll {
-  --story-gold-panel: radial-gradient(ellipse at 92% 12%, #f5d890, transparent 58%), linear-gradient(115deg, #bd832e, var(--brand-gold, #e8b449) 50%, #f5d890);
-  --story-copy-ink: #29221a;
+  --story-gold-panel: radial-gradient(ellipse at 92% 12%, #d9d9d9, transparent 58%), linear-gradient(115deg, #898989, var(--brand-gold, #b7b7b7) 50%, #d9d9d9);
+  --story-copy-ink: #232323;
   position: relative;
   height: 320svh;
   background: var(--page-bg, #fff);
-  color: var(--ink, #211a14);
+  color: var(--ink, #1b1b1b);
   scroll-margin-top: 98px;
 }
 
@@ -55,7 +55,7 @@
 .story-description { max-width: 420px; margin: 29px 0 0; font-size: 17px; line-height: 1.8; }
 .story-signoff { margin: 30px 0 0; font-size: 12px; line-height: 1.6; font-weight: 600; letter-spacing: .055em; text-transform: uppercase; }
 .story-photos { position: relative; height: min(66svh, 610px); min-width: 0; }
-.story-photo { position: absolute; margin: 0; border: 5px solid #fff9ef; background: #fff9ef; color: #29221a; box-shadow: 0 18px 35px #4b301c2d; will-change: transform, opacity; }
+.story-photo { position: absolute; margin: 0; border: 5px solid #ffffff; background: #ffffff; color: #232323; box-shadow: 0 18px 35px #3434342d; will-change: transform, opacity; }
 .story-photo img { display: block; width: 100%; height: calc(100% - 34px); object-fit: cover; }
 .story-photo figcaption { display: flex; align-items: center; height: 34px; padding: 0 9px; font-size: 11px; line-height: 1.4; font-weight: 600; letter-spacing: .04em; }
 .story-photo-performance { width: 83%; height: 51%; top: 0; right: 0; opacity: var(--story-photo-0-opacity); transform: translateY(var(--story-photo-0-y)) rotate(5deg); }

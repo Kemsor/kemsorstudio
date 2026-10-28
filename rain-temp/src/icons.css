@@ -1,0 +1,5 @@
+.site-icon{display:inline-block;flex-shrink:0;vertical-align:middle}
+.creative-site .creative-header .creative-nav-chevron{width:12px;height:12px;margin-top:0;border:0;transform:none;display:grid;place-items:center}
+.creative-site .creative-header .creative-nav-trigger[aria-expanded="true"] .creative-nav-chevron{transform:rotate(180deg)}
+.creative-site .creative-nav-toggle-icon::before,.creative-site .creative-nav-toggle-icon::after{display:none}
+.creative-site .creative-header .creative-nav-toggle-icon{width:23px;height:23px}

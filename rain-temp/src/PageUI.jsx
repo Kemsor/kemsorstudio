@@ -4,7 +4,7 @@ import SiteIcon from './SiteIcon';
 
 export const Arrow = () => <SiteIcon name="arrow"/>;
 export function FrameMark({ className = '' }) {
-  return <svg className={`frame-mark ${className}`} width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M18 6H6v12m24-12h12v12M6 30v12h12m24-12v12H30" stroke="currentColor" strokeWidth="3" /><rect x="16" y="18" width="16" height="12" stroke="currentColor" strokeWidth="2.5" /></svg>;
+  return <SiteIcon name="scan" size={48} className={`frame-mark ${className}`} />;
 }
 export function CTA({ children = 'Start with a story', href = '/contact/#project-brief', className = '' }) {
   return <a className={`creative-cta ${className}`} href={href}><span>{children}</span><span className="cta-arrow"><Arrow /></span></a>;

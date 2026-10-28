@@ -65,8 +65,8 @@ html{scroll-padding-top:calc(var(--site-header-height) + 16px)}
 @media(prefers-reduced-motion:reduce){.creative-header{transition:none}}
 
 /* One continuous navigation surface; outline only its exposed edges. */
-:root{--menu-surface:var(--page-bg);--menu-border:#211a1438}
-html[data-theme=dark]{--menu-surface:var(--page-bg);--menu-border:#f4efe64d}
+:root{--menu-surface:var(--page-bg);--menu-border:#1b1b1b38}
+html[data-theme=dark]{--menu-surface:var(--page-bg);--menu-border:#ffffff4d}
 .creative-header .creative-dropdown,
 html[data-theme=dark] .creative-header .creative-dropdown{background:var(--page-bg);background-image:none;border:1px solid var(--menu-border);border-top:0;border-radius:0 0 10px 10px;box-shadow:none}
 @media(min-width:1441px){

@@ -1,3 +1,4 @@
+import SiteIcon from './SiteIcon';
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { IndexLabel } from './PageUI';
@@ -10,8 +11,8 @@ const durationLabel = value => {
   const seconds = Math.round(Number(value));
   return Number.isFinite(seconds) ? `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}` : '';
 };
-const ExpandIcon = () => <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5" /></svg>;
-const SoundIcon = ({ muted }) => <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z" />{muted ? <path d="m16 9 6 6m0-6-6 6" /> : <><path d="M15 8a6 6 0 0 1 0 8" /><path d="M18 5a10 10 0 0 1 0 14" /></>}</svg>;
+const ExpandIcon = () => <SiteIcon name="expand" />;
+const SoundIcon = ({ muted }) => <SiteIcon name={muted ? "muted" : "volume"} />;
 
 function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlarge }) {
   const card = useRef(null);
@@ -81,7 +82,7 @@ function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlar
         {status === 'loading' && <TaskLoader overlay progress={bufferProgress} label="Preparing preview" />}
         <span className="film-preview-shade" aria-hidden="true" />
         
-        <button className="film-enlarge" type="button" onClick={event => onEnlarge(film, event.currentTarget)} aria-label={`Enlarge ${film.title}`} aria-describedby={`film-preview-status-${film.id}`} title={`Enlarge ${film.title}`}><span className="film-play-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z" fill="currentColor" stroke="none" /></svg></span><span className="film-watch-label">Watch film <span aria-hidden="true">↗</span></span></button>
+        <button className="film-enlarge" type="button" onClick={event => onEnlarge(film, event.currentTarget)} aria-label={`Enlarge ${film.title}`} aria-describedby={`film-preview-status-${film.id}`} title={`Enlarge ${film.title}`}><span className="film-play-symbol" aria-hidden="true"><SiteIcon name="play" /></span><span className="film-watch-label">Watch film <span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></span></button>
       </div>
       <div className="film-desk-card-caption"><h3>{film.title}</h3><span>{durationLabel(film.duration)}</span></div>
       <p className="film-desk-description">{film.description}</p>
@@ -207,7 +208,7 @@ export default function VideoShowcase({ paused = false, reduced = false } = {}) 
       <p className="film-gallery-note">A selection of supplied footage and visual references. Production credits are not attributed.</p>
       <dialog className="film-viewer" ref={dialog} aria-labelledby="film-viewer-title" onCancel={event => { event.preventDefault(); closeViewer(); }} onClose={finishClose} onClick={backdropClick}>
         <div className="film-viewer-content" ref={viewerContent}>
-        <div className="film-viewer-heading"><div><p>{selected?.kicker || 'IN MOTION'}</p><h3 id="film-viewer-title">{selected?.title || 'Film viewer'}</h3></div><div className="film-viewer-actions"><button type="button" className="film-viewer-close" autoFocus onClick={closeViewer} aria-label="Close film"><span aria-hidden="true">×</span></button></div></div>
+        <div className="film-viewer-heading"><div><p>{selected?.kicker || 'IN MOTION'}</p><h3 id="film-viewer-title">{selected?.title || 'Film viewer'}</h3></div><div className="film-viewer-actions"><button type="button" className="film-viewer-close" autoFocus onClick={closeViewer} aria-label="Close film"><SiteIcon name="close" /></button></div></div>
         {selected && <div className="film-viewer-screen">
           <video className="film-viewer-video" ref={player} src={selected.src} poster={selected.poster} width={selected.width} height={selected.height} playsInline loop preload="metadata" tabIndex={0} aria-label={selected.title} aria-describedby="film-viewer-hint" onClick={toggleFilm} onKeyDown={event => { if ((event.code === 'Space' || event.key === 'Enter') && !event.repeat) { event.preventDefault(); toggleFilm(); } }} onWaiting={() => setViewerStatus('loading')} onPlaying={() => setViewerStatus('ready')} onLoadedData={() => setViewerStatus(status => status === 'gesture-required' ? status : 'ready')} onPlay={() => { if (document.hidden) player.current?.pause(); else setViewerStatus('ready'); }} onVolumeChange={() => setViewerMuted(Boolean(player.current?.muted))} onError={() => { if (dialog.current?.open) setViewerStatus('error'); }} />
           {viewerStatus === 'loading' && <TaskLoader overlay progress={bufferProgress} label="Buffering film" />}

@@ -1,3 +1,4 @@
+import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import React from 'react';
 import FinanceLayout from '../FinanceLayout';
@@ -15,7 +16,7 @@ const benefits = [
 ];
 const alignment = [
   ['Who has the final creative say?', 'How creative decisions are made, and who makes the final call.'],
-  ['Who contributes what?', 'Cash, crew, locations, equipment, post or services - itemised, not assumed.'],
+  ['Who contributes what?', 'Cash, crew, locations, equipment, post or services, with each contribution itemised.'],
   ['Who runs the production day-to-day?', 'One clear production lead, so the set never has two bosses.'],
   ['How are decisions escalated?', 'A simple path for disagreements, agreed while everyone is still friends.'],
   ['How are credits presented?', 'Credits agreed early, so they never become a dispute later.'],
@@ -23,7 +24,7 @@ const alignment = [
 ];
 const brief = [
   ['Shared creative vision', 'What the project is, and who it is for'],
-  ['Contributions matrix', 'Who brings what - cash, crew, locations, services'],
+  ['Contributions matrix', 'Who brings cash, crew, locations and services'],
   ['Responsibilities', 'Who leads production, post and delivery'],
   ['Decision path', 'How choices are made and escalated'],
   ['Budget & schedule', 'One budget and one timeline for all partners'],
@@ -31,7 +32,7 @@ const brief = [
 ];
 const roles = [
   ['Co-producing partner', 'Kemsor joins as a partner, sharing in the making of the project.'],
-  ['Production partner', 'Kemsor runs the production for the partnership - line production, crew, locations, and the shoot.'],
+  ['Production partner', 'Kemsor runs production for the partnership, including line production, crew, locations and the shoot.'],
   ['Alignment partner', 'Kemsor brings partners together and keeps creative and production goals aligned.'],
 ];
 const steps = [
@@ -65,7 +66,7 @@ export default function CoProductionPage() {
 
     <section className="produce-section" id="partner-alignment" aria-labelledby="alignment-title"><Label>THE ALIGNMENT · WHERE CO-PRODUCTIONS SUCCEED OR FAIL</Label><MotionHeading as="h2" id="alignment-title">Most co-production problems<br/><em>start as unanswered questions.</em></MotionHeading><MotionCopy className="coproduction-intro">We help partners answer these six questions clearly and in writing, before the first rupee is spent.</MotionCopy><dl className="line-production-deliverables">{alignment.map(([title,body])=><div key={title}><dt>{title}</dt><dd>{body}</dd></div>)}</dl></section>
 
-    <section className="produce-section" id="partner-alignment-brief" aria-labelledby="brief-title"><Label>WHAT WE PREPARE</Label><MotionHeading as="h2" id="brief-title">One document<br/><em>every partner signs off on.</em></MotionHeading><MotionCopy className="coproduction-intro">Kemsor prepares a Partner Alignment Brief - the production-side foundation your lawyers build the co-production agreement from.</MotionCopy><div className="coproduction-brief"><div className="coproduction-document-heading"><span>PARTNER ALIGNMENT BRIEF</span><span>01 - 06</span></div><ol>{brief.map(([title,body],i)=><li key={title}><span className="coproduction-small" aria-hidden="true">0{i+1}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ol></div></section>
+    <section className="produce-section" id="partner-alignment-brief" aria-labelledby="brief-title"><Label>WHAT WE PREPARE</Label><MotionHeading as="h2" id="brief-title">One document<br/><em>every partner signs off on.</em></MotionHeading><MotionCopy className="coproduction-intro">Kemsor prepares a Partner Alignment Brief that your lawyers can use as the production-side basis for the co-production agreement.</MotionCopy><div className="coproduction-brief"><div className="coproduction-document-heading"><span>PARTNER ALIGNMENT BRIEF</span><span>01 - 06</span></div><ol>{brief.map(([title,body],i)=><li key={title}><span className="coproduction-small" aria-hidden="true">0{i+1}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ol></div></section>
 
     <section className="produce-section" id="our-role" aria-labelledby="roles-title"><Label>OUR ROLE · SHAPED TO THE PROJECT</Label><MotionHeading as="h2" id="roles-title">Partner, producer<br/><em>or the one who aligns everyone.</em></MotionHeading><div className="coproduction-roles">{roles.map(([title,body],i)=><article key={title}><span className="coproduction-small">0{i+1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></section>
 
@@ -76,8 +77,8 @@ export default function CoProductionPage() {
     {/* No approved project title, format, partners or co-production credits supplied. */}
     <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
 
-    <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS</Label><MotionHeading as="h2" id="questions-title">Questions.</MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
+    <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS</Label><MotionHeading as="h2" id="questions-title">Questions.</MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
 
-    <section className="produce-section produce-closing finance-closing" id="explore-co-production" aria-labelledby="closing-title"><Label>CO-PRODUCTION</Label><div><MotionHeading as="h2" id="closing-title">Better together -<br/><em>if it’s clear.</em></MotionHeading><div><MotionCopy>Tell us about the project and the partners involved. We’ll help make the partnership work.</MotionCopy><CTA href={contact}>Explore a co-production</CTA></div></div></section>
+    <section className="produce-section produce-closing finance-closing" id="explore-co-production" aria-labelledby="closing-title"><Label>CO-PRODUCTION</Label><div><MotionHeading as="h2" id="closing-title">Better together<br/><em>if it’s clear.</em></MotionHeading><div><MotionCopy>Tell us about the project and the partners involved. We’ll help make the partnership work.</MotionCopy><CTA href={contact}>Explore a co-production</CTA></div></div></section>
   </div></FinanceLayout>;
 }

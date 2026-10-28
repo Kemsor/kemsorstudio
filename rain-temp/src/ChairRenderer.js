@@ -23,9 +23,9 @@ export function createChairRenderer(host) {
   const grain = document.createElement('canvas');
   grain.width = 128; grain.height = 512;
   const ctx = grain.getContext('2d');
-  ctx.fillStyle = '#321b10'; ctx.fillRect(0, 0, 128, 512);
+  ctx.fillStyle = '#1f1f1f'; ctx.fillRect(0, 0, 128, 512);
   for (let x = 0; x < 128; x++) {
-    ctx.strokeStyle = `rgba(${x % 3 ? '20,8,2' : '188,127,65'},${.08 + (Math.sin(x * 5.3) + 1) * .11})`;
+    ctx.strokeStyle = `rgba(${x % 3 ? '10,10,10' : '136,136,136'},${.08 + (Math.sin(x * 5.3) + 1) * .11})`;
     ctx.beginPath();
     for (let y = 0; y < 512; y += 8) { const dx = x + Math.sin(y / 53 + x) * 2; if (!y) ctx.moveTo(dx, y); else ctx.lineTo(dx, y); }
     ctx.stroke();
@@ -33,7 +33,7 @@ export function createChairRenderer(host) {
   const texture = new THREE.CanvasTexture(grain);
   texture.colorSpace = THREE.SRGBColorSpace;
   const wood = new THREE.MeshStandardMaterial({ map: texture, roughness: .36, metalness: .05 });
-  const brass = new THREE.MeshStandardMaterial({ color: 0xc4994f, metalness: .82, roughness: .26 });
+  const brass = new THREE.MeshStandardMaterial({ color: 0x9d9d9d, metalness: .82, roughness: .26 });
   const canvas = new THREE.MeshStandardMaterial({ color: 0x570b20, roughness: .9, side: THREE.DoubleSide });
   const seam = new THREE.MeshStandardMaterial({ color: 0xbb3c4f, roughness: .9 });
   const add = (geometry, material, parent = chair) => {
@@ -87,12 +87,12 @@ export function createChairRenderer(host) {
   seam.dispose();
   rail([-.61, 1.15, .49], [.61, 1.15, .49], .05, .04, brass);
 
-  scene.add(new THREE.HemisphereLight(0xffedd2, 0x302222, 1.15));
-  const key = new THREE.SpotLight(0xffdfb0, 80, 20, .55, .65, 1.5);
+  scene.add(new THREE.HemisphereLight(0xefefef, 0x252525, 1.15));
+  const key = new THREE.SpotLight(0xe2e2e2, 80, 20, .55, .65, 1.5);
   key.position.set(-3, 6, 5); key.target.position.set(0, 1, 0);
   key.castShadow = true; key.shadow.mapSize.set(512, 512); key.shadow.bias = -.0005;
   scene.add(key, key.target);
-  const rim = new THREE.DirectionalLight(0xffc879, 2); rim.position.set(3, 4, -4); scene.add(rim);
+  const rim = new THREE.DirectionalLight(0xcecece, 2); rim.position.set(3, 4, -4); scene.add(rim);
   const fill = new THREE.DirectionalLight(0xffffff, .65); fill.position.set(3, 2, 4); scene.add(fill);
   const floor = add(new THREE.PlaneGeometry(200, 200), new THREE.MeshStandardMaterial({ color: 0x090909, roughness: 1 }), scene);
   floor.rotation.x = -Math.PI / 2; floor.position.y = -.025; floor.castShadow = false;

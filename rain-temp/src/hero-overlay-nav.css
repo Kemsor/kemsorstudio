@@ -1,0 +1,98 @@
+/* On the opening film, the logo, links and action sit directly on the footage.
+   The shared solid header settles against the top edge on scroll. */
+html body #top.creative-site.site-page-home .creative-header .creative-header-inner{
+  background:transparent!important;border-color:transparent!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-toggle,.header-account-links .header-login){color:#fff!important}
+html body #top.creative-site.site-page-home .creative-header .header-account-links .header-login:hover{color:#171717!important;background:#fff!important}
+html body #top.creative-site.site-page-home .creative-header .header-script-tool{
+  padding:0!important;gap:12px;min-height:52px;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:transparent!important;color:#fff!important;
+  filter:none!important;transform:none!important;
+  text-transform:uppercase;font-weight:600;
+}
+html body #top.creative-site.site-page-home .creative-header .header-script-tool{position:relative;isolation:isolate;overflow:visible}
+html body #top.creative-site.site-page-home .creative-header .header-script-tool::before{
+ content:''!important;position:absolute;inset:-4px -10px;width:auto;height:auto;
+ border-radius:999px;background:var(--cta-gradient)!important;
+ z-index:-1;pointer-events:none;opacity:0;transform:none!important;
+ transition:opacity .3s ease;
+}
+html body #top.creative-site.site-page-home .creative-header .header-script-tool:is(:hover,:focus-visible)::before{opacity:1}
+html body #top.creative-site.site-page-home .creative-header[data-scrolled] .header-script-tool:is(:hover,:focus-visible),
+html body #top.creative-site.site-page-home .creative-header[data-scrolled] .header-script-tool:is(:hover,:focus-visible) .cta-label{color:#fff!important;-webkit-text-fill-color:#fff}
+html body #top.creative-site.site-page-home .creative-header .header-script-tool>span{
+  display:grid;place-items:center;flex:0 0 52px;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--cta-gradient)!important;color:var(--cta-ink)!important;
+  transition:background-color .2s ease;
+}
+html body #top.creative-site.site-page-home .creative-header .header-script-tool>span .site-icon{width:20px;height:20px;transform:none!important}
+html body #top.creative-site.site-page-home .creative-header .header-script-tool:is(:hover,:focus-visible)>span{background:#fff!important;color:#171717!important}
+html body #top.creative-site.site-page-home .creative-header :is(.creative-header-brand,.header-script-tool,.creative-nav-toggle,.header-login):focus-visible{outline-color:#fff}
+/* A top vignette belongs to the film, rather than a glass or boxed navbar. */
+html body #top.creative-site.site-page-home .opening-screen::before{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,#080808b3 0%,#08080855 13%,transparent 30%);
+}
+@media(min-width:1441px){
+  html body #top.creative-site.site-page-home .creative-header .creative-nav{background:transparent!important}
+  html body #top.creative-site.site-page-home .creative-header .creative-nav-list{gap:clamp(3px,.6vw,14px)}
+  html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct){
+    color:#fff!important;background:transparent!important;
+    padding-inline:9px;border-radius:999px;
+    text-transform:uppercase;font-weight:600;
+  }
+  html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true],[aria-current]){background:#fff!important;color:#171717!important}
+  html body #top.creative-site.site-page-home .creative-header .creative-nav-chevron{color:#fff!important}
+  html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true],[aria-current]) .creative-nav-chevron{color:#171717!important}
+  html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct):focus-visible{outline-color:#fff}
+}
+@media(max-width:600px){
+  html body #top.creative-site.site-page-home .creative-header .header-script-tool{gap:8px;min-height:40px}
+  html body #top.creative-site.site-page-home .creative-header .header-script-tool>span{width:40px;height:40px;flex-basis:40px}
+  html body #top.creative-site.site-page-home .creative-header .header-script-tool>span .site-icon{width:17px;height:17px}
+}
+
+/* Keep the header fixed and its height constant. Only its top inset and
+   surface ease, so scrolling never moves the document or the mobile drawer. */
+html body #top.creative-site .creative-header{
+  --nav-settle:460ms cubic-bezier(.22,.61,.36,1);
+  transition:padding-top var(--nav-settle),background-color var(--nav-settle),box-shadow var(--nav-settle)!important;
+}
+html body #top.creative-site .creative-header .creative-header-inner{
+  transition:background-color var(--nav-settle),border-color var(--nav-settle),border-radius var(--nav-settle),box-shadow var(--nav-settle)!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true]{
+  padding-top:0!important;background:#fff!important;
+  box-shadow:0 4px 24px #0000000d;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner{
+  background:#fff!important;border-color:transparent!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] :is(.creative-nav-toggle,.header-account-links .header-login,.header-script-tool){color:#171717!important}
+html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] :is(.creative-header-brand,.header-script-tool,.creative-nav-toggle,.header-login):focus-visible{outline-color:#171717}
+@media(min-width:1441px){
+  html body #top.creative-site.site-page-home .creative-header .creative-nav{background:transparent!important}
+  html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.creative-nav-chevron){transition:color var(--nav-settle),background-color var(--nav-settle)!important}
+  html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.creative-nav-chevron){color:#171717!important}
+  html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true],[aria-current]){background:#f1f2f3!important}
+  html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct):focus-visible{outline-color:#171717}
+}
+@media(prefers-reduced-motion:reduce){
+  html body #top.creative-site .creative-header,
+  html body #top.creative-site .creative-header .creative-header-inner,
+  html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.creative-nav-chevron){transition:none!important}
+}
+/* Keep the opening navigation action readable over the film on hover. */
+html body #top.creative-site.site-page-home .creative-header[data-scrolled=false] .header-script-tool:is(:hover,:focus-visible),
+html body #top.creative-site.site-page-home .creative-header[data-scrolled=false] .header-script-tool:is(:hover,:focus-visible) .cta-label{
+ color:#fff!important;-webkit-text-fill-color:#fff;
+}
+
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site.site-page-home .creative-header .header-script-tool::before{transition:none}
+}

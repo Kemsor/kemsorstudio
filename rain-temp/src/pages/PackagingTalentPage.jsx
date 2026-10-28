@@ -1,3 +1,4 @@
+import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import React from 'react';
 import EditorialPage from '../EditorialPage';
@@ -23,7 +24,7 @@ const elements = [
 const statuses = [
   ['Attached','Interest or agreement confirmed in writing'],
   ['Approached','In active conversation, not yet confirmed'],
-  ['Wishlist','Ideal names, shown as ambition - not yet contacted'],
+  ['Wishlist','Ideal names on the wishlist; not yet contacted'],
 ];
 const steps = [
   ['Define the role','What the story needs from the director or lead role.'],
@@ -40,7 +41,7 @@ const audiences = [
   'Writers and producers with a strong script and no package yet',
   'Directors building a project around their vision',
   'Producers preparing to approach financiers or platforms',
-  <>Talent looking for serious projects - through the <a href="/find-talent/">Kemsor Talent Network</a></>,
+  <>Talent looking for serious projects through the <a href="/find-talent/">Kemsor Talent Network</a></>,
 ];
 const questions = [
   ['Can you guarantee a star will attach?','No. No one honestly can. We approach the right people with a serious package and tell you exactly where each conversation stands.'],
@@ -55,11 +56,11 @@ Label.displayName = 'EditorialLabel';
 export default function PackagingTalentPage() {
   return <EditorialPage page="packaging-talent"><div className="produce-hub packaging-page">
     <nav className="produce-breadcrumb" aria-label="Breadcrumb"><a href="/">Kemsor Studios</a><span aria-hidden="true">/</span><a href="/develop/">Develop</a><span aria-hidden="true">/</span><span aria-current="page">Packaging &amp; Talent</span></nav>
-    <section className="produce-hero" aria-labelledby="packaging-title"><figure className="produce-hero-image" aria-hidden="true"><img src="/assets/stills/daylight-park-production-1600.webp" srcSet={[640,960,1600].map(w=>`/assets/stills/daylight-park-production-${w}.webp ${w}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async"/></figure><div className="produce-hero-content"><p className="produce-kicker">01 · DEVELOP · PACKAGING &amp; TALENT</p><MotionHeading as="h1" id="packaging-title">Packaging &amp; Talent Attachment.<span>Give financiers a reason to say yes.</span></MotionHeading><MotionCopy>A script is a promise. A package is proof. We assemble the elements - director, key cast, look and plan - that turn a strong script into a project people want to back.</MotionCopy><div className="produce-actions"><CTA href={contact}>Package my project</CTA><TextLink href="#whats-in-a-package">What’s in a package</TextLink></div></div><div className="editorial-hero-graphic packaging-example" aria-label="Illustrative Project Package card"><p className="packaging-example-label">YOUR PROJECT · ILLUSTRATIVE PACKAGE</p><ul>{packageExample.map(([title,status])=><li key={title}><span>{title}</span><small data-status={status}>{status}</small></li>)}</ul></div></section>
+    <section className="produce-hero" aria-labelledby="packaging-title"><figure className="produce-hero-image" aria-hidden="true"><img src="/assets/stills/daylight-park-production-1600.webp" srcSet={[640,960,1600].map(w=>`/assets/stills/daylight-park-production-${w}.webp ${w}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async"/></figure><div className="produce-hero-content"><p className="produce-kicker">01 · DEVELOP · PACKAGING &amp; TALENT</p><MotionHeading as="h1" id="packaging-title">Packaging &amp; Talent Attachment.<span>Give financiers a reason to say yes.</span></MotionHeading><MotionCopy>We bring together the director, key cast, visual approach and production plan to help turn a script into a project that partners can assess and back.</MotionCopy><div className="produce-actions"><CTA href={contact}>Package my project</CTA><TextLink href="#whats-in-a-package">What’s in a package</TextLink></div></div><div className="editorial-hero-graphic packaging-example" aria-label="Illustrative Project Package card"><p className="packaging-example-label">YOUR PROJECT · ILLUSTRATIVE PACKAGE</p><ul>{packageExample.map(([title,status])=><li key={title}><span>{title}</span><small data-status={status}>{status}</small></li>)}</ul></div></section>
 
     <nav className="finance-subnav" aria-label="Development services"><span>01 · DEVELOP</span><a href="/develop/">Overview</a><a href="/develop/story-script/">Story &amp; Script</a><a href="/develop/packaging-talent/" aria-current="page">Packaging &amp; Talent</a><a href="/develop/budgeting-scheduling/">Budgeting &amp; Scheduling</a></nav>
 
-    <section className="produce-section" id="whats-in-a-package" aria-labelledby="elements-title"><Label>WHAT’S IN A PACKAGE · SEVEN ELEMENTS</Label><MotionHeading as="h2" id="elements-title">Seven elements<br/><em>that make a project real.</em></MotionHeading><MotionCopy className="packaging-intro">Financiers and platforms don’t just read scripts. They look for the elements that show the project can be made - and made well.</MotionCopy><ol className="packaging-elements">{elements.map(([title,body],i)=><li key={title}><span className="packaging-small">0{i+1}</span><h3>{title}</h3><p>{body}</p></li>)}</ol></section>
+    <section className="produce-section" id="whats-in-a-package" aria-labelledby="elements-title"><Label>WHAT’S IN A PACKAGE · SEVEN ELEMENTS</Label><MotionHeading as="h2" id="elements-title">Seven elements<br/><em>that make a project real.</em></MotionHeading><MotionCopy className="packaging-intro">Financiers and platforms look beyond the script. They need to see how the project will be made and who will make it.</MotionCopy><ol className="packaging-elements">{elements.map(([title,body],i)=><li key={title}><span className="packaging-small">0{i+1}</span><h3>{title}</h3><p>{body}</p></li>)}</ol></section>
 
     <section className="produce-section" id="attachment-explained" aria-labelledby="attachment-title"><Label>ATTACHMENT, EXPLAINED · HONESTY BUILDS TRUST</Label><MotionHeading as="h2" id="attachment-title">Attached, approached, or wishlist.<br/><em>We never blur the line.</em></MotionHeading><MotionCopy className="packaging-intro">Overstating attachments is the fastest way to lose a financier’s trust. Every name in a Kemsor package carries an honest status.</MotionCopy><dl className="packaging-statuses">{statuses.map(([title,body],i)=><div key={title}><dt><span className="packaging-small">0{i+1}</span>{title}</dt><dd>{body}</dd></div>)}</dl></section>
 
@@ -72,7 +73,7 @@ export default function PackagingTalentPage() {
     {/* No approved project title, format, year or packaging credits supplied. */}
     <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
 
-    <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS · ABOUT PACKAGING</Label><MotionHeading as="h2" id="questions-title">Questions,<br/><em>answered honestly.</em></MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
+    <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS · ABOUT PACKAGING</Label><MotionHeading as="h2" id="questions-title">Questions,<br/><em>answered honestly.</em></MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
 
     <section className="produce-section produce-closing finance-closing" id="package-your-project" aria-labelledby="closing-title"><Label>01 · DEVELOP</Label><div><MotionHeading as="h2" id="closing-title">Turn your script<br/><em>into a project.</em></MotionHeading><div><MotionCopy>Bring us a script you believe in. We’ll help build the package that makes others believe too.</MotionCopy><div className="produce-actions"><CTA href={contact}>Package my project</CTA><TextLink href="/join/">Join the Talent Network</TextLink></div></div></div></section>
   </div></EditorialPage>;

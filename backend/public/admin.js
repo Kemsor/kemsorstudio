@@ -1,3 +1,4 @@
+const workspaceIcon = name => document.querySelector(`template[data-admin-icon="${name}"]`).content.cloneNode(true);
 const dropdown=document.querySelector('.notification-dropdown');
 if(dropdown){
  const toggle=dropdown.querySelector('[data-unread-only]');
@@ -5,7 +6,7 @@ if(dropdown){
  const error=dropdown.querySelector('.notification-dropdown-error');
  const csrf=dropdown.querySelector('input[name="_csrf"]').value;
  let pending=false,items=null;
- const paths={enquiry:'M3 5h18v14H3zM3 6l9 7 9-7',draft:'M5 3h14v18H5zM8 8h8M8 12h8M8 16h5',talent:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0M16 4a4 4 0 0 1 0 8',application:'M3 7h18v13H3zM8 7V4h8v3M3 12h18',setup:'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8M12 2v3M12 19v3M2 12h3M19 12h3'};
+ const iconNames={enquiry:'enquiries',draft:'page',talent:'team',application:'career',setup:'settings'};
  function render(){
   if(!items)return;
   const unreadOnly=toggle.getAttribute('aria-pressed')==='true';
@@ -14,8 +15,7 @@ if(dropdown){
   list.replaceChildren(...shown.map(item=>{
    const article=document.createElement('article');article.className=`notification-item ${item.read?'is-read':'is-unread'}`;
    const indicator=document.createElement('span');indicator.className=`notification-indicator tone-${item.tone}`;indicator.setAttribute('aria-hidden','true');
-   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');for(const [key,value]of Object.entries({class:'ui-icon',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','stroke-width':'1.6','stroke-linecap':'round','stroke-linejoin':'round'}))svg.setAttribute(key,value);
-   const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',paths[item.key.split(':')[0]]||paths.setup);svg.append(path);indicator.append(svg);
+   indicator.append(workspaceIcon(iconNames[item.key.split(':')[0]]||'settings'));
    const content=document.createElement('div'),link=document.createElement('a');link.href=item.href;
    const title=document.createElement('strong');title.textContent=item.title;const copy=document.createElement('span');copy.textContent=item.text;link.append(title,copy);content.append(link);
    if(item.date){const date=document.createElement('small');date.textContent=`${item.date} UTC`;content.append(date);}
@@ -68,8 +68,8 @@ if(adminNav){
 document.querySelectorAll('input[type="password"]').forEach(input=>{
  const wrapper=document.createElement('span');wrapper.className='password-control';input.replaceWith(wrapper);wrapper.append(input);
  const button=document.createElement('button');button.type='button';button.className='password-eye';button.setAttribute('aria-label','Show password');button.setAttribute('aria-pressed','false');
- button.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m4 4 16 16"/></svg>';
- button.addEventListener('click',event=>{event.preventDefault();const show=input.type==='password';input.type=show?'text':'password';button.setAttribute('aria-label',show?'Hide password':'Show password');button.setAttribute('aria-pressed',String(show));});wrapper.append(button);
+ button.append(workspaceIcon('eye'));
+ button.addEventListener('click',event=>{event.preventDefault();const show=input.type==='password';input.type=show?'text':'password';button.setAttribute('aria-label',show?'Hide password':'Show password');button.setAttribute('aria-pressed',String(show));button.replaceChildren(workspaceIcon(show?'eye-off':'eye'));});wrapper.append(button);
 });
 
 // Progressive form handling: failed saves leave the actual form and uploads in place.

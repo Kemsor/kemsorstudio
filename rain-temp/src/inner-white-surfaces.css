@@ -3,8 +3,8 @@
 html .creative-site #main.inner-page{
  --page-bg:#fff;--panel-bg:#fff;--produce-paper:#fff;--produce-warm:#fff;
  --ep-paper:#fff;--ep-warm:#fff;--fl-paper:#fff;--fl-warm:#fff;
- --studio-paper:#fff;--tool-surface:#fff;--ink:#3b241b;--muted:#725b4c;--line:#3b241b29;
- background:#fff!important;color:#3b241b;
+ --studio-paper:#fff;--tool-surface:#fff;--ink:#282828;--muted:#5f5f5f;--line:#28282829;
+ background:#fff!important;color:#282828;
 }
 html .creative-site #main.inner-page :is(
  section,article,aside,header,form,fieldset,table,thead,tbody,tr,th,td,
@@ -25,18 +25,18 @@ html .creative-site #main.inner-page :is(
  .make-format-image figcaption,.fl-hero-foot,.pl-hero-foot
 ){background:#fff!important}
 /* Dark-panel copy gets the same readable ink as the white reading surfaces. */
-html .creative-site #main.inner-page :is(h1,h2,h3,h4,p,li,dt,dd,label,legend,summary){color:#3b241b!important}
-html .creative-site #main.inner-page :is(h1,h2,h3,h4)>:is(span,em){color:#94612d!important}
+html .creative-site #main.inner-page :is(h1,h2,h3,h4,p,li,dt,dd,label,legend,summary){color:#282828!important}
+html .creative-site #main.inner-page :is(h1,h2,h3,h4)>:is(span,em){color:#686868!important}
 html .creative-site #main.inner-page :is(
  .page-eyebrow,.produce-kicker,.produce-label,.produce-label>span,.studio-label,
  .ep-eyebrow,.ep-file-heading,.ep-motion-toggle,.produce-step-number,
  .produce-related-number,.finance-audience-label,.finance-card-index,
  .structuring-small,.coproduction-small,.international-small-label,
  .studio-stage-index,.studio-method-steps li>span,.ep-step-number
-){color:#94612d!important}
-html .creative-site #main.inner-page :is(.line-link,.text-link,.production-text-link,.directory-join){color:#805021!important;border-color:#80502166}
-html .creative-site #main.inner-page :is(.studio-method,.ep-process,.fl-closing,.pl-closing,.produce-closing,.make-coproduction){--ink:#3b241b;--muted:#725b4c;--line:#3b241b29;color:#3b241b!important}
-html .creative-site #main.inner-page :is(.studio-method-steps li,.produce-steps li,.ep-process li,.fl-closing,.pl-closing){border-color:#3b241b29!important}
+){color:#686868!important}
+html .creative-site #main.inner-page :is(.line-link,.text-link,.production-text-link,.directory-join){color:#575757!important;border-color:#57575766}
+html .creative-site #main.inner-page :is(.studio-method,.ep-process,.fl-closing,.pl-closing,.produce-closing,.make-coproduction){--ink:#282828;--muted:#5f5f5f;--line:#28282829;color:#282828!important}
+html .creative-site #main.inner-page :is(.studio-method-steps li,.produce-steps li,.ep-process li,.fl-closing,.pl-closing){border-color:#28282829!important}
 html .creative-site #main.inner-page :is(
  .studio-frame-location,.ep-image-window,.fl-hero-image,.pl-panorama,
  .produce-service-image,.make-sheet-photo,.make-format-image,
@@ -44,5 +44,5 @@ html .creative-site #main.inner-page :is(
  .budgeting-stripboard>span,.budgeting-stripboard>div,
  .structuring-formats,.coproduction-benefits
 ){background:#fff!important}
-html .creative-site #main.inner-page .budgeting-stripboard :is(span,div){color:#3b241b!important}
-html .creative-site #main.inner-page :is(.studio-method,.ep-process,.fl-closing,.pl-closing,.produce-closing,.make-coproduction){--ink:#3b241b!important;--muted:#725b4c!important;--line:#3b241b29!important}
+html .creative-site #main.inner-page .budgeting-stripboard :is(span,div){color:#282828!important}
+html .creative-site #main.inner-page :is(.studio-method,.ep-process,.fl-closing,.pl-closing,.produce-closing,.make-coproduction){--ink:#282828!important;--muted:#5f5f5f!important;--line:#28282829!important}

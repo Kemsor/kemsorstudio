@@ -1,0 +1,28 @@
+/* Logo-inspired accents belong to headings, keeping body copy and surfaces neutral. */
+html body #top.creative-site #main{
+  --heading-metal:linear-gradient(110deg,#a56a32 0%,#dba44f 36%,#b47a38 66%,#86532d 100%);
+}
+html body #top.creative-site #main .immersive-opening{
+  --heading-metal:linear-gradient(110deg,#efc77d 0%,#dba44f 36%,#bf8748 72%,#a97542 100%);
+}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+  html body #top.creative-site #main :is(h1,h2,h3) :is(.heading-accent,em),
+  html body #top.creative-site #main h1>span,
+  html body #top.creative-site #main :is(h1,h2,h3) :is(.heading-accent,em) .text-flow-word,
+  html body #top.creative-site #main h1>span .text-flow-word{
+    background-image:var(--heading-metal)!important;
+    background-color:transparent!important;
+    background-clip:text!important;-webkit-background-clip:text!important;
+    color:transparent!important;-webkit-text-fill-color:transparent;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  }
+  /* Keep the opening line plain white. Only the second line is metallic. */
+  html body #top.creative-site #main .immersive-opening h1>span:first-child{
+    background:none!important;color:#fff!important;-webkit-text-fill-color:#fff;
+  }
+}
+@media(forced-colors:active){
+  html body #top.creative-site #main :is(h1,h2,h3) :is(span,em,.text-flow-word){
+    background:none!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important;
+  }
+}

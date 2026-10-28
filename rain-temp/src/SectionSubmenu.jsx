@@ -3,6 +3,8 @@ import { pageHref } from './pageInfo';
 import './section-submenu.css';
 
 const sections = {
+  'what-we-make': { label:'WHAT WE MAKE', name:'Story formats', href:'/what-we-make/', pages:[['feature-films','Feature Films'],['series-ott','Series & OTT'],['documentaries','Documentaries'],['short-films','Short Films']] },
+  studio: { label:'STUDIO', name:'Studio pages', href:'/about/', pages:[['about','About Kemsor'],['leadership','Leadership','/about/#leadership'],['how-we-work','How We Work'],['careers','Careers']] },
   post: { label:'04 · POST', name:'Post services', href:'/post/', pages:[['post','Overview'],['post-production','Post-Production Supervision']] },
   release: { label:'05 · RELEASE', name:'Release services', href:'/release/', pages:[['release','Overview'],['distribution-release','Distribution & Release Support'],['festival-awards','Festival & Awards Strategy']] },
   develop: { label:'01 · DEVELOP', name:'Development services', pages:[['develop','Overview'],['story-script','Story & Script'],['packaging-talent','Packaging & Talent'],['budgeting-scheduling','Budgeting & Scheduling']] },

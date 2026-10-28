@@ -1,24 +1,24 @@
 /* A sequence of colour moods across the homepage. */
-.site-page-home #studio{--page-bg:#f3eedf;--line:#d8ceba;background:radial-gradient(ellipse at 0 0,#e6d6ad70,transparent 65%),#f3eedf;color:#2c3025}
-.site-page-home #productions{--page-bg:#eee9dc;--line:#d9cfba;background:radial-gradient(ellipse at 100% 0,#e2d3ae80,transparent 65%),#eee9dc;color:#322f24}
-.site-page-home #capabilities{--page-bg:#ece2ce;--panel-bg:#f8f2e5;--line:#d5c5a8;background:radial-gradient(ellipse at 10% 100%,#d8bf8b70,transparent 65%),#ece2ce;color:#362f22}
-.site-page-home #india-production-services{--page-bg:#e8e6d7;--line:#ceccb7;background:radial-gradient(ellipse at 100% 30%,#c9c7a670,transparent 65%),#e8e6d7;color:#313525}
-.site-page-home #process{--page-bg:#282c20;--ink:#f2f0e5;--muted:#c9ccba;--line:#ffffff26;--brand-bronze:#e7c47f;background:radial-gradient(ellipse at 0 0,#494e35,transparent 70%),#282c20;color:#f2f0e5}
-.site-page-home #studio-notes{--page-bg:#f0eadc;--panel-bg:#f8f3e8;--line:#d9cfb9;background:radial-gradient(ellipse at 100% 100%,#e0d0ab80,transparent 65%),#f0eadc;color:#343024}
-.site-page-home #project-brief{--page-bg:#f4ead8;--panel-bg:#fffaf0;--line:#dccbad;background:radial-gradient(ellipse at 0 100%,#e4c99170,transparent 70%),#f4ead8;color:#342d22}
-.site-page-home #studio-notes .studio-note{background:#faf6ec;border-color:#d9cfb9}
-.site-page-home #project-brief .project-form{background:#fffaf0;border:1px solid #dccbad}
-.site-page-home #process :is(.index-label,.index-number,.process-layout h2,.process-layout h3){color:#f2f0e5}
-.site-page-home #process :is(p,li p,.process-copy,.process-note){color:#c9ccba}
+.site-page-home #studio{--page-bg:#eeeeee;--line:#cfcfcf;background:radial-gradient(ellipse at 0 0,#d6d6d670,transparent 65%),#eeeeee;color:#2c3025}
+.site-page-home #productions{--page-bg:#e9e9e9;--line:#d0d0d0;background:radial-gradient(ellipse at 100% 0,#d4d4d480,transparent 65%),#e9e9e9;color:#2f2f2f}
+.site-page-home #capabilities{--page-bg:#e3e3e3;--panel-bg:#ffffff;--line:#c6c6c6;background:radial-gradient(ellipse at 10% 100%,#c1c1c170,transparent 65%),#e3e3e3;color:#303030}
+.site-page-home #india-production-services{--page-bg:#e5e5e5;--line:#cbcbcb;background:radial-gradient(ellipse at 100% 30%,#c5c5c570,transparent 65%),#e5e5e5;color:#333333}
+.site-page-home #process{--page-bg:#282c20;--ink:#ffffff;--muted:#cacaca;--line:#ffffff26;--brand-bronze:#c6c6c6;background:radial-gradient(ellipse at 0 0,#4b4b4b,transparent 70%),#282c20;color:#ffffff}
+.site-page-home #studio-notes{--page-bg:#eaeaea;--panel-bg:#ffffff;--line:#d0d0d0;background:radial-gradient(ellipse at 100% 100%,#d1d1d180,transparent 65%),#eaeaea;color:#303030}
+.site-page-home #project-brief{--page-bg:#ebebeb;--panel-bg:#ffffff;--line:#cccccc;background:radial-gradient(ellipse at 0 100%,#cbcbcb70,transparent 70%),#ebebeb;color:#2e2e2e}
+.site-page-home #studio-notes .studio-note{background:#ffffff;border-color:#d0d0d0}
+.site-page-home #project-brief .project-form{background:#ffffff;border:1px solid #cccccc}
+.site-page-home #process :is(.index-label,.index-number,.process-layout h2,.process-layout h3){color:#ffffff}
+.site-page-home #process :is(p,li p,.process-copy,.process-note){color:#cacaca}
 .site-page-home #process :is(.process-layout li,.index-label,.index-number){border-color:#ffffff26}
-.site-page-home #process .line-link{color:#e7c47f}
+.site-page-home #process .line-link{color:#c6c6c6}
 .site-page-home :is(#studio,#productions,#capabilities,#india-production-services,#process,#studio-notes,#project-brief){border-top:1px solid var(--line)}
 /* Dark mode retains the same palette, with deeper surfaces. */
-html[data-theme=dark] .site-page-home #studio{--page-bg:#25271e;--line:#ffffff22;background:radial-gradient(ellipse at 0 0,#4b473070,transparent 70%),#25271e;color:var(--ink)}
-html[data-theme=dark] .site-page-home #productions{--page-bg:#29271e;--line:#ffffff22;background:radial-gradient(ellipse at 100% 0,#4b432e80,transparent 70%),#29271e;color:var(--ink)}
-html[data-theme=dark] .site-page-home #capabilities{--page-bg:#30291e;--panel-bg:#3d3326;--line:#ffffff22;background:radial-gradient(ellipse at 10% 100%,#604b2c60,transparent 70%),#30291e;color:var(--ink)}
-html[data-theme=dark] .site-page-home #india-production-services{--page-bg:#292d22;--line:#ffffff22;background:radial-gradient(ellipse at 100% 30%,#4b523460,transparent 70%),#292d22;color:var(--ink)}
-html[data-theme=dark] .site-page-home #studio-notes{--page-bg:#2d291f;--panel-bg:#393225;--line:#ffffff22;background:radial-gradient(ellipse at 100% 100%,#594a2e60,transparent 70%),#2d291f;color:var(--ink)}
-html[data-theme=dark] .site-page-home #studio-notes .studio-note{background:#393225;border-color:#ffffff22}
-html[data-theme=dark] .site-page-home #project-brief{--page-bg:#30291e;--panel-bg:#3a3226;--line:#ffffff22;background:radial-gradient(ellipse at 0 100%,#6d502960,transparent 70%),#30291e;color:var(--ink)}
-html[data-theme=dark] .site-page-home #project-brief .project-form{background:#3a3226;border-color:#ffffff22}
+html[data-theme=dark] .site-page-home #studio{--page-bg:#262626;--line:#ffffff22;background:radial-gradient(ellipse at 0 0,#46464670,transparent 70%),#262626;color:var(--ink)}
+html[data-theme=dark] .site-page-home #productions{--page-bg:#272727;--line:#ffffff22;background:radial-gradient(ellipse at 100% 0,#43434380,transparent 70%),#272727;color:var(--ink)}
+html[data-theme=dark] .site-page-home #capabilities{--page-bg:#2a2a2a;--panel-bg:#343434;--line:#ffffff22;background:radial-gradient(ellipse at 10% 100%,#4d4d4d60,transparent 70%),#2a2a2a;color:var(--ink)}
+html[data-theme=dark] .site-page-home #india-production-services{--page-bg:#292d22;--line:#ffffff22;background:radial-gradient(ellipse at 100% 30%,#4e4e4e60,transparent 70%),#292d22;color:var(--ink)}
+html[data-theme=dark] .site-page-home #studio-notes{--page-bg:#292929;--panel-bg:#333333;--line:#ffffff22;background:radial-gradient(ellipse at 100% 100%,#4b4b4b60,transparent 70%),#292929;color:var(--ink)}
+html[data-theme=dark] .site-page-home #studio-notes .studio-note{background:#333333;border-color:#ffffff22}
+html[data-theme=dark] .site-page-home #project-brief{--page-bg:#2a2a2a;--panel-bg:#333333;--line:#ffffff22;background:radial-gradient(ellipse at 0 100%,#53535360,transparent 70%),#2a2a2a;color:var(--ink)}
+html[data-theme=dark] .site-page-home #project-brief .project-form{background:#333333;border-color:#ffffff22}

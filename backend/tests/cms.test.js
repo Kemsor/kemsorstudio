@@ -46,14 +46,60 @@ before(async()=>{
 });
 after(async()=>{if(db){const resumes=await rows(db,'SELECT resume_filename FROM career_applications');for(const file of resumes)await unlink(new URL(`../storage/career-resumes/${file.resume_filename}`,import.meta.url)).catch(()=>{});const files=await rows(db,'SELECT filename FROM cms_media');for(const file of files)await unlink(new URL(`../storage/uploads/${file.filename}`,import.meta.url)).catch(()=>{});}await db?.end();if(root){assert.match(database,/^kemsor_cms_test_\d+$/);await root.query(`DROP DATABASE IF EXISTS \`${database}\``);await root.end();}});
 test('CSRF comparison rejects missing or mismatched values',()=>{assert.equal(csrfValid('abc','abd'),false);assert.equal(csrfValid('abc',undefined),false);assert.equal(csrfValid('abc','abc'),true);});
+test('Footer copy migration replaces old defaults and preserves custom content',async()=>{
+ const sql=await readFile(new URL('../migrations/012_footer_enquiry_copy.sql',import.meta.url),'utf8');
+ const updated='For production enquiries and collaborations,\nget in touch with the studio.';
+ for(const value of [
+  'From the first idea to the finished frame.\nBring us your story. We’ll find the next step.',
+  'From the first idea to the finished frame.\nBring us your story — we’ll find the next step.',
+  'Studio-approved custom footer copy',
+ ]){
+  await rows(db,'INSERT INTO cms_settings(name,value) VALUES(?,?) ON DUPLICATE KEY UPDATE value=VALUES(value)',['footer_description',JSON.stringify(value)]);
+  for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+  const config=await settings(db);
+  assert.equal(config.footer_description,value.startsWith('From the first idea')?updated:value);
+ }
+ await rows(db,'DELETE FROM cms_settings WHERE name=?',['footer_description']);
+});
 test('Unauthenticated admin requests are redirected and mutations require CSRF',async()=>{
  await request(app).get('/admin/enquiries').expect(302).expect('Location','/admin/login');
  await admin.post('/admin/content/save').type('form').send({type:'news',title:'Bad mutation'}).expect(403);
 });
 test('All admin screens render, and role restrictions are enforced',async()=>{
- for(const url of ['/admin','/admin/content?type=blog','/admin/content/new?type=team','/admin/media','/admin/enquiries','/admin/settings','/admin/users','/admin/password','/admin/audit','/admin/notifications','/admin/talent','/admin/talent/enquiries','/admin/talent/projects'])await admin.get(url).expect(200);
+ for(const url of ['/admin','/admin/content?type=blog','/admin/content/new?type=team','/admin/media','/admin/enquiries','/admin/settings','/admin/users','/admin/profile','/admin/password','/admin/audit','/admin/notifications','/admin/talent','/admin/talent/enquiries','/admin/talent/projects'])await admin.get(url).expect(200);
  await editor.get('/admin/settings').expect(403);await editor.get('/admin/enquiries').expect(403);await manager.get('/admin/content').expect(403);
 });
+test('My profile shows only the signed-in account for every CMS role',async()=>{
+ await request(app).get('/admin/profile').expect(302).expect('Location','/admin/login');
+ for(const [agent,email,label] of [[admin,'admin@test.local','Administrator'],[editor,'editor@test.local','Editor'],[manager,'enquiry_manager@test.local','Enquiry manager']]){
+  const page=await agent.get('/admin/profile?userId=999').expect(200);
+  assert.match(page.text,new RegExp(email));assert.ok(page.text.includes(label));
+  assert.match(page.text,/Member since/);assert.match(page.text,/name="confirm"/);
+  for(const other of ['admin@test.local','editor@test.local','enquiry_manager@test.local'].filter(value=>value!==email))assert.ok(!page.text.includes(other));
+  assert.ok(!page.text.includes('scrypt:'));assert.ok(!page.text.includes('A-secure-test-password'));
+ }
+});
+
+test('Profile password change validates input, rotates the session, and signs out other sessions',async()=>{
+ await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Profile user','profile-user@test.local',await hashPassword('A-secure-test-password'),'editor']);
+ const [account,csrf]=await login('profile-user');
+ const [otherSession]=await login('profile-user');
+ const newPassword='A-new-test-password-2026';
+ const payload={_csrf:csrf,current:'A-secure-test-password',password:newPassword,confirm:newPassword};
+ await account.post('/admin/password').type('form').send({...payload,_csrf:'invalid'}).expect(403);
+ await account.post('/admin/password').type('form').send({...payload,current:'Wrong-password'}).expect(422);
+ await account.post('/admin/password').type('form').send({...payload,confirm:'Different-password'}).expect(422);
+ await account.post('/admin/password').type('form').send({...payload,password:'short',confirm:'short'}).expect(422);
+ await account.post('/admin/password').type('form').send(payload).expect(302).expect('Location','/admin/profile?saved=1#password');
+ await account.get('/admin/profile').expect(200);
+ await otherSession.get('/admin/profile').expect(302).expect('Location','/admin/login');
+ const fresh=(await account.get('/api/csrf')).body.token;assert.notEqual(fresh,csrf);
+ const guest=request.agent(app),token=(await guest.get('/api/csrf')).body.token;
+ await guest.post('/admin/login').type('form').send({_csrf:token,email:'profile-user@test.local',password:'A-secure-test-password'}).expect(401);
+ await guest.post('/admin/login').type('form').send({_csrf:token,email:'profile-user@test.local',password:newPassword}).expect(302);
+ const events=await rows(db,"SELECT id FROM cms_audit WHERE action='change_password' AND user_id=(SELECT id FROM cms_users WHERE email=?)",['profile-user@test.local']);assert.equal(events.length,1);
+});
+
 test('Drafts remain private, publishing reaches the API, and archiving removes them',async()=>{
  const item={_csrf:csrfEditor,type:'news',title:'<script>alert(1)</script>',slug:'test-draft',summary:'A draft',body:'Private draft',status:'draft'};
  await editor.post('/admin/content/save').type('form').send(item).expect(302);
@@ -272,6 +318,31 @@ test('Career editor is dedicated and page management respects publishing permiss
  await manager.get('/admin/pages').expect(403);
  const pageForm=await admin.get('/admin/content/new?type=page&page=services').expect(200);assert.match(pageForm.text,/<option selected>services/);
  await admin.get('/admin/content?type=page&page=services').expect(200);
+ assert.match(hub.text,/page=how-we-work/);
+ const workForm=await admin.get('/admin/content/new?type=page&page=how-we-work').expect(200);assert.match(workForm.text,/<option selected>how-we-work/);
+ await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'How We Work test section',body:'Additional client-approved content',page:'how-we-work',status:'draft'}).expect(302);
+ const workList=await admin.get('/admin/content?type=page&page=how-we-work').expect(200);assert.match(workList.text,/How We Work test section/);
+ const serviceList=await admin.get('/admin/content?type=page&page=services').expect(200);assert.ok(!serviceList.text.includes('How We Work test section'));
+ assert.match(hub.text,/page=india-production-services/);
+ const indiaForm=await admin.get('/admin/content/new?type=page&page=india-production-services').expect(200);assert.match(indiaForm.text,/<option selected>india-production-services/);
+ await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'India Production Services test section',body:'Additional client-approved India content',page:'india-production-services',status:'draft'}).expect(302);
+ const indiaList=await admin.get('/admin/content?type=page&page=india-production-services').expect(200);assert.match(indiaList.text,/India Production Services test section/);assert.ok(!indiaList.text.includes('How We Work test section'));
+ assert.match(hub.text,/page=feature-films/);
+ const featureForm=await admin.get('/admin/content/new?type=page&page=feature-films').expect(200);assert.match(featureForm.text,/<option selected>feature-films/);
+ await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Feature Films test section',body:'Additional client-approved feature content',page:'feature-films',status:'draft'}).expect(302);
+ const featureList=await admin.get('/admin/content?type=page&page=feature-films').expect(200);assert.match(featureList.text,/Feature Films test section/);assert.ok(!featureList.text.includes('India Production Services test section'));
+ assert.match(hub.text,/page=short-films/);
+ const shortForm=await admin.get('/admin/content/new?type=page&page=short-films').expect(200);assert.match(shortForm.text,/<option selected>short-films/);
+ await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Short Films test section',body:'Additional client-approved short film content',page:'short-films',status:'draft'}).expect(302);
+ const shortList=await admin.get('/admin/content?type=page&page=short-films').expect(200);assert.match(shortList.text,/Short Films test section/);assert.ok(!shortList.text.includes('Feature Films test section'));
+ assert.match(hub.text,/page=series-ott/);
+ const seriesForm=await admin.get('/admin/content/new?type=page&page=series-ott').expect(200);assert.match(seriesForm.text,/<option selected>series-ott/);
+ await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Series OTT test section',body:'Additional client-approved series content',page:'series-ott',status:'draft'}).expect(302);
+ const seriesList=await admin.get('/admin/content?type=page&page=series-ott').expect(200);assert.match(seriesList.text,/Series OTT test section/);assert.ok(!seriesList.text.includes('Short Films test section'));
+ assert.match(hub.text,/page=documentaries/);
+ const documentaryForm=await admin.get('/admin/content/new?type=page&page=documentaries').expect(200);assert.match(documentaryForm.text,/<option selected>documentaries/);
+ await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Documentaries test section',body:'Additional client-approved documentary content',page:'documentaries',status:'draft'}).expect(302);
+ const documentaryList=await admin.get('/admin/content?type=page&page=documentaries').expect(200);assert.match(documentaryList.text,/Documentaries test section/);assert.ok(!documentaryList.text.includes('Series OTT test section'));
 });
 
 test('Career applications submit privately and are reviewed by enquiry staff',async()=>{

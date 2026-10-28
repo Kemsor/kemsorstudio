@@ -3,20 +3,20 @@
 .develop-journey{padding:22px 0;flex:1}
 html .creative-site #main .develop-page .ep-file-card .develop-journey-label{font-size:10px;letter-spacing:.06em;margin-bottom:16px}
 .develop-journey ol{list-style:none;padding:0;margin:0}
-.develop-journey li{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;padding:17px 0;border-top:1px solid #3b241b33}
+.develop-journey li{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;padding:17px 0;border-top:1px solid #28282833}
 .develop-journey li>span{font-size:10px}
 .develop-journey li strong{font-size:16px;font-weight:500}
-.develop-journey li small{font-size:10px;white-space:nowrap;border:1px solid #3b241b55;padding:4px 7px;border-radius:20px}
-.develop-journey li[data-status="In progress"]{border-left:3px solid #3b241b;padding-left:10px;background:#fff5;position:relative}
+.develop-journey li small{font-size:10px;white-space:nowrap;border:1px solid #28282855;padding:4px 7px;border-radius:20px}
+.develop-journey li[data-status="In progress"]{border-left:3px solid #282828;padding-left:10px;background:#fff5;position:relative}
 .develop-costs{margin-top:32px}
 .develop-cost-head,.develop-costs article{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:24px 0;border-bottom:1px solid var(--line)}
-.develop-cost-head{font-size:11px;letter-spacing:.07em;color:#885d2d}
+.develop-cost-head{font-size:11px;letter-spacing:.07em;color:#636363}
 .develop-costs h3{display:flex;gap:20px;align-items:baseline}
-.develop-costs h3>span{font-size:11px;color:#885d2d;font-weight:400}
+.develop-costs h3>span{font-size:11px;color:#636363;font-weight:400}
 .develop-mobile-label{display:none}
 .develop-next{margin-top:30px}
 .develop-audiences{list-style:none;padding:0;margin:28px 0 0;counter-reset:audience}
 .develop-audiences li{counter-increment:audience;padding:20px 0;display:flex;gap:24px;border-top:1px solid var(--line);line-height:1.7}
-.develop-audiences li::before{content:'0' counter(audience);color:#885d2d;font-size:12px;padding-top:4px}
+.develop-audiences li::before{content:'0' counter(audience);color:#636363;font-size:12px;padding-top:4px}
 .develop-page .produce-faqs p a{text-decoration:underline;text-underline-offset:4px}
-@media(max-width:600px){.develop-cost-head{display:none}.develop-costs article{grid-template-columns:1fr;gap:16px}.develop-costs article:first-of-type{border-top:1px solid var(--line)}.develop-mobile-label{display:block;font-size:10px;color:#885d2d;letter-spacing:.06em;margin-bottom:8px}.develop-journey{padding-block:18px}.develop-journey li{padding-block:14px}}
+@media(max-width:600px){.develop-cost-head{display:none}.develop-costs article{grid-template-columns:1fr;gap:16px}.develop-costs article:first-of-type{border-top:1px solid var(--line)}.develop-mobile-label{display:block;font-size:10px;color:#636363;letter-spacing:.06em;margin-bottom:8px}.develop-journey{padding-block:18px}.develop-journey li{padding-block:14px}}

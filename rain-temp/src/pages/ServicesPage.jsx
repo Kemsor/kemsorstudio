@@ -74,7 +74,7 @@ const chapters = [
       ['Crew & equipment management', 'Assemble and coordinate crew, equipment and vendors around the production approach. Share the technical requirements and the team already attached.'],
       ['Shooting & on-location production', 'Support the shoot on location, with the people and logistics aligned to the current production plan.'],
     ],
-    link: ['Plan a shoot in India', '/services/#india-production-services'],
+    link: ['Plan a shoot in India', '/india-production-services/'],
   },
   {
     id: 'capability-design',
@@ -97,7 +97,7 @@ const chapters = [
     title: <>From the footage.<br />To the finished film.</>,
     image: 'post',
     alt: 'A colorist refining a film in a grading and screening suite',
-    description: 'The journey continues after the shoot. Think about the handover, the finishing process and the materials needed for the intended screen.',
+    description: 'Plan the handover after the shoot, the post-production work and the materials required for delivery.',
     details: [
       ['Post-production supervision', 'Oversee the path from captured material to the finished cut. Clarify the responsibilities and handovers across editing, sound, finishing and delivery.'],
       ['Distribution & release support', 'Prepare the strategy and supporting materials needed for release. Discuss the format, audience and production partners involved in the next stage.'],
@@ -189,6 +189,7 @@ export function ServicesPage() {
             <article><h3>On the ground</h3><MotionCopy>Coordinate the people, resources and logistics needed to support the production plan.</MotionCopy></article>
           </div>
           <CTA href="/contact/#international-productions">Plan your production in India</CTA>
+          <TextLink href="/india-production-services/">Explore India Production Services</TextLink>
         </div>
         <figure className="page-image" data-reveal>
           <img src="/assets/services/planning.webp" alt="Production collaborators reviewing a location plan in a courtyard" loading="lazy" decoding="async" width="1672" height="941" />
@@ -211,7 +212,7 @@ export function ServicesPage() {
       </section>
 
       <section className="page-section" id="production-process" aria-label="How Kemsor approaches the six stages of production">
-        <SectionHeading index="10" label="HOW WE WORK" title={<>Six stages.<br />One production.</>} description="A connected journey from the concept and creative team to the finished work and its audience." />
+        <SectionHeading index="10" label="HOW WE WORK" title={<>Six stages.<br />One production.</>} description="Support from concept and team planning through production, finishing and release." />
         <div className="process-grid">
           {process.map(([title, description], index) => (
             <article className="page-card" data-reveal key={title}>

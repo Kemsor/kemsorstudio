@@ -1,0 +1,118 @@
+/* Shorter homepage pacing. Typography, authored copy and motion stay intact. */
+html body #top.creative-site.site-page-home #main>.section-space{padding-block:64px}
+html body #top.creative-site.site-page-home #main .final-about-grid,
+html body #top.creative-site.site-page-home #main .final-section-head{margin-block:28px;gap:clamp(24px,5vw,64px)}
+html body #top.creative-site.site-page-home #main .proof-strip{margin-block:28px}
+html body #top.creative-site.site-page-home #main .proof-strip>div{padding:20px 24px}
+html body #top.creative-site.site-page-home #main .journey-router{padding-block:24px 28px}
+html body #top.creative-site.site-page-home #main .journey-router a{min-height:120px;padding:16px 18px}
+html body #top.creative-site.site-page-home #main .journey-router .journey-card-top{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;margin-bottom:14px}
+html body #top.creative-site.site-page-home #main .journey-router strong{margin:0;max-width:none}
+html body #top.creative-site.site-page-home #main #showreel{margin-top:28px}
+html body #top.creative-site.site-page-home #main #showreel .showreel-gallery{padding-block:20px 24px}
+.showreel-card-large .showreel-card-screen{height:clamp(280px,42svh,420px)}
+.showreel-card-small .showreel-card-screen{height:clamp(210px,31svh,310px)}
+html body #top.creative-site.site-page-home #main .services-close{padding-block:20px 0}
+html body #top.creative-site.site-page-home #main .work-scroll-stage{height:auto;min-height:0;padding:12px 0 24px}
+html body #top.creative-site.site-page-home #main .work-scroll-track .work-image img{height:clamp(220px,38svh,380px)}
+html body #top.creative-site.site-page-home #main .work-scroll-runway[data-pinned=false] .work-scroll-stage{position:relative;top:auto}
+html body #top.creative-site.site-page-home #main .work-scroll-runway[data-pinned=false] .work-scroll-viewport{overflow-x:auto;scroll-snap-type:x proximity;touch-action:auto}
+html body #top.creative-site.site-page-home #main .work-scroll-runway[data-pinned=false] .work-scroll-track>a{scroll-snap-align:start}
+.compact-rail-controls{display:flex;gap:8px;flex-shrink:0}
+.compact-rail-controls button{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid #ccc;border-radius:50%;background:transparent;color:#222;cursor:pointer;transition:background .25s,color .25s}
+.compact-rail-controls button:hover{background:#222;color:#fff}
+.compact-rail-controls button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+#showreel .compact-rail-controls button{border-color:#ffffff60;color:#fff}
+#showreel .compact-rail-controls button:hover{background:#fff;color:#171717}
+.work-sidebar .compact-rail-controls{margin-top:14px}
+html body #top.creative-site.site-page-home #main .final-process>h2{margin-block:28px}
+html body #top.creative-site.site-page-home #main .final-process ol li{padding:20px}
+html body #top.creative-site.site-page-home #main .script-card{margin-top:28px;padding:28px;gap:28px}
+html body #top.creative-site.site-page-home #main .collaboration-layout{margin-top:24px}
+html body #top.creative-site.site-page-home #main .collaboration-still{min-height:460px;margin-block:24px}
+html body #top.creative-site.site-page-home #main .collaboration-path{padding-block:28px 20px}
+.collaboration-path-label{margin-bottom:28px}
+html body #top.creative-site.site-page-home #main .collaboration-path p{margin-bottom:24px}
+html body #top.creative-site.site-page-home #main .collaboration-path nav a{min-height:54px;padding-block:8px}
+html body #top.creative-site.site-page-home .creative-footer.footer-jumbo{padding-top:48px}
+html body #top.creative-site.site-page-home .footer-invitation{padding-bottom:36px}
+html body #top.creative-site.site-page-home .creative-footer.footer-jumbo .footer-directory{padding-top:36px;padding-bottom:32px}
+html body #top.creative-site.site-page-home .creative-footer.footer-jumbo .footer-signature{padding-block:28px}
+@media(max-width:900px){
+ html body #top.creative-site.site-page-home #main>.section-space{padding-block:48px}
+ html body #top.creative-site.site-page-home #main .work-scroll-stage{gap:20px}
+ html body #top.creative-site.site-page-home #main .collaboration-still{min-height:220px;height:28vw;margin-block:20px}
+}
+@media(max-width:700px){
+ html body #top.creative-site.site-page-home #main .journey-router a{min-height:146px;padding:14px 12px}
+ html body #top.creative-site.site-page-home #main .proof-strip>div{padding:14px 16px}
+ html body #top.creative-site.site-page-home #main .proof-strip strong{font-size:36px}
+ html body #top.creative-site.site-page-home #main .work-scroll-track .work-image img{height:210px;aspect-ratio:auto}
+ html body #top.creative-site.site-page-home #main .final-process ol{gap:8px}
+ html body #top.creative-site.site-page-home #main .final-process ol li{padding:16px}
+ html body #top.creative-site.site-page-home #main .script-card{padding:24px 20px;gap:20px}
+ html body #top.creative-site.site-page-home #main .collaboration-still{min-height:190px;height:50vw;margin-bottom:0}
+ html body #top.creative-site.site-page-home #main .collaboration-path{padding-block:24px}
+}
+@media(prefers-reduced-motion:reduce){.compact-rail-controls button{transition:none}}
+
+html body #top.creative-site.site-page-home #main .journey-router .journey-symbol{width:32px;height:32px}
+html body #top.creative-site.site-page-home #main .journey-router .journey-card-action{padding-top:12px}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main .journey-router .journey-card-top{grid-template-columns:24px minmax(0,1fr) auto;gap:7px;margin-bottom:12px}
+ html body #top.creative-site.site-page-home #main .journey-router .journey-symbol{width:24px;height:28px;border:0}
+ html body #top.creative-site.site-page-home #main .journey-router .journey-symbol svg{width:21px;height:21px}
+ html body #top.creative-site.site-page-home #main .journey-router .journey-card-action{padding-top:10px}
+}
+@media(max-width:359px){html body #top.creative-site.site-page-home #main .journey-router a{min-height:104px}}
+
+/* Keep gallery arrows fixed over the lower-left of the moving film frames. */
+.work-gallery{position:relative;min-width:0;width:100%;--work-frame-height:clamp(220px,38svh,380px)}
+.work-gallery .work-gallery-controls{position:absolute;z-index:5;left:14px;top:calc(var(--work-frame-height) - 56px);gap:8px;margin:0}
+.work-gallery .work-gallery-controls button{width:40px;height:40px;border-color:#fff;background:#fff;color:#171717;box-shadow:0 3px 12px #0003}
+.work-gallery .work-gallery-controls button:hover{background:#171717;border-color:#171717;color:#fff}
+@media(max-width:700px){.work-gallery{--work-frame-height:210px}.work-gallery .work-gallery-controls{left:10px;top:calc(var(--work-frame-height) - 52px)}}
+/* Keep supporting copy attached to the block it explains. */
+html body #top.creative-site.site-page-home #main #services .service-deck{padding-bottom:0}
+html body #top.creative-site.site-page-home #main #services .service-panel:last-child{margin-bottom:0}
+html body #top.creative-site.site-page-home #main .services-close{
+ margin:0;padding:12px 0 16px;gap:16px;align-items:center;
+ border-top:0;border-bottom:1px solid #dedede;
+}
+html body #top.creative-site.site-page-home #main .services-close p{margin:0}
+html body #top.creative-site.site-page-home #main .services-close>a{display:inline-flex;align-items:center;gap:14px;min-height:44px;flex-shrink:0}
+html body #top.creative-site.site-page-home #main #services{padding-bottom:48px}
+html body #top.creative-site.site-page-home #main #productions{padding-top:48px}
+html body #top.creative-site.site-page-home #main .final-about-grid .final-lead{margin:16px 0 0}
+html body #top.creative-site.site-page-home #main .work-sidebar .work-kicker{margin:0 0 14px}
+html body #top.creative-site.site-page-home #main .work-sidebar h2{margin-bottom:16px}
+html body #top.creative-site.site-page-home #main .work-sidebar>p{margin-bottom:16px}
+html body #top.creative-site.site-page-home #main .work-sidebar .work-credit-note{margin:14px 0 0}
+html body #top.creative-site.site-page-home #main .final-process ol{margin-block:0}
+html body #top.creative-site.site-page-home #main .final-process ol li h3{margin:10px 0 6px}
+html body #top.creative-site.site-page-home #main .final-process ol li p{margin:0}
+html body #top.creative-site.site-page-home #main .script-card p{margin-top:0}
+html body #top.creative-site.site-page-home #main .script-card ul{margin:12px 0 0}
+html body #top.creative-site.site-page-home #main .script-card .creative-cta{margin-top:16px}
+html body #top.creative-site.site-page-home #main .collaboration-path p{margin-bottom:18px}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main .services-close{align-items:flex-start;gap:6px;padding-top:16px}
+ html body #top.creative-site.site-page-home #main #services{padding-bottom:40px}
+ html body #top.creative-site.site-page-home #main #productions{padding-top:40px}
+}
+
+html body #top.creative-site.site-page-home #main #work-with-kemsor{scroll-margin-top:16px}
+@media(max-width:600px){html body #top.creative-site.site-page-home #main>.section-space{padding-block:40px}}
+/* Give the script invitation a comfortable reading rhythm. */
+html body #top.creative-site.site-page-home #main .script-card{
+ min-height:350px;padding:48px clamp(28px,4vw,64px);gap:48px;align-items:center;
+}
+html body #top.creative-site.site-page-home #main .script-card>div:not(.script-card-illustration)>span{display:block;margin-bottom:16px}
+html body #top.creative-site.site-page-home #main .script-card h3{margin:0}
+html body #top.creative-site.site-page-home #main .script-card p{margin-bottom:0}
+html body #top.creative-site.site-page-home #main .script-card ul{margin-top:20px}
+html body #top.creative-site.site-page-home #main .script-card li+li{margin-top:8px}
+html body #top.creative-site.site-page-home #main .script-card .creative-cta{margin-top:26px}
+@media(max-width:800px){
+ html body #top.creative-site.site-page-home #main .script-card{min-height:0;padding:36px 26px;gap:28px;align-items:start}
+}

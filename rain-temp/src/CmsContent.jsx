@@ -1,3 +1,4 @@
+import SiteIcon from './SiteIcon';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import './cms-content.css';
 
@@ -44,7 +45,7 @@ export function CmsEntries({ type, entries: supplied, id, heading, compact = fal
       {(entry.metadata?.role || entry.metadata?.location) && <p className="page-eyebrow">{[entry.metadata.role, entry.metadata.location].filter(Boolean).join(' / ')}</p>}
       {entry.summary && <p className="page-lead">{entry.summary}</p>}
       <CmsText text={entry.body} />
-      {type === 'career' && <a className="line-link" href="/contact/#send-enquiry">Send a careers enquiry →</a>}
+      {type === 'career' && <a className="line-link" href="/contact/#send-enquiry">Send a careers enquiry <SiteIcon name="arrow" size={16} /></a>}
     </article>)}</div>
   </section>;
 }
