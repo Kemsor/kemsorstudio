@@ -17,7 +17,7 @@ html body #top.creative-site .creative-footer.footer-jumbo .footer-baseline{
  border-color:var(--line);color:#bcbcbc;text-align:left;
 }
 html body #top.creative-site .creative-footer.footer-jumbo .footer-baseline>span{margin-left:0;margin-right:auto;text-align:left}
-@media(max-width:760px){html body #top.creative-site .creative-footer.footer-jumbo .footer-baseline{padding-bottom:64px}}
+@media(max-width:760px){html body #top.creative-site .creative-footer.footer-jumbo .footer-baseline{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site .creative-footer.footer-jumbo .footer-social-icon{transition:none;transform:none!important}}
 
 /* The main directory lives in the header. Keep only supplementary footer links. */

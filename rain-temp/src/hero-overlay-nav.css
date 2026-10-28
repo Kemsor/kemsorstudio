@@ -96,3 +96,13 @@ html body #top.creative-site.site-page-home .creative-header[data-scrolled=false
 @media(prefers-reduced-motion:reduce){
  html body #top.creative-site.site-page-home .creative-header .header-script-tool::before{transition:none}
 }
+
+/* Keep mobile header actions in the same flex row; older inset values were
+   lifting the home CTA and shifting its arrow into the menu hit area. */
+@media(max-width:760px){
+ html body #top.creative-site .creative-header .creative-header-controls{align-items:center}
+ html body #top.creative-site .creative-header .header-script-tool{inset:auto!important;margin:0}
+ html body #top.creative-site .creative-header .creative-nav-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:0}
+ html body #top.creative-site .creative-header .creative-nav-toggle-icon{display:grid;place-items:center;line-height:1}
+ html body #top.creative-site .creative-header .creative-nav-toggle-icon svg{display:block}
+}

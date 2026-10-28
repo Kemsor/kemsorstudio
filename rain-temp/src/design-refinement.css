@@ -10,8 +10,6 @@
 .creative-site .creative-cta .cta-arrow{display:grid;place-items:center}
 .creative-site :is(.creative-cta,.line-link) .site-icon{transition:transform .2s ease}
 .creative-site :is(.creative-cta,.line-link):hover .site-icon{transform:translateX(3px)}
-.creative-site .mobile-bottom-bar :is(a,button){gap:5px}
-.creative-site .mobile-bottom-bar .site-icon{width:20px;height:20px}
 .creative-site .index-label{letter-spacing:.04em}
 .creative-site .index-right{color:var(--muted)}
 .creative-site .page-card>p,.creative-site .page-copy>p{max-width:62ch}
