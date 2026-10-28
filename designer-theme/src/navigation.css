@@ -1,0 +1,79 @@
+/* Main website navigation, styled for the designer theme. */
+.site-header{position:fixed;transition:top .35s ease,left .35s ease,right .35s ease,border-radius .35s ease,box-shadow .35s ease;z-index:100}
+.site-header.is-scrolled{top:0;left:0;right:0;border-radius:0;box-shadow:0 5px 24px #0004}
+.site-header nav{gap:12px}
+.nav-item{position:relative;flex:none}
+.nav-item.has-mega{position:static}
+.site-header .nav-trigger,.site-header .nav-direct{
+ display:inline-flex;align-items:center;gap:6px;padding:12px 8px;min-height:44px;border:0;background:transparent;
+ color:#cbc8d4;font:600 13px/1.5 Inter,sans-serif;letter-spacing:.015em;white-space:nowrap;border-radius:8px;
+ transition:background .2s,color .2s;
+}
+.site-header .nav-trigger:hover,.site-header .nav-direct:hover,.site-header .nav-trigger[aria-expanded=true]{background:#ffffff0d;color:#fff}
+.nav-trigger>svg{flex:none;transition:transform .2s}.nav-trigger[aria-expanded=true]>svg{transform:rotate(180deg)}
+.nav-dropdown{position:absolute;top:calc(100% + 17px);left:0;width:270px;padding:12px;background:#20333a;border:1px solid #ffffff20;border-radius:16px;box-shadow:0 18px 40px #0008;color:#edeaf1;max-height:calc(100svh - 125px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#73828a #20333a}
+.nav-dropdown[hidden]{display:none!important}
+.site-header .nav-dropdown a{display:block;padding:10px 12px;border-radius:7px;font-size:12px;font-weight:450;letter-spacing:0;line-height:1.6;color:#d0d0da;white-space:normal}
+.site-header .nav-dropdown a:is(:hover,:focus-visible){background:#ffffff0e;color:var(--orange)}
+.nav-item:last-of-type .nav-dropdown{left:auto;right:0}
+.mega-dropdown{top:calc(100% + 12px);left:50%;transform:translateX(-50%);width:min(1080px,calc(100vw - 56px));padding:24px}
+.dropdown-groups{display:grid;gap:12px}
+.mega-dropdown .dropdown-groups{grid-template-columns:repeat(3,minmax(0,1fr));gap:25px}
+.dropdown-group{min-width:0}
+.dropdown-group h2{font-size:12px;font-weight:650;letter-spacing:.025em;color:var(--orange);margin:0 0 9px;padding:0 12px;line-height:1.5}
+.site-header .nav-mobile-login{display:none}
+.header-actions .start-project{font-size:12px}.header-actions{gap:16px}
+@media(min-width:1251px){.site-header nav{position:static;display:flex!important;align-items:center;flex-direction:row;border:0;border-radius:0;background:transparent;padding:0;margin-inline:auto}.site-header .menu-toggle{display:none}}
+@media(max-width:1250px){
+ .site-header{padding-inline:22px;gap:16px;min-height:74px}
+ .site-header .brand img{width:50px;height:50px}
+ .site-header .header-actions{margin-left:auto;align-items:center;gap:16px}
+ .site-header .menu-toggle{display:grid;place-items:center;flex:0 0 40px;width:40px;height:44px;padding:0;border:0;background:transparent}
+ .site-header nav{position:absolute;top:calc(100% + 10px);left:0;right:0;display:none!important;flex-direction:column;align-items:stretch;gap:4px;background:#20333a;border:1px solid #ffffff20;border-radius:20px;margin:0;padding:16px;max-height:calc(100svh - 115px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#73828a #20333a}
+ .site-header nav.is-open{display:flex!important}
+ .site-header .nav-item,.site-header .nav-item.has-mega{position:relative;width:100%;border-bottom:1px solid #ffffff0c}
+ .site-header .nav-trigger,.site-header .nav-direct{display:flex;align-items:center;justify-content:space-between;text-align:left;width:100%;font-size:13px;min-height:48px;padding:12px}
+ .site-header .nav-dropdown,.site-header .mega-dropdown{position:static;width:100%;max-height:none;overflow:visible;transform:none;box-shadow:none;border:0;border-left:1px solid #ffffff22;border-radius:0;background:transparent;padding:5px 0 15px 10px;margin:2px 0 12px 12px}
+ .site-header .dropdown-groups,.site-header .mega-dropdown .dropdown-groups{display:grid;grid-template-columns:1fr;gap:20px}
+ .site-header .nav-dropdown a{font-size:12px;line-height:1.6;padding:10px 12px}
+ .site-header .nav-mobile-login{display:block;font-size:13px;min-height:44px;padding:12px;border-radius:8px}
+ .site-header.is-scrolled nav{left:12px;right:12px}
+}
+@media(max-width:600px){
+ .site-header{left:14px;right:14px;top:12px;padding:9px 13px;min-height:66px;gap:10px}
+ .site-header .brand img{width:43px;height:43px}
+ .site-header .header-actions{gap:8px}
+ .site-header .start-project{font-size:10px;padding:10px;line-height:1.5;white-space:nowrap}
+ .site-header .account-link{width:30px;height:30px}
+ .site-header .menu-toggle{flex-basis:36px;width:36px;height:44px}
+ .site-header nav{padding:12px;max-height:calc(100svh - 102px)}
+ .site-header.is-scrolled{top:0;left:0;right:0;border-radius:0}
+}
+@media(max-width:360px){.site-header .account-link{display:none}}
+@media(prefers-reduced-motion:reduce){.site-header,.nav-trigger>svg{transition:none!important}}
+/* Match the page's warm pill CTA while retaining the header's responsive fit. */
+.site-header .start-project{background:var(--cta-background,linear-gradient(110deg,#f5d77d,#ed9634));color:#111;border-radius:30px;min-height:42px;display:inline-flex;align-items:center;justify-content:center;padding:10px 18px}
+.site-header .start-project:hover{background:var(--cta-background,linear-gradient(110deg,#f5d77d,#ed9634));color:#111;filter:brightness(1.06)}
+@media(max-width:600px){.site-header .start-project{min-height:40px;padding:9px 12px}}
+/* Slim navigation with a restrained gradient in the existing blue-green palette. */
+.site-header{--menu-gradient:linear-gradient(110deg,#172a32 0%,#29434a 52%,#1b3039 100%);background:var(--menu-gradient);min-height:68px;padding:8px 24px;gap:20px;border:1px solid #ffffff08}
+.site-header .brand img{width:48px;height:48px}
+.site-header nav{gap:8px}
+.site-header .nav-trigger,.site-header .nav-direct{padding:10px 6px;letter-spacing:0}
+.site-header .nav-dropdown{background:var(--menu-gradient)}
+@media(max-width:1250px){
+ .site-header{min-height:64px;padding:8px 20px}
+ .site-header nav{background:var(--menu-gradient)}
+ .site-header .nav-dropdown{background:transparent}
+ .site-header .nav-trigger,.site-header .nav-direct{padding:12px}
+}
+@media(max-width:600px){
+ .site-header{min-height:62px;padding:8px 12px;gap:8px}
+ .site-header .brand img{width:38px;height:38px}
+ .site-header .header-actions{gap:6px}
+ .site-header .start-project{padding:8px 10px}
+ .site-header .menu-toggle{width:32px;flex-basis:32px}
+}
+/* A lighter blue-green glow gives the gold logo more separation. */
+.site-header{--menu-gradient:linear-gradient(105deg,#63858a 0%,#42636c 14%,#29454e 35%,#1b3039 72%,#172a32 100%)}
+.site-header .brand{border-radius:50%;background:radial-gradient(ellipse,#c5d9d526,transparent 72%)}

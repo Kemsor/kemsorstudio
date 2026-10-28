@@ -8,7 +8,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "npm ci --prefix rain-temp --include=dev && npm run build --prefix rain-temp",
+    "build": "npm ci --prefix rain-temp --include=dev && npm run build --prefix rain-temp && npm ci --prefix designer-theme --include=dev && npm run build --prefix designer-theme -- --base=/demo2/ && node scripts/stage-designer-demo.mjs",
     "start": "node backend/src/setup.js && node backend/src/server.js",
     "dev": "npm start"
   },

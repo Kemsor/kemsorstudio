@@ -1,0 +1,44 @@
+/* Preview navigation is text only; dropdown controls remain available. */
+.site-header .brand,.site-header .start-project,.site-header .account-link,.site-header .nav-direct,.site-header .login-link{cursor:default}
+.site-header .nav-text{display:block;padding:10px 12px;border-radius:7px;font-weight:450;letter-spacing:0;line-height:1.6;color:#d0d0da;white-space:normal}
+.footer-contact-text{display:block;width:fit-content;min-height:38px;padding:6px 0;line-height:1.8;color:#ccc;overflow-wrap:anywhere;max-width:100%}
+.footer-link-text{display:block;min-height:38px;padding:8px 0;color:#ccc;line-height:1.6}
+.guide-answer-text{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0;color:var(--orange)}
+footer span.button{cursor:default;transform:none;filter:none}
+#root .hero-copy>p{font-size:18px!important;line-height:1.55}
+/* Labels stay on one line and retain their arrow at the shared type size. */
+.button,.hero-actions .button,.service-copy>.button,.signup .button,.footer-top>div>.button{width:max-content;min-width:var(--cta-width);max-width:100%;white-space:nowrap;flex-shrink:0;gap:12px}
+.button svg{flex-shrink:0}
+@media(max-width:1250px){
+ .site-header .nav-text{padding:10px 12px}
+}
+@media(max-width:600px){
+ .hero-copy>p{padding-right:var(--gutter)}
+ .hero-actions{gap:10px;align-items:stretch}
+ .hero-actions .button{min-width:0;min-height:44px;height:44px;padding-inline:14px}
+ .button,.service-copy>.button,.signup .button,.footer-top>div>.button{min-width:0;padding-inline:18px}
+ .clip-label{max-width:calc(100% - 18px);white-space:normal;overflow-wrap:anywhere;line-height:1.4}
+ .partner-links a{min-height:44px;align-items:center}
+ .partner-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .partner-card p{line-height:1.7}
+ .production-caption{max-width:calc(100% - 27px)}
+ .production-caption>span{white-space:normal;overflow-wrap:anywhere}
+ .footer-updates nav{min-width:0}
+}
+@media(max-width:380px){
+ .partner-grid{grid-template-columns:1fr}
+ .partner-card h2 br{display:none}
+ .partner-card{padding:24px}
+ .partner-list-card{justify-content:start}
+ .partner-card:nth-child(3){margin-top:12px}
+ .footer-compact{grid-template-columns:1fr;gap:24px}
+ .footer-updates{grid-column:auto}
+ .footer-socials{max-width:180px}
+}
+#root .hero .hero-copy>p{font-size:18px!important}
+@media(max-width:600px){
+ .partner-grid{grid-template-columns:1fr;gap:16px}
+ .partner-card{padding:24px}
+ .partner-card h2 br{display:initial}
+ .partner-card:nth-child(3){margin-top:12px}
+}

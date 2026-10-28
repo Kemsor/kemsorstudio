@@ -1,0 +1,12 @@
+/* Body text uses one size at every breakpoint; headings and the brand stay distinct. */
+#root :is(p,a,button,input,textarea,select,li,small,label,span,b,strong):not(h1 *,h2 *,h3 *,h4 *,h5 *,h6 *,.wordmark *,.production-caption>strong){font-size:14px!important}
+@media(max-width:600px){
+ .hero-actions{flex-wrap:wrap}
+ .hero-actions .button{flex:0 0 auto;width:max-content;padding-inline:12px}
+}
+@media(max-width:600px){
+ .section-label{flex-wrap:wrap}
+ .section-note{flex:1 1 140px;min-width:0;max-width:100%;overflow-wrap:anywhere;text-align:left}
+ .pill{max-width:100%;white-space:normal}
+ .production-caption small,.production-caption>span{white-space:normal;overflow-wrap:anywhere;max-width:100%}
+}

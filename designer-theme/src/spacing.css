@@ -1,0 +1,45 @@
+/* Consistent breathing room between existing sections and their content. */
+.section{padding-block:clamp(64px,6vw,96px)}
+.about{padding-top:clamp(80px,8vw,120px)}
+.section-label{margin-bottom:32px}
+.about-features{margin-top:64px}
+.feature-list{margin-top:32px;gap:14px}
+.services .section-label{margin-bottom:28px}
+.services .section-intro{margin-bottom:48px}
+.services{padding-bottom:56px}
+.productions{padding-top:56px}
+.process>h2{margin-bottom:28px}
+.script-copy h2{margin-block:26px 22px}
+.script-copy ul{margin-block:22px 30px}
+.partners .section-label{margin-bottom:48px}
+.partner-links a{min-width:0;overflow-wrap:anywhere}
+.footer-panel .footer-top{margin-bottom:48px}
+.footer-compact{padding-top:28px}
+@media(max-width:950px){
+ .section{padding-block:64px}
+ .about{padding-top:80px}
+ .about-features{margin-top:48px}
+ .partners .section-label{margin-bottom:36px}
+}
+@media(max-width:600px){
+ .section{padding-block:48px}
+ .about{padding-top:64px}
+ .section-label{margin-bottom:26px}
+ .about-features{margin-top:38px}
+ .feature-list{margin-top:24px;gap:10px}
+ .services .section-intro{margin-bottom:32px}
+ .services{padding-bottom:24px}
+ .productions{padding-top:32px}
+ .process>h2{margin-bottom:24px}
+ .partners .section-label{margin-bottom:28px}
+ .partner-card{padding:22px 18px}
+ .partner-links a{gap:8px;line-height:1.6}
+ .partner-links svg{flex:none}
+ .footer-panel .footer-top{margin-bottom:30px}
+ .footer-updates{flex-wrap:wrap}
+ .footer-contact-details{min-width:0}
+}
+/* Allow the full label and arrow to fit at the shared 14px text size. */
+.hero-actions .button-orange{width:max-content;min-width:190px}
+.hero-actions .button svg{flex-shrink:0}
+@media(max-width:600px){.hero-actions .button-orange{min-width:0}}
