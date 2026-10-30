@@ -49,3 +49,13 @@ html[data-theme=dark] ::selection{background:#b7b7b7;color:#1b1b1b}
 .footer-motion-toggle[aria-checked=true] .footer-motion-track{background:var(--brand-gold);border-color:var(--brand-gold)}
 .footer-motion-toggle[aria-checked=true] .footer-motion-track>span{background:#1b1b1b;transform:translateX(16px)}
 @media(prefers-reduced-motion:reduce){.footer-motion-track,.footer-motion-track>span{transition:none}}
+
+/* Branded scrollbars for the page and scrollable panels. */
+:root{scrollbar-color:#ce9144 #211b15;scrollbar-width:thin}
+*{scrollbar-color:#ce9144 #211b15;scrollbar-width:thin}
+::-webkit-scrollbar{width:9px;height:7px}
+::-webkit-scrollbar-track{background:#211b15}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#f5d77d,#ed9634);border:2px solid #211b15;border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:#f3b351}
+::-webkit-scrollbar-corner{background:#211b15}
+@media(forced-colors:active){:root,*{scrollbar-color:auto}}

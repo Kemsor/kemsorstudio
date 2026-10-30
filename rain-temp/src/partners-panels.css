@@ -46,3 +46,7 @@ html body #top.creative-site #main .collaboration-path nav a{display:flex;align-
  html body #top.creative-site #main .collaboration-path nav a{min-height:60px}
 }
 @media(prefers-reduced-motion:reduce){.collaboration-still img,.collaboration-path-arrow{transition:none!important;transform:none!important}}
+
+html body #top.creative-site #main .collaboration-path nav a .collaboration-path-arrow{transition:background .25s ease,border-color .25s ease,color .25s ease,transform .25s ease}
+html body #top.creative-site #main .collaboration-path nav a:is(:hover,:focus-visible) .collaboration-path-arrow{background:#f7e8cd;border-color:#d5a55c;color:#71451d;transform:scale(1.08)}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main .collaboration-path nav a .collaboration-path-arrow{transition:none}html body #top.creative-site #main .collaboration-path nav a:is(:hover,:focus-visible) .collaboration-path-arrow{transform:none}}

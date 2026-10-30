@@ -6,32 +6,7 @@ html body #top.creative-site.site-page-home .creative-header .creative-header-in
 }
 html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-toggle,.header-account-links .header-login){color:#fff!important}
 html body #top.creative-site.site-page-home .creative-header .header-account-links .header-login:hover{color:#171717!important;background:#fff!important}
-html body #top.creative-site.site-page-home .creative-header .header-script-tool{
-  padding:0!important;gap:12px;min-height:52px;
-  border:0!important;border-radius:0!important;box-shadow:none!important;
-  background:transparent!important;color:#fff!important;
-  filter:none!important;transform:none!important;
-  text-transform:uppercase;font-weight:600;
-}
-html body #top.creative-site.site-page-home .creative-header .header-script-tool{position:relative;isolation:isolate;overflow:visible}
-html body #top.creative-site.site-page-home .creative-header .header-script-tool::before{
- content:''!important;position:absolute;inset:-4px -10px;width:auto;height:auto;
- border-radius:999px;background:var(--cta-gradient)!important;
- z-index:-1;pointer-events:none;opacity:0;transform:none!important;
- transition:opacity .3s ease;
-}
-html body #top.creative-site.site-page-home .creative-header .header-script-tool:is(:hover,:focus-visible)::before{opacity:1}
-html body #top.creative-site.site-page-home .creative-header[data-scrolled] .header-script-tool:is(:hover,:focus-visible),
-html body #top.creative-site.site-page-home .creative-header[data-scrolled] .header-script-tool:is(:hover,:focus-visible) .cta-label{color:#fff!important;-webkit-text-fill-color:#fff}
-html body #top.creative-site.site-page-home .creative-header .header-script-tool>span{
-  display:grid;place-items:center;flex:0 0 52px;
-  width:52px;height:52px;border-radius:50%;
-  background:var(--cta-gradient)!important;color:var(--cta-ink)!important;
-  transition:background-color .2s ease;
-}
-html body #top.creative-site.site-page-home .creative-header .header-script-tool>span .site-icon{width:20px;height:20px;transform:none!important}
-html body #top.creative-site.site-page-home .creative-header .header-script-tool:is(:hover,:focus-visible)>span{background:#fff!important;color:#171717!important}
-html body #top.creative-site.site-page-home .creative-header :is(.creative-header-brand,.header-script-tool,.creative-nav-toggle,.header-login):focus-visible{outline-color:#fff}
+/* Header CTAs use the shared designer CTA system. */
 /* A top vignette belongs to the film, rather than a glass or boxed navbar. */
 html body #top.creative-site.site-page-home .opening-screen::before{
   content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
@@ -49,11 +24,6 @@ html body #top.creative-site.site-page-home .opening-screen::before{
   html body #top.creative-site.site-page-home .creative-header .creative-nav-chevron{color:#fff!important}
   html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true],[aria-current]) .creative-nav-chevron{color:#171717!important}
   html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct):focus-visible{outline-color:#fff}
-}
-@media(max-width:600px){
-  html body #top.creative-site.site-page-home .creative-header .header-script-tool{gap:8px;min-height:40px}
-  html body #top.creative-site.site-page-home .creative-header .header-script-tool>span{width:40px;height:40px;flex-basis:40px}
-  html body #top.creative-site.site-page-home .creative-header .header-script-tool>span .site-icon{width:17px;height:17px}
 }
 
 /* Keep the header fixed and its height constant. Only its top inset and
@@ -90,7 +60,7 @@ html body #top.creative-site.site-page-home .creative-header[data-scrolled=true]
 /* Keep the opening navigation action readable over the film on hover. */
 html body #top.creative-site.site-page-home .creative-header[data-scrolled=false] .header-script-tool:is(:hover,:focus-visible),
 html body #top.creative-site.site-page-home .creative-header[data-scrolled=false] .header-script-tool:is(:hover,:focus-visible) .cta-label{
- color:#fff!important;-webkit-text-fill-color:#fff;
+ color:var(--cta-ink)!important;-webkit-text-fill-color:var(--cta-ink);
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -105,4 +75,94 @@ html body #top.creative-site.site-page-home .creative-header[data-scrolled=false
  html body #top.creative-site .creative-header .creative-nav-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:0}
  html body #top.creative-site .creative-header .creative-nav-toggle-icon{display:grid;place-items:center;line-height:1}
  html body #top.creative-site .creative-header .creative-nav-toggle-icon svg{display:block}
+}
+
+/* Fully rounded ends on inner-page navigation, including its scrolled state. */
+html body #top.creative-site:not(.site-page-home) .creative-header .creative-header-inner,
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=true] .creative-header-inner{
+ border-radius:999px!important;
+}
+
+/* Keep the compact inner-page header wrapper flush with its visible surface. */
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=true]{min-height:0!important;height:auto!important;padding-bottom:0!important}
+
+/* Warm dark navigation surface after scrolling, shared across all pages. */
+html body #top.creative-site .creative-header[data-scrolled=true],
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner{
+ background:#1a0f00!important;color:#fff!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.creative-nav-chevron,.header-login,.creative-nav-toggle,.creative-nav-mobile-login){
+ color:#fff!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true],[aria-current]){
+ background:#ffffff12!important;color:#fff!important;
+}
+
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav :is(.creative-nav-trigger,.creative-nav-direct),
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav :is(.creative-nav-trigger,.creative-nav-direct) span,
+html body #top.creative-site .creative-header[data-scrolled=true] .header-account-links .header-login,
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-toggle{
+ color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-chevron{border-color:#fff!important}
+
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]){
+ background:#fff!important;color:#111!important;-webkit-text-fill-color:#111!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]) span{
+ color:#111!important;-webkit-text-fill-color:#111!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]) .creative-nav-chevron{border-color:#111!important}
+
+html body #top.creative-site .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible),
+html body #top.creative-site .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible) span{
+ background:#fff!important;color:#111!important;-webkit-text-fill-color:#111!important;
+}
+
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-toggle,
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-toggle :is(span,svg){
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-toggle-icon::before,
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-toggle-icon::after{background:#fff!important}
+
+/* The mobile drawer is a separate white surface, including after scrolling. */
+@media(max-width:1440px){
+ html body #top.creative-site .creative-header .creative-nav[data-open=true]{background:#fff!important;color:#171717!important}
+ html body #top.creative-site .creative-header .creative-nav[data-open=true] :is(a,button,.creative-nav-trigger,.creative-nav-direct,.creative-nav-mobile-login),
+ html body #top.creative-site .creative-header .creative-nav[data-open=true] :is(a,button,.creative-nav-trigger,.creative-nav-direct) span{
+  color:#171717!important;-webkit-text-fill-color:#171717!important;opacity:1!important;
+ }
+ html body #top.creative-site .creative-header .creative-nav[data-open=true] .creative-nav-chevron{border-color:#171717!important}
+ html body #top.creative-site .creative-header .creative-nav[data-open=true] .creative-nav-mobile-cta{background:var(--cta-gradient)!important;color:#111!important;-webkit-text-fill-color:#111!important}
+}
+
+/* Follow scroll direction without moving page content. */
+html body #top.creative-site .creative-header{
+ transition:transform .3s cubic-bezier(.22,.61,.36,1),padding-top var(--nav-settle),background-color var(--nav-settle)!important;
+}
+html body #top.creative-site .creative-header[data-hidden=true]{transform:translateY(-100%)!important;pointer-events:none}
+html body #top.creative-site .creative-header[data-hidden=false],
+html body #top.creative-site .creative-header:focus-within{transform:translateY(0)!important;pointer-events:auto}
+@media(min-width:601px){
+ html body #top.creative-site:has(.creative-header[data-hidden=true]) #main :is(.section-submenu,.fl-nav){top:0}
+}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site .creative-header{transition:none!important}}
+
+@media(min-width:1441px){
+ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav,
+ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-list,
+ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-item{
+ background:transparent!important;
+ }
+ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav :is(.creative-nav-trigger,.creative-nav-direct){background:transparent!important}
+ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]){background:#fff!important;color:#111!important;-webkit-text-fill-color:#111!important}
+}
+
+/* Use the same pill-shaped navigation hit areas on every desktop page. */
+@media(min-width:1441px){
+ html body #top.creative-site .creative-header .creative-nav :is(.creative-nav-trigger,.creative-nav-direct){
+  align-self:center;min-height:40px;height:40px;padding-inline:9px!important;border-radius:999px!important;
+ }
+ html body #top.creative-site .creative-header .header-account-links .header-login{border-radius:999px!important}
 }

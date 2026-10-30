@@ -1,0 +1,89 @@
+/* Shared with the designer preview: warm gradient, white alternative and plain arrow. */
+html body #top.creative-site{
+ --cta-size:42px;--cta-min-width:180px;--cta-radius:30px;
+}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit,.opening-watch,.ds-cta){
+ display:inline-flex;align-items:center;justify-content:center;gap:12px;
+ width:max-content!important;min-width:min(var(--cta-min-width),100%)!important;max-width:100%!important;height:var(--cta-size)!important;min-height:var(--cta-size)!important;
+ padding:10px 18px!important;border:0!important;border-radius:var(--cta-radius)!important;
+ box-shadow:none;font:500 14px/1.4 Inter,Arial,sans-serif!important;letter-spacing:0;text-align:center;text-decoration:none;
+ white-space:nowrap!important;clip-path:none!important;box-sizing:border-box;
+ transition:filter .2s ease,transform .2s ease;
+}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit){background:var(--cta-gradient)!important;color:var(--cta-ink)!important}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit):is(:hover,:focus-visible){background:var(--cta-gradient)!important;color:var(--cta-ink)!important;filter:brightness(1.06)}
+html body #top.creative-site :is(.opening-watch,.ds-cta){background:#fff!important;color:#111!important}
+html body #top.creative-site :is(.opening-watch,.ds-cta):is(:hover,:focus-visible){background:#fff!important;color:#111!important;filter:none;transform:translateY(-2px)}
+html body #top.creative-site :is(.creative-cta .cta-arrow,.header-script-tool>span,.creative-nav-mobile-cta>span,.footer-conversation>span){
+ display:inline-grid;place-items:center;flex:0 0 17px!important;width:17px!important;height:17px!important;min-height:0;padding:0;margin:0;border:0!important;border-radius:0!important;background:transparent!important;color:#111!important;
+}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.partner-submit,.ds-cta) svg{width:17px;height:17px;flex-shrink:0}
+html body #top.creative-site :is(.creative-cta,.header-script-tool,.footer-conversation) :is(.cta-label,b){font:inherit!important;line-height:inherit!important;margin:0;padding:0}
+html body #top.creative-site .creative-header .header-script-tool{min-width:0!important}
+html body #top.creative-site .creative-header .header-script-tool .cta-label{color:var(--cta-ink)!important;-webkit-text-fill-color:var(--cta-ink)}
+html body #top.creative-site .opening-actions{align-items:center;gap:14px}
+html body #top.creative-site :is(.creative-cta,.footer-conversation,.partner-submit,.ds-cta):focus-visible{outline:2px solid #b27c3c;outline-offset:4px}
+@media(max-width:760px){
+ html body #top.creative-site{--cta-size:44px;--cta-min-width:158px}
+ html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit,.opening-watch,.ds-cta){min-width:0!important;padding:10px 16px!important;gap:10px}
+ html body #top.creative-site .creative-header .header-script-tool{padding-inline:12px!important}
+ html body #top.creative-site .opening-actions{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit,.opening-watch,.ds-cta){transition:none}}
+html body #top.creative-site #main .immersive-opening .opening-watch{text-decoration:none!important}
+html body #top.creative-site .creative-cta.cta-white,
+html body #top.creative-site .creative-cta.cta-white:is(:hover,:focus-visible){background:#fff!important;color:#111!important;filter:none}
+html body #top.creative-site .creative-cta.cta-white::before{background:#fff!important}
+
+/* Gradient outline and seamless moving labels shared by white CTAs. */
+html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation){
+ position:relative;isolation:isolate;overflow:hidden;
+ border:2px solid transparent!important;
+ background:linear-gradient(#fff,#fff) padding-box,linear-gradient(110deg,#f5d77d 0%,#ed9634 45%,#1f1dff 100%) border-box!important;
+ color:#111!important;
+}
+html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation):is(:hover,:focus-visible){
+ background:linear-gradient(#fff,#fff) padding-box,linear-gradient(110deg,#f5d77d 0%,#ed9634 45%,#1f1dff 100%) border-box!important;
+}
+html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation)::before{content:none!important}
+.rolling-label{display:block;min-width:0;overflow:hidden;flex:1;max-width:100%;text-align:left}
+.rolling-label-track{display:flex;width:max-content;animation:button-label-scroll 7s linear infinite}
+.rolling-label-copy{display:block;flex:none;padding-right:32px;white-space:nowrap}
+html body #top.creative-site .footer-invitation-main .footer-conversation .cta-label{display:block;min-width:0;overflow:hidden;flex:1}
+@keyframes button-label-scroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.rolling-label-track{animation:none}.rolling-label-copy+.rolling-label-copy{display:none}.rolling-label-copy{padding-right:0}}
+
+/* Transparent centers; the outline does not affect button dimensions. */
+html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation),
+html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation):is(:hover,:focus-visible){
+ background:transparent!important;border:0!important;color:#fff!important;
+}
+html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation)::after{
+ content:'';position:absolute;inset:0;padding:2px;border-radius:inherit;pointer-events:none;
+ background:linear-gradient(110deg,#f5d77d 0%,#ed9634 45%,#1f1dff 100%);
+ -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+ -webkit-mask-composite:xor;mask-composite:exclude;
+}
+html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation){width:180px!important;min-width:180px!important;max-width:100%!important}
+html body #top.creative-site :is(.creative-cta.cta-white,.footer-invitation-main .footer-conversation) :is(.cta-label,.cta-arrow){color:#fff!important;-webkit-text-fill-color:#fff}
+@media(max-width:760px){
+ html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation){width:158px!important;min-width:0!important}
+}
+
+/* Reset the former circular play-icon wrapper now used by the moving label. */
+html body #top.creative-site #main .immersive-opening .opening-watch>.rolling-label,
+html body #top.creative-site #main .immersive-opening .opening-watch:hover>.rolling-label{
+ display:block;width:auto;height:auto;min-width:0;padding:0;border:0;border-radius:0;background:transparent;color:#fff;font:500 14px/1.4 Inter,Arial,sans-serif;
+}
+html body #top.creative-site #main .immersive-opening .opening-watch,
+html body #top.creative-site #main .immersive-opening .opening-watch:is(:hover,:focus-visible){background:transparent!important;color:#fff!important;font-size:14px!important}
+
+/* Explicit geometry prevents inherited CTA span styles from collapsing the loop. */
+html body #top.creative-site .rolling-label{display:block;position:relative;overflow:hidden;min-width:0;width:100%;max-width:100%;text-align:left}
+html body #top.creative-site .rolling-label-track{display:flex;flex-flow:row nowrap;justify-content:flex-start;gap:0;width:max-content;max-width:none;transform:none;animation:button-label-continuous 12s linear infinite;will-change:transform}
+html body #top.creative-site .rolling-label-copy{display:block;flex:0 0 auto;width:auto;max-width:none;min-width:0;padding:0 28px 0 0;margin:0;white-space:nowrap;line-height:inherit}
+@keyframes button-label-continuous{from{transform:translate3d(0,0,0)}to{transform:translate3d(-25%,0,0)}}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site .rolling-label-track{animation:none}html body #top.creative-site .rolling-label-copy:not(:first-child){display:none}html body #top.creative-site .rolling-label-copy{padding:0}}
+
+/* Text links stand on their typography; directional arrows remain on carousel controls. */
+html body #top.creative-site a:not(.header-script-tool):not(.creative-cta):not(.footer-conversation):not(.ds-cta) :is(svg.lucide-arrow-right,svg.lucide-arrow-up-right){display:none}

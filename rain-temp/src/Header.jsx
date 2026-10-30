@@ -18,9 +18,44 @@ export default function Header({ page = 'home' } = {}) {
   const [activePanel, setActivePanel] = useState(null);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY >= 48);
+  useEffect(()=>{
+    let previous=Math.max(0,window.scrollY),travel=0,direction=0,frame;
+    const update=()=>{
+      frame=null;
+      const current=Math.max(0,window.scrollY);
+      const delta=current-previous;
+      previous=current;
+      if(current<100){setHidden(false);travel=0;return;}
+      if(Math.abs(delta)<1)return;
+      const nextDirection=Math.sign(delta);
+      travel=nextDirection===direction?travel+Math.abs(delta):Math.abs(delta);
+      direction=nextDirection;
+      if(travel>12){
+        if(!headerRef.current?.contains(document.activeElement))setHidden(direction>0);
+        else if(direction<0)setHidden(false);
+      }
+    };
+    const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};
+    window.addEventListener('scroll',scroll,{passive:true});
+    return()=>{window.removeEventListener('scroll',scroll);cancelAnimationFrame(frame)};
+  },[]);
   const [currentHash, setCurrentHash] = useState(() => typeof window !== 'undefined' ? window.location?.hash || '' : '');
   const headerRef = useRef(null);
   const navRef = useRef(null);
+  useEffect(()=>{
+    const header=headerRef.current;
+    if(!header)return;
+    const surface=header.querySelector('.creative-header-inner');
+    const update=()=>document.documentElement.style.setProperty('--inner-nav-bottom',`${Math.max(0,(surface||header).getBoundingClientRect().bottom)}px`);
+    const observer=new ResizeObserver(update);
+    observer.observe(header);
+    if(surface)observer.observe(surface);
+    window.addEventListener('scroll',update,{passive:true});
+    update();
+    window.addEventListener('resize',update);
+    return()=>{observer.disconnect();window.removeEventListener('scroll',update);window.removeEventListener('resize',update);document.documentElement.style.removeProperty('--inner-nav-bottom');};
+  },[]);
+
   const toggleRef = useRef(null);
   const closeRef = useRef(null);
   const triggerRefs = useRef({});
@@ -205,14 +240,13 @@ export default function Header({ page = 'home' } = {}) {
               </>}
             </div>)}
           </div>
-          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="creative-nav-mobile-cta" aria-current={page==='script-to-production'?'page':undefined} onClick={event => followLink('/script-to-production/', event)}>Script to Production <span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></a>}
           <div className="creative-nav-mobile-account" aria-label="Account">
-            {!loading&&(user?<LogoutButton className="creative-nav-mobile-login"/>:<a href="/login/" className="creative-nav-mobile-login" aria-current={page==='login'?'page':undefined} onClick={event => followLink('/login/', event)}>Login <span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></a>)}
+            {!loading&&(user?<LogoutButton className="creative-nav-mobile-login"/>:<a href="/login/" className="creative-nav-mobile-login" aria-current={page==='login'?'page':undefined} onClick={event => followLink('/login/', event)}>Login <span aria-hidden="true"><SiteIcon name="lock" size={16} /></span></a>)}
           </div>
           <p className="creative-nav-drawer-foot">Film. Series. Documentaries.<br />Good stories start with a conversation.</p>
         </nav>
         <div className="creative-header-controls">
-          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">Script to Production</b> <span aria-hidden="true"><SiteIcon name="arrow" size={16} /></span></a>}
+          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">Script to Production</b> <span aria-hidden="true"><SiteIcon name="script" size={16} /></span></a>}
           <div className="header-account-links" aria-label="Account links">{!loading&&(user?<LogoutButton className="header-login"/>:<a href="/login/" className="header-login" aria-current={page==='login'?'page':undefined}>Login</a>)}</div>
           <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { clearHoverTimer(); setDrawerOpen(!drawerOpen); setActivePanel(null); }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true"><SiteIcon name={drawerOpen?'close':'menu'} size={23} /></span>

@@ -145,3 +145,13 @@ html body #top.site-page-home:has(.immersive-opening[data-in-view=true]) .experi
 @media(prefers-reduced-motion:reduce){
   html body #top.creative-site #main .immersive-opening :is(.opening-copy,.opening-film,.opening-film video){animation:none;transition:none}
 }
+
+html body #top.creative-site #main .immersive-opening .opening-playback-tools button,
+html body #top.creative-site #main .immersive-opening .opening-playback-tools button:hover{
+ background:transparent;color:#fff;border:0;box-shadow:none;
+}
+
+/* Even contrast behind the centered hero copy, with extra depth at the edges. */
+html body #top.creative-site #main .immersive-opening .opening-shade{
+ background:linear-gradient(0deg,rgba(0,0,0,.68),rgba(0,0,0,.45) 45%,rgba(0,0,0,.52)),radial-gradient(ellipse at center,rgba(0,0,0,.25),rgba(0,0,0,.12) 75%);
+}

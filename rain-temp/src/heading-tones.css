@@ -26,3 +26,16 @@ html body #top.creative-site #main .immersive-opening{
     background:none!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important;
   }
 }
+
+/* Match homepage metal accents on inner-page headings, above the paper resets. */
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+ html body #top.creative-site #main.inner-page :is(h1,h2,h3) :is(.heading-accent,em),
+ html body #top.creative-site #main.inner-page h1>span,
+ html body #top.creative-site #main.inner-page :is(h1,h2,h3) :is(.heading-accent,em) .text-flow-word,
+ html body #top.creative-site #main.inner-page h1>span .text-flow-word{
+ background-image:var(--heading-metal)!important;background-color:transparent!important;
+ background-clip:text!important;-webkit-background-clip:text!important;
+ color:transparent!important;-webkit-text-fill-color:transparent!important;
+ }
+}
+@media(forced-colors:active){html body #top.creative-site #main.inner-page :is(h1,h2,h3) :is(.heading-accent,em,span,motion-word){background:none!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important}}

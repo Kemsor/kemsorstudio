@@ -55,13 +55,13 @@ html body #top.creative-site #main #showreel .showreel-card figcaption{
  padding:17px 0 0;margin:0;background:transparent;color:#171717;font:400 13px/1.5 Inter,sans-serif;
 }
 html body #top.creative-site #main #showreel .showreel-card figcaption strong{font:500 13px/1.5 Inter,sans-serif;letter-spacing:0;color:#171717}
-/* A black stage for the showreel, including the complete scroll runway. */
+/* Charcoal covers the complete pinned scroll runway and showreel stage. */
 html body #top.creative-site #main #showreel{
- background:#080808;color:#fff;
+ background:#222;color:#fff;
  margin-inline:calc(-1 * clamp(1.25rem,5vw,6.5rem));
 }
 html body #top.creative-site #main #showreel .showreel-gallery{
- background:#080808;color:#fff;padding-inline:clamp(1.25rem,5vw,6.5rem);
+ background:#222;color:#fff;padding-inline:clamp(1.25rem,5vw,6.5rem);
 }
 html body #top.creative-site #main #showreel .showreel-gallery-head h3,
 html body #top.creative-site #main #showreel .showreel-card figcaption,

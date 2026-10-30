@@ -1,3 +1,4 @@
+import RollingLabel from './RollingLabel';
 import { faFacebookF, faInstagram, faYoutube, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import React from 'react';
 import { pageHref } from './pageInfo';
@@ -41,10 +42,16 @@ export default function Footer({ reduced, page = 'home' }) {
     ? settings.contact_address.replace(/\\n/g, '\n') : '';
   return <footer className="creative-footer footer-jumbo footer-editorial footer-reference">
     <div className="footer-invitation">
+      <form className="footer-signup" action={pageHref('join')} method="get">
+        <label className="sr-only" htmlFor="footer-signup-email">Your email</label>
+        <input id="footer-signup-email" type="email" name="email" placeholder="Your Email" autoComplete="email" required/>
+        <button type="submit" className="footer-conversation">Sign Up <SiteIcon name="people" size={17}/></button>
+        <p>Continue to Kemsor to create your account.</p>
+      </form>
       <div className="footer-invitation-main">
         <p className="footer-kicker">{settings.footer_kicker ?? 'THE NEXT GREAT STORY'}</p>
-        <h2>{settings.footer_title ?? 'Let’s make'}<br/><span>{settings.footer_accent ?? 'a scene.'}</span></h2>
-        <a href={pageHref('contact')} className="footer-conversation"><b className="cta-label">{settings.footer_cta_label || 'Talk to the studio'}</b><span aria-hidden="true"><SiteIcon name="arrow-up-right" size={17}/></span></a>
+        <h2>{settings.footer_title ?? 'Let’s make'} <span>{settings.footer_accent ?? 'a scene.'}</span></h2><p className="footer-intro-copy">From the first idea to the finished frame.<br/>Bring us your story. We’ll find the next step.</p>
+        <a href={pageHref('contact')} className="footer-conversation"><b className="cta-label"><RollingLabel>{settings.footer_cta_label || 'Talk to the studio'}</RollingLabel></b><span aria-hidden="true"><SiteIcon name="contact" size={17}/></span></a>
       </div>
       <div className="footer-invitation-copy footer-studio-column">
         <div className="footer-info-block"><h3>{address ? 'Our location' : 'The studio'}</h3>
@@ -63,6 +70,15 @@ export default function Footer({ reduced, page = 'home' }) {
         <div id="footer-guide-slot" className="footer-guide-slot"/>
       </div>
     </div>
+    <nav className="footer-journey-links" aria-label="Where are you in the journey?">
+      <h3>Where are you in the journey?</h3>
+      <div>{[
+        ['I have a script or idea','/script-to-production/','script','Develop your story'],
+        ['I need a production partner','/#services','film','Build the production'],
+        ['I’m a financier or platform','/contact/?partner=co-producers','partnership','Explore a partnership'],
+        ['I’m filming in India','/india-production-services/','location','Plan your India shoot'],
+      ].map(([label,href,icon,note],index)=><a href={href} key={href}><span className="footer-journey-mark" aria-hidden="true"><SiteIcon name={icon} size={21}/></span><span className="footer-journey-copy"><span className="footer-journey-title">{label}</span><span className="footer-journey-note">{note}</span></span><span className="footer-journey-number" aria-hidden="true">0{index+1}</span></a>)}</div>
+    </nav>
     <div className="footer-signature" aria-hidden="true"><strong className="footer-word">{'KEMSOR'.split('').map((letter,index)=><i key={letter+index}>{letter}</i>)}</strong><span className="footer-studios-signature">Studios</span></div>
     <div className="footer-baseline"><span>© {new Date().getFullYear()} {settings.footer_copyright || 'Kemsor Studios'}</span></div>
     {reduced&&<span className="sr-only">Your reduced motion preference is respected.</span>}

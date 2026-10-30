@@ -2,7 +2,7 @@ const pageHref = page => `/${page}/`;
 const link = (label, page, anchor) => ({ label, href: `${pageHref(page)}${anchor ? `#${anchor}` : ''}` });
 export const navigation = [
  {id:'talent',label:'Talent Network',page:'find-talent',groups:[{links:[link('Find Talent','find-talent'),link('My Profile','profile')]}]},
-  { id: 'studio', label: 'Studio', page: 'about', groups: [{ links: [link('About Kemsor','about'),link('Leadership','about','leadership'),link('How We Work','how-we-work'),link('Careers','careers')] }] },
+  { id: 'studio', label: 'Studio', page: 'about', groups: [{ links: [link('About Kemsor','about'),link('Leadership','about','leadership'),link('How We Work','how-we-work'),link('Partner With Us','partner-with-us'),link('Careers','careers')] }] },
   { id: 'capabilities', label: 'Capabilities', page: 'services', groups: [
     { title:'01 Develop', links:[link('Develop: Overview','develop'),link('Story & Script Development','develop/story-script'),link('Packaging & Talent Attachment','develop/packaging-talent'),link('Budgeting & Scheduling','develop/budgeting-scheduling')] },
     { title:'02 Finance', links:[link('Finance: Overview','finance'),link('Finance Structuring','finance/finance-structuring'),link('Co-Production','finance/co-production'),link('International Co-Productions','finance/international-co-productions')] },

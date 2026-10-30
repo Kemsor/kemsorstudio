@@ -12,7 +12,7 @@ html body #top.creative-site #main .journey-router a{
  color:#171717;background:#fff;text-decoration:none;border:1px solid #dedede;border-radius:0;clip-path:none;
  transition:transform .45s cubic-bezier(.22,.61,.36,1),border-color .4s,color .4s;
 }
-.journey-option::before{content:'';position:absolute;inset:-1px;z-index:-1;background:var(--cta-gradient);opacity:0;transition:opacity .4s ease;pointer-events:none}
+.journey-option::before{content:'';position:absolute;inset:-1px;z-index:-1;background:linear-gradient(115deg,#a57745 0%,#85532f 28%,#633b24 68%,#4b2c1e 100%);opacity:0;transition:opacity .4s ease;pointer-events:none}
 html body #top.creative-site #main .journey-router .journey-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
 .journey-symbol{width:44px;height:44px;display:grid;place-items:center;color:#754626;border:1px solid #e5dcd5;border-radius:50%;transition:border-color .4s,color .4s,transform .5s}
 .journey-number{font:400 10px/1 Inter,sans-serif;letter-spacing:.08em;color:#999;transition:color .4s}
@@ -40,3 +40,25 @@ html body #top.creative-site #main .journey-router a:focus-visible{outline:2px s
 }
 @media(max-width:359px){html body #top.creative-site #main .journey-router>div{grid-template-columns:1fr}html body #top.creative-site #main .journey-router a{min-height:195px}}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site #main .journey-router a,.journey-option::before,.journey-option *{transition:none!important;transform:none!important}}
+
+/* Fixed service-inspired gradient, with motion confined to the links. */
+html body #top.creative-site #main .journey-router a,
+html body #top.creative-site #main .journey-router a:is(:hover,:focus-visible){
+ background:linear-gradient(160deg,#71391f 0%,#59304c 42%,#191772 100%);
+ color:#fff;border:1px solid #ffffff26;border-radius:18px;transform:none;
+ transition:none;
+}
+html body #top.creative-site #main .journey-router .journey-option::before{display:none}
+html body #top.creative-site #main .journey-router .journey-symbol,
+html body #top.creative-site #main .journey-router a:is(:hover,:focus-visible) .journey-symbol{
+ color:#f2d8b3;border-color:#ffffff40;transform:none;
+}
+html body #top.creative-site #main .journey-router .journey-number,
+html body #top.creative-site #main .journey-router a:is(:hover,:focus-visible) .journey-number{color:#ffffffa6}
+html body #top.creative-site #main .journey-router .journey-card-action,
+html body #top.creative-site #main .journey-router a:is(:hover,:focus-visible) .journey-card-action{color:#fff;border-color:#ffffff30}
+html body #top.creative-site #main .journey-router .journey-card-action>span:first-child{transition:transform .3s ease}
+html body #top.creative-site #main .journey-router a:is(:hover,:focus-visible) .journey-card-action>span:first-child{transform:translateX(3px)}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site #main .journey-router .journey-card-action>span:first-child{transition:none;transform:none}
+}

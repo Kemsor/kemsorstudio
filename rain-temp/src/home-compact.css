@@ -116,3 +116,74 @@ html body #top.creative-site.site-page-home #main .script-card .creative-cta{mar
 @media(max-width:800px){
  html body #top.creative-site.site-page-home #main .script-card{min-height:0;padding:36px 26px;gap:28px;align-items:start}
 }
+
+/* Process cards match the designer preview. */
+html body #top.creative-site.site-page-home #main .final-process ol{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+html body #top.creative-site.site-page-home #main .final-process ol li{position:relative;isolation:isolate;overflow:hidden;background:#fff;color:#0b0b0b;padding:26px 30px;border:0;border-radius:24px;min-height:0;transition:none}
+html body #top.creative-site.site-page-home #main .final-process ol li:hover{transform:none;box-shadow:none}
+html body #top.creative-site.site-page-home #main .final-process ol li::after{content:'';position:absolute;width:100px;height:100px;right:-43px;bottom:-49px;background:#fbe9d5;border-radius:50%;opacity:1;z-index:-1;transform:none;transition:none}
+html body #top.creative-site.site-page-home #main .final-process ol li>b{color:#f49632;font:650 12px/1.4 Inter,Arial,sans-serif}
+html body #top.creative-site.site-page-home #main .final-process ol li h3{font:600 22px/1.2 Inter,Arial,sans-serif;letter-spacing:-.025em;color:#0b0b0b;margin:5px 0 0}
+html body #top.creative-site.site-page-home #main .final-process ol li p{font:400 13px/1.65 Inter,Arial,sans-serif;color:#0b0b0b;margin:5px 0 0}
+@media(max-width:950px){
+ html body #top.creative-site.site-page-home #main .final-process ol li{padding:22px}
+ html body #top.creative-site.site-page-home #main .final-process ol li h3{font-size:20px}
+ html body #top.creative-site.site-page-home #main .final-process ol li p{font-size:12px;line-height:1.6}
+}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main .final-process ol{grid-template-columns:1fr;gap:12px}
+ html body #top.creative-site.site-page-home #main .final-process ol li{padding:21px 23px;border-radius:21px}
+ html body #top.creative-site.site-page-home #main .final-process ol li h3{font-size:21px}
+ html body #top.creative-site.site-page-home #main .final-process ol li p{font-size:13px;line-height:1.6}
+}
+
+/* Warm outlined cards with the original lift and corner motion. */
+html body #top.creative-site.site-page-home #main .final-process ol li{border:1px solid #e5d4bf;transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease}
+html body #top.creative-site.site-page-home #main .final-process ol li::after{transition:transform .5s ease,background .4s ease}
+html body #top.creative-site.site-page-home #main .final-process ol li:hover{transform:translateY(-6px);border-color:#edb16d;box-shadow:0 16px 36px #75462618}
+html body #top.creative-site.site-page-home #main .final-process ol li:hover::after{transform:scale(1.5);background:#f9dfbf}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site.site-page-home #main .final-process ol li,
+ html body #top.creative-site.site-page-home #main .final-process ol li::after{transition:none}
+ html body #top.creative-site.site-page-home #main .final-process ol li:hover,
+ html body #top.creative-site.site-page-home #main .final-process ol li:hover::after{transform:none}
+}
+
+/* Reference-style statistics: burgundy glow on framed charcoal cards. */
+html body #top.creative-site.site-page-home #main #studio .proof-strip{border:0;gap:16px}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:1.3rem;min-height:0;padding:20px 24px;border:1px solid #424242;border-radius:20px;background:radial-gradient(ellipse at top left,#54282d 0%,#38272a 36%,#222 78%);color:#aaa}
+html body #top.creative-site.site-page-home #main #studio .proof-strip strong{font-size:3.7rem;color:#fff}
+html body #top.creative-site.site-page-home #main #studio .proof-strip span{max-width:12rem;color:#aaa}
+@media(max-width:800px){
+ html body #top.creative-site.site-page-home #main #studio .proof-strip>div{min-height:0;padding:20px 24px}
+}
+
+@media(max-width:760px){
+ html body #top.creative-site.site-page-home #main #studio .proof-strip>div{padding:14px 16px}
+ html body #top.creative-site.site-page-home #main #studio .proof-strip strong{font-size:36px}
+}
+
+/* Shade flows from burgundy to deep charcoal across the row. */
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(115deg,#4a2b30,#38272a)}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div:nth-child(2){background:linear-gradient(115deg,#38272a,#282223)}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div:nth-child(3){background:linear-gradient(115deg,#282223,#242122)}
+html body #top.creative-site.site-page-home #main #studio .proof-strip .proof-clapperboard{position:absolute;right:-16px;top:8px;width:106px;height:auto;max-width:30%;z-index:-1;pointer-events:none;object-fit:contain}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div:nth-child(2)>span{max-width:min(12rem,calc(100% - 64px))}
+
+/* Align script-card paragraph and list text on the same left edge. */
+html body #top.creative-site.site-page-home #main .script-card>div:last-child ul{
+ padding-left:0;margin-left:0;list-style-position:outside;
+}
+html body #top.creative-site.site-page-home #main .script-card>div:last-child li{margin-left:0;padding-left:0}
+
+html body #top.creative-site.site-page-home #main .script-card>div:last-child ul{
+ list-style:none;padding:12px 0;margin:12px 0 18px;
+}
+html body #top.creative-site.site-page-home #main .script-card>div:last-child li{
+ position:relative;padding:6px 0 6px 28px;margin:0;
+}
+html body #top.creative-site.site-page-home #main .script-card>div:last-child li::before{
+ content:'✓';position:absolute;left:0;top:9px;display:grid;place-items:center;
+ width:16px;height:16px;border:1px solid #dcb36a;border-radius:3px;
+ color:#f5d77d;font:600 11px/1 Inter,sans-serif;
+}

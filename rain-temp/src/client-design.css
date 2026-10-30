@@ -130,3 +130,24 @@ html body #top.creative-site.site-page-home #main #studio .proof-strip{border-co
 html body #top.creative-site.site-page-home #main #studio .proof-strip>div{background:transparent;color:#ddd;border-color:#ffffff29}
 html body #top.creative-site.site-page-home #main #studio .proof-strip strong{color:#fff}
 html body #top.creative-site.site-page-home #main #studio h2{color:#fff}
+
+/* Reference charcoal continues through the entire studio and showreel section. */
+html body #top.creative-site.site-page-home #main #studio{
+ --page-bg:#222; background:#222;color:#fff;
+}
+
+html body #top.creative-site.site-page-home #main #studio .showreel-gallery{
+ background:#222;color:#fff;
+}
+html body #top.creative-site.site-page-home #main #studio .showreel-gallery-head h3{color:#fff}
+html body #top.creative-site.site-page-home #main #studio .showreel-gallery-head>div>span{color:#ccc}
+html body #top.creative-site.site-page-home #main #studio .showreel-gallery figcaption{color:#ddd}
+
+html body #top.creative-site.site-page-home #main #journey{
+ --page-bg:#222;background:#222;
+}
+
+/* Let the matching charcoal sections connect without repeated divider rules. */
+html body #top.creative-site.site-page-home #main #journey{border:0}
+html body #top.creative-site.site-page-home #main #journey>p::after{display:none}
+html body #top.creative-site.site-page-home #main #studio>.index-label{border-top:0}

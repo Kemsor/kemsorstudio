@@ -1,0 +1,22 @@
+html body #top.creative-site #main.inner-page #about-chapter-6{display:block}
+html body #top.creative-site #main.inner-page #about-chapter-6>div:first-child{position:static;margin-bottom:32px}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panels{display:flex;gap:12px;height:420px}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel{position:relative;isolation:isolate;flex:1 1 0;min-width:0;overflow:hidden;padding:0;border:1px solid #d4b47d40;border-radius:14px;background:#171411!important;transition:flex .75s cubic-bezier(.22,.61,.36,1)}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel.is-active{flex:4.5 1 0}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-shade{position:absolute;inset:0;background:linear-gradient(180deg,#1a0f0033,#1a0f004d 25%,#1a0f00e6)}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-toggle{position:absolute;inset:0;width:100%;height:100%;padding:0;background:transparent;border:0;text-align:left;cursor:pointer;z-index:2}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-toggle>span{position:absolute;top:22px;left:22px;width:34px;height:34px;display:grid;place-items:center;background:#f5d77d;color:#281b10;border-radius:50%;font:600 12px/1 Inter,sans-serif}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-toggle:focus-visible{outline:2px solid #ed9634;outline-offset:-4px;border-radius:14px}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-copy{position:absolute;left:28px;right:28px;bottom:30px;pointer-events:none;animation:principle-panel-enter .55s ease both}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-copy[hidden]{display:none}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-copy h3{color:#fff!important;margin:0 0 12px;font-size:18px;line-height:1.4}
+html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-copy p{color:#f0e6d5!important;font:400 13px/1.7 Inter,sans-serif;margin:0;max-width:440px}
+@keyframes principle-panel-enter{from{opacity:0;translate:0 12px}to{opacity:1;translate:0 0}}
+@media(max-width:700px){
+ html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panels{flex-direction:column;height:620px}
+ html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel.is-active{flex:5 1 0}
+ html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-toggle>span{top:12px;left:16px;width:30px;height:30px}
+ html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-copy{left:22px;right:22px;bottom:24px}
+}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel{transition:none}html body #top.creative-site #main.inner-page #about-chapter-6 .principle-panel-copy{animation:none}}

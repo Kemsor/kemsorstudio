@@ -1,0 +1,99 @@
+/* The designer preview's service composition, scoped to the main homepage. */
+html body #top.creative-site #main #services.designer-services{padding:clamp(64px,6vw,96px) 0 56px;background:#222;color:#fff;--ink:#fff;--muted:#ddd;--line:#ffffff29;font-family:Inter,Arial,sans-serif}
+#services.designer-services .ds-wrap{width:86%;max-width:1600px;margin-inline:auto}
+#services.designer-services .ds-label{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:28px;font-size:14px;line-height:1.5}
+#services.designer-services .ds-label>span:first-child{display:inline-flex;align-items:center;gap:9px;padding:10px 13px;border-radius:99px;background:#fff;color:#111;font-weight:600;white-space:nowrap}
+#services.designer-services .ds-label>span:last-child{color:#d6d6d6;text-align:right}
+#services.designer-services .ds-heading-row{display:flex;justify-content:space-between;align-items:start;gap:70px;margin-bottom:48px}
+#services.designer-services .ds-heading-row h2{font:550 clamp(29px,2.25vw,43px)/1.25 Inter,Arial,sans-serif;letter-spacing:-.04em;margin:0;color:#fff}
+#services.designer-services .ds-heading-row>p{max-width:420px;font:400 14px/1.7 Inter,Arial,sans-serif;color:#ddd;margin:0}
+#services.designer-services .ds-stage{position:relative;isolation:isolate;overflow:hidden}
+#services.designer-services .ds-backdrop,#services.designer-services .ds-shade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-2}
+#services.designer-services .ds-backdrop{object-fit:cover;object-position:center}
+#services.designer-services .ds-shade{z-index:-1;background:linear-gradient(180deg, rgba(45, 24, 8, .86), rgba(126, 58, 9, .83) 40%, rgb(10 24 147 / 88%))}
+#services.designer-services .ds-inner{padding-block:clamp(110px,13vw,220px) clamp(90px,9vw,160px)}
+#services.designer-services .ds-controls{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:clamp(55px,7vw,130px)}
+#services.designer-services .ds-count{font:400 14px/1.3 Inter,Arial,sans-serif;display:inline-flex;gap:9px;border:1px solid #ffffffa0;border-radius:99px;padding:9px 18px;color:#fff}
+#services.designer-services .ds-arrows{display:flex;gap:10px}
+#services.designer-services .ds-arrows button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #ffffff70;background:#0003;border-radius:50%;color:#fff;cursor:pointer}
+#services.designer-services .ds-arrows button:hover{background:#ffffff25}
+#services.designer-services .ds-slides{display:grid;isolation:isolate}
+#services.designer-services .ds-content{grid-area:1/1;visibility:hidden;opacity:0;pointer-events:none;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease;display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(55px,7vw,130px);align-items:start;}
+#services.designer-services .ds-content.is-active{visibility:visible;opacity:1;pointer-events:auto;transform:none}
+#services.designer-services .ds-copy h3{font:550 clamp(29px,2.25vw,43px)/1.25 Inter,Arial,sans-serif;letter-spacing:-.03em;color:#fff;margin:0}
+#services.designer-services .ds-copy>p{font:400 14px/1.65 Inter,Arial,sans-serif;max-width:560px;color:#fff;margin:10px 0 0}
+#services.designer-services .ds-copy ul{font:400 14px/1.6 Inter,Arial,sans-serif;color:#fff;margin:60px 0 52px;padding-left:26px;list-style:disc}
+#services.designer-services .ds-copy li+li{margin-top:17px}
+#services.designer-services .ds-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:42px;padding:10px 18px;border:0;border-radius:30px;background:#fff;color:#111;font:550 14px/1.4 Inter,Arial,sans-serif;text-decoration:none;white-space:nowrap;transition:transform .2s}
+#services.designer-services .ds-cta:hover{transform:translateY(-2px)}
+#services.designer-services .ds-picture{display:block;min-width:0;aspect-ratio:1;border-radius:25px;overflow:hidden;background:#141414}
+#services.designer-services .ds-picture img{width:100%;height:100%;object-fit:cover;object-position:center}
+#services.designer-services .ds-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:25px;border-bottom:1px solid #292929}
+#services.designer-services .ds-tabs button{display:flex;align-items:start;gap:8px;min-width:0;min-height:44px;padding:12px 10px 16px;border:0;border-bottom:2px solid transparent;background:none;color:#aaa;text-align:left;font:400 14px/1.6 Inter,Arial,sans-serif;cursor:pointer;overflow-wrap:anywhere}
+#services.designer-services .ds-tabs button span{flex:none;color:#aaa}
+#services.designer-services .ds-tabs button[aria-pressed=true]{color:#fff;border-bottom-color:#d6ad67}
+#services.designer-services .ds-tabs button[aria-pressed=true] span{color:#e5c894}
+#services.designer-services :is(a,button):focus-visible{outline:2px solid #e5c894;outline-offset:5px}
+@keyframes ds-service-in{from{opacity:.4;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:950px){
+ #services.designer-services .ds-inner{padding-block:90px 75px}
+ #services.designer-services .ds-controls{margin-bottom:50px}
+ #services.designer-services .ds-content{gap:35px}
+ #services.designer-services .ds-copy h3{font-size:29px}
+ #services.designer-services .ds-copy ul{margin:30px 0}
+ #services.designer-services .ds-copy li+li{margin-top:10px}
+ #services.designer-services .ds-picture{aspect-ratio:4/5}
+ #services.designer-services .ds-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ html body #top.creative-site #main #services.designer-services{padding-block:48px 24px}
+ #services.designer-services .ds-wrap{width:calc(100% - 44px)}
+ #services.designer-services .ds-label{flex-wrap:wrap;gap:15px;margin-bottom:26px}
+ #services.designer-services .ds-label>span:first-child{white-space:normal}
+ #services.designer-services .ds-label>span:last-child{flex:1 1 140px;min-width:0;text-align:left;overflow-wrap:anywhere}
+ #services.designer-services .ds-heading-row{display:block;margin-bottom:32px}
+ #services.designer-services .ds-heading-row h2{font-size:29px}
+ #services.designer-services .ds-heading-row>p{margin-top:22px;max-width:none}
+ #services.designer-services .ds-inner{padding-block:40px}
+ #services.designer-services .ds-controls{margin-bottom:40px}
+ #services.designer-services .ds-count{padding:7px 12px}
+ #services.designer-services .ds-content{grid-template-columns:1fr;gap:30px}
+ #services.designer-services .ds-copy h3{font-size:29px}
+ #services.designer-services .ds-copy ul{margin:26px 0 30px;padding-left:23px}
+ #services.designer-services .ds-copy li+li{margin-top:8px}
+ #services.designer-services .ds-cta{min-height:44px}
+ #services.designer-services .ds-picture{aspect-ratio:1;border-radius:20px}
+ #services.designer-services .ds-shade{background:linear-gradient(180deg, rgba(45, 24, 8, .86), rgba(126, 58, 9, .83) 40%, rgb(10 24 147 / 88%))}
+ #services.designer-services .ds-tabs{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:18px}
+ #services.designer-services .ds-tabs button{padding:10px 8px}
+}
+@media(prefers-reduced-motion:reduce){#services.designer-services .ds-content{animation:none;transition:none;transform:none}#services.designer-services .ds-cta{transition:none}}
+#services.designer-services[data-reduced=true] .ds-content{animation:none;transition:none;transform:none}
+/* Keep the preview's body size despite the main site's global 13px rule. */
+html body #top.creative-site #main #services.designer-services :is(p,li){font-size:14px!important}
+#services.designer-services .ds-cta{min-width:180px}
+
+#services.designer-services .ds-tabs-band{background:#000;padding-top:25px;margin-bottom:-56px;padding-bottom:56px}
+#services.designer-services .ds-tabs-band .ds-tabs{margin-top:0}
+#services.designer-services .ds-tabs button:hover{color:#fff;border-bottom-color:#d6ad67}
+@media(max-width:600px){#services.designer-services .ds-tabs-band{padding-top:18px}}
+
+/* One black-backed composition from the service introduction to the tabs. */
+html body #top.creative-site #main #services.designer-services{background:#000}
+#services.designer-services .ds-stage{background:#000}
+#services.designer-services .ds-stage::after{
+ content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(180deg,#000 0%,transparent 22%,transparent 78%,#000 100%);
+}
+
+#services.designer-services .ds-label>span:first-child{
+ padding:0;border:0;border-radius:0;background:none;color:#fff;font:600 12px/1.5 Inter,sans-serif;letter-spacing:.075em;
+}
+#services.designer-services .ds-label>span:first-child svg{display:none}
+
+#services.designer-services .ds-tabs button:is(:hover,:focus-visible,[aria-pressed=true]){border-bottom-color:#505dc9}
+#services.designer-services .ds-tabs button:is(:hover,:focus-visible,[aria-pressed=true]) span{color:#505dc9}
+
+@media(max-width:600px){
+ #services.designer-services .ds-tabs-band{display:none}
+}

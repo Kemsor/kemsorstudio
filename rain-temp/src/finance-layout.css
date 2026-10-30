@@ -130,3 +130,7 @@ html .creative-site #main .finance-layout .finance-disclaimer{font-size:12px;lin
 /* Keep links readable when the original service styles are loaded after this layout. */
 .finance-layout .fl-hero-copy .produce-actions .line-link{color:var(--fl-ink);border-color:var(--fl-line)}
 .finance-layout .structuring-formats article:nth-child(n){background:transparent}
+
+@media(min-width:601px){
+ html body #top.creative-site:not(.site-page-home) .fl-nav{top:var(--inner-nav-bottom,var(--site-header-height,72px))}
+}

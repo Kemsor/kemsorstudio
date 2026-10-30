@@ -94,3 +94,10 @@ html[data-theme=dark] .creative-header .creative-nav-group a:hover{color:var(--b
  .creative-header .creative-nav-trigger,.creative-header .creative-nav-direct{min-height:70px;padding-block:20px}
  .creative-header .creative-nav .creative-nav-group a{min-height:48px;padding-block:12px}
 }
+
+html body #top.creative-site .experience-top{
+ background:linear-gradient(135deg,#f5d77d 0%,#f3a23a 48%,#ed7625 100%)!important;
+ color:#fff!important;border:0!important;box-shadow:0 5px 20px #ed963430;
+}
+html body #top.creative-site .experience-top:hover{filter:brightness(1.08)}
+html body #top.creative-site .experience-top svg{color:#fff!important}

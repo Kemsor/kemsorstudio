@@ -9,3 +9,17 @@
 @media(max-width:1100px){.section-submenu-width{gap:20px}.section-submenu-links{gap:18px}}
 @media(max-width:800px){.section-submenu-category{display:none}.section-submenu-links{width:100%}}
 @media(max-width:600px){.section-submenu{position:static}.section-submenu-width{padding:16px 20px}.section-submenu-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible}.section-submenu-links>a{white-space:normal;padding:11px 12px;border:1px solid #28282826;font-size:12px;min-height:48px;display:flex;align-items:center}.section-submenu-links>a[aria-current]{background:#d2d2d2;border-color:#919191}}
+
+@media(min-width:601px){
+ html body #top.creative-site:not(.site-page-home) .section-submenu{top:var(--inner-nav-bottom,var(--site-header-height,72px))}
+}
+
+html body #top.creative-site:not(.site-page-home) .section-submenu[data-stuck=true]{background:rgba(0,0,0,.82);color:#fff;border-bottom-color:#ffffff26;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+html body #top.creative-site:not(.site-page-home) .section-submenu[data-stuck=true] :is(.section-submenu-category,.section-submenu-links>a){color:#ddd}
+html body #top.creative-site:not(.site-page-home) .section-submenu[data-stuck=true] .section-submenu-links>a:is(:hover,:focus-visible,[aria-current]){color:#fff;border-bottom-color:#ed9634}
+
+/* Override the inner-page white-surface reset for the pinned menu and its children. */
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true]{background:rgba(0,0,0,.86)!important;color:#fff!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] :is(.section-submenu-width,.section-submenu-links){background:transparent!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a{background:transparent!important;color:#eee!important;-webkit-text-fill-color:#eee!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:is(:hover,:focus-visible,[aria-current]){color:#fff!important;-webkit-text-fill-color:#fff!important;border-bottom-color:#ed9634}

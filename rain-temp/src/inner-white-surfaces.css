@@ -46,3 +46,90 @@ html .creative-site #main.inner-page :is(
 ){background:#fff!important}
 html .creative-site #main.inner-page .budgeting-stripboard :is(span,div){color:#282828!important}
 html .creative-site #main.inner-page :is(.studio-method,.ep-process,.fl-closing,.pl-closing,.produce-closing,.make-coproduction){--ink:#282828!important;--muted:#5f5f5f!important;--line:#28282829!important}
+
+/* About: a black production-lifecycle chapter. */
+html body #top.creative-site #main.inner-page #about-chapter-3,
+html body #top.creative-site #main.inner-page #about-chapter-3 :is(.studio-stage-tabs,.studio-stage-panels,.studio-stage-panel,.studio-stage-copy,.studio-ground){background:#000!important;color:#fff!important;--ink:#fff;--muted:#ccc;--line:#ffffff30}
+html body #top.creative-site #main.inner-page #about-chapter-3 :is(h2,h3,p,li,button,figcaption,.studio-stage-index,.studio-stage-link){color:#eee!important}
+html body #top.creative-site #main.inner-page #about-chapter-3 button[aria-selected=true]{background:#ffffff12!important;color:#f5d77d!important;border-color:#ed9634}
+
+/* Lifecycle hover shades soften progressively from the first stage to the last. */
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button{--stage-orange:#df721e;--stage-blue:#2723b3;transition:background .25s ease,color .25s ease}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:nth-child(2){--stage-orange:#ce681d;--stage-blue:#282497}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:nth-child(3){--stage-orange:#b95e1e;--stage-blue:#292580}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:nth-child(4){--stage-orange:#a4531e;--stage-blue:#29266b}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:nth-child(5){--stage-orange:#8c491e;--stage-blue:#282657}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:nth-child(6){--stage-orange:#763f1e;--stage-blue:#272543}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:nth-child(7){--stage-orange:#60351d;--stage-blue:#252432}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:is(:hover,:focus-visible){background:linear-gradient(135deg,var(--stage-orange),var(--stage-blue))!important;color:#fff!important}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button:is(:hover,:focus-visible) span{color:#fff!important}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page #about-chapter-3 .studio-stage-tabs button{transition:none}}
+
+/* Formats presented as an editorial register on black, at the existing type scale. */
+html body #top.creative-site #main.inner-page #about-chapter-4{
+ background:#000!important;color:#fff;max-width:none;--studio-line:#ffffff26;
+}
+html body #top.creative-site #main.inner-page #about-chapter-4 :is(.studio-section-head,.studio-format-list){max-width:1440px;margin-inline:auto}
+html body #top.creative-site #main.inner-page #about-chapter-4 :is(h2,h3){color:#fff!important}
+html body #top.creative-site #main.inner-page #about-chapter-4 :is(p,.studio-label){color:#aaa!important}
+html body #top.creative-site #main.inner-page #about-chapter-4 .line-link{color:#ddd!important;border-color:#ffffff50}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article{
+ background:transparent!important;grid-template-columns:70px minmax(0,1fr) minmax(0,1fr);align-items:center;gap:30px;padding:30px 20px;border-top:1px solid #ffffff26;
+}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article:first-child{border-top-color:#ffffff70}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article:last-child{border-bottom:1px solid #ffffff26}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article>span{color:#888}
+@media(max-width:650px){
+ html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article{grid-template-columns:28px minmax(0,1fr);gap:12px 18px;padding:24px 0}
+ html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article>p{grid-column:2;margin:0}
+}
+
+/* About approach cards share the homepage process treatment. */
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;list-style:none}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li{position:relative;isolation:isolate;overflow:hidden;padding:26px 30px;background:#fff!important;border:1px solid #e5d4bf!important;border-radius:24px;transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li::before{content:none}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li::after{content:'';position:absolute;width:100px;height:100px;right:-43px;bottom:-49px;border-radius:50%;background:#fbe9d5;z-index:-1;transition:transform .5s ease,background .4s ease}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li>span{color:#f49632!important;font:650 12px/1.4 Inter,sans-serif;margin:0}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps h3{font:600 22px/1.2 Inter,sans-serif;letter-spacing:-.025em;color:#0b0b0b!important;margin:5px 0 0}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps p{font:400 13px/1.65 Inter,sans-serif;color:#0b0b0b!important;margin:5px 0 0}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li:hover{transform:translateY(-6px);border-color:#edb16d!important;box-shadow:0 16px 36px #75462618}
+html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li:hover::after{transform:scale(1.5);background:#f9dfbf}
+@media(max-width:950px){html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li{padding:22px}html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps h3{font-size:20px}}
+@media(max-width:650px){html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps{grid-template-columns:1fr;gap:12px}html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li{padding:21px 23px;border-radius:21px}}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li,html body #top.creative-site #main.inner-page #about-chapter-5 .studio-method-steps li::after{transition:none;transform:none}}
+
+/* A compact introduction beside the formats register. */
+html body #top.creative-site #main.inner-page #about-chapter-4{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,1.8fr);gap:clamp(36px,6vw,96px);align-items:start}
+html body #top.creative-site #main.inner-page #about-chapter-4>.studio-section-head{display:flex;flex-direction:column;align-items:flex-start;gap:24px;width:100%;margin:0}
+html body #top.creative-site #main.inner-page #about-chapter-4>.studio-section-head>div{width:100%}
+html body #top.creative-site #main.inner-page #about-chapter-4>.studio-section-head .line-link{margin-top:4px}
+html body #top.creative-site #main.inner-page #about-chapter-4>.studio-format-list{width:100%;margin:0}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article{grid-template-columns:28px minmax(0,1fr) minmax(0,1.1fr);gap:20px;padding:26px 0}
+@media(max-width:900px){
+ html body #top.creative-site #main.inner-page #about-chapter-4{grid-template-columns:1fr;gap:32px}
+}
+@media(max-width:650px){
+ html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article{grid-template-columns:28px minmax(0,1fr);gap:12px 18px}
+}
+
+/* On-the-ground services: bottom-up overlay cards. */
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-ground{display:block;padding-top:40px}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-ground>h3{margin-bottom:24px}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-ground ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:0;margin:0;list-style:none}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-ground li{padding:0;margin:0;border:0;min-width:0}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-ground li::before{content:none}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card{position:relative;isolation:isolate;display:flex;align-items:flex-end;min-height:300px;height:100%;overflow:hidden;padding:30px;border:1px solid #ffffff26;border-radius:12px;background:#000;color:#fff;text-decoration:none}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(130deg,#641b27,#260d12 70%,#110708);transform:translateY(101%);transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card-content{width:100%;transform:translateY(100px);transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card svg{margin-bottom:20px;color:#fff;stroke-width:1.2}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card h3{font-size:18px;line-height:1.4;margin:0;color:#fff!important}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card-detail{height:100px;opacity:0;transition:opacity .35s ease}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card-detail p{font:400 13px/1.6 Inter,sans-serif;margin:15px 0;color:#e8d9dc!important}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card-detail>span{font:500 11px/1.5 Inter,sans-serif;text-decoration:underline;text-underline-offset:4px;color:#fff}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card:is(:hover,:focus-visible)::before{transform:translateY(0)}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card:is(:hover,:focus-visible) .ground-card-content{transform:translateY(0)}
+html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card:is(:hover,:focus-visible) .ground-card-detail{opacity:1;transition-delay:.15s}
+@media(max-width:1000px){html body #top.creative-site #main.inner-page #about-chapter-3 .studio-ground ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(hover:none){html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card-content{transform:none}html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card-detail{height:auto;opacity:1}}
+@media(max-width:600px){html body #top.creative-site #main.inner-page #about-chapter-3 .studio-ground ul{grid-template-columns:1fr}html body #top.creative-site #main.inner-page #about-chapter-3 .ground-card{min-height:240px;padding:25px}}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page #about-chapter-3 :is(.ground-card::before,.ground-card-content,.ground-card-detail){transition:none}}

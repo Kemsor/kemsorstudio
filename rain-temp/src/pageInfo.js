@@ -1,4 +1,5 @@
 export const pageInfo = {
+ 'partner-with-us':{label:'Partner with us',title:'Partner With Us | Kemsor Studios',description:'Four ways in. One team behind every one. Work with Kemsor as a filmmaker, studio, co-producer, financier or international production.'},
  'documentaries':{label:'Documentaries',title:'Documentaries | Kemsor Studios',description:'The story is out there. We help you earn it. Kemsor produces authored documentaries for cinema, platforms and festivals with care for the story and its subjects.'},
  'series-ott':{label:'Series & OTT',title:'Series & OTT | Kemsor Studios',description:'Eight episodes. One promise. Kemsor plans series as seasons, keeping the story, cast, look and delivery consistent from the first episode to the last.'},
  'short-films':{label:'Short Films',title:'Short Films | Kemsor Studios',description:'Small film. Big step. Kemsor helps plan and produce short films built for a calling card, proof of concept, festival run or platform release.'},

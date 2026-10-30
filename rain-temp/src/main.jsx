@@ -1,3 +1,6 @@
+import CursorDot from './CursorDot';
+import useThemeMotion from './useThemeMotion';
+import './theme-motion.css';
 import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import Header from './Header';
@@ -33,6 +36,7 @@ import './neutral-palette.css';
 import './immersive-opening.css';
 import './hero-overlay-nav.css';
 import './heading-tones.css';
+import './cta-system.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 
 if (location.hash === '#home') history.replaceState(history.state, '', `${location.pathname}${location.search}`);
@@ -40,6 +44,7 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 const routes={
+ 'partner-with-us':lazy(()=>import('./pages/PartnerWithUsPage')),
  'documentaries':lazy(()=>import('./pages/DocumentariesPage')),
  'series-ott':lazy(()=>import('./pages/SeriesOttPage')),
  'short-films':lazy(()=>import('./pages/ShortFilmsPage')),
@@ -133,6 +138,7 @@ function App() {
  },[opening]);
  const paused=false;
  useSmoothScroll(reduced || opening || paused || !ready);
+ useThemeMotion(ready && !opening && !reduced);
  useEffect(()=>{
   if(location.hash)return;
   const reset=()=>window.scrollTo({top:0,left:0,behavior:'instant'});
@@ -144,7 +150,7 @@ function App() {
   document.title=pageInfo[page].title;
   document.querySelector('meta[name="description"]')?.setAttribute('content',pageInfo[page].description);
  },[page]);
- return <>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
+ return <><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
   <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && !['news','blog','contact','careers'].includes(page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>

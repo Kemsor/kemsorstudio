@@ -49,7 +49,16 @@ function Flow({children,kind}){
  return split(children);
 }
 export default function MotionHeading({as:Tag='h2',children,...props}){
- return <Tag {...props} data-text-flow="heading"><Flow kind="heading">{children}</Flow></Tag>;
+ const inner=typeof window!=='undefined' && document.body.dataset.page!=='home' && location.pathname!=='/';
+ let heading=children;
+ if(inner && typeof children==='string'){
+  const words=children.trim().split(/\s+/);
+  if(words.length>1){
+   const splitAt=Math.ceil(words.length/2);
+   heading=<>{words.slice(0,splitAt).join(' ')} <span className="heading-accent">{words.slice(splitAt).join(' ')}</span></>;
+  }
+ }
+ return <Tag {...props} data-text-flow="heading"><Flow kind="heading">{heading}</Flow></Tag>;
 }
 export function MotionCopy({children,...props}){
  const {disabled,suspended}=useContext(MotionContext);

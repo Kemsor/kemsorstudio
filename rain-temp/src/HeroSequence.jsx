@@ -1,3 +1,4 @@
+import RollingLabel from './RollingLabel';
 import SiteIcon from './SiteIcon';
 import React, { useEffect, useRef, useState } from 'react';
 import { useCms } from './CmsContent';
@@ -86,7 +87,7 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
       <p className="opening-eyebrow">FILM &amp; PRODUCTION PARTNER</p>
       <h1 id="opening-title">{customTitle ? hero.title : <><span>From your first page.</span><span className="heading-accent">To the <em>big screen.</em></span></>}</h1>
       <p className="opening-description">{customSummary ? hero.summary : 'Creative ambition. Practical production. Kemsor is the studio for the journey in between, from development and financing to the shoot, post and release.'}</p>
-      <div className="opening-actions"><CTA href="#work-with-kemsor">Partner with us</CTA><a className="opening-watch" href="#showreel">Watch the showreel</a></div>
+      <div className="opening-actions"><CTA href="#work-with-kemsor">Partner with us</CTA><a className="opening-watch" href="#showreel"><RollingLabel>Watch the showreel</RollingLabel></a></div>
     </div>
       <div className="opening-playback-tools" role="group" aria-label="Hero video controls">
         <button type="button" className="opening-next" onClick={() => { setActive(index => (index + 1) % films.length); setPaused(false); }} aria-label={`Play next hero film: ${films[(active + 1) % films.length].label}`}><span>Next</span><SiteIcon name="arrow" size={17} /></button>

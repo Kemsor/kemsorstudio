@@ -1,13 +1,14 @@
+import RollingLabel from './RollingLabel';
 import MotionHeading from './TextMotion';
 import React from 'react';
 import SiteIcon from './SiteIcon';
 
-export const Arrow = () => <SiteIcon name="arrow"/>;
+export const Arrow = () => null;
 export function FrameMark({ className = '' }) {
   return <SiteIcon name="scan" size={48} className={`frame-mark ${className}`} />;
 }
 export function CTA({ children = 'Start with a story', href = '/contact/#project-brief', className = '' }) {
-  return <a className={`creative-cta ${className}`} href={href}><span>{children}</span><span className="cta-arrow"><Arrow /></span></a>;
+  return <a className={`creative-cta ${className}`} href={href}>{className.includes('cta-white')?<RollingLabel>{children}</RollingLabel>:<span>{children}</span>}<span className="cta-arrow"><SiteIcon name={href.includes('script')?'script':href.includes('projects')?'film':href.includes('contact')?'contact':href.includes('join')?'people':'partnership'}/></span></a>;
 }
 export function IndexLabel({ children, right }) {
   return <div className="index-label"><span>{children}</span>{right && <span className="index-right">{right}</span>}</div>;

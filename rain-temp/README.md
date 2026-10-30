@@ -86,3 +86,10 @@ Produce and What We Make heroes now place text on a warm, separate panel beside 
 Client content pages now cover Develop, Finance, Produce, Post and Release, with shared section navigation and dedicated layouts. Inner pages use white backgrounds and 13px body text. The homepage includes the two-card split production gallery, fullscreen studio clips and a script-to-production line illustration. Heading reveals run once per section; body copy fades without displacement. Desktop wheel easing and pinned visuals share scroll updates; native touch and reduced-motion behavior are preserved.
 
 Build the frontend with `npm --prefix rain-temp run build` from the repository root. Static output is `rain-temp/dist/`. The existing root package serves the Node backend; its build command does not build the frontend. Do not publish local storage, credentials, audit exports or design-sample screenshots as part of the static website.
+
+
+## Partner with us
+
+`/partner-with-us/` implements the supplied Partner With Us content document, including four selectable routes and their enquiry forms. Filmmakers & Creators opens by default; `?route=filmmakers`, `studios`, `co-producers` or `international-productions` opens a specific route. Studio navigation and the homepage partnership links point to this page.
+
+Forms use the existing CSRF-protected `/api/enquiries` endpoint and respect the CMS enquiry availability and privacy settings. Route-specific details, checkbox selections and acknowledgements are saved as labelled text in the enquiry message, using the existing Production, Business or Partnerships category. No uploads or full scripts are accepted here. Privacy consent remains required by the existing enquiry service. No database migration is needed.
