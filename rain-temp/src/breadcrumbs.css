@@ -1,0 +1,16 @@
+/* One typographic language for every inner-page breadcrumb. */
+html body #top.creative-site #main :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb){
+ display:flex!important;align-items:center!important;justify-content:flex-start!important;flex-wrap:wrap!important;
+ gap:6px 10px!important;margin-block:0!important;padding-block:0!important;
+ font:400 12px/1.7 Inter,Arial,sans-serif!important;letter-spacing:.06em!important;text-transform:uppercase!important;
+ text-align:left!important;color:#78746d!important;
+}
+html body #top.creative-site #main :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>:is(a,span){
+ display:inline!important;font:inherit!important;letter-spacing:inherit!important;text-transform:inherit!important;
+ margin:0!important;padding:0!important;line-height:inherit!important;white-space:normal;
+}
+html body #top.creative-site #main :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>a{color:#78746d!important;text-decoration:none}
+html body #top.creative-site #main :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>[aria-current=page]{color:#423c33!important;font-weight:500!important}
+html body #top.creative-site #main :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>[aria-hidden=true]{color:#b2a99b!important;font-weight:400!important;user-select:none}
+html body #top.creative-site #main :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>a:hover{color:#a2763c!important;text-decoration:underline;text-underline-offset:4px}
+html body #top.creative-site #main :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>a:focus-visible{outline:2px solid #505dc9;outline-offset:4px;border-radius:2px}

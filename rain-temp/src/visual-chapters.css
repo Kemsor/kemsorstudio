@@ -1,0 +1,29 @@
+/* Selected editorial chapters alternate imagery and light/dark studio surfaces. */
+html body #top.creative-site #main.inner-page .visual-chapter{padding-block:clamp(32px,4vw,60px)!important;position:relative;isolation:isolate}
+html body #top.creative-site #main.inner-page .visual-chapter-light{background:#faf8f3!important;border:1px solid #e9e2d5;border-radius:20px}
+html body #top.creative-site #main.inner-page .visual-chapter-dark{--ink:#f2eadd;--muted:#c4b9a8;--line:#ffffff25;--ep-ink:#f2eadd;--ep-muted:#c4b9a8;--pl-ink:#f2eadd;--pl-muted:#c4b9a8;--fl-ink:#f2eadd;--fl-muted:#c4b9a8;background:linear-gradient(120deg,#24202e,#221c18 65%,#2c2114)!important;border:1px solid #ffffff10;border-radius:20px;color:#f2eadd!important}
+.visual-chapter-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,55px);align-items:center;width:100%;max-width:1520px;padding-inline:clamp(20px,3vw,38px);margin-inline:auto}.visual-chapter-content{min-width:0}.visual-image-left{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}.visual-image-left>.visual-chapter-content{grid-column:2;grid-row:1}.visual-image-left>.visual-chapter-image{grid-column:1;grid-row:1}.visual-chapter-image{margin:0;min-width:0;align-self:center}.visual-chapter-image>div{aspect-ratio:1.1;overflow:hidden;border-radius:16px;background:#e4ddd1}.visual-chapter-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}.visual-chapter-image:hover img{transform:scale(1.035)}.visual-chapter-image figcaption{display:flex;justify-content:space-between;gap:16px;padding-top:13px;font-size:9px;line-height:1.7;letter-spacing:.06em;color:#a18c6b}.visual-chapter-image figcaption>span:last-child{opacity:.65;white-space:nowrap}
+html body #top.creative-site #main.inner-page .visual-chapter-content>:is(.pl-width,.fl-width){padding:0;width:100%;max-width:none;display:block}
+html body #top.creative-site #main.inner-page .visual-chapter-content :is(.produce-intro,.produce-copy,.page-section-heading,.release-section-intro,.call-sheet-split,.feature-section-intro,.series-section-intro,.short-section-intro,.documentary-section-intro,.india-intro-grid){grid-template-columns:minmax(0,1fr)!important;gap:20px}
+html body #top.creative-site #main.inner-page .visual-chapter-content .fl-section-heading{display:flex;gap:12px;margin-bottom:24px}
+html body #top.creative-site #main.inner-page .visual-chapter-content .fl-section-heading>p{margin:0}
+html body #top.creative-site #main.inner-page .visual-chapter-content .fl-section-content{min-width:0}
+html body #top.creative-site #main.inner-page .visual-chapter-content :is(.produce-label,.index-label,.feature-label,.series-label,.short-label,.documentary-label,.call-sheet-label,.release-label){border-top:0;margin-bottom:24px}
+html body #top.creative-site #main.inner-page .visual-chapter-content h2{font-size:clamp(25px,2.5vw,34px)!important;line-height:1.25!important}
+html body #top.creative-site #main.inner-page .visual-chapter-content p{font-size:14px;line-height:1.85}
+html body #top.creative-site #main.inner-page .visual-chapter-content :is(.page-lead,.page-copy,.produce-copy)>p{max-width:65ch}
+/* Existing image sections keep their authored grid and receive a tonal chapter. */
+html body #top.creative-site #main.inner-page .visual-chapter-existing-image{padding-inline:clamp(20px,3vw,38px)!important}
+html body #top.creative-site #main.inner-page .visual-chapter-dark :is(section,article,aside,li,.ep-process,.pl-section-content,.fl-section-content,.page-copy,.produce-intro,.produce-copy,.page-section-heading,.release-section-intro,.call-sheet-split){background:transparent!important}
+html body #top.creative-site #main.inner-page .visual-chapter-dark :is(h2,h3,h4){color:#f4ede2!important}
+html body #top.creative-site #main.inner-page .visual-chapter-dark :is(p,li,dt,dd,label,legend,figcaption){color:#c9bdab!important}
+html body #top.creative-site #main.inner-page .visual-chapter-dark :is(p,li,dt,dd)>:is(span,strong,em){color:inherit!important}
+html body #top.creative-site #main.inner-page .visual-chapter-dark :is(.line-link,.text-link){color:#e8cfaa!important;border-color:#d8b78270!important}
+html body #top.creative-site #main.inner-page .visual-chapter-dark :is(.produce-label,.index-label,.feature-label,.series-label,.short-label,.documentary-label,.call-sheet-label,.release-label,.fl-section-heading)>span{color:#bba17b!important}
+@media(max-width:1100px){.visual-chapter-layout{gap:28px}.visual-chapter-image figcaption{flex-direction:column;gap:3px}}
+@media(max-width:900px){.visual-chapter-layout,.visual-image-left{grid-template-columns:1fr}.visual-image-left>.visual-chapter-content,.visual-image-left>.visual-chapter-image{grid-column:auto;grid-row:auto}.visual-chapter-image>div{aspect-ratio:1.65}.visual-chapter-image figcaption{flex-direction:row;gap:15px}}
+@media(max-width:600px){.visual-chapter-layout{padding-inline:20px;gap:24px}html body #top.creative-site #main.inner-page .visual-chapter{border-radius:14px}html body #top.creative-site #main.inner-page .visual-chapter-content h2{font-size:26px!important}.visual-chapter-image>div{border-radius:12px}.visual-chapter-image figcaption{font-size:8px;flex-direction:column;gap:3px}}
+@media(prefers-reduced-motion:reduce){.visual-chapter-image img{transition:none}.visual-chapter-image:hover img{transform:none}}
+
+/* Authored split sections must not squeeze the injected visual grid into one column. */
+html body #top.creative-site #main.inner-page .visual-chapter:not(.visual-chapter-existing-image){display:block!important;min-height:0}

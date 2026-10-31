@@ -1,3 +1,4 @@
+import StudioImage from './StudioImage';
 import React from 'react';
 import { CTA } from './PageUI';
 import './scroll-story.css';
@@ -13,7 +14,7 @@ export default function ScrollStory() {
         <CTA href="/services/">Explore the journey</CTA>
       </div>
       <figure className="screenplay-direct-image">
-        <img src="/assets/stills/period-costume.webp" alt="A performer in a gold period costume standing in a traditional colonnade." width="1079" height="1541" loading="lazy" decoding="async" />
+        <StudioImage mediaSlot="ScrollStory-1" src="/assets/stills/period-costume.webp" alt="A performer in a gold period costume standing in a traditional colonnade." width="1079" height="1541" loading="lazy" decoding="async" />
       </figure>
     </div>
   </section>;

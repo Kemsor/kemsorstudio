@@ -1,3 +1,4 @@
+import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
 import React, { useRef, useState } from 'react';
 import MotionHeading, { MotionCopy } from '../TextMotion';
@@ -70,8 +71,8 @@ function FeaturePlanner() {
 }
 
 export default function FeatureFilmsPage() {
-  return <div className="feature-films-page">
-    <section className="feature-hero feature-width" aria-labelledby="feature-title">
+  return <PageVisuals page="feature-films"><div className="feature-films-page">
+    <section className="inner-hero feature-hero feature-width" aria-labelledby="feature-title">
       <div className="feature-hero-grid"><div className="feature-hero-copy"><p className="feature-kicker">PRODUCTIONS · FEATURE FILMS</p><MotionHeading as="h1" id="feature-title">Feature Films.</MotionHeading><MotionHeading as="h2" className="feature-intro-accent">Tell us where yours is. <em>We’ll tell you what’s next.</em></MotionHeading><MotionCopy>Every feature is at a different point on a long road. Instead of a list of services, start with yours pick the stage your film is at and see exactly how Kemsor would take it forward.</MotionCopy></div><FeaturePlanner/></div>
     </section>
     <SectionSubmenu section="what-we-make" page="feature-films"/>
@@ -86,7 +87,7 @@ export default function FeatureFilmsPage() {
       <Label number="02">THE FEATURE LEDGER</Label>
       <div className="feature-intro-grid"><MotionHeading as="h2" id="feature-ledger-title">What you hold at the end of each stage.</MotionHeading><MotionCopy>Every stage ends with something you can put in front of a financier, a partner or a platform.</MotionCopy></div>
       <div className="feature-ledger-head" aria-hidden="true"><span>#</span><span>Stage</span><span>What you hold</span></div>
-      <ol className="feature-ledger">{ledger.map(([stage, copy],index) => <li key={stage}><span className="feature-ledger-number" aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><h3>{stage}</h3><p>{copy}</p></li>)}</ol>
+      <ol className="feature-ledger studio-ledger studio-ledger-numbered">{ledger.map(([stage, copy],index) => <li key={stage}><span className="feature-ledger-number" aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><h3>{stage}</h3><p>{copy}</p></li>)}</ol>
     </section>
 
     <section className="feature-section feature-width" aria-labelledby="feature-debut-title">
@@ -114,5 +115,5 @@ export default function FeatureFilmsPage() {
     <section className="feature-section feature-width feature-closing" aria-labelledby="feature-closing-title">
       <div className="feature-intro-grid"><div className="feature-script" aria-label="Screenplay page one"><span className="feature-script-page">1.</span><p>FADE IN:</p><p>INT. WHERE YOUR STORY BEGINS / DAY</p><p>Your first page goes here.</p></div><div><MotionHeading as="h2" id="feature-closing-title">Send us page one.</MotionHeading><MotionCopy>A script, a treatment, or a single page. Tell us where your feature is, and we’ll come back with an honest next step.</MotionCopy><div className="feature-actions"><CTA href="/script-to-production/">Send us your script</CTA><TextLink href="/contact/">Talk to the studio</TextLink></div></div></div>
     </section>
-  </div>;
+  </div></PageVisuals>;
 }

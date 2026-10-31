@@ -19,9 +19,10 @@ export function careersRouter(db){
   const b=req.body;fail(!b.website,'Please leave the website field empty.');
   const name=text(b.name,100,true),email=text(b.email,254,true),phone=text(b.phone,40,true),city=text(b.city,100),experience=text(b.experience,200),message=text(b.message,8000);
   fail(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),'Enter a valid email address.');fail(b.consent==='true'||b.consent==='on','Accept the application privacy notice.');
+  const portfolio=text(b.portfolio_url,1000);if(portfolio){let url;try{url=new URL(portfolio)}catch{fail(false,'Enter a valid HTTPS portfolio URL.')}fail(url.protocol==='https:','Use an HTTPS portfolio URL.');}
   const resume=req.files?.attachment?.[0];fail(resume,'Upload your résumé as a PDF.');fail(resume.mimetype==='application/pdf'&&path.extname(resume.originalname).toLowerCase()==='.pdf'&&resume.buffer.subarray(0,5).toString()==='%PDF-','Upload a PDF résumé, up to 5 MB.');
   const filename=`${randomUUID()}.pdf`;await mkdir(storage,{recursive:true});await writeFile(new URL(filename,storage),resume.buffer,{mode:0o600});
-  try{const reference=await saveWithReceipt(db,'application',name,email,connection=>rows(connection,'INSERT INTO career_applications(career_id,career_title,name,email,phone,city,experience,message,resume_filename,resume_name,consent_version) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[role.id,role.title,name,email,phone,city,experience,message,filename,path.basename(resume.originalname).slice(0,255),'career-application-v1']));res.status(201).json({reference});}
+  try{const reference=await saveWithReceipt(db,'application',name,email,connection=>rows(connection,'INSERT INTO career_applications(career_id,career_title,name,email,phone,city,experience,message,resume_filename,resume_name,consent_version,portfolio_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',[role.id,role.title,name,email,phone,city,experience,message,filename,path.basename(resume.originalname).slice(0,255),'career-application-v1',portfolio]));res.status(201).json({reference});}
   catch(error){await unlink(new URL(filename,storage)).catch(()=>{});throw error;}
  });
  router.get('/admin/applications',staff,async(req,res)=>{

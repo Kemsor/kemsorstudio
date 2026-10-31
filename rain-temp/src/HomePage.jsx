@@ -1,3 +1,6 @@
+import JourneyLinks from './JourneyLinks';
+import StudioImage from './StudioImage';
+import {ProductionAnnouncements,HomeNews} from './StudioPublishing';
 import SiteIcon from './SiteIcon';
 import MotionHeading, { MotionCopy } from './TextMotion';
 import React, { useEffect, useRef, useState } from 'react';
@@ -23,7 +26,7 @@ const studioClips=[
 ];
 function StudioClipRail({paused,reduced}){
  const runway=useRef(null),stage=useRef(null),viewport=useRef(null),track=useRef(null),viewer=useRef(null),videos=useRef([]);
- const [expanded,setExpanded]=useState(false),[near,setNear]=useState(false),[visible,setVisible]=useState([]),[tabVisible,setTabVisible]=useState(!document.hidden);
+ const [expanded,setExpanded]=useState(false),[near,setNear]=useState(false),[visible,setVisible]=useState([]),[tabVisible,setTabVisible]=useState(()=>typeof document==='undefined'||!document.hidden);
  const saveData=Boolean(navigator.connection?.saveData);
  useEffect(()=>{
   const preload=new IntersectionObserver(([entry])=>setNear(entry.isIntersecting),{rootMargin:'300px'});
@@ -44,7 +47,7 @@ function StudioClipRail({paused,reduced}){
    <div className="showreel-gallery-head"><div><span>SHOWREEL</span><MotionHeading as="h3">Kemsor <span className="heading-accent">showreel</span></MotionHeading></div><div className="compact-rail-controls" role="group" aria-label="Navigate showreel"><button type="button" onClick={()=>move(-1)} aria-label="Previous showreel films"><SiteIcon name="arrow-left" size={18}/></button><button type="button" onClick={()=>move(1)} aria-label="Next showreel films"><SiteIcon name="arrow" size={18}/></button></div></div>
    <div className="showreel-viewport" ref={viewport} tabIndex="0" aria-label="Kemsor showreel films. Scroll or swipe to explore.">
     <div className="showreel-track" ref={track}>{studioClips.map((clip,index)=><figure className={`showreel-card ${index%2===0?'showreel-card-large':'showreel-card-small'}`} key={clip.src} data-clip={index}>
-     <div className="showreel-card-screen"><video ref={node=>{videos.current[index]=node}} src={near&&!reduced&&!saveData?clip.src:undefined} poster={clip.poster} muted loop playsInline preload="none" aria-hidden="true"/>
+     <div className="showreel-card-screen"><video ref={node=>{videos.current[index]=node}} src={near&&!reduced&&!saveData?clip.src:undefined} poster={clip.poster} autoPlay muted loop playsInline preload="none" aria-hidden="true"/>
       <button type="button" className="showreel-card-expand" aria-label={`Watch ${clip.label} fullscreen`} onClick={()=>viewer.current.open(clip,videos.current[index]?.currentTime||0)}><SiteIcon name="expand" size={18}/><span>Fullscreen</span></button>
      </div><figcaption><strong>{clip.label}</strong><span aria-hidden="true">0{index+1} / 04</span></figcaption>
     </figure>)}</div>
@@ -52,9 +55,9 @@ function StudioClipRail({paused,reduced}){
   </div>
  </div><StudioClipViewer ref={viewer} onOpenChange={setExpanded}/></>;
 }
-function HomeImage({name,alt,sizes,format='webp'}){const base=`/assets/stills/${name}`;return <img src={`${base}-960.${format}`} srcSet={`${base}-640.${format} 640w, ${base}-960.${format} 960w, ${base}-1600.${format} 1600w`} sizes={sizes} alt={alt} loading="lazy" decoding="async"/>}
+function HomeImage({name,alt,sizes,format='webp'}){const base=`/assets/stills/${name}`;return <StudioImage mediaSlot="HomePage-1" src={`${base}-960.${format}`} srcSet={`${base}-640.${format} 640w, ${base}-960.${format} 960w, ${base}-1600.${format} 1600w`} sizes={sizes} alt={alt} loading="lazy" decoding="async"/>}
 function Formats(){return <div className="final-formats" aria-label={`Formats: ${formats.join(', ')}`}><div className="final-formats-track" aria-hidden="true">{[0,1].map(copy=><div className="final-formats-set" key={copy}>{formats.map(x=><React.Fragment key={x}><span>{x}</span><i>✦</i></React.Fragment>)}</div>)}</div></div>}
-function About({paused,reduced}){return <section className="final-about section-space" id="studio"><IndexLabel right="PEOPLE, PLANNING AND PRODUCTION">ABOUT KEMSOR</IndexLabel><div className="final-about-grid" data-reveal><div><MotionHeading as="h2">The studio.<br/><span className="heading-accent">Behind the work.</span></MotionHeading><MotionCopy className="final-lead">We bring the creative and production teams into the same conversation.</MotionCopy></div><div><MotionCopy>Kemsor works with creators, filmmakers, studios and platforms on films, series and documentaries. We bring together the people and production expertise each project calls for.</MotionCopy><a className="line-link" href="/about/">About Kemsor <Arrow/></a></div></div><div className="proof-strip" data-reveal>{[['7','lifecycle stages, from development to release'],['5','formats, from short films to co-productions'],['1','studio connecting the people and the plan']].map(x=><div key={x[0]}><strong>{x[0]}</strong><span>{x[1]}</span>{x[0]==='5'&&<img className="proof-clapperboard" src="/assets/stats-clapperboard.png" alt="" width="133" height="167" loading="lazy" decoding="async"/>}</div>)}</div><StudioClipRail paused={paused} reduced={reduced}/></section>}
+function About({paused,reduced}){return <section className="final-about section-space" id="studio"><IndexLabel right="PEOPLE, PLANNING AND PRODUCTION">ABOUT KEMSOR</IndexLabel><div className="final-about-grid" data-reveal><div><MotionHeading as="h2">The studio.<br/><span className="heading-accent">Behind the work.</span></MotionHeading><MotionCopy className="final-lead">We bring the creative and production teams into the same conversation.</MotionCopy></div><div><MotionCopy>Kemsor works with creators, filmmakers, studios and platforms on films, series and documentaries. We bring together the people and production expertise each project calls for.</MotionCopy><a className="line-link" href="/about/">About Kemsor <Arrow/></a></div></div><div className="proof-strip" data-reveal>{[['7','lifecycle stages, from development to release'],['5','formats, from short films to co-productions'],['1','studio connecting the people and the plan']].map(x=><div key={x[0]}><strong>{x[0]}</strong><span>{x[1]}</span>{x[0]==='5'&&<StudioImage mediaSlot="HomePage-2" className="proof-clapperboard" src="/assets/stats-clapperboard.png" alt="" width="133" height="167" loading="lazy" decoding="async"/>}</div>)}</div><StudioClipRail paused={paused} reduced={reduced}/></section>}
 function Process(){const steps=[['Understand the story','What the story needs to be and who it is for, before any numbers are set.'],['Build the plan','Budget, schedule, team and locations shaped by the creative goal.'],['Deliver the work','Clear communication keeps every collaborator aligned, stage to stage.']];return <section className="final-process section-space"><IndexLabel right="FROM FIRST DRAFT TO FINAL CUT">HOW THE WORK BEGINS</IndexLabel><MotionHeading as="h2">A clear way<br/><span className="heading-accent">to work together.</span></MotionHeading><ol>{steps.map((x,i)=><li key={x[0]}><b>0{i+1}</b><MotionHeading as="h3">{x[0]}</MotionHeading><p>{x[1]}</p></li>)}</ol><article className="script-card"><ScriptCardIllustration/><div><span>SCRIPT TO PRODUCTION</span><MotionHeading as="h3">Have a script or just an idea?<br/><span className="heading-accent">Start here.</span></MotionHeading></div><div><MotionCopy>Share your script or idea, along with the format and any production plans already in place.</MotionCopy><ul><li>Finished scripts and early ideas welcome</li><li>Terms accepted before any submission is reviewed</li><li>Track your submission from your profile</li></ul><CTA href="/script-to-production/">Submit your story</CTA></div></article></section>}
 function Partners(){
  const panels=[
@@ -65,7 +68,7 @@ function Partners(){
   <IndexLabel right="BUILT FOR COLLABORATION">WHO WE WORK WITH</IndexLabel>
   <div className="collaboration-layout">
    <figure className="collaboration-still">
-    <img src="/assets/stills/partner-studio-960.webp" srcSet="/assets/stills/partner-studio-640.webp 640w, /assets/stills/partner-studio-960.webp 960w, /assets/stills/partner-studio-1600.webp 1600w" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 90vw, 30vw" width="1600" height="1200" alt="Studio cameras and lighting equipment beside a red backdrop" loading="lazy" decoding="async"/>
+    <StudioImage mediaSlot="HomePage-3" src="/assets/stills/partner-studio-960.webp" srcSet="/assets/stills/partner-studio-640.webp 640w, /assets/stills/partner-studio-960.webp 960w, /assets/stills/partner-studio-1600.webp 1600w" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 90vw, 30vw" width="1600" height="1200" alt="Studio cameras and lighting equipment beside a red backdrop" loading="lazy" decoding="async"/>
     <figcaption><span>KEMSOR STUDIOS</span><span>BEHIND THE FRAME</span></figcaption>
    </figure>
    {panels.map((panel,index)=><article className="collaboration-path" key={panel.label} aria-labelledby={`partner-panel-${index}`}>
@@ -80,4 +83,4 @@ function Partners(){
  </section>;
 }
 
-export default function HomePage({paused,reduced}){return <><HeroSequence reduced={reduced} motionPaused={paused}/><Formats/><About paused={paused} reduced={reduced}/><DesignerServices reduced={reduced}/><DesignerProductions reduced={reduced}/><Process/><Partners/></>}
+export default function HomePage({paused,reduced}){return <><HeroSequence reduced={reduced} motionPaused={paused}/><Formats/><About paused={paused} reduced={reduced}/><DesignerServices reduced={reduced}/><DesignerProductions reduced={reduced}/><ProductionAnnouncements compact/><HomeNews/><Process/><Partners/><JourneyLinks/></>}

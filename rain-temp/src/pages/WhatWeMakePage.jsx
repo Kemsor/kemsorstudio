@@ -1,3 +1,5 @@
+import StudioImage from '../StudioImage';
+import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import SectionSubmenu from '../SectionSubmenu';
@@ -52,7 +54,7 @@ function Label({ children, end }) {
 }
 function FormatImage({ name, alt, preview = false }) {
   const base = `/assets/stills/${name}`;
-  return <img src={`${base}-960.webp`} srcSet={[640, 960, 1600].map(width => `${base}-${width}.webp ${width}w`).join(', ')} sizes={preview ? "(max-width: 700px) 44vw, 23vw" : "(max-width: 700px) 90vw, 75vw"} alt={alt} width="960" height="540" loading={preview ? "eager" : "lazy"} decoding="async"/>;
+  return <StudioImage mediaSlot={preview?"WhatWeMakePage-preview":"WhatWeMakePage-1"} src={`${base}-960.webp`} srcSet={[640, 960, 1600].map(width => `${base}-${width}.webp ${width}w`).join(', ')} sizes={preview ? "(max-width: 700px) 44vw, 23vw" : "(max-width: 700px) 90vw, 75vw"} alt={alt} width="960" height="540" loading={preview ? "eager" : "lazy"} decoding="async"/>;
 }
 
 Label.displayName = 'EditorialLabel';
@@ -67,9 +69,9 @@ export default function WhatWeMakePage() {
     formats.forEach(format => { const element = document.getElementById(format.id); if(element) observer.observe(element); });
     return () => observer.disconnect();
   }, []);
-  return <div className="produce-hub what-we-make-page">
+  return <PageVisuals page="what-we-make"><div className="produce-hub what-we-make-page">
     <div className="make-top-strip"><a href="/">KEMSOR STUDIOS</a><span>STORY. CRAFT. CINEMA.</span></div>
-    <section className="produce-hero make-hero" aria-labelledby="make-title"><div className="produce-hero-content"><p className="produce-kicker">WHAT WE MAKE</p><MotionHeading as="h1" id="make-title">Every story has a shape.<span>We build for it.</span></MotionHeading><MotionCopy>Feature films, series, documentaries and short films each ask something different of a production. We plan for your format so the story reaches the screen as you imagined it.</MotionCopy><CTA href="/contact/?partner=filmmakers">Bring us your story</CTA></div><div className="make-contact-sheet" aria-label="Explore our formats">{formats.map(format => <a href={`/what-we-make/${format.id}/`} key={format.id}><div className="make-sheet-photo"><FormatImage name={format.image} alt={format.alt} preview/><span aria-hidden="true">{format.number}</span></div><span className="make-sheet-caption">{format.title}<Arrow/></span></a>)}</div><div className="produce-hero-foot"><span>FEATURES · SERIES · DOCUMENTARIES · SHORTS</span><a href="#make-formats">Find your format <span aria-hidden="true"><SiteIcon name="arrow-down" size={16} /></span></a></div></section>
+    <section className="inner-hero produce-hero make-hero" aria-labelledby="make-title"><div className="produce-hero-content"><p className="produce-kicker">WHAT WE MAKE</p><MotionHeading as="h1" id="make-title">Every story has a shape.<span>We build for it.</span></MotionHeading><MotionCopy>Feature films, series, documentaries and short films each ask something different of a production. We plan for your format so the story reaches the screen as you imagined it.</MotionCopy><CTA href="/contact/?partner=filmmakers">Bring us your story</CTA></div><div className="make-contact-sheet" aria-label="Explore our formats">{formats.map(format => <a href={`/what-we-make/${format.id}/`} key={format.id}><div className="make-sheet-photo"><FormatImage name={format.image} alt={format.alt} preview/><span aria-hidden="true">{format.number}</span></div><span className="make-sheet-caption">{format.title}<Arrow/></span></a>)}</div><div className="produce-hero-foot"><span>FEATURES · SERIES · DOCUMENTARIES · SHORTS</span><a href="#make-formats">Find your format <span aria-hidden="true"><SiteIcon name="arrow-down" size={16} /></span></a></div></section>
 
     <SectionSubmenu id="make-formats" page={activeFormat} menu={{label:'WHAT WE MAKE',name:'Choose a story format',href:'/what-we-make/',pages:formats.map(format=>[format.id,format.title])}}/>
 
@@ -78,7 +80,7 @@ export default function WhatWeMakePage() {
     {formats.map((format, index) => <section className={`produce-section make-format${index % 2 ? ' make-format-reversed' : ''}`} id={format.id} aria-labelledby={`${format.id}-title`} key={format.id}>
       <span className="make-chapter-number" aria-hidden="true">{format.number}</span><Label end={format.context}>{format.number} · {format.title.toUpperCase()}</Label>
       <div className="make-format-intro"><figure className="make-format-image"><FormatImage name={format.image} alt={format.alt}/><figcaption><span>{format.number} / 04</span><span>{format.title}</span></figcaption></figure><div className="make-format-copy"><MotionHeading as="h2" id={`${format.id}-title`}>{format.title}.<br/><em>{format.accent}</em></MotionHeading><p className="make-hook">{format.hook}</p><p>{format.body}</p><TextLink href={`/what-we-make/${format.id}/`}>Explore {format.title}</TextLink></div></div>
-      <div className="make-capability-head"><h3>What we bring</h3><span>What it means for you</span></div><dl className="make-capabilities">{format.capabilities.map(([title, description]) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl>
+      <div className="make-capability-head studio-ledger-head"><h3>What we bring</h3><span>What it means for you</span></div><dl className="make-capabilities studio-ledger studio-ledger-pairs">{format.capabilities.map(([title, description]) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl>
       <div className="make-format-foot"><p><span>MADE FOR</span>{format.audience}</p><CTA href="/contact/?partner=filmmakers">{format.action}</CTA></div>
       {/* Related-work cards stay hidden until a cleared still, title, year,
           platform (for series) and confirmed Kemsor credit are supplied. */}
@@ -89,5 +91,5 @@ export default function WhatWeMakePage() {
     <section className="produce-section make-ways" aria-labelledby="make-ways-title"><Label>WHEREVER YOU ARE · THERE’S A WAY IN</Label><div className="make-ways-head"><MotionHeading as="h2" id="make-ways-title">Bring us the story<br/><em>at any stage.</em></MotionHeading><MotionCopy>You don’t need everything figured out. Bring us in at the start or at the stage where you need us most.</MotionCopy></div><div className="make-ways-grid">{ways.map(([title, description, href, action], index) => <a href={href} key={title}><span className="produce-related-number">0{index + 1}</span><h3>{title}</h3><p>{description}</p><span className="make-way-link">{action}<Arrow /></span></a>)}</div></section>
 
     <section className="produce-section produce-closing" aria-labelledby="make-closing-title"><Label>YOUR NEXT PROJECT</Label><div><MotionHeading as="h2" id="make-closing-title">What are you<br/><em>making?</em></MotionHeading><div><MotionCopy>Tell us about your feature, series, documentary or short and where it stands. We’ll help find the next step.</MotionCopy><div className="produce-actions"><CTA href="/contact/?partner=filmmakers">Start a conversation</CTA><TextLink href="/projects/">Explore productions</TextLink></div></div></div></section>
-  </div>;
+  </div></PageVisuals>;
 }

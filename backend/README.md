@@ -51,7 +51,7 @@ This implements the basic T04 content/enquiry workspace and supporting access co
 
 Full individual film records, cast/crew databases, casting and script submissions are Phase 2 and are not implemented. Paid KPI/maintenance services remain excluded under the definitive agreement.
 
-Privileged MFA depends on the approved security design and is not implemented in this basic local build. Production HTTPS, secure cookies, approved reverse-proxy configuration, staging/UAT separation, malware controls where agreed, legal review, automated retention/backup and launch approval remain deployment requirements. No production deployment was performed.
+Privileged MFA is now implemented; see the Phase 1 feature completion notes below. Production HTTPS, secure cookies, approved reverse-proxy configuration, staging/UAT separation, malware controls where agreed, legal review, automated retention/backup and launch approval remain deployment requirements. No production deployment was performed.
 
 ## Routes
 
@@ -216,3 +216,32 @@ inbox delivery; submit one confirmation to verify both. The Node app's localhost
 may not expose the cPanel relay; if it refuses or times out, report that exact
 result to support. `EMAIL_TRANSPORT=godaddy` restores the working platform sender.
 Only select relay in Publish after the hosted Preview delivery test succeeds.
+
+## Phase 1 feature completion — 31 October 2026
+
+The CMS now supports production announcements (`upcoming`, `in_development`, `coming_soon`, `released`) and approved press resources with resource URLs and usage permissions. New records begin as drafts; publish only studio-approved material. The website displays these on Productions and Press & Media, and shows homepage production/news highlights only when published records exist. Newsroom is separate from Press & Media. Leadership and legal publishing use the existing CMS areas; no biographies, project claims or policies were invented.
+
+Enquiries include the full follow-up stages, priority, tags, source, UTC follow-up time, status/assignment history, staff-only filtered CSV export and separate creative, brand, distribution, financing, international and partner-registration categories. Career applications accept an optional HTTPS portfolio URL. Copyright enquiries require an evidence URL.
+
+All CMS staff now complete authenticator MFA before receiving an authenticated session. First sign-in enrolls an authenticator with a manual setup key and returns eight one-use recovery codes. TOTP secrets are authenticated/encrypted using a key derived from `SESSION_SECRET`; preserve that secret securely across releases. Used authenticator time steps are rejected. Existing password-only sessions must sign in again. Keep recovery codes privately: they are displayed only during enrollment. This change requires no external email or authenticator service.
+
+Apply database migrations before starting the updated backend:
+
+```sh
+cd backend
+node --env-file=.env src/migrate.js --use-migration-credentials
+```
+
+Use the configured migration account, separate from the restricted application account. This command applies pending migrations without creating sample content. Migrations 013–015 add the workflow/content fields, MFA storage and submission-terms records. Local development migrations were applied; production migrations/deployment are separate.
+
+Script uploads default to disabled until an administrator publishes approved terms and a version in Site settings. The upload requires affirmative acceptance and records the terms version and time. Manual production planning remains available. Approved legal content must be supplied by Kemsor/legal counsel.
+
+Validation: frontend production build and 60 backend tests, including isolated-database publishing privacy, MFA enrollment/replay/recovery, workflow history, export authorization and submission gating. The four deferred workstreams (SEO/analytics, launch-evidence review, operations/handover and weekly reporting) remain outside this change.
+
+CMS images are automatically oriented, resized to fit 2400 × 2400 without upscaling and compressed to WebP using Sharp; metadata is stripped. Uploads show measured transfer progress followed by a processing state. CMS and public page navigation show delayed loading indicators.
+
+Reports & downloads provides role-restricted enquiry, career application, publishing and admin activity reports with UTC date, status, category and search filters. CSV exports include all matching rows up to 50,000; larger results require narrower filters. Downloads are audited and spreadsheet formula cells are escaped. These are operational CMS reports, separate from the deferred weekly KPI reporting.
+
+Professional onboarding: `/join/?type=professional` is separate from artist registration at `/join/`. The shared department/role catalogue in `shared/professional-roles.json` drives both the dependent dropdowns and server validation. Migration 016 adds department and specialty fields. Members land in their private profile and professionals can browse the reviewed artist directory; studio approval and contact checks still gate shortlisting/enquiries. Registration reviews and the admin dashboard include professional roles. Live directory filters come only from approved, visible artists.
+
+Registration validation covers artist onboarding and each of the 42 professional roles, including profile persistence, sign-in, CMS reviews, consent, duplicate emails, invalid department/role pairs, CSRF, per-IP limits and publication privacy. Professional profiles cannot clear an existing department/role classification. These checks run against isolated temporary databases.

@@ -1,0 +1,23 @@
+.account-dropdown{position:relative}.account-dropdown-trigger{display:inline-flex;align-items:center;gap:8px;font:inherit;cursor:pointer;border:0;background:transparent;padding:10px 13px;min-height:40px;border-radius:999px}.account-dropdown-trigger>.site-icon:last-child{transition:transform .2s}.account-dropdown-trigger[aria-expanded=true]>.site-icon:last-child{transform:rotate(180deg)}
+html body #top.creative-site .creative-header .account-dropdown-panel{position:absolute;top:calc(100% + 13px);right:0;width:295px;max-width:calc(100vw - 32px);padding:10px;background:#fff!important;border:1px solid #e6dfd3;border-radius:17px;box-shadow:0 18px 48px #17112324;color:#302b24!important;text-align:left;z-index:120}
+html body #top.creative-site .creative-header .account-dropdown-panel[hidden]{display:none!important}.account-dropdown-intro{padding:13px 12px 16px;border-bottom:1px solid #eee8de;margin-bottom:7px}.account-dropdown-intro>small{display:block;font-size:9px;font-weight:600;letter-spacing:.11em;color:#a28a65}.account-dropdown-intro>strong{display:block;font-size:13px;font-weight:500;margin-top:7px;line-height:1.5;overflow-wrap:anywhere}
+html body #top.creative-site .creative-header .account-dropdown-panel a{display:flex;align-items:center;gap:11px;min-height:44px;padding:12px;border-radius:10px;background:transparent!important;color:#3c352d!important;-webkit-text-fill-color:#3c352d!important;text-decoration:none;font-size:12px;line-height:1.5}
+html body #top.creative-site .creative-header .account-dropdown-panel a :is(span,small,svg){color:inherit!important;-webkit-text-fill-color:inherit!important}.account-dropdown-panel a small{display:block;font-size:10px;opacity:.65;margin-top:3px}.account-dropdown-panel a>.site-icon{flex-shrink:0}
+html body #top.creative-site .creative-header .account-dropdown-panel a:is(:hover,:focus-visible){background:#f6f1e9!important;color:#6f4f29!important;-webkit-text-fill-color:#6f4f29!important}.account-dropdown-registration{border-top:1px solid #eee8de;margin-top:7px;padding-top:13px}.account-dropdown-registration>small{display:block;padding:0 12px 5px;font-size:9px;letter-spacing:.1em;color:#aa9578}
+html body #top.creative-site .creative-header .account-dropdown-panel .account-dropdown-logout{display:block;background:#faf5ee!important;color:#94643c!important;-webkit-text-fill-color:#94643c!important;width:100%;border:0;border-radius:10px;padding:11px 12px;margin-top:7px;min-height:42px;font-size:12px;text-align:left;cursor:pointer}.account-dropdown-panel :is(a,button):focus-visible{outline:2px solid #505dc9!important;outline-offset:1px}
+@media(max-width:1440px){html body #top.creative-site .creative-header .account-dropdown-mobile .account-dropdown-trigger{width:100%;justify-content:flex-start;border:1px solid #e4ddcf!important;background:#fff!important;color:#302b24!important;-webkit-text-fill-color:#302b24!important;padding:13px 16px;border-radius:14px}.account-dropdown-mobile .account-dropdown-trigger>.site-icon:last-child{margin-left:auto}html body #top.creative-site .creative-header .account-dropdown-mobile .account-dropdown-panel{position:static;width:100%;max-width:none;box-shadow:none;border-radius:14px;margin-top:10px}.account-dropdown-mobile .account-dropdown-panel a{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.account-dropdown-trigger>.site-icon:last-child{transition:none}}
+
+/* Account text and icons must remain readable on the dark navigation surface. */
+html body #top.creative-site .creative-header .header-account-links .account-dropdown .account-dropdown-trigger,
+html body #top.creative-site .creative-header .header-account-links .account-dropdown .account-dropdown-trigger :is(span,svg){
+ color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;visibility:visible!important;
+}
+html body #top.creative-site .creative-header .header-account-links .account-dropdown .account-dropdown-trigger{
+ background:#ffffff0c!important;border:1px solid #ffffff30!important;
+}
+html body #top.creative-site .creative-header .header-account-links .account-dropdown .account-dropdown-trigger:is(:hover,:focus-visible,[aria-expanded=true]),
+html body #top.creative-site .creative-header .header-account-links .account-dropdown .account-dropdown-trigger:is(:hover,:focus-visible,[aria-expanded=true]) :is(span,svg){
+ color:#171717!important;-webkit-text-fill-color:#171717!important;
+}
+html body #top.creative-site .creative-header .header-account-links .account-dropdown .account-dropdown-trigger:is(:hover,:focus-visible,[aria-expanded=true]){background:#fff!important;border-color:#fff!important}

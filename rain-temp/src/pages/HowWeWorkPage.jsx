@@ -1,3 +1,5 @@
+import SlidingCards from '../SlidingCards';
+import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
 import React from 'react';
 import MotionHeading, { MotionCopy } from '../TextMotion';
@@ -50,8 +52,8 @@ function SheetLabel({ children, index }) {
 }
 
 export default function HowWeWorkPage() {
-  return <div className="call-sheet-page">
-    <section className="call-sheet-hero call-sheet-width" aria-labelledby="call-sheet-title">
+  return <PageVisuals page="how-we-work"><div className="call-sheet-page">
+    <section className="inner-hero call-sheet-hero call-sheet-width" aria-labelledby="call-sheet-title">
       <div className="call-sheet-masthead"><a href="/about/">KEMSOR STUDIOS · STUDIO PAGE</a><span>CALL SHEET</span></div>
       <div className="call-sheet-hero-grid">
         <div>
@@ -81,9 +83,9 @@ export default function HowWeWorkPage() {
       <SheetLabel index="02 / 06">ENGAGEMENT TYPES</SheetLabel>
       <MotionHeading as="h2" id="call-sheet-engagement-title">Three ways to work with us.</MotionHeading>
       <p>Pick the one that fits.</p>
-      <div className="call-sheet-engagements">{engagements.map(([unit, type, copy, best]) => <article key={unit}>
+      <div className="call-sheet-engagements engagement-ground-cards">{engagements.map(([unit, type, copy, best]) => <article key={unit} tabIndex={0}><div className="engagement-ground-content">
         <span className="call-sheet-unit" aria-label={`Unit ${unit}`}>{unit}</span>
-        <h3>{type}</h3><p>{copy}</p><p className="call-sheet-best">{best}</p>
+        <h3>{type}</h3><div className="engagement-ground-detail"><div><p>{copy}</p><p className="call-sheet-best">{best}</p></div></div></div>
       </article>)}</div>
     </section>
 
@@ -95,7 +97,7 @@ export default function HowWeWorkPage() {
     <section className="call-sheet-section call-sheet-width" aria-labelledby="call-sheet-principles-title">
       <SheetLabel index="04 / 06">NOTES FROM PRODUCTION</SheetLabel>
       <MotionHeading as="h2" id="call-sheet-principles-title">Our principles, <em>on an ordinary Tuesday.</em></MotionHeading>
-      <ol className="call-sheet-principles">{principles.map(([title, copy], index) => <li key={title}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol>
+      <SlidingCards as="ol" className="call-sheet-principles">{principles.map(([title, copy], index) => <li key={title}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}</SlidingCards>
     </section>
 
     <section className="call-sheet-section call-sheet-width call-sheet-split" aria-labelledby="call-sheet-needs-title">
@@ -109,5 +111,5 @@ export default function HowWeWorkPage() {
       <dl className="call-sheet-signoff"><div><dt>PREPARED BY</dt><dd>Kemsor Studios</dd></div><div><dt>APPROVED BY</dt><dd>You</dd></div><div><dt>DATE</dt><dd>Day one</dd></div></dl>
       <p className="call-sheet-end">CLEAR PLAN. NO SURPRISES.</p>
     </section>
-  </div>;
+  </div></PageVisuals>;
 }

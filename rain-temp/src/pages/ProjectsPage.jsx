@@ -1,3 +1,5 @@
+import StudioImage,{getImagePlacement} from '../StudioImage';
+import {ProductionAnnouncements} from '../StudioPublishing';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import EditorialPage from '../EditorialPage';
 import React from 'react';
@@ -32,15 +34,15 @@ const formats = [
 export function ProjectsPage() {
   return <EditorialPage page="projects"><>
     <PageHero eyebrow="PRODUCTIONS / STORY FORMATS" title="Stories take" accent="different forms." description="Films, series, documentaries and shorts. A shared creative vision, with a production plan shaped around the work." image="/assets/stills/fort-helicopter-action-1600.webp" alt="Supplied illustration of a helicopter action sequence over a fort" caption="SUPPLIED ILLUSTRATION / ACTION & SCALE" />
-    <nav className="page-jump-nav" aria-label="Production formats">
+    <ProductionAnnouncements/><nav className="page-jump-nav" aria-label="Production formats">
       <a href="#project-showcase">Visual archive</a>{formats.map(format => <a href={`#${format.id}`} key={format.id}>{format.title}</a>)}<a href="#international-co-productions">International co-productions</a>
     </nav>
     <section className="page-section" id="project-showcase">
       <SectionHeading index="01" label="THE VISUAL ARCHIVE" title={<>Character. Place.<br />The moment in between.</>} description="A selection of the supplied screen images, portraits and posters, kept in their original composition." />
-      <div className="project-collection">{images.map((image, index) => <figure className="project-item" key={image.name} data-reveal>
-        <img className="page-image" src={`/assets/stills/${image.name}${image.responsive?'-960':''}.webp`} srcSet={image.responsive?[640,960,1600].map(width=>`/assets/stills/${image.name}-${width}.webp ${width}w`).join(', '):undefined} sizes="(max-width: 700px) 90vw, 45vw" alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" style={{ aspectRatio: `${image.width} / ${image.height}`, objectFit: 'contain' }} />
-        <figcaption><div><h3>{image.title}</h3><p className="page-caption">{image.detail}</p></div></figcaption>
-      </figure>)}</div>
+      <div className="project-collection">{images.map((image, index) => {const source=`/assets/stills/${image.name}${image.responsive?'-960':''}.webp`;const replacement=getImagePlacement('ProjectsPage-1',source);return <figure className="project-item" key={image.name} data-reveal>
+        <StudioImage mediaSlot="ProjectsPage-1" className="page-image" src={`/assets/stills/${image.name}${image.responsive?'-960':''}.webp`} srcSet={image.responsive?[640,960,1600].map(width=>`/assets/stills/${image.name}-${width}.webp ${width}w`).join(', '):undefined} sizes="(max-width: 700px) 90vw, 45vw" alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" style={{ aspectRatio: `${replacement?.width||image.width} / ${replacement?.height||image.height}`, objectFit: 'contain' }} />
+        <figcaption><div><h3>{replacement?.title||image.title}</h3><p className="page-caption">{replacement?.detail||image.detail}</p></div></figcaption>
+      </figure>;})}</div>
       <p className="page-caption">These images were supplied for the website. Individual production credits and Kemsor’s role have not yet been published.</p>
     </section>
     <section className="page-section" aria-label="Story formats">

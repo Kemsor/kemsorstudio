@@ -1,5 +1,6 @@
+import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
-import React from 'react';
+import React,{useEffect,useRef,useState} from 'react';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import { CTA, TextLink } from '../PageUI';
 import './india-production-services.css';
@@ -32,6 +33,21 @@ const steps = [
   ['The shoot', 'We run the production on the ground, with daily reports so you always know where things stand.'],
   ['Wrap & handover', 'Locations returned properly, accounts closed, and footage, records and paperwork handed over in order.'],
 ];
+function JourneyProcess(){
+ const list=useRef(null),current=useRef(null),[active,setActive]=useState(-1);
+ function place(card,event){
+  const parent=list.current;if(!card||!parent)return;
+  current.current=card;
+  const box=card.getBoundingClientRect(),frame=parent.getBoundingClientRect();
+  parent.style.setProperty('--process-x',`${box.left-frame.left}px`);parent.style.setProperty('--process-y',`${box.top-frame.top}px`);
+  parent.style.setProperty('--process-width',`${box.width}px`);parent.style.setProperty('--process-height',`${box.height}px`);
+  if(event){parent.style.setProperty('--process-glow-x',`${event.clientX-box.left}px`);parent.style.setProperty('--process-glow-y',`${event.clientY-box.top}px`);}
+  setActive(Number(card.dataset.step));
+ }
+ useEffect(()=>{const observer=new ResizeObserver(()=>{if(current.current)place(current.current);});if(list.current)observer.observe(list.current);return()=>observer.disconnect();},[]);
+ function leave(){const focused=document.activeElement;if(list.current?.contains(focused)){place(focused.closest('li'));return;}current.current=null;setActive(-1);}
+ return <ol ref={list} className="india-process india-process-sliding" data-active={active>=0} onPointerLeave={leave} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget)){current.current=null;setActive(-1);}}}>{steps.map(([title,copy],index)=><li key={title} data-step={index} data-active={active===index} tabIndex={0} onPointerEnter={event=>place(event.currentTarget,event)} onPointerMove={event=>place(event.currentTarget,event)} onFocus={event=>place(event.currentTarget)}><span className="india-step-number" aria-hidden="true">{String(index+1).padStart(2,'0')}</span><h3>{title}</h3><p>{copy}</p></li>)}</ol>;
+}
 const international = [
   ['One point of contact', 'A named Kemsor lead who knows your production inside out.'],
   ['Your reporting format', 'Budgets and cost reports in the currency and structure your financiers expect.'],
@@ -61,30 +77,32 @@ function Label({ children, number }) {
   return <div className="india-label"><span>{children}</span><span aria-hidden="true">{number}</span></div>;
 }
 function RowList({ rows, headings }) {
-  return <><div className="india-row-head" aria-hidden="true"><span>{headings[0]}</span><span>{headings[1]}</span></div><dl className="india-row-list">{rows.map(([title, copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl></>;
+  return <><div className="india-row-head studio-ledger-head" aria-hidden="true"><span>{headings[0]}</span><span>{headings[1]}</span></div><dl className="india-row-list studio-ledger studio-ledger-pairs">{rows.map(([title, copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl></>;
 }
 
+function IndiaImage({image,alt,caption,number}){
+ return <figure className="india-editorial-image"><div className="india-editorial-image-window"><StudioImage mediaSlot="IndiaProductionServicesPage-1" src={`/assets/stills/${image}-960.webp`} srcSet={[640,960,1600].map(width=>`/assets/stills/${image}-${width}.webp ${width}w`).join(', ')} sizes="(max-width:800px) 90vw, 45vw" width="960" height="640" alt={alt} loading="lazy" decoding="async"/><span className="india-image-index" aria-hidden="true">{number} / INDIA</span></div><figcaption><span>{caption}</span><span>ILLUSTRATIVE VISUAL</span></figcaption></figure>;
+}
 export default function IndiaProductionServicesPage() {
   return <div className="india-services-page">
-    <section className="india-hero india-width" aria-labelledby="india-title">
+    <section className="inner-hero india-hero india-width" aria-labelledby="india-title">
       <div className="india-hero-top"><a href="/">KEMSOR STUDIOS</a><span>INDIA PRODUCTION SERVICES</span></div>
       <div className="india-hero-grid">
         <div><p className="india-kicker">INDIA PRODUCTION SERVICES</p><MotionHeading as="h1" id="india-title">Filming in India? <em>Work with people who know the ground.</em></MotionHeading></div>
         <div className="india-hero-copy"><MotionCopy>India offers deserts and snowlines, coastlines and megacities, palaces and village lanes. Kemsor plans, staffs and runs your shoot here so you can focus on the work.</MotionCopy><div className="india-actions"><CTA href={enquiry}>Plan a shoot in India</CTA><TextLink href="#what-we-handle">See what we handle</TextLink></div></div>
       </div>
-      <figure className="india-hero-visual"><img src="/assets/stills/daylight-valley-production-1600.webp" srcSet="/assets/stills/daylight-valley-production-640.webp 640w, /assets/stills/daylight-valley-production-960.webp 960w, /assets/stills/daylight-valley-production-1600.webp 1600w" sizes="(max-width: 1440px) 90vw, 1280px" width="1600" height="679" alt="Supplied illustrative artwork of a film crew working beside a river in a mountain valley" fetchPriority="high" decoding="async"/><figcaption>VISUAL STUDY / SUPPLIED ARTWORK</figcaption></figure>
+      <figure className="india-hero-visual"><StudioImage mediaSlot="IndiaProductionServicesPage-2" src="/assets/stills/daylight-valley-production-1600.webp" srcSet="/assets/stills/daylight-valley-production-640.webp 640w, /assets/stills/daylight-valley-production-960.webp 960w, /assets/stills/daylight-valley-production-1600.webp 1600w" sizes="(max-width: 1440px) 90vw, 1280px" width="1600" height="679" alt="Supplied illustrative artwork of a film crew working beside a river in a mountain valley" fetchPriority="high" decoding="async"/><figcaption>VISUAL STUDY / SUPPLIED ARTWORK</figcaption></figure>
     </section>
 
-    <section className="india-section india-width" aria-labelledby="india-backdrops-title">
+    <section className="india-section india-width india-backdrops-editorial" aria-labelledby="india-backdrops-title">
       <Label number="01">WHY INDIA</Label>
-      <div className="india-intro-grid"><MotionHeading as="h2" id="india-backdrops-title">One country. <em>Almost every backdrop.</em></MotionHeading><div><MotionCopy>India offers high mountains and open desert, tropical coast and dense forest, historic architecture and busy cities. We help you find locations that suit the story and plan the travel between them.</MotionCopy><MotionCopy>India also has one of the world’s most active film industries, working across many languages and regions. That means experienced crews, skilled craftspeople and a deep pool of acting talent, in more places than most visiting productions expect.</MotionCopy></div></div>
+      <div className="india-story-split"><div className="india-story-copy"><div className="india-intro-grid"><MotionHeading as="h2" id="india-backdrops-title">One country. <em>Almost every backdrop.</em></MotionHeading><div><MotionCopy>India offers high mountains and open desert, tropical coast and dense forest, historic architecture and busy cities. We help you find locations that suit the story and plan the travel between them.</MotionCopy><MotionCopy>India also has one of the world’s most active film industries, working across many languages and regions. That means experienced crews, skilled craftspeople and a deep pool of acting talent, in more places than most visiting productions expect.</MotionCopy></div></div></div><IndiaImage image="daylight-snow-production" alt="Illustrative film production in a snow-covered Indian mountain landscape" caption="MANY LANDSCAPES. ONE PRODUCTION BASE." number="01"/></div>
       <RowList rows={benefits} headings={['What India offers', 'What it means for your production']}/>
     </section>
 
-    <section className="india-section india-width" aria-labelledby="india-preparation-title">
+    <section className="india-section india-band india-band-dark" aria-labelledby="india-preparation-title"><div className="india-width">
       <Label number="02">THE HONEST PART</Label>
-      <div className="india-intro-grid"><MotionHeading as="h2" id="india-preparation-title">India <em>rewards preparation.</em></MotionHeading><div><MotionCopy>Filming here is very rewarding, but it is not something to improvise. Distances are large, permissions involve more than one authority, languages change from region to region, and the way a set runs can differ from what an international team is used to.</MotionCopy><MotionCopy>A good local partner closes that gap. We understand what international productions expect: clear budgets, reliable schedules, safe sets, and regular reporting, and we understand how things work on the ground here. Our job is to make those two worlds fit together.</MotionCopy></div></div>
-    </section>
+      <div className="india-story-split india-image-first"><IndiaImage image="development-packaging" alt="Illustrative creative development and production planning scene" caption="THE WORK STARTS BEFORE THE FIRST SHOT." number="02"/><div className="india-story-copy"><div className="india-intro-grid"><MotionHeading as="h2" id="india-preparation-title">India <em>rewards preparation.</em></MotionHeading><div><MotionCopy>Filming here is very rewarding, but it is not something to improvise. Distances are large, permissions involve more than one authority, languages change from region to region, and the way a set runs can differ from what an international team is used to.</MotionCopy><MotionCopy>A good local partner closes that gap. We understand what international productions expect: clear budgets, reliable schedules, safe sets, and regular reporting, and we understand how things work on the ground here. Our job is to make those two worlds fit together.</MotionCopy></div></div></div></div></div></section>
 
     <section className="india-section india-width" id="what-we-handle" aria-labelledby="india-services-title">
       <Label number="03">WHAT WE HANDLE</Label>
@@ -93,16 +111,15 @@ export default function IndiaProductionServicesPage() {
       <p className="india-partnership-note">Need a partner on the project itself? See <PartnershipLinks/>.</p>
     </section>
 
-    <section className="india-section india-width" aria-labelledby="india-process-title">
+    <section className="india-section india-band india-band-soft" aria-labelledby="india-process-title"><div className="india-width">
       <Label number="04">HOW IT WORKS</Label>
       <MotionHeading as="h2" id="india-process-title">From first email <em>to final wrap.</em></MotionHeading>
-      <ol className="india-process">{steps.map(([title, copy], index) => <li key={title}><span className="india-step-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{copy}</p></li>)}</ol>
-    </section>
+      <JourneyProcess/>
+    </div></section>
 
-    <section className="india-section india-width" aria-labelledby="india-international-title">
+    <section className="india-section india-band india-band-dark india-borders-editorial" aria-labelledby="india-international-title"><div className="india-width">
       <Label number="05">WORKING ACROSS BORDERS</Label>
-      <div className="india-intro-grid"><MotionHeading as="h2" id="india-international-title">Far from home, but <em>never out of the loop.</em></MotionHeading><ul className="india-international-list">{international.map(([title, copy]) => <li key={title}><h3>{title}</h3><p>{copy}</p></li>)}<li><p>International standards: safe sets, fair working hours and clear documentation throughout.</p></li></ul></div>
-    </section>
+      <div className="india-story-split"><div className="india-story-copy"><div className="india-intro-grid"><MotionHeading as="h2" id="india-international-title">Far from home, but <em>never out of the loop.</em></MotionHeading><ul className="india-international-list">{international.map(([title, copy]) => <li key={title}><h3>{title}</h3><p>{copy}</p></li>)}<li><p>International standards: safe sets, fair working hours and clear documentation throughout.</p></li></ul></div></div><IndiaImage image="work-camera-crew" alt="Illustrative camera crew working together on a film set" caption="LOCAL KNOWLEDGE. A SHARED WAY OF WORKING." number="05"/></div></div></section>
 
     <section className="india-section india-width" aria-labelledby="india-formats-title">
       <Label number="06">FORMATS</Label>
@@ -110,10 +127,9 @@ export default function IndiaProductionServicesPage() {
       <RowList rows={formats} headings={['Format', 'How we support it']}/>
     </section>
 
-    <section className="india-section india-width india-respect" aria-labelledby="india-respect-title">
+    <section className="india-section india-band india-band-warm india-respect" aria-labelledby="india-respect-title"><div className="india-width">
       <Label number="07">HOW WE FILM</Label>
-      <div className="india-intro-grid"><MotionHeading as="h2" id="india-respect-title">We film <em>as guests.</em></MotionHeading><MotionCopy>Every location belongs to a family, a community or a city. We speak to people before the cameras arrive, keep our promises and leave places as we found them.</MotionCopy></div>
-    </section>
+      <div className="india-story-split india-image-first"><IndiaImage image="daylight-park-production" alt="Illustrative crew filming on location in a green outdoor setting" caption="GOOD PRODUCTIONS LEAVE GOOD RELATIONSHIPS." number="07"/><div className="india-story-copy"><div className="india-intro-grid"><MotionHeading as="h2" id="india-respect-title">We film <em>as guests.</em></MotionHeading><MotionCopy>Every location belongs to a family, a community or a city. We speak to people before the cameras arrive, keep our promises and leave places as we found them.</MotionCopy></div></div></div></div></section>
 
     <section className="india-section india-width" aria-labelledby="india-paperwork-title">
       <Label number="08">INCENTIVES &amp; PAPERWORK</Label>

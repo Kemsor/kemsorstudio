@@ -1,3 +1,6 @@
+import useFaqAccordions from './useFaqAccordions';
+import './inner-layout-repairs.css';
+import PageProgress from './PageProgress';
 import CursorDot from './CursorDot';
 import useThemeMotion from './useThemeMotion';
 import './theme-motion.css';
@@ -36,7 +39,11 @@ import './neutral-palette.css';
 import './immersive-opening.css';
 import './hero-overlay-nav.css';
 import './heading-tones.css';
+import './breadcrumbs.css';
+import './inner-heroes.css';
+import './studio-ledger.css';
 import './cta-system.css';
+import '../../backend/public/form-controls.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 
 if (location.hash === '#home') history.replaceState(history.state, '', `${location.pathname}${location.search}`);
@@ -44,6 +51,7 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 const routes={
+ 'press-media':lazy(()=>import('./pages/PressMediaPage')),
  'partner-with-us':lazy(()=>import('./pages/PartnerWithUsPage')),
  'documentaries':lazy(()=>import('./pages/DocumentariesPage')),
  'series-ott':lazy(()=>import('./pages/SeriesOttPage')),
@@ -102,10 +110,11 @@ function PendingPage() {
   const timer=setTimeout(()=>setVisible(true),300);
   return()=>clearTimeout(timer);
  },[]);
- return <div className="page-pending" aria-busy="true">{visible&&<TaskLoader label="Opening the next chapter"/>}</div>;
+ return <div className="page-pending" aria-busy="true">{visible&&<><div className="page-route-progress" role="progressbar" aria-label="Loading page"><i/></div><TaskLoader label="Opening the next chapter"/></>}</div>;
 }
 function ReadyPage({children,paused,reduced,onReady}) {
  useReveals(paused||reduced);
+ useFaqAccordions();
  useEffect(() => { onReady(); }, [onReady]);
  useEffect(()=>{
   let cancelled=false,frame;
@@ -150,7 +159,7 @@ function App() {
   document.title=pageInfo[page].title;
   document.querySelector('meta[name="description"]')?.setAttribute('content',pageInfo[page].description);
  },[page]);
- return <><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
+ return <><PageProgress/><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
   <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && !['news','blog','contact','careers'].includes(page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>

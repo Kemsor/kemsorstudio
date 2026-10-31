@@ -1,3 +1,4 @@
+import StudioImage from './StudioImage';
 import React, { useEffect, useRef, useState } from 'react';
 import './director-chair.css';
 import { TaskLoader } from './Loading';
@@ -10,7 +11,7 @@ export default function DirectorChair({ paused = false }) {
   const [localPaused, setLocalPaused] = useState(false);
   const [nearby, setNearby] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [tabHidden, setTabHidden] = useState(() => document.hidden);
+  const [tabHidden, setTabHidden] = useState(() => typeof document!=='undefined' && document.hidden);
   const [staticScreen, setStaticScreen] = useState(() => matchMedia('(prefers-reduced-motion: reduce), (max-width: 760px)').matches);
   const [modelState, setModelState] = useState('pending');
   const [portraitReady, setPortraitReady] = useState(false);
@@ -103,10 +104,10 @@ export default function DirectorChair({ paused = false }) {
 
   return <figure className="director-scene" ref={container} data-static={staticView} aria-label="A director’s chair turns to reveal a filmmaker seated in it.">
     <div className="director-frame" ref={artwork} data-model={modelState}>
-      <img className="director-placeholder" src={nearby ? stillPath('turn-back') : undefined} width="1672" height="941" alt="" decoding="async" aria-hidden="true" />
+      <StudioImage mediaSlot="DirectorChair-1" className="director-placeholder" src={nearby ? stillPath('turn-back') : undefined} width="1672" height="941" alt="" decoding="async" aria-hidden="true" />
       <div className="director-webgl" ref={host} aria-hidden="true" />
       {nearby && !staticView && modelState === 'pending' && <TaskLoader overlay label="Preparing the director’s chair" progress={portraitReady ? 50 : 0} />}
-      <img className="director-portrait" src={nearby ? stillPath('turn-seated') : undefined} width="1672" height="941" alt="" decoding="async" aria-hidden="true" onLoad={event => {
+      <StudioImage mediaSlot="DirectorChair-2" className="director-portrait" src={nearby ? stillPath('turn-seated') : undefined} width="1672" height="941" alt="" decoding="async" aria-hidden="true" onLoad={event => {
         const image = event.currentTarget;
         if (image.decode) image.decode().catch(() => {}).then(() => setPortraitReady(true));
         else setPortraitReady(true);

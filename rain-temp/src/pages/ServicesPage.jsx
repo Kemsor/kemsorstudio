@@ -1,3 +1,4 @@
+import StudioImage from '../StudioImage';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import EditorialPage from '../EditorialPage';
 import React from 'react';
@@ -157,7 +158,7 @@ export function ServicesPage() {
         {chapters.map((chapter, index) => (
           <section className={`page-section service-chapter${index % 2 ? ' is-reversed' : ''}`} id={chapter.id} key={chapter.id} aria-labelledby={`${chapter.id}-title`}>
             <figure className="page-image" data-reveal>
-              <img src={`/assets/services/${chapter.image}.webp`} alt={chapter.alt} loading="lazy" decoding="async" width="1672" height="941" />
+              <StudioImage mediaSlot="ServicesPage-1" src={`/assets/services/${chapter.image}.webp`} alt={chapter.alt} loading="lazy" decoding="async" width="1672" height="941" />
               <figcaption className="page-caption">{chapter.index} / {chapter.label}</figcaption>
             </figure>
             <div className="page-copy" data-reveal>
@@ -192,7 +193,7 @@ export function ServicesPage() {
           <TextLink href="/india-production-services/">Explore India Production Services</TextLink>
         </div>
         <figure className="page-image" data-reveal>
-          <img src="/assets/services/planning.webp" alt="Production collaborators reviewing a location plan in a courtyard" loading="lazy" decoding="async" width="1672" height="941" />
+          <StudioImage mediaSlot="ServicesPage-2" src="/assets/services/planning.webp" alt="Production collaborators reviewing a location plan in a courtyard" loading="lazy" decoding="async" width="1672" height="941" />
           <figcaption className="page-caption">YOUR STORY. A CONNECTED LOCAL PLAN.</figcaption>
         </figure>
       </section>

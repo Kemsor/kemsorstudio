@@ -1,3 +1,4 @@
+import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import MotionHeading, { MotionCopy } from '../TextMotion';
@@ -95,8 +96,8 @@ function SeasonPlan() {
 }
 
 export default function SeriesOttPage() {
-  return <div className="series-ott-page">
-    <section className="series-hero series-width" aria-labelledby="series-title">
+  return <PageVisuals page="series-ott"><div className="series-ott-page">
+    <section className="inner-hero series-hero series-width" aria-labelledby="series-title">
       <div className="series-hero-grid"><div><p className="series-kicker">PRODUCTIONS · SERIES &amp; OTT</p><MotionHeading as="h1" id="series-title">Series &amp; OTT.</MotionHeading><MotionHeading as="h2" className="series-hero-accent">Eight episodes. <em>One promise.</em></MotionHeading><MotionCopy>A series makes a promise in episode one and has to keep it until the last frame of the season. Kemsor plans series as seasons, not as long films so the story, the cast, the look and the delivery stay consistent from the first episode to the last.</MotionCopy><div className="series-actions"><CTA href="/contact/?partner=filmmakers">Talk to us about your series</CTA><TextLink href="#season-shooting">See how a season is shot</TextLink></div></div><WritersBoard/></div>
     </section>
     <SectionSubmenu section="what-we-make" page="series-ott"/>
@@ -104,7 +105,7 @@ export default function SeriesOttPage() {
     <section className="series-section series-width" aria-labelledby="series-commission-title">
       <Label number="01">BEFORE A SERIES IS COMMISSIONED</Label>
       <MotionHeading as="h2" id="series-commission-title">What platforms usually look for <em>and what we build with you.</em></MotionHeading>
-      <div className="series-commission-head" aria-hidden="true"><span>Platforms usually look for</span><span>We build with you</span></div><dl className="series-commission-list">{platformNeeds.map(([need, support]) => <div key={need}><dt>{need}</dt><dd>{support}</dd></div>)}</dl>
+      <div className="series-commission-head studio-ledger-head" aria-hidden="true"><span>Platforms usually look for</span><span>We build with you</span></div><dl className="series-commission-list studio-ledger studio-ledger-pairs">{platformNeeds.map(([need, support]) => <div key={need}><dt>{need}</dt><dd>{support}</dd></div>)}</dl>
       <MotionCopy className="series-platform-note">Every platform has its own priorities. We tailor the package to the one you’re approaching.</MotionCopy>
     </section>
 
@@ -128,7 +129,7 @@ export default function SeriesOttPage() {
 
     <section className="series-section series-width" aria-labelledby="series-formats-title">
       <Label number="05">SERIES WE MAKE</Label>
-      <div className="series-intro-grid"><MotionHeading as="h2" id="series-formats-title">Series we make.</MotionHeading><dl className="series-format-list">{formats.map(([type, copy]) => <div key={type}><dt>{type}</dt><dd>{copy}</dd></div>)}</dl></div>
+      <div className="series-intro-grid"><MotionHeading as="h2" id="series-formats-title">Series we make.</MotionHeading><dl className="series-format-list studio-ledger studio-ledger-pairs">{formats.map(([type, copy]) => <div key={type}><dt>{type}</dt><dd>{copy}</dd></div>)}</dl></div>
     </section>
 
     <section className="series-section series-width" aria-labelledby="series-slate-title">
@@ -145,5 +146,5 @@ export default function SeriesOttPage() {
     <section className="series-section series-width series-closing" aria-labelledby="series-closing-title">
       <div className="series-intro-grid"><div><MotionHeading as="h2" id="series-closing-title">Pitch us episode one.</MotionHeading><MotionCopy>Send us the pilot, the bible, or just the idea. We’ll tell you honestly what it needs to become a season.</MotionCopy><div className="series-actions"><CTA href="/script-to-production/">Send us your pilot</CTA><TextLink href="/contact/">Talk to the studio</TextLink></div></div><figure className="series-next-episode"><span>Next episode</span><div className="series-next-number" aria-hidden="true">01</div><figcaption><strong>E01 · Your series</strong><span>Starting when you are</span></figcaption></figure></div>
     </section>
-  </div>;
+  </div></PageVisuals>;
 }

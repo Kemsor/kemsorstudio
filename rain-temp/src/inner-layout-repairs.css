@@ -1,0 +1,53 @@
+/* Reading surfaces own both their background and ink. About retains its layout. */
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter{
+ --chapter-ink:#28252b;--chapter-copy:#56505b;--chapter-panel:#ffffff;--chapter-rule:#322a3926;
+}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dark{
+ --chapter-ink:#f5efe8;--chapter-copy:#d8cfc2;--chapter-panel:#ffffff08;--chapter-rule:#ffffff29;
+}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.story-formats,.structuring-formats,.coproduction-brief,.coproduction-benefits,.post-table-scroll,table,thead,tbody,tr,th,td,.produce-intro,.produce-copy,.pl-section-content,.fl-section-content){background:transparent!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(h2,h3,h4,dt,th){color:var(--chapter-ink)!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(p,dd,td,li){color:var(--chapter-copy)!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.story-formats,.structuring-formats,.coproduction-brief){padding:24px;border:1px solid var(--chapter-rule);border-radius:16px}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.post-overview-crafts,.post-overview-stages,.post-review-cards,.release-routes)>article{
+ padding:24px!important;border:1px solid var(--chapter-rule)!important;border-radius:14px;background:var(--chapter-panel)!important;min-width:0;
+}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.post-overview-crafts,.post-overview-stages,.post-review-cards){gap:18px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.post-overview-stages,.post-review-cards) article:last-child:nth-child(odd){grid-column:1/-1}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.story-stages,.structuring-rows)>div{padding:24px!important;gap:18px!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(th,td){padding:20px!important;border-color:var(--chapter-rule)!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter .visual-chapter-image>div{aspect-ratio:1.5;max-height:380px}
+/* Card-heavy chapters use the full reading width and a shallow image band. */
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-layout{grid-template-columns:minmax(0,1fr)!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-layout>*{grid-column:1!important;grid-row:auto!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-image>div{aspect-ratio:4;max-height:240px}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense :is(.post-overview-crafts,.post-review-cards){grid-template-columns:repeat(3,minmax(0,1fr))!important}
+/* Empty publishing feeds stay compact until approved projects are available. */
+html body #top.creative-site:not(.site-page-about) #main.inner-page .produce-work{min-height:0!important;padding-block:40px!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page :is(.fl-closing,.pl-closing) h2{font-size:clamp(28px,3vw,42px)!important;line-height:1.2!important}
+/* Keep the numbered release rows on one baseline. */
+html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li{grid-template-columns:32px minmax(0,.85fr) minmax(0,1.45fr)!important;gap:20px}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li>p{grid-column:auto!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .release-breadcrumb{background:linear-gradient(120deg,#211b29,#1b1716 48%,#302315)!important;color:#d2c4af!important;margin-block:0!important;padding-block:16px!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .release-breadcrumb :is(a,span){color:inherit!important}
+/* Fade effects must never make reading depend on waiting for an observer. */
+html body #top.creative-site:not(.site-page-about) #main.inner-page :is(.text-flow-word,.text-flow-copy){opacity:1!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .text-flow-word:not(.is-seen){transform:translateY(3px)}
+@media(max-width:900px){
+ html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense :is(.post-overview-crafts,.post-review-cards){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:600px){
+ html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.post-overview-crafts,.post-overview-stages,.post-review-cards){grid-template-columns:1fr!important}
+ html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-image>div{aspect-ratio:1.8}
+ html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li{grid-template-columns:24px minmax(0,1fr)!important}
+ html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li>p{grid-column:2!important}
+}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.release-roads)>article{padding:24px!important;border:1px solid var(--chapter-rule)!important;border-radius:14px;background:var(--chapter-panel)!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter .release-roads{grid-template-columns:1fr!important;gap:18px}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter .release-roads article{min-height:0!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .inner-hero :is(.pl-hero-brief,.fl-hero-copy,.ep-hero-foot) p{color:#d8cfc2!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dark :is(.story-formats,.structuring-formats,.coproduction-brief) :is(span,strong){color:#d8cfc2!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .post-pipeline{gap:18px}
+html body #top.creative-site:not(.site-page-about) #main.inner-page .post-pipeline li{padding:24px;border:1px solid #ddd5c8;border-radius:14px;background:linear-gradient(150deg,#faf8f3,#f1ece4)!important}
+html body #top.creative-site:not(.site-page-about) #main.inner-page :is(.release-faq,.produce-faqs,.india-faq) details[open]{border-color:#b8894f}
+html body #top.creative-site:not(.site-page-about) #main.inner-page :is(.release-faq,.produce-faqs,.india-faq) details[open]>summary{color:#9b632a!important}

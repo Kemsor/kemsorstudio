@@ -1,3 +1,4 @@
+import StudioImage from './StudioImage';
 import SiteIcon from './SiteIcon';
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
@@ -51,7 +52,7 @@ function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlar
   }, []);
   const start = () => {
     if (paused || automaticBlocked || document.hidden || wantsPlay.current) return;
-    takePlayback(stop);
+    // Visible cards can play together as muted previews.
     wantsPlay.current = true;
     const token = ++request.current;
     setStatus('loading');
@@ -65,9 +66,11 @@ function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlar
     return () => { if (node) { node.pause(); node.removeAttribute('src'); node.load(); } };
   }, [loaded, attemptPlay]);
   useEffect(() => { if (paused || automaticBlocked) stop(); }, [paused, automaticBlocked, stop]);
+  const startRef = useRef(start);
+  startRef.current = start;
   useEffect(() => {
     mounted.current = true;
-    const observer = new IntersectionObserver(([entry]) => { if (entry.intersectionRatio < .12) stop(); }, { threshold: [0, .12] });
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting && entry.intersectionRatio >= .12) startRef.current(); else stop(); }, { threshold: [0, .12] });
     observer.observe(card.current);
     return () => { mounted.current = false; observer.disconnect(); stop(); };
   }, [stop]);
@@ -75,13 +78,13 @@ function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlar
   return (
     <article className={`film-desk-card film-desk-card-${index + 1}`} data-film-index={index} ref={card}>
       <div className="film-preview" data-playing={String(status === 'playing')} style={{ '--film-ratio': `${film.width} / ${film.height}` }}
-        onPointerEnter={event => { if (event.pointerType === 'mouse') start(); }} onPointerLeave={event => { if (event.pointerType === 'mouse') stop(); }}
-        onFocus={event => { if (event.target.matches(':focus-visible')) start(); }} onBlur={stop}>
-        <img className="film-preview-poster" src={film.poster} alt="" width={film.width} height={film.height} loading="lazy" decoding="async" />
-        {loaded && <video className="film-preview-video" ref={video} src={film.preview} width={film.width} height={film.height} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} onWaiting={() => { if (wantsPlay.current) setStatus('loading'); }} onPlaying={() => { if (wantsPlay.current) setStatus('playing'); }} onError={() => { if (wantsPlay.current) { wantsPlay.current = false; setStatus('error'); } }} />}
+        onPointerEnter={event => { if (event.pointerType === 'mouse') start(); }}
+        onFocus={event => { if (event.target.matches(':focus-visible')) start(); }} >
+        <StudioImage mediaSlot="VideoShowcase-1" className="film-preview-poster" src={film.poster} alt="" width={film.width} height={film.height} loading="lazy" decoding="async" />
+        {loaded && <video className="film-preview-video" ref={video} src={film.preview} width={film.width} height={film.height} autoPlay muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} onWaiting={() => { if (wantsPlay.current) setStatus('loading'); }} onPlaying={() => { if (wantsPlay.current) setStatus('playing'); }} onError={() => { if (wantsPlay.current) { wantsPlay.current = false; setStatus('error'); } }} />}
         {status === 'loading' && <TaskLoader overlay progress={bufferProgress} label="Preparing preview" />}
         <span className="film-preview-shade" aria-hidden="true" />
-        
+
         <button className="film-enlarge" type="button" onClick={event => onEnlarge(film, event.currentTarget)} aria-label={`Enlarge ${film.title}`} aria-describedby={`film-preview-status-${film.id}`} title={`Enlarge ${film.title}`}><span className="film-play-symbol" aria-hidden="true"><SiteIcon name="play" /></span><span className="film-watch-label">Watch film <span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></span></button>
       </div>
       <div className="film-desk-card-caption"><h3>{film.title}</h3><span>{durationLabel(film.duration)}</span></div>

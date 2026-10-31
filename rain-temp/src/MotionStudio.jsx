@@ -1,3 +1,4 @@
+import StudioImage from './StudioImage';
 import React, { useEffect, useRef, useState } from 'react';
 import './motion.css';
 
@@ -67,7 +68,7 @@ export default function MotionStudio({ paused: externalPaused = false } = {}) {
           <div className="motion-outline-frame" aria-hidden="true" />
 
           <div className="motion-picture">
-            <img src="/assets/stills/riders-scene.webp" alt="Horse riders emerging through a misty cinematic scene" width="2048" height="1436" loading="lazy" decoding="async" />
+            <StudioImage mediaSlot="MotionStudio-1" src="/assets/stills/riders-scene.webp" alt="Horse riders emerging through a misty cinematic scene" width="2048" height="1436" loading="lazy" decoding="async" />
             <div className="motion-picture-shade" aria-hidden="true" />
             <div className="motion-picture-heading" aria-hidden="true"><span>VIEWFINDER</span><span>01 / 24</span></div>
             <div className="motion-focus" aria-hidden="true"><i /><i /><i /><i /><span /></div>

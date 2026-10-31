@@ -23,3 +23,17 @@ html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true]{
 html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] :is(.section-submenu-width,.section-submenu-links){background:transparent!important}
 html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a{background:transparent!important;color:#eee!important;-webkit-text-fill-color:#eee!important}
 html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:is(:hover,:focus-visible,[aria-current]){color:#fff!important;-webkit-text-fill-color:#fff!important;border-bottom-color:#ed9634}
+
+/* Pinned page navigation shares the Find Talent hero's studio gradient. */
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true]{background:var(--studio-discovery-gradient)!important;border-bottom-color:#ffffff18;color:#f1eafa!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] :is(.section-submenu-width,.section-submenu-links){background:transparent!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a{color:#d4c9e2!important;-webkit-text-fill-color:#d4c9e2!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] .section-submenu-category{color:#d5b88f!important;-webkit-text-fill-color:#d5b88f!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:is(:hover,:focus-visible,[aria-current]){color:#fff!important;-webkit-text-fill-color:#fff!important;border-bottom-color:#edbd77!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:focus-visible{outline-color:#d4bbf0}
+@media(min-width:601px){
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services){background:var(--studio-discovery-gradient)!important;color:#d4c9e2!important}
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services)>:is(.fl-width,.pl-width){background:transparent!important}
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services) a{color:#d4c9e2!important}
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services) a:is(:hover,:focus-visible,[aria-current]){color:#fff!important;border-bottom-color:#edbd77!important}
+}

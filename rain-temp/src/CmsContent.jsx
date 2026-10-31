@@ -1,3 +1,4 @@
+import StudioImage from './StudioImage';
 import SiteIcon from './SiteIcon';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import './cms-content.css';
@@ -39,7 +40,7 @@ export function CmsEntries({ type, entries: supplied, id, heading, compact = fal
   return <section className={`page-section cms-published ${compact ? 'cms-compact' : ''}`} id={id}>
     {heading && <h2 className="cms-heading">{heading}</h2>}
     <div className="cms-published-grid">{records.map(entry => <article className="page-card cms-entry" id={`cms-${entry.slug}`} key={entry.id}>
-      {entry.image_url && <img src={entry.image_url} alt={entry.image_alt || ''} width="1280" height="720" loading="lazy" decoding="async" />}
+      {entry.image_url && <StudioImage mediaSlot="CmsContent-1" src={entry.image_url} alt={entry.image_alt || ''} width="1280" height="720" loading="lazy" decoding="async" />}
       {entry.metadata?.category && <p className="page-eyebrow">{entry.metadata.category}</p>}
       <h3>{entry.title}</h3>
       {(entry.metadata?.role || entry.metadata?.location) && <p className="page-eyebrow">{[entry.metadata.role, entry.metadata.location].filter(Boolean).join(' / ')}</p>}

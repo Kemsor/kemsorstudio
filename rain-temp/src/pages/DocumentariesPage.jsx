@@ -1,3 +1,4 @@
+import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
 import React, { useRef, useState } from 'react';
 import MotionHeading, { MotionCopy } from '../TextMotion';
@@ -90,8 +91,8 @@ function ChangingStory() {
 }
 
 export default function DocumentariesPage() {
-  return <div className="documentaries-page">
-    <section className="documentary-hero documentary-width" aria-labelledby="documentary-title">
+  return <PageVisuals page="documentaries"><div className="documentaries-page">
+    <section className="inner-hero documentary-hero documentary-width" aria-labelledby="documentary-title">
       <div className="documentary-hero-grid"><div><p className="documentary-kicker">PRODUCTIONS · DOCUMENTARIES</p><MotionHeading as="h1" id="documentary-title">Documentaries.</MotionHeading><MotionHeading as="h2" className="documentary-hero-accent">The story is out there. <em>We help you earn it.</em></MotionHeading><MotionCopy>A documentary can’t be written and then shot. It’s found through research, access, trust and long months in the edit. Kemsor produces documentaries for cinema, platforms and festivals with the patience the form needs and the care its subjects deserve.</MotionCopy><div className="documentary-actions"><CTA href="/contact/?partner=filmmakers">Talk to us about your documentary</CTA><TextLink href="#documentary-changes">How a documentary changes</TextLink></div></div><FieldJournal/></div>
     </section>
     <SectionSubmenu section="what-we-make" page="documentaries"/>
@@ -115,17 +116,17 @@ export default function DocumentariesPage() {
     <section className="documentary-section documentary-width" aria-labelledby="documentary-care-title">
       <Label number="03">CARE IS PART OF THE CRAFT</Label>
       <MotionHeading as="h2" id="documentary-care-title">How we treat the people in front of the camera.</MotionHeading>
-      <div className="documentary-care-head" aria-hidden="true"><span>Commitment</span><span>What it means</span></div><dl className="documentary-care-list">{commitments.map(([title,copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl>
+      <div className="documentary-care-head studio-ledger-head" aria-hidden="true"><span>Commitment</span><span>What it means</span></div><dl className="documentary-care-list studio-ledger studio-ledger-pairs">{commitments.map(([title,copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl>
     </section>
 
     <section className="documentary-section documentary-width" aria-labelledby="documentary-kinds-title">
       <Label number="04">THE DOCUMENTARIES WE MAKE</Label>
-      <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-kinds-title">The documentaries we make.</MotionHeading><dl className="documentary-kinds">{kinds.map(([title,copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl></div>
+      <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-kinds-title">The documentaries we make.</MotionHeading><dl className="documentary-kinds studio-ledger studio-ledger-pairs">{kinds.map(([title,copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl></div>
     </section>
 
     <section className="documentary-section documentary-width" aria-labelledby="documentary-stages-title">
       <Label number="05">FROM FIRST LEAD TO FIRST SCREENING</Label>
-      <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-stages-title">From first lead to first screening.</MotionHeading><ol className="documentary-stages">{stages.map(([title,copy],index) => <li key={title}><span className="documentary-stage-number" aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><div><h3>{title}</h3><p>{copy}</p>{title === 'The edit' && <span className="documentary-margin-note">- the longest bit</span>}</div></li>)}</ol></div>
+      <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-stages-title">From first lead to first screening.</MotionHeading><ol className="documentary-stages studio-ledger studio-ledger-numbered">{stages.map(([title,copy],index) => <li key={title}><span className="documentary-stage-number" aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><div><h3>{title}</h3><p>{copy}</p>{title === 'The edit' && <span className="documentary-margin-note">- the longest bit</span>}</div></li>)}</ol></div>
     </section>
 
     <section className="documentary-section documentary-width" aria-labelledby="documentary-funding-title">
@@ -140,5 +141,5 @@ export default function DocumentariesPage() {
     <section className="documentary-section documentary-width documentary-closing" aria-labelledby="documentary-closing-title">
       <div className="documentary-intro-grid"><div><p className="documentary-field-kicker">field notes, page one</p><MotionHeading as="h2" id="documentary-closing-title">Tell us what you’ve found.</MotionHeading></div><div><MotionCopy>A subject, a person, a question you can’t let go of. Start there; we’ll help you find the film.</MotionCopy><div className="documentary-actions"><CTA href="/contact/?partner=filmmakers">Start a conversation</CTA><TextLink href="/finance/finance-structuring/">Finance Structuring</TextLink></div></div></div>
     </section>
-  </div>;
+  </div></PageVisuals>;
 }

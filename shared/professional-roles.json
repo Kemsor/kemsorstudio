@@ -1,0 +1,218 @@
+[
+  {
+    "id": "1",
+    "name": "Creative & Executive Leadership (Above-the-Line)",
+    "roles": [
+      {
+        "name": "Producer",
+        "description": "Manages business, logistics, and financing from development to distribution."
+      },
+      {
+        "name": "Executive Producer",
+        "description": "Secures financing or represents the studio/investors."
+      },
+      {
+        "name": "Director",
+        "description": "Holds ultimate creative control over the storytelling, performances, and visuals."
+      },
+      {
+        "name": "Screenwriter / Writer",
+        "description": "Writes the screenplay, dialogue, and story structure."
+      },
+      {
+        "name": "Casting Director",
+        "description": "Finds, auditions, and negotiates contracts for the acting talent."
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Production Office & Management",
+    "roles": [
+      {
+        "name": "Line Producer",
+        "description": "Manages the physical budget and daily operations on the ground."
+      },
+      {
+        "name": "Unit Production Manager (UPM)",
+        "description": "Coordinates business elements like hiring crew and signing off on deals."
+      },
+      {
+        "name": "Production Coordinator (POC)",
+        "description": "Manages the production office, travel, paperwork, and crew logistics."
+      },
+      {
+        "name": "1st Assistant Director (1st AD)",
+        "description": "Runs the set, manages the schedule, and enforces safety."
+      },
+      {
+        "name": "2nd Assistant Director (2nd AD)",
+        "description": "Creates call sheets and manages background actors and basecamp."
+      },
+      {
+        "name": "Script Supervisor",
+        "description": "Tracks visual and script continuity shot-by-shot."
+      },
+      {
+        "name": "Production Assistant (PA)",
+        "description": "Entry-level support for office, set, or truck logistics."
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Camera Department",
+    "roles": [
+      {
+        "name": "Director of Photography (DP / Cinematographer)",
+        "description": "Creates the lighting design and camera framing."
+      },
+      {
+        "name": "Camera Operator",
+        "description": "Physically manipulates the camera during a take."
+      },
+      {
+        "name": "1st Assistant Camera (1st AC / Focus Puller)",
+        "description": "Maintains sharp focus on subjects during movement."
+      },
+      {
+        "name": "2nd Assistant Camera (2nd AC / Clapper Loader)",
+        "description": "Operates the slate, logs shots, and manages camera media."
+      },
+      {
+        "name": "Digital Imaging Technician (DIT)",
+        "description": "Manages data workflow, color grading profiles, and backup on set."
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Lighting & Rigging (Grip & Electric)",
+    "roles": [
+      {
+        "name": "Gaffer (Chief Lighting Technician)",
+        "description": "Heads the electrical department and executes the lighting plan."
+      },
+      {
+        "name": "Best Boy Electric",
+        "description": "Second-in-command for lighting; manages crew, trucks, and gear inventory."
+      },
+      {
+        "name": "Key Grip",
+        "description": "Heads the department responsible for camera support (cranes/dollies) and non-electrical lighting gear (flags/scrims)."
+      },
+      {
+        "name": "Best Boy Grip",
+        "description": "Second-in-command for grips; manages logistics and gear inventory."
+      },
+      {
+        "name": "Dolly Grip",
+        "description": "Dedicated specialist who operates the camera dollies and tracks."
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Sound Department",
+    "roles": [
+      {
+        "name": "Production Sound Mixer",
+        "description": "Heads the department; records and mixes live audio on set."
+      },
+      {
+        "name": "Boom Operator",
+        "description": "Physically positions microphones using a boom pole to capture dialogue cleanly."
+      },
+      {
+        "name": "Sound Utility",
+        "description": "Handles wiring actors with lavalier mics and maintaining sound gear."
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Art, Wardrobe, & HMU Departments",
+    "roles": [
+      {
+        "name": "Production Designer",
+        "description": "Designs the overall visual look of sets, locations, and props."
+      },
+      {
+        "name": "Art Director",
+        "description": "Manages the art department budget and executes the Production Designer's vision."
+      },
+      {
+        "name": "Prop Master",
+        "description": "Sources, creates, and tracks all objects handled by actors."
+      },
+      {
+        "name": "Costume Designer",
+        "description": "Designs and selects all clothing worn by characters."
+      },
+      {
+        "name": "Wardrobe Supervisor",
+        "description": "Coordinates the maintenance, fitting, and tracking of costumes on set."
+      },
+      {
+        "name": "Key Makeup Artist / Key Hair Stylist",
+        "description": "Designs and applies makeup and hairstyles for the cast."
+      },
+      {
+        "name": "SFX Makeup Artist",
+        "description": "Specializes in prosthetics, wounds, and creature design."
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Special Stunts & Practical Effects",
+    "roles": [
+      {
+        "name": "Stunt Coordinator",
+        "description": "Designs, choreographs, and oversees safety for physical action and stunts."
+      },
+      {
+        "name": "Stunt Performer",
+        "description": "Executes the physical stunts and doubles for main actors."
+      },
+      {
+        "name": "Special Effects (SFX) Coordinator",
+        "description": "Oversees practical on-set elements like rain, explosions, fire, and mechanical rigs."
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Post-Production (After Shooting)",
+    "roles": [
+      {
+        "name": "Post-Production Supervisor",
+        "description": "Manages the entire timeline, budget, and delivery of post elements."
+      },
+      {
+        "name": "Editor",
+        "description": "Cuts and structuralizes the scenes to pace the story."
+      },
+      {
+        "name": "Assistant Editor",
+        "description": "Organizes footage, syncs audio, and prepares project files for the editor."
+      },
+      {
+        "name": "Colorist",
+        "description": "Balances colors and applies a creative color grade to establish the visual mood."
+      },
+      {
+        "name": "Visual Effects (VFX) Supervisor",
+        "description": "Oversees CGI, digital replacements, and greenscreen elements."
+      },
+      {
+        "name": "Sound Designer / Supervising Sound Editor",
+        "description": "Designs ambient sounds, Foley effects, and soundscapes."
+      },
+      {
+        "name": "Composer",
+        "description": "Writes and records the original musical score."
+      }
+    ]
+  }
+]

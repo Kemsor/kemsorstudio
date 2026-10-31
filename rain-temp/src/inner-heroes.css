@@ -1,0 +1,146 @@
+/* Compact title/hero scale shared by editorial and specialist inner pages. */
+html body #top.creative-site #main.inner-page{--inner-title:clamp(28px,3vw,40px);--inner-accent:clamp(24px,2.5vw,34px);--inner-hero-image:260px;--inner-hero-gap:28px}
+html body #top.creative-site #main.inner-page .inner-hero{height:auto!important;min-height:0!important;padding-block:26px 30px!important;margin-top:0;box-sizing:border-box}
+html body #top.creative-site #main.inner-page .inner-hero h1{font:500 var(--inner-title)/1.18 Manrope,sans-serif!important;letter-spacing:-.035em!important;margin:0!important;max-width:25ch;text-wrap:balance}
+html body #top.creative-site #main.inner-page .inner-hero h1>:is(span,em){font-size:inherit!important;line-height:inherit!important;font-style:normal;letter-spacing:inherit!important;margin-top:8px!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.produce-kicker,.studio-label,.feature-kicker,.series-kicker,.documentary-kicker,.release-label,.partner-page-eyebrow){font:500 11px/1.6 Inter,sans-serif!important;letter-spacing:.09em!important;margin:0 0 14px!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-heading,.pl-hero-heading,.fl-hero-grid,.studio-opening-copy,.india-hero-grid,.call-sheet-hero-grid,.short-intro-grid){gap:24px 5%!important;margin-block:24px!important;padding-block:0!important;align-items:center}
+html body #top.creative-site #main.inner-page .inner-hero :is(.feature-hero-grid,.series-hero-grid,.documentary-hero-grid){gap:28px 5%!important;align-items:center}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-copy,.fl-hero-copy,.india-hero-copy,.feature-hero-copy){padding-top:0!important;max-width:60ch}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-copy,.fl-hero-copy,.pl-hero-brief,.studio-opening-copy,.india-hero-copy,.produce-hero-content)>p:not(.produce-kicker):not(.studio-label):not(.ep-hero-note):not(.feature-kicker){font-size:14px!important;line-height:1.75!important;margin-block:16px!important;max-width:62ch}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-actions,.produce-actions,.studio-actions,.india-actions,.feature-actions,.series-actions,.short-actions,.documentary-actions,.release-actions){margin-top:20px!important;gap:14px 20px!important;flex-wrap:wrap}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-accent,.feature-intro-accent,.series-hero-accent,.short-hero-accent,.documentary-hero-accent),
+html body #top.creative-site #main.inner-page .partner-page-hero>h2{font:400 var(--inner-accent)/1.25 Manrope,sans-serif!important;letter-spacing:-.03em!important;margin:12px 0 18px!important}
+/* Keep artwork; cap its height rather than reserving most of the viewport. */
+html body #top.creative-site #main.inner-page .inner-hero :is(.pl-panorama,.fl-hero-image,.produce-hero-image,.ep-image-window){height:var(--inner-hero-image)!important;min-height:0!important;max-height:none!important;overflow:hidden;aspect-ratio:auto!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.pl-panorama,.fl-hero-image,.produce-hero-image,.ep-image-window)>img{width:100%;height:100%!important;object-fit:cover}
+html body #top.creative-site #main.inner-page .inner-hero .ep-board{gap:24px;align-items:stretch}
+html body #top.creative-site #main.inner-page .inner-hero .ep-file-card{padding:16px 18px!important;margin-top:0;align-self:start}
+html body #top.creative-site #main.inner-page .inner-hero .ep-file-card .ep-drawing{height:160px!important}
+html body #top.creative-site #main.inner-page .inner-hero .ep-file-caption{font-size:15px;padding-top:12px}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-note,.ep-hero-photo figcaption,.india-hero-visual figcaption){font-size:10px!important;line-height:1.6!important;margin-top:12px!important}
+html body #top.creative-site #main.inner-page .inner-hero .ep-hero-foot{padding-block:14px!important;margin-top:12px!important}
+html body #top.creative-site #main.inner-page .inner-hero .pl-stage-number{font-size:76px;line-height:1;color:#ddd1bf}
+html body #top.creative-site #main.inner-page .inner-hero .pl-hero-brief{padding:20px 0!important;gap:24px}
+html body #top.creative-site #main.inner-page .inner-hero .fl-image-number{font-size:42px;padding:12px 16px}
+html body #top.creative-site #main.inner-page .inner-hero .studio-contact-sheet{padding-bottom:28px;gap:24px;align-items:start}
+html body #top.creative-site #main.inner-page .inner-hero .studio-frame-main>img{height:var(--inner-hero-image)!important}
+html body #top.creative-site #main.inner-page .inner-hero .studio-frame-location{transform:none!important;padding:10px 10px 16px}
+html body #top.creative-site #main.inner-page .inner-hero .studio-frame-location>img{height:155px!important}
+html body #top.creative-site #main.inner-page .inner-hero .studio-frame-location figcaption{font-size:12px;padding:12px 4px 0}
+html body #top.creative-site #main.inner-page .inner-hero .studio-frame-location figcaption>span{font-size:10px;margin-top:8px}
+html body #top.creative-site #main.inner-page .inner-hero .india-hero-visual>img{height:var(--inner-hero-image)!important;aspect-ratio:auto;object-fit:cover}
+html body #top.creative-site #main.inner-page .inner-hero .short-hero-meta{margin-bottom:24px;padding-block:12px}
+html body #top.creative-site #main.inner-page .inner-hero.partner-page-hero>p{max-width:65ch}
+/* Smaller direct titles for practical tools, directories and account pages. */
+html body #top.creative-site #main.inner-page :is(.directory-heading,.planner-explainer,.tool-titlebar,.auth-story-copy) h1{font:500 var(--inner-title)/1.18 Manrope,sans-serif!important;letter-spacing:-.035em!important}
+html body #top.creative-site #main.inner-page .ep-hero-compact .ep-hero-heading{margin-bottom:0!important}
+@media(max-width:800px){html body #top.creative-site #main.inner-page{--inner-title:32px;--inner-accent:27px;--inner-hero-image:220px}.inner-hero .ep-board{grid-template-columns:1fr!important}.inner-hero .ep-file-card{max-width:none}.inner-hero .ep-file-card .ep-drawing{height:130px!important}}
+@media(max-width:600px){
+ html body #top.creative-site #main.inner-page{--inner-title:28px;--inner-accent:24px;--inner-hero-image:190px}
+ html body #top.creative-site #main.inner-page .inner-hero{padding-block:20px 24px!important}
+ html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-heading,.pl-hero-heading,.fl-hero-grid,.studio-opening-copy,.india-hero-grid,.call-sheet-hero-grid,.short-intro-grid){margin-block:20px!important;gap:20px!important}
+ html body #top.creative-site #main.inner-page .inner-hero .ep-hero-heading{grid-template-columns:1fr}
+ html body #top.creative-site #main.inner-page .inner-hero .studio-contact-sheet{gap:16px;padding-bottom:16px}
+ html body #top.creative-site #main.inner-page .inner-hero .studio-frame-location{margin-top:0!important;grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}
+ html body #top.creative-site #main.inner-page .inner-hero .studio-frame-location>img{height:110px!important}
+ html body #top.creative-site #main.inner-page .inner-hero .studio-frame-location figcaption{padding:0}
+ html body #top.creative-site #main.inner-page .inner-hero .pl-stage-number{font-size:54px}
+ html body #top.creative-site #main.inner-page .inner-hero h1{max-width:none}
+}
+
+/* Align title sections to the same content rails, retaining their page artwork. */
+html body #top.creative-site #main.inner-page .inner-hero{text-align:left}
+html body #top.creative-site #main.inner-page .inner-hero:is(.india-width,.feature-width,.series-width,.short-width,.documentary-width,.call-sheet-width,.partner-width,.release-width),
+html body #top.creative-site #main.inner-page .inner-hero>:is(.ep-width,.pl-width,.fl-width,.studio-width){width:100%!important;max-width:1520px!important;margin-inline:auto!important;padding-inline:var(--page-gutter,5vw)!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.release-actions,.short-actions,.feature-actions,.series-actions,.documentary-actions){justify-content:flex-start!important}
+html body #top.creative-site #main.inner-page .inner-hero:is(.release-hero,.post-hero,.post-overview-hero,.release-overview-hero,.distribution-hero)>div>p:not(.release-label),
+html body #top.creative-site #main.inner-page .inner-hero:is(.feature-hero,.series-hero,.documentary-hero) :is(.feature-hero-copy,.series-hero-grid>div:first-child,.documentary-hero-grid>div:first-child)>p:not([class$="-kicker"]),
+html body #top.creative-site #main.inner-page .inner-hero.partner-page-hero>p:not(.partner-page-eyebrow){font-size:14px!important;line-height:1.75!important;max-width:62ch;margin-block:16px!important}
+html body #top.creative-site #main.inner-page .inner-hero.make-hero .produce-hero-content{padding-bottom:24px!important}
+html body #top.creative-site #main.inner-page .inner-hero .make-sheet-photo{height:150px;aspect-ratio:auto}
+html body #top.creative-site #main.inner-page .inner-hero .make-sheet-photo img{height:100%;width:100%;object-fit:cover}
+@media(max-width:600px){html body #top.creative-site #main.inner-page .inner-hero .make-sheet-photo{height:105px}}
+
+/* A shared, lightly textured backdrop for inner-page introductions. */
+html body #top.creative-site #main.inner-page .inner-hero{
+ position:relative;isolation:isolate;background-color:#f7f5f0!important;
+}
+html body #top.creative-site #main.inner-page .inner-hero::after{
+ content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:repeating-linear-gradient(90deg,transparent 0,transparent calc(clamp(100px,11vw,170px) - 1px),#a5927240 calc(clamp(100px,11vw,170px) - 1px),#a5927240 clamp(100px,11vw,170px));
+ -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 20%,#0008 65%,transparent 100%);
+ mask-image:linear-gradient(to bottom,#000 0%,#000 20%,#0008 65%,transparent 100%);
+}
+@media(forced-colors:active){html body #top.creative-site #main.inner-page .inner-hero::after{display:none}}
+
+/* Dark introduction canvas, with vertical texture only. */
+html body #top.creative-site #main.inner-page .inner-hero{
+ --ink:#f3efe8;--muted:#c1b8ab;--line:#ffffff20;
+ --ep-ink:#f3efe8;--ep-muted:#c1b8ab;--pl-ink:#f3efe8;--pl-muted:#c1b8ab;--fl-ink:#f3efe8;--fl-muted:#c1b8ab;
+ background:linear-gradient(120deg,#211b29 0%,#1b1716 48%,#302315 100%)!important;color:#f3efe8!important;
+ border-top:0!important;border-bottom:0!important;
+}
+html body #top.creative-site #main.inner-page .inner-hero::after{
+ background:repeating-linear-gradient(90deg,transparent 0,transparent calc(clamp(100px,11vw,170px) - 1px),#e5d2b51c calc(clamp(100px,11vw,170px) - 1px),#e5d2b51c clamp(100px,11vw,170px));
+}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-heading,.ep-board,.ep-hero-foot,.pl-hero-foot,.fl-hero-foot,.produce-hero-foot){background:transparent!important;border-block:0!important}
+html body #top.creative-site #main.inner-page .inner-hero h1,
+html body #top.creative-site #main.inner-page .inner-hero:is(.partner-page-hero)>h2,
+html body #top.creative-site #main.inner-page .inner-hero :is(.feature-intro-accent,.series-hero-accent,.short-hero-accent,.documentary-hero-accent){color:#f4efe7!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-copy,.fl-hero-copy,.pl-hero-brief,.studio-opening-copy,.india-hero-copy,.feature-hero-copy,.produce-hero-content)>p,
+html body #top.creative-site #main.inner-page .inner-hero:is(.partner-page-hero)>p,
+html body #top.creative-site #main.inner-page .inner-hero :is(.release-overview-hero,.post-hero,.post-overview-hero,.distribution-hero)>div>p,
+html body #top.creative-site #main.inner-page .inner-hero:is(.release-overview-hero,.post-hero,.post-overview-hero,.distribution-hero,.release-hero)>div>p,
+html body #top.creative-site #main.inner-page .inner-hero :is(.feature-hero-grid,.series-hero-grid,.documentary-hero-grid,.call-sheet-hero-grid,.short-intro-grid)>div>p{color:#c9bfb1!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.produce-kicker,.studio-label,.feature-kicker,.series-kicker,.documentary-kicker,.release-label,.partner-page-eyebrow,.ep-hero-note,.ep-motion-toggle,.studio-docket,.india-hero-top,.short-hero-meta){color:#c6b18d!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-hero-foot,.pl-hero-foot,.produce-hero-foot,.ep-hero-photo figcaption,.india-hero-visual figcaption){color:#b2a695!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>a{color:#c4b6a3!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(nav[aria-label="Breadcrumb"],.produce-breadcrumb,.release-breadcrumb,.site-breadcrumb)>[aria-current=page]{color:#fff1dc!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.line-link,.text-link,.production-text-link){color:#efdfc5!important;border-color:#efdfc550!important}
+/* Remove decorative horizontal rules from the title band. */
+html body #top.creative-site #main.inner-page .inner-hero :is(.studio-docket,.india-hero-top,.short-hero-meta,.make-contact-sheet,.ep-file-heading){border-top:0!important;border-bottom:0!important}
+html body #top.creative-site #main.inner-page .inner-hero .ep-hero-heading h1>span::after{content:none!important}
+/* The top navigation backdrop continues the same canvas, without a white band. */
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=false]{background:linear-gradient(120deg,#211b29 0%,#1b1716 48%,#302315 100%)!important;box-shadow:none!important}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=false] .creative-header-inner{background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+
+/* Paint the header's reserved space with the hero canvas, closing the white seam. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page{
+ background:linear-gradient(120deg,#211b29 0%,#1b1716 48%,#302315 100%) top / 100% 180px no-repeat,#fff!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=false]{
+ background:linear-gradient(to bottom,#ffffff12 0%,#ffffff06 58%,transparent 100%),linear-gradient(120deg,#211b29 0%,#1b1716 48%,#302315 100%)!important;
+ border-bottom:0!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=false] .creative-header-inner{
+ background:#ffffff04!important;border-color:#ffffff0d!important;
+}
+html body #top.creative-site #main.inner-page .inner-hero .pl-hero-brief>div>p,
+html body #top.creative-site #main.inner-page .inner-hero .pl-hero-brief>div>p :is(span,strong,em){
+ color:#d0c6b8!important;
+}
+html body #top.creative-site #main.inner-page .inner-hero :is(.pl-hero-foot,.ep-hero-foot,.produce-hero-foot)>a{color:#cbbda8!important}
+
+/* Shared contrast defaults prevent older page-specific black copy on dark heroes. */
+html body #top.creative-site #main.inner-page .inner-hero :is(p,li,dt,dd,label,legend,figcaption){color:#cec5b8!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(h2,h3,h4){color:#f3ede3!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(p,li,dt,dd,figcaption)>:is(span,strong,em){color:inherit!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.india-kicker,.short-kicker,.call-sheet-masthead,.india-hero-top,.short-hero-meta,.studio-docket),
+html body #top.creative-site #main.inner-page .inner-hero :is(.call-sheet-masthead,.india-hero-top,.short-hero-meta,.studio-docket)>:is(a,span){color:#d6c09b!important}
+/* Paper illustrations retain readable dark ink on their own light surfaces. */
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-file-card,.ep-mobile-study,.ep-mobile-study-content,.feature-planner,.series-writers-board,.documentary-journal,.post-edit-timeline,.distribution-board,.release-marquee,.studio-frame-location) :is(h2,h3,h4,p,li,dt,dd,label,legend,figcaption,span,strong){color:#4b4236!important}
+html body #top.creative-site #main.inner-page .inner-hero :is(.ep-file-card,.ep-mobile-study-content){--ep-ink:#332d24;--ep-muted:#70675a}
+
+html body #top.creative-site #main.inner-page .inner-hero :is(.feature-planner,.series-writers-board,.documentary-journal,.post-edit-timeline,.distribution-board,.release-marquee){background-color:#fff!important}
+
+/* The dark canvas fills the viewport; only the content uses a centred rail. */
+html body #top.creative-site #main.inner-page .inner-hero:is(.india-width,.feature-width,.series-width,.short-width,.documentary-width,.call-sheet-width,.partner-width,.release-width){
+ width:100%!important;max-width:none!important;margin-inline:0!important;
+ padding-inline:max(var(--page-gutter,5vw),calc((100% - 1520px)/2 + var(--page-gutter,5vw)))!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .release-page>.release-breadcrumb.release-width{
+ box-sizing:border-box;width:100%!important;max-width:none!important;margin-inline:0!important;
+ padding-inline:max(var(--page-gutter,5vw),calc((100% - 1520px)/2 + var(--page-gutter,5vw)))!important;
+ background:linear-gradient(120deg,#211b29 0%,#1b1716 48%,#302315 100%)!important;
+}

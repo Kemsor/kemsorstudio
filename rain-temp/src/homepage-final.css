@@ -187,3 +187,12 @@ html .creative-site #main .final-partners>div>article:first-child nav a:hover{co
 /* Joined partnership panels reach both viewport edges; the section label keeps its gutter. */
 .creative-site #main .final-partners{padding-inline:0}
 .final-partners>.index-label{margin-inline:clamp(1.25rem,5vw,6.5rem)}
+
+/* Quiet vertical texture: visible at the top, dissolving only toward the bottom. */
+html body #top.creative-site #main .final-about{position:relative;isolation:isolate}
+html body #top.creative-site #main .final-about::before{
+ content:'';position:absolute;inset:0 0 auto;height:min(100%,760px);z-index:-1;pointer-events:none;
+ background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(clamp(100px,12vw,190px) - 1px),#d9cbbd16 calc(clamp(100px,12vw,190px) - 1px),#d9cbbd16 clamp(100px,12vw,190px));
+ -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 15%,#000b 42%,transparent 100%);
+ mask-image:linear-gradient(to bottom,#000 0%,#000 15%,#000b 42%,transparent 100%);
+}

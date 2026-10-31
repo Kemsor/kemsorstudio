@@ -9,7 +9,7 @@
 <label class="wide">Blog content<textarea name="body" rows="16" maxlength="60000"><%= entry.body || '' %></textarea><small>Separate paragraphs with a blank line. Content is published as plain text.</small></label>
 <div class="wide blog-banner-fields"><h2>Blog banner</h2>
 <% if(entry.image_id){ %><img class="blog-banner-preview" src="/media/<%= entry.image_id %>" alt="Current blog banner"><% } %>
-<label>Upload banner<input type="file" name="image" accept="image/png,image/jpeg,image/webp" data-blog-banner><small>PNG, JPEG or WebP, up to 5 MB. A new upload replaces the selected banner.</small></label>
+<label>Upload banner<input type="file" name="image" accept="image/png,image/jpeg,image/webp,image/avif" data-blog-banner><small>Upload your original image. We resize and compress it automatically. A new upload replaces the selected banner.</small></label>
 <label>Banner description<input name="banner_alt" maxlength="300" data-banner-alt><small>Describe the uploaded image for readers using assistive technology.</small></label>
 <label>Or choose from the image library<select name="image_id" data-library-banner><option value="">No banner</option><% media.forEach(image=>{ %><option value="<%= image.id %>" <%= entry.image_id===image.id?'selected':'' %>><%= image.original_name %> · <%= image.alt %></option><% }) %></select></label><div class="library-banner-selection" hidden><img alt="Selected banner" data-selected-banner><button type="button" class="quiet" data-selected-preview>Preview banner</button></div></div>
 <label>Publishing status<select name="status"><% ['draft','published','archived'].forEach(status=>{ %><option value="<%= status %>" <%= entry.status===status?'selected':'' %>><%= status %></option><% }) %></select></label>

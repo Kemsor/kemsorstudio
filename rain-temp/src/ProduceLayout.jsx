@@ -1,3 +1,5 @@
+import StudioImage from './StudioImage';
+import {chapterStyler} from './VisualChapters';
 import { isTextElement } from './TextMotion';
 import React, { Children, cloneElement, isValidElement } from 'react';
 import SectionSubmenu from './SectionSubmenu';
@@ -14,6 +16,7 @@ function find(node, predicate) {
 
 // Produce uses a panoramic presentation. Authored copy, sections and destinations are retained.
 export default function ProduceLayout({page,children}) {
+  const styleChapter=chapterStyler(page);
   const root = Children.only(children);
   const all = nodes(root.props.children);
   const hero = all.find(node => hasClass(node,'produce-hero'));
@@ -22,12 +25,12 @@ export default function ProduceLayout({page,children}) {
   const kicker = find(copy,node=>hasClass(node,'produce-kicker'));
   const description = nodes(copy?.props.children).find(node=>isTextElement(node,'p')&&!hasClass(node,'produce-kicker'));
   const actions = find(copy,node=>hasClass(node,'produce-actions'));
-  const image = find(hero,node=>node.type==='img');
+  const image = find(hero,node=>(node.type==='img'||node.type===StudioImage));
   const foot = find(hero,node=>hasClass(node,'produce-hero-foot'));
   const breadcrumb = all.find(node=>hasClass(node,'produce-breadcrumb'));
   const sections = all.filter(node=>node!==hero&&node!==breadcrumb);
   return <div className={`${root.props.className || ''} production-layout`}>
-    <header className="pl-hero"><div className="pl-width">
+    <header className="inner-hero pl-hero"><div className="pl-width">
       <div className="pl-breadcrumb">{breadcrumb}</div>
       <div className="pl-hero-heading"><div>{kicker}{heading}</div><span className="pl-stage-number" aria-hidden="true">03</span></div>
       <figure className="pl-panorama">{image&&cloneElement(image,{alt:image.props.alt||'Illustrative production image',sizes:'(max-width: 600px) 90vw, 92vw'})}<span className="pl-frame pl-frame-a" aria-hidden="true"/><span className="pl-frame pl-frame-b" aria-hidden="true"/></figure>
@@ -38,7 +41,7 @@ export default function ProduceLayout({page,children}) {
     <div className="pl-body">{sections.map((node,index)=>{
       if(!isValidElement(node))return node;
       const id=node.props.id||`${page}-chapter-${index+1}`;
-      return <section id={id} className={`pl-section${hasClass(node,'produce-process')?' pl-process':''}${hasClass(node,'produce-audiences')?' pl-audiences':''}${hasClass(node,'produce-closing')?' pl-closing':''}`} aria-labelledby={node.props['aria-labelledby']} key={id}><div className="pl-width">{cloneElement(node,{id:undefined,className:`${node.props.className||''} pl-section-content`})}</div></section>;
+      return styleChapter(<section id={id} className={`pl-section${hasClass(node,'produce-process')?' pl-process':''}${hasClass(node,'produce-audiences')?' pl-audiences':''}${hasClass(node,'produce-closing')?' pl-closing':''}`} aria-labelledby={node.props['aria-labelledby']} key={id}><div className="pl-width">{cloneElement(node,{id:undefined,className:`${node.props.className||''} pl-section-content`})}</div></section>,index);
     })}</div>
   </div>;
 }

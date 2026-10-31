@@ -1,3 +1,4 @@
+import StudioImage from './StudioImage';
 import RollingLabel from './RollingLabel';
 import React, {useEffect, useRef, useState} from 'react';
 import SiteIcon from './SiteIcon';
@@ -7,7 +8,7 @@ import './designer-services.css';
 const asset=name=>`/assets/designer-services/${name}`;
 export default function DesignerServices({reduced=false}){
  const [active,setActive]=useState(0);
- const [paused,setPaused]=useState(false),[focused,setFocused]=useState(false),[visible,setVisible]=useState(false),[pageVisible,setPageVisible]=useState(!document.hidden);
+ const [paused,setPaused]=useState(false),[focused,setFocused]=useState(false),[visible,setVisible]=useState(false),[pageVisible,setPageVisible]=useState(()=>typeof document==='undefined'||!document.hidden);
  const stage=useRef(null);
  const touch=useRef(null);
  useEffect(()=>{
@@ -36,13 +37,13 @@ export default function DesignerServices({reduced=false}){
    <div className="ds-heading-row"><h2 id="designer-services-title">Everything a story needs<br/>to reach the screen.</h2><p>Bring us in at the start, or at the stage where you need us most. Each service sits beside the work, so you can see the craft, not just read about it.</p></div>
   </div>
   <div className="ds-stage" ref={stage} onTouchStart={event=>{const t=event.touches[0];touch.current={x:t.clientX,y:t.clientY}}} onTouchEnd={swipeEnd} onTouchCancel={()=>touch.current=null}>
-   <img className="ds-backdrop" src={asset('services-background.webp')} width="736" height="451" alt="" loading="lazy" decoding="async"/>
+   <StudioImage mediaSlot="DesignerServices-1" className="ds-backdrop" src={asset('services-background.webp')} width="736" height="451" alt="" loading="lazy" decoding="async"/>
    <div className="ds-shade"/>
    <div className="ds-wrap ds-inner">
     <div className="ds-controls"><span className="ds-count" role="status" aria-live={paused||focused||reduced?'polite':'off'} aria-atomic="true"><b>{String(active+1).padStart(2,'0')}</b> / 06</span><div className="ds-arrows">{!reduced&&<button type="button" aria-label={paused?'Play services automatically':'Pause automatic services'} onClick={()=>setPaused(value=>!value)}><span aria-hidden="true">{paused?'▶':'Ⅱ'}</span></button>}<button type="button" aria-label="Previous service" onClick={()=>change(-1)}><SiteIcon name="arrow-left" size={18}/></button><button type="button" aria-label="Next service" onClick={()=>change(1)}><SiteIcon name="arrow" size={18}/></button></div></div>
     <div className="ds-slides" id="designer-service-panel" role="region" aria-labelledby={`designer-service-name-${active}`} >{services.map((service,index)=><div className={`ds-content${active===index?' is-active':''}`} key={service.title} aria-hidden={active!==index} inert={active!==index}>
      <div className="ds-copy"><h3 id={`designer-service-name-${index}`}>{service.title}</h3><p>{service.text}</p><ul>{service.points.map(point=><li key={point}>{point}</li>)}</ul><a className="ds-cta" href={service.href}><RollingLabel>Explore service</RollingLabel><SiteIcon name="film" size={17}/></a></div>
-     <a href={service.href} className="ds-picture" aria-label={`Explore ${service.title}`}><img src={asset(service.image)} alt="Production reference" loading="lazy" decoding="async" width="640" height="640"/></a>
+     <a href={service.href} className="ds-picture" aria-label={`Explore ${service.title}`}><StudioImage mediaSlot="DesignerServices-2" src={asset(service.image)} alt="Production reference" loading="lazy" decoding="async" width="640" height="640"/></a>
     </div>)}</div>
    </div>
   </div>

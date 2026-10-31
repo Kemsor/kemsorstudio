@@ -1,4 +1,5 @@
 export const pageInfo = {
+ 'press-media':{label:'News, Press & Media',title:'News, Press & Media | Kemsor Studios',description:'Approved company profiles, studio resources and press enquiries.'},
  'partner-with-us':{label:'Partner with us',title:'Partner With Us | Kemsor Studios',description:'Four ways in. One team behind every one. Work with Kemsor as a filmmaker, studio, co-producer, financier or international production.'},
  'documentaries':{label:'Documentaries',title:'Documentaries | Kemsor Studios',description:'The story is out there. We help you earn it. Kemsor produces authored documentaries for cinema, platforms and festivals with care for the story and its subjects.'},
  'series-ott':{label:'Series & OTT',title:'Series & OTT | Kemsor Studios',description:'Eight episodes. One promise. Kemsor plans series as seasons, keeping the story, cast, look and delivery consistent from the first episode to the last.'},
@@ -37,7 +38,7 @@ export const pageInfo = {
   produce: { label: 'Produce', title: 'Produce | Production Services | Kemsor Studios', description: 'From casting and locations to crew, design and the shoot itself, Kemsor runs the practical side of production so the creative work has room to happen.' },
   services: { label: 'Services', title: 'Production services | Kemsor Studios', description: 'Production support from development and financing to locations, casting, crew, post-production and release.' },
   projects: { label: 'Productions', title: 'Productions & story formats | Kemsor Studios', description: 'Explore film, series, documentary and short film formats, and the supplied visual collection.' },
-  news: { label: 'Press & Media', title: 'Press & Media | Kemsor Studios', description: 'Kemsor press and media updates, studio announcements and media partners.' },
+  news: { label: 'News, Press & Media', title: 'News, Press & Media | Kemsor Studios', description: 'Kemsor press and media updates, studio announcements and media partners.' },
   blog: { label: 'Blog', title: 'Blog | Kemsor Studios', description: 'Explore Kemsor production notes on development, planning, post-production and bringing stories to screen.' },
   careers: { label: 'Careers', title: 'Careers | Kemsor Studios', description: 'The creative, production and post-production disciplines behind the frame. Find the current opportunities at Kemsor.' },
   contact: { label: 'Contact', title: 'Start a project | Kemsor Studios', description: 'Contact Kemsor Studios with a general enquiry and find studio contact details and location.' },

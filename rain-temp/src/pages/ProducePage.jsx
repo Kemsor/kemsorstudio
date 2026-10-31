@@ -1,3 +1,4 @@
+import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import ProduceLayout from '../ProduceLayout';
@@ -47,9 +48,9 @@ export default function ProducePage() {
   return <ProduceLayout page="produce"><div className="produce-hub">
     <nav className="produce-breadcrumb" aria-label="Breadcrumb"><a href="/">Kemsor Studios</a><span aria-hidden="true">/</span><a href="/services/">Capabilities</a><span aria-hidden="true">/</span><span aria-current="page">Produce</span></nav>
 
-    <section className="produce-hero produce-hero-light" aria-labelledby="produce-title">
+    <section className="inner-hero produce-hero produce-hero-light" aria-labelledby="produce-title">
       <figure className="produce-hero-image" aria-hidden="true">
-        <img src="/assets/stills/work-period-set-1600.webp" srcSet={[640, 960, 1600].map(width => `/assets/stills/work-period-set-${width}.webp ${width}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
+        <StudioImage mediaSlot="ProducePage-1" src="/assets/stills/work-period-set-1600.webp" srcSet={[640, 960, 1600].map(width => `/assets/stills/work-period-set-${width}.webp ${width}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
       </figure>
       <div className="produce-hero-content">
         <p className="produce-kicker">03 / PRODUCE</p>
@@ -69,7 +70,7 @@ export default function ProducePage() {
       <Label>PRODUCTION SERVICES</Label>
       <div className="produce-section-head"><MotionHeading as="h2" id="produce-services-title">Six services,<br /><em>one production partner.</em></MotionHeading><span className="produce-count" aria-hidden="true">01 - 06</span></div>
       <div className="produce-service-grid">{services.map((service, index) => <a className="produce-service" href={service.href} key={service.title}>
-        <div className="produce-service-image"><img src={service.image} srcSet={service.image.endsWith('-960.webp')?[640,960,1600].map(width=>`${service.image.replace('-960.webp',`-${width}.webp`)} ${width}w`).join(', '):undefined} sizes="(max-width: 480px) 90vw, (max-width: 1050px) 44vw, 30vw" alt="" loading="lazy" decoding="async" width="960" height="540"/><span>{String(index + 1).padStart(2, '0')} / 06</span></div>
+        <div className="produce-service-image"><StudioImage mediaSlot="ProducePage-2" src={service.image} srcSet={service.image.endsWith('-960.webp')?[640,960,1600].map(width=>`${service.image.replace('-960.webp',`-${width}.webp`)} ${width}w`).join(', '):undefined} sizes="(max-width: 480px) 90vw, (max-width: 1050px) 44vw, 30vw" alt="" loading="lazy" decoding="async" width="960" height="540"/><span>{String(index + 1).padStart(2, '0')} / 06</span></div>
         <div className="produce-service-body"><h3>{service.title}</h3><p>{service.description}</p><span className="produce-card-link">Explore service <Arrow /></span></div>
       </a>)}</div>
     </section>

@@ -7,7 +7,7 @@ export const demoTalent = [
     "languages": "Hindi, English",
     "skills": "Drama, Action",
     "demo": true,
-    "portrait": "/assets/talent-demo/01.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional actor profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -20,7 +20,7 @@ export const demoTalent = [
     "languages": "Kannada, Hindi, English",
     "skills": "Drama, Theatre",
     "demo": true,
-    "portrait": "/assets/talent-demo/02.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional actor profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -33,7 +33,7 @@ export const demoTalent = [
     "languages": "Hindi, English",
     "skills": "Lighting, Camera",
     "demo": true,
-    "portrait": "/assets/talent-demo/03.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional cinematographer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -46,7 +46,7 @@ export const demoTalent = [
     "languages": "Malayalam, English",
     "skills": "Drama, Dance",
     "demo": true,
-    "portrait": "/assets/talent-demo/04.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional actor profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -59,7 +59,7 @@ export const demoTalent = [
     "languages": "Bengali, Hindi",
     "skills": "Editing, Colour",
     "demo": true,
-    "portrait": "/assets/talent-demo/05.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional editor profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -72,7 +72,7 @@ export const demoTalent = [
     "languages": "Hindi, Punjabi",
     "skills": "Contemporary, Kathak",
     "demo": true,
-    "portrait": "/assets/talent-demo/06.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional dancer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -85,7 +85,7 @@ export const demoTalent = [
     "languages": "Gujarati, Hindi",
     "skills": "Sound, Mixing",
     "demo": true,
-    "portrait": "/assets/talent-demo/07.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional sound designer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -98,7 +98,7 @@ export const demoTalent = [
     "languages": "Tamil, English",
     "skills": "Sets, Art Direction",
     "demo": true,
-    "portrait": "/assets/talent-demo/08.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional production designer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -111,7 +111,7 @@ export const demoTalent = [
     "languages": "Bengali, English",
     "skills": "Theatre, Voice",
     "demo": true,
-    "portrait": "/assets/talent-demo/09.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional actor profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -124,7 +124,7 @@ export const demoTalent = [
     "languages": "Hindi, English",
     "skills": "Costume, Styling",
     "demo": true,
-    "portrait": "/assets/talent-demo/10.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional costume designer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -137,7 +137,7 @@ export const demoTalent = [
     "languages": "Hindi, Gujarati",
     "skills": "Camera, Lighting",
     "demo": true,
-    "portrait": "/assets/talent-demo/11.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional cinematographer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -150,7 +150,7 @@ export const demoTalent = [
     "languages": "Hindi, Urdu",
     "skills": "Voice, Narration",
     "demo": true,
-    "portrait": "/assets/talent-demo/12.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional voice artist profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -163,7 +163,7 @@ export const demoTalent = [
     "languages": "Marathi, Hindi",
     "skills": "Scheduling, Direction",
     "demo": true,
-    "portrait": "/assets/talent-demo/13.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional assistant director profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -176,7 +176,7 @@ export const demoTalent = [
     "languages": "Tamil, English",
     "skills": "Drama, Comedy",
     "demo": true,
-    "portrait": "/assets/talent-demo/14.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional actor profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -189,7 +189,7 @@ export const demoTalent = [
     "languages": "English, Hindi",
     "skills": "Score, Music",
     "demo": true,
-    "portrait": "/assets/talent-demo/15.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional composer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -202,7 +202,7 @@ export const demoTalent = [
     "languages": "Bengali, Hindi",
     "skills": "Makeup, Character Looks",
     "demo": true,
-    "portrait": "/assets/talent-demo/16.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional makeup artist profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -215,7 +215,7 @@ export const demoTalent = [
     "languages": "Hindi, Punjabi",
     "skills": "Action, Stage Combat",
     "demo": true,
-    "portrait": "/assets/talent-demo/17.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional stunt performer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -228,7 +228,7 @@ export const demoTalent = [
     "languages": "Telugu, English",
     "skills": "Classical, Contemporary",
     "demo": true,
-    "portrait": "/assets/talent-demo/18.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional dancer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -241,7 +241,7 @@ export const demoTalent = [
     "languages": "Hindi, Bengali",
     "skills": "Screenwriting, Dialogue",
     "demo": true,
-    "portrait": "/assets/talent-demo/19.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional writer profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"
@@ -254,7 +254,7 @@ export const demoTalent = [
     "languages": "Hindi, Telugu",
     "skills": "Drama, Theatre",
     "demo": true,
-    "portrait": "/assets/talent-demo/20.svg",
+    "portrait": "/assets/talent-demo/avatar.svg",
     "bio": "Fictional actor profile created to preview the KEMSOR talent directory.",
     "credits": "Sample portfolio only. No real credits or work availability are represented.",
     "availability": "Demo profile \u00b7 not available for enquiries"

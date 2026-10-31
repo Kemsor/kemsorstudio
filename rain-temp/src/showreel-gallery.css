@@ -70,3 +70,15 @@ html body #top.creative-site #main #showreel .showreel-gallery-head>div>span,
 html body #top.creative-site #main #showreel .showreel-scroll-hint,
 html body #top.creative-site #main #showreel .showreel-card figcaption>span{color:#bdbdbd}
 html body #top.creative-site #main #showreel .showreel-viewport:focus-visible{outline:2px solid #d4b17c}
+
+/* Consistent video frames across every showreel item. */
+html body #top.creative-site #main #showreel .showreel-card{width:40vw;min-width:260px}
+html body #top.creative-site #main #showreel .showreel-card-screen{height:clamp(240px,42svh,460px)}
+@media(max-width:900px){
+ html body #top.creative-site #main #showreel .showreel-card{width:70vw;min-width:240px}
+ html body #top.creative-site #main #showreel .showreel-card-screen{height:34svh;min-height:230px}
+}
+@media(max-width:600px){
+ html body #top.creative-site #main #showreel .showreel-card{width:82vw;min-width:210px}
+ html body #top.creative-site #main #showreel .showreel-card-screen{height:280px;min-height:0}
+}

@@ -24,7 +24,7 @@ export default function CareerApplication({role,onClose}){
     <label>Full name<input name="name" autoComplete="name" required maxLength="100"/></label><label>Email<input name="email" type="email" autoComplete="email" required maxLength="254"/></label>
     <label>Phone<input name="phone" type="tel" autoComplete="tel" required maxLength="40"/></label><label>City<input name="city" autoComplete="address-level2" maxLength="100"/></label>
     <label className="full">Relevant experience<input name="experience" maxLength="200" placeholder="e.g. 2 years in production coordination"/></label>
-    <label className="full">Message<textarea name="message" rows="4" maxLength="8000" placeholder="Tell us why you are interested in this role."/></label>
+    <label className="full">Portfolio / showreel URL<input type="url" name="portfolio_url" maxLength="1000" placeholder="https://…"/><small>Optional HTTPS link to your work.</small></label><label className="full">Message<textarea name="message" rows="4" maxLength="8000" placeholder="Tell us why you are interested in this role."/></label>
     <label className="full">Upload résumé<input type="file" name="attachment" accept=".pdf,application/pdf" required/><small>PDF only · Maximum 5 MB</small></label>
    </div><label className="enquiry-honeypot" aria-hidden="true">Website<input name="website" tabIndex="-1" autoComplete="off"/></label>
    <p className="career-privacy">Kemsor Studios will use your contact details, application and résumé to review your suitability and contact you about this opportunity. Your application is stored privately and is available to authorised recruitment staff.</p>

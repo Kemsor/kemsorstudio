@@ -3,7 +3,7 @@ import { PanelsTopLeft, LayoutDashboard, Newspaper, SquarePen, BriefcaseBusiness
   Bell, ExternalLink, ClipboardCheck, Clock, Search, LogOut, Eye, EyeOff, Sun, Moon, Menu, X, CalendarDays, Plus, Check } from 'lucide-static';
 
 // Only trusted, bundled SVG markup reaches EJS; callers choose from this fixed map.
-const icons = { media_partner: PanelsTopLeft, overview: LayoutDashboard, news: Newspaper,
+const icons = { production: PanelsTopLeft, press_asset: FileText, media_partner: PanelsTopLeft, overview: LayoutDashboard, news: Newspaper,
   blog: SquarePen, career: BriefcaseBusiness, team: Users, home: House, page: FileText,
   legal: ShieldCheck, media: Image, enquiries: Mail, settings: Settings, audit: ClipboardList,
   password: LockKeyhole, bell: Bell, external: ExternalLink, review: ClipboardCheck,

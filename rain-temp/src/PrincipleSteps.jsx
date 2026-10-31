@@ -1,3 +1,4 @@
+import StudioImage from './StudioImage';
 import React,{useRef,useState} from 'react';
 import './principle-steps.css';
 
@@ -15,7 +16,7 @@ export default function PrincipleSteps({items}){
   event.preventDefault();setActive(next);buttons.current[next]?.focus();
  };
  return <div className="principle-panels" role="group" aria-label="What we stand for">{items.map(([title,copy],i)=><article className={`principle-panel${active===i?' is-active':''}`} key={title}>
-  <img src={`/assets/designer-services/${images[i]}`} alt="" loading="lazy" decoding="async"/>
+  <StudioImage mediaSlot="PrincipleSteps-1" src={`/assets/designer-services/${images[i]}`} alt="" loading="lazy" decoding="async"/>
   <div className="principle-panel-shade" aria-hidden="true"/>
   <button ref={node=>{buttons.current[i]=node}} className="principle-panel-toggle" type="button" aria-label={title} aria-expanded={active===i} aria-controls={`principle-detail-${i}`} onPointerEnter={event=>{if(event.pointerType==='mouse')setActive(i)}} onFocus={()=>setActive(i)} onClick={()=>setActive(i)} onKeyDown={event=>keyboard(event,i)}><span>{String(i+1).padStart(2,'0')}</span></button>
   <div className="principle-panel-copy" id={`principle-detail-${i}`} hidden={active!==i}><h3>{title}</h3><p>{copy}</p></div>

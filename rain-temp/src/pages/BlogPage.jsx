@@ -1,3 +1,4 @@
+import StudioImage from '../StudioImage';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import { EditorialHero } from '../EditorialPage';
 import React, { useState } from 'react';
@@ -33,7 +34,7 @@ export default function BlogPage() {
       </form>
       <p className="blog-result-count" role="status">{filtered.length} {filtered.length===1?'post':'posts'}{category!=='all'?` in ${category}`:''}</p>
       <div className="blog-grid">{filtered.map((note, index) => <article key={note.id} className="blog-card" data-reveal>
-        <a href={`/blog/?post=${encodeURIComponent(note.id)}`} className="blog-card-image" aria-label={`Read: ${note.title}`}><img src={note.image_url || `/assets/stills/${images[index % images.length]}.webp`} alt={note.image_alt || descriptions[index % images.length]} width="1280" height="720" loading="lazy" decoding="async" /></a>
+        <a href={`/blog/?post=${encodeURIComponent(note.id)}`} className="blog-card-image" aria-label={`Read: ${note.title}`}><StudioImage mediaSlot="BlogPage-1" src={note.image_url || `/assets/stills/${images[index % images.length]}.webp`} alt={note.image_alt || descriptions[index % images.length]} width="1280" height="720" loading="lazy" decoding="async" /></a>
         <p className="page-eyebrow">{note.category}</p><MotionHeading as="h2"><a href={`/blog/?post=${encodeURIComponent(note.id)}`}>{note.title}</a></MotionHeading><p>{note.summary}</p><TextLink href={`/blog/?post=${encodeURIComponent(note.id)}`}>Read the story</TextLink>
       </article>)}</div>
       {!filtered.length && <div className="blog-no-results"><MotionHeading as="h2">{notes.length?'No matching posts':'No posts yet'}</MotionHeading><MotionCopy>{notes.length?'Try another search or reset the filters.':'New stories will appear here as the studio publishes them.'}</MotionCopy>{notes.length>0 && <button type="button" onClick={reset}>Show all posts</button>}</div>}

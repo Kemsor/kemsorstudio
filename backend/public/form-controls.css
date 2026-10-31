@@ -1,0 +1,46 @@
+/* Shared, native form controls. Keep keyboard and mobile select behavior intact. */
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) {
+ --control-ink:#302d28;--control-muted:#857f74;--control-border:#d8d2c7;
+ --control-accent:#505dc9;--control-warm:#c79857;
+ --control-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23816a49' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
+}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea) {
+ box-sizing:border-box!important;min-width:0;max-width:100%;min-height:50px!important;
+ border:1px solid var(--control-border)!important;border-radius:12px!important;
+ background-color:#fffefb!important;color:var(--control-ink)!important;
+ padding:13px 16px!important;font-family:Inter,Arial,sans-serif;font-size:14px;line-height:1.5!important;
+ letter-spacing:normal!important;text-transform:none!important;
+ box-shadow:inset 0 1px 0 #fff,0 2px 5px #3b2c1504!important;
+ transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease!important;
+ transform:none!important;scroll-margin-block:120px 24px;
+}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea):hover:not(:disabled):not([readonly]){border-color:#b7a27f!important;background-color:#fff!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea):focus{outline:none!important;border-color:var(--control-accent)!important;background-color:#fff!important;box-shadow:0 0 0 3px #505dc918,0 4px 14px #4c3c1c08!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea)::placeholder{color:var(--control-muted)!important;opacity:1;letter-spacing:0}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :is(input,select,textarea):disabled{cursor:not-allowed;opacity:.72;background-color:#f0eee8!important;color:#847e73!important;box-shadow:none!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :is(input,textarea)[readonly]{background-color:#f6f4ee!important;color:#706a60!important;box-shadow:none!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select:not([multiple]):not([size]),:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select[size="1"]{
+ appearance:none!important;-webkit-appearance:none!important;cursor:pointer;
+ padding-inline:16px 50px!important;
+ background-image:var(--control-chevron)!important;background-position:right 16px center!important;
+ background-size:18px 18px!important;background-repeat:no-repeat!important;
+ text-overflow:ellipsis;white-space:nowrap;overflow:hidden;
+}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select option,:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select optgroup{color:#302d28;background:#fff;font:inherit}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select[multiple],:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select[size]:not([size="1"]){background-image:none!important;padding:10px!important;min-height:130px!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select[multiple] option{padding:9px 12px;border-radius:6px}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) textarea{min-height:125px!important;resize:vertical;padding:15px 16px!important;line-height:1.75!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) .password-control input{padding-inline-end:56px!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input[type=search]{padding-inline-end:34px!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input[type=file]{padding:7px 10px!important;line-height:2!important;font-size:12px;cursor:pointer}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input[type=file]::file-selector-button{font:500 12px/1.5 Inter,Arial,sans-serif;border:1px solid #e2d4bd;border-radius:8px;background:#f6eddf;color:#765a32;padding:8px 12px;margin-inline-end:12px;cursor:pointer;transition:background .2s}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input[type=file]:hover::file-selector-button{background:#eddebf}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input:is([type=date],[type=datetime-local],[type=time]){color-scheme:light;padding-inline-end:14px!important}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input::-webkit-calendar-picker-indicator{padding:4px;opacity:.65;cursor:pointer}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input:is([type=checkbox],[type=radio]){accent-color:var(--control-accent);width:17px;height:17px;min-height:0;flex-shrink:0;vertical-align:middle;cursor:pointer}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input:is([type=checkbox],[type=radio]):focus-visible{outline:2px solid var(--control-accent);outline-offset:3px}
+:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea)[aria-invalid=true]{border-color:#b95c43!important;box-shadow:0 0 0 3px #b95c4310!important}
+@supports selector(input:user-invalid){:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea):user-invalid{border-color:#b95c43!important}}
+@media(max-width:760px){:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea){font-size:16px!important;min-height:50px!important}:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) input[type=file]{font-size:12px!important}}
+@media(prefers-reduced-motion:reduce){:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea){transition:none!important}}
+@media(forced-colors:active){:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea){border:1px solid CanvasText!important;background:Canvas!important;color:CanvasText!important;forced-color-adjust:auto}:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select:not([multiple]):not([size]),:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) select[size="1"]{appearance:auto!important;-webkit-appearance:auto!important;background-image:none!important;padding-inline-end:16px!important}:is(html body #top.creative-site,html body.cms-authenticated,html body.cms-login) :where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea):focus{outline:2px solid Highlight!important}}

@@ -1,3 +1,4 @@
+import {statuses} from './enquiry-options.js';
 import {Router} from 'express';
 import {rows,audit} from './db.js';
 import {canEdit,canEnquire} from './security.js';
@@ -13,7 +14,7 @@ export function tableView(req,total,columns,defaultSort,filters={}){
 }
 export function bulkRouter(db){
  const router=Router();
- const resources={content:{table:'cms_entries',access:canEdit,states:['draft','archived'],path:'/admin/content'},enquiries:{table:'cms_enquiries',access:canEnquire,states:['new','in_review','contacted','closed','spam'],path:'/admin/enquiries'},applications:{table:'career_applications',access:canEnquire,states:['new','reviewing','shortlisted','rejected'],path:'/admin/applications'},members:{table:'talent_accounts',access:user=>user?.role==='admin',states:['pending','suspended'],path:'/admin/talent'}};
+ const resources={content:{table:'cms_entries',access:canEdit,states:['draft','archived'],path:'/admin/content'},enquiries:{table:'cms_enquiries',access:canEnquire,states:statuses.filter(status=>status!=='assigned'),path:'/admin/enquiries'},applications:{table:'career_applications',access:canEnquire,states:['new','reviewing','shortlisted','rejected'],path:'/admin/applications'},members:{table:'talent_accounts',access:user=>user?.role==='admin',states:['pending','suspended'],path:'/admin/talent'}};
  router.post('/admin/tables/:resource/bulk',async(req,res)=>{
   const config=Object.hasOwn(resources,req.params.resource)?resources[req.params.resource]:null;if(!config||!config.access(req.user))throw Object.assign(new Error('Access denied.'),{status:403});
   const raw=Array.isArray(req.body.ids)?req.body.ids:[req.body.ids];const ids=[...new Set(raw.map(Number))];
@@ -28,6 +29,7 @@ export function bulkRouter(db){
    if(selected.length!==ids.length)throw Object.assign(new Error('One or more selected records no longer exist. Refresh the table and try again.'),{status:422});
    const extra=req.params.resource==='content'?',updated_by=?':'';
    await rows(conn,`UPDATE ${config.table} SET status=?${extra} WHERE id IN (${placeholders})`,[req.body.status,...(extra?[req.user.id]:[]),...ids]);
+   if(req.params.resource==='enquiries')for(const record of selected)if(record.status!==req.body.status)await rows(conn,'INSERT INTO cms_enquiry_history(enquiry_id,user_id,from_status,to_status) VALUES(?,?,?,?)',[record.id,req.user.id,record.status,req.body.status]);
    if(req.params.resource==='applications')for(const record of selected)if(record.status!==req.body.status)await rows(conn,'INSERT INTO career_application_history(application_id,user_id,from_status,to_status) VALUES(?,?,?,?)',[record.id,req.user.id,record.status,req.body.status]);
    for(const id of ids){if(req.params.resource==='members'&&req.body.status==='suspended')await rows(conn,"DELETE FROM cms_sessions WHERE JSON_EXTRACT(data,'$.memberId')=?",[id]);await audit(conn,req.user,`bulk_${req.body.status}`,req.params.resource,id);}
    await conn.commit();

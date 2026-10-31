@@ -1,9 +1,11 @@
+import StudioImage from './StudioImage';
+import AccountDropdown from './AccountDropdown';
 import SiteIcon from './SiteIcon';
 import React, { useEffect, useRef, useState } from 'react';
 import { navigation } from './navigation';
 import { pageHref } from './pageInfo';
 import './header.css';
-import {useMember,LogoutButton} from './MemberSession';
+import {useMember} from './MemberSession';
 
 const drawerQuery = '(max-width: 1440px)';
 
@@ -15,6 +17,7 @@ export default function Header({ page = 'home' } = {}) {
   const {user,loading}=useMember();
   const [drawerMode, setDrawerMode] = useState(() => typeof window !== 'undefined' && window.matchMedia(drawerQuery).matches);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [accountOpen,setAccountOpen]=useState(false);
   const [activePanel, setActivePanel] = useState(null);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY >= 48);
@@ -223,10 +226,10 @@ export default function Header({ page = 'home' } = {}) {
   };
 
   return <>
-    <header ref={headerRef} className="creative-header" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel} onFocusCapture={() => setHidden(false)}>
+    <header ref={headerRef} className="creative-header" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel && !accountOpen} onFocusCapture={() => setHidden(false)}>
       <div className="creative-header-inner">
         <a className="creative-header-brand" href="/" onClick={event => followLink('/', event)} aria-label="Kemsor Studios home">
-          <picture><source srcSet="/assets/kemsor-logo.webp" type="image/webp" /><img src="/assets/kemsor-logo.svg" alt="" width="3650" height="3300" decoding="async" /></picture>
+          <picture><source srcSet="/assets/kemsor-logo.webp" type="image/webp" /><StudioImage mediaSlot="Header-1" src="/assets/kemsor-logo.svg" alt="" width="3650" height="3300" decoding="async" /></picture>
         </a>
         <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerOpen} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
           <div className="creative-nav-drawer-head"><span>THE STUDIO INDEX</span><button ref={closeRef} type="button" onClick={() => closeDrawer()} aria-label="Close navigation">Close <span aria-hidden="true"><SiteIcon name="close" size={16} /></span></button></div>
@@ -241,13 +244,13 @@ export default function Header({ page = 'home' } = {}) {
             </div>)}
           </div>
           <div className="creative-nav-mobile-account" aria-label="Account">
-            {!loading&&(user?<LogoutButton className="creative-nav-mobile-login"/>:<a href="/login/" className="creative-nav-mobile-login" aria-current={page==='login'?'page':undefined} onClick={event => followLink('/login/', event)}>Login <span aria-hidden="true"><SiteIcon name="lock" size={16} /></span></a>)}
+            <AccountDropdown mobile/>
           </div>
           <p className="creative-nav-drawer-foot">Film. Series. Documentaries.<br />Good stories start with a conversation.</p>
         </nav>
         <div className="creative-header-controls">
           {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">Script to Production</b> <span aria-hidden="true"><SiteIcon name="script" size={16} /></span></a>}
-          <div className="header-account-links" aria-label="Account links">{!loading&&(user?<LogoutButton className="header-login"/>:<a href="/login/" className="header-login" aria-current={page==='login'?'page':undefined}>Login</a>)}</div>
+          <div className="header-account-links" aria-label="Account links"><AccountDropdown onOpenChange={setAccountOpen}/></div>
           <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { clearHoverTimer(); setDrawerOpen(!drawerOpen); setActivePanel(null); }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true"><SiteIcon name={drawerOpen?'close':'menu'} size={23} /></span>
           </button>

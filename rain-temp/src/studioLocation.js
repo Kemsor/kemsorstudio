@@ -1,0 +1,2 @@
+export const studioAddress='Kemsor Studios, Lane 06, Ring Rd, near Uco Bank, Chakdalanwala, Danda Dharampur, Indraprastha, Dehradun, Uttarakhand 248008';
+export const studioMapEmbed='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.3320618791113!2d78.0677978!3d30.3010487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390929002e2478cd%3A0x3b2ffd3792644480!2sKEMSOR%20STUDIOS%20PVT.%20LTD.!5e1!3m2!1sen!2sin!4v1793391120686!5m2!1sen!2sin';

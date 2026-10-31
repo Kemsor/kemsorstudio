@@ -166,3 +166,68 @@ html body #top.creative-site .creative-header:focus-within{transform:translateY(
  }
  html body #top.creative-site .creative-header .header-account-links .header-login{border-radius:999px!important}
 }
+
+/* Inner pages carry the homepage's warm, dark navigation palette. */
+html body #top.creative-site:not(.site-page-home) .creative-header .creative-header-inner{
+ background:#1a0f00!important;color:#fff!important;border-color:#ffffff14!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header :is(.creative-nav-toggle,.header-account-links .header-login),
+html body #top.creative-site:not(.site-page-home) .creative-header .creative-nav-toggle :is(span,svg){
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header .header-account-links .header-login:is(:hover,:focus-visible){
+ background:#fff!important;color:#171717!important;-webkit-text-fill-color:#171717!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header :is(.creative-header-brand,.creative-nav-toggle,.header-login):focus-visible{outline-color:#efc77d!important}
+@media(min-width:1441px){
+ html body #top.creative-site:not(.site-page-home) .creative-header :is(.creative-nav,.creative-nav-list,.creative-nav-item){background:transparent!important}
+ html body #top.creative-site:not(.site-page-home) .creative-header .creative-nav :is(.creative-nav-trigger,.creative-nav-direct),
+ html body #top.creative-site:not(.site-page-home) .creative-header .creative-nav :is(.creative-nav-trigger,.creative-nav-direct) span{
+ background:transparent!important;color:#fff!important;-webkit-text-fill-color:#fff!important;
+ }
+ html body #top.creative-site:not(.site-page-home) .creative-header .creative-nav-chevron{color:inherit!important;border-color:currentColor!important}
+ html body #top.creative-site:not(.site-page-home) .creative-header .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]){
+ background:#fff!important;color:#171717!important;-webkit-text-fill-color:#171717!important;
+ }
+ html body #top.creative-site:not(.site-page-home) .creative-header .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]) span{
+ color:#171717!important;-webkit-text-fill-color:#171717!important;
+ }
+}
+
+/* Reserve actual layout space for the navigation and account/production actions. */
+@media(min-width:1441px){
+ html body #top.creative-site .creative-header .creative-header-inner{display:flex;align-items:center;justify-content:space-between;gap:clamp(16px,1.6vw,30px)}
+ html body #top.creative-site .creative-header .creative-header-brand{flex:0 0 auto}
+ html body #top.creative-site .creative-header .creative-nav{
+  position:relative!important;inset:auto!important;left:auto!important;top:auto!important;
+  transform:none!important;flex:1 1 auto;min-width:0;width:auto;display:flex;justify-content:center;
+  margin:0;padding-inline:0;
+ }
+ html body #top.creative-site .creative-header .creative-nav-list{gap:clamp(4px,.65vw,14px);flex:0 0 auto;justify-content:center}
+ html body #top.creative-site .creative-header .creative-header-controls{position:relative;flex:0 0 auto;margin-left:0!important;gap:12px}
+ html body #top.creative-site .creative-header .header-script-tool{position:relative;inset:auto!important;flex:0 0 auto;white-space:nowrap}
+ html body #top.creative-site .creative-header .header-account-links{flex:0 0 auto}
+}
+@media(max-width:760px){
+ html body #top.creative-site .creative-header .creative-header-inner{gap:10px!important}
+ html body #top.creative-site .creative-header .creative-header-controls{min-width:0;gap:10px;flex:0 1 auto;margin-left:auto}
+ html body #top.creative-site .creative-header .header-script-tool{flex:0 1 auto;white-space:nowrap}
+ html body #top.creative-site .creative-header .creative-nav-toggle{flex:0 0 40px;min-width:40px;width:40px}
+}
+@media(max-width:360px){html body #top.creative-site .creative-header .header-script-tool{padding-inline:9px!important;font-size:10px!important;gap:6px!important}html body #top.creative-site .creative-header .header-script-tool .cta-label{font-size:10px!important}}
+
+/* Give the production CTA a clear separation from the primary menu. */
+@media(min-width:1441px){
+ html body #top.creative-site .creative-header .creative-header-inner{column-gap:clamp(28px,2.4vw,46px)!important}
+ html body #top.creative-site .creative-header .creative-nav{justify-content:flex-end;padding-right:clamp(20px,1.8vw,34px)!important}
+ html body #top.creative-site .creative-header .creative-header-controls{gap:16px!important}
+}
+
+/* Keep all desktop navigation together on the right of the logo. */
+@media(min-width:1441px){
+ html body #top.creative-site .creative-header .creative-header-inner{justify-content:flex-start;column-gap:22px!important}
+ html body #top.creative-site .creative-header .creative-nav{flex:0 0 auto!important;width:auto!important;margin-left:auto!important;padding-right:0!important;justify-content:flex-end}
+ html body #top.creative-site .creative-header .creative-header-controls{margin-left:0!important;gap:12px!important}
+}
+
+:root{--studio-discovery-gradient:radial-gradient(ellipse at 80% 10%,#7970bb40,transparent 55%),linear-gradient(115deg,#252338,#27202e 55%,#38291e)}

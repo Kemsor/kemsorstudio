@@ -1,3 +1,5 @@
+import StudioImage from './StudioImage';
+import {chapterStyler} from './VisualChapters';
 import SiteIcon from './SiteIcon';
 import MotionHeading, { isTextElement } from './TextMotion';
 import React, { Children, cloneElement, isValidElement, useEffect, useRef, useState } from 'react';
@@ -81,7 +83,7 @@ export function EditorialHero({ page = 'studio', heading, title, accent, descrip
   const sourceCopy = clientContentPages.has(page);
   const headingNode = heading || <MotionHeading as="h1" id={id}>{title}{accent && <span>{accent}</span>}</MotionHeading>;
   const responsiveBase = typeof image === 'string' ? image.match(/^(\/assets\/stills\/.+)-(?:640|960|1600)\.webp$/)?.[1] : null;
-  const imageNode = typeof image === 'string' ? <img src={image} srcSet={responsiveBase ? [640,960,1600].map(width=>`${responsiveBase}-${width}.webp ${width}w`).join(', ') : undefined} alt={alt || ''} fetchPriority="high" decoding="async" width="1600" height="900"/> : image;
+  const imageNode = typeof image === 'string' ? <StudioImage mediaSlot="EditorialPage-1" src={image} srcSet={responsiveBase ? [640,960,1600].map(width=>`${responsiveBase}-${width}.webp ${width}w`).join(', ') : undefined} alt={alt || ''} fetchPriority="high" decoding="async" width="1600" height="900"/> : image;
   function move(event) {
     if(stop || event.pointerType !== 'mouse') return;
     const rect = event.currentTarget.getBoundingClientRect();
@@ -89,8 +91,8 @@ export function EditorialHero({ page = 'studio', heading, title, accent, descrip
     event.currentTarget.style.setProperty('--ep-image-y',`${(event.clientY-rect.top-rect.height/2)*-.012}px`);
   }
   function reset(event) {event.currentTarget.style.setProperty('--ep-image-x','0px');event.currentTarget.style.setProperty('--ep-image-y','0px');}
-  return <section className={`ep-hero${compact ? ' ep-hero-compact' : ''}`} data-ep-motion={stop?'paused':'playing'} aria-labelledby={headingNode.props.id || undefined}>
-    <div className="ep-width"><div className="ep-docket">{breadcrumb || <p className="ep-eyebrow"><a href="/">KEMSOR STUDIOS</a><span aria-hidden="true">/</span>{eyebrow}</p>}{!compact && <button className="ep-motion-toggle" type="button" aria-pressed={stop} disabled={reduced || paused} onClick={()=>{setStopped(value=>!value);onMotionChange?.(!stopped);}}><span aria-hidden="true">{stop?'▷':'Ⅱ'}</span>{reduced?'Reduced motion':stop?'Play motion':'Pause motion'}</button>}</div>
+  return <section className={`inner-hero ep-hero${compact ? ' ep-hero-compact' : ''}`} data-ep-motion={stop?'paused':'playing'} aria-labelledby={headingNode.props.id || undefined}>
+    <div className="ep-width"><div className="ep-docket">{breadcrumb || <nav className="ep-eyebrow site-breadcrumb" aria-label="Breadcrumb"><a href="/">Kemsor Studios</a><span aria-hidden="true">/</span><span aria-current="page">{eyebrow}</span></nav>}{!compact && <button className="ep-motion-toggle" type="button" aria-pressed={stop} disabled={reduced || paused} onClick={()=>{setStopped(value=>!value);onMotionChange?.(!stopped);}}><span aria-hidden="true">{stop?'▷':'Ⅱ'}</span>{reduced?'Reduced motion':stop?'Play motion':'Pause motion'}</button>}</div>
       <div className="ep-hero-heading"><div>{headingNode}{caption && <p className="ep-hero-note">{caption}</p>}</div><div className="ep-hero-copy">{description && (isValidElement(description) ? description : <p>{description}</p>)}{actions && <div className="ep-actions">{actions}</div>}</div></div>
       {!compact && imageNode && <div className="ep-board"><figure className="ep-hero-photo"><div className="ep-image-window" onPointerMove={move} onPointerLeave={reset}>{cloneElement(imageNode,{alt:imageNode.props.alt || alt || 'Production visual supplied for Kemsor Studios',sizes:'(max-width: 600px) 90vw, (max-width: 900px) 65vw, 70vw'})}{['a','b','c','d'].map(c=><span key={c} className={`ep-corner ep-corner-${c}`} aria-hidden="true"/>)}<span className="ep-focus" aria-hidden="true"><i/></span><span className="ep-frame-tab">STORY. CRAFT. CINEMA.</span></div><figcaption><span>{eyebrow}</span><span>VISUAL STUDY / KEMSOR STUDIOS</span></figcaption></figure><aside className="ep-file-card" aria-label={graphic?.props['aria-label'] || `${label.toLowerCase()} illustration`}><div className="ep-file-heading"><span>{label}</span><span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></div>{graphic || <ProductionDrawing kind={kind}/>}{!sourceCopy && <div className="ep-file-caption"><span>{line}<br/><strong>{ending}</strong></span><span className="ep-file-mark" aria-hidden="true">K</span></div>}</aside></div>}
       {!compact && imageNode && <details className="ep-mobile-study"><summary><span>{label}</span><span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><div className="ep-mobile-study-content">{graphic || <ProductionDrawing kind={kind}/>}</div></details>}
@@ -103,12 +105,12 @@ function ServiceAccordion({ list }) {
   const [motionPaused,setMotionPaused] = useState(false);
   const [active,setActive] = useState(0);
   const items = nodes(list.props.children).filter(isValidElement);
-  return <div className="ep-accordion">{items.map((item,index)=>{
+  return <div className="ep-accordion studio-ledger studio-ledger-accordion">{items.map((item,index)=>{
     const dt = findNode(item,n=>n.type==='dt');
     const dd = findNode(item,n=>n.type==='dd');
     if(!dt || !dd) return item;
     const title = nodes(dt.props.children).filter(n=>!(isValidElement(n)&&n.type==='span'&&n.props['aria-hidden']));
-    return <details key={item.key || index} open={active===index}><summary onClick={event=>{event.preventDefault();setActive(value=>value===index?-1:index);}}><span className="ep-item-number">{String(index+1).padStart(2,'0')}</span><h3>{title}</h3><span className="ep-plus" aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><div className="ep-accordion-copy">{dd.props.children}</div></details>;
+    return <details key={item.key || index} open={active===index} onPointerEnter={event=>{if(event.pointerType==='mouse')setActive(index);}}><summary onClick={event=>{event.preventDefault();setActive(value=>value===index?-1:index);}}><span className="ep-item-number">{String(index+1).padStart(2,'0')}</span><h3>{title}</h3><span className="ep-plus" aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><div className="ep-accordion-copy">{dd.props.children}</div></details>;
   })}</div>;
 }
 function prepareSection(node, process) {
@@ -132,6 +134,7 @@ function chapterLabel(node,index) {
 // Adapts the existing, authored section elements without duplicating page copy.
 // The original section IDs and all nested forms, links and CMS components survive.
 export default function EditorialPage({page,children}) {
+  const styleChapter=chapterStyler(page);
   const root = Children.only(children);
   const all = nodes(root.props.children);
   const hero = all.find(n=>hasClass(n,'produce-hero') || n.type===PageHero);
@@ -142,7 +145,7 @@ export default function EditorialPage({page,children}) {
   const heading = hero && findNode(hero,n=>isTextElement(n,'h1'));
   const kicker = hero && findNode(hero,n=>hasClass(n,'produce-kicker'));
   const graphic = hero && findNode(hero,n=>hasClass(n,'editorial-hero-graphic'));
-  const image = hero && findNode(hero,n=>n.type==='img');
+  const image = hero && findNode(hero,n=>(n.type==='img'||n.type===StudioImage));
   const description = heroContent && nodes(heroContent.props.children).find(n=>isValidElement(n)&&isTextElement(n,'p')&&!hasClass(n,'produce-kicker'));
   const actionGroup = heroContent && findNode(heroContent,n=>hasClass(n,'produce-actions'));
   const directAction = heroContent && nodes(heroContent.props.children).filter(n=>n.type===CTA||n.type===TextLink);
@@ -163,7 +166,7 @@ export default function EditorialPage({page,children}) {
     chapters.push({id,label});
     const props = {id,className:`${node.props.className||''} ep-chapter${process?' ep-process':''}`, 'data-ep-chapter':true};
     const prepared = prepareSection(node,process);
-    return typeof node.type==='string' ? cloneElement(prepared,{...props,key:node.key||id}) : <div {...props} key={id}>{prepared}</div>;
+    return styleChapter(typeof node.type==='string' ? cloneElement(prepared,{...props,key:node.key||id}) : <div {...props} key={id}>{prepared}</div>,index);
   });
   const host = useRef(null);
   const reduced = useReducedMotion();

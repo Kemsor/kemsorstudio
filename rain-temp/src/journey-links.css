@@ -1,0 +1,74 @@
+/* Journey routes now sit below Who we work with, independent of the footer. */
+.home-journey-section{padding:28px var(--page-gutter) 48px;background:#fff}
+.home-journey-section .footer-journey-links h3{font:600 12px/1.5 Inter,sans-serif;letter-spacing:.04em;color:#292323;margin:0 0 18px}
+.home-journey-section .footer-journey-links>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.home-journey-section .footer-journey-links a{
+ --route-start:#8b4314;--route-end:#573017;--route-accent:#ffe1a1;
+ position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;gap:8px;
+ min-height:96px;padding:18px 14px;border:1px solid #ffffff40;border-radius:16px;
+ background:linear-gradient(125deg,var(--route-start),var(--route-end));color:#fff;text-decoration:none;
+ box-shadow:inset 0 1px 0 #ffffff0c;transition:translate .3s,border-color .3s,box-shadow .3s;
+}
+.home-journey-section .footer-journey-links a:nth-child(2){--route-start:#a3422d;--route-end:#702641;--route-accent:#ffdfcc}
+.home-journey-section .footer-journey-links a:nth-child(3){--route-start:#985033;--route-end:#673321;--route-accent:#ffe2c5}
+.home-journey-section .footer-journey-links a:nth-child(4){--route-start:#a15d36;--route-end:#704024;--route-accent:#ffe8cc}
+.home-journey-section .footer-journey-links a::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.12;background:repeating-linear-gradient(115deg,transparent 0 31px,#ffffff60 32px,transparent 33px 64px);transition:transform .6s,opacity .4s}
+.home-journey-section .footer-journey-links a::after{content:'';position:absolute;inset:auto 14px 8px;height:1px;background:var(--route-accent);opacity:.25;transform:scaleX(.25);transform-origin:left;transition:transform .4s,opacity .4s}
+.home-journey-section .footer-journey-mark{display:grid;place-items:center;flex:0 0 32px;height:36px;color:var(--route-accent)}
+.home-journey-section .footer-journey-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+.home-journey-section .footer-journey-title{font:600 12px/1.5 Inter,sans-serif;color:#fff;-webkit-text-fill-color:#fff}
+.home-journey-section .footer-journey-note{font:400 11px/1.5 Inter,sans-serif;color:var(--route-accent);-webkit-text-fill-color:var(--route-accent)}
+.home-journey-section .footer-journey-number{position:absolute;right:10px;top:7px;font:500 9px/1.5 Inter,sans-serif;color:var(--route-accent);opacity:.55}
+.home-journey-section .footer-journey-links a:is(:hover,:focus-visible){translate:0 -3px;border-color:var(--route-accent);box-shadow:0 8px 22px #0003}
+.home-journey-section .footer-journey-links a:is(:hover,:focus-visible)::before{transform:translateX(12px);opacity:.3}
+.home-journey-section .footer-journey-links a:is(:hover,:focus-visible)::after{transform:scaleX(1);opacity:.6}
+@media(max-width:1100px){.home-journey-section .footer-journey-links>div{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.home-journey-section .footer-journey-links>div{grid-template-columns:1fr}.home-journey-section{padding-bottom:32px}}
+@media(prefers-reduced-motion:reduce){.home-journey-section .footer-journey-links a,.home-journey-section .footer-journey-links a::before,.home-journey-section .footer-journey-links a::after{transition:none}.home-journey-section .footer-journey-links a:is(:hover,:focus-visible){translate:none}}
+
+/* Open journey links, separated by dividers instead of cards. */
+.home-journey-section .footer-journey-links>div{gap:0}
+.home-journey-section .footer-journey-links a,
+.home-journey-section .footer-journey-links a:is(:hover,:focus-visible){
+ background:none;border:0;border-radius:0;box-shadow:none;translate:none;
+ padding:12px 24px;min-height:82px;
+}
+.home-journey-section .footer-journey-links a+a{border-left:1px solid #30251b30}
+.home-journey-section .footer-journey-links a:first-child{padding-left:0}
+.home-journey-section .footer-journey-links a::before,
+.home-journey-section .footer-journey-links a::after{content:none}
+.home-journey-section .footer-journey-title{color:#292323;-webkit-text-fill-color:#292323}
+.home-journey-section .footer-journey-note{color:#6e6258;-webkit-text-fill-color:#6e6258}
+.home-journey-section .footer-journey-mark{color:#aa6a29;transition:transform .25s ease}
+.home-journey-section .footer-journey-number{color:#77685c;right:14px;top:0}
+.home-journey-section .footer-journey-links a:is(:hover,:focus-visible) .footer-journey-mark{transform:translateY(-3px)}
+.home-journey-section .footer-journey-links a:is(:hover,:focus-visible) .footer-journey-title{color:#985a23;-webkit-text-fill-color:#985a23}
+@media(max-width:1100px) and (min-width:481px){
+ .home-journey-section .footer-journey-links a:nth-child(3){border-left:0;padding-left:0}
+ .home-journey-section .footer-journey-links a:nth-child(n+3){border-top:1px solid #30251b30}
+}
+@media(max-width:480px){
+ .home-journey-section .footer-journey-links a{padding:16px 0;min-height:78px}
+ .home-journey-section .footer-journey-links a+a{border-left:0;border-top:1px solid #30251b30}
+ .home-journey-section .footer-journey-number{top:12px;right:0}
+}
+@media(prefers-reduced-motion:reduce){
+ .home-journey-section .footer-journey-mark{transition:none}
+ .home-journey-section .footer-journey-links a:is(:hover,:focus-visible) .footer-journey-mark{transform:none}
+}
+
+/* One shared hover surface follows the active link across rows and columns. */
+.home-journey-section .journey-hover-grid{position:relative;isolation:isolate}
+.home-journey-section .journey-hover-grid::before{
+ content:'';position:absolute;left:0;top:0;pointer-events:none;z-index:-1;
+ width:var(--panel-width,0px);height:var(--panel-height,0px);
+ transform:translate(var(--panel-x,0px),var(--panel-y,0px));
+ background:linear-gradient(120deg,#fbe8c4,#f2cd95);border-radius:10px;opacity:0;
+ transition:transform .36s cubic-bezier(.22,.8,.25,1),width .36s,height .36s,opacity .18s;
+}
+.home-journey-section .journey-hover-grid[data-hovering=true]::before{opacity:1}
+.home-journey-section .journey-hover-grid a{isolation:auto}
+.home-journey-section .journey-hover-grid a:first-child{padding-left:18px}
+@media(max-width:1100px) and (min-width:481px){.home-journey-section .journey-hover-grid a:nth-child(3){padding-left:18px}}
+@media(max-width:480px){.home-journey-section .journey-hover-grid a{padding-inline:18px}}
+@media(prefers-reduced-motion:reduce){.home-journey-section .journey-hover-grid::before{transition:none}}

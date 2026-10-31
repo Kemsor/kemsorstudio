@@ -32,6 +32,7 @@ export default forwardRef(function StudioClipViewer({onOpenChange}, ref) {
   document.addEventListener('fullscreenchange',sync);
   return()=>{document.removeEventListener('fullscreenchange',sync);};
  },[]);
+ if(typeof document==='undefined')return null;
  return createPortal(<dialog ref={dialog} className="studio-video-viewer" aria-labelledby={titleId} onCancel={event=>{event.preventDefault();close();}} onClose={()=>{player.current?.pause();nativeFullscreen.current=false;setSelection(null);onOpenChange(false);requestAnimationFrame(()=>opener.current?.focus({preventScroll:true}));}}>
   <div ref={screen} className="studio-video-screen"><header className="studio-video-toolbar"><span id={titleId}>{selection?.label||'Studio film'}</span><button type="button" autoFocus onClick={close} aria-label="Exit fullscreen video"><SiteIcon name="collapse" size={18} /><span>Exit fullscreen</span></button></header>
   {selection&&<video ref={player} src={selection.src} poster={selection.poster} controls controlsList="nofullscreen" autoPlay muted loop playsInline preload="metadata" aria-label={selection.label} onLoadedMetadata={event=>{const video=event.currentTarget;if(Number.isFinite(video.duration)&&selection.time<video.duration)video.currentTime=selection.time;video.play().catch(()=>{});}}/>}

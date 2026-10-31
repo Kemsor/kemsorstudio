@@ -347,3 +347,6 @@ html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.foot
 html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.footer-reference .footer-journey-links h3{
  font:600 12px/1.5 Inter,sans-serif;letter-spacing:.04em;margin-bottom:18px;
 }
+
+html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.footer-reference .footer-studio-column>.footer-info-block:first-child{display:block}
+html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.footer-reference .footer-studio-column>.footer-info-block:first-child p{max-width:36ch;font:400 13px/1.7 Inter,sans-serif}

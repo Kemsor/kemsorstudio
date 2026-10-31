@@ -1,3 +1,47 @@
+// A single progress surface for navigation, upload transfer, and server processing.
+const adminProgress=(()=>{
+ const box=document.createElement('div');box.className='admin-loading-progress';box.hidden=true;
+ const label=document.createElement('span');label.setAttribute('role','status');label.setAttribute('aria-live','polite');
+ const track=document.createElement('div');track.className='admin-loading-track';track.setAttribute('role','progressbar');track.setAttribute('aria-label','Request progress');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');
+ const fill=document.createElement('i');track.append(fill);box.append(track,label);document.body.append(box);
+ let delay,hideTimer,slowTimer;
+ const show=(message,percent)=>{clearTimeout(hideTimer);box.hidden=false;label.textContent=message;const measured=Number.isFinite(percent);box.classList.toggle('is-indeterminate',!measured);if(measured){const value=Math.max(0,Math.min(100,percent));fill.style.width=`${value}%`;track.setAttribute('aria-valuenow',String(Math.round(value)))}else{fill.style.width='';track.removeAttribute('aria-valuenow')}};
+ const finish=()=>{clearTimeout(delay);clearTimeout(slowTimer);if(box.hidden)return;show('Complete',100);hideTimer=setTimeout(()=>{box.hidden=true},250)};
+ const navigation=()=>{clearTimeout(delay);delay=setTimeout(()=>show('Opening page…'),120);clearTimeout(slowTimer);slowTimer=setTimeout(()=>show('Still loading. Please wait…'),4500)};
+ const cancel=()=>{clearTimeout(delay);clearTimeout(slowTimer);clearTimeout(hideTimer);box.hidden=true};
+ addEventListener('pageshow',cancel);addEventListener('offline',cancel);
+ document.addEventListener('click',event=>{const link=event.target.closest?.('a[href]');if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||!link||link.hasAttribute('download')||link.target==='_blank')return;const url=new URL(link.href,location.href);if(url.origin===location.origin&&!/\.csv$/.test(url.pathname)&&(url.pathname!==location.pathname||url.search!==location.search))navigation()});
+ document.addEventListener('submit',event=>{if(!event.defaultPrevented&&(event.target.method||'get').toLowerCase()==='get')navigation()});
+ return {show,finish,navigation,cancel};
+})();
+function adminUpload(action,data,signal,onProgress){
+ return new Promise((resolve,reject)=>{
+  if(signal.aborted){reject(new DOMException('Cancelled','AbortError'));return;}
+  const xhr=new XMLHttpRequest();xhr.open('POST',action);xhr.setRequestHeader('Accept','application/json');
+  const aborted=()=>xhr.abort();signal.addEventListener('abort',aborted,{once:true});
+  xhr.upload.onprogress=event=>{if(event.lengthComputable)onProgress(event.loaded/event.total*100)};
+  xhr.upload.onload=()=>adminProgress.show([...data.values()].some(value=>value instanceof File&&value.size)?'Upload received. Optimizing and saving…':'Saving…');
+  xhr.onload=()=>{signal.removeEventListener('abort',aborted);resolve({ok:xhr.status>=200&&xhr.status<300,redirected:xhr.responseURL!==new URL(action,location.href).href,url:xhr.responseURL,headers:{get:name=>xhr.getResponseHeader(name)},json:async()=>JSON.parse(xhr.responseText)})};
+  xhr.onerror=()=>{signal.removeEventListener('abort',aborted);reject(new Error('Connection failed'))};xhr.onabort=()=>{signal.removeEventListener('abort',aborted);reject(new DOMException('Cancelled','AbortError'))};
+  xhr.send(data);
+ });
+}
+async function optimizeAdminImages(data,form){
+ for(const field of form.querySelectorAll('input[type="file"][name="image"]')){
+  const file=data.get(field.name);if(!(file instanceof File)||!file.size)continue;
+  adminProgress.show('Preparing your image…');
+  // Original files remain selected if validation or the network fails.
+  let bitmap;
+  try{
+   bitmap=await createImageBitmap(file,{imageOrientation:'from-image'});
+   const ratio=Math.min(1,2400/Math.max(bitmap.width,bitmap.height));
+   const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*ratio));canvas.height=Math.max(1,Math.round(bitmap.height*ratio));canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);
+   const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.86));
+   if(blob&&blob.size<file.size)data.set(field.name,blob,file.name);
+  }catch{/* Server decoding is authoritative and provides an actionable error. */}finally{bitmap?.close()}
+ }
+}
+
 const workspaceIcon = name => document.querySelector(`template[data-admin-icon="${name}"]`).content.cloneNode(true);
 const dropdown=document.querySelector('.notification-dropdown');
 if(dropdown){
@@ -95,23 +139,28 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
   if(event.defaultPrevented)return;
   if(form.dataset.saving==='true'){event.preventDefault();return;}
   const errors={};
-  for(const field of form.elements){if(field.willValidate && !field.checkValidity())errors[field.name]=field.validationMessage;if(field.type==='file'&&field.files?.[0]?.size>5*1024*1024)errors[field.name]='Choose a file of up to 5 MB.';}
+  for(const field of form.elements){if(field.willValidate && !field.checkValidity())errors[field.name]=field.validationMessage;if(field.type==='file'&&field.name!=='image'&&field.files?.[0]?.size>5*1024*1024)errors[field.name]='Choose a file of up to 5 MB.';}
   if(Object.keys(errors).length){event.preventDefault();feedback('Correct the highlighted fields and try again.',errors);return;}
-  if(new URL(form.action,location.href).pathname==='/admin/login')return;
+  if(new URL(form.action,location.href).pathname==='/admin/login'){adminProgress.navigation();return;}
   event.preventDefault();clear();
   const data=new FormData(form);if(event.submitter?.name)data.append(event.submitter.name,event.submitter.value);
   const buttons=[...form.querySelectorAll('button')].map(button=>({button,disabled:button.disabled}));
   form.dataset.saving='true';form.setAttribute('aria-busy','true');buttons.forEach(({button})=>button.disabled=true);
-  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),45000);
+  let requestSucceeded=false;
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),180000);
+  adminProgress.show('Preparing request…');
   try{
+   await optimizeAdminImages(data,form);
    const session=await fetch('/api/csrf',{headers:{Accept:'application/json'},credentials:'same-origin',signal:controller.signal});
    if(session.ok){const fresh=await session.json();data.set('_csrf',fresh.token);const input=form.querySelector('input[name="_csrf"]');if(input)input.value=fresh.token;}
-   const response=await fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:data,signal:controller.signal,credentials:'same-origin'});
-   if(response.headers.get('content-type')?.includes('application/json')){const result=await response.json();if(!response.ok){feedback(result.error||'Unable to save these details.',result.fields||{});return;}if(result.redirect){window.adminSaveCompleted=true;location.assign(result.redirect);return;}feedback('The request completed. Refresh the page to see the latest changes.');return;}
-   if(response.redirected&&response.ok){if(new URL(response.url).pathname==='/admin/login'){feedback('Your session has expired. Open the admin login in another tab, sign in, then retry. Your entries are still here.');return;}window.adminSaveCompleted=true;location.assign(response.url);return;}
+   const hasFiles=[...data.values()].some(value=>value instanceof File&&value.size);
+   adminProgress.show(hasFiles?'Uploading…':'Saving…',hasFiles?0:undefined);
+   const response=await adminUpload(form.action,data,controller.signal,percent=>adminProgress.show(percent>=100?'Upload received. Processing…':`Uploading ${Math.round(percent)}%`,percent<100?percent:undefined));
+   if(response.headers.get('content-type')?.includes('application/json')){const result=await response.json();if(!response.ok){feedback(result.error||'Unable to save these details.',result.fields||{});return;}if(result.redirect){requestSucceeded=true;window.adminSaveCompleted=true;location.assign(result.redirect);return;}feedback('The request completed. Refresh the page to see the latest changes.');return;}
+   if(response.redirected&&response.ok){if(new URL(response.url).pathname==='/admin/login'){feedback('Your session has expired. Open the admin login in another tab, sign in, then retry. Your entries are still here.');return;}requestSucceeded=true;window.adminSaveCompleted=true;location.assign(response.url);return;}
    feedback('Unable to save right now. Your entries are still here; please try again.');
   }catch(error){feedback(error.name==='AbortError'?'The request timed out. Your entries are still here. Check the list before trying again to avoid duplicate submissions.':'Unable to connect. Your entries are still here; please try again.');}
-  finally{clearTimeout(timeout);delete form.dataset.saving;form.removeAttribute('aria-busy');buttons.forEach(({button,disabled})=>button.disabled=disabled);}
+  finally{clearTimeout(timeout);if(requestSucceeded)adminProgress.finish();else adminProgress.cancel();delete form.dataset.saving;form.removeAttribute('aria-busy');buttons.forEach(({button,disabled})=>button.disabled=disabled);}
  });
 }
 
@@ -160,3 +209,6 @@ imageDialog?.addEventListener('click',event=>{if(event.target===imageDialog){con
 for(const button of document.querySelectorAll('[data-image-preview]'))button.addEventListener('click',()=>previewLibraryImage(button.dataset.imagePreview,button.dataset.imageTitle));
 for(const img of document.querySelectorAll('[data-image-dimensions]')){const update=()=>{img.closest('.library-card').querySelector('[data-dimensions]').textContent=`${img.naturalWidth} × ${img.naturalHeight} px`;};img.addEventListener('load',update);img.addEventListener('error',()=>{img.closest('.library-card').querySelector('[data-dimensions]').textContent='Image unavailable';});if(img.complete&&img.naturalWidth)update();}
 for(const select of document.querySelectorAll('[data-library-banner]')){const box=select.closest('.blog-banner-fields').querySelector('.library-banner-selection'),img=box.querySelector('[data-selected-banner]');const update=()=>{box.hidden=!select.value;if(select.value)img.src=`/media/${select.value}`;};select.addEventListener('change',update);box.querySelector('[data-selected-preview]').addEventListener('click',()=>previewLibraryImage(img.src,select.selectedOptions[0].textContent));update();}
+
+const reportTypeSelect=document.querySelector('.report-filters select[name="type"]');
+reportTypeSelect?.addEventListener('change',()=>{const form=reportTypeSelect.form;form.elements.status.value='';form.elements.category.value='';form.requestSubmit()});

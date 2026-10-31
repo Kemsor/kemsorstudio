@@ -1,11 +1,14 @@
+import { studioEmail, studioPhone, studioPhoneHref } from './studioContact';
+import {studioAddress} from './studioLocation';
 import RollingLabel from './RollingLabel';
 import { faFacebookF, faInstagram, faYoutube, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { pageHref } from './pageInfo';
 import SiteIcon from './SiteIcon';
 import './footer-socials.css';
 import './footer-jumbo.css';
 import './footer-editorial.css';
+import './footer-compact.css';
 import { useCms } from './CmsContent';
 
 // Official brand artwork; Lucide intentionally excludes social brand logos.
@@ -30,17 +33,31 @@ function SocialIcons() {
 }
 
 const footerGroups = [
- {id:'connected',title:'Updates & information',links:[['Blog','blog'],['Press & media','news'],['Legal & privacy','legal']]},
+ {id:'connected',title:'Updates & information',links:[['Blog','blog'],['News, Press & Media','press-media'],['Legal & privacy','legal']]},
 ];
+
+function FooterHandwriting({ reduced }) {
+  const element = useRef(null);
+  const [revealed, setRevealed] = useState(false);
+  useEffect(() => {
+    if (reduced || !globalThis.IntersectionObserver) { setRevealed(true); return; }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setRevealed(true); observer.disconnect(); }
+    }, { threshold: .6 });
+    observer.observe(element.current);
+    return () => observer.disconnect();
+  }, [reduced]);
+  return <div ref={element} className="footer-handwriting" data-revealed={revealed} aria-label="Kemsor Studios">
+    <span className="footer-written-name" aria-hidden="true">{["Kemsor", "Studios"].map((word, wordIndex) => <span className="footer-written-word" key={word}>{word.split('').map((letter, index) => <span className="footer-written-letter" key={index} style={{'--write-delay': `${(index + wordIndex * 6) * 0.28}s`}}>{letter}</span>)}</span>)}</span>
+  </div>;
+}
 
 export default function Footer({ reduced, page = 'home' }) {
   const {settings}=useCms();
-  const email = settings.contact_email && !/\.example$|example\.com/i.test(settings.contact_email)
-    ? settings.contact_email : 'info@kemsorstudio.com';
-  const phone = settings.contact_phone && !/sample|00000/i.test(settings.contact_phone) ? settings.contact_phone : '';
-  const address = settings.contact_address && !/sample|example/i.test(settings.contact_address)
-    ? settings.contact_address.replace(/\\n/g, '\n') : '';
-  return <footer className="creative-footer footer-jumbo footer-editorial footer-reference">
+  const email = studioEmail;
+  const phone = studioPhone;
+  const address = settings.contact_address && !/sample|example/i.test(settings.contact_address) ? settings.contact_address : studioAddress;
+  return <footer className="creative-footer footer-jumbo footer-editorial footer-reference footer-compact">
     <div className="footer-invitation">
       <form className="footer-signup" action={pageHref('join')} method="get">
         <label className="sr-only" htmlFor="footer-signup-email">Your email</label>
@@ -54,13 +71,13 @@ export default function Footer({ reduced, page = 'home' }) {
         <a href={pageHref('contact')} className="footer-conversation"><b className="cta-label"><RollingLabel>{settings.footer_cta_label || 'Talk to the studio'}</RollingLabel></b><span aria-hidden="true"><SiteIcon name="contact" size={17}/></span></a>
       </div>
       <div className="footer-invitation-copy footer-studio-column">
+        <div className="footer-info-block footer-network"><h3>Social network</h3><div className="footer-social-signature"><SocialIcons/><FooterHandwriting reduced={reduced}/></div></div>
+      </div>
+      <div className="footer-contact-column">
         <div className="footer-info-block"><h3>{address ? 'Our location' : 'The studio'}</h3>
           <p>{address || (settings.footer_description ?? 'For production enquiries and collaborations,\nget in touch with the studio.')}</p>
         </div>
-        <div className="footer-info-block footer-network"><h3>Social network</h3><SocialIcons/></div>
-      </div>
-      <div className="footer-contact-column">
-        {phone && <div className="footer-info-block"><h3>Call the studio</h3><a href={`tel:${phone.replace(/[^+0-9]/g, '')}`}>{phone}</a></div>}
+        {phone && <div className="footer-info-block"><h3>Call the studio</h3><a href={studioPhoneHref}>{phone}</a></div>}
         <div className="footer-info-block"><h3>Email us</h3><a href={`mailto:${email}`}>{email}</a></div>
       </div>
       <div className="footer-directory">
@@ -70,16 +87,7 @@ export default function Footer({ reduced, page = 'home' }) {
         <div id="footer-guide-slot" className="footer-guide-slot"/>
       </div>
     </div>
-    <nav className="footer-journey-links" aria-label="Where are you in the journey?">
-      <h3>Where are you in the journey?</h3>
-      <div>{[
-        ['I have a script or idea','/script-to-production/','script','Develop your story'],
-        ['I need a production partner','/#services','film','Build the production'],
-        ['I’m a financier or platform','/contact/?partner=co-producers','partnership','Explore a partnership'],
-        ['I’m filming in India','/india-production-services/','location','Plan your India shoot'],
-      ].map(([label,href,icon,note],index)=><a href={href} key={href}><span className="footer-journey-mark" aria-hidden="true"><SiteIcon name={icon} size={21}/></span><span className="footer-journey-copy"><span className="footer-journey-title">{label}</span><span className="footer-journey-note">{note}</span></span><span className="footer-journey-number" aria-hidden="true">0{index+1}</span></a>)}</div>
-    </nav>
-    <div className="footer-signature" aria-hidden="true"><strong className="footer-word">{'KEMSOR'.split('').map((letter,index)=><i key={letter+index}>{letter}</i>)}</strong><span className="footer-studios-signature">Studios</span></div>
+
     <div className="footer-baseline"><span>© {new Date().getFullYear()} {settings.footer_copyright || 'Kemsor Studios'}</span></div>
     {reduced&&<span className="sr-only">Your reduced motion preference is respected.</span>}
   </footer>;

@@ -41,6 +41,10 @@ before(async()=>{
  const trackingSql=await readFile(new URL('../migrations/011_email_message_tracking.sql',import.meta.url),'utf8');
  for(const statement of trackingSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const role of ['admin','editor','enquiry_manager'])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[role,`${role}@test.local`,await hashPassword('A-secure-test-password'),role]);
+ for(const name of ['013_phase_one_workflows.sql','014_admin_mfa.sql','015_submission_terms.sql','016_professional_registration.sql']){
+  const sql=await readFile(new URL(`../migrations/${name}`,import.meta.url),'utf8');
+  for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+ }
  app=createApp(db,{cookieName:'kemsor.test',dummyHash:await hashPassword('dummy-test-password'),smtpEnvironment:{SMTP_ENABLED:'true',SMTP_HOST:'smtp.example.test',SMTP_USER:'test@example.test',SMTP_PASSWORD:'synthetic-secret'},mailTransport:{verify:async()=>true}});
  [admin,csrfAdmin]=await login('admin');[editor,csrfEditor]=await login('editor');[manager,csrfManager]=await login('enquiry_manager');
 });
@@ -143,9 +147,9 @@ test('Uploads reject active formats and forged image files',async()=>{
  assert.equal((await rows(db,'SELECT COUNT(*) AS total FROM cms_media'))[0].total,0);
 });
 test('Valid images are public while enquiry attachments require staff access',async()=>{
- const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64');
  await editor.post('/admin/media').field('_csrf',csrfEditor).field('alt','Synthetic test image').attach('image',image,{filename:'test.png',contentType:'image/png'}).expect(302);
- const media=(await rows(db,'SELECT * FROM cms_media'))[0];await request(app).get(`/media/${media.id}`).expect(200).expect('Content-Type',/image\/png/);
+ const media=(await rows(db,'SELECT * FROM cms_media'))[0];await request(app).get(`/media/${media.id}`).expect(200).expect('Content-Type',/image\/webp/);
  await admin.post('/admin/settings').type('form').send({_csrf:csrfAdmin,enquiries_enabled:'on',attachments_enabled:'on',privacy_notice:'Synthetic test notice',consent_version:'test-v1'}).expect(302);
  const guest=request.agent(app),token=(await guest.get('/api/csrf')).body.token;
  await guest.post('/api/enquiries').set('X-CSRF-Token',token).field('category','general').field('name','Attachment Test').field('email','file@example.test').field('subject','Private file').field('message','Synthetic attachment').field('consent','true').attach('attachment',Buffer.from('%PDF-1.4\nSynthetic test\n%%EOF'),{filename:'private.pdf',contentType:'application/pdf'}).expect(201);
@@ -197,12 +201,15 @@ test('Talent registration, review, directory privacy, enquiries and private proj
  async function post(agent,url,data){const csrf=(await agent.get('/api/csrf')).body.token;return agent.post(url).set('X-CSRF-Token',csrf).send(data);}
  const artist=request.agent(app),hirer=request.agent(app),other=request.agent(app);
  await post(artist,'/api/talent/register',{name:'Test Artist',email:'artist@example.test',password:'A-long-member-password',role:'admin',adult:true,consent:true}).then(r=>assert.equal(r.status,422));
- for(const [a,role,email]of [[artist,'artist','artist@example.test'],[hirer,'hirer','hirer@example.test'],[other,'hirer','other@example.test']])await post(a,'/api/talent/register',{name:`Test ${role}`,email,password:'A-long-member-password',role,adult:true,consent:true}).then(r=>assert.equal(r.status,201));
+ for(const [a,role,email]of [[artist,'artist','artist@example.test'],[hirer,'hirer','hirer@example.test'],[other,'hirer','other@example.test']])await post(a,'/api/talent/register',{name:`Test ${role}`,email,password:'A-long-member-password',role,...(role==='hirer'?{department:'Creative & Executive Leadership (Above-the-Line)',specialty:'Director'}:{}),adult:true,consent:true}).then(r=>assert.equal(r.status,201));
  const a=(await artist.get('/api/talent/session')).body.user,h=(await hirer.get('/api/talent/session')).body.user;
+ assert.equal(h.department,'Creative & Executive Leadership (Above-the-Line)');assert.equal(h.specialty,'Director');assert.equal(h.profession,'Director');
+ await post(request.agent(app),'/api/talent/register',{name:'Invalid professional',email:'invalid-role@example.test',password:'A-long-member-password',role:'hirer',department:'Camera Department',specialty:'Producer',adult:true,consent:true}).then(r=>assert.equal(r.status,422));
+ await post(hirer,'/api/talent/profile',{name:h.name,department:'Camera Department',specialty:'Producer'}).then(r=>assert.equal(r.status,422));
  await post(artist,'/api/talent/profile',{name:'Test Artist',profession:'Actor',city:'Mumbai',languages:'Hindi',skills:'Dance',bio:'Synthetic test profile',visible:true}).then(r=>assert.equal(r.status,200));
  assert.equal((await request(app).get('/api/talent')).body.people.length,0);
  await post(hirer,`/api/talent/shortlists/${a.id}`,{}).then(r=>assert.equal(r.status,403));
- const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64');
  const photoCsrf=(await artist.get('/api/csrf')).body.token;
  await artist.post('/api/talent/photo').set('X-CSRF-Token',photoCsrf).attach('image',image,{filename:'portrait.png',contentType:'image/png'}).expect(200);
  const photoId=(await artist.get('/api/talent/session')).body.user.image_id;
@@ -215,7 +222,7 @@ test('Talent registration, review, directory privacy, enquiries and private proj
  assert.match(review.text,/Test Artist/);
  for(const id of [a.id,h.id])await admin.post(`/admin/talent/${id}`).type('form').send({_csrf:csrfAdmin,status:'approved',contact_checked:'on'}).expect(302);
  await request(app).get(`/media/${photoId}`).expect(200);
- const directory=(await request(app).get('/api/talent?city=Mumbai')).body.people;assert.equal(directory.length,1);assert.equal(directory[0].email,undefined);assert.equal(directory[0].password_hash,undefined);
+ const directoryResult=(await request(app).get('/api/talent?city=Mumbai')).body;assert.ok(directoryResult.filters.city.includes('Mumbai'));assert.ok(directoryResult.filters.profession.includes('Actor'));assert.ok(directoryResult.filters.language.includes('Hindi'));const directory=directoryResult.people;assert.equal(directory.length,1);assert.equal(directory[0].email,undefined);assert.equal(directory[0].password_hash,undefined);
  await post(hirer,`/api/talent/shortlists/${a.id}`,{}).then(r=>assert.equal(r.status,200));
  assert.equal((await hirer.get('/api/talent/workspace')).body.saved[0].id,a.id);
  await post(hirer,'/api/talent/enquiries',{artistId:a.id,project:'Test production',message:'Synthetic enquiry'}).then(r=>assert.equal(r.status,201));
@@ -224,7 +231,8 @@ test('Talent registration, review, directory privacy, enquiries and private proj
  await post(artist,`/api/talent/enquiries/${enquiry.id}`,{status:'interested'}).then(r=>assert.equal(r.status,200));
  await artist.get('/api/production/projects').expect(403);
  await post(artist,'/api/production/projects',{title:'Artist blocked'}).then(r=>assert.equal(r.status,403));
- const created=await post(hirer,'/api/production/projects',{title:'Private Test Film',budget:50000,currency:'INR',timeline:'10 days',script_text:'INT. ROOM - DAY'});assert.equal(created.status,201);const id=created.body.id;
+ const created=await post(hirer,'/api/production/projects',{title:'Private Test Film',budget:50000,currency:'INR',timeline:'10 days'});assert.equal(created.status,201);const id=created.body.id;
+ await post(hirer,`/api/production/projects/${id}/script`,{}).then(r=>assert.equal(r.status,503));
  await other.get(`/api/production/projects/${id}`).expect(404);
  await artist.get(`/api/production/projects/${id}`).expect(403);
  await artist.get(`/api/production/projects/${id}/script`).expect(403);
@@ -299,7 +307,7 @@ test('Dedicated blog editor uploads banners and cannot publish other content typ
  assert.match(form.text,/Upload banner/);assert.ok(form.text.includes('action="/admin/blog/save"'));
  for(const name of ['category','role','location','page','author'])assert.ok(!form.text.includes(`name="${name}"`));
  await admin.post('/admin/blog/save').type('form').send({_csrf:csrfAdmin,type:'news',title:'Wrong form',status:'draft'}).expect(422);
- const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64');
  await admin.post('/admin/blog/save').field('_csrf',csrfAdmin).field('type','blog').field('title','Banner upload post').field('body','Blog body').field('status','published').field('banner_alt','Test banner description').attach('image',image,{filename:'blog-banner.png',contentType:'image/png'}).expect(302);
  const post=(await request(app).get('/api/site')).body.entries.find(entry=>entry.slug==='banner-upload-post');
  assert.ok(post.image_url);assert.equal(post.image_alt,'Test banner description');assert.equal(post.type,'blog');
@@ -322,27 +330,27 @@ test('Career editor is dedicated and page management respects publishing permiss
  const workForm=await admin.get('/admin/content/new?type=page&page=how-we-work').expect(200);assert.match(workForm.text,/<option selected>how-we-work/);
  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'How We Work test section',body:'Additional client-approved content',page:'how-we-work',status:'draft'}).expect(302);
  const workList=await admin.get('/admin/content?type=page&page=how-we-work').expect(200);assert.match(workList.text,/How We Work test section/);
- const serviceList=await admin.get('/admin/content?type=page&page=services').expect(200);assert.ok(!serviceList.text.includes('How We Work test section'));
+ const serviceList=await admin.get('/admin/content?type=page&page=services').expect(200);assert.ok(!(serviceList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('How We Work test section'));
  assert.match(hub.text,/page=india-production-services/);
  const indiaForm=await admin.get('/admin/content/new?type=page&page=india-production-services').expect(200);assert.match(indiaForm.text,/<option selected>india-production-services/);
  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'India Production Services test section',body:'Additional client-approved India content',page:'india-production-services',status:'draft'}).expect(302);
- const indiaList=await admin.get('/admin/content?type=page&page=india-production-services').expect(200);assert.match(indiaList.text,/India Production Services test section/);assert.ok(!indiaList.text.includes('How We Work test section'));
+ const indiaList=await admin.get('/admin/content?type=page&page=india-production-services').expect(200);assert.match(indiaList.text,/India Production Services test section/);assert.ok(!(indiaList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('How We Work test section'));
  assert.match(hub.text,/page=feature-films/);
  const featureForm=await admin.get('/admin/content/new?type=page&page=feature-films').expect(200);assert.match(featureForm.text,/<option selected>feature-films/);
  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Feature Films test section',body:'Additional client-approved feature content',page:'feature-films',status:'draft'}).expect(302);
- const featureList=await admin.get('/admin/content?type=page&page=feature-films').expect(200);assert.match(featureList.text,/Feature Films test section/);assert.ok(!featureList.text.includes('India Production Services test section'));
+ const featureList=await admin.get('/admin/content?type=page&page=feature-films').expect(200);assert.match(featureList.text,/Feature Films test section/);assert.ok(!(featureList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('India Production Services test section'));
  assert.match(hub.text,/page=short-films/);
  const shortForm=await admin.get('/admin/content/new?type=page&page=short-films').expect(200);assert.match(shortForm.text,/<option selected>short-films/);
  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Short Films test section',body:'Additional client-approved short film content',page:'short-films',status:'draft'}).expect(302);
- const shortList=await admin.get('/admin/content?type=page&page=short-films').expect(200);assert.match(shortList.text,/Short Films test section/);assert.ok(!shortList.text.includes('Feature Films test section'));
+ const shortList=await admin.get('/admin/content?type=page&page=short-films').expect(200);assert.match(shortList.text,/Short Films test section/);assert.ok(!(shortList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Feature Films test section'));
  assert.match(hub.text,/page=series-ott/);
  const seriesForm=await admin.get('/admin/content/new?type=page&page=series-ott').expect(200);assert.match(seriesForm.text,/<option selected>series-ott/);
  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Series OTT test section',body:'Additional client-approved series content',page:'series-ott',status:'draft'}).expect(302);
- const seriesList=await admin.get('/admin/content?type=page&page=series-ott').expect(200);assert.match(seriesList.text,/Series OTT test section/);assert.ok(!seriesList.text.includes('Short Films test section'));
+ const seriesList=await admin.get('/admin/content?type=page&page=series-ott').expect(200);assert.match(seriesList.text,/Series OTT test section/);assert.ok(!(seriesList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Short Films test section'));
  assert.match(hub.text,/page=documentaries/);
  const documentaryForm=await admin.get('/admin/content/new?type=page&page=documentaries').expect(200);assert.match(documentaryForm.text,/<option selected>documentaries/);
  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Documentaries test section',body:'Additional client-approved documentary content',page:'documentaries',status:'draft'}).expect(302);
- const documentaryList=await admin.get('/admin/content?type=page&page=documentaries').expect(200);assert.match(documentaryList.text,/Documentaries test section/);assert.ok(!documentaryList.text.includes('Series OTT test section'));
+ const documentaryList=await admin.get('/admin/content?type=page&page=documentaries').expect(200);assert.match(documentaryList.text,/Documentaries test section/);assert.ok(!(documentaryList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Series OTT test section'));
 });
 
 test('Career applications submit privately and are reviewed by enquiry staff',async()=>{
@@ -392,7 +400,7 @@ test('Dedicated news editor handles banners, previews, and publishing without un
  const form=await admin.get('/admin/content/new?type=news').expect(200);assert.ok(form.text.includes('action="/admin/news/save"'));assert.match(form.text,/Upload banner/);assert.match(form.text,/Preview changes/);
  for(const name of ['category','role','location','page','author'])assert.ok(!form.text.includes(`name="${name}"`));
  await admin.post('/admin/news/save').type('form').send({_csrf:csrfAdmin,type:'career',title:'Wrong form',status:'draft'}).expect(422);
- const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64');
  await admin.post('/admin/news/save').field('_csrf',csrfAdmin).field('type','news').field('title','Studio news banner').field('body','News text').field('status','published').field('publish_action','draft').field('banner_alt','News banner description').attach('image',image,{filename:'news-banner.png',contentType:'image/png'}).expect(302);
  const draft=(await rows(db,'SELECT id,slug,image_id,status FROM cms_entries WHERE title=?',['Studio news banner']))[0];assert.equal(draft.status,'draft');assert.ok(draft.image_id);
  assert.ok(!(await request(app).get('/api/site')).body.entries.some(e=>e.id===draft.id));
@@ -471,10 +479,10 @@ test('Contact, map and footer settings are editable, validated and publicly avai
  });
 
 test('Image library searches, filters, previews and protects referenced images',async()=>{
- const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9ksAAAAASUVORK5CYII=','base64');
+ const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64');
  await admin.post('/admin/media').field('_csrf',csrfAdmin).field('alt','Library unique description').attach('image',image,{filename:'library-unique.png',contentType:'image/png'}).expect(302);
  const media=(await rows(db,'SELECT * FROM cms_media WHERE original_name="library-unique.png"'))[0];
- const page=await admin.get('/admin/media?q=Library%20unique&format=image%2Fpng&usage=unused').expect(200);assert.match(page.text,/library-unique.png/);assert.match(page.text,/data-image-preview/);
+ const page=await admin.get('/admin/media?q=Library%20unique&format=image%2Fwebp&usage=unused').expect(200);assert.match(page.text,/library-unique.png/);assert.match(page.text,/data-image-preview/);
  const absent=await admin.get('/admin/media?q=Library%20unique&format=image%2Fjpeg').expect(200);assert.ok(!absent.text.includes('library-unique.png'));
  await manager.post(`/admin/media/${media.id}/delete`).type('form').send({_csrf:csrfManager}).expect(403);
  await admin.post(`/admin/media/${media.id}/delete`).type('form').send({}).expect(403);
@@ -567,4 +575,68 @@ test('MySQL JSON string settings are decoded once, including empty strings and b
  assert.equal(pool.pool.config.connectionConfig.jsonStrings,true);await pool.end();
  const fake={execute:async()=>[[{name:'facebook',value:'""'},{name:'contact_note',value:'"Sample details"'},{name:'enquiries_enabled',value:'false'}]]};
  const config=await settings(fake);assert.equal(config.facebook,'');assert.equal(config.contact_note,'Sample details');assert.equal(config.enquiries_enabled,false);
+});
+
+test('Staff sign in with a password and old MFA links return to login',async()=>{
+ await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Password login','password-login@test.local',await hashPassword('A-secure-test-password'),'editor']);
+ const guest=request.agent(app);
+ await guest.get('/admin/mfa').expect(302).expect('Location','/admin/login');
+ const csrf=(await guest.get('/api/csrf')).body.token;
+ await guest.post('/admin/login').type('form').send({_csrf:csrf,email:'password-login@test.local',password:'wrong'}).expect(401);
+ await guest.get('/admin').expect(302).expect('Location','/admin/login');
+ await guest.post('/admin/login').type('form').send({_csrf:csrf,email:'password-login@test.local',password:'A-secure-test-password'}).expect(302).expect('Location','/admin');
+ await guest.get('/admin').expect(200);
+ await guest.get('/admin/mfa').expect(302).expect('Location','/admin');
+});
+
+test('Production drafts stay private and approved production stages and press resources publish',async()=>{
+ await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Publishing editor','publishing-editor@test.local',await hashPassword('A-secure-test-password'),'editor']);
+ const [editor,csrfEditor]=await login('publishing-editor');
+ for(const type of ['production','press_asset'])await editor.get(`/admin/content/new?type=${type}`).expect(200);
+ const project={_csrf:csrfEditor,type:'production',title:'Synthetic project',summary:'Test announcement',body:'Test only',status:'draft',production_stage:'in_development',format:'Feature film',language:'English'};
+ await editor.post('/admin/content/save').type('form').send({...project,production_stage:'invalid'}).expect(422);
+ await editor.post('/admin/content/save').type('form').send(project).expect(302);
+ const row=(await rows(db,'SELECT id FROM cms_entries WHERE type="production" AND title="Synthetic project"'))[0];
+ assert.ok(!(await request(app).get('/api/site')).body.entries.some(entry=>entry.id===row.id));
+ await editor.post('/admin/content/save').type('form').send({...project,id:row.id,status:'published'}).expect(302);
+ const published=(await request(app).get('/api/site')).body.entries.find(entry=>entry.id===row.id);assert.equal(published.metadata.production_stage,'in_development');
+ const asset={_csrf:csrfEditor,type:'press_asset',title:'Synthetic press profile',status:'published',asset_url:'javascript:alert(1)',usage:'Editorial use only'};
+ await editor.post('/admin/content/save').type('form').send(asset).expect(422);
+ await editor.post('/admin/content/save').type('form').send({...asset,asset_url:'https://example.test/profile.pdf'}).expect(302);
+ assert.ok((await request(app).get('/api/site')).body.entries.some(entry=>entry.type==='press_asset'&&entry.metadata.usage==='Editorial use only'));
+});
+
+test('Extended follow-up tracks statuses, assignments, priority and exports only to staff',async()=>{
+ const created=await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,consent_at,consent_version) VALUES(?,?,?,?,?,UTC_TIMESTAMP(),?)',['financing','=Synthetic','followup@example.test','Workflow test','Test only','test-v1']);
+ const id=created.insertId,user=(await rows(db,'SELECT id FROM cms_users WHERE email=?',['enquiry_manager@test.local']))[0];
+ await manager.post(`/admin/enquiries/${id}`).type('form').send({_csrf:csrfManager,status:'assigned'}).expect(422);
+ for(const status of ['assigned','information_required','meeting_scheduled','qualified','converted','closed'])await manager.post(`/admin/enquiries/${id}`).type('form').send({_csrf:csrfManager,status,assigned_to:user.id,priority:'high',tags:'Test pipeline',source:'partner-page',follow_up_at:'2026-11-02T10:30',note:'Synthetic follow-up'}).expect(302);
+ const enquiry=(await rows(db,'SELECT * FROM cms_enquiries WHERE id=?',[id]))[0];assert.equal(enquiry.priority,'high');assert.equal(enquiry.follow_up_at,'2026-11-02 10:30:00');
+ assert.equal((await rows(db,'SELECT COUNT(*) AS total FROM cms_enquiry_history WHERE enquiry_id=?',[id]))[0].total,6);
+ const [editor]=await login('publishing-editor');
+ await editor.get('/admin/enquiries/export.csv').expect(403);await request(app).get('/admin/enquiries/export.csv').expect(302);
+ const csv=await manager.get('/admin/enquiries/export.csv?category=financing&q=Test%20pipeline').expect(200);assert.match(csv.text,/'=Synthetic/);assert.match(csv.text,/partner-page/);
+});
+
+test('Admin accepts large original images and serves smaller, optimized WebP images',async()=>{
+ await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Upload admin','upload-admin@test.local',await hashPassword('A-secure-test-password'),'admin']);
+ const [admin,csrfAdmin]=await login('upload-admin');
+ const {default:sharp}=await import('sharp');const {randomBytes}=await import('node:crypto');
+ const original=await sharp(randomBytes(2700*900*3),{raw:{width:2700,height:900,channels:3}}).png().toBuffer();assert.ok(original.length>5*1024*1024);
+ await admin.post('/admin/media').field('_csrf',csrfAdmin).field('alt','Large source photo').attach('image',original,{filename:'large-photo.png',contentType:'image/png'}).expect(302);
+ const saved=(await rows(db,'SELECT * FROM cms_media WHERE original_name="large-photo.png"'))[0];assert.equal(saved.mime,'image/webp');assert.ok(saved.size<original.length);
+ const response=await request(app).get(`/media/${saved.id}`).expect(200),metadata=await sharp(response.body).metadata();assert.equal(metadata.width,2400);assert.equal(metadata.height,800);
+});
+
+test('CMS reports filter records, download complete CSV and respect role boundaries',async()=>{
+ await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,status,consent_at,consent_version,created_at) VALUES(?,?,?,?,?,?,UTC_TIMESTAMP(),?,?)',['brand','=Report','report@example.test','Report fixture','Synthetic only','qualified','test','2026-10-02 23:59:59']);
+ await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,status,consent_at,consent_version,created_at) VALUES(?,?,?,?,?,?,UTC_TIMESTAMP(),?,?)',['brand','Outside range','outside@example.test','Report fixture','Synthetic only','qualified','test','2026-10-03 00:00:00']);
+ const query='type=enquiries&from=2026-10-02&to=2026-10-02&category=brand&status=qualified&q=Report%20fixture';
+ const page=await manager.get(`/admin/reports?${query}`).expect(200);assert.match(page.text,/report@example.test/);assert.ok(!page.text.includes('outside@example.test'));assert.match(page.text,/Download CSV/);
+ const csv=await manager.get(`/admin/reports/download.csv?${query}`).expect(200).expect('Content-Type',/text\/csv/);assert.match(csv.text,/'=Report/);assert.ok(!csv.text.includes('outside@example.test'));
+ await request(app).get('/admin/reports').expect(302);await manager.get('/admin/reports?type=activity').expect(403);await manager.get('/admin/reports?type=content').expect(403);
+ await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Report editor','report-editor@test.local',await hashPassword('A-secure-test-password'),'editor']);const [reportEditor]=await login('report-editor');
+ await reportEditor.get('/admin/reports?type=content').expect(200);await reportEditor.get('/admin/reports/download.csv?type=enquiries').expect(403);
+ await manager.get('/admin/reports?from=2026-02-31').expect(422);await manager.get('/admin/reports?type=unknown').expect(403);
+ const [reportAdmin]=await login('upload-admin');await reportAdmin.get('/admin/reports?type=activity').expect(200);
 });

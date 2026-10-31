@@ -49,3 +49,37 @@
  .india-step-number{margin-bottom:16px}.india-label{margin-bottom:24px}
 }
 @media(prefers-reduced-motion:reduce){.india-faq summary>span{transition:none}}
+
+/* One coloured panel follows the active step, rather than flashing each card. */
+html body #top.creative-site #main.inner-page .india-process-sliding{position:relative;isolation:isolate;gap:12px;border:0;list-style:none;padding:0;--process-x:0px;--process-y:0px;--process-width:0px;--process-height:0px;--process-glow-x:50%;--process-glow-y:30%}
+html body #top.creative-site #main.inner-page .india-process-sliding::before{content:'';position:absolute;left:0;top:0;width:var(--process-width);height:var(--process-height);transform:translate(var(--process-x),var(--process-y));border-radius:17px;opacity:0;pointer-events:none;z-index:0;background:radial-gradient(circle at var(--process-glow-x) var(--process-glow-y),#ffffff1c,transparent 65%),linear-gradient(135deg,#ad632c 0%,#765069 48%,#484aa4 100%);box-shadow:0 10px 24px #4c3a751c;transition:transform .42s cubic-bezier(.22,.68,.25,1),width .42s cubic-bezier(.22,.68,.25,1),height .42s cubic-bezier(.22,.68,.25,1),opacity .2s}
+html body #top.creative-site #main.inner-page .india-process-sliding[data-active=true]::before{opacity:1}
+html body #top.creative-site #main.inner-page .india-process-sliding>li:nth-child(n){position:relative;z-index:1;padding:28px clamp(20px,2.4vw,36px);border:1px solid #ded8ce;border-radius:17px;background:transparent!important;outline:none;transition:border-color .25s}
+html body #top.creative-site #main.inner-page .india-process-sliding>li::marker{content:''}
+html body #top.creative-site #main.inner-page .india-process-sliding>li :is(h3,p,.india-step-number){transition:color .25s}
+html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true]{border-color:transparent}
+html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true] :is(h3,p,.india-step-number){color:#fff!important;-webkit-text-fill-color:#fff}
+html body #top.creative-site #main.inner-page .india-process-sliding>li:focus-visible{outline:3px solid #505dc9;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page .india-process-sliding::before,html body #top.creative-site #main.inner-page .india-process-sliding>li,html body #top.creative-site #main.inner-page .india-process-sliding>li :is(h3,p,.india-step-number){transition:none}}
+@media(forced-colors:active){html body #top.creative-site #main.inner-page .india-process-sliding::before{display:none}html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true]{border-color:Highlight}html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true] :is(h3,p,.india-step-number){color:CanvasText!important;-webkit-text-fill-color:CanvasText}}
+
+/* Alternating visual chapters, keeping the full service and process copy. */
+html body #top.creative-site #main.inner-page .india-services-page .india-band{width:100%;max-width:none;padding:clamp(40px,5.5vw,76px) 0;margin:0}
+.india-story-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,76px);align-items:center}.india-story-copy{min-width:0}.india-story-copy .india-intro-grid{grid-template-columns:1fr;gap:24px}.india-story-copy .india-intro-grid>div>p{font-size:14px;line-height:1.9}.india-story-copy .india-intro-grid>p{font-size:14px;line-height:1.9}.india-editorial-image{margin:0;min-width:0}.india-editorial-image-window{position:relative;overflow:hidden;border-radius:20px;background:#e7e0d5;aspect-ratio:1.18;box-shadow:0 15px 38px #291d100b}.india-editorial-image-window img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}.india-editorial-image:hover img{transform:scale(1.035)}.india-image-index{position:absolute;left:18px;bottom:18px;border:1px solid #ffffff55;background:#211b1aaa;backdrop-filter:blur(10px);padding:9px 12px;border-radius:8px;color:#fff;font-size:10px;letter-spacing:.09em}.india-editorial-image figcaption{display:flex;justify-content:space-between;gap:18px;margin-top:14px;font-size:9px;letter-spacing:.07em;color:#96836a;line-height:1.8}.india-editorial-image figcaption>span:last-child{white-space:nowrap;opacity:.6}.india-backdrops-editorial .india-row-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}.india-backdrops-editorial .india-row-list>div{display:block;padding:23px 0}.india-backdrops-editorial .india-row-list dt{margin-bottom:9px}.india-backdrops-editorial .india-row-list dd{font-size:13px}.india-backdrops-editorial .india-row-head{margin-top:36px}
+html body #top.creative-site #main.inner-page .india-band-dark{--india-line:#ffffff20;--india-accent:#c4a16e;background:linear-gradient(115deg,#1f1b28,#211b17 65%,#2b2115)!important;color:#f5efe5!important}
+html body #top.creative-site #main.inner-page .india-band-dark :is(h2,h3){color:#f5efe5!important}
+html body #top.creative-site #main.inner-page .india-band-dark :is(p,li){color:#c3b8a8!important;background:transparent!important}
+html body #top.creative-site #main.inner-page .india-band-dark .india-label{border-color:#ffffff20;color:#b9a17c}
+html body #top.creative-site #main.inner-page .india-band-dark .india-editorial-image figcaption{color:#b9a17c!important}
+html body #top.creative-site #main.inner-page .india-band-dark .india-international-list{border-color:#ffffff20}
+html body #top.creative-site #main.inner-page .india-band-dark .india-international-list>li{border-color:#ffffff20;padding-block:18px}
+html body #top.creative-site #main.inner-page .india-band-dark .india-international-list h3{font-size:18px;margin-bottom:8px}
+html body #top.creative-site #main.inner-page .india-band-dark .india-international-list p{font-size:13px;line-height:1.8}
+html body #top.creative-site #main.inner-page .india-band-warm{background:linear-gradient(120deg,#f5eee2,#f8f5ef)!important}
+html body #top.creative-site #main.inner-page .india-band-soft{background:linear-gradient(120deg,#f6f5fa,#faf7f0)!important}
+html body #top.creative-site #main.inner-page .india-band .india-label{margin-bottom:30px}
+.india-borders-editorial .india-editorial-image-window{aspect-ratio:.85}.india-respect .india-editorial-image-window{aspect-ratio:1.45}
+@media(max-width:1000px){.india-story-split{gap:30px}.india-editorial-image figcaption{flex-direction:column;gap:3px}.india-borders-editorial .india-editorial-image-window{aspect-ratio:.75}}
+@media(max-width:800px){.india-story-split{grid-template-columns:1fr;gap:28px}.india-image-first .india-story-copy{grid-row:1}.india-editorial-image-window,.india-borders-editorial .india-editorial-image-window,.india-respect .india-editorial-image-window{aspect-ratio:1.6}.india-story-copy .india-intro-grid{gap:22px}.india-editorial-image figcaption{flex-direction:row;gap:12px}.india-story-copy .india-intro-grid>div{max-width:none}}
+@media(max-width:480px){.india-backdrops-editorial .india-row-list{grid-template-columns:1fr}.india-editorial-image-window{border-radius:14px}.india-editorial-image figcaption{flex-direction:column;gap:3px}.india-image-index{left:12px;bottom:12px}.india-backdrops-editorial .india-row-head{display:none}}
+@media(prefers-reduced-motion:reduce){.india-editorial-image-window img{transition:none}.india-editorial-image:hover img{transform:none}}

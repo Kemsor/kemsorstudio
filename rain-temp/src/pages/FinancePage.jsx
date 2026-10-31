@@ -1,3 +1,4 @@
+import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import FinanceLayout from '../FinanceLayout';
@@ -69,8 +70,8 @@ export default function FinancePage() {
   return <FinanceLayout page="finance"><div className="produce-hub finance-page">
     <nav className="produce-breadcrumb" aria-label="Breadcrumb"><a href="/">Kemsor Studios</a><span aria-hidden="true">/</span><a href="/services/">Capabilities</a><span aria-hidden="true">/</span><span aria-current="page">Finance</span></nav>
 
-    <section className="produce-hero finance-hero" aria-labelledby="finance-title">
-      <figure className="produce-hero-image" aria-hidden="true"><img src="/assets/stills/financing-co-production-1600.webp" srcSet={[640, 960, 1600].map(width => `/assets/stills/financing-co-production-${width}.webp ${width}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async"/></figure>
+    <section className="inner-hero produce-hero finance-hero" aria-labelledby="finance-title">
+      <figure className="produce-hero-image" aria-hidden="true"><StudioImage mediaSlot="FinancePage-1" src="/assets/stills/financing-co-production-1600.webp" srcSet={[640, 960, 1600].map(width => `/assets/stills/financing-co-production-${width}.webp ${width}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async"/></figure>
       <div className="finance-hero-grid"><div className="produce-hero-content"><p className="produce-kicker">02 · FINANCE</p><MotionHeading as="h1" id="finance-title">Finance.<span>Make the story<br/>fundable.</span></MotionHeading><MotionCopy>Financiers need a plan they can assess. Kemsor structures the finance, aligns co-production partners in India and abroad, and brings financiers and investors into the conversation with a clear production plan.</MotionCopy><div className="produce-actions"><CTA href="#for-creators">I’m raising finance</CTA><TextLink href="#for-financiers">I’m looking to invest</TextLink></div></div>
         <aside className="finance-pack" aria-labelledby="finance-pack-title"><p className="finance-pack-label">FINANCE-READY PACK</p><span>Built through Finance Structuring</span><MotionHeading as="h2" id="finance-pack-title">Your project title</MotionHeading><p className="finance-pack-example">Illustrative pack contents</p><ol>{pack.map(([title, line], index) => <li key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{line}</p></div></li>)}</ol></aside>
       </div>

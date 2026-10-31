@@ -1,3 +1,4 @@
+import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import React from 'react';
@@ -48,8 +49,8 @@ Label.displayName = 'EditorialLabel';
 export default function InternationalCoProductionsPage() {
   return <FinanceLayout page="international-co-productions"><div className="produce-hub international-page">
     <nav className="produce-breadcrumb" aria-label="Breadcrumb"><a href="/">Kemsor Studios</a><span aria-hidden="true">/</span><a href="/finance/">Finance</a><span aria-hidden="true">/</span><span aria-current="page">International Co-Productions</span></nav>
-    <section className="produce-hero" aria-labelledby="international-title">
-      <figure className="produce-hero-image" aria-hidden="true"><img src="/assets/stills/daylight-valley-production-1600.webp" srcSet={[640,960,1600].map(w=>`/assets/stills/daylight-valley-production-${w}.webp ${w}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async"/></figure>
+    <section className="inner-hero produce-hero" aria-labelledby="international-title">
+      <figure className="produce-hero-image" aria-hidden="true"><StudioImage mediaSlot="InternationalCoProductionsPage-1" src="/assets/stills/daylight-valley-production-1600.webp" srcSet={[640,960,1600].map(w=>`/assets/stills/daylight-valley-production-${w}.webp ${w}w`).join(', ')} sizes="100vw" alt="" fetchPriority="high" decoding="async"/></figure>
       <div className="produce-hero-content"><p className="produce-kicker">02 · FINANCE · INTERNATIONAL CO-PRODUCTIONS</p><MotionHeading as="h1" id="international-title">International Co-Productions.<span>One story. Many countries. One plan.</span></MotionHeading><MotionCopy>Cross-border productions bring together money, talent and audiences, as well as different currencies, working practices, languages and time zones. Kemsor builds a shared plan and provides production support in India.</MotionCopy><div className="produce-actions"><CTA href={contact}>Start an international conversation</CTA><TextLink href="/india-production-services/">Filming in India? See India Production Services</TextLink></div></div>
     </section>
 

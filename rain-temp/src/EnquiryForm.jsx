@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { cmsApi, useCms } from './CmsContent';
 import { TaskLoader } from './Loading';
 import EnquirySuccess from './EnquirySuccess';
-const categories = { business: 'Business', partnerships: 'Partnerships / co-production / distribution / brands', press: 'Press & media', careers: 'Careers / work with us', production: 'Production / service partners', copyright: 'Copyright / anti-piracy', general: 'General / other' };
+const categories = {business:'Business',partnerships:'Strategic partnerships',press:'Press & media',careers:'Careers / work with us',production:'Production services',copyright:'Copyright / anti-piracy',general:'General / other',creative:'Creative enquiry',brand:'Marketing / brand collaboration',distribution:'Distribution / OTT partnership',financing:'Co-production / financing',international:'International production services',partner_registration:'ESPERTO / production partner registration'};
 export default function EnquiryForm({ standalone = false, title = 'Studio enquiry', initialCategory = 'business', initialSubject = '', showHeading = true }) {
   const { settings, connected } = useCms();
   const request = useRef(null);
@@ -11,6 +11,7 @@ export default function EnquiryForm({ standalone = false, title = 'Studio enquir
   const [showLoader, setShowLoader] = useState(false);
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState(null);
+  const [selectedCategory,setSelectedCategory]=useState(initialCategory);
   const [error, setError] = useState('');
   useEffect(() => () => { mounted.current = false; request.current?.abort(); }, []);
   useEffect(() => {
@@ -49,12 +50,12 @@ export default function EnquiryForm({ standalone = false, title = 'Studio enquir
       {standalone && (!connected || !settings.enquiries_enabled) && <p role="status">Enquiry submissions are currently unavailable. Please try again later.</p>}
       <fieldset className="enquiry-fields" disabled={busy || !connected || !settings.enquiries_enabled}>
       <div className="form-fields">
-        <label>Enquiry category<select name="category" required defaultValue={initialCategory}>{Object.entries(categories).map(([key,label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+        <label>Enquiry category<select name="category" required defaultValue={initialCategory} onChange={event=>setSelectedCategory(event.target.value)}>{Object.entries(categories).map(([key,label]) => <option key={key} value={key}>{label}</option>)}</select></label>
         <label>Your name<input name="name" required maxLength="100" autoComplete="name" /></label>
         <label>Email<input type="email" name="email" required maxLength="254" autoComplete="email" /></label>
         <label>Organisation<input name="organisation" maxLength="150" autoComplete="organization" /></label>
         <label className="story-field">Subject<input name="subject" defaultValue={initialSubject} required maxLength="200" /></label>
-        <label className="story-field">Your enquiry<textarea name="message" rows="6" required maxLength="8000" /></label>
+        {selectedCategory==='copyright'&&<label className="story-field">Evidence / infringing URL<input type="url" name="evidence_url" required maxLength="1000" placeholder="https://…"/></label>}<input type="hidden" name="source" value={location.pathname+location.search}/><label className="story-field">Your enquiry<textarea name="message" rows="6" required maxLength="8000" /></label>
         {settings.attachments_enabled && <label className="story-field">Optional attachment<input name="attachment" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><span>PDF, JPEG, PNG or WebP. Maximum 5 MB.</span></label>}
       </div>
       <label className="enquiry-honeypot" aria-hidden="true">Website<input name="website" tabIndex="-1" autoComplete="off" /></label>

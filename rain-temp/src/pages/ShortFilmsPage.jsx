@@ -1,3 +1,4 @@
+import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
 import React, { useEffect, useRef, useState } from 'react';
 import MotionHeading, { MotionCopy } from '../TextMotion';
@@ -76,8 +77,8 @@ function Label({ children, time }) {
 
 export default function ShortFilmsPage() {
   const page = useRef(null);
-  return <div className="short-films-page" ref={page}>
-    <section className="short-hero short-width" aria-labelledby="short-title">
+  return <PageVisuals page="short-films"><div className="short-films-page" ref={page}>
+    <section className="inner-hero short-hero short-width" aria-labelledby="short-title">
       <div className="short-hero-meta"><a href="/what-we-make/">WHAT WE MAKE</a><span>RUNNING TIME · 03:00</span></div>
       <div className="short-intro-grid"><div><MotionHeading as="h1" id="short-title">SHORT FILMS.</MotionHeading><MotionHeading as="h2" className="short-hero-accent">SMALL FILM. <em>BIG STEP.</em></MotionHeading></div><div><MotionCopy>Most short films aren’t the destination. They’re the calling card, the proof of concept, the first festival selection. Kemsor helps you make a short that does the job you need it to and looks like it cost more than it did.</MotionCopy><div className="short-actions"><CTA href={enquiry}>Talk to us about your short</CTA><TextLink href="#short-purpose">What’s your short for?</TextLink></div></div></div>
     </section>
@@ -121,5 +122,5 @@ export default function ShortFilmsPage() {
       <Label time="03:00">03:00 · THE END</Label>
       <div className="short-intro-grid"><MotionHeading as="h2" id="short-closing-title">MAKE IT COUNT.</MotionHeading><div><MotionCopy>Tell us about your short and what you need it to open. We’ll help you plan it around that.</MotionCopy><div className="short-actions"><CTA href={enquiry}>Talk to us about your short</CTA><TextLink href="/join/">Join the Talent Network</TextLink></div></div></div>
     </section>
-  </div>;
+  </div></PageVisuals>;
 }
