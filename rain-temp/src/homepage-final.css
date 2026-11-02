@@ -196,3 +196,10 @@ html body #top.creative-site #main .final-about::before{
  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 15%,#000b 42%,transparent 100%);
  mask-image:linear-gradient(to bottom,#000 0%,#000 15%,#000b 42%,transparent 100%);
 }
+
+html body #top.creative-site.site-page-home #main .final-formats{
+ background:#605454!important;
+}
+html body #top.creative-site.site-page-home #main .final-formats-track{
+ animation-duration:24s;
+}

@@ -31,7 +31,7 @@ const chapters = [
       ['Film financing & investment', 'Structure funding conversations and investment coordination around the project’s scope, package and production requirements.'],
       ['Co-production', 'Bring attached partners, the proposed collaboration and the production responsibilities into the same conversation. Define the support needed across teams and locations.'],
     ],
-    link: ['Explore international co-productions', '/projects/#international-co-productions'],
+    link: ['Explore international co-productions', '/productions/#international-co-productions'],
   },
   {
     id: 'capability-planning',

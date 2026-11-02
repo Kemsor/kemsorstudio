@@ -561,7 +561,7 @@
     "srcSet": "/assets/supplied/collection/projection-technician-640.webp 640w, /assets/supplied/collection/projection-technician-960.webp 960w, /assets/supplied/collection/projection-technician-1600.webp 1013w",
     "alt": "Technician inspecting a film projector and reel"
   },
-  "/projects/|ProjectsPage-1|/assets/stills/fort-action-production": {
+  "/productions/|ProductionsPage-1|/assets/stills/fort-action-production": {
     "src": "/assets/supplied/collection/monochrome-performance-1600.webp",
     "srcSet": "/assets/supplied/collection/monochrome-performance-640.webp 640w, /assets/supplied/collection/monochrome-performance-960.webp 960w, /assets/supplied/collection/monochrome-performance-1600.webp 987w",
     "alt": "Black and white photograph of a performer holding a stage structure",
@@ -570,7 +570,7 @@
     "width": 987,
     "height": 1480
   },
-  "/projects/|ProjectsPage-1|/assets/stills/courtyard-dance-production": {
+  "/productions/|ProductionsPage-1|/assets/stills/courtyard-dance-production": {
     "src": "/assets/supplied/collection/costume-and-props-1600.webp",
     "srcSet": "/assets/supplied/collection/costume-and-props-640.webp 640w, /assets/supplied/collection/costume-and-props-960.webp 960w, /assets/supplied/collection/costume-and-props-1600.webp 1037w",
     "alt": "Costumed performers holding stage props under theatrical lighting",
@@ -579,7 +579,7 @@
     "width": 1037,
     "height": 1379
   },
-  "/projects/|ProjectsPage-1|/assets/stills/family-drama-scene": {
+  "/productions/|ProductionsPage-1|/assets/stills/family-drama-scene": {
     "src": "/assets/supplied/collection/young-character-portrait-1600.webp",
     "srcSet": "/assets/supplied/collection/young-character-portrait-640.webp 640w, /assets/supplied/collection/young-character-portrait-960.webp 960w, /assets/supplied/collection/young-character-portrait-1600.webp 1600w",
     "alt": "Young performer posing in dramatic character makeup",
@@ -588,7 +588,7 @@
     "width": 2072,
     "height": 1379
   },
-  "/projects/|ProjectsPage-1|/assets/stills/fort-helicopter-action": {
+  "/productions/|ProductionsPage-1|/assets/stills/fort-helicopter-action": {
     "src": "/assets/supplied/collection/blue-camera-lighting-1600.webp",
     "srcSet": "/assets/supplied/collection/blue-camera-lighting-640.webp 640w, /assets/supplied/collection/blue-camera-lighting-960.webp 960w, /assets/supplied/collection/blue-camera-lighting-1600.webp 1600w",
     "alt": "Performer and camera framed by deep blue production lighting",
@@ -597,7 +597,7 @@
     "width": 1974,
     "height": 1480
   },
-  "/projects/|ProjectsPage-1|/assets/stills/coastal-motorcycle-chase": {
+  "/productions/|ProductionsPage-1|/assets/stills/coastal-motorcycle-chase": {
     "src": "/assets/supplied/collection/two-performer-scene-1600.webp",
     "srcSet": "/assets/supplied/collection/two-performer-scene-640.webp 640w, /assets/supplied/collection/two-performer-scene-960.webp 960w, /assets/supplied/collection/two-performer-scene-1600.webp 1600w",
     "alt": "Two costumed performers in a scene on a dark theatre stage",
@@ -606,7 +606,7 @@
     "width": 2070,
     "height": 1380
   },
-  "/projects/|ProjectsPage-1|/assets/stills/daylight-forest-action": {
+  "/productions/|ProductionsPage-1|/assets/stills/daylight-forest-action": {
     "src": "/assets/supplied/collection/ensemble-rehearsal-1600.webp",
     "srcSet": "/assets/supplied/collection/ensemble-rehearsal-640.webp 640w, /assets/supplied/collection/ensemble-rehearsal-960.webp 960w, /assets/supplied/collection/ensemble-rehearsal-1600.webp 1600w",
     "alt": "Performers creating a scene with director chairs on stage",
@@ -615,7 +615,7 @@
     "width": 1974,
     "height": 1481
   },
-  "/projects/|ProjectsPage-1|/assets/stills/daylight-helicopter-action": {
+  "/productions/|ProductionsPage-1|/assets/stills/daylight-helicopter-action": {
     "src": "/assets/supplied/collection/seated-ensemble-1600.webp",
     "srcSet": "/assets/supplied/collection/seated-ensemble-640.webp 640w, /assets/supplied/collection/seated-ensemble-960.webp 960w, /assets/supplied/collection/seated-ensemble-1600.webp 1600w",
     "alt": "Seated ensemble of performers making expressive gestures on stage",
@@ -624,7 +624,7 @@
     "width": 1974,
     "height": 1481
   },
-  "/projects/|ProjectsPage-1|/assets/stills/riders-scene": {
+  "/productions/|ProductionsPage-1|/assets/stills/riders-scene": {
     "src": "/assets/supplied/collection/monochrome-film-crew-1600.webp",
     "srcSet": "/assets/supplied/collection/monochrome-film-crew-640.webp 640w, /assets/supplied/collection/monochrome-film-crew-960.webp 960w, /assets/supplied/collection/monochrome-film-crew-1600.webp 1600w",
     "alt": "Production crew working together on a set in black and white",
@@ -633,7 +633,7 @@
     "width": 2070,
     "height": 1380
   },
-  "/projects/|ProjectsPage-1|/assets/stills/costume-portrait": {
+  "/productions/|ProductionsPage-1|/assets/stills/costume-portrait": {
     "src": "/assets/supplied/collection/blue-character-makeup-1600.webp",
     "srcSet": "/assets/supplied/collection/blue-character-makeup-640.webp 640w, /assets/supplied/collection/blue-character-makeup-960.webp 960w, /assets/supplied/collection/blue-character-makeup-1600.webp 987w",
     "alt": "Character portrait with makeup under blue stage lighting",
@@ -642,7 +642,7 @@
     "width": 987,
     "height": 1480
   },
-  "/projects/|ProjectsPage-1|/assets/stills/action-scene": {
+  "/productions/|ProductionsPage-1|/assets/stills/action-scene": {
     "src": "/assets/supplied/collection/pilot-character-reference-1600.webp",
     "srcSet": "/assets/supplied/collection/pilot-character-reference-640.webp 640w, /assets/supplied/collection/pilot-character-reference-960.webp 960w, /assets/supplied/collection/pilot-character-reference-1600.webp 1600w",
     "alt": "Illustrative screen-character portrait in a pilot costume beside an aircraft",
@@ -651,7 +651,7 @@
     "width": 1926,
     "height": 1540
   },
-  "/projects/|ProjectsPage-1|/assets/stills/white-olive-tree-poster": {
+  "/productions/|ProductionsPage-1|/assets/stills/white-olive-tree-poster": {
     "src": "/assets/supplied/collection/solo-stage-performer-1600.webp",
     "srcSet": "/assets/supplied/collection/solo-stage-performer-640.webp 640w, /assets/supplied/collection/solo-stage-performer-960.webp 960w, /assets/supplied/collection/solo-stage-performer-1600.webp 987w",
     "alt": "Solo performer standing beside a bed on a dark theatre stage",
@@ -660,7 +660,7 @@
     "width": 987,
     "height": 1481
   },
-  "/projects/|ProjectsPage-1|/assets/stills/detective-scene": {
+  "/productions/|ProductionsPage-1|/assets/stills/detective-scene": {
     "src": "/assets/supplied/collection/stage-character-closeup-1600.webp",
     "srcSet": "/assets/supplied/collection/stage-character-closeup-640.webp 640w, /assets/supplied/collection/stage-character-closeup-960.webp 960w, /assets/supplied/collection/stage-character-closeup-1600.webp 987w",
     "alt": "Theatre performer expressing emotion in a character costume",
@@ -669,7 +669,7 @@
     "width": 987,
     "height": 1481
   },
-  "/projects/|ProjectsPage-1|/assets/stills/office-scene": {
+  "/productions/|ProductionsPage-1|/assets/stills/office-scene": {
     "src": "/assets/supplied/collection/interior-stage-scene-1600.webp",
     "srcSet": "/assets/supplied/collection/interior-stage-scene-640.webp 640w, /assets/supplied/collection/interior-stage-scene-960.webp 960w, /assets/supplied/collection/interior-stage-scene-1600.webp 1600w",
     "alt": "Performer on a furnished interior theatre set",
@@ -678,7 +678,7 @@
     "width": 2070,
     "height": 1380
   },
-  "/projects/|ProjectsPage-1|/assets/stills/ensemble-poster": {
+  "/productions/|ProductionsPage-1|/assets/stills/ensemble-poster": {
     "src": "/assets/supplied/collection/ensemble-stage-scene-1600.webp",
     "srcSet": "/assets/supplied/collection/ensemble-stage-scene-640.webp 640w, /assets/supplied/collection/ensemble-stage-scene-960.webp 960w, /assets/supplied/collection/ensemble-stage-scene-1600.webp 1600w",
     "alt": "Performers sharing a dramatically lit stage scene",
@@ -687,7 +687,7 @@
     "width": 2070,
     "height": 1380
   },
-  "/projects/|VisualChapters-projects-0|/assets/stills/work-period-set": {
+  "/productions/|VisualChapters-productions-0|/assets/stills/work-period-set": {
     "src": "/assets/supplied/collection/set-marker-1600.webp",
     "srcSet": "/assets/supplied/collection/set-marker-640.webp 640w, /assets/supplied/collection/set-marker-960.webp 960w, /assets/supplied/collection/set-marker-1600.webp 1036w",
     "alt": "Yellow production sign marking set number one"

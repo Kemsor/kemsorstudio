@@ -39,3 +39,14 @@ html body #top.creative-site #main .immersive-opening{
  }
 }
 @media(forced-colors:active){html body #top.creative-site #main.inner-page :is(h1,h2,h3) :is(.heading-accent,em,span,motion-word){background:none!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important}}
+
+/* Clearer gold accents: richer on paper, luminous on dark or grey surfaces. */
+html body #top.creative-site #main{
+ --heading-metal:linear-gradient(110deg,#a75c17 0%,#c48624 40%,#b56c1b 100%);
+}
+html body #top.creative-site #main :is(.immersive-opening,.inner-hero,.visual-chapter-dark),
+html body #top.creative-site.site-page-home #main #studio,
+html body #top.creative-site.site-page-home #main #showreel,
+html body #top.creative-site.site-page-home #main .final-services{
+ --heading-metal:linear-gradient(110deg,#ffd995 0%,#ffe9b9 40%,#ffc36a 100%);
+}

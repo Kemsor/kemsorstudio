@@ -26,7 +26,7 @@ const directions = {
   'what-we-make': ['THE STORY FILE', 'Different formats.', 'The same craft.', 'frames'],
   about: ['THE STUDIO FILE', 'Creative ambition.', 'Production discipline.', 'production'],
   services: ['THE PRODUCTION FILE', 'From the first idea', 'to the final frame.', 'production'],
-  projects: ['THE VISUAL ARCHIVE', 'Character. Place.', 'A moment in frame.', 'frames'],
+  productions: ['THE VISUAL ARCHIVE', 'Character. Place.', 'A moment in frame.', 'frames'],
   produce: ['THE PRODUCTION FILE', 'Story first.', 'Production ready.', 'camera'],
 };
 const clientContentPages = new Set(["develop", "story-script", "packaging-talent", "budgeting-scheduling", "finance", "finance-structuring", "co-production", "international-co-productions", "produce", "line-production", "casting", "crew-equipment", "locations-logistics", "set-production-design", "shooting-on-location", "what-we-make"]);

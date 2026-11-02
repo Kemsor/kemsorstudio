@@ -139,7 +139,7 @@ export function createApp(db, options={}) {
     const type=req.query.type==='all' ? 'all' : Object.hasOwn(types,req.query.type) ? req.query.type : 'news';
     const state=['draft','published','archived'].includes(req.query.status) ? req.query.status : '';
     const search=text(req.query.q,100,'Search');
-    const pageFilter=type==='page' && ['about','how-we-work','india-production-services','feature-films','short-films','series-ott','documentaries','services','projects','contact','home','news','blog','careers','legal'].includes(req.query.page)?req.query.page:'';
+    const pageFilter=type==='page' && ['about','how-we-work','india-production-services','feature-films','short-films','series-ott','documentaries','services','productions','contact','home','news','blog','careers','legal'].includes(req.query.page)?req.query.page:'';
     const where='WHERE (?="all" OR type=?) AND (?="" OR status=?) AND title LIKE ? AND (?="" OR JSON_UNQUOTE(JSON_EXTRACT(metadata,"$.page"))=?)';
     const params=[type,type,state,state,`%${search}%`,pageFilter,pageFilter];
     const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM cms_entries ${where}`,params))[0].total);
@@ -147,7 +147,7 @@ export function createApp(db, options={}) {
     const entries=await rows(db,`SELECT id,type,title,slug,status,updated_at FROM cms_entries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
     res.render('content',{entries,type,state,search,pageFilter,table});
   });
-  app.get('/admin/content/new',editor,async(req,res)=>res.render(req.query.type==='blog'?'blog-edit':req.query.type==='news'?'news-edit':req.query.type==='career'?'career-edit':'edit',{entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{page:req.query.type==='page'&&['about','how-we-work','india-production-services','feature-films','short-films','series-ott','documentaries','services','projects','contact','home','news','blog','careers','legal'].includes(req.query.page)?req.query.page:''}},media:await rows(db,'SELECT m.* FROM cms_media m WHERE NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')}));
+  app.get('/admin/content/new',editor,async(req,res)=>res.render(req.query.type==='blog'?'blog-edit':req.query.type==='news'?'news-edit':req.query.type==='career'?'career-edit':'edit',{entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{page:req.query.type==='page'&&['about','how-we-work','india-production-services','feature-films','short-films','series-ott','documentaries','services','productions','contact','home','news','blog','careers','legal'].includes(req.query.page)?req.query.page:''}},media:await rows(db,'SELECT m.* FROM cms_media m WHERE NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')}));
   app.get('/admin/content/:id/preview',editor,async(req,res)=>{
     const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
     const image=entry.image_id?(await rows(db,'SELECT alt FROM cms_media WHERE id=?',[entry.image_id]))[0]:null;
@@ -171,15 +171,15 @@ export function createApp(db, options={}) {
     const summary=text(b.summary,2000,'Summary'),body=text(b.body,60000,'Body');ensure(['draft','published','archived'].includes(b.status),'Choose a valid publishing status.');
     const metadata={};for(const key of (['blog','news'].includes(type)?['seo_title','seo_description']:type==='career'?['category','role','location']:['category','role','location','page','seo_title','seo_description']))metadata[key]=text(b[key],key==='seo_description'?300:200,key);
     if(type==='production'){
-      ensure(['upcoming','in_development','coming_soon','released'].includes(b.production_stage),'Choose a production stage.');
-      metadata.production_stage=b.production_stage;metadata.format=text(b.format,100,'Format');metadata.language=text(b.language,100,'Language');
+      ensure(['upcoming','in_development','in_production','in_post_production','coming_soon','released'].includes(b.production_stage),'Choose a production stage.');
+      metadata.year=text(b.year,4,'Year');metadata.production_stage=b.production_stage;metadata.format=text(b.format,100,'Format');metadata.language=text(b.language,100,'Language');
     }
     if(type==='press_asset'){
       const assetUrl=text(b.asset_url,1000,'Asset URL',true);
       let resource;try{resource=new URL(assetUrl,'http://local')}catch{}ensure((/^\/media\/\d+$/.test(assetUrl))||(resource?.protocol==='https:'),'Use an approved HTTPS resource URL or media-library URL.');
       metadata.asset_url=assetUrl;metadata.usage=text(b.usage,300,'Asset usage',true);
     }
-    if(['page','legal'].includes(type))ensure(['home','about','how-we-work','india-production-services','feature-films','short-films','series-ott','documentaries','services','projects','news','blog','careers','contact','legal'].includes(metadata.page),'Choose a valid page.');
+    if(['page','legal'].includes(type))ensure(['home','about','how-we-work','india-production-services','feature-films','short-films','series-ott','documentaries','services','productions','news','blog','careers','contact','legal'].includes(metadata.page),'Choose a valid page.');
     let imageId=b.image_id ? Number(b.image_id) : null;
     if(imageId)ensure((await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[imageId])).length,'Selected image does not exist.');
     const id=b.id ? Number(b.id) : null;

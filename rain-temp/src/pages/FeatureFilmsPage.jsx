@@ -103,7 +103,7 @@ export default function FeatureFilmsPage() {
 
     <section className="feature-section feature-width feature-slate" aria-labelledby="feature-slate-title">
       <Label number="05">ON OUR SLATE</Label>
-      <div className="feature-intro-grid"><MotionHeading as="h2" id="feature-slate-title">Feature films.</MotionHeading><div><MotionCopy>Each title shows the stages Kemsor delivered.</MotionCopy><TextLink href="/projects/#feature-films">See all feature films</TextLink></div></div>
+      <div className="feature-intro-grid"><MotionHeading as="h2" id="feature-slate-title">Feature films.</MotionHeading><div><MotionCopy>Each title shows the stages Kemsor delivered.</MotionCopy><TextLink href="/productions/#feature-films">See all feature films</TextLink></div></div>
       {/* Poster, title, year, language, status and role rows require supplied titles and confirmed Kemsor credits. */}
     </section>
 

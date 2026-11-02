@@ -59,7 +59,7 @@ export default function BudgetingSchedulingPage() {
     <section className="produce-section" id="deliverables" aria-labelledby="deliverables-title"><Label>WHAT YOU RECEIVE · DELIVERABLES</Label><MotionHeading as="h2" id="deliverables-title">What you receive.<br/><em>Ready for financiers.</em></MotionHeading><ul className="budgeting-deliverables">{deliverables.map(line=><li key={line}>{line}</li>)}</ul><MotionCopy className="budgeting-intro">Feeds directly into <a href="/finance/finance-structuring/">Finance Structuring</a> and <a href="/produce/line-production/">Line Production</a>.</MotionCopy></section>
 
     {/* No approved project title, format, year or budgeting credits supplied. */}
-    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
+    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/productions/">Explore productions</TextLink></div></section>
 
     <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS · ABOUT THE NUMBERS</Label><MotionHeading as="h2" id="questions-title">Questions<br/><em>about the numbers.</em></MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
 

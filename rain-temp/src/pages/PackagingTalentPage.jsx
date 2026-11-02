@@ -72,7 +72,7 @@ export default function PackagingTalentPage() {
     <section className="produce-section" id="who-its-for" aria-labelledby="audiences-title"><Label>WHO IT’S FOR · SCRIPT READY, PROJECT NOT YET</Label><MotionHeading as="h2" id="audiences-title">Who it’s for.<br/><em>When the script is ready.</em></MotionHeading><ul className="packaging-audiences">{audiences.map((line,i)=><li key={i}>{line}</li>)}</ul></section>
 
     {/* No approved project title, format, year or packaging credits supplied. */}
-    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
+    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/productions/">Explore productions</TextLink></div></section>
 
     <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS · ABOUT PACKAGING</Label><MotionHeading as="h2" id="questions-title">Questions,<br/><em>answered honestly.</em></MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
 

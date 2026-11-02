@@ -33,7 +33,7 @@ function SocialIcons() {
 }
 
 const footerGroups = [
- {id:'connected',title:'Updates & information',links:[['Blog','blog'],['News, Press & Media','press-media'],['Legal & privacy','legal']]},
+ {id:'connected',title:'Updates & information',links:[['Blog','blog'],['News, Press & Media','press-media'],['Legal','legal'],['Privacy Policy','privacy-policy']]},
 ];
 
 function FooterHandwriting({ reduced }) {

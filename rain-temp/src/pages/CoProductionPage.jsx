@@ -76,7 +76,7 @@ export default function CoProductionPage() {
     <section className="produce-section" id="who-its-for" aria-labelledby="audiences-title"><Label>WHO IT’S FOR</Label><MotionHeading as="h2" id="audiences-title">Who it’s for.</MotionHeading><ul className="coproduction-audiences">{audiences.map(line=><li key={line}>{line}</li>)}</ul></section>
 
     {/* No approved project title, format, partners or co-production credits supplied. */}
-    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
+    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/productions/">Explore productions</TextLink></div></section>
 
     <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS</Label><MotionHeading as="h2" id="questions-title">Questions.</MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
 

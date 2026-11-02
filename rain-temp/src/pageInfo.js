@@ -1,4 +1,5 @@
 export const pageInfo = {
+ 'privacy-policy':{label:'Privacy Policy',title:'Privacy Policy | Kemsor Studios',description:'Privacy Policy of KEMSOR Studios Private Limited. Effective 1 November 2026. Information collection, processing, individual rights and privacy contacts.'},
  'press-media':{label:'News, Press & Media',title:'News, Press & Media | Kemsor Studios',description:'Approved company profiles, studio resources and press enquiries.'},
  'partner-with-us':{label:'Partner with us',title:'Partner With Us | Kemsor Studios',description:'Four ways in. One team behind every one. Work with Kemsor as a filmmaker, studio, co-producer, financier or international production.'},
  'documentaries':{label:'Documentaries',title:'Documentaries | Kemsor Studios',description:'The story is out there. We help you earn it. Kemsor produces authored documentaries for cinema, platforms and festivals with care for the story and its subjects.'},
@@ -37,7 +38,7 @@ export const pageInfo = {
   'line-production': { label: 'Line Production', title: 'Line Production & Production Management | Kemsor Studios', description: 'Kemsor runs the practical engine of your production: budgets, schedules, people and problems, managed so the director can direct.' },
   produce: { label: 'Produce', title: 'Produce | Production Services | Kemsor Studios', description: 'From casting and locations to crew, design and the shoot itself, Kemsor runs the practical side of production so the creative work has room to happen.' },
   services: { label: 'Services', title: 'Production services | Kemsor Studios', description: 'Production support from development and financing to locations, casting, crew, post-production and release.' },
-  projects: { label: 'Productions', title: 'Productions & story formats | Kemsor Studios', description: 'Explore film, series, documentary and short film formats, and the supplied visual collection.' },
+  productions: { label: 'Productions', title: 'Productions | Film Production Company in India | Kemsor Studios', description: 'Feature films, series, documentaries and short films. Developed, financed, produced and released by Kemsor Studios, an independent film studio in India.' },
   news: { label: 'News, Press & Media', title: 'News, Press & Media | Kemsor Studios', description: 'Kemsor press and media updates, studio announcements and media partners.' },
   blog: { label: 'Blog', title: 'Blog | Kemsor Studios', description: 'Explore Kemsor production notes on development, planning, post-production and bringing stories to screen.' },
   careers: { label: 'Careers', title: 'Careers | Kemsor Studios', description: 'The creative, production and post-production disciplines behind the frame. Find the current opportunities at Kemsor.' },

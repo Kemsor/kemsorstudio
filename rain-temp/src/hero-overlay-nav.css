@@ -231,3 +231,12 @@ html body #top.creative-site:not(.site-page-home) .creative-header :is(.creative
 }
 
 :root{--studio-discovery-gradient:radial-gradient(ellipse at 80% 10%,#7970bb40,transparent 55%),linear-gradient(115deg,#252338,#27202e 55%,#38291e)}
+
+/* Apply the requested translucent surface once, across the sticky navbar. */
+html body #top.creative-site .creative-header[data-scrolled=true]{
+ background:#463535f5!important;
+}
+html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] .creative-header-inner,
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=true] .creative-header-inner{
+ background:transparent!important;
+}

@@ -51,6 +51,7 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 const routes={
+ 'privacy-policy':lazy(()=>import('./pages/PrivacyPolicyPage')),
  'press-media':lazy(()=>import('./pages/PressMediaPage')),
  'partner-with-us':lazy(()=>import('./pages/PartnerWithUsPage')),
  'documentaries':lazy(()=>import('./pages/DocumentariesPage')),
@@ -89,7 +90,7 @@ const routes={
  'line-production':lazy(()=>import('./pages/LineProductionPage')),
  produce:lazy(()=>import('./pages/ProducePage')),
  services:lazy(()=>import('./pages/ServicesPage').then(module=>({default:module.ServicesPage}))),
- projects:lazy(()=>import('./pages/ProjectsPage').then(module=>({default:module.ProjectsPage}))),
+ productions:lazy(()=>import('./pages/ProductionsPage').then(module=>({default:module.ProductionsPage}))),
  news:lazy(()=>import('./pages/NewsPage').then(module=>({default:module.NewsPage}))),
  blog:lazy(()=>import('./pages/BlogPage')),
  legal:lazy(()=>import('./pages/LegalPage')),

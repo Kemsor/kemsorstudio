@@ -79,7 +79,7 @@ export default function FinanceStructuringPage() {
     <section className="produce-section produce-process" id="how-it-works" aria-labelledby="process-title"><Label>HOW IT WORKS</Label><MotionHeading as="h2" id="process-title">From budget to<br/><em>a plan people can fund.</em></MotionHeading><ol className="produce-steps finance-steps">{steps.map(([title,body],i)=><li key={title}><span className="produce-step-number">0{i+1}</span><h3>{title}</h3><p>{body}</p></li>)}</ol><div className="structuring-production-link"><TextLink href="/produce/">Explore 03 Produce</TextLink></div></section>
 
     {/* No approved project title, format, year or finance structuring credit supplied. */}
-    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
+    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/productions/">Explore productions</TextLink></div></section>
 
     <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS</Label><MotionHeading as="h2" id="questions-title">Questions.</MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
 

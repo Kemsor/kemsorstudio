@@ -69,7 +69,7 @@ export default function StoryScriptPage() {
     <section className="produce-section" id="what-you-receive" aria-labelledby="receive-title"><Label>WHAT YOU RECEIVE · AND WHO IT’S FOR</Label><MotionHeading as="h2" id="receive-title">What you receive.<br/><em>In writing, every time.</em></MotionHeading><ul className="story-deliverables">{deliverables.map(line=><li key={line}>{line}</li>)}</ul></section>
 
     {/* No approved project title, format, year or story development credits supplied. */}
-    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
+    <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="work-title">Related work.</MotionHeading><TextLink href="/productions/">Explore productions</TextLink></div></section>
 
     <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>QUESTIONS · ABOUT YOUR SCRIPT</Label><MotionHeading as="h2" id="questions-title">Questions<br/><em>writers ask.</em></MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
 

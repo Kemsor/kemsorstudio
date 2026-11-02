@@ -31,7 +31,7 @@ const scenes={
  'distribution-release':['post-production-release','partner-studio'],
  'festival-awards':['work-celebration-set','work-period-camera'],
  services:['work-camera-crew','daylight-valley-production'],
- projects:['work-period-set','work-action-set']
+ productions:['work-period-set','work-action-set']
 };
 function has(node,predicate){if(!isValidElement(node))return false;return predicate(node)||Children.toArray(node.props.children).some(child=>has(child,predicate));}
 const classes=node=>String(node?.props?.className||'');
@@ -43,7 +43,8 @@ export function visualChapter(node,page,index,order=Math.floor(index/2)){
  const dense=has(node,n=>/crafts|review-cards|story-formats|structuring-formats|coproduction-brief|post-overview-stages/.test(classes(n)));
  const direction=order%2===1?'left':'right',dark=direction==='left',image=scenes[page][order%2];
  const video=order===0?({'how-we-work':'studio-film-loop','what-we-make':'creative-film-loop'}[page]):null;
- const content=hasImage?node.props.children:<div className={`visual-chapter-layout visual-image-${direction}`}><div className="visual-chapter-content">{node.props.children}</div><figure className="visual-chapter-image"><div>{video?<video autoPlay muted loop controls playsInline preload="metadata" aria-label="Supplied studio film clip"><source src={`/assets/supplied/${video}.mp4`} type="video/mp4"/>Your browser does not support video.</video>:<StudioImage mediaSlot={`VisualChapters-${page}-${order}`} src={`/assets/stills/${image}-960.webp`} srcSet={[640,960,1600].map(width=>`/assets/stills/${image}-${width}.webp ${width}w`).join(', ')} sizes="(max-width:900px) 90vw, 40vw" width="960" height="640" alt="Illustrative film production visual" loading="lazy" decoding="async"/>}</div><figcaption><span>STORY. CRAFT. CINEMA.</span><span>ILLUSTRATIVE VISUAL</span></figcaption></figure></div>;
+ // Dense lists stay focused on their content; do not append decorative image strips.
+ const content=(hasImage||dense)?node.props.children:<div className={`visual-chapter-layout visual-image-${direction}`}><div className="visual-chapter-content">{node.props.children}</div><figure className="visual-chapter-image"><div>{video?<video autoPlay muted loop controls playsInline preload="metadata" aria-label="Supplied studio film clip"><source src={`/assets/supplied/${video}.mp4`} type="video/mp4"/>Your browser does not support video.</video>:<StudioImage mediaSlot={`VisualChapters-${page}-${order}`} src={`/assets/stills/${image}-960.webp`} srcSet={[640,960,1600].map(width=>`/assets/stills/${image}-${width}.webp ${width}w`).join(', ')} sizes="(max-width:900px) 90vw, 40vw" width="960" height="640" alt="Illustrative film production visual" loading="lazy" decoding="async"/>}</div><figcaption><span>STORY. CRAFT. CINEMA.</span><span>ILLUSTRATIVE VISUAL</span></figcaption></figure></div>;
  return cloneElement(node,{className:`${classes(node)} visual-chapter${dark?' visual-chapter-dark':' visual-chapter-light'}${hasImage?' visual-chapter-existing-image':''}${dense?' visual-chapter-dense':''}`},content);
 }
 export function chapterStyler(page){let order=0;return(node,index)=>{const result=visualChapter(node,page,index,order);if(result!==node)order++;return result;};}

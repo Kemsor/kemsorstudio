@@ -82,3 +82,20 @@ html body #top.creative-site #main #showreel .showreel-card-screen{height:clamp(
  html body #top.creative-site #main #showreel .showreel-card{width:82vw;min-width:210px}
  html body #top.creative-site #main #showreel .showreel-card-screen{height:280px;min-height:0}
 }
+
+/* One continuous surface from About Kemsor through the complete showreel runway. */
+html body #top.creative-site.site-page-home #main #studio,
+html body #top.creative-site.site-page-home #main #studio #showreel,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery{
+ --page-bg:#736767;background:#736767!important;
+}
+
+/* The pinned frame fills its viewport, including the space around the films. */
+html body #top.creative-site.site-page-home #main #studio #showreel[data-pinned=true] .showreel-gallery{
+ min-height:calc(100svh - 96px);box-sizing:border-box;
+ display:flex;flex-direction:column;justify-content:center;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-viewport,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-track{
+ background:#736767;
+}

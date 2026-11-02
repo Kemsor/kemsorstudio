@@ -11,5 +11,5 @@ export const navigation = [
     { title:'05 Release', links:[link('Overview','release'),link('Distribution & Release Support','release/distribution-release-support'),link('Festival & Awards Strategy','release/festival-awards-strategy')] },
   ] },
   { id:'india', label:'India Production Services', page:'india-production-services', href:pageHref('india-production-services') },
-  { id:'productions', label:'Productions', page:'projects', groups:[{links:[link('All Productions','projects','project-showcase')]}] },
+  { id:'productions', label:'Productions', page:'productions', href:pageHref('productions') },
 ];

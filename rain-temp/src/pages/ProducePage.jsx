@@ -88,7 +88,7 @@ export default function ProducePage() {
 
     {/* No project title, year or production credit was supplied. Keep unverified
         project cards out of the page; the productions archive remains accessible. */}
-    <section className="produce-section produce-work" aria-labelledby="produce-work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="produce-work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
+    <section className="produce-section produce-work" aria-labelledby="produce-work-title"><Label>RELATED WORK</Label><div><MotionHeading as="h2" id="produce-work-title">Related work.</MotionHeading><TextLink href="/productions/">Explore productions</TextLink></div></section>
 
     <section className="produce-section produce-related" aria-labelledby="produce-related-title"><Label>RELATED SERVICES</Label><MotionHeading as="h2" id="produce-related-title">Related services.</MotionHeading><div className="produce-related-grid">{related.map(([number, title, description, href]) => <a href={href} key={title}><span className="produce-related-number">{number}</span><h3>{title}</h3><p>{description}</p><Arrow /></a>)}</div></section>
 

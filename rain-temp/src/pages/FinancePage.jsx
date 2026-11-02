@@ -90,7 +90,7 @@ export default function FinancePage() {
     <section className="produce-section finance-principles" aria-label="Our finance principles">{principles.map(([title, line]) => <article key={title}><h3>{title}</h3><p>{line}</p></article>)}</section>
 
     {/* No cleared project title, format, year, countries or finance credits supplied. */}
-    <section className="produce-section produce-work" aria-labelledby="finance-work-title"><Label>RELATED WORK · PROJECTS WE’VE HELPED FINANCE</Label><div><MotionHeading as="h2" id="finance-work-title">Related work.</MotionHeading><TextLink href="/projects/">Explore productions</TextLink></div></section>
+    <section className="produce-section produce-work" aria-labelledby="finance-work-title"><Label>RELATED WORK · PROJECTS WE’VE HELPED FINANCE</Label><div><MotionHeading as="h2" id="finance-work-title">Related work.</MotionHeading><TextLink href="/productions/">Explore productions</TextLink></div></section>
 
     <section className="produce-section produce-questions finance-questions" aria-labelledby="finance-questions-title"><div><Label>QUESTIONS · STRAIGHT ANSWERS ABOUT MONEY</Label><MotionHeading as="h2" id="finance-questions-title">Straight answers<br/><em>about money.</em></MotionHeading></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></section>
 

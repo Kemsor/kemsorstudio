@@ -18,9 +18,6 @@ html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chap
 html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(th,td){padding:20px!important;border-color:var(--chapter-rule)!important}
 html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter .visual-chapter-image>div{aspect-ratio:1.5;max-height:380px}
 /* Card-heavy chapters use the full reading width and a shallow image band. */
-html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-layout{grid-template-columns:minmax(0,1fr)!important}
-html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-layout>*{grid-column:1!important;grid-row:auto!important}
-html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-image>div{aspect-ratio:4;max-height:240px}
 html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense :is(.post-overview-crafts,.post-review-cards){grid-template-columns:repeat(3,minmax(0,1fr))!important}
 /* Empty publishing feeds stay compact until approved projects are available. */
 html body #top.creative-site:not(.site-page-about) #main.inner-page .produce-work{min-height:0!important;padding-block:40px!important}
@@ -38,7 +35,6 @@ html body #top.creative-site:not(.site-page-about) #main.inner-page .text-flow-w
 }
 @media(max-width:600px){
  html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.post-overview-crafts,.post-overview-stages,.post-review-cards){grid-template-columns:1fr!important}
- html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter-dense .visual-chapter-image>div{aspect-ratio:1.8}
  html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li{grid-template-columns:24px minmax(0,1fr)!important}
  html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li>p{grid-column:2!important}
 }

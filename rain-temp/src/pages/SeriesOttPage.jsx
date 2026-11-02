@@ -134,7 +134,7 @@ export default function SeriesOttPage() {
 
     <section className="series-section series-width" aria-labelledby="series-slate-title">
       <Label number="06">ON OUR SLATE</Label>
-      <div className="series-intro-grid"><MotionHeading as="h2" id="series-slate-title">Series.</MotionHeading><div><TextLink href="/projects/#series-ott">See all series</TextLink></div></div>
+      <div className="series-intro-grid"><MotionHeading as="h2" id="series-slate-title">Series.</MotionHeading><div><TextLink href="/productions/#series-ott">See all series</TextLink></div></div>
       {/* Stills, titles, seasons, episode counts, language, platform, year and roles require confirmed production records. */}
     </section>
 

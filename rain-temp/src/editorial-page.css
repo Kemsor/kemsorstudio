@@ -37,7 +37,7 @@ html .creative-site #main .ep-page.ep-page .ep-process p{color:#d2d2d2}
 .ep-motion-toggle:disabled{cursor:default;opacity:.8}
 @media(prefers-reduced-motion:reduce){html:has(.editorial-inner){scroll-behavior:auto}}
 /* Keep the lead performer in the aerial-action banner visible on narrow screens. */
-.site-page-projects .ep-image-window>img{object-position:40% center}
+.site-page-productions .ep-image-window>img{object-position:40% center}
 
 .ep-mobile-study,.ep-mobile-chapters{display:none}
 /* Phone layouts prioritise the copy, a usable chapter menu and a single reading column. */
