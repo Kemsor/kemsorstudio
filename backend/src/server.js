@@ -1,4 +1,5 @@
 import { startOperationsWorker } from './operations.js';
+import { startKpiWorker } from './kpi-worker.js';
 import { startMailWorker } from './mail.js';
 import { createPool } from './db.js';
 import { createApp } from './app.js';
@@ -9,7 +10,8 @@ await db.execute('SELECT 1');
 await recoverAdmin(db);
 const stopMail= startMailWorker(db);
 const stopOperations=startOperationsWorker(db);
+const stopKpi=startKpiWorker(db);
 const app=createApp(db,{dummyHash:await hashPassword(token())});
 const port=Number(process.env.PORT || 8100), host=process.env.HOST || '0.0.0.0';
 const server=app.listen(port,host,()=>console.log(`Kemsor CMS: http://${host}:${port}/admin`));
-for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>{server.close(async()=>{await stopMail();await stopOperations();await db.end();process.exit(0);});});
+for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>{server.close(async()=>{await stopMail();await stopOperations();await stopKpi();await db.end();process.exit(0);});});

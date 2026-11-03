@@ -9,6 +9,7 @@ import {managedContentRouter,publicManagedContent} from './managed-content.js';
 import {operationsRouter} from './operations-admin.js';
 import {deletePersonalRecord} from './retention.js';
 import {reportsRouter} from './reports.js';
+import {kpiRouter} from './kpi-admin.js';
 import {optimizeImage} from './image-optimizer.js';
 import {categories,statuses,workflowFields} from './enquiry-options.js';
 import { saveWithReceipt, mailConfiguration, verifyMailConnection } from './mail.js';
@@ -85,7 +86,8 @@ export function createApp(db, options={}) {
   });
   const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:50*1024*1024,files:1,fields:25,fieldSize:70000}}).fields([{name:'image',maxCount:1},{name:'attachment',maxCount:1}]);
   const siteUpload=multer({storage:multer.memoryStorage(),limits:{fileSize:50*1024*1024,files:1,fields:2000,fieldSize:70000}}).fields([{name:'image',maxCount:1},{name:'attachment',maxCount:1}]);
-  app.use((req,res,next)=>req.is('multipart/form-data') ? (req.path==='/admin/site-content/save'?siteUpload:upload)(req,res,next) : next());
+  const kpiUpload=multer({limits:{files:0,fields:100,fieldSize:70000}}).none();
+  app.use((req,res,next)=>req.is('multipart/form-data') ? (req.path==='/admin/site-content/save'?siteUpload:req.path.startsWith('/admin/kpi/')?kpiUpload:upload)(req,res,next) : next());
   app.use((req,res,next)=>{const files=Object.values(req.files||{}).flat();const large=files.some(file=>file.size>5*1024*1024&&!(file.fieldname==='image'&&req.path.startsWith('/admin/')));return large?next(Object.assign(new Error('Attachments must be at most 5 MB.'),{status:422})):next()});
   app.use(async(req,res,next)=>{
     if(!['POST','PUT','PATCH','DELETE'].includes(req.method))return next();
@@ -486,6 +488,7 @@ export function createApp(db, options={}) {
   app.use(operationsRouter(db));
   app.use(newsAlertsRouter(db));
   app.use(newsCampaignsRouter(db));
+  app.use(kpiRouter(db));
   app.use(reportsRouter(db));
   app.use(bulkRouter(db));
   app.use(careersRouter(db));

@@ -41,7 +41,7 @@ before(async()=>{
  const trackingSql=await readFile(new URL('../migrations/011_email_message_tracking.sql',import.meta.url),'utf8');
  for(const statement of trackingSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const role of ['admin','editor','enquiry_manager'])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[role,`${role}@test.local`,await hashPassword('A-secure-test-password'),role]);
- for(const name of ['013_phase_one_workflows.sql','014_admin_mfa.sql','015_submission_terms.sql','016_professional_registration.sql','017_operations.sql','018_managed_content.sql','020_careers_intake.sql','021_news_alerts.sql','022_site_modules_campaigns.sql']){
+ for(const name of ['013_phase_one_workflows.sql','014_admin_mfa.sql','015_submission_terms.sql','016_professional_registration.sql','017_operations.sql','018_managed_content.sql','020_careers_intake.sql','021_news_alerts.sql','022_site_modules_campaigns.sql','024_kpi_reporting.sql']){
   const sql=await readFile(new URL(`../migrations/${name}`,import.meta.url),'utf8');
   for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  }
@@ -1077,4 +1077,85 @@ test('Leadership portrait and supplied founder content have dedicated draft and 
  const body={_csrf:csrf,module_key:'leadership',revision:0,action:'draft'};for(const field of module.fields)body[`value:${field.key}`]=field.default;
  body['value:quote']='Synthetic private quote';await editor.post('/admin/site-content/save').type('form').send(body).expect(302);assert.ok(!(await request(app).get('/api/site')).body.siteModules.leadership);
  await editor.post('/admin/site-content/save').type('form').send({...body,revision:1,action:'publish'}).expect(302);assert.equal((await request(app).get('/api/site')).body.siteModules.leadership.quote,'Synthetic private quote');
+});
+
+test('KPI workspace enforces roles, provenance, stale writes and business-outcome evidence',async()=>{
+ for(const [key,role] of [['kpi-admin','admin'],['kpi-editor','editor'],['kpi-manager','enquiry_manager']])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[key,`${key}@test.local`,await hashPassword('A-secure-test-password'),role]);
+ const [admin,csrfAdmin]=await login('kpi-admin'),[editor]=await login('kpi-editor'),[manager,csrfManager]=await login('kpi-manager');
+ const {buildScorecard,periodFor}=await import('../src/kpi.js');
+ for(const url of ['/admin/kpi','/admin/kpi/settings','/admin/kpi/export.csv'])await request(app).get(url).expect(302);
+ await editor.get('/admin/kpi').expect(403);await editor.get('/admin/kpi/export.csv').expect(403);
+ await manager.get('/admin/kpi/settings').expect(403);
+ await admin.post('/admin/kpi/settings').type('form').send({version:'1'}).expect(403);
+ const setting={_csrf:csrfAdmin,version:'1',categories:['business','production'],amberPercent:'80','weekly:leads':'3','weekly:converted':'1','weekly:conversion_rate':'30','weekly:sessions':'100','weekly:operation_failures':'0'};
+ await manager.post('/admin/kpi/settings').type('form').send({...setting,_csrf:csrfManager}).expect(403);
+ await admin.post('/admin/kpi/settings').type('form').send(setting).expect(302);
+ await admin.post('/admin/kpi/settings').type('form').send(setting).expect(409);
+ const ids=[];
+ const add=async(category,status,at)=>{const r=await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,status,consent_at,consent_version,created_at,source) VALUES(?,?,?,?,?,?,UTC_TIMESTAMP(),?,?,?)',[category,'KPI synthetic person','kpi-person@test.local','KPI fixture','Synthetic test enquiry',status,'test',at,'=source-formula']);ids.push(r.insertId);return r.insertId;};
+ const first=await add('business','closed','2025-01-06 00:00:00');
+ const second=await add('production','converted','2025-01-12 23:59:59');
+ await add('business','spam','2025-01-08 10:00:00');await add('careers','converted','2025-01-08 10:00:00');
+ await add('business','new','2025-01-13 00:00:00');
+ for(const [id,to,when]of [[first,'qualified','2025-01-07 10:00:00'],[first,'closed','2025-01-08 10:00:00'],[second,'converted','2025-01-12 23:59:59'],[first,'converted','2025-01-13 00:00:00']])await rows(db,'INSERT INTO cms_enquiry_history(enquiry_id,to_status,created_at) VALUES(?,?,?)',[id,to,when]);
+ const previous=await add('business','converted','2024-12-30 10:00:00');
+ await rows(db,"INSERT INTO cms_enquiry_history(enquiry_id,to_status,created_at) VALUES(?,'converted','2024-12-31 10:00:00')",[previous]);
+ const period=periodFor('weekly','2025-01-08');let card=await buildScorecard(db,period);
+ const metric=key=>card.metrics.find(m=>m.key===key);
+ assert.equal(metric('leads').actual,2);assert.equal(metric('qualified').actual,2);assert.equal(metric('converted').actual,1);assert.equal(metric('conversion_rate').actual,50);assert.equal(metric('converted').previous,1);assert.equal(metric('sessions').actual,null);assert.equal(metric('search_ctr').actual,null);
+ const input={_csrf:csrfAdmin,cadence:'weekly',date:'2025-01-08',version:'0',sessions:'100',engaged_sessions:'60',organic_sessions:'20',tracked_enquiries:'5',ga4_reference:'=GA4 export 2025-01-06',ga4_filters:'Property 123, UTC, successful enquiry event, all traffic',ga4_extracted_on:'2025-01-14',search_clicks:'5',search_impressions:'100',gsc_reference:'GSC exact week export',gsc_filters:'KEMSOR domain, web search, all devices, source timezone',gsc_extracted_on:'2025-01-14',executive:'Two business enquiries; one converted milestone.',observations:'Outcomes reviewed independently from traffic.',root_causes:'Cohort evidence reviewed.',seo_review:'Five search clicks from the referenced export.',technical_review:'No uptime or security certification inferred.'};
+ await manager.post('/admin/kpi/inputs').type('form').send({...input,_csrf:csrfManager}).expect(403);
+ await admin.post('/admin/kpi/inputs').type('form').send({...input,ga4_reference:''}).expect(422);
+ await admin.post('/admin/kpi/inputs').type('form').send(input).expect(302);
+ await admin.post('/admin/kpi/inputs').type('form').send(input).expect(409);
+ card=await buildScorecard(db,period);assert.equal(metric('engagement_rate').actual,60);assert.equal(metric('search_ctr').actual,5);
+ await manager.get('/admin/kpi?cadence=weekly&date=2025-01-08').expect(200).expect(/Target vs actual/);
+ for(const cadence of ['monthly','quarterly'])await admin.get(`/admin/kpi?cadence=${cadence}&date=2025-01-08`).expect(200);
+ await admin.get('/admin/kpi?date=2025-02-30').expect(422);
+ const owner=(await rows(db,"SELECT id FROM cms_users WHERE email='kpi-manager@test.local'"))[0].id;
+ await manager.post('/admin/kpi/actions').type('form').send({_csrf:csrfManager,cadence:'weekly',date:period.start,title:'Improve qualified lead conversion',metric_key:'converted',owner_id:String(owner),due_date:'2025-01-20',expected_outcome:'Convert one additional qualified lead.'}).expect(302);
+ const action=(await rows(db,'SELECT * FROM cms_kpi_actions ORDER BY id DESC LIMIT 1'))[0];
+ await manager.post(`/admin/kpi/actions/${action.id}`).type('form').send({_csrf:csrfManager,version:'1',status:'done',evidence:''}).expect(422);
+ await manager.post(`/admin/kpi/actions/${action.id}`).type('form').send({_csrf:csrfManager,version:'1',status:'in_progress',evidence:'Review started.'}).expect(302);
+ await manager.post(`/admin/kpi/actions/${action.id}`).type('form').send({_csrf:csrfManager,version:'1',status:'done',evidence:'Recorded conversion reviewed.'}).expect(409);
+ const create={_csrf:csrfManager,cadence:'weekly',date:period.start,configuration_version:'2',input_version:'1'};
+ await manager.post('/admin/kpi/snapshots').type('form').send({...create,input_version:'0'}).expect(409);
+ const response=await manager.post('/admin/kpi/snapshots').type('form').send(create).expect(302);
+ const reportUrl=response.headers.location.split('?')[0],id=reportUrl.split('/').at(-1);
+ await admin.get(reportUrl).expect(200).expect(/frozen/);
+ const summary=await admin.get(reportUrl+'?view=summary').expect(200);assert.match(summary.text,/kpi-summary-view/);
+ await manager.post(reportUrl+'/approve').type('form').send({_csrf:csrfManager,confirm:'approve'}).expect(403);
+ await admin.post(reportUrl+'/approve').type('form').send({_csrf:csrfAdmin,confirm:'approve'}).expect(302);
+ await admin.post(reportUrl+'/approve').type('form').send({_csrf:csrfAdmin,confirm:'approve'}).expect(409);
+ const csv=await manager.get('/admin/kpi/export.csv?report='+id).expect(200).expect('Content-Type',/text\/csv/);
+ assert.match(csv.text,/'=GA4 export/);assert.ok(!csv.text.includes('kpi-person@test.local'));assert.match(csv.text,/Approved/);assert.match(csv.text,/Review started/);
+ const original=(await rows(db,'SELECT snapshot FROM cms_kpi_reports WHERE id=?',[id]))[0].snapshot;
+ await admin.post('/admin/kpi/inputs').type('form').send({...input,version:'1',sessions:'200'}).expect(302);
+ for(const enquiry of ids)await rows(db,'DELETE FROM cms_enquiries WHERE id=?',[enquiry]);
+ const after=(await rows(db,'SELECT snapshot FROM cms_kpi_reports WHERE id=?',[id]))[0].snapshot;
+ assert.deepEqual(after,original);const frozen=typeof after==='string'?JSON.parse(after):after;assert.equal(frozen.metrics.find(m=>m.key==='sessions').actual,100);assert.equal(frozen.metrics.find(m=>m.key==='leads').actual,2);
+ const live=await buildScorecard(db,period);assert.equal(live.metrics.find(m=>m.key==='leads').actual,0);assert.equal(live.metrics.find(m=>m.key==='conversion_rate').actual,null);
+});
+test('KPI approval rejects incomplete commentary and provisional period snapshots',async()=>{
+ const [admin,csrfAdmin]=await login('kpi-admin');
+ const period={_csrf:csrfAdmin,cadence:'weekly',date:'2025-02-03',configuration_version:'2',input_version:'0'};
+ const create=await admin.post('/admin/kpi/snapshots').type('form').send(period).expect(302);
+ await admin.post(create.headers.location.split('?')[0]+'/approve').type('form').send({_csrf:csrfAdmin,confirm:'approve'}).expect(422);
+ const current=await admin.post('/admin/kpi/snapshots').type('form').send({...period,date:new Date().toISOString().slice(0,10)}).expect(302);
+ await admin.post(current.headers.location.split('?')[0]+'/approve').type('form').send({_csrf:csrfAdmin,confirm:'approve'}).expect(422);
+});
+
+test('Scheduled KPI drafts are opt-in, deduplicated and never auto-approved',async()=>{
+ const {generateDueReports}=await import('../src/kpi-worker.js');
+ assert.deepEqual(await generateDueReports(db,'2025-03-10'),[]);
+ const setting=(await rows(db,'SELECT configuration FROM cms_kpi_settings WHERE id=1'))[0];
+ const config=typeof setting.configuration==='string'?JSON.parse(setting.configuration):setting.configuration;
+ await rows(db,'UPDATE cms_kpi_settings SET configuration=? WHERE id=1',[JSON.stringify({...config,automaticDrafts:true})]);
+ const generated=await generateDueReports(db,'2025-03-10');assert.equal(generated.length,3);
+ assert.deepEqual(await generateDueReports(db,'2025-03-10'),[]);
+ const reports=await rows(db,'SELECT * FROM cms_kpi_reports WHERE automatic_key IS NOT NULL');
+ assert.deepEqual(new Set(reports.map(r=>r.cadence)),new Set(['weekly','monthly','quarterly']));
+ for(const report of reports){assert.equal(report.approved_at,null);const snapshot=typeof report.snapshot==='string'?JSON.parse(report.snapshot):report.snapshot;assert.equal(snapshot.origin,'scheduled');assert.equal(snapshot.period.inProgress,false);}
+ await rows(db,'UPDATE cms_kpi_settings SET configuration=? WHERE id=1',[JSON.stringify({...config,automaticDrafts:false})]);
+ assert.deepEqual(await generateDueReports(db,'2025-04-01'),[]);
 });

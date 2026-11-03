@@ -1,0 +1,50 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {periodFor,comparison,validateConfiguration,validateInputs,display} from '../src/kpi.js';
+test('KPI calendar periods cross years and use whole calendar months and quarters',()=>{
+ assert.equal(periodFor('weekly','2026-01-01').start,'2025-12-29');
+ assert.equal(periodFor('weekly','2026-01-01').end,'2026-01-04');
+ assert.equal(periodFor('weekly','2026-01-01').previous,'2025-12-22');
+ assert.equal(periodFor('monthly','2024-02-29').end,'2024-02-29');
+ assert.equal(periodFor('monthly','2026-01-04').previous,'2025-12-01');
+ assert.equal(periodFor('quarterly','2026-11-04').start,'2026-10-01');
+ assert.equal(periodFor('quarterly','2026-11-04').end,'2026-12-31');
+ assert.throws(()=>periodFor('weekly','2026-02-30'));
+ assert.throws(()=>periodFor('daily','2026-01-01'));
+ assert.throws(()=>periodFor(['weekly'],'2026-01-01'));
+});
+test('KPI comparisons distinguish missing, zero, percentage change and inverse targets',()=>{
+ assert.equal(comparison(null,5,10).rag,'unrated');
+ assert.equal(comparison(10,0,10).percentChange,null);
+ assert.equal(comparison(0,1,0,'lower').rag,'green');
+ assert.equal(comparison(1,0,0,'lower').rag,'red');
+ assert.equal(comparison(8,10,10).rag,'amber');
+ assert.equal(comparison(7,10,10).rag,'red');
+ assert.equal(comparison(12,9,10,'lower').rag,'amber');
+ assert.equal(comparison(13,9,10,'lower').rag,'red');
+ assert.equal(comparison(10,5,10).percentChange,100);
+ assert.equal(comparison(0,null,null).rag,'unrated');
+ assert.equal(display(null),'Unavailable');assert.equal(display(0),'0');
+});
+test('KPI input validation requires provenance and consistent denominators',()=>{
+ assert.equal(validateInputs({}).analytics.sessions,null);
+ assert.throws(()=>validateInputs({sessions:'10'}),/source reference/);
+ const source={ga4_reference:'GA4 export 2025-01',ga4_filters:'Property 123, UTC, all traffic',ga4_extracted_on:'2025-02-01'};
+ assert.equal(validateInputs({...source,sessions:'0',engaged_sessions:'0'}).analytics.sessions,0);
+ assert.throws(()=>validateInputs({...source,sessions:'10',engaged_sessions:'11'}),/cannot exceed/);
+ assert.throws(()=>validateInputs({...source,sessions:'10',organic_sessions:'12'}),/cannot exceed/);
+ assert.throws(()=>validateInputs({...source,sessions:'-1'}));
+ assert.throws(()=>validateInputs({...source,sessions:['1']}));
+ assert.throws(()=>validateInputs({executive:'x'.repeat(1601)}));
+ const gsc={gsc_reference:'GSC Jan export',gsc_filters:'domain property; web; UTC; all devices',gsc_extracted_on:'2025-02-01'};
+ assert.throws(()=>validateInputs({...gsc,search_clicks:'10',search_impressions:'9'}),/cannot exceed/);
+ assert.equal(validateInputs({...gsc,search_clicks:'0',search_impressions:'0'}).search.search_clicks,0);
+});
+test('KPI settings cannot inject categories or apply invalid targets',()=>{
+ assert.throws(()=>validateConfiguration({categories:['careers'],amberPercent:'80'}));
+ assert.throws(()=>validateConfiguration({categories:['business'],amberPercent:'100'}));
+ assert.throws(()=>validateConfiguration({categories:['business'],amberPercent:'80','weekly:conversion_rate':'101'}));
+ assert.throws(()=>validateConfiguration({categories:['business'],amberPercent:'80','weekly:leads':'2.5'}));
+ const c=validateConfiguration({categories:['business'],amberPercent:'80','weekly:leads':'10','monthly:operation_failures':'0'});
+ assert.equal(c.targets.weekly.leads,10);assert.equal(c.targets.monthly.operation_failures,0);assert.equal(c.targets.quarterly.sessions,undefined);
+});

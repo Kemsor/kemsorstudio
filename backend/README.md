@@ -609,3 +609,67 @@ Manage pages → Leadership (or Existing page content → Leadership · Dev Ratu
 edit the portrait, biography, quote, screen credits and honour. Drafts, publishing,
 reset and revision restoration use the existing site-module workflow. No database
 migration is required. Deploy the shared content JSON with the frontend/backend.
+
+## KPI and outcome reporting
+
+**Admin → KPI & outcomes** (`/admin/kpi`) provides weekly (Monday–Sunday UTC),
+calendar-month and calendar-quarter scorecards. Apply migration
+`024_kpi_reporting.sql` before starting the updated server. This module is separate
+from operational record exports in Reports & downloads.
+
+- Administrators configure business-category filters, cadence-specific targets and
+  the amber threshold. Empty targets are unrated. No targets or achievements are
+  invented. Enquiry managers can view/export, own/update corrective initiatives
+  and save report snapshots. Editors cannot access management reporting.
+- CMS leads are enquiries **created in the selected period**, in the selected
+  business categories and not currently marked spam. Qualification is the first
+  recorded qualified/accepted/converted milestone by period end. Conversion is
+  the first converted milestone by period end. Rates use the same creation cohort;
+  a converted enquiry from an older cohort does not inflate the current cohort's
+  conversion rate. These are staff-recorded outcomes, not verified revenue.
+- Historical live figures can change through retention, spam reclassification or
+  missing workflow history. Saved snapshots preserve their original aggregate
+  measures, filters, targets, definitions, source provenance, notes and actions.
+  Period comparisons use the same current methodology. Missing values and zero
+  denominators remain unavailable; percentage change from zero is undefined.
+- GA4 sessions, engaged/organic sessions and successful enquiry key events, plus
+  Search Console clicks/impressions, are **manual exact-period inputs**. Each
+  source requires its property/timezone/filters, export reference and extraction
+  date. These fields do not activate analytics or connect to Google's APIs.
+  Monthly/quarterly sources require their own exports; do not sum rates or
+  non-additive user measures. KEMSOR-controlled accounts and validated event
+  definitions remain prerequisites for reliable external reporting.
+- Each period supports an executive summary, observations, root causes, SEO/content
+  review, technical/security/backup exceptions and strategic priorities. A traffic
+  increase with declining qualified/converted enquiries triggers an outcome alert.
+- Corrective initiatives record the metric, responsible internal owner, due date,
+  expected measurable outcome, progress and completion/cancellation evidence.
+  The dashboard includes up to 200 unresolved earlier initiatives. Reporting an
+  initiative does not authorize paid services, campaigns or separate development.
+- Operation failures and per-job run totals come from actual operations logs. No
+  runs does not establish backup coverage; zero recorded failures does not certify
+  security, availability, recovery or performance. Attach references to those
+  checks in technical commentary.
+- Save a snapshot to retain an immutable revision. Only administrators can approve
+  a snapshot, and only if it was generated after the period closed, with required
+  narrative sections and an explicit review confirmation. Approval is internal
+  reporting sign-off, not contractual launch/UAT acceptance. Corrections require a
+  new revision; previously approved evidence is not overwritten.
+- CSV exports include definitions, source references, commentary, actions and
+  operation evidence; spreadsheet formula prefixes are neutralized. Executive
+  summary/full report views support Print / save PDF using the browser. The executive brief condenses the narrative and shows up to three initiatives;
+  the full report retains all detail. Reports contain aggregate enquiry
+  counts, not enquiry names or email addresses. Keep commentary free of personal
+  data and secrets. The private owner export now includes KPI tables.
+- Optional **automatic reporting drafts**, off by default, run every 15 minutes in
+  the Node process. When enabled in Targets & definitions, they create one
+  unapproved snapshot each for the latest completed week, month and quarter.
+  Generation is locked/deduplicated across instances. It does not backfill old
+  periods, approve reports or send email. Missing sources/commentary remain
+  disclosed; complete inputs and create a fresh revision for review. The hosting
+  process must remain running. Failures are reported in private server logs.
+
+This provides the reporting workspace and calculation/evidence workflow. Account
+connections, approved KPI targets, source data, weekly analyst commentary, actual
+client review and the selected commercial KPI service remain distinct operational
+requirements. No paid provider or outbound report delivery is activated.
