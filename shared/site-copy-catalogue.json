@@ -19688,18 +19688,6 @@
         "label": "Mobile (calls only) label",
         "default": "Mobile (calls only)",
         "type": "text"
-      },
-      {
-        "key": "contact-whatsapp-label",
-        "label": "WhatsApp only label",
-        "default": "WhatsApp only",
-        "type": "text"
-      },
-      {
-        "key": "contact-website-label",
-        "label": "Website label",
-        "default": "Website",
-        "type": "text"
       }
     ]
   },

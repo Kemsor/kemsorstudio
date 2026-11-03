@@ -5,7 +5,7 @@ import { useCookieConsent } from './CookieConsent';
 import { getStudioContacts } from './studioContact';
 import {studioAddress} from './studioLocation';
 import RollingLabel from './RollingLabel';
-import { faFacebookF, faInstagram, faYoutube, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faInstagram, faYoutube, faLinkedinIn, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { pageHref } from './pageInfo';
 import SiteIcon from './SiteIcon';
@@ -25,14 +25,16 @@ const socials = [
 
 function SocialIcons() {
   const { settings } = useCms();
+  const {whatsapp,whatsappHref}=getStudioContacts(settings);
+  const links=[...socials,...(whatsapp?[{name:'WhatsApp',href:whatsappHref,icon:faWhatsapp}]:[])];
   return <div className="footer-socials" role="group" aria-label="Kemsor social media">
-    {socials.map(({ name, href: fallback, icon }) => {
-      const configured = settings[name.toLowerCase()];
+    {links.map(({ name, href: fallback, icon }) => {
+      const configured = name==='WhatsApp'?whatsappHref:settings[name.toLowerCase()];
       const href = typeof configured === 'string' ? configured : fallback;
       const [width,height,,,path] = icon.icon;
       const graphic = <svg viewBox={`0 0 ${width} ${height}`} fill="currentColor" aria-hidden="true" focusable="false"><path d={path} /></svg>;
       const className = `footer-social-icon footer-social-${name.toLowerCase()}`;
-      return href ? <a key={name} className={className} href={href} target="_blank" rel="noopener noreferrer" aria-label={`Kemsor on ${name}`}>{graphic}</a> : <span key={name} className={className} role="img" aria-label={`${name}: profile link coming soon`} title={`${name}: profile link coming soon`}>{graphic}</span>;
+      return href ? <a key={name} className={className} href={href} target="_blank" rel="noopener noreferrer" aria-label={name==='WhatsApp'?`WhatsApp only: ${whatsapp}`:`Kemsor on ${name}`} title={name==='WhatsApp'?`WhatsApp: ${whatsapp}`:name}>{graphic}</a> : <span key={name} className={className} role="img" aria-label={`${name}: profile link coming soon`} title={`${name}: profile link coming soon`}>{graphic}</span>;
     })}
   </div>;
 }
@@ -59,7 +61,7 @@ export default function Footer({ reduced, page = 'home' }) {
   const {openPreferences}=useCookieConsent();
   const {settings,legalDocuments}=useCms();
   const groups=applyNavigation(footerNavigation,'footer').map(group=>({...group,links:group.links.map(link=>[link.label,link.page,link.href])})).map(group=>({...group,links:group.links.flatMap(link=>link[1]==='privacy-policy'&&Array.isArray(legalDocuments)?legalDocuments.filter(document=>document.footer).map(document=>[document.footerLabel||document.title,document.slug,legalHref(document.slug)]):[link])}));
-  const {email,phone,phoneHref,landline,landlineHref,whatsapp,whatsappHref,website,websiteLabel}=getStudioContacts(settings);
+  const {email,phone,phoneHref,landline,landlineHref}=getStudioContacts(settings);
   const address = settings.contact_address && !/sample|example/i.test(settings.contact_address) ? settings.contact_address : studioAddress;
   return <footer className="creative-footer footer-jumbo footer-editorial footer-reference footer-compact">
     <div className="footer-invitation">
@@ -79,12 +81,9 @@ export default function Footer({ reduced, page = 'home' }) {
       </div>
       <div className="footer-contact-column">
         <div className="footer-info-block"><h3>{address ? 'Our location' : 'The studio'}</h3>
-          <p>{address || (settings.footer_description ?? 'For production enquiries and collaborations,\nget in touch with the studio.')}</p>
+          <p>{address || (settings.footer_description ?? 'For production enquiries and collaborations,\nget in touch with the studio.')}</p><p><a href={`mailto:${email}`} aria-label={`${cmsText("Footer","b52df320b6a7bcf7","Email us")}: ${email}`}>{email}</a></p>
         </div>
         <div className="footer-info-block"><h3>{cmsText("Footer","a684c056996ee3b3","Call the studio")}</h3>{landline&&<p><span>{cmsText("Footer","contact-landline-label","Landline")}: </span><a href={landlineHref}>{landline}</a></p>}{phone&&<p><span>{cmsText("Footer","contact-mobile-label","Mobile (calls only)")}: </span><a href={phoneHref}>{phone}</a></p>}</div>
-        {whatsapp&&<div className="footer-info-block"><h3>{cmsText("Footer","contact-whatsapp-label","WhatsApp only")}</h3><a href={whatsappHref} target="_blank" rel="noopener noreferrer">{whatsapp}</a></div>}
-        {website&&<div className="footer-info-block"><h3>{cmsText("Footer","contact-website-label","Website")}</h3><a href={website} target="_blank" rel="noopener noreferrer">{websiteLabel}</a></div>}
-        <div className="footer-info-block"><h3>{cmsText("Footer","b52df320b6a7bcf7","Email us")}</h3><a href={`mailto:${email}`}>{email}</a></div>
       </div>
       <div className="footer-directory">
         <nav className="footer-link-groups" aria-label="Footer navigation">{groups.map(group => <div className={`footer-link-group footer-link-group-${group.id}`} key={group.id}>

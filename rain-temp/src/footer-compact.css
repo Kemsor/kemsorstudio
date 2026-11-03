@@ -249,3 +249,11 @@ html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.foot
 }
 
 @media(prefers-reduced-motion:reduce){html body #top.creative-site .creative-footer.footer-compact .footer-conversation .cta-label{width:auto!important;flex:0 1 auto!important;overflow:visible!important}html body #top.creative-site .creative-footer.footer-compact .footer-conversation .rolling-label{overflow:visible;max-width:none}html body #top.creative-site .creative-footer.footer-compact .footer-conversation .rolling-label-copy{white-space:normal}}
+
+/* Keep WhatsApp on the same row as the other social links on small screens. */
+html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-network .footer-socials{
+ display:flex;flex-wrap:nowrap;width:max-content;max-width:100%;gap:4px;margin:0;
+}
+html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-network .footer-social-icon{
+ flex:0 0 40px;width:40px;min-width:40px;max-width:40px;height:44px;padding:8px;
+}

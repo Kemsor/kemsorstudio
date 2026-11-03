@@ -681,7 +681,9 @@ landline, calls-only mobile, WhatsApp-only mobile and official website link.
 The source defaults are shared in `shared/studio-contact.json`. Edit these later
 through **Contact & site settings**: `contact_phone` remains the calls-only mobile;
 `contact_landline`, `contact_whatsapp` and `contact_website` have separate fields.
-The footer, Contact page and newsroom consume the shared settings. Indian local
+The footer, Contact page and newsroom consume the shared settings. The footer
+places email under the address and WhatsApp in the social icon row; the website
+link is shown on the Contact page. Indian local
 numbers are normalized to +91 in call/WhatsApp links; WhatsApp uses `wa.me`, never
 `tel:`. The map uses the corrected address and remains gated by media consent.
 The supplied website is a contact link, not a DNS or deployment-domain change.
