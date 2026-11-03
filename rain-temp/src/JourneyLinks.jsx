@@ -1,3 +1,4 @@
+import {cmsText} from "./siteContent.js";
 import React, { useEffect, useRef, useState } from 'react';
 import SiteIcon from './SiteIcon';
 import './journey-links.css';
@@ -20,15 +21,15 @@ export default function JourneyLinks(){
  }, []);
  return <section className="home-journey-section">
     <nav className="footer-journey-links" aria-label="Where are you in the journey?">
-      <h3>Where are you in the journey?</h3>
+      <h3>{cmsText("JourneyLinks","0b162fdc78345179","Where are you in the journey?")}</h3>
       <div ref={grid} className="journey-hover-grid" data-hovering={Boolean(panel)}
        style={panel ? {'--panel-x':`${panel.x}px`,'--panel-y':`${panel.y}px`,'--panel-width':`${panel.width}px`,'--panel-height':`${panel.height}px`} : undefined}
        onPointerLeave={() => { const focused=grid.current.querySelector('a:focus-visible'); if(focused) positionPanel(focused); else clearPanel(); }}
        onBlur={event => {if(!event.currentTarget.contains(event.relatedTarget)) clearPanel();}}>{[
-        ['I have a script or idea','/contact/','script','Develop your story'],
-        ['I need a production partner','/contact/','film','Build the production'],
-        ['I’m a financier or platform','/contact/','partnership','Explore a partnership'],
-        ['I’m filming in India','/contact/','location','Plan your India shoot'],
+        [cmsText("JourneyLinks","b5fe8376135aa1e6","I have a script or idea"),'/contact/','script',cmsText("JourneyLinks","b34ccacd1612fed7","Develop your story")],
+        [cmsText("JourneyLinks","8b86f971c150e0b9","I need a production partner"),'/contact/','film',cmsText("JourneyLinks","05afd7517594d13a","Build the production")],
+        [cmsText("JourneyLinks","351e667ef7a2ca24","I’m a financier or platform"),'/contact/','partnership',cmsText("JourneyLinks","ccc873c29a1b198e","Explore a partnership")],
+        [cmsText("JourneyLinks","1d8be3e5c7c3cadd","I’m filming in India"),'/contact/','location',cmsText("JourneyLinks","6e5dd1e5ef7e673e","Plan your India shoot")],
       ].map(([label,href,icon,note],index)=><a href={href} key={label} onPointerEnter={event=>positionPanel(event.currentTarget)} onFocus={event=>positionPanel(event.currentTarget)}><span className="footer-journey-mark" aria-hidden="true"><SiteIcon name={icon} size={21}/></span><span className="footer-journey-copy"><span className="footer-journey-title">{label}</span><span className="footer-journey-note">{note}</span></span><span className="footer-journey-number" aria-hidden="true">0{index+1}</span></a>)}</div>
     </nav>
 </section>;}

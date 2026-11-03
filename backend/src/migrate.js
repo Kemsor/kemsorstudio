@@ -1,3 +1,4 @@
+import {seedManagedContent} from './managed-content.js';
 import {readFile,readdir} from 'node:fs/promises';
 import {createPool,rows} from './db.js';
 const privileged=process.argv.includes('--use-migration-credentials');
@@ -10,4 +11,5 @@ try{
   for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
   await rows(db,'INSERT INTO cms_migrations(name) VALUES(?)',[name]);console.log(`Applied ${name}`);
  }
+ await seedManagedContent(db);
 }finally{await db.end()}

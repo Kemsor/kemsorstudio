@@ -245,3 +245,367 @@ Reports & downloads provides role-restricted enquiry, career application, publis
 Professional onboarding: `/join/?type=professional` is separate from artist registration at `/join/`. The shared department/role catalogue in `shared/professional-roles.json` drives both the dependent dropdowns and server validation. Migration 016 adds department and specialty fields. Members land in their private profile and professionals can browse the reviewed artist directory; studio approval and contact checks still gate shortlisting/enquiries. Registration reviews and the admin dashboard include professional roles. Live directory filters come only from approved, visible artists.
 
 Registration validation covers artist onboarding and each of the 42 professional roles, including profile persistence, sign-in, CMS reviews, consent, duplicate emails, invalid department/role pairs, CSRF, per-IP limits and publication privacy. Professional profiles cannot clear an existing department/role classification. These checks run against isolated temporary databases.
+
+## Housekeeping, retention and encrypted backups
+
+Apply migration `017_operations.sql` before running this release. The server's
+operations worker checks every minute, removes expired sessions/rate limits hourly
+and retries queued private-file deletions. MySQL advisory locking prevents two
+application instances or CLI jobs running operations concurrently. Job outcomes
+are recorded in `cms_operations_runs` without personal details or credentials.
+**Admin → Operations & backups** shows recent results, configuration and retention
+preview counts. Administrators can place/release holds from enquiry/application
+records. Career applications now also support administrator-only deletion.
+
+### Retention activation
+
+No personal-data retention period is assumed. Default `RETENTION_ENABLED=false`
+and zero periods disable automated deletion. Ask KEMSOR's legal/privacy owner for
+approved periods, the starting event, exceptions and a policy version. The current
+rule uses **time since the record's last update**, not its original submission
+date. Only closed/rejected/spam enquiries and rejected career applications qualify.
+If another starting event is approved, change the rule before enabling it.
+Member accounts, production projects and active enquiries/applications are excluded.
+
+Set `RETENTION_ENQUIRY_DAYS`, `RETENTION_APPLICATION_DAYS` and
+`RETENTION_POLICY_VERSION` in protected environment settings. Preview first:
+
+```sh
+cd /path/to/kemsor/backend
+npm run operations -- retention
+# Only after policy approval and reviewing the preview:
+npm run operations -- retention --apply
+```
+
+`--apply` also requires `RETENTION_ENABLED=true`. The scheduled worker deletes up
+to 100 eligible records per resource each hour when enabled; previews alone never
+delete personal data. A hold blocks both automatic and manual deletion. Enquiry
+notes/history and application notes/history cascade with deletion; related receipt
+payloads and enquiry notifications are removed. Actively sending confirmation
+receipts defer deletion until delivery finishes. File removals enter a durable
+queue in the deletion transaction and are retried after commit, so a disk error
+does not silently discard the deletion request. Exports already downloaded by
+staff and third-party systems require separate handling.
+
+`cms_data_deletions` retains resource IDs, original timestamps and policy references
+without names/contact details. Preserve the latest ledger during recovery and
+reconcile it before reactivating a restored application, so older backups do not
+resurrect completed erasures. Backups expire on their own retention schedule;
+deleting a live record cannot immediately remove it from an encrypted snapshot.
+
+### Backup setup
+
+Backups are **disabled by default**. Before enabling them, configure:
+
+- `BACKUP_ENCRYPTION_KEY`: a new base64-encoded 32-byte key, generated using
+  `openssl rand -base64 32`. Store it separately in KEMSOR's secure password/key
+  store, with restricted recovery access. Losing this key prevents recovery.
+- `BACKUP_DIR`: durable private storage outside all public directories. Default:
+  `backend/storage/backups`. Ephemeral hosting disks are not a durable backup.
+- `MYSQLDUMP_BIN`, `MYSQL_BIN`, `TAR_BIN`: installed executable paths. The app
+  fails the job visibly if these tools are unavailable. Use an external scheduled
+  runner with database/network access if the hosting platform lacks these tools
+  or does not keep the Node process running.
+- Optionally `DB_BACKUP_USER` / `DB_BACKUP_PASSWORD`: a dedicated account with
+  the privileges needed to dump all application tables; otherwise runtime DB
+  credentials are used. Recovery drills need the migration account to create/drop
+  a **new disposable database**, not write access to the running database.
+- `BACKUP_RETENTION_DAYS`: at least 30 (default 30). Daily database snapshots and
+  weekly application/content snapshots are independently retained.
+- `BACKUP_REMOTE_HOST`, `BACKUP_REMOTE_PORT`, `BACKUP_REMOTE_DIR` and
+  `BACKUP_SSH_KEY`: KEMSOR-controlled storage on a **separate** host/account.
+  Use a restricted SSH key, pre-verify/pin the host in `known_hosts` and give the
+  destination directory private permissions. No destination is configured yet.
+
+Archives use authenticated AES-256-GCM encryption; the internal database dump has
+an additional SHA-256 checksum. Temporary dump credentials are kept in a private
+0600 options file, not command arguments. `.env` files, local admin credentials,
+exports, logs and dependency directories are excluded. The weekly archive
+contains the database, runtime frontend build, backend source/views/schema,
+frontend source/assets and private uploads/résumés. Keep the Git repository as the
+complete source/configuration handover. Preserve `SESSION_SECRET`, database
+credentials and other hosting secrets separately; they are not in these archives.
+
+Run initial checks manually:
+
+```sh
+npm run operations -- backup database
+npm run operations -- backup application
+npm run operations -- status
+npm run operations -- drill /private/backups/kemsor-database-EXAMPLE.ksb
+```
+
+Only then set `BACKUP_ENABLED=true`. The worker takes a database snapshot every
+24 hours and an application/content snapshot every seven days. A configured
+remote copy is checksum-verified before success and pruning; upload failure
+records a failed job, keeps the local archive and preserves older backups. Without
+a remote destination, results explicitly show `offsite:false`: a local snapshot
+alone does not satisfy the separate-copy requirement. Retention pruning occurs
+only after a successful new backup of the same kind, never below 30 days.
+
+For a platform that sleeps, use its external scheduler instead of relying on
+in-process timers. Example cron commands (replace paths; restrict log access):
+
+```cron
+0 * * * * cd /path/to/kemsor/backend && npm run operations -- housekeeping
+15 * * * * cd /path/to/kemsor/backend && npm run operations -- retention --apply
+0 2 * * * cd /path/to/kemsor/backend && npm run operations -- backup database
+0 3 * * 0 cd /path/to/kemsor/backend && npm run operations -- backup application
+```
+
+Install the retention apply schedule only after approval/activation. Retention
+preview and backups are CLI owner operations; no public restore/download endpoint
+or browser button can trigger a production database overwrite.
+
+### Recovery procedure and drills
+
+`operations recover ARCHIVE NEW_DIRECTORY` authenticates/decrypts an archive,
+rejects traversal paths and links, extracts to a **new** directory and validates the
+SQL checksum. It never imports into or overwrites the running application.
+
+`operations drill ARCHIVE` automates decryption, imports SQL into a newly created
+`kemsor_restore_<timestamp>` database, checks table inventory, reapplies the current
+source deletion ledger and removes the disposable database and temporary files.
+For application archives, queued erasures are also applied to the isolated
+recovered files. An archive with an incorrect key or integrity failure is rejected.
+Only drill trusted KEMSOR-generated archives. Record the successful drill outcome;
+repeat at the agreed maintenance interval (at least six-monthly where applicable).
+
+Actual incident recovery requires an approved maintenance window:
+
+1. Pause application writes, mail delivery, retention and other workers. Preserve
+   the latest data and erasure ledger before replacing anything.
+2. Retrieve a verified encrypted archive from separate storage and recover into a
+   new private directory. Use a new database and a restricted migration account.
+3. Import the recovered SQL into that new database; restore the matching runtime
+   files and private uploads. Apply any required later migrations.
+4. Reconcile **the latest** deletion ledger against the staged database and its
+   private files using `reconcileDeletions` and `processFileDeletions` from
+   `src/retention.js`. If the source database is unavailable, obtain that ledger
+   from the latest safe snapshot and reconcile known later erasure requests with
+   KEMSOR before reopening. Do not enable sending while reviewing the restored
+   email queue: a snapshot may contain messages already sent after it was taken.
+5. Restore hosting secrets separately, especially `SESSION_SECRET` for encrypted
+   MFA data. Verify health, public pages, sign-in, CMS records, uploads and forms
+   before switching the application to the recovered database/build.
+6. Record acceptance, resume workers and verify the next backup/off-site copy.
+
+These tools provide recovery capability; production backup schedules, storage
+access, failure-alert routing and the first hosted recovery drill still require
+hosting configuration. Do not claim the backup SLA or RPO is operating until
+successful scheduled and off-site results have been verified.
+
+## Admin-managed legal documents and homepage hero slides
+
+Migration `018_managed_content.sql` adds dedicated draft/published records and
+revision snapshots. Setup/migrate imports the exact supplied Privacy Policy, the
+five existing hero videos and existing CMS legal notices without overwriting
+previously imported records or subsequent edits. Original frontend content remains
+a fallback when the CMS is unavailable. A successful feed containing an empty
+slide/document list is respected: unpublished content is not revived by fallbacks.
+
+Administrator-only controls:
+
+- `/admin/manage/legal`: document title, content, numbered sections, dates,
+  version, closing/contact details, footer label/visibility/order.
+- `/admin/manage/hero`: direct MP4 URL, poster/image-library selection, order,
+  duration/start time and optional heading/description/eyebrow/primary-action
+  overrides. Blank overrides preserve the existing shared hero copy.
+
+Save draft keeps the live version unchanged. Publish copies the draft into the
+public snapshot. Unpublish hides it without deleting content/history. Saved-draft
+previews are authenticated. Restoring a prior revision creates a new draft and
+never automatically republishes. Revision checks reject stale editor submissions.
+The existing image library handles posters; direct video URLs reference existing
+local MP4s or approved HTTPS hosts. This release does not add video uploads.
+
+Published documents appear at `/privacy-policy/` or `/legal/<slug>/`, in the Legal
+Centre and sitemap, and optionally in the footer. The Node server renders each
+custom legal document's SEO head and includes its URL in the XML sitemap. The
+Vite development server resolves custom legal paths to the legal page shell.
+New documents may be added only when approved text is available; no additional
+legal policies are fabricated. Existing enquiry-consent and script-submission
+settings remain available under Site settings.
+
+Hero playback uses the ordered published API records, retains the current five
+videos on import and preserves the reduced-motion/data-saver fallbacks. If every
+slide is unpublished, a static original poster remains with no active video.
+Externally hosted video/poster requests require external-media consent; same-origin
+studio media continues to load normally. The preference version was incremented
+because the category now covers external videos as well as Google Maps.
+
+These controls are ready locally. Apply migrations, deploy frontend and backend
+together and verify the public API before using them on production hosting.
+
+## Report centre and dedicated report pages
+
+`/admin/reports` is the report directory. Each permitted type has its own page,
+date/search filters, applicable status/category filters, pagination (25/50/100 rows)
+and `/download.csv` endpoint. Exports include all matching records up to 50,000,
+remain role-restricted and audited, and escape spreadsheet formulas.
+
+| Route under `/admin/reports/` | Access |
+| --- | --- |
+| `enquiries` | Administrator / enquiry manager |
+| `applications` | Administrator / enquiry manager |
+| `content` | Administrator / editor |
+| `registrations` | Administrator |
+| `talent` | Administrator |
+| `projects` | Administrator |
+| `activity` | Administrator |
+
+Registration exports exclude password hashes. Production reports expose project
+summary fields only, excluding private scripts and planning notes. Currency
+summaries count projects; they do not combine budgets across currencies. Existing
+`/admin/reports?type=...` and `/admin/reports/download.csv?type=...` bookmarks remain
+supported. These operational reports do not activate analytics or paid KPI services.
+
+## Content formatting editor
+
+Blog, news, career and general CMS body fields, plus managed legal document
+content, now have a visual formatting toolbar: paragraph/headings, bold, italic,
+underline, ordered/unordered lists, quotes, links, clear formatting and undo/redo.
+The editor also provides a preview toggle. Existing plain text and banner-image
+workflows remain available; records are changed only when the form is saved.
+
+The browser serialises the editor into a small structured document. The server
+validates node types, link protocols, nesting and size; arbitrary HTML, scripts,
+iframes and inline event handlers are not accepted. CMS entries keep their plain
+body for compatibility and store formatting in `metadata.rich_text`. Managed legal
+documents store `richText` alongside numbered sections and the existing draft/live
+snapshots. Public React pages and authenticated previews render the same supported
+formatting. Legal heading numbers retain their table-of-contents anchors.
+
+Pasted content is inserted as plain text; apply desired formatting using the
+controls. Images continue through the existing banner/image-library workflow.
+There is no new third-party editor service or subscription. No migration is
+required, but deploy the frontend and backend together to display formatting on
+the public website. The ordinary textarea remains usable if JavaScript is disabled.
+
+## Careers page content and open CV intake
+
+The Careers page uses the supplied `KEMSOR Careers Page Content.docx.pdf` for the
+introduction, reasons to join, seven teams, crew network, internships, hiring
+process and recruitment notice. The document's Development Executive and Production
+Coordinator listings are imported as **drafts** by migration 020. Review their
+complete requirements in Admin → Career opportunities before publishing.
+Sample/demo vacancies are excluded from the public list and cannot receive
+applications. The fake-offer reporting email follows the supplied document exactly.
+
+Published vacancies retain their existing application modal. The inline Apply Now
+form supports general CV submissions and internship interest without requiring a
+published vacancy, through `/api/careers/general/applications` and
+`/api/careers/internship/applications`. These records have no vacancy foreign key;
+they retain the requested role, team, application type, consent version and private
+PDF CV. The existing recruitment inbox, history, exports, access controls and
+retention rules cover them. Invalid teams, missing consent, invalid PDFs and
+unavailable/sample roles are rejected; CSRF and per-IP limits remain in force.
+
+## Newsroom and news alerts
+
+The `/press-media/` Newsroom uses published news, productions and press assets.
+The supplied document's placeholder stories, dates and company facts are not
+published. Editors can choose a news category, mark a lead story and attach an
+HTTPS PDF link. Published Press Releases require a PDF. Production stages include
+pre-production; full media kits use the press-asset category `Media Kit`.
+
+Migration 021 adds news-alert subscriptions. The form requires explicit consent
+and selected topics, then queues a confirmation email through the existing mail
+outbox. Confirmation expires after 48 hours. Confirmation and unsubscribe links
+display a form; only a CSRF-protected POST changes preferences, protecting against
+email link scanners. Existing confirmed topics remain until new ones are confirmed.
+Verify production SMTP delivery and WEBSITE_URL before enabling public promotion.
+Admins can review subscribers and export up to 1,000 confirmed addresses at
+`/admin/newsletter`. This feature does not automatically send news campaigns.
+
+## Upload media before saving content
+
+Content image selectors and blog/news banners provide an independent Upload button,
+progress bar and completed preview. Add an image description, select the file and
+upload it; only then save/publish the content. Selected or in-progress files block
+form submission. Failed uploads keep the rest of the form for retry. Successfully
+uploaded images remain in the library even if the content form is abandoned.
+
+Hero slides also support independent MP4 and poster uploads while retaining manual
+URL entry. Images are optimized on the server; videos are stored without transcoding
+and must be MP4 with browser-compatible codecs, up to 50 MB. Video uploads require
+publishing access; hero editing remains restricted to administrators. The authenticated,
+CSRF-protected `/admin/media/upload` endpoint returns the persisted asset reference;
+video URLs support byte-range requests. Existing form-upload endpoints remain
+available for non-JavaScript clients. No database migration is required.
+
+## Format-page and production videos
+
+Admin → Website pages → Feature Films, Series & OTT or Documentaries → Add/Edit
+content includes an Optional video section. Page sections targeting Productions
+also support video, as do individual Production entries. Upload the MP4 before
+saving, select a poster in the existing Image field and add a video caption.
+Published sections display a player with controls; draft videos remain excluded
+from the public content feed. Asset URLs retain the existing public-media access
+model, so uploaded footage must be approved for public use even before publishing.
+
+Videos are optional and do not replace the existing page hero automatically.
+Removing the video URL restores image-only content. Direct HTTPS MP4 links are
+also supported; public playback of external media requires cookie consent.
+The publisher role may upload videos (50 MB limit); hero slides remain admin-only.
+No migration is required. Deploy the backend and frontend together.
+
+## CMS / frontend coverage
+
+See [CMS_FRONTEND_REVIEW.md](CMS_FRONTEND_REVIEW.md) for the module mapping,
+verified connections, corrected controls and remaining fixed frontend content.
+`shared/content-pages.json` is the common page-section target registry. Deploy it
+with the backend and frontend. No database migration is needed for these fixes.
+
+## Existing content, remaining video sections and campaigns
+
+Migration 022 adds `cms_site_modules`, revision history and news campaign records.
+Run migrations before starting the updated backend. Deploy `shared/` with both
+applications; it holds the original copy catalogue, rendered image-slot registry,
+navigation and video defaults.
+
+Admin → **Existing page content** edits the supplied page copy and artwork, header
+and footer navigation, website logo, homepage showreel and two page-video sections.
+These modules support private drafts, explicit publication, stale-edit protection,
+restoring previous drafts and reset to supplied defaults. The original page markup
+and design are preserved. All published overrides arrive through `/api/site`.
+
+Image/video/PDF/WebVTT uploads complete separately before saving the editor. PDF
+resources support 10 MB and subtitles 1 MB. Use `en`, `hi` or another valid language
+code for subtitle tracks. Video files are not transcoded; use browser-compatible
+MP4 codecs. Media used by current content or revisions cannot be deleted.
+
+Admin → **News campaigns** creates a draft linked to a published news post. Review
+its preview and topic/recipient count, then explicitly queue delivery. Draft saves
+and ordinary news publication do not send campaigns. The existing mail worker
+checks consent/topics/campaign/story status before each delivery. Campaign
+cancellation stops pending deliveries, not messages already accepted by a service.
+
+The public content endpoint returns `nextCursor` when another batch exists. Fetch
+`/api/site?cursor=…` until it becomes null; each batch has at most 300 records and
+shares a stable snapshot boundary. The website handles this automatically.
+
+Validation: `npm test`, frontend `npm run check:seo`, and `npm run check:browser`
+(after building `rain-temp`). Browser checks require local Chrome and MySQL
+migration credentials, create an isolated database and send no emails. See
+[CMS_FRONTEND_REVIEW.md](CMS_FRONTEND_REVIEW.md) for evidence and client decisions.
+
+The media library now lists all supported asset types and accounts for website revision references. Legacy generic legal-editor URLs delegate to the managed legal module; disconnected legacy writes are rejected.
+
+## Flat admin themes
+
+`admin-flat.css` is the active final theme layer. It replaces the earlier creative,
+dark and sidebar gradient layers with neutral surfaces, fine borders and solid
+purple actions. The sidebar retains its contrasting palette in each theme. Theme
+preference, sidebar scroll restoration and publishing/upload behavior are unchanged.
+Both themes, mobile layout and CMS workflows were checked in isolated Chrome.
+
+## Leadership page
+
+`/leadership/` uses the supplied Leadership PDF and Dev Raturi portrait. The
+responsive WebP portrait assets retain the original photograph. Studio navigation,
+the page registry and HTML/XML sitemap link to the dedicated page. In Admin →
+Manage pages → Leadership (or Existing page content → Leadership · Dev Raturi),
+edit the portrait, biography, quote, screen credits and honour. Drafts, publishing,
+reset and revision restoration use the existing site-module workflow. No database
+migration is required. Deploy the shared content JSON with the frontend/backend.

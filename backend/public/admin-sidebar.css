@@ -1,0 +1,57 @@
+/* Only the sidebar reverses the dashboard theme. */
+html[data-admin-theme=light] body .cms-nav{
+ --sidebar-surface:linear-gradient(155deg,#171725 0%,#211c29 58%,#302317 100%);
+ --sidebar-ink:#eee8f4;--sidebar-muted:#bfb1cb;--sidebar-title:#f2cc88;
+ --sidebar-rule:#ffffff1c;--sidebar-accent:#f2cc88;
+ --sidebar-hover:linear-gradient(105deg,#463251,#61451f);
+ --sidebar-active:linear-gradient(105deg,#4b3659,#6a4c21);
+ --sidebar-link-hover:#fff;--sidebar-badge:#f2cc88;--sidebar-badge-ink:#241a2d;
+}
+html[data-admin-theme=dark] body .cms-nav{
+ --sidebar-surface:linear-gradient(155deg,#fffaf2 0%,#f5efff 52%,#e7f4ff 100%);
+ --sidebar-ink:#343047;--sidebar-muted:#665d79;--sidebar-title:#714b94;
+ --sidebar-rule:#4d376426;--sidebar-accent:#7951a2;
+ --sidebar-hover:linear-gradient(105deg,#eadcfb,#ffe5c7);
+ --sidebar-active:linear-gradient(105deg,#ccdefb,#eedbf9);
+ --sidebar-link-hover:#292039;--sidebar-badge:#70469a;--sidebar-badge-ink:#fff;
+}
+html[data-admin-theme] body .cms-nav{
+ background:var(--sidebar-surface);color:var(--sidebar-ink);
+ border-right:1px solid var(--sidebar-rule);
+ scrollbar-color:var(--sidebar-muted) transparent;
+}
+html[data-admin-theme] body .cms-nav>a{
+ background-color:transparent;background-image:var(--sidebar-hover);
+ background-size:0% 100%;background-position:left center;background-repeat:no-repeat;
+ color:var(--sidebar-ink);border:1px solid transparent;border-radius:9px;
+ transition:background-size .28s cubic-bezier(.22,.61,.36,1),color .2s ease,border-color .2s ease;
+}
+html[data-admin-theme] body .cms-nav>a:is(:hover,:focus-visible){
+ background-color:transparent;background-image:var(--sidebar-hover);
+ background-size:100% 100%;color:var(--sidebar-link-hover);border-color:var(--sidebar-rule);
+}
+html[data-admin-theme] body .cms-nav>a[aria-current=page]{
+ background-color:transparent;background-image:var(--sidebar-active);
+ background-size:100% 100%;color:var(--sidebar-link-hover);border-color:var(--sidebar-rule);font-weight:600;
+}
+html[data-admin-theme] body .cms-nav>a[aria-current=page]::before{background:var(--sidebar-accent)}
+html[data-admin-theme] body .cms-nav>a .ui-icon,
+html[data-admin-theme] body .cms-nav>a[aria-current=page] .ui-icon{color:inherit}
+html[data-admin-theme] body .cms-nav>a:focus-visible{outline:2px solid var(--sidebar-accent);outline-offset:2px}
+html[data-admin-theme] body .cms-nav .nav-label{color:var(--sidebar-title);font-weight:650;letter-spacing:.12em}
+html[data-admin-theme] body .cms-nav .nav-count{background:var(--sidebar-badge);color:var(--sidebar-badge-ink)}
+html[data-admin-theme] body .cms-nav .sidebar-note{color:var(--sidebar-muted);border-color:var(--sidebar-rule);background:transparent}
+html[data-admin-theme] body .cms-nav .sidebar-note strong{color:var(--sidebar-ink)}
+html[data-admin-theme] body .cms-nav .sidebar-note small{color:var(--sidebar-muted)}
+@media(prefers-reduced-motion:reduce){html[data-admin-theme] body .cms-nav>a{transition:none}}
+
+/* Keep the menu anchored while moving between server-rendered CMS pages. */
+html[data-admin-theme] body .cms-nav{
+ scroll-behavior:auto!important;overflow-anchor:none;scrollbar-gutter:stable;
+}
+html:not([data-admin-nav-ready=true]) body .cms-nav,
+html:not([data-admin-nav-ready=true]) body .cms-nav *,
+html:not([data-admin-nav-ready=true]) body .cms-nav *::before,
+html:not([data-admin-nav-ready=true]) body .cms-nav *::after{
+ transition:none!important;animation:none!important;
+}

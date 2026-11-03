@@ -1,16 +1,17 @@
+import {cmsText,cmsData} from "./siteContent.js";
 import React, {useEffect,useRef,useState} from 'react';
 import { pageHref } from './pageInfo';
 import './section-submenu.css';
 
-const sections = {
-  'what-we-make': { label:'WHAT WE MAKE', name:'Story formats', href:'/what-we-make/', pages:[['feature-films','Feature Films'],['series-ott','Series & OTT'],['documentaries','Documentaries'],['short-films','Short Films']] },
-  studio: { label:'STUDIO', name:'Studio pages', href:'/about/', pages:[['about','About Kemsor'],['leadership','Leadership','/about/#leadership'],['how-we-work','How We Work'],['partner-with-us','Partner With Us'],['careers','Careers']] },
-  post: { label:'04 · POST', name:'Post services', href:'/post/', pages:[['post','Overview'],['post-production','Post-Production Supervision']] },
-  release: { label:'05 · RELEASE', name:'Release services', href:'/release/', pages:[['release','Overview'],['distribution-release','Distribution & Release Support'],['festival-awards','Festival & Awards Strategy']] },
-  develop: { label:'01 · DEVELOP', name:'Development services', pages:[['develop','Overview'],['story-script','Story & Script'],['packaging-talent','Packaging & Talent'],['budgeting-scheduling','Budgeting & Scheduling']] },
-  finance: { label:'02 · FINANCE', name:'Finance services', pages:[['finance','Overview'],['finance-structuring','Finance Structuring'],['co-production','Co-Production'],['international-co-productions','International Co-Productions']] },
-  produce: { label:'03 · PRODUCE', name:'Produce services', pages:[['produce','Overview'],['line-production','Line Production'],['casting','Casting & Talent'],['locations-logistics','Locations & Logistics'],['crew-equipment','Crew & Equipment'],['set-production-design','Set & Design'],['shooting-on-location','Shooting']] },
-};
+const sections = cmsData(()=>({
+  'what-we-make': { label:cmsText("SectionSubmenu","43359ac7f46e3b79","WHAT WE MAKE"), name:'Story formats', href:'/what-we-make/', pages:[['feature-films',cmsText("SectionSubmenu","8931d1f9eb6cec0f","Feature Films")],['series-ott',cmsText("SectionSubmenu","447f80f474a47396","Series & OTT")],['documentaries',cmsText("SectionSubmenu","54f53deb4bce48d6","Documentaries")],['short-films',cmsText("SectionSubmenu","1a2b8340a945afd6","Short Films")]] },
+  studio: { label:cmsText("SectionSubmenu","424167676d83b043","STUDIO"), name:'Studio pages', href:'/about/', pages:[['about',cmsText("SectionSubmenu","9fc14c6a85d800bc","About Kemsor")],['leadership',cmsText("SectionSubmenu","167893fa075b29f5","Leadership"),'/leadership/'],['how-we-work',cmsText("SectionSubmenu","86d85d94fad82299","How We Work")],['partner-with-us',cmsText("SectionSubmenu","64fe201d9a21e13c","Partner With Us")],['careers',cmsText("SectionSubmenu","da96a8f3c9a63385","Careers")]] },
+  post: { label:cmsText("SectionSubmenu","5fea1b161e50d9f9","04 · POST"), name:'Post services', href:'/post/', pages:[['post',cmsText("SectionSubmenu","752886b075c9ff25","Overview")],['post-production',cmsText("SectionSubmenu","cfa95bd5f3b9484d","Post-Production Supervision")]] },
+  release: { label:cmsText("SectionSubmenu","e2fd6c508abeac2f","05 · RELEASE"), name:'Release services', href:'/release/', pages:[['release',cmsText("SectionSubmenu","b4610c074781cfd3","Overview")],['distribution-release',cmsText("SectionSubmenu","1f4337a29be1bf7c","Distribution & Release Support")],['festival-awards',cmsText("SectionSubmenu","398638c1b090eb25","Festival & Awards Strategy")]] },
+  develop: { label:cmsText("SectionSubmenu","da5f5997dc153918","01 · DEVELOP"), name:'Development services', pages:[['develop',cmsText("SectionSubmenu","78f8e88841c9c2b1","Overview")],['story-script',cmsText("SectionSubmenu","8817a264a7ed253c","Story & Script")],['packaging-talent',cmsText("SectionSubmenu","2c08ade316774a59","Packaging & Talent")],['budgeting-scheduling',cmsText("SectionSubmenu","156858ead2a1cab9","Budgeting & Scheduling")]] },
+  finance: { label:cmsText("SectionSubmenu","d1d7abb02a06ff4a","02 · FINANCE"), name:'Finance services', pages:[['finance',cmsText("SectionSubmenu","d05145232dc7a41b","Overview")],['finance-structuring',cmsText("SectionSubmenu","e8f51a729eb6df15","Finance Structuring")],['co-production',cmsText("SectionSubmenu","6780501a30e6fb75","Co-Production")],['international-co-productions',cmsText("SectionSubmenu","8968327055b84d26","International Co-Productions")]] },
+  produce: { label:cmsText("SectionSubmenu","4e881270b05f7d52","03 · PRODUCE"), name:'Produce services', pages:[['produce',cmsText("SectionSubmenu","51670799707de4a7","Overview")],['line-production',cmsText("SectionSubmenu","4763195d1e91c40e","Line Production")],['casting',cmsText("SectionSubmenu","a99ef8c8c23a4bdd","Casting & Talent")],['locations-logistics',cmsText("SectionSubmenu","8fbcd86b07bb58fe","Locations & Logistics")],['crew-equipment',cmsText("SectionSubmenu","17cd92d55c4d86c8","Crew & Equipment")],['set-production-design',cmsText("SectionSubmenu","fb8160cb234a19a8","Set & Design")],['shooting-on-location',cmsText("SectionSubmenu","59611fc3408a2262","Shooting")]] },
+}));
 export default function SectionSubmenu({section,page,menu:customMenu,id}) {
   const ref=useRef(null);
   const [stuck,setStuck]=useState(false);

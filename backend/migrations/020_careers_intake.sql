@@ -1,0 +1,4 @@
+ALTER TABLE career_applications ADD team VARCHAR(100) NOT NULL DEFAULT '', ADD application_type ENUM('role','general','internship') NOT NULL DEFAULT 'role';
+INSERT IGNORE INTO cms_entries(type,title,slug,summary,body,metadata,status) VALUES
+ ('career','Development Executive','development-executive','Find and shape new stories, work closely with writers and guide each script from idea to green light.','Find and shape new stories, work closely with writers and guide each script from idea to green light.','{"category":"Development and Writing","role":"Full-time","location":""}','draft'),
+ ('career','Production Coordinator','production-coordinator','Keep the shoot running smoothly, from schedules and crew to locations and paperwork, from prep to wrap.','Keep the shoot running smoothly, from schedules and crew to locations and paperwork, from prep to wrap.','{"category":"Production","role":"Project-based","location":""}','draft');

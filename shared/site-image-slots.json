@@ -1,0 +1,1784 @@
+{
+  "/partner-with-us/|PartnerWithUsPage-1|/assets/stills/work-period-camera": {
+    "id": "25a0f682b7cbabb2",
+    "page": "/partner-with-us/",
+    "slot": "PartnerWithUsPage-1",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/supplied/interior-camera-crew.webp",
+      "srcSet": "",
+      "alt": "Camera crew filming a warmly lit interior"
+    }
+  },
+  "/partner-with-us/|PartnerWithUsPage-1|/assets/stills/work-camera-crew": {
+    "id": "bf561098e404121c",
+    "page": "/partner-with-us/",
+    "slot": "PartnerWithUsPage-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/directing-on-location-1600.webp",
+      "srcSet": "/assets/supplied/collection/directing-on-location-640.webp 640w, /assets/supplied/collection/directing-on-location-960.webp 960w, /assets/supplied/collection/directing-on-location-1600.webp 1600w",
+      "alt": "Director discussing a scene with a collaborator outdoors"
+    }
+  },
+  "/partner-with-us/|PartnerWithUsPage-1|/assets/stills/financing-co-production": {
+    "id": "5c58fd64b83b1640",
+    "page": "/partner-with-us/",
+    "slot": "PartnerWithUsPage-1",
+    "original": "/assets/stills/financing-co-production",
+    "value": {
+      "src": "/assets/supplied/collection/studio-team-discussion-1600.webp",
+      "srcSet": "/assets/supplied/collection/studio-team-discussion-640.webp 640w, /assets/supplied/collection/studio-team-discussion-960.webp 927w",
+      "alt": "Film crew discussing a shot around a camera in a studio"
+    }
+  },
+  "/partner-with-us/|PartnerWithUsPage-1|/assets/stills/daylight-valley-production": {
+    "id": "6a8b36ff859e54f2",
+    "page": "/partner-with-us/",
+    "slot": "PartnerWithUsPage-1",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/slate-ready-1600.webp",
+      "srcSet": "/assets/supplied/collection/slate-ready-640.webp 640w, /assets/supplied/collection/slate-ready-960.webp 960w, /assets/supplied/collection/slate-ready-1600.webp 1600w",
+      "alt": "A person holding a clapperboard ready for a take"
+    }
+  },
+  "/partner-with-us/|VisualChapters-partner-with-us-0|/assets/stills/partner-studio": {
+    "id": "efb9fe5e2f9cb794",
+    "page": "/partner-with-us/",
+    "slot": "VisualChapters-partner-with-us-0",
+    "original": "/assets/stills/partner-studio",
+    "value": {
+      "src": "/assets/supplied/collection/camera-collaboration-1600.webp",
+      "srcSet": "/assets/supplied/collection/camera-collaboration-640.webp 640w, /assets/supplied/collection/camera-collaboration-960.webp 960w, /assets/supplied/collection/camera-collaboration-1600.webp 1600w",
+      "alt": "Two camera operators reviewing equipment together"
+    }
+  },
+  "/what-we-make/documentaries/|VisualChapters-documentaries-0|/assets/stills/work-forest-set": {
+    "id": "e8865bf035e8b45b",
+    "page": "/what-we-make/documentaries/",
+    "slot": "VisualChapters-documentaries-0",
+    "original": "/assets/stills/work-forest-set",
+    "value": {
+      "src": "/assets/supplied/collection/field-interview-1600.webp",
+      "srcSet": "/assets/supplied/collection/field-interview-640.webp 640w, /assets/supplied/collection/field-interview-960.webp 960w, /assets/supplied/collection/field-interview-1600.webp 1600w",
+      "alt": "Small camera crew recording a conversation in an open field"
+    }
+  },
+  "/what-we-make/documentaries/|VisualChapters-documentaries-1|/assets/stills/daylight-valley-production": {
+    "id": "16b089d026800584",
+    "page": "/what-we-make/documentaries/",
+    "slot": "VisualChapters-documentaries-1",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/viaduct-landscape-1600.webp",
+      "srcSet": "/assets/supplied/collection/viaduct-landscape-640.webp 640w, /assets/supplied/collection/viaduct-landscape-960.webp 960w, /assets/supplied/collection/viaduct-landscape-1600.webp 1600w",
+      "alt": "Steam train crossing a stone viaduct in a mountain landscape"
+    }
+  },
+  "/what-we-make/documentaries/|VisualChapters-documentaries-2|/assets/stills/work-forest-set": {
+    "id": "6bd8f0c5301c94e4",
+    "page": "/what-we-make/documentaries/",
+    "slot": "VisualChapters-documentaries-2",
+    "original": "/assets/stills/work-forest-set",
+    "value": {
+      "src": "/assets/supplied/collection/public-character-statue-1600.webp",
+      "srcSet": "/assets/supplied/collection/public-character-statue-640.webp 640w, /assets/supplied/collection/public-character-statue-960.webp 960w, /assets/supplied/collection/public-character-statue-1600.webp 1036w",
+      "alt": "Character statue displayed in a public urban setting"
+    }
+  },
+  "/what-we-make/documentaries/|VisualChapters-documentaries-3|/assets/stills/daylight-valley-production": {
+    "id": "668fc64f4aa2da1e",
+    "page": "/what-we-make/documentaries/",
+    "slot": "VisualChapters-documentaries-3",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/cultural-portrait-1600.webp",
+      "srcSet": "/assets/supplied/collection/cultural-portrait-640.webp 640w, /assets/supplied/collection/cultural-portrait-960.webp 960w, /assets/supplied/collection/cultural-portrait-1600.webp 987w",
+      "alt": "Cultural performer wearing decorative headwear and body paint"
+    }
+  },
+  "/what-we-make/series-ott/|VisualChapters-series-ott-0|/assets/stills/family-drama-scene": {
+    "id": "7279c6053e3673ce",
+    "page": "/what-we-make/series-ott/",
+    "slot": "VisualChapters-series-ott-0",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/supplied/collection/streaming-library-1600.webp",
+      "srcSet": "/assets/supplied/collection/streaming-library-640.webp 640w, /assets/supplied/collection/streaming-library-960.webp 960w, /assets/supplied/collection/streaming-library-1600.webp 1005w",
+      "alt": "Streaming catalogue displayed on a computer screen"
+    }
+  },
+  "/what-we-make/series-ott/|VisualChapters-series-ott-1|/assets/stills/work-camera-crew": {
+    "id": "cbce083f8f4f1c95",
+    "page": "/what-we-make/series-ott/",
+    "slot": "VisualChapters-series-ott-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/online-viewing-1600.webp",
+      "srcSet": "/assets/supplied/collection/online-viewing-640.webp 640w, /assets/supplied/collection/online-viewing-960.webp 960w, /assets/supplied/collection/online-viewing-1600.webp 1600w",
+      "alt": "Viewer browsing a streaming catalogue on a laptop"
+    }
+  },
+  "/what-we-make/series-ott/|VisualChapters-series-ott-2|/assets/stills/family-drama-scene": {
+    "id": "da5cd8fa7b9ddb26",
+    "page": "/what-we-make/series-ott/",
+    "slot": "VisualChapters-series-ott-2",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/supplied/collection/red-studio-portrait-1600.webp",
+      "srcSet": "/assets/supplied/collection/red-studio-portrait-640.webp 640w, /assets/supplied/collection/red-studio-portrait-960.webp 960w, /assets/supplied/collection/red-studio-portrait-1600.webp 1600w",
+      "alt": "Two performers posing on a red studio set"
+    }
+  },
+  "/what-we-make/short-films/|VisualChapters-short-films-0|/assets/stills/work-camera-crew": {
+    "id": "a1503b7ab29efc14",
+    "page": "/what-we-make/short-films/",
+    "slot": "VisualChapters-short-films-0",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/classic-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/classic-camera-640.webp 640w, /assets/supplied/collection/classic-camera-960.webp 960w, /assets/supplied/collection/classic-camera-1600.webp 1065w",
+      "alt": "Black and white close-up of a classic film camera"
+    }
+  },
+  "/what-we-make/short-films/|VisualChapters-short-films-1|/assets/stills/daylight-interior-production": {
+    "id": "6f46d5bb1f59df1a",
+    "page": "/what-we-make/short-films/",
+    "slot": "VisualChapters-short-films-1",
+    "original": "/assets/stills/daylight-interior-production",
+    "value": {
+      "src": "/assets/supplied/collection/handheld-camera-operator-1600.webp",
+      "srcSet": "/assets/supplied/collection/handheld-camera-operator-640.webp 640w, /assets/supplied/collection/handheld-camera-operator-960.webp 960w, /assets/supplied/collection/handheld-camera-operator-1600.webp 1035w",
+      "alt": "Camera operator checking a handheld cinema rig"
+    }
+  },
+  "/what-we-make/short-films/|VisualChapters-short-films-2|/assets/stills/work-camera-crew": {
+    "id": "b27331947f31829b",
+    "page": "/what-we-make/short-films/",
+    "slot": "VisualChapters-short-films-2",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/historical-scene-1600.webp",
+      "srcSet": "/assets/supplied/collection/historical-scene-640.webp 640w, /assets/supplied/collection/historical-scene-960.webp 960w, /assets/supplied/collection/historical-scene-1600.webp 986w",
+      "alt": "Illustrative historical scene with costumed performers in woodland"
+    }
+  },
+  "/what-we-make/feature-films/|VisualChapters-feature-films-0|/assets/stills/work-period-camera": {
+    "id": "5112a024f3100ae0",
+    "page": "/what-we-make/feature-films/",
+    "slot": "VisualChapters-feature-films-0",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/supplied/collection/character-portrait-1600.webp",
+      "srcSet": "/assets/supplied/collection/character-portrait-640.webp 640w, /assets/supplied/collection/character-portrait-960.webp 960w, /assets/supplied/collection/character-portrait-1600.webp 986w",
+      "alt": "Illustrative portrait of a person wearing theatrical character makeup"
+    }
+  },
+  "/what-we-make/feature-films/|VisualChapters-feature-films-1|/assets/stills/work-action-set": {
+    "id": "682398474b2edb40",
+    "page": "/what-we-make/feature-films/",
+    "slot": "VisualChapters-feature-films-1",
+    "original": "/assets/stills/work-action-set",
+    "value": {
+      "src": "/assets/supplied/collection/costume-portrait-1600.webp",
+      "srcSet": "/assets/supplied/collection/costume-portrait-640.webp 640w, /assets/supplied/collection/costume-portrait-960.webp 960w, /assets/supplied/collection/costume-portrait-1600.webp 987w",
+      "alt": "Illustrative portrait of a person in a red superhero costume"
+    }
+  },
+  "/what-we-make/feature-films/|VisualChapters-feature-films-2|/assets/stills/work-period-camera": {
+    "id": "4f208083f471d618",
+    "page": "/what-we-make/feature-films/",
+    "slot": "VisualChapters-feature-films-2",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/supplied/collection/film-posters-1600.webp",
+      "srcSet": "/assets/supplied/collection/film-posters-640.webp 640w, /assets/supplied/collection/film-posters-960.webp 960w, /assets/supplied/collection/film-posters-1600.webp 1600w",
+      "alt": "A room displaying a collection of film posters"
+    }
+  },
+  "/india-production-services/|IndiaProductionServicesPage-2|/assets/stills/daylight-valley-production": {
+    "id": "c08c36067c343ba4",
+    "page": "/india-production-services/",
+    "slot": "IndiaProductionServicesPage-2",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/production-slate.webp",
+      "srcSet": "",
+      "alt": "Production slate on an interior set"
+    }
+  },
+  "/india-production-services/|IndiaProductionServicesPage-1|/assets/stills/daylight-snow-production": {
+    "id": "9436e8119e7294f0",
+    "page": "/india-production-services/",
+    "slot": "IndiaProductionServicesPage-1",
+    "original": "/assets/stills/daylight-snow-production",
+    "value": {
+      "src": "/assets/stills/daylight-snow-production-960.webp",
+      "srcSet": "/assets/stills/daylight-snow-production-640.webp 640w, /assets/stills/daylight-snow-production-960.webp 960w, /assets/stills/daylight-snow-production-1600.webp 1600w",
+      "alt": "Illustrative film production in a snow-covered Indian mountain landscape"
+    }
+  },
+  "/india-production-services/|IndiaProductionServicesPage-1|/assets/stills/development-packaging": {
+    "id": "6b9504c5f0266bf5",
+    "page": "/india-production-services/",
+    "slot": "IndiaProductionServicesPage-1",
+    "original": "/assets/stills/development-packaging",
+    "value": {
+      "src": "/assets/stills/development-packaging-960.webp",
+      "srcSet": "/assets/stills/development-packaging-640.webp 640w, /assets/stills/development-packaging-960.webp 960w, /assets/stills/development-packaging-1600.webp 1600w",
+      "alt": "Illustrative creative development and production planning scene"
+    }
+  },
+  "/india-production-services/|IndiaProductionServicesPage-1|/assets/stills/work-camera-crew": {
+    "id": "b57a29559d9db9eb",
+    "page": "/india-production-services/",
+    "slot": "IndiaProductionServicesPage-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/supplied-film-still.webp",
+      "srcSet": "",
+      "alt": "Camera operators working together on a studio set"
+    }
+  },
+  "/india-production-services/|IndiaProductionServicesPage-1|/assets/stills/daylight-park-production": {
+    "id": "beec7f8c8ca8afda",
+    "page": "/india-production-services/",
+    "slot": "IndiaProductionServicesPage-1",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/stills/daylight-park-production-960.webp",
+      "srcSet": "/assets/stills/daylight-park-production-640.webp 640w, /assets/stills/daylight-park-production-960.webp 960w, /assets/stills/daylight-park-production-1600.webp 1600w",
+      "alt": "Illustrative crew filming on location in a green outdoor setting"
+    }
+  },
+  "/how-we-work/|VisualChapters-how-we-work-1|/assets/stills/work-camera-crew": {
+    "id": "87600fbd782baaff",
+    "page": "/how-we-work/",
+    "slot": "VisualChapters-how-we-work-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/purple-camera-operator-1600.webp",
+      "srcSet": "/assets/supplied/collection/purple-camera-operator-640.webp 640w, /assets/supplied/collection/purple-camera-operator-960.webp 960w, /assets/supplied/collection/purple-camera-operator-1600.webp 1065w",
+      "alt": "Camera operator silhouetted against purple studio lighting"
+    }
+  },
+  "/how-we-work/|VisualChapters-how-we-work-2|/assets/stills/development-packaging": {
+    "id": "c4ea50daa8e5313e",
+    "page": "/how-we-work/",
+    "slot": "VisualChapters-how-we-work-2",
+    "original": "/assets/stills/development-packaging",
+    "value": {
+      "src": "/assets/supplied/collection/slate-closeup-1600.webp",
+      "srcSet": "/assets/supplied/collection/slate-closeup-640.webp 640w, /assets/supplied/collection/slate-closeup-960.webp 960w, /assets/supplied/collection/slate-closeup-1600.webp 1600w",
+      "alt": "A hand holding a clapperboard beside a production monitor"
+    }
+  },
+  "/find-talent/|TalentPages-3|/assets/talent-demo/avatar.svg": {
+    "id": "1a21fe885ce58c78",
+    "page": "/find-talent/",
+    "slot": "TalentPages-3",
+    "original": "/assets/talent-demo/avatar.svg",
+    "value": {
+      "src": "/assets/talent-demo/avatar.svg",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/find-talent/|TalentPages-4|/assets/talent-demo/avatar.svg": {
+    "id": "cc478f2864a07d1a",
+    "page": "/find-talent/",
+    "slot": "TalentPages-4",
+    "original": "/assets/talent-demo/avatar.svg",
+    "value": {
+      "src": "/assets/talent-demo/avatar.svg",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/fort-action-production": {
+    "id": "b65a00ddb861001d",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/fort-action-production",
+    "value": {
+      "src": "/assets/supplied/collection/car-character-scene-1600.webp",
+      "srcSet": "/assets/supplied/collection/car-character-scene-640.webp 640w, /assets/supplied/collection/car-character-scene-960.webp 960w, /assets/supplied/collection/car-character-scene-1600.webp 1600w",
+      "alt": "Character seated in a vintage car during a dramatic scene"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/courtyard-dance-production": {
+    "id": "c758e4dbec174cf3",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/courtyard-dance-production",
+    "value": {
+      "src": "/assets/supplied/collection/period-costume-performer-1600.webp",
+      "srcSet": "/assets/supplied/collection/period-costume-performer-640.webp 640w, /assets/supplied/collection/period-costume-performer-960.webp 960w, /assets/supplied/collection/period-costume-performer-1600.webp 1015w",
+      "alt": "Performer wearing a period costume and decorative hat"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/coastal-motorcycle-chase": {
+    "id": "150ac3ebd351c4f8",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/coastal-motorcycle-chase",
+    "value": {
+      "src": "/assets/supplied/collection/performer-with-slate-1600.webp",
+      "srcSet": "/assets/supplied/collection/performer-with-slate-640.webp 640w, /assets/supplied/collection/performer-with-slate-960.webp 960w, /assets/supplied/collection/performer-with-slate-1600.webp 1065w",
+      "alt": "Performer holding a clapperboard under colourful lighting"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/daylight-lake-romance": {
+    "id": "37a0101df76ed51f",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/daylight-lake-romance",
+    "value": {
+      "src": "/assets/stills/daylight-lake-romance-640.webp",
+      "srcSet": "",
+      "alt": "Romantic scene on a lake"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/daylight-forest-action": {
+    "id": "de647ee5f7bef928",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/daylight-forest-action",
+    "value": {
+      "src": "/assets/stills/daylight-forest-action-640.webp",
+      "srcSet": "",
+      "alt": "Action scene in a forest"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/daylight-helicopter-action": {
+    "id": "39b74e45baf3f866",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/daylight-helicopter-action",
+    "value": {
+      "src": "/assets/stills/daylight-helicopter-action-640.webp",
+      "srcSet": "",
+      "alt": "Helicopter action sequence"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/family-drama-scene": {
+    "id": "ff8534264a918cd1",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/supplied/collection/dramatic-character-1600.webp",
+      "srcSet": "/assets/supplied/collection/dramatic-character-640.webp 640w, /assets/supplied/collection/dramatic-character-960.webp 960w, /assets/supplied/collection/dramatic-character-1600.webp 1076w",
+      "alt": "Dramatically lit character portrait against a dark background"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/work-period-set": {
+    "id": "685d6058ec448e39",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/work-period-set",
+    "value": {
+      "src": "/assets/supplied/collection/dancer-in-light-1600.webp",
+      "srcSet": "/assets/supplied/collection/dancer-in-light-640.webp 640w, /assets/supplied/collection/dancer-in-light-960.webp 960w, /assets/supplied/collection/dancer-in-light-1600.webp 987w",
+      "alt": "Dancer captured mid-movement under stage lighting"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/daylight-snow-production": {
+    "id": "90dcee514221a7bd",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/daylight-snow-production",
+    "value": {
+      "src": "/assets/supplied/collection/makeup-for-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/makeup-for-camera-640.webp 640w, /assets/supplied/collection/makeup-for-camera-960.webp 960w, /assets/supplied/collection/makeup-for-camera-1600.webp 1600w",
+      "alt": "Makeup artist preparing a performer before a shot"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/work-celebration-set": {
+    "id": "c9794c3887c10ae6",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/work-celebration-set",
+    "value": {
+      "src": "/assets/stills/work-celebration-set-640.webp",
+      "srcSet": "",
+      "alt": "Celebration sequence"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/work-forest-set": {
+    "id": "880a271f50efb94c",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/work-forest-set",
+    "value": {
+      "src": "/assets/supplied/collection/camera-monitor-portrait-1600.webp",
+      "srcSet": "/assets/supplied/collection/camera-monitor-portrait-640.webp 640w, /assets/supplied/collection/camera-monitor-portrait-960.webp 960w, /assets/supplied/collection/camera-monitor-portrait-1600.webp 987w",
+      "alt": "A face framed on a camera monitor during a location shoot"
+    }
+  },
+  "/post/|PostOverviewPage-1|/assets/stills/post-production-release": {
+    "id": "0362c6f787659bd9",
+    "page": "/post/",
+    "slot": "PostOverviewPage-1",
+    "original": "/assets/stills/post-production-release",
+    "value": {
+      "src": "/assets/supplied/collection/vintage-film-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/vintage-film-camera-640.webp 640w, /assets/supplied/collection/vintage-film-camera-960.webp 960w, /assets/supplied/collection/vintage-film-camera-1600.webp 1480w",
+      "alt": "Vintage motion-picture camera with a circular film magazine"
+    }
+  },
+  "/post/|VisualChapters-post-1|/assets/stills/work-camera-crew": {
+    "id": "f3a18b74d3e1297e",
+    "page": "/post/",
+    "slot": "VisualChapters-post-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/film-collection-1600.webp",
+      "srcSet": "/assets/supplied/collection/film-collection-640.webp 640w, /assets/supplied/collection/film-collection-960.webp 960w, /assets/supplied/collection/film-collection-1600.webp 987w",
+      "alt": "Shelves holding a collection of films"
+    }
+  },
+  "/post-production/|VisualChapters-post-production-0|/assets/stills/post-production-release": {
+    "id": "78dade58b02f32f4",
+    "page": "/post-production/",
+    "slot": "VisualChapters-post-production-0",
+    "original": "/assets/stills/post-production-release",
+    "value": {
+      "src": "/assets/supplied/collection/film-reel-1600.webp",
+      "srcSet": "/assets/supplied/collection/film-reel-640.webp 640w, /assets/supplied/collection/film-reel-960.webp 960w, /assets/supplied/collection/film-reel-1600.webp 1035w",
+      "alt": "Film reel and strip against a dark background"
+    }
+  },
+  "/post-production/|VisualChapters-post-production-1|/assets/stills/work-period-camera": {
+    "id": "28fa320e1ae4fe58",
+    "page": "/post-production/",
+    "slot": "VisualChapters-post-production-1",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/supplied/collection/projector-beam-1600.webp",
+      "srcSet": "/assets/supplied/collection/projector-beam-640.webp 640w, /assets/supplied/collection/projector-beam-960.webp 960w, /assets/supplied/collection/projector-beam-1600.webp 1600w",
+      "alt": "Film projector casting a bright beam of light"
+    }
+  },
+  "/post-production/|VisualChapters-post-production-3|/assets/stills/work-period-camera": {
+    "id": "2872469a92f453a2",
+    "page": "/post-production/",
+    "slot": "VisualChapters-post-production-3",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/supplied/collection/monochrome-camera-operator-1600.webp",
+      "srcSet": "/assets/supplied/collection/monochrome-camera-operator-640.webp 640w, /assets/supplied/collection/monochrome-camera-operator-960.webp 960w, /assets/supplied/collection/monochrome-camera-operator-1600.webp 1600w",
+      "alt": "Black and white view of a camera operator filming an interior"
+    }
+  },
+  "/release/|VisualChapters-release-0|/assets/stills/work-celebration-set": {
+    "id": "a294822d34e530d4",
+    "page": "/release/",
+    "slot": "VisualChapters-release-0",
+    "original": "/assets/stills/work-celebration-set",
+    "value": {
+      "src": "/assets/supplied/collection/cinema-seating-1600.webp",
+      "srcSet": "/assets/supplied/collection/cinema-seating-640.webp 640w, /assets/supplied/collection/cinema-seating-960.webp 960w, /assets/supplied/collection/cinema-seating-1600.webp 1600w",
+      "alt": "Rows of red seats in a cinema auditorium"
+    }
+  },
+  "/release/|VisualChapters-release-1|/assets/stills/post-production-release": {
+    "id": "ed39621088a87f96",
+    "page": "/release/",
+    "slot": "VisualChapters-release-1",
+    "original": "/assets/stills/post-production-release",
+    "value": {
+      "src": "/assets/supplied/collection/cinema-neon-1600.webp",
+      "srcSet": "/assets/supplied/collection/cinema-neon-640.webp 640w, /assets/supplied/collection/cinema-neon-960.webp 960w, /assets/supplied/collection/cinema-neon-1600.webp 987w",
+      "alt": "Vertical cinema sign glowing against the evening sky"
+    }
+  },
+  "/release/distribution-release-support/|VisualChapters-distribution-release-0|/assets/stills/post-production-release": {
+    "id": "2c2bda4746787f2d",
+    "page": "/release/distribution-release-support/",
+    "slot": "VisualChapters-distribution-release-0",
+    "original": "/assets/stills/post-production-release",
+    "value": {
+      "src": "/assets/supplied/collection/streaming-screen-1600.webp",
+      "srcSet": "/assets/supplied/collection/streaming-screen-640.webp 640w, /assets/supplied/collection/streaming-screen-960.webp 960w, /assets/supplied/collection/streaming-screen-1600.webp 988w",
+      "alt": "Streaming service on a television in a dark room"
+    }
+  },
+  "/release/distribution-release-support/|VisualChapters-distribution-release-1|/assets/stills/partner-studio": {
+    "id": "8065dae3151f2d69",
+    "page": "/release/distribution-release-support/",
+    "slot": "VisualChapters-distribution-release-1",
+    "original": "/assets/stills/partner-studio",
+    "value": {
+      "src": "/assets/supplied/collection/open-air-screening-1600.webp",
+      "srcSet": "/assets/supplied/collection/open-air-screening-640.webp 640w, /assets/supplied/collection/open-air-screening-960.webp 960w, /assets/supplied/collection/open-air-screening-1600.webp 1600w",
+      "alt": "Audience at an open-air film screening beside a city skyline"
+    }
+  },
+  "/release/festival-awards-strategy/|VisualChapters-festival-awards-0|/assets/stills/work-celebration-set": {
+    "id": "68c89e1f4eae1dbc",
+    "page": "/release/festival-awards-strategy/",
+    "slot": "VisualChapters-festival-awards-0",
+    "original": "/assets/stills/work-celebration-set",
+    "value": {
+      "src": "/assets/supplied/collection/cinema-entrance-1600.webp",
+      "srcSet": "/assets/supplied/collection/cinema-entrance-640.webp 640w, /assets/supplied/collection/cinema-entrance-960.webp 960w, /assets/supplied/collection/cinema-entrance-1600.webp 1600w",
+      "alt": "Cinema entrance illuminated with pink neon lights"
+    }
+  },
+  "/release/festival-awards-strategy/|VisualChapters-festival-awards-1|/assets/stills/work-period-camera": {
+    "id": "c591f70122646872",
+    "page": "/release/festival-awards-strategy/",
+    "slot": "VisualChapters-festival-awards-1",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/supplied/collection/cinema-audience-1600.webp",
+      "srcSet": "/assets/supplied/collection/cinema-audience-640.webp 640w, /assets/supplied/collection/cinema-audience-960.webp 960w, /assets/supplied/collection/cinema-audience-1600.webp 1600w",
+      "alt": "Two viewers watching a film in a cinema auditorium"
+    }
+  },
+  "/release/festival-awards-strategy/|VisualChapters-festival-awards-2|/assets/stills/work-celebration-set": {
+    "id": "621c856bf94298db",
+    "page": "/release/festival-awards-strategy/",
+    "slot": "VisualChapters-festival-awards-2",
+    "original": "/assets/stills/work-celebration-set",
+    "value": {
+      "src": "/assets/supplied/collection/cinema-front-1600.webp",
+      "srcSet": "/assets/supplied/collection/cinema-front-640.webp 640w, /assets/supplied/collection/cinema-front-960.webp 960w, /assets/supplied/collection/cinema-front-1600.webp 1600w",
+      "alt": "Visitors arriving outside a cinema entrance"
+    }
+  },
+  "/|HeroSequence-1|/assets/hero-films/studio-8089223": {
+    "id": "2e512da14ce28fc3",
+    "page": "/",
+    "slot": "HeroSequence-1",
+    "original": "/assets/hero-films/studio-8089223",
+    "value": {
+      "src": "/assets/hero-films/studio-8089223-960.webp",
+      "srcSet": "/assets/hero-films/studio-8089223-960.webp 640w, /assets/hero-films/studio-8089223-960.webp 960w, /assets/hero-films/studio-8089223-960.webp 1600w",
+      "alt": ""
+    }
+  },
+  "/|HeroSequence-1|/assets/hero-films/studio-8103041": {
+    "id": "6d8ef50bc0e0ac88",
+    "page": "/",
+    "slot": "HeroSequence-1",
+    "original": "/assets/hero-films/studio-8103041",
+    "value": {
+      "src": "/assets/hero-films/studio-8103041-960.webp",
+      "srcSet": "/assets/hero-films/studio-8103041-960.webp 640w, /assets/hero-films/studio-8103041-960.webp 960w, /assets/hero-films/studio-8103041-960.webp 1600w",
+      "alt": ""
+    }
+  },
+  "/|HomePage-2|/assets/stats-clapperboard": {
+    "id": "fcb46f811e59aa4e",
+    "page": "/",
+    "slot": "HomePage-2",
+    "original": "/assets/stats-clapperboard",
+    "value": {
+      "src": "/assets/stats-clapperboard.png",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/|DesignerServices-1|/assets/designer-services/services-background": {
+    "id": "84f81ec7c1578313",
+    "page": "/",
+    "slot": "DesignerServices-1",
+    "original": "/assets/designer-services/services-background",
+    "value": {
+      "src": "/assets/designer-services/services-background.webp",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/|DesignerServices-2|/assets/designer-services/studio-interview": {
+    "id": "18abcf687b66515d",
+    "page": "/",
+    "slot": "DesignerServices-2",
+    "original": "/assets/designer-services/studio-interview",
+    "value": {
+      "src": "/assets/designer-services/studio-interview.webp",
+      "srcSet": "",
+      "alt": "Production reference"
+    }
+  },
+  "/|DesignerServices-2|/assets/designer-services/finance": {
+    "id": "5492e25d05e156b2",
+    "page": "/",
+    "slot": "DesignerServices-2",
+    "original": "/assets/designer-services/finance",
+    "value": {
+      "src": "/assets/designer-services/finance.webp",
+      "srcSet": "",
+      "alt": "Production reference"
+    }
+  },
+  "/|DesignerServices-2|/assets/designer-services/casting": {
+    "id": "0baf7c7c8a300c59",
+    "page": "/",
+    "slot": "DesignerServices-2",
+    "original": "/assets/designer-services/casting",
+    "value": {
+      "src": "/assets/designer-services/casting.webp",
+      "srcSet": "",
+      "alt": "Production reference"
+    }
+  },
+  "/|DesignerServices-2|/assets/designer-services/crew": {
+    "id": "e906d53aac5728c7",
+    "page": "/",
+    "slot": "DesignerServices-2",
+    "original": "/assets/designer-services/crew",
+    "value": {
+      "src": "/assets/designer-services/crew.webp",
+      "srcSet": "",
+      "alt": "Production reference"
+    }
+  },
+  "/|DesignerServices-2|/assets/designer-services/post": {
+    "id": "56e7c2dce41180fc",
+    "page": "/",
+    "slot": "DesignerServices-2",
+    "original": "/assets/designer-services/post",
+    "value": {
+      "src": "/assets/designer-services/post.webp",
+      "srcSet": "",
+      "alt": "Production reference"
+    }
+  },
+  "/|DesignerServices-2|/assets/designer-services/valley": {
+    "id": "d311c80ed900e460",
+    "page": "/",
+    "slot": "DesignerServices-2",
+    "original": "/assets/designer-services/valley",
+    "value": {
+      "src": "/assets/designer-services/valley.webp",
+      "srcSet": "",
+      "alt": "Production reference"
+    }
+  },
+  "/|DesignerProductions-1|/assets/designer-productions/location": {
+    "id": "0ef6b163f6d0c4c2",
+    "page": "/",
+    "slot": "DesignerProductions-1",
+    "original": "/assets/designer-productions/location",
+    "value": {
+      "src": "/assets/designer-productions/location.webp",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/|DesignerProductions-1|/assets/designer-productions/finance": {
+    "id": "986f41323b3c9cc9",
+    "page": "/",
+    "slot": "DesignerProductions-1",
+    "original": "/assets/designer-productions/finance",
+    "value": {
+      "src": "/assets/supplied/collection/crew-at-work-1600.webp",
+      "srcSet": "/assets/supplied/collection/crew-at-work-640.webp 640w, /assets/supplied/collection/crew-at-work-960.webp 960w, /assets/supplied/collection/crew-at-work-1600.webp 1600w",
+      "alt": "Production crew working together beside a camera and lighting equipment"
+    }
+  },
+  "/|DesignerProductions-1|/assets/designer-productions/dance": {
+    "id": "863b15c5e6f303ca",
+    "page": "/",
+    "slot": "DesignerProductions-1",
+    "original": "/assets/designer-productions/dance",
+    "value": {
+      "src": "/assets/designer-productions/dance.webp",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/|DesignerProductions-1|/assets/designer-productions/post": {
+    "id": "fb6d2d68ac6ce6da",
+    "page": "/",
+    "slot": "DesignerProductions-1",
+    "original": "/assets/designer-productions/post",
+    "value": {
+      "src": "/assets/supplied/collection/reel-machine-1600.webp",
+      "srcSet": "/assets/supplied/collection/reel-machine-640.webp 640w, /assets/supplied/collection/reel-machine-960.webp 960w, /assets/supplied/collection/reel-machine-1600.webp 1600w",
+      "alt": "Black and white close-up of a film reel machine"
+    }
+  },
+  "/|DesignerProductions-1|/assets/designer-productions/valley": {
+    "id": "48be511072352c15",
+    "page": "/",
+    "slot": "DesignerProductions-1",
+    "original": "/assets/designer-productions/valley",
+    "value": {
+      "src": "/assets/supplied/collection/cinema-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/cinema-camera-640.webp 640w, /assets/supplied/collection/cinema-camera-960.webp 960w, /assets/supplied/collection/cinema-camera-1600.webp 1482w",
+      "alt": "Cinema camera and monitor on an outdoor production set"
+    }
+  },
+  "/|HomePage-3|/assets/stills/partner-studio": {
+    "id": "4ea460e4fcb75b73",
+    "page": "/",
+    "slot": "HomePage-3",
+    "original": "/assets/stills/partner-studio",
+    "value": {
+      "src": "/assets/stills/partner-studio-960.webp",
+      "srcSet": "/assets/stills/partner-studio-640.webp 640w, /assets/stills/partner-studio-960.webp 960w, /assets/stills/partner-studio-1600.webp 1600w",
+      "alt": "Studio cameras and lighting equipment beside a red backdrop"
+    }
+  },
+  "/about/|StudioPages-1|/assets/services/filming": {
+    "id": "bb978452e521c1ee",
+    "page": "/about/",
+    "slot": "StudioPages-1",
+    "original": "/assets/services/filming",
+    "value": {
+      "src": "/assets/services/filming-1600.webp",
+      "srcSet": "/assets/services/filming-640.webp 640w, /assets/services/filming-960.webp 960w, /assets/services/filming-1600.webp 1600w",
+      "alt": "A cinematographer working with a cinema camera on a film set"
+    }
+  },
+  "/about/|StudioPages-2|/assets/stills/daylight-valley-production": {
+    "id": "b50cd30e200d73a0",
+    "page": "/about/",
+    "slot": "StudioPages-2",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/purple-camera-crew.webp",
+      "srcSet": "",
+      "alt": "Camera crew working on a purple-lit studio set"
+    }
+  },
+  "/about/|StudioPages-3|/assets/stills/detective-scene": {
+    "id": "b956719594576d2a",
+    "page": "/about/",
+    "slot": "StudioPages-3",
+    "original": "/assets/stills/detective-scene",
+    "value": {
+      "src": "/assets/stills/detective-scene.webp",
+      "srcSet": "",
+      "alt": "Supplied screen artwork accompanying development & packaging"
+    }
+  },
+  "/about/|StudioPages-3|/assets/stills/white-olive-tree-poster": {
+    "id": "1e1ee9221217bb7b",
+    "page": "/about/",
+    "slot": "StudioPages-3",
+    "original": "/assets/stills/white-olive-tree-poster",
+    "value": {
+      "src": "/assets/stills/white-olive-tree-poster.webp",
+      "srcSet": "",
+      "alt": "Supplied screen artwork accompanying financing & investment coordination"
+    }
+  },
+  "/about/|StudioPages-3|/assets/stills/ensemble-poster": {
+    "id": "42cb21655af4fbe4",
+    "page": "/about/",
+    "slot": "StudioPages-3",
+    "original": "/assets/stills/ensemble-poster",
+    "value": {
+      "src": "/assets/stills/ensemble-poster.webp",
+      "srcSet": "",
+      "alt": "Supplied screen artwork accompanying co-production"
+    }
+  },
+  "/about/|StudioPages-3|/assets/stills/costume-portrait": {
+    "id": "ef6609c61d7d2be1",
+    "page": "/about/",
+    "slot": "StudioPages-3",
+    "original": "/assets/stills/costume-portrait",
+    "value": {
+      "src": "/assets/stills/costume-portrait.webp",
+      "srcSet": "",
+      "alt": "Supplied screen artwork accompanying pre-production"
+    }
+  },
+  "/about/|StudioPages-3|/assets/stills/action-scene": {
+    "id": "c684c1fddab0f15c",
+    "page": "/about/",
+    "slot": "StudioPages-3",
+    "original": "/assets/stills/action-scene",
+    "value": {
+      "src": "/assets/stills/action-scene.webp",
+      "srcSet": "",
+      "alt": "Supplied screen artwork accompanying production & line production"
+    }
+  },
+  "/about/|StudioPages-3|/assets/stills/office-scene": {
+    "id": "04115d1821ebcc39",
+    "page": "/about/",
+    "slot": "StudioPages-3",
+    "original": "/assets/stills/office-scene",
+    "value": {
+      "src": "/assets/stills/office-scene.webp",
+      "srcSet": "",
+      "alt": "Supplied screen artwork accompanying post-production supervision"
+    }
+  },
+  "/about/|StudioPages-3|/assets/stills/riders-scene": {
+    "id": "1fcede9765a34ac5",
+    "page": "/about/",
+    "slot": "StudioPages-3",
+    "original": "/assets/stills/riders-scene",
+    "value": {
+      "src": "/assets/stills/riders-scene.webp",
+      "srcSet": "",
+      "alt": "Supplied screen artwork accompanying distribution & release support"
+    }
+  },
+  "/about/|PrincipleSteps-1|/assets/designer-services/studio-interview": {
+    "id": "593c889a899d42fe",
+    "page": "/about/",
+    "slot": "PrincipleSteps-1",
+    "original": "/assets/designer-services/studio-interview",
+    "value": {
+      "src": "/assets/supplied/city-story.webp",
+      "srcSet": "",
+      "alt": "A cinematic portrait amid a moving crowd"
+    }
+  },
+  "/about/|PrincipleSteps-1|/assets/designer-services/finance": {
+    "id": "e9d5f61cef58e25e",
+    "page": "/about/",
+    "slot": "PrincipleSteps-1",
+    "original": "/assets/designer-services/finance",
+    "value": {
+      "src": "/assets/supplied/location-camera-operator.webp",
+      "srcSet": "",
+      "alt": "Camera operator filming on location"
+    }
+  },
+  "/about/|PrincipleSteps-1|/assets/designer-services/post": {
+    "id": "95315c63348fae98",
+    "page": "/about/",
+    "slot": "PrincipleSteps-1",
+    "original": "/assets/designer-services/post",
+    "value": {
+      "src": "/assets/supplied/sunset-film-crew.webp",
+      "srcSet": "",
+      "alt": "Film crew shooting on a road at sunset"
+    }
+  },
+  "/about/|PrincipleSteps-1|/assets/designer-services/valley": {
+    "id": "0cc0eeed7688a299",
+    "page": "/about/",
+    "slot": "PrincipleSteps-1",
+    "original": "/assets/designer-services/valley",
+    "value": {
+      "src": "/assets/supplied/colour-clapperboard.webp",
+      "srcSet": "",
+      "alt": "Colourful clapperboard in red and blue studio lighting"
+    }
+  },
+  "/produce/shooting-on-location/|ShootingProductionPage-1|/assets/stills/fort-action-production": {
+    "id": "d56c91be9c3c09c9",
+    "page": "/produce/shooting-on-location/",
+    "slot": "ShootingProductionPage-1",
+    "original": "/assets/stills/fort-action-production",
+    "value": {
+      "src": "/assets/supplied/collection/car-scene-1600.webp",
+      "srcSet": "/assets/supplied/collection/car-scene-640.webp 640w, /assets/supplied/collection/car-scene-960.webp 960w, /assets/supplied/collection/car-scene-1600.webp 1600w",
+      "alt": "Camera crew filming a performer beside a blue car"
+    }
+  },
+  "/produce/shooting-on-location/|VisualChapters-shooting-on-location-0|/assets/stills/fort-action-production": {
+    "id": "57bc03b0ddfcb896",
+    "page": "/produce/shooting-on-location/",
+    "slot": "VisualChapters-shooting-on-location-0",
+    "original": "/assets/stills/fort-action-production",
+    "value": {
+      "src": "/assets/supplied/collection/location-sound-and-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/location-sound-and-camera-640.webp 640w, /assets/supplied/collection/location-sound-and-camera-960.webp 927w",
+      "alt": "Camera operator and boom microphone on a lit production set"
+    }
+  },
+  "/produce/shooting-on-location/|ShootingProductionPage-2|/assets/stills/daylight-snow-production": {
+    "id": "cc863cbe0c9468cd",
+    "page": "/produce/shooting-on-location/",
+    "slot": "ShootingProductionPage-2",
+    "original": "/assets/stills/daylight-snow-production",
+    "value": {
+      "src": "/assets/supplied/collection/outdoor-camera-operation-1600.webp",
+      "srcSet": "/assets/supplied/collection/outdoor-camera-operation-640.webp 640w, /assets/supplied/collection/outdoor-camera-operation-960.webp 960w, /assets/supplied/collection/outdoor-camera-operation-1600.webp 1600w",
+      "alt": "Camera operator checking an outdoor production rig"
+    }
+  },
+  "/produce/shooting-on-location/|VisualChapters-shooting-on-location-1|/assets/stills/work-action-set": {
+    "id": "8119925f5a5a38de",
+    "page": "/produce/shooting-on-location/",
+    "slot": "VisualChapters-shooting-on-location-1",
+    "original": "/assets/stills/work-action-set",
+    "value": {
+      "src": "/assets/supplied/collection/complete-camera-rig-1600.webp",
+      "srcSet": "/assets/supplied/collection/complete-camera-rig-640.webp 640w, /assets/supplied/collection/complete-camera-rig-960.webp 960w, /assets/supplied/collection/complete-camera-rig-1600.webp 1600w",
+      "alt": "Cinema camera rig with lens, microphone and external monitor"
+    }
+  },
+  "/produce/set-production-design/|SetProductionDesignPage-1|/assets/stills/courtyard-dance-production": {
+    "id": "c941b94849ca5d9c",
+    "page": "/produce/set-production-design/",
+    "slot": "SetProductionDesignPage-1",
+    "original": "/assets/stills/courtyard-dance-production",
+    "value": {
+      "src": "/assets/supplied/collection/interior-lighting-set-1600.webp",
+      "srcSet": "/assets/supplied/collection/interior-lighting-set-640.webp 640w, /assets/supplied/collection/interior-lighting-set-960.webp 960w, /assets/supplied/collection/interior-lighting-set-1600.webp 1600w",
+      "alt": "Production lights and camera equipment arranged in a library interior"
+    }
+  },
+  "/produce/set-production-design/|VisualChapters-set-production-design-0|/assets/stills/courtyard-dance-production": {
+    "id": "38eed10701e9c9a0",
+    "page": "/produce/set-production-design/",
+    "slot": "VisualChapters-set-production-design-0",
+    "original": "/assets/stills/courtyard-dance-production",
+    "value": {
+      "src": "/assets/supplied/collection/miniature-set-1600.webp",
+      "srcSet": "/assets/supplied/collection/miniature-set-640.webp 640w, /assets/supplied/collection/miniature-set-960.webp 960w, /assets/supplied/collection/miniature-set-1600.webp 1600w",
+      "alt": "Detailed miniature interior set with furniture and warm lighting"
+    }
+  },
+  "/produce/set-production-design/|SetProductionDesignPage-2|/assets/stills/work-period-set": {
+    "id": "499e1e3c804ae883",
+    "page": "/produce/set-production-design/",
+    "slot": "SetProductionDesignPage-2",
+    "original": "/assets/stills/work-period-set",
+    "value": {
+      "src": "/assets/supplied/collection/character-makeup-1600.webp",
+      "srcSet": "/assets/supplied/collection/character-makeup-640.webp 640w, /assets/supplied/collection/character-makeup-960.webp 960w, /assets/supplied/collection/character-makeup-1600.webp 1600w",
+      "alt": "Makeup artist preparing a performer's face"
+    }
+  },
+  "/produce/set-production-design/|VisualChapters-set-production-design-1|/assets/stills/work-period-set": {
+    "id": "4a91eaaffd634a97",
+    "page": "/produce/set-production-design/",
+    "slot": "VisualChapters-set-production-design-1",
+    "original": "/assets/stills/work-period-set",
+    "value": {
+      "src": "/assets/supplied/collection/red-interior-set-1600.webp",
+      "srcSet": "/assets/supplied/collection/red-interior-set-640.webp 640w, /assets/supplied/collection/red-interior-set-960.webp 960w, /assets/supplied/collection/red-interior-set-1600.webp 1600w",
+      "alt": "Production team preparing a room with coloured practical lighting"
+    }
+  },
+  "/produce/locations-logistics/|LocationsLogisticsPage-1|/assets/stills/daylight-valley-production": {
+    "id": "a523c3948bce60be",
+    "page": "/produce/locations-logistics/",
+    "slot": "LocationsLogisticsPage-1",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/city-location-1600.webp",
+      "srcSet": "/assets/supplied/collection/city-location-640.webp 640w, /assets/supplied/collection/city-location-960.webp 960w, /assets/supplied/collection/city-location-1600.webp 987w",
+      "alt": "Narrow city street with brick buildings and warm lights"
+    }
+  },
+  "/produce/locations-logistics/|VisualChapters-locations-logistics-0|/assets/stills/daylight-valley-production": {
+    "id": "93de9503ed1394f7",
+    "page": "/produce/locations-logistics/",
+    "slot": "VisualChapters-locations-logistics-0",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/waterside-crew-1600.webp",
+      "srcSet": "/assets/supplied/collection/waterside-crew-640.webp 640w, /assets/supplied/collection/waterside-crew-960.webp 960w, /assets/supplied/collection/waterside-crew-1600.webp 987w",
+      "alt": "Film crew working on location beside the water"
+    }
+  },
+  "/produce/locations-logistics/|LocationsLogisticsPage-2|/assets/stills/work-forest-set": {
+    "id": "5bd738469da252bf",
+    "page": "/produce/locations-logistics/",
+    "slot": "LocationsLogisticsPage-2",
+    "original": "/assets/stills/work-forest-set",
+    "value": {
+      "src": "/assets/stills/work-forest-set-960.webp",
+      "srcSet": "",
+      "alt": "Illustrative production crew filming on a forest location"
+    }
+  },
+  "/produce/locations-logistics/|VisualChapters-locations-logistics-1|/assets/stills/daylight-park-production": {
+    "id": "84bfe6ddcac8604b",
+    "page": "/produce/locations-logistics/",
+    "slot": "VisualChapters-locations-logistics-1",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/supplied/collection/outdoor-camera-prep-1600.webp",
+      "srcSet": "/assets/supplied/collection/outdoor-camera-prep-640.webp 640w, /assets/supplied/collection/outdoor-camera-prep-960.webp 960w, /assets/supplied/collection/outdoor-camera-prep-1600.webp 1600w",
+      "alt": "Camera operator preparing equipment on an outdoor location"
+    }
+  },
+  "/produce/crew-equipment/|CrewEquipmentPage-1|/assets/stills/daylight-park-production": {
+    "id": "a7cf7470f7e62943",
+    "page": "/produce/crew-equipment/",
+    "slot": "CrewEquipmentPage-1",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/supplied/collection/red-camera-rig-1600.webp",
+      "srcSet": "/assets/supplied/collection/red-camera-rig-640.webp 640w, /assets/supplied/collection/red-camera-rig-960.webp 960w, /assets/supplied/collection/red-camera-rig-1600.webp 987w",
+      "alt": "Cinema camera rig and monitor illuminated with red lighting"
+    }
+  },
+  "/produce/crew-equipment/|VisualChapters-crew-equipment-0|/assets/stills/work-camera-crew": {
+    "id": "3ea9ef4075a31573",
+    "page": "/produce/crew-equipment/",
+    "slot": "VisualChapters-crew-equipment-0",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/studio-tripod-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/studio-tripod-camera-640.webp 640w, /assets/supplied/collection/studio-tripod-camera-960.webp 960w, /assets/supplied/collection/studio-tripod-camera-1600.webp 987w",
+      "alt": "Cinema camera mounted on a tripod in a studio"
+    }
+  },
+  "/produce/crew-equipment/|CrewEquipmentPage-2|/assets/services/camera-detail": {
+    "id": "5a1734cf8eba2f61",
+    "page": "/produce/crew-equipment/",
+    "slot": "CrewEquipmentPage-2",
+    "original": "/assets/services/camera-detail",
+    "value": {
+      "src": "/assets/services/camera-detail.webp",
+      "srcSet": "",
+      "alt": "Illustrative close-up of professional cinema camera equipment"
+    }
+  },
+  "/produce/crew-equipment/|VisualChapters-crew-equipment-1|/assets/stills/work-location-lighting": {
+    "id": "4e9bc4240be01079",
+    "page": "/produce/crew-equipment/",
+    "slot": "VisualChapters-crew-equipment-1",
+    "original": "/assets/stills/work-location-lighting",
+    "value": {
+      "src": "/assets/supplied/collection/camera-and-monitor-1600.webp",
+      "srcSet": "/assets/supplied/collection/camera-and-monitor-640.webp 640w, /assets/supplied/collection/camera-and-monitor-960.webp 960w, /assets/supplied/collection/camera-and-monitor-1600.webp 1035w",
+      "alt": "Camera rig with an attached production monitor"
+    }
+  },
+  "/finance/international-co-productions/|InternationalCoProductionsPage-1|/assets/stills/daylight-valley-production": {
+    "id": "ab9871d188ca0db3",
+    "page": "/finance/international-co-productions/",
+    "slot": "InternationalCoProductionsPage-1",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/stabilised-production-rig-1600.webp",
+      "srcSet": "/assets/supplied/collection/stabilised-production-rig-640.webp 640w, /assets/supplied/collection/stabilised-production-rig-960.webp 960w, /assets/supplied/collection/stabilised-production-rig-1600.webp 987w",
+      "alt": "Large stabilised camera rig ready for production"
+    }
+  },
+  "/finance/international-co-productions/|VisualChapters-international-co-productions-0|/assets/stills/daylight-valley-production": {
+    "id": "e1edd486cd63a2d4",
+    "page": "/finance/international-co-productions/",
+    "slot": "VisualChapters-international-co-productions-0",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/slate-and-workspace-1600.webp",
+      "srcSet": "/assets/supplied/collection/slate-and-workspace-640.webp 640w, /assets/supplied/collection/slate-and-workspace-960.webp 960w, /assets/supplied/collection/slate-and-workspace-1600.webp 1422w",
+      "alt": "Clapperboards arranged beside a computer workspace"
+    }
+  },
+  "/finance/international-co-productions/|VisualChapters-international-co-productions-1|/assets/stills/partner-studio": {
+    "id": "8195ff8729ccea44",
+    "page": "/finance/international-co-productions/",
+    "slot": "VisualChapters-international-co-productions-1",
+    "original": "/assets/stills/partner-studio",
+    "value": {
+      "src": "/assets/supplied/collection/cross-team-production-1600.webp",
+      "srcSet": "/assets/supplied/collection/cross-team-production-640.webp 640w, /assets/supplied/collection/cross-team-production-960.webp 960w, /assets/supplied/collection/cross-team-production-1600.webp 1600w",
+      "alt": "Crew discussing a production setup together in an interior location"
+    }
+  },
+  "/finance/international-co-productions/|VisualChapters-international-co-productions-2|/assets/stills/daylight-valley-production": {
+    "id": "8bd217da4e9f20aa",
+    "page": "/finance/international-co-productions/",
+    "slot": "VisualChapters-international-co-productions-2",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/creative-workshop-1600.webp",
+      "srcSet": "/assets/supplied/collection/creative-workshop-640.webp 640w, /assets/supplied/collection/creative-workshop-960.webp 960w, /assets/supplied/collection/creative-workshop-1600.webp 1600w",
+      "alt": "Creative collaborators gathered for a production workshop"
+    }
+  },
+  "/finance/finance-structuring/|FinanceStructuringPage-1|/assets/services/planning": {
+    "id": "1fcfd21795d8634c",
+    "page": "/finance/finance-structuring/",
+    "slot": "FinanceStructuringPage-1",
+    "original": "/assets/services/planning",
+    "value": {
+      "src": "/assets/supplied/collection/gimbal-motor-detail-1600.webp",
+      "srcSet": "/assets/supplied/collection/gimbal-motor-detail-640.webp 640w, /assets/supplied/collection/gimbal-motor-detail-960.webp 960w, /assets/supplied/collection/gimbal-motor-detail-1600.webp 1600w",
+      "alt": "Close-up of a camera stabiliser motor"
+    }
+  },
+  "/finance/finance-structuring/|VisualChapters-finance-structuring-0|/assets/stills/financing-co-production": {
+    "id": "def5be2efd1eec3f",
+    "page": "/finance/finance-structuring/",
+    "slot": "VisualChapters-finance-structuring-0",
+    "original": "/assets/stills/financing-co-production",
+    "value": {
+      "src": "/assets/supplied/collection/cinema-lens-1600.webp",
+      "srcSet": "/assets/supplied/collection/cinema-lens-640.webp 640w, /assets/supplied/collection/cinema-lens-960.webp 960w, /assets/supplied/collection/cinema-lens-1600.webp 1600w",
+      "alt": "Cinema camera lens under colourful studio lights"
+    }
+  },
+  "/finance/finance-structuring/|VisualChapters-finance-structuring-2|/assets/stills/financing-co-production": {
+    "id": "e72566796c00ec7a",
+    "page": "/finance/finance-structuring/",
+    "slot": "VisualChapters-finance-structuring-2",
+    "original": "/assets/stills/financing-co-production",
+    "value": {
+      "src": "/assets/supplied/collection/lens-markings-1600.webp",
+      "srcSet": "/assets/supplied/collection/lens-markings-640.webp 640w, /assets/supplied/collection/lens-markings-960.webp 960w, /assets/supplied/collection/lens-markings-1600.webp 1035w",
+      "alt": "Detailed view of markings on a cinema lens"
+    }
+  },
+  "/finance/co-production/|CoProductionPage-1|/assets/stills/daylight-snow-production": {
+    "id": "ba21123a07af2bef",
+    "page": "/finance/co-production/",
+    "slot": "CoProductionPage-1",
+    "original": "/assets/stills/daylight-snow-production",
+    "value": {
+      "src": "/assets/supplied/collection/director-and-performer-1600.webp",
+      "srcSet": "/assets/supplied/collection/director-and-performer-640.webp 640w, /assets/supplied/collection/director-and-performer-960.webp 960w, /assets/supplied/collection/director-and-performer-1600.webp 1600w",
+      "alt": "Director and costumed performer discussing a scene on set"
+    }
+  },
+  "/finance/co-production/|VisualChapters-co-production-0|/assets/stills/partner-studio": {
+    "id": "8e4a30abe787d259",
+    "page": "/finance/co-production/",
+    "slot": "VisualChapters-co-production-0",
+    "original": "/assets/stills/partner-studio",
+    "value": {
+      "src": "/assets/supplied/collection/interior-scene-preparation-1600.webp",
+      "srcSet": "/assets/supplied/collection/interior-scene-preparation-640.webp 640w, /assets/supplied/collection/interior-scene-preparation-960.webp 960w, /assets/supplied/collection/interior-scene-preparation-1600.webp 988w",
+      "alt": "Collaborators preparing a warmly lit interior scene"
+    }
+  },
+  "/finance/co-production/|VisualChapters-co-production-2|/assets/stills/partner-studio": {
+    "id": "2d6a6ddccf8c54cf",
+    "page": "/finance/co-production/",
+    "slot": "VisualChapters-co-production-2",
+    "original": "/assets/stills/partner-studio",
+    "value": {
+      "src": "/assets/supplied/collection/ready-camera-rig-1600.webp",
+      "srcSet": "/assets/supplied/collection/ready-camera-rig-640.webp 640w, /assets/supplied/collection/ready-camera-rig-960.webp 960w, /assets/supplied/collection/ready-camera-rig-1600.webp 1035w",
+      "alt": "Cinema camera and monitor prepared for a shoot"
+    }
+  },
+  "/develop/story-script/|StoryScriptPage-1|/assets/stills/daylight-interior-production": {
+    "id": "facdfa5bf9eaa9d5",
+    "page": "/develop/story-script/",
+    "slot": "StoryScriptPage-1",
+    "original": "/assets/stills/daylight-interior-production",
+    "value": {
+      "src": "/assets/supplied/collection/script-reading-1600.webp",
+      "srcSet": "/assets/supplied/collection/script-reading-640.webp 640w, /assets/supplied/collection/script-reading-960.webp 960w, /assets/supplied/collection/script-reading-1600.webp 987w",
+      "alt": "Person reviewing a printed screenplay"
+    }
+  },
+  "/develop/story-script/|VisualChapters-story-script-0|/assets/stills/daylight-interior-production": {
+    "id": "d23bf2b330976269",
+    "page": "/develop/story-script/",
+    "slot": "VisualChapters-story-script-0",
+    "original": "/assets/stills/daylight-interior-production",
+    "value": {
+      "src": "/assets/supplied/collection/empty-camera-studio-1600.webp",
+      "srcSet": "/assets/supplied/collection/empty-camera-studio-640.webp 640w, /assets/supplied/collection/empty-camera-studio-960.webp 960w, /assets/supplied/collection/empty-camera-studio-1600.webp 1035w",
+      "alt": "Camera ready for filming in an empty studio"
+    }
+  },
+  "/develop/packaging-talent/|PackagingTalentPage-1|/assets/stills/daylight-park-production": {
+    "id": "fef98a722d9bd2fb",
+    "page": "/develop/packaging-talent/",
+    "slot": "PackagingTalentPage-1",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/supplied/collection/interview-direction-1600.webp",
+      "srcSet": "/assets/supplied/collection/interview-direction-640.webp 640w, /assets/supplied/collection/interview-direction-960.webp 960w, /assets/supplied/collection/interview-direction-1600.webp 1600w",
+      "alt": "Two collaborators discussing a shot beside a camera"
+    }
+  },
+  "/develop/packaging-talent/|VisualChapters-packaging-talent-0|/assets/stills/pre-production-casting": {
+    "id": "cb06663089eea6be",
+    "page": "/develop/packaging-talent/",
+    "slot": "VisualChapters-packaging-talent-0",
+    "original": "/assets/stills/pre-production-casting",
+    "value": {
+      "src": "/assets/supplied/collection/library-interview-1600.webp",
+      "srcSet": "/assets/supplied/collection/library-interview-640.webp 640w, /assets/supplied/collection/library-interview-960.webp 960w, /assets/supplied/collection/library-interview-1600.webp 1600w",
+      "alt": "Camera crew filming a seated interview in a library"
+    }
+  },
+  "/develop/packaging-talent/|VisualChapters-packaging-talent-1|/assets/stills/work-camera-crew": {
+    "id": "9e9bd364a80cf69b",
+    "page": "/develop/packaging-talent/",
+    "slot": "VisualChapters-packaging-talent-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/rig-preparation-1600.webp",
+      "srcSet": "/assets/supplied/collection/rig-preparation-640.webp 640w, /assets/supplied/collection/rig-preparation-960.webp 960w, /assets/supplied/collection/rig-preparation-1600.webp 987w",
+      "alt": "Camera operator adjusting a rig before filming"
+    }
+  },
+  "/develop/budgeting-scheduling/|BudgetingSchedulingPage-1|/assets/services/planning": {
+    "id": "0f98d3ba99f4eee8",
+    "page": "/develop/budgeting-scheduling/",
+    "slot": "BudgetingSchedulingPage-1",
+    "original": "/assets/services/planning",
+    "value": {
+      "src": "/assets/services/planning-1600.webp",
+      "srcSet": "/assets/services/planning-640.webp 640w, /assets/services/planning-960.webp 960w, /assets/services/planning-1600.webp 1600w",
+      "alt": "Production visual supplied for Kemsor Studios"
+    }
+  },
+  "/develop/budgeting-scheduling/|VisualChapters-budgeting-scheduling-0|/assets/stills/development-packaging": {
+    "id": "92f4d0a5594f7354",
+    "page": "/develop/budgeting-scheduling/",
+    "slot": "VisualChapters-budgeting-scheduling-0",
+    "original": "/assets/stills/development-packaging",
+    "value": {
+      "src": "/assets/supplied/collection/focus-puller-1600.webp",
+      "srcSet": "/assets/supplied/collection/focus-puller-640.webp 640w, /assets/supplied/collection/focus-puller-960.webp 960w, /assets/supplied/collection/focus-puller-1600.webp 987w",
+      "alt": "Camera operator checking equipment on a wooded location"
+    }
+  },
+  "/develop/budgeting-scheduling/|VisualChapters-budgeting-scheduling-1|/assets/stills/financing-co-production": {
+    "id": "4c54f5366f9f1aad",
+    "page": "/develop/budgeting-scheduling/",
+    "slot": "VisualChapters-budgeting-scheduling-1",
+    "original": "/assets/stills/financing-co-production",
+    "value": {
+      "src": "/assets/supplied/collection/spotlit-stage-1600.webp",
+      "srcSet": "/assets/supplied/collection/spotlit-stage-640.webp 640w, /assets/supplied/collection/spotlit-stage-960.webp 960w, /assets/supplied/collection/spotlit-stage-1600.webp 987w",
+      "alt": "A studio scene illuminated by a controlled beam of production light"
+    }
+  },
+  "/develop/|DevelopPage-1|/assets/stills/development-packaging": {
+    "id": "334c5e4a9423db4c",
+    "page": "/develop/",
+    "slot": "DevelopPage-1",
+    "original": "/assets/stills/development-packaging",
+    "value": {
+      "src": "/assets/supplied/collection/stabiliser-studio-1600.webp",
+      "srcSet": "/assets/supplied/collection/stabiliser-studio-640.webp 640w, /assets/supplied/collection/stabiliser-studio-960.webp 960w, /assets/supplied/collection/stabiliser-studio-1600.webp 1065w",
+      "alt": "Camera stabiliser photographed against red and blue lighting"
+    }
+  },
+  "/develop/|VisualChapters-develop-0|/assets/stills/development-packaging": {
+    "id": "8ff7d3c68377abf1",
+    "page": "/develop/",
+    "slot": "VisualChapters-develop-0",
+    "original": "/assets/stills/development-packaging",
+    "value": {
+      "src": "/assets/supplied/collection/daylight-camera-setup-1600.webp",
+      "srcSet": "/assets/supplied/collection/daylight-camera-setup-640.webp 640w, /assets/supplied/collection/daylight-camera-setup-960.webp 960w, /assets/supplied/collection/daylight-camera-setup-1600.webp 1600w",
+      "alt": "Camera operator and collaborator preparing an interior shot"
+    }
+  },
+  "/develop/|VisualChapters-develop-1|/assets/stills/daylight-interior-production": {
+    "id": "3766680fb63466bd",
+    "page": "/develop/",
+    "slot": "VisualChapters-develop-1",
+    "original": "/assets/stills/daylight-interior-production",
+    "value": {
+      "src": "/assets/stills/daylight-interior-production-960.webp",
+      "srcSet": "/assets/stills/daylight-interior-production-640.webp 640w, /assets/stills/daylight-interior-production-960.webp 960w, /assets/stills/daylight-interior-production-1600.webp 1600w",
+      "alt": "Illustrative film production visual"
+    }
+  },
+  "/finance/|FinancePage-1|/assets/stills/financing-co-production": {
+    "id": "103a5f929302eae4",
+    "page": "/finance/",
+    "slot": "FinancePage-1",
+    "original": "/assets/stills/financing-co-production",
+    "value": {
+      "src": "/assets/supplied/collection/location-camera-team-1600.webp",
+      "srcSet": "/assets/supplied/collection/location-camera-team-640.webp 640w, /assets/supplied/collection/location-camera-team-960.webp 960w, /assets/supplied/collection/location-camera-team-1600.webp 986w",
+      "alt": "Two crew members beside a cinema camera on location"
+    }
+  },
+  "/finance/|VisualChapters-finance-0|/assets/stills/financing-co-production": {
+    "id": "4f316c6eb847b9c2",
+    "page": "/finance/",
+    "slot": "VisualChapters-finance-0",
+    "original": "/assets/stills/financing-co-production",
+    "value": {
+      "src": "/assets/supplied/collection/lighting-preparation-1600.webp",
+      "srcSet": "/assets/supplied/collection/lighting-preparation-640.webp 640w, /assets/supplied/collection/lighting-preparation-960.webp 960w, /assets/supplied/collection/lighting-preparation-1600.webp 987w",
+      "alt": "Crew member adjusting production lighting on set"
+    }
+  },
+  "/finance/|VisualChapters-finance-1|/assets/stills/partner-studio": {
+    "id": "ea079ac3f8d52ab2",
+    "page": "/finance/",
+    "slot": "VisualChapters-finance-1",
+    "original": "/assets/stills/partner-studio",
+    "value": {
+      "src": "/assets/supplied/collection/production-light-detail-1600.webp",
+      "srcSet": "/assets/supplied/collection/production-light-detail-640.webp 640w, /assets/supplied/collection/production-light-detail-960.webp 960w, /assets/supplied/collection/production-light-detail-1600.webp 987w",
+      "alt": "Close-up of a warm production light fixture"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-preview|/assets/stills/coastal-motorcycle-chase": {
+    "id": "f627fa60627f767c",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-preview",
+    "original": "/assets/stills/coastal-motorcycle-chase",
+    "value": {
+      "src": "/assets/supplied/collection/red-stage-movement-1600.webp",
+      "srcSet": "/assets/supplied/collection/red-stage-movement-640.webp 640w, /assets/supplied/collection/red-stage-movement-960.webp 960w, /assets/supplied/collection/red-stage-movement-1600.webp 1600w",
+      "alt": "Solo performer moving across a stage under red and amber lighting"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-preview|/assets/stills/work-dance-set": {
+    "id": "b83d43889cf7e472",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-preview",
+    "original": "/assets/stills/work-dance-set",
+    "value": {
+      "src": "/assets/supplied/collection/theatre-ensemble-1600.webp",
+      "srcSet": "/assets/supplied/collection/theatre-ensemble-640.webp 640w, /assets/supplied/collection/theatre-ensemble-960.webp 960w, /assets/supplied/collection/theatre-ensemble-1600.webp 1600w",
+      "alt": "Ensemble of performers appearing together on a theatre stage"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-preview|/assets/stills/work-forest-set": {
+    "id": "17dae396ba1f875a",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-preview",
+    "original": "/assets/stills/work-forest-set",
+    "value": {
+      "src": "/assets/supplied/collection/cultural-performance-1600.webp",
+      "srcSet": "/assets/supplied/collection/cultural-performance-640.webp 640w, /assets/supplied/collection/cultural-performance-960.webp 960w, /assets/supplied/collection/cultural-performance-1600.webp 1600w",
+      "alt": "Cultural performer in colourful costume at an outdoor gathering"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-preview|/assets/stills/daylight-park-production": {
+    "id": "0f3d801f2f703120",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-preview",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/supplied/collection/standing-ensemble-1600.webp",
+      "srcSet": "/assets/supplied/collection/standing-ensemble-640.webp 640w, /assets/supplied/collection/standing-ensemble-960.webp 960w, /assets/supplied/collection/standing-ensemble-1600.webp 1600w",
+      "alt": "Ensemble of performers standing together on a theatre stage"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-1|/assets/stills/coastal-motorcycle-chase": {
+    "id": "e69f16a17b2ac46a",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-1",
+    "original": "/assets/stills/coastal-motorcycle-chase",
+    "value": {
+      "src": "/assets/supplied/collection/historical-performers-1600.webp",
+      "srcSet": "/assets/supplied/collection/historical-performers-640.webp 640w, /assets/supplied/collection/historical-performers-960.webp 960w, /assets/supplied/collection/historical-performers-1600.webp 986w",
+      "alt": "Two costumed performers walking outdoors with period props"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-1|/assets/stills/work-dance-set": {
+    "id": "916989eba62c4e0e",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-1",
+    "original": "/assets/stills/work-dance-set",
+    "value": {
+      "src": "/assets/supplied/collection/golden-auditorium-1600.webp",
+      "srcSet": "/assets/supplied/collection/golden-auditorium-640.webp 640w, /assets/supplied/collection/golden-auditorium-960.webp 960w, /assets/supplied/collection/golden-auditorium-1600.webp 1600w",
+      "alt": "Golden cinema auditorium with a large screen and red seats"
+    }
+  },
+  "/what-we-make/|VisualChapters-what-we-make-1|/assets/stills/family-drama-scene": {
+    "id": "b3f887b5796645c8",
+    "page": "/what-we-make/",
+    "slot": "VisualChapters-what-we-make-1",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/supplied/collection/blue-studio-set-1600.webp",
+      "srcSet": "/assets/supplied/collection/blue-studio-set-640.webp 640w, /assets/supplied/collection/blue-studio-set-960.webp 960w, /assets/supplied/collection/blue-studio-set-1600.webp 1600w",
+      "alt": "Camera crew filming a performer in a blue-lit studio"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-1|/assets/stills/work-forest-set": {
+    "id": "10d62dd0d8270969",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-1",
+    "original": "/assets/stills/work-forest-set",
+    "value": {
+      "src": "/assets/supplied/collection/theatre-storytelling-1600.webp",
+      "srcSet": "/assets/supplied/collection/theatre-storytelling-640.webp 640w, /assets/supplied/collection/theatre-storytelling-960.webp 960w, /assets/supplied/collection/theatre-storytelling-1600.webp 987w",
+      "alt": "Two performers telling a story on a theatre stage"
+    }
+  },
+  "/what-we-make/|WhatWeMakePage-1|/assets/stills/daylight-park-production": {
+    "id": "08d9c305b6367eaf",
+    "page": "/what-we-make/",
+    "slot": "WhatWeMakePage-1",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/supplied/collection/light-and-shadow-1600.webp",
+      "srcSet": "/assets/supplied/collection/light-and-shadow-640.webp 640w, /assets/supplied/collection/light-and-shadow-960.webp 960w, /assets/supplied/collection/light-and-shadow-1600.webp 987w",
+      "alt": "Performer moving through a striking pattern of light and shadow"
+    }
+  },
+  "/what-we-make/|VisualChapters-what-we-make-2|/assets/stills/work-period-camera": {
+    "id": "b520cbcf60354e36",
+    "page": "/what-we-make/",
+    "slot": "VisualChapters-what-we-make-2",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/stills/work-period-camera-960.webp",
+      "srcSet": "/assets/stills/work-period-camera-640.webp 640w, /assets/stills/work-period-camera-960.webp 960w, /assets/stills/work-period-camera-1600.webp 1600w",
+      "alt": "Illustrative film production visual"
+    }
+  },
+  "/what-we-make/|VisualChapters-what-we-make-3|/assets/stills/family-drama-scene": {
+    "id": "28f1ff01ebbe91ba",
+    "page": "/what-we-make/",
+    "slot": "VisualChapters-what-we-make-3",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/stills/family-drama-scene-960.webp",
+      "srcSet": "/assets/stills/family-drama-scene-640.webp 640w, /assets/stills/family-drama-scene-960.webp 960w, /assets/stills/family-drama-scene-1600.webp 1600w",
+      "alt": "Illustrative film production visual"
+    }
+  },
+  "/produce/casting/|CastingPage-1|/assets/stills/family-drama-scene": {
+    "id": "965e3433b0f600e6",
+    "page": "/produce/casting/",
+    "slot": "CastingPage-1",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/stills/family-drama-scene-1600.webp",
+      "srcSet": "/assets/stills/family-drama-scene-640.webp 640w, /assets/stills/family-drama-scene-960.webp 960w, /assets/stills/family-drama-scene-1600.webp 1600w",
+      "alt": "Supplied illustration of an ensemble cast performing a family confrontation in an Indian home"
+    }
+  },
+  "/produce/casting/|VisualChapters-casting-0|/assets/stills/pre-production-casting": {
+    "id": "96eefe1944a5dd52",
+    "page": "/produce/casting/",
+    "slot": "VisualChapters-casting-0",
+    "original": "/assets/stills/pre-production-casting",
+    "value": {
+      "src": "/assets/supplied/collection/interview-set-1600.webp",
+      "srcSet": "/assets/supplied/collection/interview-set-640.webp 640w, /assets/supplied/collection/interview-set-960.webp 960w, /assets/supplied/collection/interview-set-1600.webp 1600w",
+      "alt": "Two performers seated on a lit interview set"
+    }
+  },
+  "/produce/casting/|CastingPage-2|/assets/stills/pre-production-casting": {
+    "id": "566ceef6360aeeec",
+    "page": "/produce/casting/",
+    "slot": "CastingPage-2",
+    "original": "/assets/stills/pre-production-casting",
+    "value": {
+      "src": "/assets/supplied/collection/audition-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/audition-camera-640.webp 640w, /assets/supplied/collection/audition-camera-960.webp 960w, /assets/supplied/collection/audition-camera-1600.webp 1600w",
+      "alt": "Performer standing in front of a camera on an outdoor set"
+    }
+  },
+  "/produce/casting/|VisualChapters-casting-1|/assets/stills/family-drama-scene": {
+    "id": "43ae9bd344a4a1d3",
+    "page": "/produce/casting/",
+    "slot": "VisualChapters-casting-1",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/supplied/collection/stage-rehearsal-1600.webp",
+      "srcSet": "/assets/supplied/collection/stage-rehearsal-640.webp 640w, /assets/supplied/collection/stage-rehearsal-960.webp 960w, /assets/supplied/collection/stage-rehearsal-1600.webp 1600w",
+      "alt": "Performers rehearsing movement together on stage"
+    }
+  },
+  "/produce/line-production/|LineProductionPage-1|/assets/stills/daylight-snow-production": {
+    "id": "ee8220bb600fbde2",
+    "page": "/produce/line-production/",
+    "slot": "LineProductionPage-1",
+    "original": "/assets/stills/daylight-snow-production",
+    "value": {
+      "src": "/assets/supplied/collection/studio-camera-operator-1600.webp",
+      "srcSet": "/assets/supplied/collection/studio-camera-operator-640.webp 640w, /assets/supplied/collection/studio-camera-operator-960.webp 960w, /assets/supplied/collection/studio-camera-operator-1600.webp 1600w",
+      "alt": "Camera operator checking a camera under studio lighting"
+    }
+  },
+  "/produce/line-production/|VisualChapters-line-production-0|/assets/stills/daylight-snow-production": {
+    "id": "ea5c8241604efa4e",
+    "page": "/produce/line-production/",
+    "slot": "VisualChapters-line-production-0",
+    "original": "/assets/stills/daylight-snow-production",
+    "value": {
+      "src": "/assets/supplied/collection/western-location-1600.webp",
+      "srcSet": "/assets/supplied/collection/western-location-640.webp 640w, /assets/supplied/collection/western-location-960.webp 960w, /assets/supplied/collection/western-location-1600.webp 1600w",
+      "alt": "People on a western street production location"
+    }
+  },
+  "/produce/line-production/|LineProductionPage-2|/assets/services/planning": {
+    "id": "b9e5d28db16d6873",
+    "page": "/produce/line-production/",
+    "slot": "LineProductionPage-2",
+    "original": "/assets/services/planning",
+    "value": {
+      "src": "/assets/supplied/collection/monitoring-the-shot-1600.webp",
+      "srcSet": "/assets/supplied/collection/monitoring-the-shot-640.webp 640w, /assets/supplied/collection/monitoring-the-shot-960.webp 960w, /assets/supplied/collection/monitoring-the-shot-1600.webp 987w",
+      "alt": "Camera operator monitoring a shot on a studio rig"
+    }
+  },
+  "/produce/line-production/|VisualChapters-line-production-1|/assets/stills/work-camera-crew": {
+    "id": "af57808c6e3f9212",
+    "page": "/produce/line-production/",
+    "slot": "VisualChapters-line-production-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/monochrome-set-operator-1600.webp",
+      "srcSet": "/assets/supplied/collection/monochrome-set-operator-640.webp 640w, /assets/supplied/collection/monochrome-set-operator-960.webp 960w, /assets/supplied/collection/monochrome-set-operator-1600.webp 986w",
+      "alt": "Camera operator working on a production set in black and white"
+    }
+  },
+  "/produce/|ProducePage-1|/assets/stills/work-period-set": {
+    "id": "c68bc678a101de29",
+    "page": "/produce/",
+    "slot": "ProducePage-1",
+    "original": "/assets/stills/work-period-set",
+    "value": {
+      "src": "/assets/stills/work-period-set-1600.webp",
+      "srcSet": "/assets/stills/work-period-set-640.webp 640w, /assets/stills/work-period-set-960.webp 960w, /assets/stills/work-period-set-1600.webp 1600w",
+      "alt": "Illustrative production image"
+    }
+  },
+  "/produce/|VisualChapters-produce-0|/assets/stills/daylight-park-production": {
+    "id": "0fc477841dc932c8",
+    "page": "/produce/",
+    "slot": "VisualChapters-produce-0",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/supplied/collection/field-production-1600.webp",
+      "srcSet": "/assets/supplied/collection/field-production-640.webp 640w, /assets/supplied/collection/field-production-960.webp 960w, /assets/supplied/collection/field-production-1600.webp 1600w",
+      "alt": "Film crew preparing a scene in a grassy field"
+    }
+  },
+  "/produce/|ProducePage-2|/assets/stills/work-action-set": {
+    "id": "08ced488b22fc57a",
+    "page": "/produce/",
+    "slot": "ProducePage-2",
+    "original": "/assets/stills/work-action-set",
+    "value": {
+      "src": "/assets/stills/work-action-set-960.webp",
+      "srcSet": "/assets/stills/work-action-set-640.webp 640w, /assets/stills/work-action-set-960.webp 960w, /assets/stills/work-action-set-1600.webp 1600w",
+      "alt": ""
+    }
+  },
+  "/produce/|ProducePage-2|/assets/stills/daylight-interior-production": {
+    "id": "febb38e1afeac018",
+    "page": "/produce/",
+    "slot": "ProducePage-2",
+    "original": "/assets/stills/daylight-interior-production",
+    "value": {
+      "src": "/assets/supplied/collection/location-crew-collaboration-1600.webp",
+      "srcSet": "/assets/supplied/collection/location-crew-collaboration-640.webp 640w, /assets/supplied/collection/location-crew-collaboration-960.webp 960w, /assets/supplied/collection/location-crew-collaboration-1600.webp 1600w",
+      "alt": "Production collaborators working together on an interior location"
+    }
+  },
+  "/produce/|ProducePage-2|/assets/stills/daylight-valley-production": {
+    "id": "f696934b3602965f",
+    "page": "/produce/",
+    "slot": "ProducePage-2",
+    "original": "/assets/stills/daylight-valley-production",
+    "value": {
+      "src": "/assets/supplied/collection/interior-location-monitor-1600.webp",
+      "srcSet": "/assets/supplied/collection/interior-location-monitor-640.webp 640w, /assets/supplied/collection/interior-location-monitor-960.webp 960w, /assets/supplied/collection/interior-location-monitor-1600.webp 1600w",
+      "alt": "Crew monitoring a scene in a weathered interior location"
+    }
+  },
+  "/produce/|ProducePage-2|/assets/stills/daylight-park-production": {
+    "id": "3e19fa3fdc3114c2",
+    "page": "/produce/",
+    "slot": "ProducePage-2",
+    "original": "/assets/stills/daylight-park-production",
+    "value": {
+      "src": "/assets/supplied/collection/production-discussion-1600.webp",
+      "srcSet": "/assets/supplied/collection/production-discussion-640.webp 640w, /assets/supplied/collection/production-discussion-960.webp 960w, /assets/supplied/collection/production-discussion-1600.webp 1600w",
+      "alt": "Crew members discussing a shot beside a cinema camera"
+    }
+  },
+  "/produce/|ProducePage-2|/assets/stills/courtyard-dance-production": {
+    "id": "3b3ce605bf187e5c",
+    "page": "/produce/",
+    "slot": "ProducePage-2",
+    "original": "/assets/stills/courtyard-dance-production",
+    "value": {
+      "src": "/assets/stills/courtyard-dance-production-960.webp",
+      "srcSet": "/assets/stills/courtyard-dance-production-640.webp 640w, /assets/stills/courtyard-dance-production-960.webp 960w, /assets/stills/courtyard-dance-production-1600.webp 1600w",
+      "alt": ""
+    }
+  },
+  "/produce/|ProducePage-2|/assets/stills/fort-action-production": {
+    "id": "59905babf86271f1",
+    "page": "/produce/",
+    "slot": "ProducePage-2",
+    "original": "/assets/stills/fort-action-production",
+    "value": {
+      "src": "/assets/stills/fort-action-production-960.webp",
+      "srcSet": "/assets/stills/fort-action-production-640.webp 640w, /assets/stills/fort-action-production-960.webp 960w, /assets/stills/fort-action-production-1600.webp 1600w",
+      "alt": ""
+    }
+  },
+  "/produce/|VisualChapters-produce-1|/assets/stills/work-camera-crew": {
+    "id": "eba7bb1c33fcb497",
+    "page": "/produce/",
+    "slot": "VisualChapters-produce-1",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/dolly-crew-1600.webp",
+      "srcSet": "/assets/supplied/collection/dolly-crew-640.webp 640w, /assets/supplied/collection/dolly-crew-960.webp 960w, /assets/supplied/collection/dolly-crew-1600.webp 987w",
+      "alt": "Production crew beside a camera dolly on a dark set"
+    }
+  },
+  "/services/|EditorialPage-1|/assets/services/design": {
+    "id": "8f044390db802faa",
+    "page": "/services/",
+    "slot": "EditorialPage-1",
+    "original": "/assets/services/design",
+    "value": {
+      "src": "/assets/services/design.webp",
+      "srcSet": "",
+      "alt": "Production designers preparing the details of a period film set"
+    }
+  },
+  "/services/|ServicesPage-1|/assets/services/camera-detail": {
+    "id": "5535e146e6d948f1",
+    "page": "/services/",
+    "slot": "ServicesPage-1",
+    "original": "/assets/services/camera-detail",
+    "value": {
+      "src": "/assets/supplied/collection/dark-camera-1600.webp",
+      "srcSet": "/assets/supplied/collection/dark-camera-640.webp 640w, /assets/supplied/collection/dark-camera-960.webp 960w, /assets/supplied/collection/dark-camera-1600.webp 1600w",
+      "alt": "Cinema camera in a dimly lit production space"
+    }
+  },
+  "/services/|ServicesPage-1|/assets/services/financing": {
+    "id": "2948bba806cbb600",
+    "page": "/services/",
+    "slot": "ServicesPage-1",
+    "original": "/assets/services/financing",
+    "value": {
+      "src": "/assets/services/financing.webp",
+      "srcSet": "",
+      "alt": "Film collaborators studying a screenplay and storyboards in a production office"
+    }
+  },
+  "/services/|ServicesPage-1|/assets/services/planning": {
+    "id": "ce4f79e4c6478366",
+    "page": "/services/",
+    "slot": "ServicesPage-1",
+    "original": "/assets/services/planning",
+    "value": {
+      "src": "/assets/supplied/collection/camera-table-1600.webp",
+      "srcSet": "/assets/supplied/collection/camera-table-640.webp 640w, /assets/supplied/collection/camera-table-960.webp 960w, /assets/supplied/collection/camera-table-1600.webp 1600w",
+      "alt": "Cinema camera equipment prepared on a table"
+    }
+  },
+  "/services/|ServicesPage-1|/assets/services/casting": {
+    "id": "f10708c01a5525d0",
+    "page": "/services/",
+    "slot": "ServicesPage-1",
+    "original": "/assets/services/casting",
+    "value": {
+      "src": "/assets/services/casting.webp",
+      "srcSet": "",
+      "alt": "An actress rehearsing a scene during a casting session"
+    }
+  },
+  "/services/|ServicesPage-1|/assets/services/filming": {
+    "id": "8a348efe835bff03",
+    "page": "/services/",
+    "slot": "ServicesPage-1",
+    "original": "/assets/services/filming",
+    "value": {
+      "src": "/assets/supplied/collection/camera-detail-1600.webp",
+      "srcSet": "/assets/supplied/collection/camera-detail-640.webp 640w, /assets/supplied/collection/camera-detail-960.webp 960w, /assets/supplied/collection/camera-detail-1600.webp 987w",
+      "alt": "Close-up of a mounted camera and its rear display"
+    }
+  },
+  "/services/|ServicesPage-1|/assets/services/design": {
+    "id": "7173cc8cfc88bb23",
+    "page": "/services/",
+    "slot": "ServicesPage-1",
+    "original": "/assets/services/design",
+    "value": {
+      "src": "/assets/supplied/collection/production-lamp-1600.webp",
+      "srcSet": "/assets/supplied/collection/production-lamp-640.webp 640w, /assets/supplied/collection/production-lamp-960.webp 960w, /assets/supplied/collection/production-lamp-1600.webp 1600w",
+      "alt": "Large production lamp positioned beside an outdoor set"
+    }
+  },
+  "/services/|ServicesPage-1|/assets/services/post": {
+    "id": "2665ef33ebe5e2f6",
+    "page": "/services/",
+    "slot": "ServicesPage-1",
+    "original": "/assets/services/post",
+    "value": {
+      "src": "/assets/services/post.webp",
+      "srcSet": "",
+      "alt": "A colorist refining a film in a grading and screening suite"
+    }
+  },
+  "/services/|ServicesPage-2|/assets/services/planning": {
+    "id": "eb14a818e6c99f61",
+    "page": "/services/",
+    "slot": "ServicesPage-2",
+    "original": "/assets/services/planning",
+    "value": {
+      "src": "/assets/supplied/collection/pink-gimbal-1600.webp",
+      "srcSet": "/assets/supplied/collection/pink-gimbal-640.webp 640w, /assets/supplied/collection/pink-gimbal-960.webp 960w, /assets/supplied/collection/pink-gimbal-1600.webp 1600w",
+      "alt": "Camera stabiliser against pink studio lighting"
+    }
+  },
+  "/services/|VisualChapters-services-4|/assets/stills/work-camera-crew": {
+    "id": "dc6b8b38036ae6d3",
+    "page": "/services/",
+    "slot": "VisualChapters-services-4",
+    "original": "/assets/stills/work-camera-crew",
+    "value": {
+      "src": "/assets/supplied/collection/projection-technician-1600.webp",
+      "srcSet": "/assets/supplied/collection/projection-technician-640.webp 640w, /assets/supplied/collection/projection-technician-960.webp 960w, /assets/supplied/collection/projection-technician-1600.webp 1013w",
+      "alt": "Technician inspecting a film projector and reel"
+    }
+  },
+  "/productions/|EditorialPage-1|/assets/stills/fort-helicopter-action": {
+    "id": "d3ce9cc511c13cab",
+    "page": "/productions/",
+    "slot": "EditorialPage-1",
+    "original": "/assets/stills/fort-helicopter-action",
+    "value": {
+      "src": "/assets/stills/fort-helicopter-action-1600.webp",
+      "srcSet": "/assets/stills/fort-helicopter-action-640.webp 640w, /assets/stills/fort-helicopter-action-960.webp 960w, /assets/stills/fort-helicopter-action-1600.webp 1600w",
+      "alt": "Illustrative helicopter action sequence above an Indian fort"
+    }
+  },
+  "/productions/|undefined|/assets/stills/coastal-motorcycle-chase": {
+    "id": "c8c89a1bcb6f42b7",
+    "page": "/productions/",
+    "slot": "undefined",
+    "original": "/assets/stills/coastal-motorcycle-chase",
+    "value": {
+      "src": "/assets/stills/coastal-motorcycle-chase-960.webp",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/productions/|undefined|/assets/stills/courtyard-dance-production": {
+    "id": "07a4258f22cbb0d1",
+    "page": "/productions/",
+    "slot": "undefined",
+    "original": "/assets/stills/courtyard-dance-production",
+    "value": {
+      "src": "/assets/stills/courtyard-dance-production-960.webp",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/productions/|undefined|/assets/stills/daylight-forest-action": {
+    "id": "df2fb6bdd72abdc4",
+    "page": "/productions/",
+    "slot": "undefined",
+    "original": "/assets/stills/daylight-forest-action",
+    "value": {
+      "src": "/assets/stills/daylight-forest-action-960.webp",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/productions/|undefined|/assets/stills/family-drama-scene": {
+    "id": "9938a44c6968ef88",
+    "page": "/productions/",
+    "slot": "undefined",
+    "original": "/assets/stills/family-drama-scene",
+    "value": {
+      "src": "/assets/stills/family-drama-scene-960.webp",
+      "srcSet": "",
+      "alt": ""
+    }
+  }
+}

@@ -1,3 +1,6 @@
+import contentPages from '../../shared/content-pages.json';
+import { CookieConsentProvider, CookiePreferences } from './CookieConsent';
+import SeoMetadata from './SeoMetadata';
 import useFaqAccordions from './useFaqAccordions';
 import './inner-layout-repairs.css';
 import PageProgress from './PageProgress';
@@ -11,8 +14,7 @@ import { TextMotionProvider } from './TextMotion';
 import {MemberSessionProvider} from './MemberSession';
 import Footer from './Footer';
 import ExperienceTools from './ExperienceTools';
-import { CmsProvider, CmsPageSections } from './CmsContent';
-import { pageInfo } from './pageInfo';
+import { CmsProvider, CmsPageSections, useCms } from './CmsContent';
 import { useReducedMotion, useReveals } from './useMotion';
 import { useSmoothScroll } from './useSmoothScroll';
 import './home.css';
@@ -51,6 +53,7 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 const routes={
+ 'sitemap':lazy(()=>import('./pages/SitemapPage')),
  'privacy-policy':lazy(()=>import('./pages/PrivacyPolicyPage')),
  'press-media':lazy(()=>import('./pages/PressMediaPage')),
  'partner-with-us':lazy(()=>import('./pages/PartnerWithUsPage')),
@@ -72,6 +75,7 @@ const routes={
  'distribution-release':lazy(()=>import('./pages/DistributionReleasePage')),
  'festival-awards':lazy(()=>import('./pages/FestivalAwardsPage')),
  home:lazy(()=>import('./HomePage')),
+ leadership:lazy(()=>import('./pages/LeadershipPage')),
  about:lazy(()=>import('./pages/StudioPages').then(module=>({default:module.AboutPage}))),
  'shooting-on-location':lazy(()=>import('./pages/ShootingProductionPage')),
  'set-production-design':lazy(()=>import('./pages/SetProductionDesignPage')),
@@ -131,6 +135,7 @@ function ReadyPage({children,paused,reduced,onReady}) {
  return children;
 }
 function App() {
+ useCms(); // Refresh source-backed page content without remounting page state.
  const requested=document.body.dataset.page||location.pathname.slice(import.meta.env.BASE_URL.length).split('/').filter(Boolean)[0]||'home';
  const page=routes[requested]?requested:'home';
  const Page=routes[page];
@@ -156,18 +161,15 @@ function App() {
   const frame=requestAnimationFrame(reset);
   return()=>cancelAnimationFrame(frame);
  },[page]);
- useEffect(()=>{
-  document.title=pageInfo[page].title;
-  document.querySelector('meta[name="description"]')?.setAttribute('content',pageInfo[page].description);
- },[page]);
- return <><PageProgress/><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
+
+ return <><SeoMetadata page={page}/><PageProgress/><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
-  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && !['news','blog','contact','careers'].includes(page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>
+  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && contentPages.some(item=>item.key===page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>
   <Footer page={page} reduced={reduced}/>
   {!formOnly && <ExperienceTools page={page}/>}
- </div></>;
+ </div><CookiePreferences hidden={opening}/></>;
 }
-createRoot(document.getElementById('root')).render(<CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider>);
+createRoot(document.getElementById('root')).render(<CookieConsentProvider><CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider></CookieConsentProvider>);
 
 import './icons.css';

@@ -1,0 +1,5 @@
+<div class="wide" <%- entry.type==='page'?'data-page-video-fields':'' %>>
+<h2>Optional video</h2><p>Upload a trailer, teaser or excerpt first, then save the content. Use the Image field above for its poster. Leave the video URL empty for image-only content.</p>
+<label>Video URL<input name="video_url" data-content-video maxlength="1500" value="<%= entry.metadata?.video_url||'' %>" placeholder="Upload below or paste a direct HTTPS MP4 URL"><small>MP4, up to 50 MB for uploads. Use footage approved for public viewing.</small></label>
+<label>Video caption<input name="video_caption" maxlength="300" value="<%= entry.metadata?.video_caption||'' %>" placeholder="Film title — official trailer"><small>Required with a video; displayed below the player.</small></label>
+<label>Optional subtitles<input name="video_captions_url" data-caption-upload value="<%= entry.metadata?.video_captions_url||'' %>" maxlength="1500"><small>Upload WebVTT subtitles, then save the content.</small></label><label>Subtitle language<input name="video_language" value="<%= entry.metadata?.video_language||'en' %>" maxlength="20" placeholder="en or hi"></label></div>

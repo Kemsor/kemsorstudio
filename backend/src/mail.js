@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import { randomUUID } from 'node:crypto';
-import { rows } from './db.js';
+import { rows,json } from './db.js';
 import { gatewayTransport } from './godaddy-email.js';
 
 const mailProvider=env=>env.EMAIL_TRANSPORT || (env.NODE_ENV==='production'?'godaddy':'smtp');
@@ -108,6 +108,7 @@ export async function deliverReceipt(db, transport, from) {
   if(!result.affectedRows)return false;
   const mail=(await rows(db,'SELECT * FROM cms_email_outbox WHERE claim_token=?',[claim]))[0];
   try {
+    if(mail.subscription_id){const [subscription]=await rows(db,'SELECT status,topics FROM cms_news_subscriptions WHERE id=?',[mail.subscription_id]);const [campaign]=await rows(db,'SELECT c.status,c.topics,e.status AS news_status,(e.published_at<=UTC_TIMESTAMP()) AS live FROM cms_news_campaigns c JOIN cms_entries e ON e.id=c.news_id WHERE c.id=?',[mail.campaign_id]);if(subscription?.status!=='active'||campaign?.status!=='queued'||campaign.news_status!=='published'||!campaign.live||!json(subscription.topics).some(topic=>json(campaign.topics).includes(topic))){await rows(db,"UPDATE cms_email_outbox SET status='cancelled',claim_token=NULL,last_error='Subscriber or campaign no longer eligible' WHERE id=? AND claim_token=?",[mail.id,claim]);return true;}}
     const result=await transport.sendMail({from,to:mail.recipient,subject:mail.subject,text:mail.body});
     if(result?.rejected?.length && !result.accepted?.length)throw Object.assign(new Error('Recipient rejected'),{code:'EENVELOPE'});
     const messageId=typeof result?.messageId==='string'?result.messageId.slice(0,255):null;

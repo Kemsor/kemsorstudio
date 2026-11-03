@@ -1,0 +1,8 @@
+{
+ "showreel-1":{"label":"City stories","src":"/assets/motion-films/city-conversation-preview.mp4","poster":"/assets/motion-films/city-conversation.webp"},
+ "showreel-2":{"label":"Period worlds","src":"/assets/motion-films/period-intrigue-preview.mp4","poster":"/assets/motion-films/period-intrigue.webp"},
+ "showreel-3":{"label":"Stories in motion","src":"/assets/motion-films/field-encounter-preview.mp4","poster":"/assets/motion-films/field-encounter.webp"},
+ "showreel-4":{"label":"The big screen","src":"/assets/motion-films/theatre-facade.mp4","poster":"/assets/motion-films/theatre-facade-960.webp"},
+ "how-we-work":{"label":"Studio film","src":"/assets/supplied/studio-film-loop.mp4","poster":"/assets/stills/daylight-valley-production-960.webp"},
+ "what-we-make":{"label":"Creative film","src":"/assets/supplied/creative-film-loop.mp4","poster":"/assets/stills/courtyard-dance-production-960.webp"}
+}

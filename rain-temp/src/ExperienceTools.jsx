@@ -1,3 +1,4 @@
+import {cmsText} from "./siteContent.js";
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import SiteIcon from './SiteIcon';
@@ -42,13 +43,13 @@ export default function ExperienceTools({ page }) {
   }, [page]);
   const openGuide = event => { opener.current = event.currentTarget; setFlow(null); dialog.current.showModal(); };
   return <aside className="experience-tools" aria-label="Site tools">
-    <button ref={topButton} className={`experience-top experience-top-floating${topVisible ? ' is-visible' : ''}`} type="button" aria-label="Back to top" title="Back to top" disabled={!topVisible} onClick={() => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })}><SiteIcon name="arrow-up" size={20}/></button>
-    {guideTarget && createPortal(<button className="experience-guide-launch" type="button" onClick={openGuide} aria-haspopup="dialog">Studio guide <span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></button>, guideTarget)}
+    <button ref={topButton} className={`experience-top experience-top-floating${topVisible ? ' is-visible' : ''}`} type="button" aria-label="Back to top" title={cmsText("ExperienceTools","11841fba5791f174","Back to top")} disabled={!topVisible} onClick={() => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })}><SiteIcon name="arrow-up" size={20}/></button>
+    {guideTarget && createPortal(<button className="experience-guide-launch" type="button" onClick={openGuide} aria-haspopup="dialog">{cmsText("ExperienceTools","ebfff2dcbf9b60ab","Studio guide ")}<span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></button>, guideTarget)}
     <dialog ref={dialog} className="studio-guide" aria-labelledby="studio-guide-title" onClose={() => opener.current?.focus()} onClick={event => { if (event.target === event.currentTarget) dialog.current.close(); }}>
-      <div className="studio-guide-head"><div><p className="page-eyebrow">KEMSOR / YOUR WAY THROUGH</p><h2 id="studio-guide-title">Studio guide</h2></div><button type="button" autoFocus aria-label="Close studio guide" onClick={() => dialog.current.close()}>×</button></div>
-      <p className="studio-guide-intro">What brings you here? Choose a starting point.</p>
+      <div className="studio-guide-head"><div><p className="page-eyebrow">{cmsText("ExperienceTools","a43e34bb10d0f9f2","KEMSOR / YOUR WAY THROUGH")}</p><h2 id="studio-guide-title">{cmsText("ExperienceTools","423f3ee7d5b9ce1f","Studio guide")}</h2></div><button type="button" autoFocus aria-label="Close studio guide" onClick={() => dialog.current.close()}>×</button></div>
+      <p className="studio-guide-intro">{cmsText("ExperienceTools","e1af6478e9d083a8","What brings you here? Choose a starting point.")}</p>
       <div className="studio-guide-options">{guideFlows.map(item => <button key={item.id} type="button" aria-pressed={flow?.id === item.id} onClick={() => setFlow(item)}>{item.title}<span aria-hidden="true"><SiteIcon name="arrow" size={16} /></span></button>)}</div>
-      {flow && <div className="studio-guide-answer"><p role="status">{flow.id === 'careers' && entries.some(entry => entry.type === 'career') ? 'Explore the current roles and their requirements, or discuss a production partnership with the studio.' : flow.text}</p><div>{[...flow.links, ...(settings.enquiries_enabled && ['project', 'india', 'careers'].includes(flow.id) ? [['Send a studio enquiry', '/contact/#send-enquiry']] : [])].map(([label, href]) => <a key={href} href={href} onClick={() => dialog.current.close()}>{label}<span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></a>)}</div></div>}
+      {flow && <div className="studio-guide-answer"><p role="status">{flow.id === 'careers' && entries.some(entry => entry.type === 'career') ? 'Explore the current roles and their requirements, or discuss a production partnership with the studio.' : flow.text}</p><div>{[...flow.links, ...(settings.enquiries_enabled && ['project', 'india', 'careers'].includes(flow.id) ? [[cmsText("ExperienceTools","489d54af69627a6f","Send a studio enquiry"), '/contact/#send-enquiry']] : [])].map(([label, href]) => <a key={href} href={href} onClick={() => dialog.current.close()}>{label}<span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></a>)}</div></div>}
     </dialog>
   </aside>;
 }

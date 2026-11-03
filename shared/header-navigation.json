@@ -1,0 +1,163 @@
+[
+  {
+    "id": "talent",
+    "label": "Find Talent",
+    "page": "find-talent",
+    "href": "/find-talent/"
+  },
+  {
+    "id": "studio",
+    "label": "Studio",
+    "page": "about",
+    "groups": [
+      {
+        "links": [
+          {
+            "label": "About Kemsor",
+            "href": "/about/"
+          },
+          {
+            "label": "Leadership",
+            "href": "/leadership/"
+          },
+          {
+            "label": "How We Work",
+            "href": "/how-we-work/"
+          },
+          {
+            "label": "Partner With Us",
+            "href": "/partner-with-us/"
+          },
+          {
+            "label": "Careers",
+            "href": "/careers/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "capabilities",
+    "label": "Capabilities",
+    "page": "services",
+    "groups": [
+      {
+        "title": "01 Develop",
+        "links": [
+          {
+            "label": "Develop: Overview",
+            "href": "/develop/"
+          },
+          {
+            "label": "Story & Script Development",
+            "href": "/develop/story-script/"
+          },
+          {
+            "label": "Packaging & Talent Attachment",
+            "href": "/develop/packaging-talent/"
+          },
+          {
+            "label": "Budgeting & Scheduling",
+            "href": "/develop/budgeting-scheduling/"
+          }
+        ]
+      },
+      {
+        "title": "02 Finance",
+        "links": [
+          {
+            "label": "Finance: Overview",
+            "href": "/finance/"
+          },
+          {
+            "label": "Finance Structuring",
+            "href": "/finance/finance-structuring/"
+          },
+          {
+            "label": "Co-Production",
+            "href": "/finance/co-production/"
+          },
+          {
+            "label": "International Co-Productions",
+            "href": "/finance/international-co-productions/"
+          }
+        ]
+      },
+      {
+        "title": "03 Produce",
+        "links": [
+          {
+            "label": "Produce: Overview",
+            "href": "/produce/"
+          },
+          {
+            "label": "Line Production & Production Management",
+            "href": "/produce/line-production/"
+          },
+          {
+            "label": "Pre-Production: Casting & Talent Coordination",
+            "href": "/produce/casting/"
+          },
+          {
+            "label": "Pre-Production: Locations & Logistics",
+            "href": "/produce/locations-logistics/"
+          },
+          {
+            "label": "Pre-Production: Crew & Equipment",
+            "href": "/produce/crew-equipment/"
+          },
+          {
+            "label": "Pre-Production: Set & Production Design",
+            "href": "/produce/set-production-design/"
+          },
+          {
+            "label": "Shooting & On-Location Production",
+            "href": "/produce/shooting-on-location/"
+          }
+        ]
+      },
+      {
+        "title": "04 Post",
+        "links": [
+          {
+            "label": "Overview",
+            "href": "/post/"
+          },
+          {
+            "label": "Post-Production Supervision",
+            "href": "/post-production/"
+          }
+        ]
+      },
+      {
+        "title": "05 Release",
+        "links": [
+          {
+            "label": "Overview",
+            "href": "/release/"
+          },
+          {
+            "label": "Distribution & Release Support",
+            "href": "/release/distribution-release-support/"
+          },
+          {
+            "label": "Festival & Awards Strategy",
+            "href": "/release/festival-awards-strategy/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "india",
+    "label": "India Production Services",
+    "page": "india-production-services",
+    "href": "/india-production-services/"
+  },
+  {
+    "id": "productions",
+    "label": "Productions",
+    "page": "productions",
+    "href": "/productions/"
+  }
+]

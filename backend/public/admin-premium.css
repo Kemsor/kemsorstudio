@@ -123,3 +123,6 @@ html[data-admin-theme] body .admin-page-icon{background:var(--studio-accent-soft
 /* Keep unread counts legible above the bell in both colour themes. */
 html[data-admin-theme] body .cms-header .notification-dropdown>summary{width:38px;min-width:38px;height:38px;min-height:38px;padding:0;overflow:visible}
 html[data-admin-theme] body .cms-header .notification-dropdown .notification-count{display:grid;place-items:center;box-sizing:border-box;top:-5px;right:-6px;min-width:22px;width:auto;height:22px;padding:0 4px;border:2px solid var(--studio-panel);border-radius:999px;background:#ffe344;color:#17191e;font-size:12px;font-weight:700;line-height:1;letter-spacing:0;font-variant-numeric:tabular-nums;box-shadow:0 1px 3px #00000026;pointer-events:none}
+
+/* Managed content previews keep media inside the editor on narrow screens. */
+.panel video{max-width:100%;height:auto}

@@ -25,7 +25,8 @@ export function bulkRouter(db){
   const conn=await db.getConnection();
   try{
    await conn.beginTransaction();const placeholders=ids.map(()=>'?').join(',');
-   const selected=await rows(conn,`SELECT id,status FROM ${config.table} WHERE id IN (${placeholders}) FOR UPDATE`,ids);
+   const selected=await rows(conn,`SELECT id,status${req.params.resource==='content'?',type':''} FROM ${config.table} WHERE id IN (${placeholders}) FOR UPDATE`,ids);
+   if(req.params.resource==='content'&&selected.some(record=>record.type==='legal'))throw Object.assign(new Error('Use the managed legal editor for legal documents.'),{status:422});
    if(selected.length!==ids.length)throw Object.assign(new Error('One or more selected records no longer exist. Refresh the table and try again.'),{status:422});
    const extra=req.params.resource==='content'?',updated_by=?':'';
    await rows(conn,`UPDATE ${config.table} SET status=?${extra} WHERE id IN (${placeholders})`,[req.body.status,...(extra?[req.user.id]:[]),...ids]);

@@ -1,3 +1,4 @@
+import {cmsText,cmsData} from './siteContent';
 import StudioImage from './StudioImage';
 import {chapterStyler} from './VisualChapters';
 import SiteIcon from './SiteIcon';
@@ -8,29 +9,29 @@ import './editorial-page.css';
 import SectionSubmenu from './SectionSubmenu';
 import { PageHero, SectionHeading, PageCTA, CTA, TextLink } from './PageUI';
 
-const directions = {
-  'locations-logistics': ['THE LOCATION FILE', 'From the script', 'to solid ground.', 'location'],
-  'line-production': ['THE PRODUCTION FILE', 'People. Time. Money.', 'One working plan.', 'production'],
-  casting: ['THE CASTING FILE', 'From the character', 'to the cast.', 'casting'],
-  'crew-equipment': ['THE TECHNICAL FILE', 'The people. The kit.', 'Ready for the shoot.', 'crew'],
-  'set-production-design': ['THE DESIGN FILE', 'From the page', 'to a world on set.', 'design'],
-  'shooting-on-location': ['THE SHOOT FILE', 'From the call sheet', 'to the final take.', 'camera'],
-  'international-co-productions': ['THE INTERNATIONAL FILE', 'Many countries.', 'One production plan.', 'international'],
-  'finance-structuring': ['THE STRUCTURING FILE', 'Budget. Sources. Timing.', 'One finance plan.', 'finance'],
-  'co-production': ['THE PARTNERSHIP FILE', 'Shared strengths.', 'One agreed plan.', 'production'],
-  'story-script': ['THE SCRIPT FILE', 'Creative and production.', 'On the same page.', 'production'],
-  'packaging-talent': ['PROJECT PACKAGE', 'The right people.', 'An honest picture.', 'production'],
-  'budgeting-scheduling': ['THE PRODUCTION PLAN', 'Cost and time.', 'Built from the script.', 'finance'],
-  develop: ['DEVELOPMENT JOURNEY', 'From the first idea', 'to a project ready to make.', 'production'],
-  finance: ['THE FINANCE FILE', 'The creative vision.', 'A plan to carry it.', 'finance'],
-  'what-we-make': ['THE STORY FILE', 'Different formats.', 'The same craft.', 'frames'],
-  about: ['THE STUDIO FILE', 'Creative ambition.', 'Production discipline.', 'production'],
-  services: ['THE PRODUCTION FILE', 'From the first idea', 'to the final frame.', 'production'],
-  productions: ['THE VISUAL ARCHIVE', 'Character. Place.', 'A moment in frame.', 'frames'],
-  produce: ['THE PRODUCTION FILE', 'Story first.', 'Production ready.', 'camera'],
-};
+const directions = cmsData(()=>({
+  'locations-logistics': [cmsText("EditorialPage","444c13aaa83e3e01","THE LOCATION FILE"), cmsText("EditorialPage","ba1cfcd4cd116be3","From the script"), cmsText("EditorialPage","ed386dbcdcb5a713","to solid ground."), 'location'],
+  'line-production': [cmsText("EditorialPage","f592a900b1d0c29f","THE PRODUCTION FILE"), cmsText("EditorialPage","f5de7032b4808afd","People. Time. Money."), cmsText("EditorialPage","3a0ffc7762daf9d1","One working plan."), 'production'],
+  casting: [cmsText("EditorialPage","3a7a4ecb1081dc4e","THE CASTING FILE"), cmsText("EditorialPage","92129094cb4fcae4","From the character"), cmsText("EditorialPage","f4bb6ebe0ec47b38","to the cast."), 'casting'],
+  'crew-equipment': [cmsText("EditorialPage","25d7b8bd8e4cdb6e","THE TECHNICAL FILE"), cmsText("EditorialPage","ad0db4d1a5d3c307","The people. The kit."), cmsText("EditorialPage","58c6b3236ff8157b","Ready for the shoot."), 'crew'],
+  'set-production-design': [cmsText("EditorialPage","97f6efc094f21104","THE DESIGN FILE"), cmsText("EditorialPage","5cc8793a953ab24d","From the page"), cmsText("EditorialPage","38c125f83e9d92f0","to a world on set."), 'design'],
+  'shooting-on-location': [cmsText("EditorialPage","22f2f182f8be68bb","THE SHOOT FILE"), cmsText("EditorialPage","e2f111d34afdf909","From the call sheet"), cmsText("EditorialPage","7bbfdf005f22bd7f","to the final take."), 'camera'],
+  'international-co-productions': [cmsText("EditorialPage","330da85571b1d616","THE INTERNATIONAL FILE"), cmsText("EditorialPage","dcd503b09e21c2de","Many countries."), cmsText("EditorialPage","6415a4617bd273f3","One production plan."), 'international'],
+  'finance-structuring': [cmsText("EditorialPage","21a19825cc6a852d","THE STRUCTURING FILE"), cmsText("EditorialPage","a57d88cda6aa0cf5","Budget. Sources. Timing."), cmsText("EditorialPage","a552e74577d19245","One finance plan."), 'finance'],
+  'co-production': [cmsText("EditorialPage","1012dfecba0a4e77","THE PARTNERSHIP FILE"), cmsText("EditorialPage","90f3aef8273fa02a","Shared strengths."), cmsText("EditorialPage","4354fcf53d182d41","One agreed plan."), 'production'],
+  'story-script': [cmsText("EditorialPage","2fa11893e343974d","THE SCRIPT FILE"), cmsText("EditorialPage","ba3ce3b70d7f6f59","Creative and production."), cmsText("EditorialPage","862037e7e7d60db4","On the same page."), 'production'],
+  'packaging-talent': [cmsText("EditorialPage","69f1c1e1bdd17301","PROJECT PACKAGE"), cmsText("EditorialPage","adf3d9c86bb63b4e","The right people."), cmsText("EditorialPage","1f9691666858e31c","An honest picture."), 'production'],
+  'budgeting-scheduling': [cmsText("EditorialPage","fc0f31676834b9cd","THE PRODUCTION PLAN"), cmsText("EditorialPage","9437a0d490104634","Cost and time."), cmsText("EditorialPage","b8d3e498d22d72c8","Built from the script."), 'finance'],
+  develop: [cmsText("EditorialPage","f9e68c0487f6f0cd","DEVELOPMENT JOURNEY"), cmsText("EditorialPage","6871aa1c1a532810","From the first idea"), cmsText("EditorialPage","a9fbe79187b03d77","to a project ready to make."), 'production'],
+  finance: [cmsText("EditorialPage","86b1873d2bad3df8","THE FINANCE FILE"), cmsText("EditorialPage","f30c699f781da67a","The creative vision."), cmsText("EditorialPage","3eb40bd560d7aca5","A plan to carry it."), 'finance'],
+  'what-we-make': [cmsText("EditorialPage","993ea25958f6dda5","THE STORY FILE"), cmsText("EditorialPage","43fef8c6e1e03de3","Different formats."), cmsText("EditorialPage","4a4cf6dae336003e","The same craft."), 'frames'],
+  about: [cmsText("EditorialPage","b0d1a3a36ca91303","THE STUDIO FILE"), cmsText("EditorialPage","58eb6c270135435a","Creative ambition."), cmsText("EditorialPage","9643e90bf396a618","Production discipline."), 'production'],
+  services: [cmsText("EditorialPage","ffd3241d2e31fd8f","THE PRODUCTION FILE"), cmsText("EditorialPage","1c40a88200f4c9bf","From the first idea"), cmsText("EditorialPage","e24998f431c6c6ba","to the final frame."), 'production'],
+  productions: [cmsText("EditorialPage","c5b818ec0bf71009","THE VISUAL ARCHIVE"), cmsText("EditorialPage","8e91cbc575f9305f","Character. Place."), cmsText("EditorialPage","33582a96581b99bb","A moment in frame."), 'frames'],
+  produce: [cmsText("EditorialPage","5c01175fe2b246d6","THE PRODUCTION FILE"), cmsText("EditorialPage","4fed55456c43787b","Story first."), cmsText("EditorialPage","f311ae7640fcd829","Production ready."), 'camera'],
+}));
 const clientContentPages = new Set(["develop", "story-script", "packaging-talent", "budgeting-scheduling", "finance", "finance-structuring", "co-production", "international-co-productions", "produce", "line-production", "casting", "crew-equipment", "locations-logistics", "set-production-design", "shooting-on-location", "what-we-make"]);
-const defaultDirection = ['KEMSOR STUDIOS', 'Story. Craft.', 'Cinema.', 'frames'];
+const defaultDirection = cmsData(()=>([cmsText("EditorialPage","917266806ca001e5","KEMSOR STUDIOS"), cmsText("EditorialPage","f92f90958af4b78a","Story. Craft."), cmsText("EditorialPage","4288c4fbc24e0d05","Cinema."), 'frames']));
 const hasClass = (node, name) => isValidElement(node) && (node.props.className || '').split(/\s+/).includes(name);
 function nodes(children) {
   return Children.toArray(children).flatMap(node => isValidElement(node) && node.type === React.Fragment ? nodes(node.props.children) : [node]);
@@ -92,9 +93,9 @@ export function EditorialHero({ page = 'studio', heading, title, accent, descrip
   }
   function reset(event) {event.currentTarget.style.setProperty('--ep-image-x','0px');event.currentTarget.style.setProperty('--ep-image-y','0px');}
   return <section className={`inner-hero ep-hero${compact ? ' ep-hero-compact' : ''}`} data-ep-motion={stop?'paused':'playing'} aria-labelledby={headingNode.props.id || undefined}>
-    <div className="ep-width"><div className="ep-docket">{breadcrumb || <nav className="ep-eyebrow site-breadcrumb" aria-label="Breadcrumb"><a href="/">Kemsor Studios</a><span aria-hidden="true">/</span><span aria-current="page">{eyebrow}</span></nav>}{!compact && <button className="ep-motion-toggle" type="button" aria-pressed={stop} disabled={reduced || paused} onClick={()=>{setStopped(value=>!value);onMotionChange?.(!stopped);}}><span aria-hidden="true">{stop?'▷':'Ⅱ'}</span>{reduced?'Reduced motion':stop?'Play motion':'Pause motion'}</button>}</div>
+    <div className="ep-width"><div className="ep-docket">{breadcrumb || <nav className="ep-eyebrow site-breadcrumb" aria-label="Breadcrumb"><a href="/">{cmsText("EditorialPage","844a3f7af91e7cf8","Kemsor Studios")}</a><span aria-hidden="true">/</span><span aria-current="page">{eyebrow}</span></nav>}{!compact && <button className="ep-motion-toggle" type="button" aria-pressed={stop} disabled={reduced || paused} onClick={()=>{setStopped(value=>!value);onMotionChange?.(!stopped);}}><span aria-hidden="true">{stop?'▷':'Ⅱ'}</span>{reduced?'Reduced motion':stop?'Play motion':'Pause motion'}</button>}</div>
       <div className="ep-hero-heading"><div>{headingNode}{caption && <p className="ep-hero-note">{caption}</p>}</div><div className="ep-hero-copy">{description && (isValidElement(description) ? description : <p>{description}</p>)}{actions && <div className="ep-actions">{actions}</div>}</div></div>
-      {!compact && imageNode && <div className="ep-board"><figure className="ep-hero-photo"><div className="ep-image-window" onPointerMove={move} onPointerLeave={reset}>{cloneElement(imageNode,{alt:imageNode.props.alt || alt || 'Production visual supplied for Kemsor Studios',sizes:'(max-width: 600px) 90vw, (max-width: 900px) 65vw, 70vw'})}{['a','b','c','d'].map(c=><span key={c} className={`ep-corner ep-corner-${c}`} aria-hidden="true"/>)}<span className="ep-focus" aria-hidden="true"><i/></span><span className="ep-frame-tab">STORY. CRAFT. CINEMA.</span></div><figcaption><span>{eyebrow}</span><span>VISUAL STUDY / KEMSOR STUDIOS</span></figcaption></figure><aside className="ep-file-card" aria-label={graphic?.props['aria-label'] || `${label.toLowerCase()} illustration`}><div className="ep-file-heading"><span>{label}</span><span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></div>{graphic || <ProductionDrawing kind={kind}/>}{!sourceCopy && <div className="ep-file-caption"><span>{line}<br/><strong>{ending}</strong></span><span className="ep-file-mark" aria-hidden="true">K</span></div>}</aside></div>}
+      {!compact && imageNode && <div className="ep-board"><figure className="ep-hero-photo"><div className="ep-image-window" onPointerMove={move} onPointerLeave={reset}>{cloneElement(imageNode,{alt:imageNode.props.alt || alt || cmsText("EditorialPage","b06bd5e721f9ca3b","Production visual supplied for Kemsor Studios"),sizes:cmsText("EditorialPage","c5ab29676d354502","(max-width: 600px) 90vw, (max-width: 900px) 65vw, 70vw")})}{['a','b','c','d'].map(c=><span key={c} className={`ep-corner ep-corner-${c}`} aria-hidden="true"/>)}<span className="ep-focus" aria-hidden="true"><i/></span><span className="ep-frame-tab">{cmsText("EditorialPage","2e357267b4309176","STORY. CRAFT. CINEMA.")}</span></div><figcaption><span>{eyebrow}</span><span>{cmsText("EditorialPage","0f452bf909f900a9","VISUAL STUDY / KEMSOR STUDIOS")}</span></figcaption></figure><aside className="ep-file-card" aria-label={graphic?.props['aria-label'] || `${label.toLowerCase()} illustration`}><div className="ep-file-heading"><span>{label}</span><span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></div>{graphic || <ProductionDrawing kind={kind}/>}{!sourceCopy && <div className="ep-file-caption"><span>{line}<br/><strong>{ending}</strong></span><span className="ep-file-mark" aria-hidden="true">{cmsText("EditorialPage","e49c7dbc81bb767b","K")}</span></div>}</aside></div>}
       {!compact && imageNode && <details className="ep-mobile-study"><summary><span>{label}</span><span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><div className="ep-mobile-study-content">{graphic || <ProductionDrawing kind={kind}/>}</div></details>}
       {foot && <div className="ep-hero-foot">{foot}</div>}
     </div>
@@ -183,7 +184,7 @@ export default function EditorialPage({page,children}) {
       frame=null;
     };
     const scroll = ()=>{if(!frame)frame=requestAnimationFrame(update);};
-    const observer = new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('ep-in-view');observer.unobserve(entry.target);}}),{rootMargin:'0px 0px 20px 0px',threshold:0});
+    const observer = new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('ep-in-view');observer.unobserve(entry.target);}}),{rootMargin:cmsText("EditorialPage","67055bdace6960a4","0px 0px 20px 0px"),threshold:0});
     elements.forEach(element=>observer.observe(element));update();
     addEventListener('scroll',scroll,{passive:true});addEventListener('resize',scroll);
     return()=>{observer.disconnect();removeEventListener('scroll',scroll);removeEventListener('resize',scroll);cancelAnimationFrame(frame);};
@@ -192,6 +193,6 @@ export default function EditorialPage({page,children}) {
   return <div ref={host} className={`${root.props.className||''} ep-page editorial-page`} data-ep-motion={motionPaused?'paused':'playing'} data-ep-reduced={reduced?'true':'false'}>
     <EditorialHero {...shared} graphic={graphic} page={page} onMotionChange={setMotionPaused} breadcrumb={breadcrumb} heading={heading} description={description||shared.description} eyebrow={tidy(text(kicker))||shared.eyebrow} image={image||shared.image} actions={actionGroup?.props.children || directAction?.length>0&&directAction || outsideActions?.props.children} foot={heroFoot?.props.children} caption={shared.caption}/>
     {serviceSubmenu && <SectionSubmenu section="develop" page={page}/>}
-    <div className={`ep-body ep-width${chapters.length?'':' ep-body-single'}`}>{chapters.length>0 && <aside className="ep-index"><div className="ep-mobile-chapters"><label htmlFor={`chapters-${page}`}>ON THIS PAGE</label><select id={`chapters-${page}`} value={active || chapters[0]?.id} onChange={event=>{const id=event.target.value;setActive(id);location.hash=id;}}>{chapters.map(({id,label},i)=><option value={id} key={id}>{String(i+1).padStart(2,'0')} · {label.split(' · ')[0]}</option>)}</select></div><p className="ep-eyebrow">IN THIS CHAPTER</p><nav aria-label="Page sections">{chapters.map(({id,label},i)=><a key={id} href={`#${id}`} aria-current={active===id?'location':undefined}><span>{String(i+1).padStart(2,'0')}</span>{label}<i aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></i></a>)}</nav>{!clientContentPages.has(page) && <p className="ep-index-note">A story in the making.<br/>A plan to bring it to screen.<br/><strong>Kemsor Studios.</strong></p>}</aside>}<div className="ep-chapters">{content}</div></div>
+    <div className={`ep-body ep-width${chapters.length?'':' ep-body-single'}`}>{chapters.length>0 && <aside className="ep-index"><div className="ep-mobile-chapters"><label htmlFor={`chapters-${page}`}>{cmsText("EditorialPage","5a0d44efff9e2bc6","ON THIS PAGE")}</label><select id={`chapters-${page}`} value={active || chapters[0]?.id} onChange={event=>{const id=event.target.value;setActive(id);location.hash=id;}}>{chapters.map(({id,label},i)=><option value={id} key={id}>{String(i+1).padStart(2,'0')} · {label.split(' · ')[0]}</option>)}</select></div><p className="ep-eyebrow">{cmsText("EditorialPage","38724431a695cf76","IN THIS CHAPTER")}</p><nav aria-label="Page sections">{chapters.map(({id,label},i)=><a key={id} href={`#${id}`} aria-current={active===id?'location':undefined}><span>{String(i+1).padStart(2,'0')}</span>{label}<i aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></i></a>)}</nav>{!clientContentPages.has(page) && <p className="ep-index-note">{cmsText("EditorialPage","60318ba14aa742d6","A story in the making.")}<br/>{cmsText("EditorialPage","46d9fc46d87a7ae6","A plan to bring it to screen.")}<br/><strong>{cmsText("EditorialPage","c6f992e9978a1360","Kemsor Studios.")}</strong></p>}</aside>}<div className="ep-chapters">{content}</div></div>
   </div>;
 }

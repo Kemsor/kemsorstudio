@@ -6,12 +6,8 @@
   const preferred = () => ['light', 'dark'].includes(read()) ? read() : system.matches ? 'dark' : 'light';
   const apply = theme => {
     root.dataset.adminTheme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#10131d' : '#ffffff');
-    for (const button of document.querySelectorAll('.admin-theme-toggle')) {
-      button.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
-      button.setAttribute('aria-pressed', String(theme === 'dark'));
-      button.querySelector('.theme-toggle-label').textContent = theme === 'dark' ? 'Dark' : 'Light';
-    }
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#26232e' : '#ffffff');
+    for (const control of document.querySelectorAll('.admin-theme-switch')) control.checked = theme === 'dark';
   };
   // Runs before the stylesheets so a saved dark theme does not flash white.
   apply(preferred());
@@ -19,8 +15,8 @@
   addEventListener('storage', event => { if (event.key === key || event.key === null) apply(preferred()); });
   addEventListener('DOMContentLoaded', () => {
     apply(preferred());
-    document.querySelectorAll('.admin-theme-toggle').forEach(button => button.addEventListener('click', () => {
-      const next = root.dataset.adminTheme === 'dark' ? 'light' : 'dark';
+    document.querySelectorAll('.admin-theme-switch').forEach(control => control.addEventListener('change', () => {
+      const next = control.checked ? 'dark' : 'light';
       try { localStorage.setItem(key, next); } catch { /* Theme still works for this page. */ }
       apply(next);
     }));

@@ -1,0 +1,6 @@
+<%- include('head') %>
+<p class="eyebrow"><%= kind==='legal'?'LEGAL DOCUMENTS':'HOMEPAGE' %></p><h1><%= kind==='legal'?'Legal documents':'Hero video slides' %></h1>
+<p>Existing content is preserved. Save edits as a draft, review them, then publish when ready. Unpublishing hides the item while retaining its content and history.</p>
+<p><a class="button" href="/admin/manage/<%= kind %>/new">Add <%= kind==='legal'?'legal document':'hero slide' %></a></p>
+<div class="admin-page-grid"><% records.forEach(record=>{ %><section class="panel"><h2><%= record.draft.title || record.draft.label %></h2><p><strong><%= record.published?'Published':'Unpublished' %></strong><% if(record.published && JSON.stringify(record.draft)!==JSON.stringify(record.published)){ %> · Unpublished changes<% } %></p><p>URL key: <%= record.slug %> · Revision <%= record.revision %></p><% if(kind==='hero'){ %><p>Published order: <%= record.published?.position || '—' %></p><% } %><a class="button quiet" href="/admin/manage/<%= kind %>/<%= record.id %>">Edit & manage</a> <a class="text-link" href="/admin/manage/<%= kind %>/<%= record.id %>/preview">Preview saved draft</a></section><% }) %></div>
+<%- include('foot') %>

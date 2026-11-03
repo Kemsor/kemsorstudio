@@ -26,14 +26,13 @@ html body #top.creative-site.site-page-home .opening-screen::before{
   html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct):focus-visible{outline-color:#fff}
 }
 
-/* Keep the header fixed and its height constant. Only its top inset and
-   surface ease, so scrolling never moves the document or the mobile drawer. */
+/* Coordinate the fixed header geometry and surface without moving page content. */
 html body #top.creative-site .creative-header{
   --nav-settle:460ms cubic-bezier(.22,.61,.36,1);
-  transition:padding-top var(--nav-settle),background-color var(--nav-settle),box-shadow var(--nav-settle)!important;
+  transition:padding var(--nav-settle),transform var(--nav-settle),box-shadow var(--nav-settle)!important;
 }
 html body #top.creative-site .creative-header .creative-header-inner{
-  transition:background-color var(--nav-settle),border-color var(--nav-settle),border-radius var(--nav-settle),box-shadow var(--nav-settle)!important;
+  transition:height var(--nav-settle),padding var(--nav-settle),background-color var(--nav-settle),border-color var(--nav-settle),border-radius var(--nav-settle),box-shadow var(--nav-settle)!important;
 }
 html body #top.creative-site .creative-header[data-scrolled=true]{
   padding-top:0!important;background:#fff!important;
@@ -77,10 +76,9 @@ html body #top.creative-site.site-page-home .creative-header[data-scrolled=false
  html body #top.creative-site .creative-header .creative-nav-toggle-icon svg{display:block}
 }
 
-/* Fully rounded ends on inner-page navigation, including its scrolled state. */
-html body #top.creative-site:not(.site-page-home) .creative-header .creative-header-inner,
-html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=true] .creative-header-inner{
- border-radius:999px!important;
+/* Rounded ends belong to the resting inner-page navigation only. */
+html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=false] .creative-header-inner{
+ border-radius:var(--header-rest-radius,45px)!important;
 }
 
 /* Keep the compact inner-page header wrapper flush with its visible surface. */
@@ -139,7 +137,7 @@ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-
 
 /* Follow scroll direction without moving page content. */
 html body #top.creative-site .creative-header{
- transition:transform .3s cubic-bezier(.22,.61,.36,1),padding-top var(--nav-settle),background-color var(--nav-settle)!important;
+ transition:transform var(--nav-settle),padding var(--nav-settle),box-shadow var(--nav-settle)!important;
 }
 html body #top.creative-site .creative-header[data-hidden=true]{transform:translateY(-100%)!important;pointer-events:none}
 html body #top.creative-site .creative-header[data-hidden=false],
@@ -232,11 +230,31 @@ html body #top.creative-site:not(.site-page-home) .creative-header :is(.creative
 
 :root{--studio-discovery-gradient:radial-gradient(ellipse at 80% 10%,#7970bb40,transparent 55%),linear-gradient(115deg,#252338,#27202e 55%,#38291e)}
 
-/* Apply the requested translucent surface once, across the sticky navbar. */
+/* Fade one persistent surface instead of swapping gradients during scroll. */
+html body #top.creative-site .creative-header{
+ isolation:isolate;background:transparent!important;
+}
+html body #top.creative-site .creative-header::before{
+ content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(110deg,#2b2732 0%,#25211f 55%,#382c1d 100%);
+ opacity:0;transition:opacity var(--nav-settle);
+}
+html body #top.creative-site .creative-header[data-scrolled=true]::before{opacity:1}
+/* Edge to edge once the menu sticks; padding and height ease together. */
 html body #top.creative-site .creative-header[data-scrolled=true]{
- background:#463535f5!important;
+ top:0!important;left:0!important;right:0!important;
+ width:100%!important;max-width:none!important;
+ margin:0!important;padding:0!important;
+ border:0!important;border-radius:0!important;
+ background:transparent!important;
 }
 html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] .creative-header-inner,
 html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled=true] .creative-header-inner{
+ width:100%!important;max-width:none!important;margin:0!important;
+ border:0!important;border-radius:0!important;
  background:transparent!important;
+}
+
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site .creative-header::before{transition:none}
 }

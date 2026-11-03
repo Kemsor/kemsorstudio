@@ -1,3 +1,4 @@
+import ManagedSectionVideo from './ManagedSectionVideo';
 import StudioImage from './StudioImage';
 import React,{Children,cloneElement,isValidElement} from 'react';
 import {isTextElement} from './TextMotion';
@@ -44,7 +45,7 @@ export function visualChapter(node,page,index,order=Math.floor(index/2)){
  const direction=order%2===1?'left':'right',dark=direction==='left',image=scenes[page][order%2];
  const video=order===0?({'how-we-work':'studio-film-loop','what-we-make':'creative-film-loop'}[page]):null;
  // Dense lists stay focused on their content; do not append decorative image strips.
- const content=(hasImage||dense)?node.props.children:<div className={`visual-chapter-layout visual-image-${direction}`}><div className="visual-chapter-content">{node.props.children}</div><figure className="visual-chapter-image"><div>{video?<video autoPlay muted loop controls playsInline preload="metadata" aria-label="Supplied studio film clip"><source src={`/assets/supplied/${video}.mp4`} type="video/mp4"/>Your browser does not support video.</video>:<StudioImage mediaSlot={`VisualChapters-${page}-${order}`} src={`/assets/stills/${image}-960.webp`} srcSet={[640,960,1600].map(width=>`/assets/stills/${image}-${width}.webp ${width}w`).join(', ')} sizes="(max-width:900px) 90vw, 40vw" width="960" height="640" alt="Illustrative film production visual" loading="lazy" decoding="async"/>}</div><figcaption><span>STORY. CRAFT. CINEMA.</span><span>ILLUSTRATIVE VISUAL</span></figcaption></figure></div>;
+ const content=(hasImage||dense)?node.props.children:<div className={`visual-chapter-layout visual-image-${direction}`}><div className="visual-chapter-content">{node.props.children}</div><figure className="visual-chapter-image"><div>{video?<ManagedSectionVideo slot={page}/>:<StudioImage mediaSlot={`VisualChapters-${page}-${order}`} src={`/assets/stills/${image}-960.webp`} srcSet={[640,960,1600].map(width=>`/assets/stills/${image}-${width}.webp ${width}w`).join(', ')} sizes="(max-width:900px) 90vw, 40vw" width="960" height="640" alt="Illustrative film production visual" loading="lazy" decoding="async"/>}</div><figcaption><span>STORY. CRAFT. CINEMA.</span><span>ILLUSTRATIVE VISUAL</span></figcaption></figure></div>;
  return cloneElement(node,{className:`${classes(node)} visual-chapter${dark?' visual-chapter-dark':' visual-chapter-light'}${hasImage?' visual-chapter-existing-image':''}${dense?' visual-chapter-dense':''}`},content);
 }
 export function chapterStyler(page){let order=0;return(node,index)=>{const result=visualChapter(node,page,index,order);if(result!==node)order++;return result;};}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { cmsApi, useCms } from './CmsContent';
 import { TaskLoader } from './Loading';
 import EnquirySuccess from './EnquirySuccess';
-const categories = {business:'Business',partnerships:'Strategic partnerships',press:'Press & media',careers:'Careers / work with us',production:'Production services',copyright:'Copyright / anti-piracy',general:'General / other',creative:'Creative enquiry',brand:'Marketing / brand collaboration',distribution:'Distribution / OTT partnership',financing:'Co-production / financing',international:'International production services',partner_registration:'ESPERTO / production partner registration'};
+const categories = {business:'Business',partnerships:'Strategic partnerships',press:'Press & media',careers:'Careers / work with us',production:'Production services',copyright:'Copyright / anti-piracy',general:'General / other',creative:'Creative enquiry',brand:'Marketing / brand collaboration',distribution:'Distribution / OTT partnership',financing:'Co-production / financing',international:'International production services',partner_registration:'Production partner registration'};
 export default function EnquiryForm({ standalone = false, title = 'Studio enquiry', initialCategory = 'business', initialSubject = '', showHeading = true }) {
   const { settings, connected } = useCms();
   const request = useRef(null);

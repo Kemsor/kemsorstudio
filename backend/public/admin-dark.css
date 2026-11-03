@@ -1,0 +1,53 @@
+/* Refined dark palette: charcoal foundation, quiet colour and warm highlights. */
+html[data-admin-theme=dark]{
+ --studio-canvas:#10131d;--studio-panel:#1a202c;--studio-raised:#222a38;
+ --studio-ink:#eef2f8;--studio-muted:#aeb9cb;--studio-line:#30394a;
+ --studio-accent:#afc4ff;--studio-accent-soft:#28354f;
+ --creative-blue:#a4c3ff;--creative-violet:#c9b4ef;--creative-mint:#91d8c4;
+ --creative-rose:#e9b0c5;--creative-amber:#eac68b;
+ --creative-card-blend:7%;--creative-card-hover:12%;--creative-panel-blend:3%;
+ --creative-shadow:0 5px 20px #00000025;
+}
+html[data-admin-theme=dark] body.cms-authenticated .cms-shell{
+ background:radial-gradient(ellipse at 78% 0%,#395a8317,transparent 50%),radial-gradient(ellipse at 20% 65%,#5e467511,transparent 55%),var(--studio-canvas);
+}
+html[data-admin-theme=dark] body.cms-authenticated .cms-header{
+ background:linear-gradient(110deg,#171c27,#1b2330);border-bottom-color:#ffffff10;
+}
+html[data-admin-theme=dark] body.cms-authenticated #main .studio-welcome{
+ background:linear-gradient(115deg,#272639,#202d3e 58%,#263238);
+ border-color:#8199c633;box-shadow:0 10px 30px #00000020;
+}
+html[data-admin-theme=dark] body.cms-authenticated #main .studio-welcome::after{
+ border-color:#b9c8e41c;box-shadow:0 0 0 30px #8ea2ce05,0 0 0 65px #bdabd005;
+}
+html[data-admin-theme=dark] body.cms-authenticated #main .studio-welcome h2{color:#f5f2ee}
+html[data-admin-theme=dark] body.cms-authenticated #main .studio-welcome .welcome-tag{color:#eac68b}
+html[data-admin-theme=dark] body.cms-authenticated #main .metric-card{
+ border-top-width:2px;border-color:color-mix(in srgb,var(--card-accent) 24%,var(--studio-line));
+ border-top-color:var(--card-accent);border-radius:12px;
+}
+html[data-admin-theme=dark] body.cms-authenticated #main .metric-card>strong{color:#f2f5fa}
+html[data-admin-theme=dark] body.cms-authenticated #main .metric-card .metric-icon{background:color-mix(in srgb,var(--card-accent) 10%,#1a202c);color:var(--card-accent)}
+html[data-admin-theme=dark] body.cms-authenticated #main .library-card{background:linear-gradient(130deg,#302a25,#222634);border-color:#c5a27438}
+html[data-admin-theme=dark] body.cms-authenticated #main .dashboard-period{background:#1c2636;border-color:#39465d;color:#c1cee4}
+html[data-admin-theme=dark] body.cms-authenticated #main :is(button,.button){
+ background:linear-gradient(110deg,#f0d593,#dfae60);border-color:#dfba7b;color:#211d17;box-shadow:0 2px 8px #00000018;
+}
+html[data-admin-theme=dark] body.cms-authenticated #main :is(button,.button):hover{background:linear-gradient(110deg,#f8e1ac,#eac07f);border-color:#ebce9d;color:#211d17}
+html[data-admin-theme=dark] body.cms-authenticated #main :is(button.quiet,.button.quiet){background:#242d3c;border-color:#414e64;color:#dce5f3;box-shadow:none}
+html[data-admin-theme=dark] body.cms-authenticated #main :is(button.quiet,.button.quiet):hover{background:#2f3a4d;border-color:#65738c;color:#fff}
+html[data-admin-theme=dark] body.cms-authenticated #main .danger button{background:#432d39;border-color:#9f6278;color:#ffd2df}
+html[data-admin-theme=dark] body.cms-authenticated #main .password-eye{background:transparent;border:0;color:var(--studio-muted);box-shadow:none}
+html[data-admin-theme=dark] body.cms-authenticated #main :is(input,select,textarea){background:#141a25;border-color:#394356;color:#edf2fa}
+html[data-admin-theme=dark] body.cms-authenticated #main :is(input,textarea)::placeholder{color:#929eb3;opacity:1}
+html[data-admin-theme=dark] body.cms-authenticated #main th{background:#222b3a;color:#c5cfdf}
+html[data-admin-theme=dark] body.cms-authenticated #main tbody tr:hover{background:#222b3a}
+html[data-admin-theme=dark] body .cms-nav{
+ --sidebar-surface:linear-gradient(165deg,#fbf8f0 0%,#f1f1f7 60%,#e8eff7 100%);
+ --sidebar-ink:#343747;--sidebar-muted:#626778;--sidebar-title:#725737;
+ --sidebar-rule:#4e566528;--sidebar-accent:#8b6839;
+ --sidebar-hover:linear-gradient(105deg,#e6e2ef,#f4e7cd);
+ --sidebar-active:linear-gradient(105deg,#dde6f5,#e9deed);
+ --sidebar-link-hover:#242b3d;--sidebar-badge:#59657f;--sidebar-badge-ink:#fff;
+}

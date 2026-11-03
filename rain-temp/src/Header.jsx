@@ -1,8 +1,10 @@
+import {getSiteModule} from './siteContent';
+import {applyNavigation,cmsText} from './siteContent';
 import StudioImage from './StudioImage';
 import AccountDropdown from './AccountDropdown';
 import SiteIcon from './SiteIcon';
 import React, { useEffect, useRef, useState } from 'react';
-import { navigation } from './navigation';
+import { navigation as defaultNavigation } from './navigation';
 import { pageHref } from './pageInfo';
 import './header.css';
 import {useMember} from './MemberSession';
@@ -23,17 +25,19 @@ export default function Header({ page = 'home' } = {}) {
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY >= 48);
   useEffect(()=>{
     let previous=Math.max(0,window.scrollY),travel=0,direction=0,frame;
+    let settleUntil=performance.now()+500;
     const update=()=>{
       frame=null;
       const current=Math.max(0,window.scrollY);
       const delta=current-previous;
       previous=current;
-      if(current<100){setHidden(false);travel=0;return;}
+      if(current<48)settleUntil=performance.now()+500;
+      if(current<240||performance.now()<settleUntil){setHidden(false);travel=0;direction=0;return;}
       if(Math.abs(delta)<1)return;
       const nextDirection=Math.sign(delta);
       travel=nextDirection===direction?travel+Math.abs(delta):Math.abs(delta);
       direction=nextDirection;
-      if(travel>12){
+      if(travel>(direction>0?48:24)){
         if(!headerRef.current?.contains(document.activeElement))setHidden(direction>0);
         else if(direction<0)setHidden(false);
       }
@@ -90,7 +94,7 @@ export default function Header({ page = 'home' } = {}) {
   if (page === 'services' && currentHash === '#india-production-services') currentItem = 'india';
   if (page === 'services' && currentHash === '#production-process') currentItem = 'studio';
   if (page === 'contact' && ['#filmmakers', '#studios', '#co-producers', '#international-productions'].includes(currentHash)) currentItem = 'partners';
-  const currentSubLink = navigation.flatMap(item => item.groups?.flatMap(group => group.links) || []).find(link => link.href === `${pageHref(page)}${currentHash}`)?.label;
+  const currentSubLink = applyNavigation(defaultNavigation).flatMap(item => item.groups?.flatMap(group => group.links) || []).find(link => link.href === `${pageHref(page)}${currentHash}`)?.label;
 
   const clearHoverTimer = () => {
     clearTimeout(hoverTimer.current);
@@ -215,7 +219,7 @@ export default function Header({ page = 'home' } = {}) {
   }, [drawerOpen]);
 
   const focusDropdown = (event, item) => {
-    if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+    if (![cmsText("Header","f20d65bf9fabc1ae","ArrowDown"), cmsText("Header","45aa8a6a6432554d","ArrowUp")].includes(event.key)) return;
     event.preventDefault();
     clearHoverTimer();
     setActivePanel(item.id);
@@ -229,12 +233,12 @@ export default function Header({ page = 'home' } = {}) {
     <header ref={headerRef} className="creative-header" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel && !accountOpen} onFocusCapture={() => setHidden(false)}>
       <div className="creative-header-inner">
         <a className="creative-header-brand" href="/" onClick={event => followLink('/', event)} aria-label="Kemsor Studios home">
-          <picture><source srcSet="/assets/kemsor-logo.webp" type="image/webp" /><StudioImage mediaSlot="Header-1" src="/assets/kemsor-logo.svg" alt="" width="3650" height="3300" decoding="async" /></picture>
+          <picture>{!getSiteModule('branding',{}).logo&&<source srcSet="/assets/kemsor-logo.webp" type="image/webp" />}<StudioImage mediaSlot="Header-1" src={getSiteModule('branding',{}).logo||'/assets/kemsor-logo.svg'} alt={getSiteModule('branding',{}).alt||'Kemsor Studios'} width="3650" height="3300" decoding="async" /></picture>
         </a>
         <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerOpen} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
-          <div className="creative-nav-drawer-head"><span>THE STUDIO INDEX</span><button ref={closeRef} type="button" onClick={() => closeDrawer()} aria-label="Close navigation">Close <span aria-hidden="true"><SiteIcon name="close" size={16} /></span></button></div>
+          <div className="creative-nav-drawer-head"><span>{cmsText("Header","bb1ee5567870d5af","THE STUDIO INDEX")}</span><button ref={closeRef} type="button" onClick={() => closeDrawer()} aria-label="Close navigation">{cmsText("Header","6b80cfee72cc8502","Close ")}<span aria-hidden="true"><SiteIcon name="close" size={16} /></span></button></div>
           <div className="creative-nav-list">
-            {navigation.map(item => <div className={`creative-nav-item creative-nav-item-${item.id}`} data-current={currentItem === item.id} key={item.id} onPointerEnter={event => enterItem(event, item)} onPointerLeave={leaveItem}>
+            {applyNavigation(defaultNavigation).map(item => <div className={`creative-nav-item creative-nav-item-${item.id}`} data-current={currentItem === item.id} key={item.id} onPointerEnter={event => enterItem(event, item)} onPointerLeave={leaveItem}>
               {item.href ? <a className={item.cta ? 'creative-nav-cta' : 'creative-nav-direct'} href={item.href} aria-current={currentItem === item.id ? currentHash && item.href.endsWith(currentHash) ? 'location' : 'page' : undefined} onClick={event => followLink(item.href, event)}><RollingLabel>{item.label}</RollingLabel>{item.cta && <span className="creative-nav-cta-mark" aria-hidden="true"><SiteIcon name="plus" size={16} /></span>}</a> : <>
                 <button ref={element => { triggerRefs.current[item.id] = element; }} type="button" className="creative-nav-trigger" aria-current={currentItem === item.id ? 'page' : undefined} aria-expanded={activePanel === item.id} aria-controls={`creative-menu-${item.id}`} onClick={event => { clearHoverTimer(); setActivePanel(drawerMode || event.detail === 0 ? activePanel === item.id ? null : item.id : item.id); }} onKeyDown={event => focusDropdown(event, item)}><RollingLabel>{item.label}</RollingLabel><span className="creative-nav-chevron" aria-hidden="true"><SiteIcon name="chevron" size={12} /></span></button>
                 <div id={`creative-menu-${item.id}`} className={`creative-dropdown${item.id === 'capabilities' ? ' creative-dropdown-mega' : ''}`} hidden={activePanel !== item.id}>
@@ -246,10 +250,10 @@ export default function Header({ page = 'home' } = {}) {
           <div className="creative-nav-mobile-account" aria-label="Account">
             <AccountDropdown mobile/>
           </div>
-          <p className="creative-nav-drawer-foot">Film. Series. Documentaries.<br />Good stories start with a conversation.</p>
+          <p className="creative-nav-drawer-foot">{cmsText("Header","9503bc8f674cd51d","Film. Series. Documentaries.")}<br />{cmsText("Header","3c8d270e69ad31f5","Good stories start with a conversation.")}</p>
         </nav>
         <div className="creative-header-controls">
-          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">Script to Production</b> <span aria-hidden="true"><SiteIcon name="script" size={16} /></span></a>}
+          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">{cmsText("Header","69ea66274b2abbc9","Script to Production")}</b> <span aria-hidden="true"><SiteIcon name="script" size={16} /></span></a>}
           <div className="header-account-links" aria-label="Account links"><AccountDropdown onOpenChange={setAccountOpen}/></div>
           <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { clearHoverTimer(); setDrawerOpen(!drawerOpen); setActivePanel(null); }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true"><SiteIcon name={drawerOpen?'close':'menu'} size={23} /></span>

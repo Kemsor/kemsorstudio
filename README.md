@@ -135,3 +135,50 @@ The six Services page cards keep their copy steady while the image panel rotates
 Production files uploaded to `/home/u310490635/domains/espertotech.in/public_html/kemsor` on the supplied SSH server. Build command: `npm run build -- --base=/kemsor/ --outDir=output/deploy/kemsor`. Runtime media URLs and navigation use Vite's base URL. The upload archive excludes unused source JPG/PNG/SVG and original large hero files; optimized runtime media is included. Scoped Apache/LiteSpeed configuration enables compression and cache policies.
 
 Direct-origin checks returned HTTP 200 for all seven pages and tested media. The public `www.espertotech.in/kemsor` URL currently serves an older site through Vercel, so uploading to Hostinger alone does not update that public route. The Hostinger origin certificate also needs correction for verified HTTPS use. No domain/DNS/Vercel configuration was changed. No credentials are stored in project files.
+
+## Frontend SEO
+
+The `rain-temp` build emits page-specific titles/descriptions, canonical links,
+Open Graph and Twitter cards directly into every page's HTML. Public pages also
+include Organization, WebSite, WebPage and breadcrumb JSON-LD. Sharing uses the
+existing Kemsor cinematic visual; no production credits, reviews or ratings are
+invented. Login, registration and private profile pages carry `noindex, follow`.
+Legacy `/projects/` and `/news/` documents redirect to their canonical destinations
+and are excluded from the sitemap.
+
+The page metadata in `rain-temp/src/pageInfo.js` supplies the SEO tags and shared
+sitemap directory. CMS page title/description overrides synchronise browser and
+sharing tags after the CMS feed loads; initial HTML metadata comes from the build.
+Changing the initial HTML metadata requires a rebuild.
+
+The default canonical origin is `https://app.kemsorstudio.com`. Set `SITE_URL`
+(or `VITE_SITE_URL`) in the frontend build environment to change the origin;
+canonicals, structured data, social-image URLs, sitemap and robots references use
+the same value. Vite's `--base` supplies a hosting subdirectory when needed.
+The sitemap lists public canonical URLs and excludes account pages and redirects.
+
+Run `npm run check:seo --prefix rain-temp` to build and validate all page entries,
+metadata uniqueness, structured data, sitemap membership and legacy redirects.
+Analytics, Search Console verification and production publishing are separate
+configuration steps; this change does not activate tracking.
+
+## Cookie and external-media preferences
+
+The public website offers equal accept/reject choices and a preferences dialog,
+reopened through **Cookie preferences** in the footer. Necessary sign-in and form
+sessions remain available. Google Maps on Contact is mounted only after external
+media consent; rejection or withdrawal removes the iframe. No analytics or
+advertising provider is activated by these controls.
+
+Preferences use the browser's `kemsor.cookie-preferences` localStorage record,
+versioned and valid for 180 days. Invalid, expired or absent records default to
+blocking optional media. Choices sync across tabs; blocked storage retains the
+choice for the current page visit and announces that persistence was unavailable.
+Withdrawal stops further map loading but cannot erase third-party-domain cookies
+or retract information already sent. Policy changes affecting consent categories
+should increment `preferenceVersion` to request a fresh choice.
+
+Run `npm run check:cookies --prefix rain-temp` to verify consent parsing, expiry,
+storage failures and iframe loading before and after permission. Future optional
+providers must be integrated with consent before loading; adding a provider script
+outside this gate bypasses preferences.

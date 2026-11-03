@@ -1,0 +1,150 @@
+[
+  {
+    "key": "press-media",
+    "label": "Newsroom"
+  },
+  {
+    "key": "leadership",
+    "label": "Leadership"
+  },
+  {
+    "key": "partner-with-us",
+    "label": "Partner with us"
+  },
+  {
+    "key": "documentaries",
+    "label": "Documentaries"
+  },
+  {
+    "key": "series-ott",
+    "label": "Series & OTT"
+  },
+  {
+    "key": "short-films",
+    "label": "Short Films"
+  },
+  {
+    "key": "feature-films",
+    "label": "Feature Films"
+  },
+  {
+    "key": "india-production-services",
+    "label": "India Production Services"
+  },
+  {
+    "key": "how-we-work",
+    "label": "How We Work"
+  },
+  {
+    "key": "post",
+    "label": "Post"
+  },
+  {
+    "key": "post-production",
+    "label": "Post-Production Supervision"
+  },
+  {
+    "key": "release",
+    "label": "Release"
+  },
+  {
+    "key": "distribution-release",
+    "label": "Distribution & Release Support"
+  },
+  {
+    "key": "festival-awards",
+    "label": "Festival & Awards Strategy"
+  },
+  {
+    "key": "home",
+    "label": "Home"
+  },
+  {
+    "key": "about",
+    "label": "Studio"
+  },
+  {
+    "key": "shooting-on-location",
+    "label": "Shooting & On-Location Production"
+  },
+  {
+    "key": "set-production-design",
+    "label": "Set & Production Design"
+  },
+  {
+    "key": "locations-logistics",
+    "label": "Locations & Logistics"
+  },
+  {
+    "key": "crew-equipment",
+    "label": "Crew & Equipment"
+  },
+  {
+    "key": "international-co-productions",
+    "label": "International Co-Productions"
+  },
+  {
+    "key": "finance-structuring",
+    "label": "Finance Structuring"
+  },
+  {
+    "key": "co-production",
+    "label": "Co-Production"
+  },
+  {
+    "key": "story-script",
+    "label": "Story & Script Development"
+  },
+  {
+    "key": "packaging-talent",
+    "label": "Packaging & Talent Attachment"
+  },
+  {
+    "key": "budgeting-scheduling",
+    "label": "Budgeting & Scheduling"
+  },
+  {
+    "key": "develop",
+    "label": "Develop"
+  },
+  {
+    "key": "finance",
+    "label": "Finance"
+  },
+  {
+    "key": "what-we-make",
+    "label": "What We Make"
+  },
+  {
+    "key": "casting",
+    "label": "Casting & Talent"
+  },
+  {
+    "key": "line-production",
+    "label": "Line Production"
+  },
+  {
+    "key": "produce",
+    "label": "Produce"
+  },
+  {
+    "key": "services",
+    "label": "Services"
+  },
+  {
+    "key": "productions",
+    "label": "Productions"
+  },
+  {
+    "key": "blog",
+    "label": "Blog"
+  },
+  {
+    "key": "careers",
+    "label": "Careers"
+  },
+  {
+    "key": "contact",
+    "label": "Contact"
+  }
+]

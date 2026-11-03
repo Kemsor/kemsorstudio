@@ -234,3 +234,18 @@ html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.foot
 html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-journey-links a:nth-child(4){
  --route-start:#a15d36;--route-end:#704024;--route-accent:#ffe8cc;
 }
+
+/* Highlight directory and contact section titles throughout the shared footer. */
+html body #top.creative-site .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact :is(.footer-info-block,.footer-link-group) h3{
+ color:#f5d890;
+ -webkit-text-fill-color:#f5d890;
+ font-size:12px;
+ font-weight:700;
+ line-height:1.5;
+ letter-spacing:.06em;
+ border-left:2px solid #d9a441;
+ padding-left:10px;
+ margin-bottom:12px;
+}
+
+@media(prefers-reduced-motion:reduce){html body #top.creative-site .creative-footer.footer-compact .footer-conversation .cta-label{width:auto!important;flex:0 1 auto!important;overflow:visible!important}html body #top.creative-site .creative-footer.footer-compact .footer-conversation .rolling-label{overflow:visible;max-width:none}html body #top.creative-site .creative-footer.footer-compact .footer-conversation .rolling-label-copy{white-space:normal}}

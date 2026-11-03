@@ -1,0 +1,72 @@
+[
+  {
+    "label": "Studio film 1",
+    "src": "/assets/hero-films/studio-8089223.mp4",
+    "poster": "/assets/hero-films/studio-8089223-960.webp",
+    "posterSrcSet": "/assets/hero-films/studio-8089223-640.webp 640w, /assets/hero-films/studio-8089223-960.webp 960w, /assets/hero-films/studio-8089223-1600.webp 1600w",
+    "duration": 5,
+    "position": 1,
+    "title": "",
+    "description": "",
+    "eyebrow": "",
+    "buttonLabel": "",
+    "buttonHref": "",
+    "startAt": 0
+  },
+  {
+    "label": "Studio film 2",
+    "src": "/assets/hero-films/studio-8103041.mp4",
+    "poster": "/assets/hero-films/studio-8103041-960.webp",
+    "posterSrcSet": "/assets/hero-films/studio-8103041-640.webp 640w, /assets/hero-films/studio-8103041-960.webp 960w, /assets/hero-films/studio-8103041-1600.webp 1600w",
+    "duration": 5,
+    "position": 2,
+    "title": "",
+    "description": "",
+    "eyebrow": "",
+    "buttonLabel": "",
+    "buttonHref": "",
+    "startAt": 0
+  },
+  {
+    "label": "Studio film 3",
+    "src": "/assets/hero-films/studio-16082141.mp4",
+    "poster": "/assets/hero-films/studio-16082141-960.webp",
+    "posterSrcSet": "/assets/hero-films/studio-16082141-640.webp 640w, /assets/hero-films/studio-16082141-960.webp 960w, /assets/hero-films/studio-16082141-1600.webp 1600w",
+    "duration": 5,
+    "position": 3,
+    "title": "",
+    "description": "",
+    "eyebrow": "",
+    "buttonLabel": "",
+    "buttonHref": "",
+    "startAt": 0
+  },
+  {
+    "label": "Story in motion",
+    "src": "/assets/hero-films/studio-8089122.mp4",
+    "poster": "/assets/hero-films/studio-8089122-960.webp",
+    "posterSrcSet": "/assets/hero-films/studio-8089122-640.webp 640w, /assets/hero-films/studio-8089122-960.webp 960w, /assets/hero-films/studio-8089122-1600.webp 1600w",
+    "duration": 5,
+    "position": 4,
+    "title": "",
+    "description": "",
+    "eyebrow": "",
+    "buttonLabel": "",
+    "buttonHref": "",
+    "startAt": 0
+  },
+  {
+    "label": "Behind the frame",
+    "src": "/assets/hero-films/studio-9810700.mp4",
+    "poster": "/assets/hero-films/studio-9810700-960.webp",
+    "posterSrcSet": "/assets/hero-films/studio-9810700-640.webp 640w, /assets/hero-films/studio-9810700-960.webp 960w, /assets/hero-films/studio-9810700-1600.webp 1600w",
+    "duration": 5,
+    "position": 5,
+    "title": "",
+    "description": "",
+    "eyebrow": "",
+    "buttonLabel": "",
+    "buttonHref": "",
+    "startAt": 0
+  }
+]

@@ -1,0 +1,35 @@
+<%- include('head') %>
+<% const data=record.draft,legal=record.kind==='legal'; %>
+<p><a href="/admin/manage/<%= record.kind %>">Back to <%= legal?'legal documents':'hero slides' %></a></p>
+<h1><%= record.id?'Edit':'Add' %> <%= legal?'legal document':'hero slide' %></h1>
+<p>Save draft keeps the published version unchanged. Publish applies the saved form. Unpublish hides the item; its history remains available.</p>
+<% if(record.id){ %><p><a class="button quiet" href="/admin/manage/<%= record.kind %>/<%= record.id %>/preview">Preview saved draft</a></p><% } %>
+<form action="/admin/manage/<%= record.kind %>/save" method="post" class="panel editor">
+<input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="id" value="<%= record.id||'' %>"><input type="hidden" name="revision" value="<%= record.revision %>">
+<div class="field-grid">
+<label>URL key<input name="slug" value="<%= record.slug||'' %>" required maxlength="190" pattern="[a-z0-9]+(-[a-z0-9]+)*" <%= record.id?'readonly':'' %>><small>Use lowercase words with hyphens. This stays fixed after creation.</small></label>
+<label>Display order<input type="number" name="position" value="<%= data.position||1 %>" min="1" max="1000" required><small>Lower numbers appear first after publishing.</small></label>
+<% if(legal){ %>
+<label class="wide">Document title<input name="title" maxlength="200" value="<%= data.title||'' %>" required></label>
+<label class="wide">Short description<textarea name="description" rows="2" maxlength="2000"><%= data.description||'' %></textarea></label>
+<label>Document version<input name="version" maxlength="100" value="<%= data.version||'' %>" required></label>
+<label>Effective date<input type="date" name="effectiveDate" value="<%= data.effectiveDate||'' %>"></label>
+<label>Last revised<input type="date" name="revisedDate" value="<%= data.revisedDate||'' %>"></label>
+<label class="wide">Document content<textarea data-rich-editor data-editor-label="Legal document content" data-rich-document="<%= data.richText?JSON.stringify(data.richText):'' %>" name="content" rows="24" maxlength="60000" required><%= data.content||'' %></textarea><small>Use numbered section headings such as “1. Scope”, separated from paragraphs by a blank line. Paragraph numbering such as 1.1 is preserved. Use the toolbar for additional formatting.</small></label>
+<label class="wide">Closing / company details<textarea name="closing" rows="5" maxlength="8000"><%= (data.closing||[]).join('\n\n') %></textarea></label>
+<label>Official website<input name="website" maxlength="1500" value="<%= data.website||'' %>"></label><label>Privacy / legal contact email<input type="email" name="email" maxlength="254" value="<%= data.email||'' %>"></label>
+<label class="check"><input type="checkbox" name="footer" <%= data.footer?'checked':'' %>>Show in website footer</label><label>Footer link label<input name="footerLabel" maxlength="60" value="<%= data.footerLabel||'' %>"></label>
+<% }else{ %>
+<label class="wide">Slide name<input name="label" maxlength="100" value="<%= data.label||'' %>" required></label>
+<label class="wide">Direct MP4 video URL<input name="src" maxlength="1500" value="<%= data.src||'' %>" required><small>Use an existing /assets/ path or a direct HTTPS MP4 URL. YouTube page links cannot play here.</small></label>
+<label class="wide">Poster image<input name="poster" list="hero-poster-images" maxlength="1500" value="<%= data.poster||'' %>" required><small>Choose an image-library URL below, paste an existing /assets/ path, or use an approved HTTPS image URL.</small></label>
+<datalist id="hero-poster-images"><% media.forEach(image=>{ %><option value="/media/<%= image.id %>"><%= image.alt %></option><% }) %></datalist>
+<label>Slide duration (seconds)<input type="number" name="duration" min="3" max="30" step="0.5" value="<%= data.duration||5 %>" required></label><label>Video start time (seconds)<input type="number" name="startAt" min="0" max="3600" step="0.1" value="<%= data.startAt||0 %>"></label>
+<label class="wide">Heading override<input name="title" maxlength="200" value="<%= data.title||'' %>"><small>Leave blank to keep the current shared heading.</small></label>
+<label class="wide">Description override<textarea name="description" rows="3" maxlength="2000"><%= data.description||'' %></textarea></label>
+<label>Eyebrow override<input name="eyebrow" maxlength="100" value="<%= data.eyebrow||'' %>"></label><label>Primary button text<input name="buttonLabel" maxlength="80" value="<%= data.buttonLabel||'' %>"></label><label class="wide">Primary button destination<input name="buttonHref" maxlength="1500" value="<%= data.buttonHref||'' %>"><small>Leave both button fields blank to keep the current Partner with us action.</small></label>
+<% } %>
+</div><div class="button-row"><button name="action" value="draft">Save draft</button><button name="action" value="publish">Publish</button><% if(record.id && record.published){ %><button class="quiet" name="action" value="unpublish">Unpublish</button><% } %></div>
+</form>
+<% if(record.id){ %><section class="panel"><h2>Version history</h2><p>Restoring an earlier version changes the draft only. Review and publish it separately.</p><% revisions.forEach(revision=>{ %><form action="/admin/manage/<%= record.kind %>/<%= record.id %>/restore" method="post"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="revision" value="<%= record.revision %>"><input type="hidden" name="snapshot_id" value="<%= revision.id %>"><p>Revision <%= revision.revision %> · <%= revision.action %> · <%= revision.created_at %> UTC</p><button class="quiet">Restore as draft</button></form><% }) %></section><% } %>
+<%- include('foot') %>

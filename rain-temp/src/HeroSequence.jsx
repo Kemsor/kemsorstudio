@@ -1,3 +1,5 @@
+import originalSlides from '../../shared/hero-slides.json';
+import {useCookieConsent} from './CookieConsent';
 import StudioImage from './StudioImage';
 import RollingLabel from './RollingLabel';
 import SiteIcon from './SiteIcon';
@@ -6,15 +8,22 @@ import { useCms } from './CmsContent';
 import { CTA } from './PageUI';
 import StudioClipViewer from './StudioClipViewer';
 
-const films = [
-  ...['8089223', '8103041', '16082141'].map((id, index) => ({ label: `Studio film ${index + 1}`, src: `/assets/hero-films/studio-${id}.mp4`, poster: `/assets/hero-films/studio-${id}.jpg` })),
-  { label: 'Story in motion', src: '/assets/hero-films/studio-8089122.mp4', poster: '/assets/hero-films/studio-8089122.jpg' },
-  { label: 'Behind the frame', src: '/assets/hero-films/studio-9810700.mp4', poster: '/assets/hero-films/studio-9810700.jpg' },
-];
-
-export default function HeroSequence({ motionPaused = false, reduced = false }) {
+const localAsset=value=>value?.startsWith('/')&&!value.startsWith('//')&&!(import.meta.env.BASE_URL!=='/'&&value.startsWith(import.meta.env.BASE_URL))?`${import.meta.env.BASE_URL}${value.slice(1)}`:value;
+export default function HeroSequence(props) {
+ const {heroSlides}=useCms();
+ const {preferences,openPreferences}=useCookieConsent();
+ const slides=Array.isArray(heroSlides)?heroSlides:originalSlides;
+ const external=value=>value&&new URL(value,location.origin).origin!==location.origin;
+ const films=(slides.length?slides:[{...originalSlides[0],src:''}]).map(slide=>{
+  const requiresConsent=Boolean((external(slide.src)||external(slide.poster))&&!preferences?.externalMedia);
+  const poster=requiresConsent&&external(slide.poster)?originalSlides[0].poster:slide.poster;
+  return {...slide,requiresConsent,src:requiresConsent?'':localAsset(slide.src),poster:localAsset(poster),posterSrcSet:requiresConsent?'':(slide.posterSrcSet||'').split(', ').filter(Boolean).map(source=>{const [url,width]=source.split(' ');return `${localAsset(url)} ${width}`;}).join(', ')};
+ });
+ return <HeroPlayback key={JSON.stringify(films)} {...props} films={films} openPreferences={openPreferences}/>;
+}
+function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferences }) {
   const { entries } = useCms();
-  const hero = entries.find(entry => entry.type === 'home' && entry.slug === 'home-hero');
+  const hero = entries.find(entry => entry.type === 'home' && (entry.metadata?.home_slot==='hero'||entry.slug === 'home-hero'));
   const customTitle = hero?.title && hero.title.toLowerCase() !== 'cinematic production.';
   const customSummary = hero?.summary && hero.summary !== 'Creative vision. From idea to screen.';
   const section = useRef(null);
@@ -26,7 +35,7 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
   const advance = useCallback(() => {
     setOutgoing(active);
     setActive((active + 1) % films.length);
-  }, [active]);
+  }, [active,films.length]);
   useEffect(() => {
     if (outgoing === null) return;
     const timer = setTimeout(() => setOutgoing(null), 1100);
@@ -35,7 +44,7 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
   const [requestedPosters, setRequestedPosters] = useState(() => films.map((_, index) => index === 0));
   useEffect(() => {
     setRequestedPosters(previous => previous.map((value, index) => value || index === active || index === (active + 1) % films.length));
-  }, [active]);
+  }, [active,films.length]);
   const [enabled, setEnabled] = useState(false);
   const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -78,15 +87,15 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
   }, [active, outgoing, playing, failed]);
   useEffect(() => {
     if (!playing || failed[active]) return;
-    const timer = setTimeout(advance, 5000);
+    const timer = setTimeout(advance, (films[active].duration||5)*1000);
     return () => clearTimeout(timer);
   }, [advance, active, playing, failed]);
 
   return <><section id="home" ref={section} className="cinema-opening immersive-opening" data-in-view={visible} aria-labelledby="opening-title">
     <div className="opening-screen">
-    <div className="opening-films" aria-hidden="true">{films.map((film, index) => <div className="opening-film" key={film.src} data-active={active === index} data-outgoing={outgoing === index} data-entering={active === index && outgoing !== null} data-ready={!blocked && ready[index] && !failed[index]}>
-      <StudioImage mediaSlot="HeroSequence-1" src={(requestedPosters[index] || index===active) ? film.poster.replace('.jpg','-960.webp') : undefined} srcSet={(requestedPosters[index] || index===active) ? `${film.poster.replace('.jpg','-640.webp')} 640w, ${film.poster.replace('.jpg','-960.webp')} 960w, ${film.poster.replace('.jpg','-1600.webp')} 1600w` : undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} decoding="async" />
-      <video ref={element => { videos.current[index] = element; }} src={enabled && !blocked && (index === 0 || active === index || outgoing === index || index === (active + 1) % films.length) ? film.src : undefined} autoPlay muted loop playsInline preload="none"
+    <div className="opening-films" aria-hidden="true">{films.map((film, index) => <div className="opening-film" key={film.id||film.slug||index} data-active={active === index} data-outgoing={outgoing === index} data-entering={active === index && outgoing !== null} data-ready={!blocked && ready[index] && !failed[index]}>
+      <StudioImage mediaSlot="HeroSequence-1" src={(requestedPosters[index] || index===active) ? film.poster : undefined} srcSet={(requestedPosters[index] || index===active) ? `${film.poster.replace('.jpg','-640.webp')} 640w, ${film.poster} 960w, ${film.poster.replace('.jpg','-1600.webp')} 1600w` : undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} decoding="async" />
+      <video ref={element => { videos.current[index] = element; }} src={film.src && enabled && !blocked && (index === 0 || active === index || outgoing === index || index === (active + 1) % films.length) ? film.src : undefined} autoPlay muted loop playsInline preload="none"
         onLoadedMetadata={event => { if (film.startAt && event.currentTarget.currentTime < film.startAt) event.currentTarget.currentTime = film.startAt; }}
         onTimeUpdate={event => {
           if (film.startAt && event.currentTarget.currentTime < film.startAt) event.currentTarget.currentTime = film.startAt;
@@ -96,14 +105,15 @@ export default function HeroSequence({ motionPaused = false, reduced = false }) 
     </div>)}</div>
     <div className="opening-shade" aria-hidden="true" />
     <div className="opening-copy">
-      <p className="opening-eyebrow">FILM &amp; PRODUCTION PARTNER</p>
-      <h1 id="opening-title">{customTitle ? hero.title : <><span>From your first page.</span><span className="heading-accent">To the <em>big screen.</em></span></>}</h1>
-      <p className="opening-description">{customSummary ? hero.summary : 'Creative ambition. Practical production. Kemsor is the studio for the journey in between, from development and financing to the shoot, post and release.'}</p>
-      <div className="opening-actions"><CTA href="#work-with-kemsor">Partner with us</CTA><a className="opening-watch" href="#showreel"><RollingLabel>Watch the showreel</RollingLabel></a></div>
+      <p className="opening-eyebrow">{films[active].eyebrow||'FILM & PRODUCTION PARTNER'}</p>
+      <h1 id="opening-title">{films[active].title || (customTitle ? hero.title : <><span>From your first page.</span><span className="heading-accent">To the <em>big screen.</em></span></>)}</h1>
+      <p className="opening-description">{films[active].description || (customSummary ? hero.summary : 'Creative ambition. Practical production. Kemsor is the studio for the journey in between, from development and financing to the shoot, post and release.')}</p>
+      <div className="opening-actions"><CTA href={localAsset(films[active].buttonHref)||"#work-with-kemsor"}>{films[active].buttonLabel||'Partner with us'}</CTA><a className="opening-watch" href="#showreel"><RollingLabel>Watch the showreel</RollingLabel></a></div>
     </div>
       <div className="opening-playback-tools" role="group" aria-label="Hero video controls">
-        <button type="button" className="opening-next" onClick={() => { advance(); setPaused(false); }} aria-label={`Play next hero film: ${films[(active + 1) % films.length].label}`}><span>Next</span><SiteIcon name="arrow" size={17} /></button>
-        <button type="button" className="opening-fullscreen" onClick={() => viewer.current.open(films[active], videos.current[active]?.currentTime || 0)} aria-label={`View ${films[active].label} fullscreen`} title="Fullscreen video"><SiteIcon name="expand" size={16} /></button>
+        <button type="button" className="opening-next" disabled={films.length<2} onClick={() => { advance(); setPaused(false); }} aria-label={`Play next hero film: ${films[(active + 1) % films.length].label}`}><span>Next</span><SiteIcon name="arrow" size={17} /></button>
+        {films[active].src&&<button type="button" className="opening-fullscreen" onClick={() => viewer.current.open(films[active], videos.current[active]?.currentTime || 0)} aria-label={`View ${films[active].label} fullscreen`} title="Fullscreen video"><SiteIcon name="expand" size={16} /></button>}
+        {films[active].requiresConsent&&<button type="button" onClick={openPreferences}>Video preferences</button>}
       </div>
     </div>
   </section><StudioClipViewer ref={viewer} onOpenChange={setExpanded}/></>;

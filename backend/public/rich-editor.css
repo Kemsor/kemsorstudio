@@ -1,0 +1,19 @@
+html[data-admin-theme] body.cms-authenticated #main .rich-editor{border:1px solid var(--studio-line);border-radius:10px;background:var(--studio-panel);overflow:hidden;margin-top:8px}
+html[data-admin-theme] body.cms-authenticated #main .rich-editor:focus-within{border-color:var(--studio-accent);box-shadow:0 0 0 2px var(--studio-accent-soft)}
+html[data-admin-theme] body.cms-authenticated #main .rich-editor-toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:10px;border-bottom:1px solid var(--studio-line);background:var(--studio-raised)}
+html[data-admin-theme] body.cms-authenticated #main .rich-editor-toolbar :is(button,select){width:auto;min-height:34px;margin:0;padding:5px 9px;border:1px solid var(--studio-line);border-radius:6px;background:var(--studio-panel);color:var(--studio-ink);font:500 12px/1.4 Inter,Arial,sans-serif;box-shadow:none}
+html[data-admin-theme] body.cms-authenticated #main .rich-editor-toolbar button:hover{border-color:var(--studio-accent);color:var(--studio-accent);background:var(--studio-accent-soft)}
+html[data-admin-theme] body.cms-authenticated #main .rich-editor-toolbar :is(button,select):focus-visible{outline:2px solid var(--studio-accent);outline-offset:2px}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview){min-height:280px;max-height:650px;overflow:auto;padding:20px;outline:0;color:var(--studio-ink);font:400 14px/1.8 Inter,Arial,sans-serif;overflow-wrap:anywhere;white-space:pre-wrap}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) :is(h2,h3){font-size:22px;line-height:1.4;margin:22px 0 12px;letter-spacing:-.02em}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) h3{font-size:18px}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) p{margin:0 0 14px}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) :is(ul,ol){padding-left:24px;margin:12px 0 18px;list-style-position:outside}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) ul{list-style-type:disc}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) ol{list-style-type:decimal}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) blockquote{margin:18px 0;padding:8px 18px;border-left:3px solid var(--studio-accent);background:var(--studio-accent-soft)}
+html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview,.preview-body) a{color:var(--studio-accent);text-decoration:underline;text-underline-offset:3px}
+html[data-admin-theme] body.cms-authenticated #main .rich-editor-feedback{margin:0;padding:0 16px;color:var(--studio-rose);font-size:12px}
+html[data-admin-theme] body.cms-authenticated #main .rich-editor-feedback:not(:empty){padding-block:10px}
+.rich-editor [hidden]{display:none!important}
+@media(max-width:600px){html[data-admin-theme] body.cms-authenticated #main .rich-editor-toolbar :is(button,select){min-height:40px}html[data-admin-theme] body.cms-authenticated #main :is(.rich-editor-surface,.rich-editor-preview){padding:15px;min-height:240px}}

@@ -1,6 +1,8 @@
 export const pageInfo = {
+ leadership:{label:'Leadership',title:'Leadership | Kemsor Studios',description:'Meet Dev Raturi, Founder of KEMSOR Studios. Actor and storyteller from the hills of Uttarakhand.'},
+ 'sitemap':{label:'Sitemap',title:'Sitemap | Kemsor Studios',description:'Browse all Kemsor Studios pages, including productions, capabilities, talent, studio information and policies.'},
  'privacy-policy':{label:'Privacy Policy',title:'Privacy Policy | Kemsor Studios',description:'Privacy Policy of KEMSOR Studios Private Limited. Effective 1 November 2026. Information collection, processing, individual rights and privacy contacts.'},
- 'press-media':{label:'News, Press & Media',title:'News, Press & Media | Kemsor Studios',description:'Approved company profiles, studio resources and press enquiries.'},
+ 'press-media':{label:'Newsroom',title:'Newsroom | Kemsor Studios',description:'Straight from the studio floor. KEMSOR announcements, production updates, slate tracker, press resources and news alerts.'},
  'partner-with-us':{label:'Partner with us',title:'Partner With Us | Kemsor Studios',description:'Four ways in. One team behind every one. Work with Kemsor as a filmmaker, studio, co-producer, financier or international production.'},
  'documentaries':{label:'Documentaries',title:'Documentaries | Kemsor Studios',description:'The story is out there. We help you earn it. Kemsor produces authored documentaries for cinema, platforms and festivals with care for the story and its subjects.'},
  'series-ott':{label:'Series & OTT',title:'Series & OTT | Kemsor Studios',description:'Eight episodes. One promise. Kemsor plans series as seasons, keeping the story, cast, look and delivery consistent from the first episode to the last.'},
@@ -39,9 +41,9 @@ export const pageInfo = {
   produce: { label: 'Produce', title: 'Produce | Production Services | Kemsor Studios', description: 'From casting and locations to crew, design and the shoot itself, Kemsor runs the practical side of production so the creative work has room to happen.' },
   services: { label: 'Services', title: 'Production services | Kemsor Studios', description: 'Production support from development and financing to locations, casting, crew, post-production and release.' },
   productions: { label: 'Productions', title: 'Productions | Film Production Company in India | Kemsor Studios', description: 'Feature films, series, documentaries and short films. Developed, financed, produced and released by Kemsor Studios, an independent film studio in India.' },
-  news: { label: 'News, Press & Media', title: 'News, Press & Media | Kemsor Studios', description: 'Kemsor press and media updates, studio announcements and media partners.' },
+  news: { label: 'Newsroom', title: 'Newsroom | Kemsor Studios', description: 'KEMSOR announcements, production updates, slate tracker, press resources and news alerts.' },
   blog: { label: 'Blog', title: 'Blog | Kemsor Studios', description: 'Explore Kemsor production notes on development, planning, post-production and bringing stories to screen.' },
-  careers: { label: 'Careers', title: 'Careers | Kemsor Studios', description: 'The creative, production and post-production disciplines behind the frame. Find the current opportunities at Kemsor.' },
+  careers: { label: 'Careers', title: 'Careers | Make Stories With Us | Kemsor Studios', description: 'Explore careers, internships and freelance crew opportunities at Kemsor Studios. Join our teams from development and writing to production, post and release.' },
   contact: { label: 'Contact', title: 'Start a project | Kemsor Studios', description: 'Contact Kemsor Studios with a general enquiry and find studio contact details and location.' },
   legal: { label: 'Legal', title: 'Legal centre | Kemsor Studios', description: 'Official studio notices, privacy information and website terms published by Kemsor Studios.' },
 };

@@ -102,13 +102,6 @@ const blogBanner=document.querySelector('[data-blog-banner]');
 const bannerAlt=document.querySelector('[data-banner-alt]');
 if(blogBanner&&bannerAlt)blogBanner.addEventListener('change',()=>{bannerAlt.required=Boolean(blogBanner.files.length);});
 
-const adminNav=document.querySelector('.cms-nav');
-if(adminNav){
- const key='kemsor-admin-nav-scroll';
- try{const saved=JSON.parse(sessionStorage.getItem(key)||'{}');adminNav.scrollTop=saved.top||0;adminNav.scrollLeft=saved.left||0;}catch{}
- const remember=()=>{try{sessionStorage.setItem(key,JSON.stringify({top:adminNav.scrollTop,left:adminNav.scrollLeft}));}catch{}};
- adminNav.addEventListener('scroll',remember,{passive:true});adminNav.addEventListener('click',remember);window.addEventListener('pagehide',remember);
-}
 document.querySelectorAll('input[type="password"]').forEach(input=>{
  const wrapper=document.createElement('span');wrapper.className='password-control';input.replaceWith(wrapper);wrapper.append(input);
  const button=document.createElement('button');button.type='button';button.className='password-eye';button.setAttribute('aria-label','Show password');button.setAttribute('aria-pressed','false');
@@ -141,7 +134,7 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
   const errors={};
   for(const field of form.elements){if(field.willValidate && !field.checkValidity())errors[field.name]=field.validationMessage;if(field.type==='file'&&field.name!=='image'&&field.files?.[0]?.size>5*1024*1024)errors[field.name]='Choose a file of up to 5 MB.';}
   if(Object.keys(errors).length){event.preventDefault();feedback('Correct the highlighted fields and try again.',errors);return;}
-  if(new URL(form.action,location.href).pathname==='/admin/login'){adminProgress.navigation();return;}
+  if(new URL(form.getAttribute('action')||location.href,location.href).pathname==='/admin/login'){adminProgress.navigation();return;}
   event.preventDefault();clear();
   const data=new FormData(form);if(event.submitter?.name)data.append(event.submitter.name,event.submitter.value);
   const buttons=[...form.querySelectorAll('button')].map(button=>({button,disabled:button.disabled}));
@@ -155,7 +148,7 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
    if(session.ok){const fresh=await session.json();data.set('_csrf',fresh.token);const input=form.querySelector('input[name="_csrf"]');if(input)input.value=fresh.token;}
    const hasFiles=[...data.values()].some(value=>value instanceof File&&value.size);
    adminProgress.show(hasFiles?'Uploading…':'Saving…',hasFiles?0:undefined);
-   const response=await adminUpload(form.action,data,controller.signal,percent=>adminProgress.show(percent>=100?'Upload received. Processing…':`Uploading ${Math.round(percent)}%`,percent<100?percent:undefined));
+   const response=await adminUpload(form.getAttribute('action')||location.href,data,controller.signal,percent=>adminProgress.show(percent>=100?'Upload received. Processing…':`Uploading ${Math.round(percent)}%`,percent<100?percent:undefined));
    if(response.headers.get('content-type')?.includes('application/json')){const result=await response.json();if(!response.ok){feedback(result.error||'Unable to save these details.',result.fields||{});return;}if(result.redirect){requestSucceeded=true;window.adminSaveCompleted=true;location.assign(result.redirect);return;}feedback('The request completed. Refresh the page to see the latest changes.');return;}
    if(response.redirected&&response.ok){if(new URL(response.url).pathname==='/admin/login'){feedback('Your session has expired. Open the admin login in another tab, sign in, then retry. Your entries are still here.');return;}requestSucceeded=true;window.adminSaveCompleted=true;location.assign(response.url);return;}
    feedback('Unable to save right now. Your entries are still here; please try again.');
@@ -169,10 +162,11 @@ for(const editor of document.querySelectorAll('form.editor')){
  const status=editor.querySelector('select[name="status"]'),state=editor.querySelector('[data-change-state]');
  const snapshot=()=>JSON.stringify([...editor.elements].filter(field=>field.name&&!['hidden','submit','button'].includes(field.type)).map(field=>[field.name,field.type==='file'?[...field.files].map(file=>[file.name,file.size,file.lastModified]):field.type==='checkbox'?field.checked:field.value]));
  const initial=snapshot();let dirty=false;
- const update=()=>{dirty=snapshot()!==initial;state.textContent=dirty?'Unsaved changes':'No unsaved changes';state.classList.toggle('is-dirty',dirty);if(status){const badge=editor.querySelector('[data-publishing-status]');badge.textContent=status.value;badge.className=`badge badge-${status.value}`;editor.querySelector('[data-publishing-help]').textContent=dirty?'Selected status takes effect when saved':status.value==='published'?'Published on the website':status.value==='archived'?'Archived — hidden from the website':'Draft — visible only to publishing staff';}};
+ const update=()=>{dirty=snapshot()!==initial;if(state){state.textContent=dirty?'Unsaved changes':'No unsaved changes';state.classList.toggle('is-dirty',dirty);}if(status){const badge=editor.querySelector('[data-publishing-status]');badge.textContent=status.value;badge.className=`badge badge-${status.value}`;editor.querySelector('[data-publishing-help]').textContent=dirty?'Selected status takes effect when saved':status.value==='published'?'Published on the website':status.value==='archived'?'Archived — hidden from the website':'Draft — visible only to publishing staff';}};
  editor.addEventListener('input',update);editor.addEventListener('change',update);
  window.addEventListener('beforeunload',event=>{if(dirty&&!window.adminSaveCompleted){event.preventDefault();event.returnValue='';}});
- editor.querySelector('[data-preview-content]').addEventListener('click',()=>{
+ const previewButton=editor.querySelector('[data-preview-content]');if(!previewButton)continue;
+ previewButton.addEventListener('click',()=>{
   const dialog=document.createElement('dialog');dialog.className='publishing-preview-dialog';dialog.setAttribute('aria-label','Preview unsaved content');
   const heading=document.createElement('div');heading.className='publishing-preview-heading';const title=document.createElement('strong');title.textContent='Preview changes';const close=document.createElement('button');close.type='button';close.className='quiet';close.textContent='Close preview';heading.append(title,close);
   const note=document.createElement('p');note.className='preview-notice';note.textContent='Preview only. Your changes have not been saved or published.';

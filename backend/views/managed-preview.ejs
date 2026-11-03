@@ -1,0 +1,6 @@
+<%- include('head') %>
+<p class="eyebrow">SAVED DRAFT PREVIEW · NOT PUBLISHED</p><p><a href="/admin/manage/<%= record.kind %>/<%= record.id %>">Back to editor</a></p>
+<section class="panel"><% const data=record.draft; %><h1><%= data.title||data.label %></h1><p><%= data.description %></p>
+<% if(record.kind==='legal'){ %><p>Version: <%= data.version %> · Effective: <%= data.effectiveDate||'Not set' %> · Revised: <%= data.revisedDate||'Not set' %></p><% if(data.richText){ %><div class="preview-body"><%- richTextHtml(data.richText) %></div><% }else{ %><% data.sections.forEach(section=>{ %><h2><%= section.number?section.number+'. ':'' %><%= section.title %></h2><% section.paragraphs.forEach(paragraph=>{ %><p class="pre-line"><%= paragraph %></p><% }) %><% }) %><% } %><% data.closing.forEach(paragraph=>{ %><p class="pre-line"><%= paragraph %></p><% }) %>
+<% }else{ %><video src="<%= data.src %>" poster="<%= data.poster %>" controls muted playsinline preload="none" width="640"></video><p><%= data.eyebrow %></p><p>Duration: <%= data.duration %> seconds · Order: <%= data.position %></p><p>Primary action: <%= data.buttonLabel||'Partner with us' %> → <%= data.buttonHref||'#work-with-kemsor' %></p><% } %></section>
+<%- include('foot') %>
