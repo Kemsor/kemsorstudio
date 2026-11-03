@@ -1,4 +1,6 @@
+import contactDefaults from '../../shared/studio-contact.json' with {type:'json'};
 import {seedManagedContent} from './managed-content.js';
+import {executeMigration} from './run-migration.js';
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import { createPool, rows } from './db.js';
@@ -13,7 +15,7 @@ try{
   for(const name of (await readdir(new URL('../migrations/',import.meta.url))).filter(n=>/^\d.*\.sql$/.test(n)).sort()){
     if((await rows(db,'SELECT name FROM cms_migrations WHERE name=?',[name])).length)continue;
     const sql=await readFile(new URL(`../migrations/${name}`,import.meta.url),'utf8');
-    for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
+    await executeMigration(db,sql);
     await rows(db,'INSERT INTO cms_migrations(name) VALUES(?)',[name]);console.log(`Applied ${name}`);
   }
   await seedManagedContent(db);
@@ -36,7 +38,7 @@ try{
     if(process.env.NODE_ENV==='production'&&/^(sample-|test-)/.test(e.slug))continue;
     await rows(db,'INSERT IGNORE INTO cms_entries(type,title,slug,summary,body,metadata,status,published_at,created_by,updated_by) VALUES(?,?,?,?,?,?,"published",UTC_TIMESTAMP(),?,?)',[e.type,e.title,e.slug,e.summary,e.body,JSON.stringify(e.metadata),admin.id,admin.id]);
   }
-  const config={contact_email:'info@kemsorstudio.com',contact_phone:'+91 8679997761',contact_address:'Sample studio address\nMumbai, Maharashtra, India',contact_note:'Sample details. To be updated',map_location:'Mumbai, Maharashtra, India',map_caption:'Sample map: Mumbai city centre',footer_kicker:'THE NEXT GREAT STORY',footer_title:'Let’s make',footer_accent:'a scene.',footer_description:'For production enquiries and collaborations,\nget in touch with the studio.',footer_cta_label:'Talk to the studio',footer_copyright:'Kemsor Studios',footer_social_label:'Follow the frame',facebook:'https://www.facebook.com/kemsorstudio',instagram:'https://www.instagram.com/kemsorstudio/',youtube:'',linkedin:'',enquiries_enabled:false,attachments_enabled:false,privacy_notice:'',consent_version:''};
+  const config={contact_email:contactDefaults.email,contact_phone:contactDefaults.mobile,contact_landline:contactDefaults.landline,contact_whatsapp:contactDefaults.whatsapp,contact_website:contactDefaults.website,contact_address:contactDefaults.address,contact_note:'',map_location:contactDefaults.address,map_caption:'Nathanpur, Dehradun 248001',footer_kicker:'THE NEXT GREAT STORY',footer_title:'Let’s make',footer_accent:'a scene.',footer_description:'For production enquiries and collaborations,\nget in touch with the studio.',footer_cta_label:'Talk to the studio',footer_copyright:'Kemsor Studios',footer_social_label:'Follow the frame',facebook:'https://www.facebook.com/kemsorstudio',instagram:'https://www.instagram.com/kemsorstudio/',youtube:'',linkedin:'',enquiries_enabled:false,attachments_enabled:false,privacy_notice:'',consent_version:''};
   for(const [name,value]of Object.entries(config))await rows(db,'INSERT IGNORE INTO cms_settings(name,value) VALUES(?,?)',[name,JSON.stringify(value)]);
   await rows(db,'DELETE FROM cms_sessions WHERE expires_at<UTC_TIMESTAMP()');await rows(db,'DELETE FROM cms_rate_limits WHERE expires_at<UTC_TIMESTAMP()');
   console.log('Phase 1 database and seed content are ready. Existing content was preserved.');

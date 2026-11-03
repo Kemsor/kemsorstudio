@@ -81,7 +81,7 @@ export default function ShortFilmsPage() {
   return <PageVisuals page="short-films"><div className="short-films-page" ref={page}>
     <section className="inner-hero short-hero short-width" aria-labelledby="short-title">
       <div className="short-hero-meta"><a href="/what-we-make/">{cmsText("ShortFilmsPage","4e1bd5615cb64412","WHAT WE MAKE")}</a><span>{cmsText("ShortFilmsPage","e40c4899ed06f4fe","RUNNING TIME · 03:00")}</span></div>
-      <div className="short-intro-grid"><div><MotionHeading as="h1" id="short-title">{cmsText("ShortFilmsPage","bc332278feb1b185","SHORT FILMS.")}</MotionHeading><MotionHeading as="h2" className="short-hero-accent">{cmsText("ShortFilmsPage","81174a01005948e3","SMALL FILM. ")}<em>{cmsText("ShortFilmsPage","70238ac2ce10e67b","BIG STEP.")}</em></MotionHeading></div><div><MotionCopy>{cmsText("ShortFilmsPage","17bcfd5a72d31ca8","Most short films aren’t the destination. They’re the calling card, the proof of concept, the first festival selection. Kemsor helps you make a short that does the job you need it to and looks like it cost more than it did.")}</MotionCopy><div className="short-actions"><CTA href={enquiry}>{cmsText("ShortFilmsPage","b3955b2fa8847650","Talk to us about your short")}</CTA><TextLink href="#short-purpose">{cmsText("ShortFilmsPage","d09e96a24f878ad9","What’s your short for?")}</TextLink></div></div></div>
+      <div className="short-intro-grid"><div><MotionHeading as="h1" id="short-title">{cmsText("ShortFilmsPage","bc332278feb1b185","SHORT FILMS.")}</MotionHeading><MotionHeading as="h2" className="short-hero-accent">{cmsText("ShortFilmsPage","81174a01005948e3","SMALL FILM. ")}<em>{cmsText("ShortFilmsPage","70238ac2ce10e67b","BIG STEP.")}</em></MotionHeading></div><div><MotionCopy>{cmsText("ShortFilmsPage","17bcfd5a72d31ca8","A short film may be a complete story, a proof of concept or an introduction to a filmmaker’s work. Kemsor helps plan and produce it around its intended audience, budget and release.")}</MotionCopy><div className="short-actions"><CTA href={enquiry}>{cmsText("ShortFilmsPage","b3955b2fa8847650","Talk to us about your short")}</CTA><TextLink href="#short-purpose">{cmsText("ShortFilmsPage","d09e96a24f878ad9","What’s your short for?")}</TextLink></div></div></div>
     </section>
     <RunningTime pageRef={page}/>
     <SectionSubmenu section="what-we-make" page="short-films"/>
@@ -100,7 +100,7 @@ export default function ShortFilmsPage() {
 
     <section className="short-section short-width" aria-labelledby="short-honest-title">
       <Label time="01:30">{cmsText("ShortFilmsPage","f9693ad57e53c104","THE HONEST PART")}</Label>
-      <div className="short-intro-grid"><MotionHeading as="h2" id="short-honest-title">{cmsText("ShortFilmsPage","8bf2d55daa19e0de","The honest part.")}</MotionHeading><MotionCopy>{cmsText("ShortFilmsPage","050f2199e2ddbaab","Short films rarely earn their money back directly. Their value is in what they open: festivals, platforms, a feature, a series, a career. We plan every short around the door you want it to open.")}</MotionCopy></div>
+      <div className="short-intro-grid"><MotionHeading as="h2" id="short-honest-title">{cmsText("ShortFilmsPage","8bf2d55daa19e0de","The honest part.")}</MotionHeading><MotionCopy>{cmsText("ShortFilmsPage","050f2199e2ddbaab","We discuss what you want the short to achieve, such as festival screenings, a digital release or development into a feature or series. That goal informs the production and release plan.")}</MotionCopy></div>
     </section>
 
     <section className="short-section short-width" aria-labelledby="short-kit-title">
@@ -121,7 +121,7 @@ export default function ShortFilmsPage() {
 
     <section className="short-section short-width short-closing" aria-labelledby="short-closing-title">
       <Label time="03:00">{cmsText("ShortFilmsPage","9bda077d7baeb361","03:00 · THE END")}</Label>
-      <div className="short-intro-grid"><MotionHeading as="h2" id="short-closing-title">{cmsText("ShortFilmsPage","b234b31bcb5ab786","MAKE IT COUNT.")}</MotionHeading><div><MotionCopy>{cmsText("ShortFilmsPage","25e776f316fed548","Tell us about your short and what you need it to open. We’ll help you plan it around that.")}</MotionCopy><div className="short-actions"><CTA href={enquiry}>{cmsText("ShortFilmsPage","a86523a5e1c1ac82","Talk to us about your short")}</CTA><TextLink href="/join/">{cmsText("ShortFilmsPage","735c6f4983fa3733","Join the Talent Network")}</TextLink></div></div></div>
+      <div className="short-intro-grid"><MotionHeading as="h2" id="short-closing-title">{cmsText("ShortFilmsPage","b234b31bcb5ab786","MAKE IT COUNT.")}</MotionHeading><div><MotionCopy>{cmsText("ShortFilmsPage","25e776f316fed548","Tell us about your short film, its intended audience and your plans for it. We’ll help you work out the production requirements.")}</MotionCopy><div className="short-actions"><CTA href={enquiry}>{cmsText("ShortFilmsPage","a86523a5e1c1ac82","Talk to us about your short")}</CTA><TextLink href="/join/">{cmsText("ShortFilmsPage","735c6f4983fa3733","Join the Talent Network")}</TextLink></div></div></div>
     </section>
   </div></PageVisuals>;
 }

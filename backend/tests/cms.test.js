@@ -989,7 +989,7 @@ test('CMS page controls cover the shared frontend page registry and preserve hom
 
 test('Public contact settings resolve to consistent links and fall back to approved defaults',async()=>{
  const {getStudioContacts,studioEmail,studioPhone}=await import('../../rain-temp/src/studioContact.js');
- assert.deepEqual(getStudioContacts({contact_email:'studio@example.test',contact_phone:'+91 (123) 456-7890'}),{email:'studio@example.test',phone:'+91 (123) 456-7890',phoneHref:'tel:+911234567890'});
+ const custom=getStudioContacts({contact_email:'studio@example.test',contact_phone:'+91 (123) 456-7890'});assert.equal(custom.email,'studio@example.test');assert.equal(custom.phone,'+91 (123) 456-7890');assert.equal(custom.phoneHref,'tel:+911234567890');
  assert.equal(getStudioContacts({contact_email:'bad',contact_phone:'sample'}).email,studioEmail);
  assert.equal(getStudioContacts().phone,studioPhone);
  await rows(db,'DELETE FROM cms_rate_limits');const [freshAdmin]=await login('upload-admin');
@@ -1158,4 +1158,43 @@ test('Scheduled KPI drafts are opt-in, deduplicated and never auto-approved',asy
  for(const report of reports){assert.equal(report.approved_at,null);const snapshot=typeof report.snapshot==='string'?JSON.parse(report.snapshot):report.snapshot;assert.equal(snapshot.origin,'scheduled');assert.equal(snapshot.period.inProgress,false);}
  await rows(db,'UPDATE cms_kpi_settings SET configuration=? WHERE id=1',[JSON.stringify({...config,automaticDrafts:false})]);
  assert.deepEqual(await generateDueReports(db,'2025-04-01'),[]);
+});
+
+test('Editorial copy migration preserves legal wording, custom copy, CMS keys and revision history',async()=>{
+ const {executeMigration}=await import('../src/run-migration.js');
+ const updates=JSON.parse(await readFile(new URL('../../shared/editorial-copy-updates.json',import.meta.url),'utf8'));
+ const before='Bring us your story — at any stage.',after=updates[before];
+ const original={headline:before,custom:'Studio-approved custom copy',url:'/productions/'};
+ await rows(db,'INSERT INTO cms_site_modules(module_key,draft,published,revision) VALUES(?,?,?,1)',['copy-review-fixture',JSON.stringify(original),JSON.stringify(original)]);
+ const hero=(await rows(db,"INSERT INTO cms_managed_content(kind,slug,draft,published) VALUES('hero','copy-review-hero',?,?)",[JSON.stringify({title:before}),JSON.stringify({title:before})])).insertId;
+ const legal=(await rows(db,"INSERT INTO cms_managed_content(kind,slug,draft,published) VALUES('legal','copy-review-legal',?,?)",[JSON.stringify({title:'Terms',content:before}),JSON.stringify({title:'Terms',content:before})])).insertId;
+ const article=(await rows(db,"INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status) VALUES('blog',?,'copy-review-story',?,?,?,'published')",[before,before,`First paragraph.\n\n${before}`,JSON.stringify({rich_text:{type:'doc',content:[{type:'paragraph',content:[{type:'text',text:before}]}]}})])).insertId;
+ await rows(db,'INSERT INTO cms_settings(name,value) VALUES(?,?) ON DUPLICATE KEY UPDATE value=VALUES(value)',['footer_description',JSON.stringify('From the first idea to the finished frame.\r\nBring us your story — we’ll find the next step.')]);
+ await executeMigration(db,await readFile(new URL('../migrations/025_editorial_copy_review.sql',import.meta.url),'utf8'));
+ const decode=v=>typeof v==='string'?JSON.parse(v):v;
+ const module=(await rows(db,"SELECT * FROM cms_site_modules WHERE module_key='copy-review-fixture'"))[0];assert.equal(module.revision,2);assert.deepEqual(decode(module.published),{...original,headline:after});
+ const history=await rows(db,"SELECT * FROM cms_site_module_revisions WHERE module_key='copy-review-fixture' ORDER BY revision");assert.equal(history.length,2);assert.equal(decode(history[0].snapshot).published.headline,before);assert.equal(decode(history[1].snapshot).published.headline,after);
+ const h=(await rows(db,'SELECT * FROM cms_managed_content WHERE id=?',[hero]))[0];assert.equal(h.revision,2);assert.equal(decode(h.published).title,after);
+ assert.equal(decode((await rows(db,'SELECT published FROM cms_managed_content WHERE id=?',[legal]))[0].published).content,before);
+ const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[article]))[0];assert.equal(entry.title,after);assert.match(entry.body,/Bring us your story at any stage\./);assert.equal(decode(entry.metadata).rich_text.content[0].content[0].text,after);
+ assert.equal((await settings(db)).footer_description,'For production enquiries and collaborations,\nget in touch with the studio.');
+ // A deployment retry does not rewrite matching custom values or add duplicate revisions.
+ await executeMigration(db,await readFile(new URL('../migrations/025_editorial_copy_review.sql',import.meta.url),'utf8'));
+ assert.equal((await rows(db,"SELECT revision FROM cms_site_modules WHERE module_key='copy-review-fixture'"))[0].revision,2);
+});
+
+test('Client contact correction separates landline, calls and WhatsApp, and remains CMS editable',async()=>{
+ const {executeMigration}=await import('../src/run-migration.js');
+ await executeMigration(db,await readFile(new URL('../migrations/026_client_contact_details.sql',import.meta.url),'utf8'));
+ const values=(await request(app).get('/api/site').expect(200)).body.settings;
+ assert.equal(values.contact_phone,'8679997765');assert.equal(values.contact_landline,'0135-4097742');assert.equal(values.contact_whatsapp,'8679997761');assert.equal(values.contact_website,'https://www.kemsorstudios.com');assert.match(values.contact_address,/Indraprasth Colony/);assert.match(values.contact_address,/248001/);assert.equal(values.map_location,values.contact_address);
+ const [account,csrf]=await login('kpi-admin');
+ const form=await account.get('/admin/settings').expect(200);assert.match(form.text,/Mobile \(calls only\)/);assert.match(form.text,/WhatsApp only/);
+ for(const update of [{contact_landline:'javascript:alert(1)'},{contact_whatsapp:'https://example.test'},{contact_website:'javascript:alert(1)'},{contact_website:'https://user:secret@example.test/'}])await account.post('/admin/settings').type('form').send({_csrf:csrf,...update}).expect(422);
+ const response=await account.post('/admin/settings').field('_csrf',csrf).field('contact_phone','8679997765').field('contact_landline','0135-4097742').field('contact_whatsapp','8679997761').field('contact_website','https://www.kemsorstudios.com').field('contact_address',values.contact_address).field('contact_note','').field('map_location',values.contact_address).field('map_caption','Nathanpur, Dehradun').field('footer_kicker','Studio').field('footer_title','Talk to').field('footer_accent','KEMSOR').field('footer_description','Contact our team.').field('footer_cta_label','Contact').field('footer_copyright','KEMSOR').field('footer_social_label','Follow us').field('facebook','').field('instagram','').field('youtube','').field('linkedin','').field('script_terms','').field('script_terms_version','').field('privacy_notice','').field('consent_version','').field('contact_email','info@kemsorstudio.com').field('extra1','').field('extra2','').field('extra3','').expect(302);
+ assert.equal(response.headers.location,'/admin/settings?saved=1');
+ const saved=(await request(app).get('/api/site')).body.settings;assert.equal(saved.contact_landline,'0135-4097742');assert.equal(saved.contact_whatsapp,'8679997761');
+ const {getStudioContacts,internationalPhone}=await import('../../rain-temp/src/studioContact.js');
+ const contacts=getStudioContacts(saved);assert.equal(contacts.phoneHref,'tel:+918679997765');assert.equal(contacts.landlineHref,'tel:+911354097742');assert.equal(contacts.whatsappHref,'https://wa.me/918679997761');assert.equal(contacts.websiteLabel,'www.kemsorstudios.com');assert.equal(internationalPhone('+44 20 7946 0018'),'+442079460018');
+ assert.equal(getStudioContacts({contact_whatsapp:'',contact_landline:'',contact_website:''}).whatsappHref,'');
 });

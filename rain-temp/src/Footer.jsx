@@ -59,7 +59,7 @@ export default function Footer({ reduced, page = 'home' }) {
   const {openPreferences}=useCookieConsent();
   const {settings,legalDocuments}=useCms();
   const groups=applyNavigation(footerNavigation,'footer').map(group=>({...group,links:group.links.map(link=>[link.label,link.page,link.href])})).map(group=>({...group,links:group.links.flatMap(link=>link[1]==='privacy-policy'&&Array.isArray(legalDocuments)?legalDocuments.filter(document=>document.footer).map(document=>[document.footerLabel||document.title,document.slug,legalHref(document.slug)]):[link])}));
-  const {email,phone,phoneHref}=getStudioContacts(settings);
+  const {email,phone,phoneHref,landline,landlineHref,whatsapp,whatsappHref,website,websiteLabel}=getStudioContacts(settings);
   const address = settings.contact_address && !/sample|example/i.test(settings.contact_address) ? settings.contact_address : studioAddress;
   return <footer className="creative-footer footer-jumbo footer-editorial footer-reference footer-compact">
     <div className="footer-invitation">
@@ -71,7 +71,7 @@ export default function Footer({ reduced, page = 'home' }) {
       </form>
       <div className="footer-invitation-main">
         <p className="footer-kicker">{settings.footer_kicker ?? 'THE NEXT GREAT STORY'}</p>
-        <h2>{settings.footer_title ?? 'Let’s make'} <span>{settings.footer_accent ?? 'a scene.'}</span></h2><p className="footer-intro-copy" style={{whiteSpace:'pre-line'}}>{settings.footer_description ?? "From the first idea to the finished frame.\nBring us your story. We’ll find the next step."}</p>
+        <h2>{settings.footer_title ?? 'Let’s make'} <span>{settings.footer_accent ?? 'a scene.'}</span></h2><p className="footer-intro-copy" style={{whiteSpace:'pre-line'}}>{settings.footer_description ?? "For production enquiries and collaborations,\nget in touch with the studio."}</p>
         <a href={pageHref('contact')} className="footer-conversation"><b className="cta-label"><RollingLabel>{settings.footer_cta_label || 'Talk to the studio'}</RollingLabel></b><span aria-hidden="true"><SiteIcon name="contact" size={17}/></span></a>
       </div>
       <div className="footer-invitation-copy footer-studio-column">
@@ -81,7 +81,9 @@ export default function Footer({ reduced, page = 'home' }) {
         <div className="footer-info-block"><h3>{address ? 'Our location' : 'The studio'}</h3>
           <p>{address || (settings.footer_description ?? 'For production enquiries and collaborations,\nget in touch with the studio.')}</p>
         </div>
-        {phone && <div className="footer-info-block"><h3>{cmsText("Footer","a684c056996ee3b3","Call the studio")}</h3><a href={phoneHref}>{phone}</a></div>}
+        <div className="footer-info-block"><h3>{cmsText("Footer","a684c056996ee3b3","Call the studio")}</h3>{landline&&<p><span>{cmsText("Footer","contact-landline-label","Landline")}: </span><a href={landlineHref}>{landline}</a></p>}{phone&&<p><span>{cmsText("Footer","contact-mobile-label","Mobile (calls only)")}: </span><a href={phoneHref}>{phone}</a></p>}</div>
+        {whatsapp&&<div className="footer-info-block"><h3>{cmsText("Footer","contact-whatsapp-label","WhatsApp only")}</h3><a href={whatsappHref} target="_blank" rel="noopener noreferrer">{whatsapp}</a></div>}
+        {website&&<div className="footer-info-block"><h3>{cmsText("Footer","contact-website-label","Website")}</h3><a href={website} target="_blank" rel="noopener noreferrer">{websiteLabel}</a></div>}
         <div className="footer-info-block"><h3>{cmsText("Footer","b52df320b6a7bcf7","Email us")}</h3><a href={`mailto:${email}`}>{email}</a></div>
       </div>
       <div className="footer-directory">

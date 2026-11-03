@@ -673,3 +673,15 @@ This provides the reporting workspace and calculation/evidence workflow. Account
 connections, approved KPI targets, source data, weekly analyst commentary, actual
 client review and the selected commercial KPI service remain distinct operational
 requirements. No paid provider or outbound report delivery is activated.
+
+## Client contact correction — 3 November 2026
+
+Migration `026_client_contact_details.sql` applies the supplied studio address,
+landline, calls-only mobile, WhatsApp-only mobile and official website link.
+The source defaults are shared in `shared/studio-contact.json`. Edit these later
+through **Contact & site settings**: `contact_phone` remains the calls-only mobile;
+`contact_landline`, `contact_whatsapp` and `contact_website` have separate fields.
+The footer, Contact page and newsroom consume the shared settings. Indian local
+numbers are normalized to +91 in call/WhatsApp links; WhatsApp uses `wa.me`, never
+`tel:`. The map uses the corrected address and remains gated by media consent.
+The supplied website is a contact link, not a DNS or deployment-domain change.

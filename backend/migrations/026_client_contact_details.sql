@@ -1,0 +1,11 @@
+START TRANSACTION;
+INSERT INTO cms_settings(name,value) VALUES('contact_address','"Kemsor Studio, Indraprasth Colony, Lane No. 6, Ring Road, Nathanpur, Dehradun 248001"') ON DUPLICATE KEY UPDATE value=VALUES(value);
+INSERT INTO cms_settings(name,value) VALUES('contact_phone','"8679997765"') ON DUPLICATE KEY UPDATE value=VALUES(value);
+INSERT INTO cms_settings(name,value) VALUES('contact_landline','"0135-4097742"') ON DUPLICATE KEY UPDATE value=VALUES(value);
+INSERT INTO cms_settings(name,value) VALUES('contact_whatsapp','"8679997761"') ON DUPLICATE KEY UPDATE value=VALUES(value);
+INSERT INTO cms_settings(name,value) VALUES('contact_website','"https://www.kemsorstudios.com"') ON DUPLICATE KEY UPDATE value=VALUES(value);
+INSERT INTO cms_settings(name,value) VALUES('map_location','"Kemsor Studio, Indraprasth Colony, Lane No. 6, Ring Road, Nathanpur, Dehradun 248001"') ON DUPLICATE KEY UPDATE value=VALUES(value);
+INSERT INTO cms_settings(name,value) VALUES('map_caption','"Nathanpur, Dehradun 248001"') ON DUPLICATE KEY UPDATE value=VALUES(value);
+UPDATE cms_settings SET value='""' WHERE name='contact_note' AND (value LIKE '%Sample details%' OR value LIKE '%sample details%');
+INSERT INTO cms_audit(action,target_type,target_id) VALUES('client_contact_correction','settings','026_client_contact_details');
+COMMIT;
