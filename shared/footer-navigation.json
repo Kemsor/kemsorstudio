@@ -1,1 +1,85 @@
-[{"id":"connected","title":"Updates & information","links":[{"label":"Blog","page":"blog","href":"/blog/"},{"label":"Newsroom","page":"press-media","href":"/press-media/"},{"label":"Legal","page":"legal","href":"/legal/"},{"label":"Privacy Policy","page":"privacy-policy","href":"/privacy-policy/"},{"label":"Sitemap","page":"sitemap","href":"/sitemap/"}]}]
+[
+  {
+    "id": "connected",
+    "title": "Updates & information",
+    "links": [
+      {
+        "label": "Blog",
+        "page": "blog",
+        "href": "/blog/"
+      },
+      {
+        "label": "Newsroom",
+        "page": "press-media",
+        "href": "/press-media/"
+      },
+      {
+        "label": "Legal",
+        "page": "legal",
+        "href": "/legal/"
+      },
+      {
+        "label": "Privacy Policy",
+        "page": "privacy-policy",
+        "href": "/privacy-policy/"
+      },
+      {
+        "label": "Sitemap",
+        "page": "sitemap",
+        "href": "/sitemap/"
+      }
+    ]
+  },
+  {
+    "id": "studio",
+    "title": "Studio",
+    "links": [
+      {
+        "label": "Home",
+        "page": "home",
+        "href": "/"
+      },
+      {
+        "label": "About Kemsor",
+        "page": "about",
+        "href": "/about/"
+      },
+      {
+        "label": "Capabilities",
+        "page": "services",
+        "href": "/services/"
+      },
+      {
+        "label": "Productions",
+        "page": "productions",
+        "href": "/productions/"
+      },
+      {
+        "label": "Contact",
+        "page": "contact",
+        "href": "/contact/"
+      }
+    ]
+  },
+  {
+    "id": "explore",
+    "title": "Get involved",
+    "links": [
+      {
+        "label": "Find talent",
+        "page": "find-talent",
+        "href": "/find-talent/"
+      },
+      {
+        "label": "Careers",
+        "page": "careers",
+        "href": "/careers/"
+      },
+      {
+        "label": "Submit your story",
+        "page": "script-to-production",
+        "href": "/script-to-production/"
+      }
+    ]
+  }
+]

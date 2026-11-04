@@ -665,9 +665,9 @@
     "slot": "DesignerProductions-1",
     "original": "/assets/designer-productions/location",
     "value": {
-      "src": "/assets/designer-productions/location.webp",
-      "srcSet": "",
-      "alt": ""
+      "src": "/assets/supplied/collection/cinema-camera-960.webp",
+      "srcSet": "/assets/supplied/collection/cinema-camera-640.webp 640w, /assets/supplied/collection/cinema-camera-960.webp 960w, /assets/supplied/collection/cinema-camera-1600.webp 1600w",
+      "alt": "Cinema camera and crew on an outdoor location"
     }
   },
   "/|DesignerProductions-1|/assets/designer-productions/finance": {
@@ -676,9 +676,9 @@
     "slot": "DesignerProductions-1",
     "original": "/assets/designer-productions/finance",
     "value": {
-      "src": "/assets/supplied/collection/crew-at-work-1600.webp",
+      "src": "/assets/supplied/collection/crew-at-work-960.webp",
       "srcSet": "/assets/supplied/collection/crew-at-work-640.webp 640w, /assets/supplied/collection/crew-at-work-960.webp 960w, /assets/supplied/collection/crew-at-work-1600.webp 1600w",
-      "alt": "Production crew working together beside a camera and lighting equipment"
+      "alt": "Production crew collaborating around a camera monitor"
     }
   },
   "/|DesignerProductions-1|/assets/designer-productions/dance": {
@@ -687,9 +687,9 @@
     "slot": "DesignerProductions-1",
     "original": "/assets/designer-productions/dance",
     "value": {
-      "src": "/assets/designer-productions/dance.webp",
-      "srcSet": "",
-      "alt": ""
+      "src": "/assets/home-gallery/photo-1555489401-79c274997434-960.webp",
+      "srcSet": "/assets/home-gallery/photo-1555489401-79c274997434-640.webp 640w, /assets/home-gallery/photo-1555489401-79c274997434-960.webp 960w, /assets/home-gallery/photo-1555489401-79c274997434-987.webp 987w",
+      "alt": "Dance partners performing against a bright purple backdrop"
     }
   },
   "/|DesignerProductions-1|/assets/designer-productions/post": {
@@ -698,9 +698,9 @@
     "slot": "DesignerProductions-1",
     "original": "/assets/designer-productions/post",
     "value": {
-      "src": "/assets/supplied/collection/reel-machine-1600.webp",
-      "srcSet": "/assets/supplied/collection/reel-machine-640.webp 640w, /assets/supplied/collection/reel-machine-960.webp 960w, /assets/supplied/collection/reel-machine-1600.webp 1600w",
-      "alt": "Black and white close-up of a film reel machine"
+      "src": "/assets/supplied/collection/digital-projection-960.webp",
+      "srcSet": "/assets/supplied/collection/digital-projection-640.webp 640w, /assets/supplied/collection/digital-projection-960.webp 960w, /assets/supplied/collection/digital-projection-1600.webp 1600w",
+      "alt": "Digital projector casting light for a screening"
     }
   },
   "/|DesignerProductions-1|/assets/designer-productions/valley": {
@@ -709,9 +709,9 @@
     "slot": "DesignerProductions-1",
     "original": "/assets/designer-productions/valley",
     "value": {
-      "src": "/assets/supplied/collection/cinema-camera-1600.webp",
-      "srcSet": "/assets/supplied/collection/cinema-camera-640.webp 640w, /assets/supplied/collection/cinema-camera-960.webp 960w, /assets/supplied/collection/cinema-camera-1600.webp 1482w",
-      "alt": "Cinema camera and monitor on an outdoor production set"
+      "src": "/assets/supplied/collection/crew-discussion-960.webp",
+      "srcSet": "/assets/supplied/collection/crew-discussion-640.webp 640w, /assets/supplied/collection/crew-discussion-960.webp 960w, /assets/supplied/collection/crew-discussion-1600.webp 1600w",
+      "alt": "Filmmakers discussing a production beside a camera rig"
     }
   },
   "/|HomePage-3|/assets/stills/partner-studio": {
@@ -720,9 +720,9 @@
     "slot": "HomePage-3",
     "original": "/assets/stills/partner-studio",
     "value": {
-      "src": "/assets/stills/partner-studio-960.webp",
-      "srcSet": "/assets/stills/partner-studio-640.webp 640w, /assets/stills/partner-studio-960.webp 960w, /assets/stills/partner-studio-1600.webp 1600w",
-      "alt": "Studio cameras and lighting equipment beside a red backdrop"
+      "src": "/assets/home-gallery/photo-1618260970135-8afc4074aad4-960.webp",
+      "srcSet": "/assets/home-gallery/photo-1618260970135-8afc4074aad4-640.webp 640w, /assets/home-gallery/photo-1618260970135-8afc4074aad4-960.webp 960w, /assets/home-gallery/photo-1618260970135-8afc4074aad4-987.webp 987w",
+      "alt": "Dancer rehearsing in a sunlit industrial studio"
     }
   },
   "/about/|StudioPages-1|/assets/services/filming": {
@@ -1779,6 +1779,50 @@
       "src": "/assets/stills/family-drama-scene-960.webp",
       "srcSet": "",
       "alt": ""
+    }
+  },
+  "/|HomePage-4|/assets/stills/script-to-production-background": {
+    "id": "f6b07475368c229c",
+    "page": "/",
+    "slot": "HomePage-4",
+    "original": "/assets/stills/script-to-production-background",
+    "value": {
+      "src": "/assets/stills/script-to-production-background.avif",
+      "srcSet": "",
+      "alt": ""
+    }
+  },
+  "/|HomePage-6|/assets/stills/work-period-camera": {
+    "id": "88e0bd7e292959e0",
+    "page": "/",
+    "slot": "HomePage-6",
+    "original": "/assets/stills/work-period-camera",
+    "value": {
+      "src": "/assets/home-gallery/photo-1508700929628-666bc8bd84ea-960.webp",
+      "srcSet": "/assets/home-gallery/photo-1508700929628-666bc8bd84ea-640.webp 640w, /assets/home-gallery/photo-1508700929628-666bc8bd84ea-960.webp 960w, /assets/home-gallery/photo-1508700929628-666bc8bd84ea-1600.webp 1600w",
+      "alt": "Acrobatic dancer performing on a colourful red-lit stage"
+    }
+  },
+  "/|HomePage-5|/assets/stills/development-packaging": {
+    "id": "b1aaca0482f9f201",
+    "page": "/",
+    "slot": "HomePage-5",
+    "original": "/assets/stills/development-packaging",
+    "value": {
+      "src": "/assets/supplied/collection/script-reading-960.webp",
+      "srcSet": "/assets/supplied/collection/script-reading-640.webp 640w, /assets/supplied/collection/script-reading-960.webp 960w, /assets/supplied/collection/script-reading-1600.webp 1600w",
+      "alt": "A filmmaker annotating a printed script during project preparation"
+    }
+  },
+  "/|HomePage-7|/assets/stills/daylight-snow-production": {
+    "id": "45248008f04c5077",
+    "page": "/",
+    "slot": "HomePage-7",
+    "original": "/assets/stills/daylight-snow-production",
+    "value": {
+      "src": "/assets/home-gallery/photo-1621976498727-9e5d56476276-960.webp",
+      "srcSet": "/assets/home-gallery/photo-1621976498727-9e5d56476276-640.webp 640w, /assets/home-gallery/photo-1621976498727-9e5d56476276-960.webp 960w, /assets/home-gallery/photo-1621976498727-9e5d56476276-1600.webp 1600w",
+      "alt": "Dance ensemble performing under purple and red stage lights"
     }
   }
 }

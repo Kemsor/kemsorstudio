@@ -1,0 +1,59 @@
+/* A shared, dark directory footer with fine diagonal lines. */
+html body #top.creative-site .creative-footer.footer-grid{
+ --ink:#efefef;--muted:#aaa;--line:#ffffff29;--footer-accent:#f0b858;
+ position:relative;isolation:isolate;overflow:hidden;padding:56px clamp(20px,5vw,104px) 24px;
+ background-color:#000!important;
+ background-image:repeating-linear-gradient(110deg,transparent 0 13px,#ffffff1c 13px 14px)!important;
+ background-size:auto!important;color:var(--ink);border:0;border-radius:0;
+}
+html body #top.creative-site .footer-grid .footer-grid-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(36px,6vw,100px);max-width:1680px;margin-inline:auto}
+html body #top.creative-site .footer-grid .footer-grid-brand-column{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:56px;min-height:320px}
+html body #top.creative-site .footer-grid .footer-grid-brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:#fff;font:600 28px/1 Manrope,Inter,sans-serif;letter-spacing:-.045em}
+html body #top.creative-site .footer-grid .footer-grid-brand img{display:block;width:66px;height:66px;object-fit:contain}
+html body #top.creative-site .footer-grid .footer-grid-brand>span>span{font-size:23px;font-weight:400}
+html body #top.creative-site .footer-grid .footer-grid-social-group>p{margin:0 0 14px;color:#aaa;font:500 11px/1.5 Inter,sans-serif;letter-spacing:.04em}
+html body #top.creative-site .footer-grid .footer-socials{display:flex;gap:10px;flex-wrap:nowrap}
+html body #top.creative-site .footer-grid .footer-social-icon{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:12px;border:1px solid #ffffff12;border-radius:50%;background:#292929;color:#fff;box-shadow:none;transition:background-color .2s,color .2s}
+html body #top.creative-site .footer-grid .footer-social-icon svg{display:block;width:18px;height:18px}
+html body #top.creative-site .footer-grid span.footer-social-icon{opacity:.5}
+html body #top.creative-site .footer-grid a.footer-social-icon:hover{background:var(--footer-accent);color:#111}
+html body #top.creative-site .footer-grid .footer-grid-information{min-width:0}
+html body #top.creative-site .footer-grid .footer-grid-navigation{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+html body #top.creative-site .footer-grid .footer-grid-link-group{border-top:1px solid #ffffff29;padding-top:14px;min-width:0}
+html body #top.creative-site .footer-grid h3{margin:0 0 14px;padding:0;border:0;color:#b9b9b9;font:600 12px/1.5 Inter,sans-serif;letter-spacing:.035em}
+html body #top.creative-site .footer-grid .footer-grid-link-group>div{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+html body #top.creative-site .footer-grid .footer-grid-link-group a{display:inline-flex;align-items:center;min-height:32px;color:#eee;text-decoration:none;font:400 14px/1.5 Inter,sans-serif;overflow-wrap:anywhere}
+html body #top.creative-site .footer-grid :is(a:hover,a[aria-current=page]){color:var(--footer-accent)}
+html body #top.creative-site .footer-grid .footer-grid-contacts{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:32px;margin:32px 0 0;padding:24px 0 0;border-top:1px solid #ffffff29}
+html body #top.creative-site .footer-grid .footer-info-block{min-width:0;margin:0;padding:0}
+html body #top.creative-site .footer-grid .footer-info-block :is(p,a){margin:0;color:#eee;font:400 13px/1.8 Inter,sans-serif;text-decoration:none;overflow-wrap:anywhere}
+html body #top.creative-site .footer-grid .footer-info-block>p>span{display:block;color:#aaa;font-size:11px;line-height:1.5}
+html body #top.creative-site .footer-grid .footer-info-block>p+ p{margin-top:10px}
+html body #top.creative-site .footer-grid .footer-info-block:first-child>a{display:inline-block;margin-top:8px}
+html body #top.creative-site .footer-grid .footer-info-block a:hover{color:var(--footer-accent)}
+html body #top.creative-site .footer-grid .footer-grid-baseline{display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:1680px;margin:42px auto 0;padding-top:20px;border-top:1px solid #ffffff1c}
+html body #top.creative-site .footer-grid .footer-grid-baseline>p{margin:0;color:#aaa;font:400 11px/1.7 Inter,sans-serif}
+html body #top.creative-site .footer-grid .footer-grid-tools{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+html body #top.creative-site .footer-grid .footer-guide-slot .experience-guide-launch,
+html body #top.creative-site .footer-grid .cookie-footer-button{display:inline-flex!important;align-items:center;gap:8px;min-height:32px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#ccc;font:400 11px/1.5 Inter,sans-serif;cursor:pointer;text-decoration:none}
+html body #top.creative-site .footer-grid .footer-grid-tools button:hover{color:var(--footer-accent);background:none}
+html body #top.creative-site .footer-grid :is(a,button):focus-visible{outline:2px solid var(--footer-accent);outline-offset:5px}
+@media(max-width:1000px){
+ html body #top.creative-site .footer-grid .footer-grid-layout{grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);gap:32px}
+ html body #top.creative-site .footer-grid .footer-grid-navigation{gap:16px}
+ html body #top.creative-site .footer-grid .footer-socials{gap:7px}
+ html body #top.creative-site .footer-grid .footer-social-icon{flex-basis:38px;width:38px;height:38px;padding:10px}
+}
+@media(max-width:700px){
+ html body #top.creative-site .creative-footer.footer-grid{padding-top:36px}
+ html body #top.creative-site .footer-grid .footer-grid-layout{grid-template-columns:1fr;gap:32px}
+ html body #top.creative-site .footer-grid .footer-grid-brand-column{min-height:0;gap:28px}
+ html body #top.creative-site .footer-grid .footer-grid-brand{font-size:26px}
+ html body #top.creative-site .footer-grid .footer-grid-brand img{width:56px;height:56px}
+ html body #top.creative-site .footer-grid .footer-grid-navigation{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 20px}
+ html body #top.creative-site .footer-grid .footer-grid-link-group:last-child{grid-column:1/-1}
+ html body #top.creative-site .footer-grid .footer-grid-link-group:last-child>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 20px;width:100%}
+ html body #top.creative-site .footer-grid .footer-grid-contacts{grid-template-columns:1fr;gap:24px;margin-top:24px}
+ html body #top.creative-site .footer-grid .footer-grid-baseline{align-items:flex-start;flex-direction:column;gap:12px;margin-top:28px}
+}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site .footer-grid .footer-social-icon{transition:none}}

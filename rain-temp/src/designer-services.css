@@ -73,10 +73,10 @@ html body #top.creative-site #main #services.designer-services{padding:clamp(64p
 html body #top.creative-site #main #services.designer-services :is(p,li){font-size:14px!important}
 #services.designer-services .ds-cta{min-width:180px}
 
-#services.designer-services .ds-tabs-band{background:#000;padding-top:25px;margin-bottom:-56px;padding-bottom:56px}
+#services.designer-services .ds-tabs-band{background:#000;padding:0;margin:0}
 #services.designer-services .ds-tabs-band .ds-tabs{margin-top:0}
 #services.designer-services .ds-tabs button:hover{color:#fff;border-bottom-color:#d6ad67}
-@media(max-width:600px){#services.designer-services .ds-tabs-band{padding-top:18px}}
+
 
 /* One black-backed composition from the service introduction to the tabs. */
 html body #top.creative-site #main #services.designer-services{background:#000}
@@ -94,6 +94,19 @@ html body #top.creative-site #main #services.designer-services{background:#000}
 #services.designer-services .ds-tabs button:is(:hover,:focus-visible,[aria-pressed=true]){border-bottom-color:#505dc9}
 #services.designer-services .ds-tabs button:is(:hover,:focus-visible,[aria-pressed=true]) span{color:#505dc9}
 
+/* Tabs lead the service gallery; navigation follows the image column. */
+#services.designer-services .ds-inner{padding-top:clamp(40px,5vw,80px)}
+#services.designer-services .ds-controls{width:calc((100% - clamp(55px,7vw,130px)) / 2.05);margin:24px 0 0 auto;justify-content:flex-end}
+@media(max-width:950px){
+ #services.designer-services .ds-controls{width:calc((100% - 35px) / 2.05)}
+}
 @media(max-width:600px){
- #services.designer-services .ds-tabs-band{display:none}
+ #services.designer-services .ds-tabs-band{display:block}
+ #services.designer-services .ds-controls{width:100%;margin-top:20px;margin-bottom:0}
+}
+
+/* Give the services introduction room after the full-width showreel. */
+html body #top.creative-site.site-page-home #main #services.designer-services{padding-top:clamp(88px,8vw,128px)}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main #services.designer-services{padding-top:64px}
 }

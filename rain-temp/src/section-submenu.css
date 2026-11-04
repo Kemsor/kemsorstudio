@@ -14,26 +14,24 @@
  html body #top.creative-site:not(.site-page-home) .section-submenu{top:var(--inner-nav-bottom,var(--site-header-height,72px))}
 }
 
-html body #top.creative-site:not(.site-page-home) .section-submenu[data-stuck=true]{background:rgba(0,0,0,.82);color:#fff;border-bottom-color:#ffffff26;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-html body #top.creative-site:not(.site-page-home) .section-submenu[data-stuck=true] :is(.section-submenu-category,.section-submenu-links>a){color:#ddd}
-html body #top.creative-site:not(.site-page-home) .section-submenu[data-stuck=true] .section-submenu-links>a:is(:hover,:focus-visible,[aria-current]){color:#fff;border-bottom-color:#ed9634}
-
-/* Override the inner-page white-surface reset for the pinned menu and its children. */
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true]{background:rgba(0,0,0,.86)!important;color:#fff!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] :is(.section-submenu-width,.section-submenu-links){background:transparent!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a{background:transparent!important;color:#eee!important;-webkit-text-fill-color:#eee!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:is(:hover,:focus-visible,[aria-current]){color:#fff!important;-webkit-text-fill-color:#fff!important;border-bottom-color:#ed9634}
-
-/* Pinned page navigation shares the Find Talent hero's studio gradient. */
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true]{background:var(--studio-discovery-gradient)!important;border-bottom-color:#ffffff18;color:#f1eafa!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] :is(.section-submenu-width,.section-submenu-links){background:transparent!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a{color:#d4c9e2!important;-webkit-text-fill-color:#d4c9e2!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] .section-submenu-category{color:#d5b88f!important;-webkit-text-fill-color:#d5b88f!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:is(:hover,:focus-visible,[aria-current]){color:#fff!important;-webkit-text-fill-color:#fff!important;border-bottom-color:#edbd77!important}
-html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:focus-visible{outline-color:#d4bbf0}
-@media(min-width:601px){
- html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services){background:var(--studio-discovery-gradient)!important;color:#d4c9e2!important}
- html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services)>:is(.fl-width,.pl-width){background:transparent!important}
- html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services) a{color:#d4c9e2!important}
- html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services) a:is(:hover,:focus-visible,[aria-current]){color:#fff!important;border-bottom-color:#edbd77!important}
+/* Pinned inner-page navigation stays opaque white with readable dark links. */
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true]{
+ background:#fff!important;color:#242424!important;border-bottom:0!important;
+ backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none!important;
 }
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] :is(.section-submenu-width,.section-submenu-links){background:transparent!important}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a{
+ background:transparent!important;color:#555!important;-webkit-text-fill-color:#555!important;
+}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:is(:hover,:focus-visible,[aria-current]){
+ color:#171717!important;-webkit-text-fill-color:#171717!important;border-bottom-color:#ed9634!important;
+}
+html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] a:focus-visible{outline-color:#505dc9}
+@media(min-width:601px){
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services){background:#fff!important;color:#555!important}
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services)>:is(.fl-width,.pl-width){background:transparent!important}
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services) a{color:#555!important;-webkit-text-fill-color:#555!important}
+ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services) a:is(:hover,:focus-visible,[aria-current]){color:#171717!important;-webkit-text-fill-color:#171717!important;border-bottom-color:#ed9634!important}
+}
+
+html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services){border-bottom:0!important;box-shadow:none!important}

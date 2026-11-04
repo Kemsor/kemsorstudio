@@ -1,0 +1,217 @@
+/* Homepage-only scroll palette. Geometry, media and content retain their existing design. */
+html body #top.creative-site.site-page-home[data-home-colors]{--page-bg:var(--chapter-bg);--ink:var(--chapter-ink);--muted:var(--chapter-muted);--soft-ink:var(--chapter-muted);--line:var(--chapter-line);background:var(--chapter-bg)!important;color:var(--chapter-ink)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main,
+html body #top.creative-site.site-page-home[data-home-colors] #main>section:not(#services),
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about,
+html body #top.creative-site.site-page-home[data-home-colors] #main #productions.motion-work,
+html body #top.creative-site.site-page-home[data-home-colors] #main .script-card,
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-formats{background:var(--chapter-bg)!important;background-image:none!important;color:var(--chapter-ink)!important;--page-bg:var(--chapter-bg);--ink:var(--chapter-ink);--muted:var(--chapter-muted);--line:var(--chapter-line);--home-heading-accent:var(--chapter-ink);}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel,
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .showreel-gallery,
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .showreel-viewport,
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .showreel-track{background:var(--chapter-bg)!important;--page-bg:var(--chapter-bg);}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(#studio,.final-process)::before,
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-formats::before{opacity:0!important;}
+
+
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(h2,h3,p,li,.index-label,.index-right,.page-eyebrow,.line-link,.text-link):not(#services *),
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about :is(h2,.index-label,.index-right,.line-link),
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about .final-about-grid p,
+html body #top.creative-site.site-page-home[data-home-colors] #main #productions.motion-work :is(.mw-description,.mw-eyebrow),
+html body #top.creative-site.site-page-home[data-home-colors] #main .collaboration-path :is(h2,p,nav a,.collaboration-path-label),
+html body #top.creative-site.site-page-home[data-home-colors] #main .journey-router :is(h3,a,span){color:var(--chapter-ink)!important;-webkit-text-fill-color:var(--chapter-ink)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(h2,h3):not(#services *) :is(.heading-accent,.heading-accent .text-flow-word),
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about .final-about-grid h2 :is(.heading-accent,.heading-accent .text-flow-word),
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .showreel-gallery-head :is(.heading-accent,.heading-accent .text-flow-word){background:none!important;color:var(--chapter-ink)!important;-webkit-text-fill-color:var(--chapter-ink)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(.final-about-grid,.final-process,.collaboration-path) p,
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about .final-about-grid p,
+html body #top.creative-site.site-page-home[data-home-colors] #main .journey-router .footer-journey-note{color:var(--chapter-muted)!important;-webkit-text-fill-color:var(--chapter-muted)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip>div,
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-process ol li,
+html body #top.creative-site.site-page-home[data-home-colors] #main .publishing-cards article{background:var(--chapter-panel)!important;color:var(--chapter-ink)!important;border-color:var(--chapter-line)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip strong,
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip span,
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-process ol li :is(b,h3,p){color:var(--chapter-ink)!important;-webkit-text-fill-color:var(--chapter-ink)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(.index-label,.final-process ol,.final-process ol li,.collaboration-layout,.collaboration-path,.collaboration-path nav a,.journey-router a){border-color:var(--chapter-line)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .showreel-gallery-head>div>span,
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .compact-rail-controls button{color:var(--chapter-ink)!important;border-color:var(--chapter-line)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .showreel-progress{background:var(--chapter-line)!important;}
+
+
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel.showreel-edge figcaption :is(strong,p,span),
+html body #top.creative-site.site-page-home[data-home-colors] #main #productions.motion-work .mw-caption :is(strong,span),
+html body #top.creative-site.site-page-home[data-home-colors] #main .collaboration-still figcaption span{color:#fff!important;-webkit-text-fill-color:#fff!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact :is(.footer-invitation,.footer-directory,.footer-baseline){background:var(--chapter-bg)!important;background-image:none!important;border-color:var(--chapter-line)!important;color:var(--chapter-ink)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact :is(h2,h3,p,a,span,b,button),
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-invitation-main .footer-kicker,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-written-letter,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-written-word,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-invitation-main h2 span{color:var(--chapter-ink)!important;-webkit-text-fill-color:var(--chapter-ink)!important;text-shadow:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact :is(h3,.footer-info-block h3){border-color:var(--chapter-ink)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-signup,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-signup input{background:var(--chapter-panel)!important;color:var(--chapter-ink)!important;border-color:var(--chapter-line)!important;box-shadow:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-signup input::placeholder{color:var(--chapter-muted)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-conversation,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-conversation :is(b,span){background:var(--chapter-ink)!important;color:var(--chapter-bg)!important;-webkit-text-fill-color:var(--chapter-bg)!important;border-color:var(--chapter-ink)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-conversation::before,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-conversation::after{background:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(.collaboration-path,.collaboration-layout,.journey-router,.journey-hover-grid){background:transparent!important;background-image:none!important}
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-formats :is(span,i){color:var(--chapter-ink)!important;-webkit-text-fill-color:var(--chapter-ink)!important}
+html body #top.creative-site.site-page-home[data-home-colors] #main .script-card>div:last-child li::before{color:var(--chapter-ink)!important;border-color:var(--chapter-line)!important}
+
+/* Navigation surfaces, link states and nested label text share one palette. */
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-header-inner{--nav-bg:var(--home-nav-bg,var(--chapter-bg));--nav-ink:var(--home-nav-ink,var(--chapter-ink));--nav-muted:var(--home-nav-muted,var(--chapter-muted));--nav-line:var(--home-nav-line,var(--chapter-line));--nav-panel:var(--home-nav-panel,var(--chapter-panel));}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header{--nav-bg:var(--home-nav-bg,var(--chapter-bg));--nav-ink:var(--home-nav-ink,var(--chapter-ink));--nav-muted:var(--home-nav-muted,var(--chapter-muted));--nav-line:var(--home-nav-line,var(--chapter-line));--nav-panel:var(--home-nav-panel,var(--chapter-panel));}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner{background:var(--nav-bg)!important;background-image:none!important;color:var(--nav-ink)!important;border-color:var(--nav-line)!important;box-shadow:none!important;transition:box-shadow .2s ease!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]){background:var(--nav-bg)!important;background-image:none!important;color:var(--nav-ink)!important;border-color:var(--nav-line)!important;transition:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown-groups,.creative-nav-group,.account-dropdown-intro,.account-dropdown-registration,.creative-nav-drawer-head){background:transparent!important;background-image:none!important;border-color:var(--nav-line)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button,p,span,b,small,strong){color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;text-shadow:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel) a,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel) a:is(:hover,:focus-visible,[aria-current]){background:transparent!important;background-image:none!important;color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;transition:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel) a:is(:hover,:focus-visible,[aria-current]){background:var(--nav-panel)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel) a :is(span,b,small,strong){color:inherit!important;-webkit-text-fill-color:currentColor!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle){color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;text-shadow:none!important;transition:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *{color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;text-shadow:none!important;transition:none!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle){background:transparent!important;border-color:var(--nav-line)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle):is(:hover,:focus-visible,[aria-expanded=true]){background:var(--nav-panel)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open=true] .creative-nav-trigger[aria-expanded=true],
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open=true] .creative-nav-mobile-login{background:var(--nav-panel)!important;border-color:var(--nav-line)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button):focus-visible{outline-color:var(--nav-ink)!important;}
+
+/* Explicit state selectors outrank the former white hover treatment. */
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]),
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]) *{color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;border-color:var(--nav-line)!important}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]){background:var(--nav-panel)!important}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main .home-journey-section :is(a,.footer-journey-title,.footer-journey-mark,.footer-journey-number){color:var(--chapter-ink)!important;-webkit-text-fill-color:var(--chapter-ink)!important;border-color:var(--chapter-line)!important}
+html body #top.creative-site.site-page-home[data-home-colors] #main .home-journey-section .footer-journey-note{color:var(--chapter-muted)!important;-webkit-text-fill-color:var(--chapter-muted)!important}
+html body #top.creative-site.site-page-home[data-home-colors] #main .home-journey-section .journey-hover-grid::before{background:var(--chapter-panel)!important}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact .footer-conversation svg{color:var(--chapter-bg)!important}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner :is(a,button):focus-visible{outline-color:var(--nav-ink)!important}
+
+/* Scroll already interpolates the palette; avoid a second, delayed colour tween. */
+html body #top.creative-site.site-page-home[data-home-colors],
+html body #top.creative-site.site-page-home[data-home-colors] #main,
+html body #top.creative-site.site-page-home[data-home-colors] #main>section:not(#services),
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(.script-card,.showreel-gallery,.showreel-viewport,.showreel-track,.proof-strip>div,.collaboration-path),
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(h2,h3,p,li):not(#services *),
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact :is(.footer-invitation,.footer-directory,.footer-baseline){transition-property:opacity,transform,translate,box-shadow!important}
+
+/* The footer retains its dark surface while the preceding chapter stays light. */
+html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.footer-jumbo.footer-editorial.footer-reference.footer-compact{
+ --chapter-bg:#2d2926;--chapter-ink:#efeae2;--chapter-muted:#d2ccc5;--chapter-line:#5b5550;--chapter-panel:#36322f;
+}
+
+/* Studio figures pair the blue panel with the journey section's warm orange. */
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip>div{
+ --chapter-ink:#24252b;--chapter-muted:#50515b;background:#f6f2f0!important;border-color:transparent!important;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip>div:nth-child(2){background:#e0edff!important}
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip>div:nth-child(3){
+ background:linear-gradient(135deg,#ffab78,#ff701f)!important;
+ --chapter-ink:#29231f;--chapter-muted:#584b42;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #home.cinema-opening{
+ --chapter-bg:#101010;--chapter-ink:#fff;--chapter-muted:#eee;color:#fff!important;
+}
+
+/* A black surface behind the production references. */
+html body #top.creative-site.site-page-home[data-home-colors] #main #productions.motion-work{
+ --chapter-bg:#000;--chapter-ink:#fff;--chapter-muted:#ddd;--chapter-line:#ffffff40;
+ background:#000!important;
+}
+
+/* The process introduction stays white within the black-and-white chapter system. */
+html body #top.creative-site.site-page-home[data-home-colors] #main>section.final-process:not(#services){
+ --chapter-bg:#fff;--chapter-ink:#24252b;--chapter-muted:#50515b;
+ --chapter-line:#e3e4eb;--chapter-panel:#fff;
+ background:#fff!important;
+}
+
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-process ol li{
+ --chapter-panel:#f3f3f3;--chapter-ink:#24252b;--chapter-muted:#5b5b62;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-process ol li:nth-child(2){
+ --chapter-panel:#3c2427;--chapter-ink:#fff;--chapter-muted:#f1e9e9;
+}
+
+/* Process cards respond gently without moving neighbouring content. */
+html body #top.creative-site.site-page-home #main .final-process ol > li{
+ transition:transform .3s ease,box-shadow .3s ease;
+ transition-property:transform,box-shadow!important;
+}
+html body #top.creative-site.site-page-home #main .final-process ol > li .process-card-image{
+ transition:transform .65s cubic-bezier(.2,.65,.3,1);
+}
+html body #top.creative-site.site-page-home #main .final-process ol > li::before{
+ transition:transform .45s ease;
+}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ html body #top.creative-site.site-page-home #main .final-process ol > li:hover{
+  transform:translateY(-7px);box-shadow:0 18px 40px #15151b18;
+ }
+ html body #top.creative-site.site-page-home #main .final-process ol > li:hover .process-card-image{transform:scale(1.06)}
+ html body #top.creative-site.site-page-home #main .final-process ol > li:hover::before{transform:rotate(35deg)}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site.site-page-home #main .final-process ol > li,
+ html body #top.creative-site.site-page-home #main .final-process ol > li .process-card-image,
+ html body #top.creative-site.site-page-home #main .final-process ol > li::before{transition:none!important}
+}
+
+/* Images and both collaboration routes share one continuous panel. */
+html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-layout{
+ --chapter-ink:#29231f;--chapter-muted:#584b42;--chapter-line:#39271b24;
+ background:#f6f2f0!important;background-image:none!important;
+ border:0!important;border-radius:24px;padding:24px;gap:clamp(20px,2.5vw,40px);
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-path{
+ background:transparent!important;border:0!important;border-radius:0;
+ padding:20px 0;box-shadow:none;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-stack{
+ margin:0;min-width:0;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-path-label>span{color:var(--chapter-muted)}
+@media(max-width:1100px){
+ html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-stack{margin:0 auto}
+}
+@media(max-width:700px){
+ html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-layout{padding:20px;gap:12px;border-radius:20px}
+ html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-path{padding:20px 0}
+}

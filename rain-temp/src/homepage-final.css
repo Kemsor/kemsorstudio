@@ -203,3 +203,19 @@ html body #top.creative-site.site-page-home #main .final-formats{
 html body #top.creative-site.site-page-home #main .final-formats-track{
  animation-duration:24s;
 }
+
+/* Bright format lettering without a coloured band behind it. */
+html body #top.creative-site.site-page-home #main .final-formats{
+ background:transparent!important;border:0;color:#a9600b!important;
+}
+html body #top.creative-site.site-page-home #main .final-formats :is(span,i){
+ color:#a9600b;font-weight:600;opacity:1;
+}
+
+/* Larger black lettering and separators in the transparent format strip. */
+html body #top.creative-site.site-page-home #main .final-formats{
+ color:#000!important;
+}
+html body #top.creative-site.site-page-home #main .final-formats :is(span,i){
+ color:#000;font-size:clamp(14px,1.15vw,17px);font-weight:600;
+}

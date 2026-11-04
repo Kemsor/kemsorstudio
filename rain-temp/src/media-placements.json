@@ -1,18 +1,18 @@
 {
   "/|DesignerProductions-1|/assets/designer-productions/finance": {
-    "src": "/assets/supplied/collection/crew-at-work-1600.webp",
+    "src": "/assets/supplied/collection/crew-at-work-960.webp",
     "srcSet": "/assets/supplied/collection/crew-at-work-640.webp 640w, /assets/supplied/collection/crew-at-work-960.webp 960w, /assets/supplied/collection/crew-at-work-1600.webp 1600w",
-    "alt": "Production crew working together beside a camera and lighting equipment"
+    "alt": "Production crew collaborating around a camera monitor"
   },
   "/|DesignerProductions-1|/assets/designer-productions/post": {
-    "src": "/assets/supplied/collection/reel-machine-1600.webp",
-    "srcSet": "/assets/supplied/collection/reel-machine-640.webp 640w, /assets/supplied/collection/reel-machine-960.webp 960w, /assets/supplied/collection/reel-machine-1600.webp 1600w",
-    "alt": "Black and white close-up of a film reel machine"
+    "src": "/assets/supplied/collection/digital-projection-960.webp",
+    "srcSet": "/assets/supplied/collection/digital-projection-640.webp 640w, /assets/supplied/collection/digital-projection-960.webp 960w, /assets/supplied/collection/digital-projection-1600.webp 1600w",
+    "alt": "Digital projector casting light for a screening"
   },
   "/|DesignerProductions-1|/assets/designer-productions/valley": {
-    "src": "/assets/supplied/collection/cinema-camera-1600.webp",
-    "srcSet": "/assets/supplied/collection/cinema-camera-640.webp 640w, /assets/supplied/collection/cinema-camera-960.webp 960w, /assets/supplied/collection/cinema-camera-1600.webp 1482w",
-    "alt": "Cinema camera and monitor on an outdoor production set"
+    "src": "/assets/supplied/collection/crew-discussion-960.webp",
+    "srcSet": "/assets/supplied/collection/crew-discussion-640.webp 640w, /assets/supplied/collection/crew-discussion-960.webp 960w, /assets/supplied/collection/crew-discussion-1600.webp 1600w",
+    "alt": "Filmmakers discussing a production beside a camera rig"
   },
   "/about/|StudioPages-2|/assets/stills/daylight-valley-production": {
     "src": "/assets/supplied/purple-camera-crew.webp",
@@ -566,7 +566,7 @@
     "srcSet": "/assets/supplied/collection/monochrome-performance-640.webp 640w, /assets/supplied/collection/monochrome-performance-960.webp 960w, /assets/supplied/collection/monochrome-performance-1600.webp 987w",
     "alt": "Black and white photograph of a performer holding a stage structure",
     "title": "Movement and atmosphere",
-    "detail": "Supplied photography · performance study",
+    "detail": "Supplied photography \u00b7 performance study",
     "width": 987,
     "height": 1480
   },
@@ -575,7 +575,7 @@
     "srcSet": "/assets/supplied/collection/costume-and-props-640.webp 640w, /assets/supplied/collection/costume-and-props-960.webp 960w, /assets/supplied/collection/costume-and-props-1600.webp 1037w",
     "alt": "Costumed performers holding stage props under theatrical lighting",
     "title": "Staging the story",
-    "detail": "Supplied photography · costume and props",
+    "detail": "Supplied photography \u00b7 costume and props",
     "width": 1037,
     "height": 1379
   },
@@ -584,7 +584,7 @@
     "srcSet": "/assets/supplied/collection/young-character-portrait-640.webp 640w, /assets/supplied/collection/young-character-portrait-960.webp 960w, /assets/supplied/collection/young-character-portrait-1600.webp 1600w",
     "alt": "Young performer posing in dramatic character makeup",
     "title": "Character, in frame",
-    "detail": "Supplied photography · character portrait",
+    "detail": "Supplied photography \u00b7 character portrait",
     "width": 2072,
     "height": 1379
   },
@@ -593,7 +593,7 @@
     "srcSet": "/assets/supplied/collection/blue-camera-lighting-640.webp 640w, /assets/supplied/collection/blue-camera-lighting-960.webp 960w, /assets/supplied/collection/blue-camera-lighting-1600.webp 1600w",
     "alt": "Performer and camera framed by deep blue production lighting",
     "title": "Camera and light",
-    "detail": "Supplied photography · lighting study",
+    "detail": "Supplied photography \u00b7 lighting study",
     "width": 1974,
     "height": 1480
   },
@@ -602,7 +602,7 @@
     "srcSet": "/assets/supplied/collection/two-performer-scene-640.webp 640w, /assets/supplied/collection/two-performer-scene-960.webp 960w, /assets/supplied/collection/two-performer-scene-1600.webp 1600w",
     "alt": "Two costumed performers in a scene on a dark theatre stage",
     "title": "Two voices, one scene",
-    "detail": "Supplied photography · stage dialogue",
+    "detail": "Supplied photography \u00b7 stage dialogue",
     "width": 2070,
     "height": 1380
   },
@@ -611,7 +611,7 @@
     "srcSet": "/assets/supplied/collection/ensemble-rehearsal-640.webp 640w, /assets/supplied/collection/ensemble-rehearsal-960.webp 960w, /assets/supplied/collection/ensemble-rehearsal-1600.webp 1600w",
     "alt": "Performers creating a scene with director chairs on stage",
     "title": "Stories on stage",
-    "detail": "Supplied photography · ensemble staging",
+    "detail": "Supplied photography \u00b7 ensemble staging",
     "width": 1974,
     "height": 1481
   },
@@ -620,7 +620,7 @@
     "srcSet": "/assets/supplied/collection/seated-ensemble-640.webp 640w, /assets/supplied/collection/seated-ensemble-960.webp 960w, /assets/supplied/collection/seated-ensemble-1600.webp 1600w",
     "alt": "Seated ensemble of performers making expressive gestures on stage",
     "title": "An ensemble, in frame",
-    "detail": "Supplied photography · ensemble performance",
+    "detail": "Supplied photography \u00b7 ensemble performance",
     "width": 1974,
     "height": 1481
   },
@@ -629,7 +629,7 @@
     "srcSet": "/assets/supplied/collection/monochrome-film-crew-640.webp 640w, /assets/supplied/collection/monochrome-film-crew-960.webp 960w, /assets/supplied/collection/monochrome-film-crew-1600.webp 1600w",
     "alt": "Production crew working together on a set in black and white",
     "title": "On set together",
-    "detail": "Supplied photography · production crew",
+    "detail": "Supplied photography \u00b7 production crew",
     "width": 2070,
     "height": 1380
   },
@@ -638,7 +638,7 @@
     "srcSet": "/assets/supplied/collection/blue-character-makeup-640.webp 640w, /assets/supplied/collection/blue-character-makeup-960.webp 960w, /assets/supplied/collection/blue-character-makeup-1600.webp 987w",
     "alt": "Character portrait with makeup under blue stage lighting",
     "title": "Character, up close",
-    "detail": "Supplied photography · makeup and lighting",
+    "detail": "Supplied photography \u00b7 makeup and lighting",
     "width": 987,
     "height": 1480
   },
@@ -647,7 +647,7 @@
     "srcSet": "/assets/supplied/collection/pilot-character-reference-640.webp 640w, /assets/supplied/collection/pilot-character-reference-960.webp 960w, /assets/supplied/collection/pilot-character-reference-1600.webp 1600w",
     "alt": "Illustrative screen-character portrait in a pilot costume beside an aircraft",
     "title": "Character and costume",
-    "detail": "Supplied photography · screen reference",
+    "detail": "Supplied photography \u00b7 screen reference",
     "width": 1926,
     "height": 1540
   },
@@ -656,7 +656,7 @@
     "srcSet": "/assets/supplied/collection/solo-stage-performer-640.webp 640w, /assets/supplied/collection/solo-stage-performer-960.webp 960w, /assets/supplied/collection/solo-stage-performer-1600.webp 987w",
     "alt": "Solo performer standing beside a bed on a dark theatre stage",
     "title": "Solo performance",
-    "detail": "Supplied photography · theatre performance",
+    "detail": "Supplied photography \u00b7 theatre performance",
     "width": 987,
     "height": 1481
   },
@@ -665,7 +665,7 @@
     "srcSet": "/assets/supplied/collection/stage-character-closeup-640.webp 640w, /assets/supplied/collection/stage-character-closeup-960.webp 960w, /assets/supplied/collection/stage-character-closeup-1600.webp 987w",
     "alt": "Theatre performer expressing emotion in a character costume",
     "title": "Performance, up close",
-    "detail": "Supplied photography · character study",
+    "detail": "Supplied photography \u00b7 character study",
     "width": 987,
     "height": 1481
   },
@@ -674,7 +674,7 @@
     "srcSet": "/assets/supplied/collection/interior-stage-scene-640.webp 640w, /assets/supplied/collection/interior-stage-scene-960.webp 960w, /assets/supplied/collection/interior-stage-scene-1600.webp 1600w",
     "alt": "Performer on a furnished interior theatre set",
     "title": "Inside the scene",
-    "detail": "Supplied photography · interior staging",
+    "detail": "Supplied photography \u00b7 interior staging",
     "width": 2070,
     "height": 1380
   },
@@ -683,7 +683,7 @@
     "srcSet": "/assets/supplied/collection/ensemble-stage-scene-640.webp 640w, /assets/supplied/collection/ensemble-stage-scene-960.webp 960w, /assets/supplied/collection/ensemble-stage-scene-1600.webp 1600w",
     "alt": "Performers sharing a dramatically lit stage scene",
     "title": "Ensemble in performance",
-    "detail": "Supplied photography · ensemble scene",
+    "detail": "Supplied photography \u00b7 ensemble scene",
     "width": 2070,
     "height": 1380
   },
@@ -711,5 +711,35 @@
     "src": "/assets/supplied/collection/red-stage-movement-1600.webp",
     "srcSet": "/assets/supplied/collection/red-stage-movement-640.webp 640w, /assets/supplied/collection/red-stage-movement-960.webp 960w, /assets/supplied/collection/red-stage-movement-1600.webp 1600w",
     "alt": "Solo performer moving across a stage under red and amber lighting"
+  },
+  "/|DesignerProductions-1|/assets/designer-productions/location": {
+    "src": "/assets/supplied/collection/cinema-camera-960.webp",
+    "srcSet": "/assets/supplied/collection/cinema-camera-640.webp 640w, /assets/supplied/collection/cinema-camera-960.webp 960w, /assets/supplied/collection/cinema-camera-1600.webp 1600w",
+    "alt": "Cinema camera and crew on an outdoor location"
+  },
+  "/|DesignerProductions-1|/assets/designer-productions/dance": {
+    "src": "/assets/home-gallery/photo-1555489401-79c274997434-960.webp",
+    "srcSet": "/assets/home-gallery/photo-1555489401-79c274997434-640.webp 640w, /assets/home-gallery/photo-1555489401-79c274997434-960.webp 960w, /assets/home-gallery/photo-1555489401-79c274997434-987.webp 987w",
+    "alt": "Dance partners performing against a bright purple backdrop"
+  },
+  "/|HomePage-6|/assets/stills/work-period-camera": {
+    "src": "/assets/home-gallery/photo-1508700929628-666bc8bd84ea-960.webp",
+    "srcSet": "/assets/home-gallery/photo-1508700929628-666bc8bd84ea-640.webp 640w, /assets/home-gallery/photo-1508700929628-666bc8bd84ea-960.webp 960w, /assets/home-gallery/photo-1508700929628-666bc8bd84ea-1600.webp 1600w",
+    "alt": "Acrobatic dancer performing on a colourful red-lit stage"
+  },
+  "/|HomePage-3|/assets/stills/partner-studio": {
+    "src": "/assets/home-gallery/photo-1618260970135-8afc4074aad4-960.webp",
+    "srcSet": "/assets/home-gallery/photo-1618260970135-8afc4074aad4-640.webp 640w, /assets/home-gallery/photo-1618260970135-8afc4074aad4-960.webp 960w, /assets/home-gallery/photo-1618260970135-8afc4074aad4-987.webp 987w",
+    "alt": "Dancer rehearsing in a sunlit industrial studio"
+  },
+  "/|HomePage-7|/assets/stills/daylight-snow-production": {
+    "src": "/assets/home-gallery/photo-1621976498727-9e5d56476276-960.webp",
+    "srcSet": "/assets/home-gallery/photo-1621976498727-9e5d56476276-640.webp 640w, /assets/home-gallery/photo-1621976498727-9e5d56476276-960.webp 960w, /assets/home-gallery/photo-1621976498727-9e5d56476276-1600.webp 1600w",
+    "alt": "Dance ensemble performing under purple and red stage lights"
+  },
+  "/|HomePage-5|/assets/stills/development-packaging": {
+    "src": "/assets/supplied/collection/script-reading-960.webp",
+    "srcSet": "/assets/supplied/collection/script-reading-640.webp 640w, /assets/supplied/collection/script-reading-960.webp 960w, /assets/supplied/collection/script-reading-1600.webp 1600w",
+    "alt": "A filmmaker annotating a printed script during project preparation"
   }
 }

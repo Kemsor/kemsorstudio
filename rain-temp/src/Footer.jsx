@@ -1,18 +1,17 @@
 import footerNavigation from '../../shared/footer-navigation.json';
-import {applyNavigation,cmsText,cmsData} from './siteContent';
+import {applyNavigation,cmsText,getSiteModule} from './siteContent';
 import {legalHref} from './LegalDocument';
 import { useCookieConsent } from './CookieConsent';
 import { getStudioContacts } from './studioContact';
 import {studioAddress} from './studioLocation';
-import RollingLabel from './RollingLabel';
 import { faFacebookF, faInstagram, faYoutube, faLinkedinIn, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { pageHref } from './pageInfo';
-import SiteIcon from './SiteIcon';
 import './footer-socials.css';
 import './footer-jumbo.css';
 import './footer-editorial.css';
 import './footer-compact.css';
+import './footer-grid.css';
 import { useCms } from './CmsContent';
 
 // Official brand artwork; Lucide intentionally excludes social brand logos.
@@ -41,59 +40,37 @@ function SocialIcons() {
 
 
 
-function FooterHandwriting({ reduced }) {
-  const element = useRef(null);
-  const [revealed, setRevealed] = useState(false);
-  useEffect(() => {
-    if (reduced || !globalThis.IntersectionObserver) { setRevealed(true); return; }
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setRevealed(true); observer.disconnect(); }
-    }, { threshold: .6 });
-    observer.observe(element.current);
-    return () => observer.disconnect();
-  }, [reduced]);
-  return <div ref={element} className="footer-handwriting" data-revealed={revealed} aria-label="Kemsor Studios">
-    <span className="footer-written-name" aria-hidden="true">{[cmsText("Footer","c08650558b3c574a","Kemsor"), cmsText("Footer","d94a9ac50c1cff7c","Studios")].map((word, wordIndex) => <span className="footer-written-word" key={word}>{word.split('').map((letter, index) => <span className="footer-written-letter" key={index} style={{'--write-delay': `${(index + wordIndex * 6) * 0.28}s`}}>{letter}</span>)}</span>)}</span>
-  </div>;
-}
-
 export default function Footer({ reduced, page = 'home' }) {
   const {openPreferences}=useCookieConsent();
   const {settings,legalDocuments}=useCms();
   const groups=applyNavigation(footerNavigation,'footer').map(group=>({...group,links:group.links.map(link=>[link.label,link.page,link.href])})).map(group=>({...group,links:group.links.flatMap(link=>link[1]==='privacy-policy'&&Array.isArray(legalDocuments)?legalDocuments.filter(document=>document.footer).map(document=>[document.footerLabel||document.title,document.slug,legalHref(document.slug)]):[link])}));
   const {email,phone,phoneHref,landline,landlineHref}=getStudioContacts(settings);
   const address = settings.contact_address && !/sample|example/i.test(settings.contact_address) ? settings.contact_address : studioAddress;
-  return <footer className="creative-footer footer-jumbo footer-editorial footer-reference footer-compact">
-    <div className="footer-invitation">
-      <form className="footer-signup" action={pageHref('join')} method="get">
-        <label className="sr-only" htmlFor="footer-signup-email">{cmsText("Footer","1b33694a768e4e23","Your email")}</label>
-        <input id="footer-signup-email" type="email" name="email" placeholder="Your Email" autoComplete="email" required/>
-        <button type="submit" className="footer-conversation">{cmsText("Footer","fe38fd544fd24546","Sign Up ")}<SiteIcon name="people" size={17}/></button>
-        <p>{cmsText("Footer","20864e974665f030","Continue to Kemsor to create your account.")}</p>
-      </form>
-      <div className="footer-invitation-main">
-        <p className="footer-kicker">{settings.footer_kicker ?? 'THE NEXT GREAT STORY'}</p>
-        <h2>{settings.footer_title ?? 'Let’s make'} <span>{settings.footer_accent ?? 'a scene.'}</span></h2><p className="footer-intro-copy" style={{whiteSpace:'pre-line'}}>{settings.footer_description ?? "For production enquiries and collaborations,\nget in touch with the studio."}</p>
-        <a href={pageHref('contact')} className="footer-conversation"><b className="cta-label"><RollingLabel>{settings.footer_cta_label || 'Talk to the studio'}</RollingLabel></b><span aria-hidden="true"><SiteIcon name="contact" size={17}/></span></a>
+  const branding=getSiteModule('branding',{});
+  const orderedGroups=[...groups].sort((a,b)=>['studio','explore','connected'].indexOf(a.id)-['studio','explore','connected'].indexOf(b.id));
+  return <footer className="creative-footer footer-grid">
+    <div className="footer-grid-layout">
+      <div className="footer-grid-brand-column">
+        <a className="footer-grid-brand" href="/" aria-label="Kemsor Studios home">
+          <img src={branding.logo||'/assets/kemsor-logo.webp'} alt="" width="70" height="70" loading="lazy" decoding="async"/>
+          <span>Kemsor<br/><span>Studios</span></span>
+        </a>
+        <div className="footer-grid-social-group"><p>{settings.footer_social_label||'Follow the frame'}</p><SocialIcons/></div>
       </div>
-      <div className="footer-invitation-copy footer-studio-column">
-        <div className="footer-info-block footer-network"><h3>{settings.footer_social_label||'Social network'}</h3><div className="footer-social-signature"><SocialIcons/><FooterHandwriting reduced={reduced}/></div></div>
-      </div>
-      <div className="footer-contact-column">
-        <div className="footer-info-block"><h3>{address ? 'Our location' : 'The studio'}</h3>
-          <p>{address || (settings.footer_description ?? 'For production enquiries and collaborations,\nget in touch with the studio.')}</p><p><a href={`mailto:${email}`} aria-label={`${cmsText("Footer","b52df320b6a7bcf7","Email us")}: ${email}`}>{email}</a></p>
-        </div>
-        <div className="footer-info-block"><h3>{cmsText("Footer","a684c056996ee3b3","Call the studio")}</h3>{landline&&<p><span>{cmsText("Footer","contact-landline-label","Landline")}: </span><a href={landlineHref}>{landline}</a></p>}{phone&&<p><span>{cmsText("Footer","contact-mobile-label","Mobile (calls only)")}: </span><a href={phoneHref}>{phone}</a></p>}</div>
-      </div>
-      <div className="footer-directory">
-        <nav className="footer-link-groups" aria-label="Footer navigation">{groups.map(group => <div className={`footer-link-group footer-link-group-${group.id}`} key={group.id}>
-          <h3>{group.title}</h3><div className="footer-link-list">{group.links.map(([label,key,href]) => <a key={href||key} href={href||pageHref(key)} aria-current={page === key ? 'page' : undefined}><span className="footer-link-label">{label}</span></a>)}</div>
+      <div className="footer-grid-information">
+        <nav className="footer-grid-navigation" aria-label="Footer navigation">{orderedGroups.map(group=><div className="footer-grid-link-group" key={group.id}>
+          <h3>{group.title}</h3><div>{group.links.map(([label,key,href])=><a key={href||key} href={href||pageHref(key)} aria-current={page===key?'page':undefined}>{label}</a>)}</div>
         </div>)}</nav>
-        <div id="footer-guide-slot" className="footer-guide-slot"/>
+        <div className="footer-grid-contacts footer-contact-column">
+          <div className="footer-info-block"><h3>{address?'Our location':'The studio'}</h3><p>{address||'Contact the studio for production enquiries.'}</p><a href={`mailto:${email}`}>{email}</a></div>
+          <div className="footer-info-block"><h3>{cmsText('Footer','a684c056996ee3b3','Call the studio')}</h3>{landline&&<p><span>Landline</span><a href={landlineHref}>{landline}</a></p>}{phone&&<p><span>Mobile · calls only</span><a href={phoneHref}>{phone}</a></p>}</div>
+        </div>
       </div>
     </div>
-
-    <div className="footer-baseline"><span>© {new Date().getFullYear()} {settings.footer_copyright || 'Kemsor Studios'}</span><button type="button" className="cookie-footer-button" onClick={openPreferences}>{cmsText("Footer","bdc267b775d4971d","Cookie preferences")}</button></div>
-    {reduced&&<span className="sr-only">{cmsText("Footer","c66ed758780a0707","Your reduced motion preference is respected.")}</span>}
+    <div className="footer-grid-baseline">
+      <p>© {new Date().getFullYear()} {settings.footer_copyright||'Kemsor Studios'}. All rights reserved.</p>
+      <div className="footer-grid-tools"><div id="footer-guide-slot" className="footer-guide-slot"/><button type="button" className="cookie-footer-button" onClick={openPreferences}>{cmsText('Footer','bdc267b775d4971d','Cookie preferences')}</button></div>
+    </div>
+    {reduced&&<span className="sr-only">{cmsText('Footer','c66ed758780a0707','Your reduced motion preference is respected.')}</span>}
   </footer>;
 }

@@ -117,58 +117,95 @@ html body #top.creative-site.site-page-home #main .script-card .creative-cta{mar
  html body #top.creative-site.site-page-home #main .script-card{min-height:0;padding:36px 26px;gap:28px;align-items:start}
 }
 
-/* Process cards match the designer preview. */
-html body #top.creative-site.site-page-home #main .final-process ol{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-html body #top.creative-site.site-page-home #main .final-process ol li{position:relative;isolation:isolate;overflow:hidden;background:#fff;color:#0b0b0b;padding:26px 30px;border:0;border-radius:24px;min-height:0;transition:none}
+/* Tall process cards, with a photographic middle step. */
+html body #top.creative-site.site-page-home #main .final-process ol{
+ grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;border:0;
+}
+html body #top.creative-site.site-page-home #main .final-process ol li{
+ --step-accent:#b9a08b;position:relative;isolation:isolate;overflow:hidden;
+ display:flex;flex-direction:column;align-items:flex-start;min-width:0;
+ min-height:clamp(380px,34vw,480px);padding:28px;border:0;border-radius:18px;
+ background:#f3f3f3;transition:none;
+}
+html body #top.creative-site.site-page-home #main .final-process ol li:nth-child(2){--step-accent:#d3bca0}
+html body #top.creative-site.site-page-home #main .final-process ol li:nth-child(3){--step-accent:#8bb9a7}
+html body #top.creative-site.site-page-home #main .final-process ol li::before{
+ content:'';position:absolute;top:28px;right:28px;z-index:2;width:44px;height:44px;border-radius:50%;
+ background:conic-gradient(var(--step-accent) 0deg 245deg,#d9d9d966 245deg 360deg);
+ mask:radial-gradient(transparent 57%,#000 60%);-webkit-mask:radial-gradient(transparent 57%,#000 60%);
+}
+html body #top.creative-site.site-page-home #main .final-process ol li::after{display:none}
 html body #top.creative-site.site-page-home #main .final-process ol li:hover{transform:none;box-shadow:none}
-html body #top.creative-site.site-page-home #main .final-process ol li::after{content:'';position:absolute;width:100px;height:100px;right:-43px;bottom:-49px;background:#fbe9d5;border-radius:50%;opacity:1;z-index:-1;transform:none;transition:none}
-html body #top.creative-site.site-page-home #main .final-process ol li>b{color:#f49632;font:650 12px/1.4 Inter,Arial,sans-serif}
-html body #top.creative-site.site-page-home #main .final-process ol li h3{font:600 22px/1.2 Inter,Arial,sans-serif;letter-spacing:-.025em;color:#0b0b0b;margin:5px 0 0}
-html body #top.creative-site.site-page-home #main .final-process ol li p{font:400 13px/1.65 Inter,Arial,sans-serif;color:#0b0b0b;margin:5px 0 0}
-@media(max-width:950px){
- html body #top.creative-site.site-page-home #main .final-process ol li{padding:22px}
- html body #top.creative-site.site-page-home #main .final-process ol li h3{font-size:20px}
- html body #top.creative-site.site-page-home #main .final-process ol li p{font-size:12px;line-height:1.6}
+html body #top.creative-site.site-page-home #main .final-process ol li .process-card-image{
+ position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center;
 }
-@media(max-width:600px){
- html body #top.creative-site.site-page-home #main .final-process ol{grid-template-columns:1fr;gap:12px}
- html body #top.creative-site.site-page-home #main .final-process ol li{padding:21px 23px;border-radius:21px}
- html body #top.creative-site.site-page-home #main .final-process ol li h3{font-size:21px}
- html body #top.creative-site.site-page-home #main .final-process ol li p{font-size:13px;line-height:1.6}
+html body #top.creative-site.site-page-home #main .final-process ol li:nth-child(2)::after{
+ content:'';display:block;position:absolute;inset:0;z-index:1;width:auto;height:auto;border-radius:0;
+ background:linear-gradient(180deg,#23101518 0%,#23101555 40%,#231015e8 100%);opacity:1;
 }
-
-/* Warm outlined cards with the original lift and corner motion. */
-html body #top.creative-site.site-page-home #main .final-process ol li{border:1px solid #e5d4bf;transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease}
-html body #top.creative-site.site-page-home #main .final-process ol li::after{transition:transform .5s ease,background .4s ease}
-html body #top.creative-site.site-page-home #main .final-process ol li:hover{transform:translateY(-6px);border-color:#edb16d;box-shadow:0 16px 36px #75462618}
-html body #top.creative-site.site-page-home #main .final-process ol li:hover::after{transform:scale(1.5);background:#f9dfbf}
-@media(prefers-reduced-motion:reduce){
- html body #top.creative-site.site-page-home #main .final-process ol li,
- html body #top.creative-site.site-page-home #main .final-process ol li::after{transition:none}
- html body #top.creative-site.site-page-home #main .final-process ol li:hover,
- html body #top.creative-site.site-page-home #main .final-process ol li:hover::after{transform:none}
+html body #top.creative-site.site-page-home #main .final-process ol li>:is(b,h3,p){position:relative;z-index:2}
+html body #top.creative-site.site-page-home #main .final-process ol li>b{
+ display:block;width:auto;height:auto;margin-top:auto;padding:0;background:none;border:0;border-radius:0;
+ color:#24252b;font:600 clamp(64px,6vw,88px)/1 Manrope,Inter,sans-serif;letter-spacing:-.06em;
+}
+html body #top.creative-site.site-page-home #main .final-process ol li h3{
+ color:#24252b;font:600 clamp(20px,1.8vw,26px)/1.25 Manrope,Inter,sans-serif;letter-spacing:-.03em;margin:20px 0 10px;
+}
+html body #top.creative-site.site-page-home #main .final-process ol li p{
+ color:#5b5b62;font:400 14px/1.7 Inter,sans-serif;margin:0;max-width:36ch;
+}
+@media(max-width:700px){
+ html body #top.creative-site.site-page-home #main .final-process ol{grid-template-columns:1fr;gap:14px}
+ html body #top.creative-site.site-page-home #main .final-process ol li{min-height:320px;padding:24px}
+ html body #top.creative-site.site-page-home #main .final-process ol li h3{margin-top:16px}
 }
 
-/* Reference-style statistics: burgundy glow on framed charcoal cards. */
-html body #top.creative-site.site-page-home #main #studio .proof-strip{border:0;gap:16px}
-html body #top.creative-site.site-page-home #main #studio .proof-strip>div{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:1.3rem;min-height:0;padding:20px 24px;border:1px solid #424242;border-radius:20px;background:radial-gradient(ellipse at top left,#54282d 0%,#38272a 36%,#222 78%);color:#aaa}
-html body #top.creative-site.site-page-home #main #studio .proof-strip strong{font-size:3.7rem;color:#fff}
-html body #top.creative-site.site-page-home #main #studio .proof-strip span{max-width:12rem;color:#aaa}
+/* Full-width script invitation, with content aligned to the page gutters. */
+html body #top.creative-site.site-page-home #main .final-process{
+ --process-gutter:clamp(1.25rem,5vw,6.5rem);
+}
+html body #top.creative-site.site-page-home #main .final-process .script-card{
+ margin:48px calc(-1 * var(--process-gutter)) 0;border:0;border-radius:0;
+ padding:64px var(--process-gutter);gap:clamp(28px,5vw,72px);
+}
 @media(max-width:800px){
- html body #top.creative-site.site-page-home #main #studio .proof-strip>div{min-height:0;padding:20px 24px}
+ html body #top.creative-site.site-page-home #main .final-process .script-card{
+  margin-top:36px;padding-block:48px;gap:28px;
+ }
 }
 
-@media(max-width:760px){
- html body #top.creative-site.site-page-home #main #studio .proof-strip>div{padding:14px 16px}
- html body #top.creative-site.site-page-home #main #studio .proof-strip strong{font-size:36px}
+/* Pastel statistic panels with a white inset for each figure. */
+html body #top.creative-site.site-page-home #main #studio .proof-strip{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;border:0;
 }
-
-/* Shade flows from burgundy to deep charcoal across the row. */
-html body #top.creative-site.site-page-home #main #studio .proof-strip>div{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(115deg,#4a2b30,#38272a)}
-html body #top.creative-site.site-page-home #main #studio .proof-strip>div:nth-child(2){background:linear-gradient(115deg,#38272a,#282223)}
-html body #top.creative-site.site-page-home #main #studio .proof-strip>div:nth-child(3){background:linear-gradient(115deg,#282223,#242122)}
-html body #top.creative-site.site-page-home #main #studio .proof-strip .proof-clapperboard{position:absolute;right:-16px;top:8px;width:106px;height:auto;max-width:30%;z-index:-1;pointer-events:none;object-fit:contain}
-html body #top.creative-site.site-page-home #main #studio .proof-strip>div:nth-child(2)>span{max-width:min(12rem,calc(100% - 64px))}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div{
+ position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;
+ gap:22px;min-width:0;min-height:258px;padding:24px;border:0;border-radius:24px;
+ background:#f6f2f0;color:#24252b;overflow:hidden;
+}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div::before{display:none}
+html body #top.creative-site.site-page-home #main #studio .proof-strip>div::after{
+ content:'';position:absolute;right:42px;top:58px;width:70px;height:48px;
+ background:radial-gradient(circle,#505dc980 1.5px,transparent 2px) 0 0/12px 12px;
+ pointer-events:none;
+}
+html body #top.creative-site.site-page-home #main #studio .proof-strip strong{
+ display:block;width:100%;padding:18px 22px;box-sizing:border-box;background:#fff;border-radius:18px;
+ color:#24252b;font:600 clamp(64px,5.8vw,84px)/1 Manrope,Inter,sans-serif;letter-spacing:-.06em;
+}
+html body #top.creative-site.site-page-home #main #studio .proof-strip span{
+ max-width:28ch;color:#50515b;font:400 15px/1.6 Inter,sans-serif;
+}
+html body #top.creative-site.site-page-home #main #studio .proof-strip .proof-clapperboard{display:none}
+@media(max-width:700px){
+ html body #top.creative-site.site-page-home #main #studio .proof-strip{grid-template-columns:1fr;gap:12px}
+ html body #top.creative-site.site-page-home #main #studio .proof-strip>div{
+  display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:20px;min-height:0;padding:20px;border-radius:20px;
+ }
+ html body #top.creative-site.site-page-home #main #studio .proof-strip>div::after{display:none}
+ html body #top.creative-site.site-page-home #main #studio .proof-strip strong{font-size:60px;padding:14px 18px;border-radius:14px}
+ html body #top.creative-site.site-page-home #main #studio .proof-strip span{font-size:14px}
+}
 
 /* Align script-card paragraph and list text on the same left edge. */
 html body #top.creative-site.site-page-home #main .script-card>div:last-child ul{
@@ -186,4 +223,28 @@ html body #top.creative-site.site-page-home #main .script-card>div:last-child li
  content:'✓';position:absolute;left:0;top:9px;display:grid;place-items:center;
  width:16px;height:16px;border:1px solid #dcb36a;border-radius:3px;
  color:#f5d77d;font:600 11px/1 Inter,sans-serif;
+}
+
+/* Supplied production photograph behind the script invitation. */
+html body #top.creative-site.site-page-home #main .final-process .script-card{
+ position:relative;isolation:isolate;overflow:hidden;
+ --chapter-bg:#101918;--chapter-ink:#fff;--chapter-muted:#eee;--chapter-line:#ffffff60;
+ --home-heading-accent:#fff;color:#fff;
+}
+html body #top.creative-site.site-page-home #main .final-process .script-card .script-card-background{
+ position:absolute;inset:0;z-index:0;width:100%;height:100%;max-width:none;
+ object-fit:cover;object-position:center 45%;pointer-events:none;
+}
+html body #top.creative-site.site-page-home #main .final-process .script-card::before{
+ content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:
+  linear-gradient(180deg,rgba(4,9,12,.12),rgba(4,9,12,.5)),
+  linear-gradient(90deg,rgba(4,9,12,.92) 0%,rgba(4,9,12,.72) 45%,rgba(4,9,12,.86) 100%);
+}
+html body #top.creative-site.site-page-home #main .final-process .script-card>div{position:relative;z-index:2}
+@media(max-width:800px){
+ html body #top.creative-site.site-page-home #main .final-process .script-card .script-card-background{object-position:52% center}
+ html body #top.creative-site.site-page-home #main .final-process .script-card::before{
+  background:linear-gradient(180deg,rgba(4,9,12,.88),rgba(4,9,12,.76) 40%,rgba(4,9,12,.94));
+ }
 }

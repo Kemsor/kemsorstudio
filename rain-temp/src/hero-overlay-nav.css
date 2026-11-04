@@ -258,3 +258,11 @@ html body #top.creative-site:not(.site-page-home) .creative-header[data-scrolled
 @media(prefers-reduced-motion:reduce){
  html body #top.creative-site .creative-header::before{transition:none}
 }
+
+/* Pinned navigation has no bottom divider or shadow. */
+html body #top.creative-site .creative-header[data-scrolled=true],
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner,
+html body #top.creative-site .creative-header[data-scrolled=true]::before,
+html body #top.creative-site .creative-header[data-scrolled=true]::after{
+ border-bottom:0!important;box-shadow:none!important;
+}

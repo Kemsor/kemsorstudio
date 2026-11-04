@@ -99,3 +99,183 @@ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-vi
 html body #top.creative-site.site-page-home #main #studio #showreel .showreel-track{
  background:#736767;
 }
+
+/* Poster-style video carousel. Heading and caption colours remain unchanged. */
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery{
+ display:grid;grid-template-columns:minmax(180px,.7fr) minmax(0,2fr);
+ column-gap:clamp(28px,4vw,72px);row-gap:24px;align-items:start;
+ padding-block:36px 48px;min-height:0;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head{
+ grid-column:1;grid-row:2;display:block;margin:0;padding-top:8px;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-carousel-toolbar{
+ grid-column:2;grid-row:1;display:flex;gap:20px;align-items:flex-end;min-width:0;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-progress{
+ flex:1;height:3px;overflow:hidden;background:#ffffff24;margin-bottom:1px;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-progress>span{
+ display:block;height:100%;background:var(--gold,#d4b17c);
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .compact-rail-controls{gap:0}
+html body #top.creative-site.site-page-home #main #studio #showreel .compact-rail-controls button{
+ width:46px;height:46px;border-radius:0;border-color:#ffffff30;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .compact-rail-controls button+button{border-left:0}
+html body #top.creative-site.site-page-home #main #studio #showreel .compact-rail-controls button:disabled{
+ opacity:.3;cursor:default;pointer-events:none;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-viewport{
+ grid-column:2;grid-row:2;min-width:0;scroll-snap-type:x mandatory;scrollbar-width:none;
+ overflow-x:auto;overflow-y:hidden;padding-bottom:8px;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-viewport::-webkit-scrollbar{display:none}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-track{
+ gap:clamp(16px,2vw,32px);align-items:start;transform:none;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card{
+ width:clamp(230px,25vw,420px);min-width:0;scroll-snap-align:start;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card-screen{
+ height:auto;min-height:0;aspect-ratio:2/3;border-radius:10px;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card video{object-fit:cover}
+@media(max-width:900px){
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery{grid-template-columns:1fr;row-gap:20px}
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head{grid-column:1;grid-row:1;padding:0}
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-carousel-toolbar{grid-column:1;grid-row:2}
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-viewport{grid-column:1;grid-row:3}
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card{width:clamp(230px,42vw,360px)}
+}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card{width:72vw;max-width:340px}
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery{padding-block:24px 32px;row-gap:18px}
+}
+
+/* White showreel surface, with the existing gold accent. */
+html body #top.creative-site.site-page-home #main #studio #showreel,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-viewport,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-track{
+ --page-bg:#fff;background:#fff!important;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head h3,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card figcaption,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card figcaption strong{color:#171717}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head>div>span,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card figcaption>span{color:#666}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-progress{background:#e7e3dc}
+html body #top.creative-site.site-page-home #main #studio #showreel .compact-rail-controls button{color:#222;border-color:#ddd}
+html body #top.creative-site.site-page-home #main #studio #showreel .compact-rail-controls button:hover{background:#222;color:#fff}
+
+/* About Kemsor shares the white surface with the showreel below. */
+html body #top.creative-site.site-page-home #main #studio.final-about{
+ --page-bg:#fff;--ink:#171717;--muted:#666;--soft-ink:#666;--line:#dedede;
+ background:#fff!important;color:#171717;border-color:#dedede;
+}
+html body #top.creative-site.site-page-home #main #studio.final-about h2,
+html body #top.creative-site.site-page-home #main #studio.final-about .index-label,
+html body #top.creative-site.site-page-home #main #studio.final-about .line-link{color:#171717}
+html body #top.creative-site.site-page-home #main #studio.final-about .index-label{border-color:#dedede}
+html body #top.creative-site.site-page-home #main #studio.final-about .index-right{color:#666}
+html body #top.creative-site.site-page-home #main #studio.final-about .final-about-grid p{color:#444}
+
+/* Stronger heading contrast on the white showreel surface. */
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head h3{
+ font-size:clamp(28px,3vw,44px);font-weight:600;line-height:1.16;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head>div>span{
+ color:#555;font-size:11px;font-weight:600;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head :is(.heading-accent,.heading-accent .text-flow-word){
+ background:none!important;color:#965715!important;-webkit-text-fill-color:#965715!important;
+}
+
+/* Keep the About heading as clear as the showreel heading on white. */
+html body #top.creative-site.site-page-home #main #studio.final-about .final-about-grid h2{
+ color:#171717;font-weight:600;
+}
+html body #top.creative-site.site-page-home #main #studio.final-about .final-about-grid h2 :is(.heading-accent,.heading-accent .text-flow-word){
+ background:none!important;color:#965715!important;-webkit-text-fill-color:#965715!important;
+}
+
+/* Match the active service-tab underline. */
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-progress{
+ height:4px;background:#505dc926;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-progress>span{
+ background:#505dc9;
+}
+
+/* Edge-to-edge moving reel wall with titles inside each playing video. */
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge{--showreel-columns:3}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-gallery{
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 40px;padding:32px 0 0;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-gallery-head{
+ grid-column:1;grid-row:1;padding:0 0 0 clamp(20px,5vw,104px);align-self:end;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-carousel-toolbar{
+ grid-column:2;grid-row:1;align-self:end;padding-right:clamp(20px,5vw,104px);
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-viewport{
+ grid-column:1/-1;grid-row:2;padding:0;scroll-snap-type:x mandatory;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-track{
+ width:100%;gap:0;align-items:stretch;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card{
+ flex:0 0 calc(100% / min(var(--showreel-columns),var(--showreel-count)));
+ width:calc(100% / min(var(--showreel-columns),var(--showreel-count)));max-width:none;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card-screen{
+ height:clamp(560px,85svh,1100px);aspect-ratio:auto;border-radius:0;isolation:isolate;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card-screen::after{
+ content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.18) 52%,rgba(0,0,0,.8) 100%);
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge video{
+ object-fit:cover;transform:scale(1.001);transition:transform .85s cubic-bezier(.2,.65,.2,1);
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption{
+ position:absolute;inset:auto clamp(20px,2.5vw,48px) 94px;z-index:2;
+ display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:0;color:#fff;
+ pointer-events:none;overflow-wrap:anywhere;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption strong{
+ color:#fff;font:800 clamp(30px,3.7vw,64px)/1.02 Manrope,Inter,sans-serif;
+ letter-spacing:-.045em;text-transform:uppercase;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption .showreel-panel-index{
+ color:#fff;font:600 11px/1.4 Inter,sans-serif;letter-spacing:.12em;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption p{
+ color:#fff;font:400 13px/1.6 Inter,sans-serif;margin:0;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card-expand{
+ z-index:3;right:24px;bottom:24px;
+}
+@media(hover:hover) and (pointer:fine){
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card:hover video{transform:scale(1.08)}
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card:focus-within video{transform:scale(1.08)}
+@media(max-width:1000px){html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge{--showreel-columns:2}}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge{--showreel-columns:1}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-gallery{grid-template-columns:1fr;gap:20px}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-gallery-head{padding-inline:20px}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-carousel-toolbar{grid-column:1;grid-row:2;padding-inline:20px}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-viewport{grid-row:3}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card-screen{height:clamp(520px,80svh,850px)}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption strong{font-size:clamp(34px,9vw,48px)}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge video{transition:none;transform:none!important}
+}
+
+/* Join the final video edge directly to the services section. */
+html body #top.creative-site.site-page-home #main #studio.final-about{padding-bottom:0}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge{margin-bottom:0}

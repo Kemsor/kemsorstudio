@@ -1,0 +1,16 @@
+/* Shared typography for homepage section titles, based on Kemsor showreel. */
+html body #top.creative-site.site-page-home #main{
+ --home-heading-accent:#965715;
+}
+html body #top.creative-site.site-page-home #main :is(#services,#productions,.script-card){
+ --home-heading-accent:#f0b858;
+}
+html body #top.creative-site.site-page-home #main :is(h2,.showreel-gallery-head h3,.ds-copy h3,.script-card h3){
+ font-family:Manrope,Inter,sans-serif!important;
+ font-size:clamp(28px,3vw,44px)!important;
+ font-weight:600!important;line-height:1.16!important;letter-spacing:-.035em!important;
+}
+html body #top.creative-site.site-page-home #main :is(h2,.ds-copy h3,.script-card h3) :is(.heading-accent,.heading-accent .text-flow-word){
+ background:none!important;color:var(--home-heading-accent)!important;
+ -webkit-text-fill-color:var(--home-heading-accent)!important;
+}

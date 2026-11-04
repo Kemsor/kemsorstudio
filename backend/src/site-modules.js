@@ -18,6 +18,7 @@ for(const [key,item]of Object.entries(images)){
 }
 const videoFields=[];
 for(const [key,slot]of Object.entries(videos))for(const [field,type,value]of [['enabled','boolean',true],['position','number',Object.keys(videos).indexOf(key)+1],['label','text',slot.label],['src','video',slot.src],['poster','image',slot.poster],['captions','captions',''],['language','language','en']]){if(field==='position'&&!key.startsWith('showreel-'))continue;videoFields.push({key:`${key}.${field}`,label:`${key} · ${field}`,type,default:value});}
+for(const [key,slot]of Object.entries(videos))if(key.startsWith('showreel-'))videoFields.push({key:`${key}.description`,label:`${key} · Text under the reel title`,type:'text',default:slot.description||''});
 modules.set('branding',{label:'Website logo',area:'Branding',adminOnly:true,fields:[{key:'logo',label:'Logo image (leave blank for supplied logo)',type:'image',default:''},{key:'alt',label:'Logo description',type:'text',default:'Kemsor Studios'}]});
 modules.set('videos',{label:'Showreel & page videos',area:'Video sections',fields:videoFields});
 const navFields=[];
