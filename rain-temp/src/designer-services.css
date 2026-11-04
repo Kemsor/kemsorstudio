@@ -100,8 +100,10 @@ html body #top.creative-site #main #services.designer-services{background:#000}
 @media(max-width:950px){
  #services.designer-services .ds-controls{width:calc((100% - 35px) / 2.05)}
 }
+@media(max-width:767px){
+ #services.designer-services .ds-tabs-band{display:none}
+}
 @media(max-width:600px){
- #services.designer-services .ds-tabs-band{display:block}
  #services.designer-services .ds-controls{width:100%;margin-top:20px;margin-bottom:0}
 }
 
