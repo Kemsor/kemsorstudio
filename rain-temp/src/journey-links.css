@@ -1,6 +1,6 @@
 /* Journey routes now sit below Who we work with, independent of the footer. */
 .home-journey-section{padding:28px var(--page-gutter) 48px;background:#fff}
-.home-journey-section .footer-journey-links h3{font:600 12px/1.5 Inter,sans-serif;letter-spacing:.04em;color:#292323;margin:0 0 18px}
+.home-journey-section .footer-journey-links h2{font:600 12px/1.5 Inter,sans-serif;letter-spacing:.04em;color:#292323;margin:0 0 18px}
 .home-journey-section .footer-journey-links>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .home-journey-section .footer-journey-links a{
  --route-start:#8b4314;--route-end:#573017;--route-accent:#ffe1a1;
@@ -73,22 +73,30 @@
 @media(max-width:480px){.home-journey-section .journey-hover-grid a{padding-inline:18px}}
 @media(prefers-reduced-motion:reduce){.home-journey-section .journey-hover-grid::before{transition:none}}
 
-/* Warm, softly banded colour behind the four journey routes. */
+/* Brown and gold bands connect the journey routes to the studio palette. */
 html body #top.creative-site.site-page-home[data-home-colors] #main>section.home-journey-section:not(#services){
- --chapter-bg:#faf6f0;--chapter-ink:#29231f;--chapter-muted:#584b42;
- --chapter-line:#39271b30;--chapter-panel:#ffffff75;
+ --chapter-bg:#3b291d;--chapter-ink:#fff4df;--chapter-muted:#ead7b8;
+ --chapter-line:#e6bc7040;--chapter-panel:#d6ab5424;
  padding:56px clamp(20px,5vw,104px) 64px;
- background-color:#faf6f0!important;
+ background-color:#3b291d!important;
  background-image:
-  linear-gradient(90deg,#ffffff65 0% 18%,transparent 18% 36%,#ffffff55 36% 54%,transparent 54% 77%,#ffffff12 77%),
-  radial-gradient(ellipse at 100% 115%,#ff701f 0%,#ffab78b3 26%,#ffd8be66 52%,transparent 76%),
-  linear-gradient(115deg,#faf7f2,#f9e1d1)!important;
+  linear-gradient(90deg,#e8bf7310 0% 18%,transparent 18% 36%,#e8bf7315 36% 54%,transparent 54% 77%,#e8bf7309 77%),
+  radial-gradient(ellipse at 100% 115%,#b8863666 0%,#a878333d 30%,#d9b46115 55%,transparent 78%),
+  linear-gradient(115deg,#35251b,#60442c)!important;
 }
 html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-links{max-width:1680px;margin-inline:auto}
-html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-links h3{margin-bottom:28px}
+html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-links h2{margin-bottom:28px}
 @media(max-width:700px){
  html body #top.creative-site.site-page-home[data-home-colors] #main>section.home-journey-section:not(#services){
   padding-block:36px 40px;
-  background-image:linear-gradient(90deg,#ffffff60 0% 28%,transparent 28% 66%,#ffffff30 66%),radial-gradient(ellipse at 100% 100%,#ff9b5e99,transparent 70%),linear-gradient(145deg,#faf7f2,#f9dfcc)!important;
+  background-image:linear-gradient(90deg,#e8bf7310 0% 28%,transparent 28% 66%,#e8bf7310 66%),radial-gradient(ellipse at 100% 100%,#b886364d,transparent 70%),linear-gradient(145deg,#35251b,#60442c)!important;
  }
 }
+
+html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-links h2{color:#f3d195!important;-webkit-text-fill-color:#f3d195!important}
+html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-title{color:#fff4df!important;-webkit-text-fill-color:#fff4df!important}
+html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-note{color:#ead7b8!important;-webkit-text-fill-color:#ead7b8!important}
+html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-mark{color:#e8bf73}
+html body #top.creative-site.site-page-home #main .home-journey-section .footer-journey-links a+a{border-color:#e6bc7040}
+html body #top.creative-site.site-page-home #main .home-journey-section .journey-hover-grid::before{background:linear-gradient(120deg,#d7ae5c26,#d7ae5c12)}
+html body #top.creative-site.site-page-home #main .home-journey-section a:is(:hover,:focus-visible) .footer-journey-title{color:#f3d195!important;-webkit-text-fill-color:#f3d195!important}

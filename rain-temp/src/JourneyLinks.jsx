@@ -21,7 +21,7 @@ export default function JourneyLinks(){
  }, []);
  return <section className="home-journey-section">
     <nav className="footer-journey-links" aria-label="Where are you in the journey?">
-      <h3>{cmsText("JourneyLinks","0b162fdc78345179","Where are you in the journey?")}</h3>
+      <h2>{cmsText("JourneyLinks","0b162fdc78345179","Where are you in the journey?")}</h2>
       <div ref={grid} className="journey-hover-grid" data-hovering={Boolean(panel)}
        style={panel ? {'--panel-x':`${panel.x}px`,'--panel-y':`${panel.y}px`,'--panel-width':`${panel.width}px`,'--panel-height':`${panel.height}px`} : undefined}
        onPointerLeave={() => { const focused=grid.current.querySelector('a:focus-visible'); if(focused) positionPanel(focused); else clearPanel(); }}

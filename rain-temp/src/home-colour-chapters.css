@@ -137,13 +137,13 @@ html body #top.creative-site.site-page-home[data-home-colors] .creative-footer.f
  --chapter-bg:#2d2926;--chapter-ink:#efeae2;--chapter-muted:#d2ccc5;--chapter-line:#5b5550;--chapter-panel:#36322f;
 }
 
-/* Studio figures pair the blue panel with the journey section's warm orange. */
+/* Studio figures pair the blue panel with the logo's warm gold palette. */
 html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip>div{
  --chapter-ink:#24252b;--chapter-muted:#50515b;background:#f6f2f0!important;border-color:transparent!important;
 }
 html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip>div:nth-child(2){background:#e0edff!important}
 html body #top.creative-site.site-page-home[data-home-colors] #main #studio .proof-strip>div:nth-child(3){
- background:linear-gradient(135deg,#ffab78,#ff701f)!important;
+ background:linear-gradient(135deg,#f1d58e,#c3913e)!important;
  --chapter-ink:#29231f;--chapter-muted:#584b42;
 }
 html body #top.creative-site.site-page-home[data-home-colors] #main #home.cinema-opening{
@@ -214,4 +214,23 @@ html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-k
 @media(max-width:700px){
  html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-layout{padding:20px;gap:12px;border-radius:20px}
  html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-path{padding:20px 0}
+}
+
+/* Keep showreel control icons readable on their dark interactive surface. */
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .compact-rail-controls button:enabled:is(:hover,:focus-visible){
+ background:#171717!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border-color:#171717!important;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio #showreel .compact-rail-controls button:enabled:is(:hover,:focus-visible) :is(svg,span){
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+
+/* Brighter gold labels anchor the homepage's dark sections. */
+html body #top.creative-site.site-page-home[data-home-colors] #main #services .ds-label>span:first-child,
+html body #top.creative-site.site-page-home[data-home-colors] #main #productions .mw-pill,
+html body #top.creative-site.site-page-home[data-home-colors] #main .script-card>div:first-of-type>span{
+ color:#f3d195!important;-webkit-text-fill-color:#f3d195!important;
+ font-weight:700;letter-spacing:.075em;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #services .ds-label>span:last-child{
+ color:#ededed;-webkit-text-fill-color:#ededed;
 }

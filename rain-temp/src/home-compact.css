@@ -248,3 +248,9 @@ html body #top.creative-site.site-page-home #main .final-process .script-card>di
   background:linear-gradient(180deg,rgba(4,9,12,.88),rgba(4,9,12,.76) 40%,rgba(4,9,12,.94));
  }
 }
+
+/* Keep the process and collaboration labels free of top dividers. */
+html body #top.creative-site.site-page-home #main .final-process>.index-label,
+html body #top.creative-site.site-page-home #main #work-with-kemsor>.index-label{
+ border-top:0!important;
+}

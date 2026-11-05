@@ -4,7 +4,7 @@
 .showreel-runway[data-pinned=true] .showreel-gallery{position:sticky;top:96px}
 .showreel-gallery-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px}
 .showreel-gallery-head>div>span{display:block;font:500 10px/1.5 Inter,sans-serif;letter-spacing:.12em;color:#666;margin-bottom:12px}
-html body #top.creative-site #main .showreel-gallery-head h3{margin:0;color:#171717;font:500 clamp(22px,2vw,30px)/1.2 Manrope,sans-serif;letter-spacing:-.035em}
+html body #top.creative-site #main .showreel-gallery-head h2{margin:0;color:#171717;font:500 clamp(22px,2vw,30px)/1.2 Manrope,sans-serif;letter-spacing:-.035em}
 .showreel-scroll-hint{display:flex;align-items:center;gap:18px;font:400 10px/1.6 Inter,sans-serif;letter-spacing:.08em;color:#666}
 .showreel-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#bdbdbd transparent;overscroll-behavior-x:contain;padding-bottom:10px;outline-offset:4px}
 .showreel-runway[data-pinned=true] .showreel-viewport{overflow:hidden}
@@ -63,7 +63,7 @@ html body #top.creative-site #main #showreel{
 html body #top.creative-site #main #showreel .showreel-gallery{
  background:#222;color:#fff;padding-inline:clamp(1.25rem,5vw,6.5rem);
 }
-html body #top.creative-site #main #showreel .showreel-gallery-head h3,
+html body #top.creative-site #main #showreel .showreel-gallery-head h2,
 html body #top.creative-site #main #showreel .showreel-card figcaption,
 html body #top.creative-site #main #showreel .showreel-card figcaption strong{color:#fff}
 html body #top.creative-site #main #showreel .showreel-gallery-head>div>span,
@@ -160,7 +160,7 @@ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-vi
 html body #top.creative-site.site-page-home #main #studio #showreel .showreel-track{
  --page-bg:#fff;background:#fff!important;
 }
-html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head h3,
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head h2,
 html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card figcaption,
 html body #top.creative-site.site-page-home #main #studio #showreel .showreel-card figcaption strong{color:#171717}
 html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head>div>span,
@@ -182,7 +182,7 @@ html body #top.creative-site.site-page-home #main #studio.final-about .index-rig
 html body #top.creative-site.site-page-home #main #studio.final-about .final-about-grid p{color:#444}
 
 /* Stronger heading contrast on the white showreel surface. */
-html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head h3{
+html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head h2{
  font-size:clamp(28px,3vw,44px);font-weight:600;line-height:1.16;
 }
 html body #top.creative-site.site-page-home #main #studio #showreel .showreel-gallery-head>div>span{
@@ -245,8 +245,8 @@ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edg
  pointer-events:none;overflow-wrap:anywhere;
 }
 html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption strong{
- color:#fff;font:800 clamp(30px,3.7vw,64px)/1.02 Manrope,Inter,sans-serif;
- letter-spacing:-.045em;text-transform:uppercase;
+ color:#fff;font:600 clamp(20px,1.8vw,28px)/1.2 Manrope,Inter,sans-serif;
+ letter-spacing:-.02em;text-transform:uppercase;
 }
 html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption .showreel-panel-index{
  color:#fff;font:600 11px/1.4 Inter,sans-serif;letter-spacing:.12em;
@@ -270,7 +270,7 @@ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edg
  html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-carousel-toolbar{grid-column:1;grid-row:2;padding-inline:20px}
  html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-viewport{grid-row:3}
  html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge .showreel-card-screen{height:clamp(520px,80svh,850px)}
- html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption strong{font-size:clamp(34px,9vw,48px)}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge figcaption strong{font-size:clamp(20px,5.5vw,26px)}
 }
 @media(prefers-reduced-motion:reduce){
  html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge video{transition:none;transform:none!important}

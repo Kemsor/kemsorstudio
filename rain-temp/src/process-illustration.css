@@ -1,0 +1,15 @@
+html body #top.creative-site.site-page-home #main .final-process ol li .process-illustration{
+ position:absolute;z-index:1;top:22px;right:22px;width:clamp(140px,15vw,200px);height:auto;
+ pointer-events:none;transform:rotate(-3deg);transition:transform .45s ease;
+}
+html body #top.creative-site.site-page-home #main .final-process ol li:nth-child(3) .process-illustration{transform:rotate(3deg)}
+html body #top.creative-site.site-page-home #main .final-process ol li:is(:first-child,:last-child)::before{display:none}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ html body #top.creative-site.site-page-home #main .final-process ol li:hover .process-illustration{transform:translateY(-4px) rotate(0)}
+}
+@media(max-width:700px){
+ html body #top.creative-site.site-page-home #main .final-process ol li .process-illustration{width:140px;top:16px;right:18px}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site.site-page-home #main .final-process ol li .process-illustration{transition:none}
+}

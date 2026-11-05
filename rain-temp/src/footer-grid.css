@@ -3,7 +3,7 @@ html body #top.creative-site .creative-footer.footer-grid{
  --ink:#efefef;--muted:#aaa;--line:#ffffff29;--footer-accent:#f0b858;
  position:relative;isolation:isolate;overflow:hidden;padding:56px clamp(20px,5vw,104px) 24px;
  background-color:#000!important;
- background-image:repeating-linear-gradient(110deg,transparent 0 13px,#ffffff1c 13px 14px)!important;
+ background-image:repeating-linear-gradient(20deg,transparent 0 13px,#ffffff14 13px 14px)!important;
  background-size:auto!important;color:var(--ink);border:0;border-radius:0;
 }
 html body #top.creative-site .footer-grid .footer-grid-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(36px,6vw,100px);max-width:1680px;margin-inline:auto}

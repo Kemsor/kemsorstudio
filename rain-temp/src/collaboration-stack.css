@@ -1,10 +1,10 @@
 /* A photographic folder reveal, confined to the first collaboration column. */
 html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack{
- --stack-open:var(--stack-scroll,0);position:relative;isolation:isolate;min-height:460px;
+ --stack-open:var(--stack-scroll,0);--folder-stage-top:20px;--folder-stage-bottom:70px;position:relative;isolation:isolate;min-height:460px;
  margin:24px 28px 24px 0;clip-path:none;overflow:visible;
 }
 html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack::after{display:none}
-html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack-stage{position:absolute;inset:20px 0 70px;perspective:1000px}
+html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack-stage{position:absolute;inset:var(--folder-stage-top) 0 var(--folder-stage-bottom);perspective:1000px}
 html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack-photo{
  position:absolute;left:50%;top:56%;width:min(52%,180px);aspect-ratio:3/4;
  border:3px solid #fff;border-radius:14px;overflow:hidden;background:#eee;
@@ -28,23 +28,31 @@ html body #top.creative-site.site-page-home #main #work-with-kemsor :is(.collabo
  position:absolute;left:50%;width:min(86%,280px);border-radius:18px;transform:translateX(-50%);
 }
 html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-folder-back{
- top:55%;height:42%;z-index:0;background:#242424;box-shadow:0 12px 28px #00000018;
+ top:55%;height:42%;z-index:0;background:linear-gradient(135deg,#b88a40,#8c6027);box-shadow:0 12px 28px #5b3b1c24;
+ border:1px solid #a77732;border-radius:0 12px 12px 12px;
 }
 html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-folder-back::before{
- content:'';position:absolute;left:0;top:-18px;width:44%;height:34px;background:#242424;border-radius:14px 14px 0 0;
+ content:'';position:absolute;left:-1px;top:-24px;width:46%;height:25px;
+ background:linear-gradient(135deg,#c89a4d,#b88a40);border:1px solid #a77732;border-bottom:0;
+ border-radius:10px 16px 0 0;clip-path:polygon(0 0,85% 0,100% 100%,0 100%);
 }
 html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-folder-front{
- top:69%;height:29%;z-index:4;display:grid;place-items:center;
- background:linear-gradient(135deg,#ffffff65,#ffffff20);border:1px solid #ffffff80;
- backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 #fff6,0 10px 24px #0002;
+ top:69%;height:29%;z-index:4;
+ background:linear-gradient(155deg,#edce8a,#d4a85d 62%,#bd8b3e);border:1px solid #bd8e45;
+ border-radius:8px 8px 12px 12px;
+ box-shadow:inset 0 2px 0 #fff5,inset 0 -2px 0 #a9783026,0 10px 24px #5b3b1c24;
 }
-html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-folder-front span{
- font:600 34px/1 Manrope,Inter,sans-serif;color:#fff9;
+html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-folder-front::before{
+ content:'';position:absolute;top:9px;left:14px;right:14px;height:1px;background:#fff5;
 }
 html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack figcaption{
- inset:auto 0 0;color:var(--chapter-ink);text-align:center;align-items:center;
+ inset:auto;left:50%;top:calc(var(--folder-stage-top) + (100% - var(--folder-stage-top) - var(--folder-stage-bottom)) * .69);
+ width:min(86%,280px);height:calc((100% - var(--folder-stage-top) - var(--folder-stage-bottom)) * .29);
+ transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;justify-content:center;
+ padding:18px 12px 10px;box-sizing:border-box;color:#523414;text-align:center;align-items:center;
+ pointer-events:none;gap:7px;
 }
-html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-stack figcaption span{color:var(--chapter-ink)!important;-webkit-text-fill-color:var(--chapter-ink)!important}
+html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-kemsor .collaboration-stack figcaption span{color:#523414!important;-webkit-text-fill-color:#523414!important;font-weight:600}
 @media(hover:hover) and (pointer:fine){
  html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack:hover{--stack-open:1}
 }
@@ -53,7 +61,7 @@ html body #top.creative-site.site-page-home[data-home-colors] #main #work-with-k
 }
 @media(max-width:700px){
  html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack{min-height:420px;height:420px;width:min(100%,360px);margin:24px auto}
- html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack-stage{inset:26px 0 50px}
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack{--folder-stage-top:26px;--folder-stage-bottom:50px}
  html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack-photo{width:min(52%,176px)}
  html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack-photo-left{transform:translate(-50%,-50%) translate(calc(var(--stack-open) * -25%),calc(var(--stack-open) * -58px)) rotate(calc(-3deg - var(--stack-open) * 10deg))}
  html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-stack-photo-centre{transform:translate(-50%,-50%) translateY(calc(var(--stack-open) * -80px))}
