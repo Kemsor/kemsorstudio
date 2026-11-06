@@ -1,0 +1,53 @@
+/* Match the Atella reference's Manrope Medium navigation typography. */
+html body #top.creative-site {
+  --navigation-text-size:14px;
+}
+@media(min-width:810px) and (max-width:1439px) {
+  html body #top.creative-site {--navigation-text-size:13px}
+}
+
+html body #top.creative-site .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.creative-nav-cta,.creative-nav-toggle,.header-login,.creative-nav-mobile-login),
+html body #top.creative-site .creative-header .creative-nav-group a,
+html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs button {
+  font-family:Manrope,Arial,sans-serif!important;
+  font-size:var(--navigation-text-size)!important;
+  font-weight:500!important;
+  font-style:normal!important;
+  line-height:1.4!important;
+  letter-spacing:0!important;
+  font-feature-settings:'blwf' on,'cv09' on,'cv03' on,'cv04' on,'cv11' on;
+}
+html body #top.creative-site .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.creative-nav-cta,.creative-nav-toggle,.header-login,.creative-nav-mobile-login),
+html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs button {
+  text-transform:uppercase!important;
+}
+/* Retain the compact phone CTA sizing while using the same navigation face. */
+html body #top.creative-site .creative-header .header-script-tool {
+  font-family:Manrope,Arial,sans-serif!important;
+  font-weight:500!important;
+  font-style:normal!important;
+  letter-spacing:0!important;
+  text-transform:uppercase;
+  font-feature-settings:'blwf' on,'cv09' on,'cv03' on,'cv04' on,'cv11' on;
+}
+html body #top.creative-site .creative-header :is(.creative-nav-roll,.creative-nav-roll-track,.creative-nav-roll-track>span) {
+  font-family:inherit!important;
+  font-size:inherit!important;
+  font-weight:inherit!important;
+  font-style:inherit!important;
+  letter-spacing:inherit!important;
+  line-height:1.4!important;
+}
+@media(min-width:1441px) {
+  html body #top.creative-site .creative-header :is(.creative-nav-roll,.creative-nav-roll-track,.creative-nav-roll-track>span) {height:1.4em}
+  html body #top.creative-site .creative-header .header-script-tool,
+  html body #top.creative-site .creative-header .header-script-tool .cta-label {
+    font-family:Manrope,Arial,sans-serif!important;
+    font-size:var(--navigation-text-size)!important;
+    font-weight:500!important;
+    line-height:1.4!important;
+    letter-spacing:0!important;
+    text-transform:uppercase;
+    font-feature-settings:'blwf' on,'cv09' on,'cv03' on,'cv04' on,'cv11' on;
+  }
+}

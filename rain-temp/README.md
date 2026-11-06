@@ -65,9 +65,11 @@ Before publishing, confirm the document’s flagged construction scope: whether 
 The local draft retains the supplied copy. Before publishing, confirm the document’s flagged safety responsibilities/policies and whether Kemsor performs on-set data handling or coordinates footage handover.
 
 
-### Two-font typography
+### Display and reading typography
 
-The frontend uses Inter (`--body`) for reading text and Manrope (`--display`) for headings. Former Space Grotesk rules use the shared display token; its `@font-face` declaration was removed so browsers no longer request it. News copy and screenplay styling use the body token, and print styles use it as well. The unused original font asset is retained but is not referenced by the frontend.
+The frontend uses locally hosted Cinzel Decorative Regular (400) for page and section headings, including the homepage script invitation. Smaller card headings retain Manrope (`--display`), while Inter (`--body`) remains the reading and interface font. The Cinzel Decorative Latin WOFF2 is 14 KB; its SIL Open Font License is included in `public/assets/fonts/Cinzel-Decorative-OFL.txt`. Font rules are scoped to the public website in `src/display-headings.css`. Former Space Grotesk rules use the shared display token; its `@font-face` declaration was removed so browsers no longer request it. News copy and screenplay styling use the body token, and print styles use it as well. The unused original font asset is retained but is not referenced by the frontend.
+
+Navigation links and homepage service tabs use Manrope Medium (500), uppercase labels, zero letter spacing and a 1.4 line height, matching the Atella reference. The shared size is 14px, with 13px between 810px and 1439px. These rules live in `src/navigation-type.css` and reuse the existing local Manrope font.
 
 
 ### Produce closing CTA update

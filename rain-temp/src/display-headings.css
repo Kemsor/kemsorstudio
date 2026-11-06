@@ -1,0 +1,48 @@
+@font-face {
+  font-family:'Cinzel Decorative';
+  src:url('/assets/fonts/cinzel-decorative-regular-latin.woff2') format('woff2');
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+}
+
+/* Use the decorative face for display titles; keep the reading and UI fonts. */
+html body #top.creative-site #main#main :is(h1,h2),
+html body #top.creative-site #main#main .script-card h3 {
+  font-family:'Cinzel Decorative',Georgia,serif!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  font-synthesis:none;
+  letter-spacing:0!important;
+  word-spacing:.015em;
+  line-height:1.2!important;
+  text-wrap:balance;
+}
+html body #top.creative-site #main#main :is(h1,h2) :is(span,em,strong,a,.text-flow-word),
+html body #top.creative-site #main#main .script-card h3 :is(span,em,.text-flow-word) {
+  font-family:inherit!important;
+  font-weight:inherit!important;
+  font-style:normal!important;
+  letter-spacing:inherit!important;
+}
+html body #top.creative-site #main#main :is(h1,h2) .text-flow-word {
+  max-width:100%;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+/* The capitals need more room than the previous tightly tracked sans face. */
+html body #top.creative-site.site-page-home #main#main #opening-title {
+  font-size:clamp(32px,4vw,60px)!important;
+  line-height:1.15!important;
+  white-space:normal;
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page h1 {
+  font-size:clamp(30px,3vw,42px)!important;
+  line-height:1.15!important;
+}
+@media(max-width:600px) {
+  html body #top.creative-site.site-page-home #main#main #opening-title {font-size:clamp(24px,6.5vw,32px)!important}
+  html body #top.creative-site:not(.site-page-home) #main#main.inner-page h1 {font-size:clamp(24px,6.8vw,28px)!important}
+  html body #top.creative-site #main#main h2 {font-size:clamp(26px,7vw,30px)!important}
+  html body #top.creative-site #main#main :is(h1,h2) {overflow-wrap:anywhere}
+}
