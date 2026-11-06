@@ -100,3 +100,9 @@ html body #top.creative-site #main.inner-page .directory-discovery .directory-bo
 @media(max-width:760px){
  html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide{padding:22px}
 }
+
+/* Use the shared dark closing panel within the directory's existing content width. */
+html body #top.creative-site #main.inner-page .directory-discovery .directory-bottom-cta.inner-closing.inner-closing{width:100%;max-width:none;margin:44px 0 0!important;gap:28px}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .directory-bottom-cta.inner-closing.inner-closing .page-eyebrow{color:#f1cf80!important;-webkit-text-fill-color:#f1cf80!important;margin:0 0 20px}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .directory-bottom-cta.inner-closing.inner-closing h2+p{margin:20px 0 0}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .directory-bottom-cta.inner-closing.inner-closing .talent-button{background:linear-gradient(110deg,#f1d58e,#ef9d2d)!important;border-color:transparent!important;color:#211a10!important;-webkit-text-fill-color:#211a10!important;flex-shrink:0}

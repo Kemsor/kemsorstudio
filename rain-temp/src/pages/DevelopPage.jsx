@@ -4,6 +4,7 @@ import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import React from 'react';
+import { MessageCircle, FilePenLine, PackageOpen, CalendarDays, Handshake, ArrowRight } from 'lucide-react';
 import EditorialPage from '../EditorialPage';
 import { CTA, TextLink } from '../PageUI';
 import './produce-page.css';
@@ -36,6 +37,7 @@ const steps = cmsData(()=>([
   [cmsText("DevelopPage","1fb3bf1bf90f114a","Plan"),cmsText("DevelopPage","f7d35e8497d67660","Budget and schedule built from the script up.")],
   [cmsText("DevelopPage","f909491402fa2ce9","Hand on"),cmsText("DevelopPage","b35af60382c86295","Into Finance or Production with the same team.")],
 ]));
+const stepIcons = [MessageCircle, FilePenLine, PackageOpen, CalendarDays, Handshake];
 const audiences = cmsData(()=>([
   cmsText("DevelopPage","fb5e4b21b025784f","Writers with a script or an idea worth developing"),
   cmsText("DevelopPage","f5d745415ad2dd16","Directors building a project around their vision"),
@@ -65,7 +67,7 @@ export default function DevelopPage() {
 
     <section className="produce-section" id="ready-checklist" aria-labelledby="ready-title"><Label>{cmsText("DevelopPage","7ed4c26c1939c6af","WHAT “READY” LOOKS LIKE · THE DEVELOP EXIT CHECKLIST")}</Label><MotionHeading as="h2" id="ready-title">{cmsText("DevelopPage","873b521c122d216c","When development is done,")}<br/><em>{cmsText("DevelopPage","8b4c86a5709aa101","you’ll have all of this.")}</em></MotionHeading><MotionCopy className="develop-intro">{cmsText("DevelopPage","1c1d58115bf9d505","Development should leave you with a script, project package, budget and schedule that a financier, platform or partner can assess.")}</MotionCopy><dl className="line-production-deliverables studio-ledger studio-ledger-pairs">{checklist.map(([title,body])=><div key={title}><dt>{title}</dt><dd>{body}</dd></div>)}</dl><div className="develop-next"><CTA href="/finance/">{cmsText("DevelopPage","c7420fa200b68ec2","Next: 02 Finance")}</CTA></div></section>
 
-    <section className="produce-section produce-process" id="how-it-works" aria-labelledby="process-title"><Label>{cmsText("DevelopPage","7bc8c086ee2a8ed4","HOW IT WORKS · FROM IDEA TO READY")}</Label><MotionHeading as="h2" id="process-title">{cmsText("DevelopPage","dc4d741aa61f4c80","From idea")}<br/><em>{cmsText("DevelopPage","80d29fd4eacfe9b1","to ready.")}</em></MotionHeading><ol className="produce-steps finance-steps">{steps.map(([title,body],i)=><li key={title}><h3>{title}</h3><p>{body}</p></li>)}</ol></section>
+    <section className="produce-section produce-process" id="how-it-works" aria-labelledby="process-title"><Label>{cmsText("DevelopPage","7bc8c086ee2a8ed4","HOW IT WORKS · FROM IDEA TO READY")}</Label><MotionHeading as="h2" id="process-title">{cmsText("DevelopPage","dc4d741aa61f4c80","From idea")}<br/><em>{cmsText("DevelopPage","80d29fd4eacfe9b1","to ready.")}</em></MotionHeading><ol className="develop-process-steps">{steps.map(([title,body],i)=>{const Icon = stepIcons[i % stepIcons.length];return <li key={title}><span className="develop-step-icon" aria-hidden="true"><Icon size={30} strokeWidth={1.6}/></span><div className="develop-step-copy"><h3>{title}</h3><p>{body}</p></div>{i < steps.length-1 && <ArrowRight className="develop-step-arrow" size={14} aria-hidden="true"/>}</li>;})}</ol></section>
 
     <section className="produce-section" id="who-its-for" aria-labelledby="audiences-title"><Label>{cmsText("DevelopPage","f186d7c181597cb7","WHO IT’S FOR · FINISHED SCRIPT OR EARLY IDEA")}</Label><MotionHeading as="h2" id="audiences-title">{cmsText("DevelopPage","ee4174e674f0459b","Who it’s for.")}<br/><em>{cmsText("DevelopPage","e965378f6150a2fb","Any stage, any format.")}</em></MotionHeading><ul className="develop-audiences">{audiences.map(line=><li key={line}>{line}</li>)}</ul></section>
 

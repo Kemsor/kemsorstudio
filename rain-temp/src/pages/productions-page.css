@@ -58,3 +58,16 @@ html body #top.creative-site #main.inner-page .productions-page .productions-pro
 html body #top.creative-site #main.inner-page .productions-page .productions-process-section :is(h2,h3){-webkit-text-fill-color:#fff!important}
 html body #top.creative-site #main.inner-page .productions-page .productions-process-section p{-webkit-text-fill-color:#d2cfc9!important}
 html body #top.creative-site #main.inner-page .productions-page .productions-process-section>.produce-label{-webkit-text-fill-color:#dfbb7c!important}
+
+/* Partnership cards use the same gold hover palette as the supporting service cards. */
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article{position:relative;isolation:isolate;overflow:hidden;min-width:0;padding:28px;border:1px solid #e6dfd4;border-radius:14px;background:#f8f6f2;transition:border-color .25s,box-shadow .25s}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,#f1d58e,#c3913e);opacity:0;transition:opacity .3s}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article h3{margin:0 0 14px;line-height:1.4;color:#30251a!important;-webkit-text-fill-color:#30251a!important}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article p{flex:1;margin:0 0 24px;line-height:1.8;color:#514638!important;-webkit-text-fill-color:#514638!important}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article .line-link{align-self:flex-start;margin-top:auto;color:#80551c!important;-webkit-text-fill-color:#80551c!important}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article:is(:hover,:focus-within){border-color:#c3913e;box-shadow:0 10px 24px #79551f24}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article:is(:hover,:focus-within)::before{opacity:1}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article:is(:hover,:focus-within) :is(h3,p,a,span,svg){color:#30251a!important;-webkit-text-fill-color:#30251a!important}
+html body #top.creative-site #main.inner-page .productions-page .productions-audiences .line-link:focus-visible{outline:2px solid #966622;outline-offset:5px;border-radius:2px}
+@media(max-width:480px){html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article{padding:24px}}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article,html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article::before{transition:none}}

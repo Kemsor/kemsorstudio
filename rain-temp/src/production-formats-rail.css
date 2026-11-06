@@ -1,0 +1,17 @@
+html body #top.creative-site #main.inner-page #what-we-make .production-formats-rail{overflow-x:auto;overflow-y:hidden;width:100%;min-width:0;cursor:grab;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x pan-y;scroll-behavior:auto;user-select:none;border-radius:16px;isolation:isolate}
+html body #top.creative-site #main.inner-page #what-we-make .production-formats-rail::-webkit-scrollbar{display:none}
+html body #top.creative-site #main.inner-page #what-we-make .production-formats-rail[data-dragging=true],html body #top.creative-site #main.inner-page #what-we-make .production-formats-rail[data-dragging=true] a{cursor:grabbing}
+html body #top.creative-site #main.inner-page #what-we-make .production-formats-track{display:flex;width:max-content;align-items:stretch}
+html body #top.creative-site #main.inner-page #what-we-make .production-formats-group{display:flex;align-items:stretch;gap:24px;padding-right:24px;flex-shrink:0}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-slide{display:flex;flex-direction:column;flex:0 0 clamp(300px,31vw,420px);width:clamp(300px,31vw,420px);min-width:0;border:1px solid #e6dfd4;border-radius:16px;overflow:hidden;background:#faf7f0;scroll-margin-top:110px}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-photo{display:block;overflow:hidden;flex-shrink:0}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-photo img{display:block;width:100%;height:auto;aspect-ratio:1.25;object-fit:cover;margin:0;pointer-events:none;transition:transform .6s}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-slide:hover img{transform:scale(1.035)}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-copy{display:flex;flex:1;flex-direction:column;padding:26px 28px 28px;min-width:0}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-copy .produce-label{margin:0 0 12px;color:#947145}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-copy h3{margin:0;font-size:26px!important;line-height:1.3!important;color:#30251a!important;-webkit-text-fill-color:#30251a!important}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-copy p{flex:1;margin:14px 0 24px;line-height:1.8;color:#514638!important;-webkit-text-fill-color:#514638!important}
+html body #top.creative-site #main.inner-page #what-we-make .production-format-copy .line-link{align-self:flex-start;margin-top:auto;font-size:12px!important;color:#80551c!important;-webkit-text-fill-color:#80551c!important}
+html body #top.creative-site #main.inner-page #what-we-make .production-formats-rail:focus-visible{outline:2px solid #966622;outline-offset:6px}
+@media(max-width:600px){html body #top.creative-site #main.inner-page #what-we-make .production-format-slide{width:min(82vw,360px);flex-basis:min(82vw,360px)}html body #top.creative-site #main.inner-page #what-we-make .production-format-copy{padding:22px}html body #top.creative-site #main.inner-page #what-we-make .production-format-copy h3{font-size:23px!important}}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page #what-we-make .production-formats-group[data-copy]{display:none}html body #top.creative-site #main.inner-page #what-we-make .production-format-photo img{transition:none}html body #top.creative-site #main.inner-page #what-we-make .production-format-slide:hover img{transform:none}}

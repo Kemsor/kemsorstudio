@@ -4,6 +4,7 @@ import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import ProduceLayout from '../ProduceLayout';
+import ProcessSteps from '../ProcessSteps';
 import React from 'react';
 import { Arrow, CTA, TextLink } from '../PageUI';
 import './produce-page.css';
@@ -61,7 +62,7 @@ export default function LineProductionPage() {
 
     <section className="produce-section line-production-included" id="line-production-included" aria-labelledby="line-production-included-title"><Label>{cmsText("LineProductionPage","7ef30b656cbff168","WHAT’S INCLUDED")}</Label><MotionHeading as="h2" id="line-production-included-title">{cmsText("LineProductionPage","5a82f02310d4b171","What’s included.")}</MotionHeading><div className="line-production-scope"><dl className="line-production-deliverables studio-ledger studio-ledger-pairs">{included.map(([title, description], index) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl><figure className="line-production-planning"><StudioImage mediaSlot="LineProductionPage-2" src="/assets/services/planning.webp" alt={"Production collaborators reviewing plans on a filming location"} width="1672" height="941" loading="lazy" decoding="async"/><figcaption><span>{cmsText("LineProductionPage","a81c6ae396123ca0","PRODUCTION MANAGEMENT")}</span><MotionCopy>{cmsText("LineProductionPage","0653e053b35a5845","Every department working from the same plan and the same information.")}</MotionCopy></figcaption></figure></div></section>
 
-    <section className="produce-section produce-process" aria-labelledby="line-production-process-title"><Label>{cmsText("LineProductionPage","e8af8de0ae803f44","HOW WE WORK")}</Label><MotionHeading as="h2" id="line-production-process-title">{cmsText("LineProductionPage","2be776c3c05a435e","How we work.")}</MotionHeading><ol className="produce-steps line-production-steps">{steps.map(([title, description], index) => <li key={title}><h3>{title}</h3><p>{description}</p></li>)}</ol></section>
+    <section className="produce-section produce-process" aria-labelledby="line-production-process-title"><Label>{cmsText("LineProductionPage","e8af8de0ae803f44","HOW WE WORK")}</Label><MotionHeading as="h2" id="line-production-process-title">{cmsText("LineProductionPage","b214ce67821e74f0","From script to post.")}</MotionHeading><ProcessSteps steps={steps} label={cmsText("LineProductionPage","e8af8de0ae803f44","HOW WE WORK")} /></section>
 
     <section className="produce-section produce-audiences" aria-labelledby="line-production-audiences-title"><div><Label>{cmsText("LineProductionPage","d54038a34fd342d9","WHO IT’S FOR")}</Label><MotionHeading as="h2" id="line-production-audiences-title">{cmsText("LineProductionPage","66cf895570ffdc90","Who it’s for.")}</MotionHeading><div className="produce-audience-mark" aria-hidden="true"><span>{cmsText("LineProductionPage","b63de16e15e32a3b","ON SET")}</span><i>+</i><span>{cmsText("LineProductionPage","1e322b21f3e2ebb6","IN THE OFFICE")}</span></div></div><ul>{audiences.map(([title, description], index) => <li key={title}><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul></section>
 

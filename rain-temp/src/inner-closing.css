@@ -1,12 +1,12 @@
 /* One recognisable closing invitation across the public inner pages. */
 html body #top.creative-site #main.inner-page .inner-closing.inner-closing:not(.pl-section-content):not(.fl-section-content) {
- --inner-heading-ink:#282018;--inner-heading-accent:#956122;
+ --inner-heading-ink:#fffaf0;--inner-heading-accent:#f1cf80;
  position:relative;isolation:isolate;box-sizing:border-box;
  width:calc(100% - var(--inner-content-gutter)*2);max-width:var(--inner-content-width);
  margin:36px auto 56px!important;
  padding:clamp(28px,4.5vw,64px)!important;
- background:linear-gradient(115deg,#faf7f0,#f2e8d5)!important;
- color:#514638;border:1px solid #e4d5bb!important;border-left:5px solid #bc9149!important;
+ background:radial-gradient(ellipse at 100% 0%,#88612c55,transparent 58%),repeating-linear-gradient(115deg,transparent 0 22px,#ffffff05 22px 23px),#212121!important;
+ color:#e5ddd0;border:1px solid #8c6a3655!important;border-left:5px solid #e2bd69!important;
  border-radius:18px!important;box-shadow:none!important;min-height:0;
 }
 html body #top.creative-site #main.inner-page :is(.ep-chapters,.pl-body,.fl-body) .inner-closing.inner-closing:not(.pl-section-content):not(.fl-section-content) {width:100%}
@@ -14,11 +14,11 @@ html body #top.creative-site #main.inner-page .inner-closing.inner-closing:not(.
 /* Wrapper-based services use the outer panel's padding, never a second inset. */
 html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.pl-section-content,.fl-section-content) {padding:0!important;margin:0!important;background:transparent!important}
 html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.produce-label,.index-label,.studio-label,.release-label,.call-sheet-label) {
- margin:0 0 24px!important;padding:0!important;border:0!important;color:#79552a!important;
+ margin:0 0 24px!important;padding:0!important;border:0!important;color:#f1cf80!important;
 }
 html body #top.creative-site #main.inner-page .inner-closing.inner-closing h2 {margin:0!important;max-width:25ch}
-html body #top.creative-site #main.inner-page .inner-closing.inner-closing p {color:#514638;max-width:60ch}
-html body #top.creative-site #main.inner-page .inner-closing.inner-closing .line-link {color:#68471e!important;border-color:#ad8b57}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing p {color:#e5ddd0;max-width:60ch}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing .line-link {color:#f1cf80!important;border-color:#d3af62}
 html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.productions-actions,.produce-actions,.release-actions,.india-actions,.call-sheet-actions,.series-actions,.short-actions,.documentary-actions) {
  display:flex;flex-wrap:wrap;align-items:center;gap:18px 24px;margin-top:24px;
 }
@@ -38,3 +38,21 @@ html body #top.creative-site #main.inner-page .productions-closing.inner-closing
  html body #top.creative-site #main.inner-page .produce-closing.inner-closing:not(.pl-section-content):not(.fl-section-content)>div:has(h2) {grid-template-columns:minmax(0,1fr);gap:24px}
  html body #top.creative-site #main.inner-page .inner-closing.inner-closing .creative-cta {max-width:100%;min-width:0;white-space:normal}
 }
+
+/* Bright, legible type on every closing panel, including wrapper-based pages. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing {--inner-heading-ink:#fffaf0;--inner-heading-accent:#f1cf80}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(h2,h3),
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(h2,h3) * {color:#fffaf0!important;-webkit-text-fill-color:#fffaf0!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(h2,h3) :is(em,.heading-accent),
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(h2,h3) :is(em,.heading-accent) * {color:#f1cf80!important;-webkit-text-fill-color:#f1cf80!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(p,dd,dt,li,figcaption) {color:#e5ddd0!important;-webkit-text-fill-color:#e5ddd0!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(.produce-label,.index-label,.studio-label,.release-label,.call-sheet-label,.series-label,.short-label,.documentary-label),
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(.produce-label,.index-label,.studio-label,.release-label,.call-sheet-label) * {color:#f1cf80!important;-webkit-text-fill-color:#f1cf80!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing .line-link,
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing .line-link * {color:#f1cf80!important;-webkit-text-fill-color:#f1cf80!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing .line-link::after {background:#d3af62!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing .creative-cta,
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing .creative-cta :is(span,svg){color:#211a10!important;-webkit-text-fill-color:#211a10!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing :is(.finance-disclaimer,.call-sheet-signoff,.call-sheet-best){border-color:#e2bd6940!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing .finance-disclaimer{color:#cec4b5!important;-webkit-text-fill-color:#cec4b5!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-closing.inner-closing a:focus-visible{outline:2px solid #f1cf80;outline-offset:5px}

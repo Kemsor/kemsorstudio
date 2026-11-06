@@ -1,0 +1,66 @@
+/* Keep the connecting route above the cards, with its own breathing space. */
+html body #top.creative-site #main.inner-page .process-steps {
+  position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:22px;margin:40px 0 0;padding:0;border:0;list-style:none;background:transparent;
+}
+html body #top.creative-site #main.inner-page .process-steps::before,
+html body #top.creative-site #main.inner-page .process-steps::after {
+  content:'';position:absolute;z-index:-1;top:29px;left:12.5%;right:12.5%;height:2px;background:#e8ddc8;
+}
+html body #top.creative-site #main.inner-page .process-steps::after {
+  background:linear-gradient(90deg,#e6c477,#9a6b2c);transform:scaleX(0);transform-origin:left;
+}
+html body #top.creative-site #main.inner-page .process-steps[data-entered=true]::after {
+  animation:process-steps-route 1.6s cubic-bezier(.22,.61,.36,1) both;
+}
+html body #top.creative-site #main.inner-page .process-steps>li {
+  display:flex;flex-direction:column;align-items:center;gap:26px;min-width:0;margin:0;padding:0;border:0;list-style:none;
+}
+html body #top.creative-site #main.inner-page .process-steps>li::before {content:none}
+html body #top.creative-site #main.inner-page .process-steps-node {
+  display:grid;place-items:center;flex:none;width:60px;height:60px;box-sizing:border-box;
+  border:1px solid #cfac6d;border-radius:50%;background:#fcf6e8;color:#956623;
+  box-shadow:0 0 0 7px #fff;transition:background .25s,color .25s;
+}
+html body #top.creative-site #main.inner-page .process-steps-card {
+  flex:1;min-width:0;width:100%;box-sizing:border-box;padding:28px 24px;background:#faf7f0;
+  border:1px solid #e6dccb;border-radius:14px;transition:transform .25s,border-color .25s,background .25s;
+}
+html body #top.creative-site #main.inner-page .process-steps-card h3 {
+  margin:0 0 14px;font-size:22px!important;line-height:1.4!important;letter-spacing:-.015em;
+  color:#30251a!important;-webkit-text-fill-color:#30251a!important;
+}
+html body #top.creative-site #main.inner-page .process-steps-card p {
+  margin:0;max-width:none;font-size:14px!important;line-height:1.85!important;
+  color:#514638!important;-webkit-text-fill-color:#514638!important;
+}
+html body #top.creative-site #main.inner-page .process-steps>li:hover .process-steps-node {background:#30251a;color:#f1d58e}
+html body #top.creative-site #main.inner-page .process-steps>li:hover .process-steps-card {background:#f5e9cf;border-color:#c49b53;transform:translateY(-4px)}
+@keyframes process-steps-route {to{transform:scaleX(1)}}
+@media(max-width:900px){
+  html body #top.creative-site #main.inner-page .process-steps {grid-template-columns:minmax(0,1fr);gap:22px;margin-top:32px}
+  html body #top.creative-site #main.inner-page .process-steps>li {position:relative;flex-direction:row;align-items:flex-start;gap:24px}
+  html body #top.creative-site #main.inner-page .process-steps-node {margin-top:22px}
+  html body #top.creative-site #main.inner-page .process-steps::before,
+  html body #top.creative-site #main.inner-page .process-steps::after {display:none}
+  html body #top.creative-site #main.inner-page .process-steps>li:not(:last-child)::after {
+    content:'';position:absolute;z-index:-1;left:29px;top:52px;bottom:-74px;width:2px;
+    background:linear-gradient(#d9b766,#a57932);transform:scaleY(0);transform-origin:top;
+  }
+  html body #top.creative-site #main.inner-page .process-steps[data-entered=true]>li::after {animation:process-steps-route-vertical 1.6s ease both}
+}
+@keyframes process-steps-route-vertical {to{transform:scaleY(1)}}
+@media(max-width:480px){
+  html body #top.creative-site #main.inner-page .process-steps>li {gap:16px}
+  html body #top.creative-site #main.inner-page .process-steps-node {width:44px;height:44px;box-shadow:0 0 0 5px #fff}
+  html body #top.creative-site #main.inner-page .process-steps-node svg {width:21px;height:21px}
+  html body #top.creative-site #main.inner-page .process-steps>li:not(:last-child)::after {left:21px;top:44px;bottom:-66px}
+  html body #top.creative-site #main.inner-page .process-steps-card {padding:22px 20px}
+  html body #top.creative-site #main.inner-page .process-steps-card h3 {font-size:20px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html body #top.creative-site #main.inner-page .process-steps[data-entered=true]::after {animation:none;transform:none}
+  html body #top.creative-site #main.inner-page .process-steps[data-entered=true]>li::after {animation:none;transform:none}
+  html body #top.creative-site #main.inner-page .process-steps :is(.process-steps-node,.process-steps-card) {transition:none}
+  html body #top.creative-site #main.inner-page .process-steps>li:hover .process-steps-card {transform:none}
+}
