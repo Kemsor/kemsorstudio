@@ -89,7 +89,7 @@ export default function ShortFilmsPage() {
     <section className="short-section short-width" id="short-purpose" aria-labelledby="short-purpose-title">
       <Label time="00:30">{cmsText("ShortFilmsPage","1b9e56d9575453e5","WHAT IS YOUR SHORT FOR?")}</Label>
       <MotionHeading as="h2" id="short-purpose-title">{cmsText("ShortFilmsPage","aa2613a7d17d0053","Decide the job before you shoot.")}</MotionHeading>
-      <div className="short-job-grid">{jobs.map(([title, purpose, plan], index) => <article className="short-job-card" tabIndex="0" aria-labelledby={`short-job-${index}`} key={title}><div className="short-job-faces"><div className="short-job-front"><span className="short-job-number" aria-hidden="true">0{index + 1}</span><h3 id={`short-job-${index}`}>{title}</h3><p>{purpose}</p></div><div className="short-job-back"><span className="short-job-back-title" aria-hidden="true">{title}</span><p>{plan}</p></div></div></article>)}</div>
+      <div className="short-job-grid">{jobs.map(([title, purpose, plan], index) => <article className="short-job-card" tabIndex="0" aria-labelledby={`short-job-${index}`} key={title}><div className="short-job-faces"><div className="short-job-front"><h3 id={`short-job-${index}`}>{title}</h3><p>{purpose}</p></div><div className="short-job-back"><span className="short-job-back-title" aria-hidden="true">{title}</span><p>{plan}</p></div></div></article>)}</div>
     </section>
 
     <section className="short-section short-width" aria-labelledby="short-money-title">
@@ -106,7 +106,7 @@ export default function ShortFilmsPage() {
     <section className="short-section short-width" aria-labelledby="short-kit-title">
       <Label time="02:00">{cmsText("ShortFilmsPage","368088826ba05846","OUR SHORT-FILM KIT")}</Label>
       <MotionHeading as="h2" id="short-kit-title">{cmsText("ShortFilmsPage","15560ddd1fd5c2cc","Our short-film kit.")}</MotionHeading>
-      <ol className="short-kit">{kit.map((item,index) => <li key={item}><span aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><p>{item}</p></li>)}</ol>
+      <ol className="short-kit">{kit.map((item,index) => <li key={item}><p>{item}</p></li>)}</ol>
     </section>
 
     <section className="short-section short-width" aria-labelledby="short-tail-title">
@@ -119,7 +119,7 @@ export default function ShortFilmsPage() {
       <div className="short-intro-grid"><MotionHeading as="h2" id="short-questions-title">{cmsText("ShortFilmsPage","8ebbbcab2712bd00","Quick answers.")}</MotionHeading><div className="short-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
     </section>
 
-    <section className="short-section short-width short-closing" aria-labelledby="short-closing-title">
+    <section className="short-section short-width short-closing inner-closing" aria-labelledby="short-closing-title">
       <Label time="03:00">{cmsText("ShortFilmsPage","9bda077d7baeb361","03:00 · THE END")}</Label>
       <div className="short-intro-grid"><MotionHeading as="h2" id="short-closing-title">{cmsText("ShortFilmsPage","b234b31bcb5ab786","MAKE IT COUNT.")}</MotionHeading><div><MotionCopy>{cmsText("ShortFilmsPage","25e776f316fed548","Tell us about your short film, its intended audience and your plans for it. We’ll help you work out the production requirements.")}</MotionCopy><div className="short-actions"><CTA href={enquiry}>{cmsText("ShortFilmsPage","a86523a5e1c1ac82","Talk to us about your short")}</CTA><TextLink href="/join/">{cmsText("ShortFilmsPage","735c6f4983fa3733","Join the Talent Network")}</TextLink></div></div></div>
     </section>

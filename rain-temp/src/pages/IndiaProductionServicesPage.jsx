@@ -1,3 +1,4 @@
+import PageBreadcrumbs from '../PageBreadcrumbs';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
@@ -47,7 +48,7 @@ function JourneyProcess(){
  }
  useEffect(()=>{const observer=new ResizeObserver(()=>{if(current.current)place(current.current);});if(list.current)observer.observe(list.current);return()=>observer.disconnect();},[]);
  function leave(){const focused=document.activeElement;if(list.current?.contains(focused)){place(focused.closest('li'));return;}current.current=null;setActive(-1);}
- return <ol ref={list} className="india-process india-process-sliding" data-active={active>=0} onPointerLeave={leave} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget)){current.current=null;setActive(-1);}}}>{steps.map(([title,copy],index)=><li key={title} data-step={index} data-active={active===index} tabIndex={0} onPointerEnter={event=>place(event.currentTarget,event)} onPointerMove={event=>place(event.currentTarget,event)} onFocus={event=>place(event.currentTarget)}><span className="india-step-number" aria-hidden="true">{String(index+1).padStart(2,'0')}</span><h3>{title}</h3><p>{copy}</p></li>)}</ol>;
+ return <ol ref={list} className="india-process india-process-sliding" data-active={active>=0} onPointerLeave={leave} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget)){current.current=null;setActive(-1);}}}>{steps.map(([title,copy],index)=><li key={title} data-step={index} data-active={active===index} tabIndex={0} onPointerEnter={event=>place(event.currentTarget,event)} onPointerMove={event=>place(event.currentTarget,event)} onFocus={event=>place(event.currentTarget)}><h3>{title}</h3><p>{copy}</p></li>)}</ol>;
 }
 const international = cmsData(()=>([
   [cmsText("IndiaProductionServicesPage","5ddce5fa2d41ec91","One point of contact"), cmsText("IndiaProductionServicesPage","aa12fcf3299986c1","A named Kemsor lead who knows your production inside out.")],
@@ -75,14 +76,14 @@ function PartnershipLinks() {
   return <><a href="/finance/co-production/">{cmsText("IndiaProductionServicesPage","475d85a9e90c5200","Co-Production")}</a>{cmsText("IndiaProductionServicesPage","8828c3964e4442e9"," and ")}<a href="/finance/international-co-productions/">{cmsText("IndiaProductionServicesPage","69d47d707b333cb3","International Co-Productions")}</a></>;
 }
 function Label({ children, number }) {
-  return <div className="india-label"><span>{children}</span><span aria-hidden="true">{number}</span></div>;
+  return <div className="india-label"><span>{children}</span></div>;
 }
 function RowList({ rows, headings }) {
   return <><div className="india-row-head studio-ledger-head" aria-hidden="true"><span>{headings[0]}</span><span>{headings[1]}</span></div><dl className="india-row-list studio-ledger studio-ledger-pairs">{rows.map(([title, copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl></>;
 }
 
 function IndiaImage({image,alt,caption,number}){
- return <figure className="india-editorial-image"><div className="india-editorial-image-window"><StudioImage mediaSlot="IndiaProductionServicesPage-1" src={`/assets/stills/${image}-960.webp`} srcSet={[640,960,1600].map(width=>`/assets/stills/${image}-${width}.webp ${width}w`).join(', ')} sizes="(max-width:800px) 90vw, 45vw" width="960" height="640" alt={alt} loading="lazy" decoding="async"/><span className="india-image-index" aria-hidden="true">{number}{cmsText("IndiaProductionServicesPage","88257d10b41881be"," / INDIA")}</span></div><figcaption><span>{caption}</span><span>{cmsText("IndiaProductionServicesPage","37e2ec31b3f5f91f","ILLUSTRATIVE VISUAL")}</span></figcaption></figure>;
+ return <figure className="india-editorial-image"><div className="india-editorial-image-window"><StudioImage mediaSlot="IndiaProductionServicesPage-1" src={`/assets/stills/${image}-960.webp`} srcSet={[640,960,1600].map(width=>`/assets/stills/${image}-${width}.webp ${width}w`).join(', ')} sizes="(max-width:800px) 90vw, 45vw" width="960" height="640" alt={alt} loading="lazy" decoding="async"/></div><figcaption><span>{caption}</span><span>{cmsText("IndiaProductionServicesPage","37e2ec31b3f5f91f","ILLUSTRATIVE VISUAL")}</span></figcaption></figure>;
 }
 export default function IndiaProductionServicesPage() {
   return <div className="india-services-page">
@@ -93,7 +94,7 @@ export default function IndiaProductionServicesPage() {
         <div className="india-hero-copy"><MotionCopy>{cmsText("IndiaProductionServicesPage","a816a31eb5edf6a9","India offers deserts and snowlines, coastlines and megacities, palaces and village lanes. Kemsor plans, staffs and runs your shoot here so you can focus on the work.")}</MotionCopy><div className="india-actions"><CTA href={enquiry}>{cmsText("IndiaProductionServicesPage","e3f9280b3a77399b","Plan a shoot in India")}</CTA><TextLink href="#what-we-handle">{cmsText("IndiaProductionServicesPage","a126a41195987786","See what we handle")}</TextLink></div></div>
       </div>
       <figure className="india-hero-visual"><StudioImage mediaSlot="IndiaProductionServicesPage-2" src="/assets/stills/daylight-valley-production-1600.webp" srcSet="/assets/stills/daylight-valley-production-640.webp 640w, /assets/stills/daylight-valley-production-960.webp 960w, /assets/stills/daylight-valley-production-1600.webp 1600w" sizes="(max-width: 1440px) 90vw, 1280px" width="1600" height="679" alt={"Supplied illustrative artwork of a film crew working beside a river in a mountain valley"} fetchPriority="high" decoding="async"/><figcaption>{cmsText("IndiaProductionServicesPage","6dd0b26f8becc7ce","VISUAL STUDY / SUPPLIED ARTWORK")}</figcaption></figure>
-    </section>
+    </section><PageBreadcrumbs page="india-production-services"/>
 
     <section className="india-section india-width india-backdrops-editorial" aria-labelledby="india-backdrops-title">
       <Label number="01">{cmsText("IndiaProductionServicesPage","8797b8fe0fe5e874","WHY INDIA")}</Label>
@@ -112,7 +113,7 @@ export default function IndiaProductionServicesPage() {
       <p className="india-partnership-note">{cmsText("IndiaProductionServicesPage","07206ba59d8fb225","Need a partner on the project itself? See ")}<PartnershipLinks/>.</p>
     </section>
 
-    <section className="india-section india-band india-band-soft" aria-labelledby="india-process-title"><div className="india-width">
+    <section className="india-section india-band india-band-soft india-process-section" id="india-process" aria-labelledby="india-process-title"><div className="india-width">
       <Label number="04">{cmsText("IndiaProductionServicesPage","e5b300cfa699e020","HOW IT WORKS")}</Label>
       <MotionHeading as="h2" id="india-process-title">{cmsText("IndiaProductionServicesPage","df9e60ba8206f857","From first email ")}<em>{cmsText("IndiaProductionServicesPage","78bad5526b6ac562","to final wrap.")}</em></MotionHeading>
       <JourneyProcess/>
@@ -142,7 +143,7 @@ export default function IndiaProductionServicesPage() {
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-questions-title">{cmsText("IndiaProductionServicesPage","d334cc3d9b1e13a5","Before you book the flights.")}</MotionHeading><div className="india-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
     </section>
 
-    <section className="india-section india-width india-closing" aria-labelledby="india-closing-title">
+    <section className="india-section india-width india-closing inner-closing" aria-labelledby="india-closing-title">
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-closing-title">{cmsText("IndiaProductionServicesPage","a1896c78dab97432","Tell us where the story ")}<em>{cmsText("IndiaProductionServicesPage","6936956288409969","needs to go.")}</em></MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","e2eb1694ec6fe756","Share the script, the locations you’re imagining and your dates. We’ll come back with a clear, honest view of how to make it happen in India.")}</MotionCopy><div className="india-actions"><CTA href={enquiry}>{cmsText("IndiaProductionServicesPage","449fcedeb488a22a","Plan a shoot in India")}</CTA><TextLink href="/contact/">{cmsText("IndiaProductionServicesPage","2fb315b0630513c0","Talk to the studio")}</TextLink></div></div></div>
     </section>
   </div>;

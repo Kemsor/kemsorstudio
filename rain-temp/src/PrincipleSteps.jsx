@@ -18,7 +18,7 @@ export default function PrincipleSteps({items}){
  return <div className="principle-panels" role="group" aria-label="What we stand for">{items.map(([title,copy],i)=><article className={`principle-panel${active===i?' is-active':''}`} key={title}>
   <StudioImage mediaSlot="PrincipleSteps-1" src={`/assets/designer-services/${images[i]}`} alt="" loading="lazy" decoding="async"/>
   <div className="principle-panel-shade" aria-hidden="true"/>
-  <button ref={node=>{buttons.current[i]=node}} className="principle-panel-toggle" type="button" aria-label={title} aria-expanded={active===i} aria-controls={`principle-detail-${i}`} onPointerEnter={event=>{if(event.pointerType==='mouse')setActive(i)}} onFocus={()=>setActive(i)} onClick={()=>setActive(i)} onKeyDown={event=>keyboard(event,i)}><span>{String(i+1).padStart(2,'0')}</span></button>
+  <button ref={node=>{buttons.current[i]=node}} className="principle-panel-toggle" type="button" aria-label={title} aria-expanded={active===i} aria-controls={`principle-detail-${i}`} onPointerEnter={event=>{if(event.pointerType==='mouse')setActive(i)}} onFocus={()=>setActive(i)} onClick={()=>setActive(i)} onKeyDown={event=>keyboard(event,i)}><span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 5 7 7-7 7"/></svg></span></button>
   <div className="principle-panel-copy" id={`principle-detail-${i}`} hidden={active!==i}><h3>{title}</h3><p>{copy}</p></div>
  </article>)}</div>;
 }

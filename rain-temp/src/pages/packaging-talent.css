@@ -8,7 +8,7 @@ html .creative-site #main .packaging-page .ep-file-card .packaging-example-label
 .packaging-example small[data-status="Wishlist"]{border-style:dashed}
 html .creative-site #main .packaging-page .packaging-small{display:block;font-size:11px;line-height:1.6;letter-spacing:.07em;font-weight:500;color:#636363;margin:0 0 14px}
 .packaging-elements{padding:0;margin:32px 0 0;list-style:none}
-.packaging-elements li{display:grid;grid-template-columns:26px 1fr 1.5fr;gap:22px;padding:24px 0;border-top:1px solid var(--line)}
+.packaging-elements li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:22px;padding:24px 0;border-top:1px solid var(--line)}
 .packaging-elements li>span{padding-top:5px}
 .packaging-statuses{margin:32px 0 0}
 .packaging-statuses>div{display:grid;grid-template-columns:1fr 1.5fr;gap:30px;padding:26px 0;border-top:1px solid var(--line)}
@@ -25,5 +25,5 @@ html .creative-site #main .packaging-statuses dt .packaging-small{margin:0}
 .packaging-audiences li::before{content:'0' counter(audience);position:absolute;left:0;top:24px;font-size:11px;color:#636363}
 .packaging-audiences a{text-decoration:underline;text-underline-offset:4px}
 @media(max-width:1000px){.packaging-readers{grid-template-columns:1fr}.packaging-readers article{padding:26px}}
-@media(max-width:700px){.packaging-elements li{grid-template-columns:26px 1fr}.packaging-elements li>p{grid-column:2}.packaging-statuses>div{grid-template-columns:1fr;gap:18px}.packaging-statuses dt{font-size:21px}}
+@media(max-width:700px){.packaging-elements li{grid-template-columns:minmax(0,1fr)}.packaging-elements li>p{grid-column:1}.packaging-statuses>div{grid-template-columns:1fr;gap:18px}.packaging-statuses dt{font-size:21px}}
 @media(max-width:600px){.packaging-example li{padding-block:16px}}

@@ -15,7 +15,7 @@ html .creative-site #main .budgeting-page .budgeting-small{display:block;font-si
 .budgeting-breakdown li{border:1px solid #9a9a9a60;background:#d2d2d218;padding:7px 12px;font-size:13px;line-height:1.6}
 .budgeting-breakdown>p:last-child{border-top:1px solid var(--line);padding-top:22px}
 .budgeting-costs{margin-top:32px}
-.budgeting-costs article{display:grid;grid-template-columns:26px 1fr 1.5fr;gap:22px;padding:24px 0;border-top:1px solid var(--line)}
+.budgeting-costs article{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:22px;padding:24px 0;border-top:1px solid var(--line)}
 .budgeting-costs article>span{padding-top:5px}
 .budgeting-schedule{margin-top:32px;padding:28px;background:#d2d2d222;border:1px solid var(--line)}
 .budgeting-schedule ul{padding:0;margin:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
@@ -29,5 +29,7 @@ html .creative-site #main .budgeting-page .budgeting-small{display:block;font-si
 .budgeting-deliverables li::before{content:'0' counter(deliverable);font-size:11px;color:#636363;padding-top:4px}
 .budgeting-page .budgeting-intro a,.budgeting-page .produce-faqs a{text-decoration:underline;text-underline-offset:4px}
 @media(max-width:1000px){.budgeting-scenarios{grid-template-columns:1fr}}
-@media(max-width:700px){.budgeting-costs article{grid-template-columns:26px 1fr}.budgeting-costs article>p{grid-column:2}}
+@media(max-width:700px){.budgeting-costs article{grid-template-columns:minmax(0,1fr);gap:12px}.budgeting-costs article>p{grid-column:1}}
 @media(max-width:600px){.budgeting-breakdown{padding:24px}.budgeting-schedule{padding:24px}.budgeting-schedule ul{grid-template-columns:1fr}.budgeting-scenarios article{padding:24px}}
+
+.budgeting-costs article>h3{min-width:0;word-break:normal;overflow-wrap:normal}

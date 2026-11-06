@@ -22,8 +22,8 @@ html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chap
 /* Empty publishing feeds stay compact until approved projects are available. */
 html body #top.creative-site:not(.site-page-about) #main.inner-page .produce-work{min-height:0!important;padding-block:40px!important}
 html body #top.creative-site:not(.site-page-about) #main.inner-page :is(.fl-closing,.pl-closing) h2{font-size:clamp(28px,3vw,42px)!important;line-height:1.2!important}
-/* Keep the numbered release rows on one baseline. */
-html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li{grid-template-columns:32px minmax(0,.85fr) minmax(0,1.45fr)!important;gap:20px}
+/* Release windows pair each title with its description. */
+html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li{grid-template-columns:minmax(0,1fr) minmax(0,1.45fr)!important;gap:20px}
 html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li>p{grid-column:auto!important}
 html body #top.creative-site:not(.site-page-about) #main.inner-page .release-breadcrumb{background:linear-gradient(120deg,#211b29,#1b1716 48%,#302315)!important;color:#d2c4af!important;margin-block:0!important;padding-block:16px!important}
 html body #top.creative-site:not(.site-page-about) #main.inner-page .release-breadcrumb :is(a,span){color:inherit!important}
@@ -35,8 +35,8 @@ html body #top.creative-site:not(.site-page-about) #main.inner-page .text-flow-w
 }
 @media(max-width:600px){
  html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.post-overview-crafts,.post-overview-stages,.post-review-cards){grid-template-columns:1fr!important}
- html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li{grid-template-columns:24px minmax(0,1fr)!important}
- html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li>p{grid-column:2!important}
+ html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li{grid-template-columns:minmax(0,1fr)!important}
+ html body #top.creative-site:not(.site-page-about) #main.inner-page .distribution-windows.studio-ledger>li>p{grid-column:1!important}
 }
 html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter :is(.release-roads)>article{padding:24px!important;border:1px solid var(--chapter-rule)!important;border-radius:14px;background:var(--chapter-panel)!important}
 html body #top.creative-site:not(.site-page-about) #main.inner-page .visual-chapter .release-roads{grid-template-columns:1fr!important;gap:18px}

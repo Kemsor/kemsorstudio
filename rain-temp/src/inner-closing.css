@@ -1,0 +1,40 @@
+/* One recognisable closing invitation across the public inner pages. */
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing:not(.pl-section-content):not(.fl-section-content) {
+ --inner-heading-ink:#282018;--inner-heading-accent:#956122;
+ position:relative;isolation:isolate;box-sizing:border-box;
+ width:calc(100% - var(--inner-content-gutter)*2);max-width:var(--inner-content-width);
+ margin:36px auto 56px!important;
+ padding:clamp(28px,4.5vw,64px)!important;
+ background:linear-gradient(115deg,#faf7f0,#f2e8d5)!important;
+ color:#514638;border:1px solid #e4d5bb!important;border-left:5px solid #bc9149!important;
+ border-radius:18px!important;box-shadow:none!important;min-height:0;
+}
+html body #top.creative-site #main.inner-page :is(.ep-chapters,.pl-body,.fl-body) .inner-closing.inner-closing:not(.pl-section-content):not(.fl-section-content) {width:100%}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing:not(.pl-section-content):not(.fl-section-content)>:is(.pl-width,.fl-width) {padding:0;width:100%;max-width:none}
+/* Wrapper-based services use the outer panel's padding, never a second inset. */
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.pl-section-content,.fl-section-content) {padding:0!important;margin:0!important;background:transparent!important}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.produce-label,.index-label,.studio-label,.release-label,.call-sheet-label) {
+ margin:0 0 24px!important;padding:0!important;border:0!important;color:#79552a!important;
+}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing h2 {margin:0!important;max-width:25ch}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing p {color:#514638;max-width:60ch}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing .line-link {color:#68471e!important;border-color:#ad8b57}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.productions-actions,.produce-actions,.release-actions,.india-actions,.call-sheet-actions,.series-actions,.short-actions,.documentary-actions) {
+ display:flex;flex-wrap:wrap;align-items:center;gap:18px 24px;margin-top:24px;
+}
+/* Headline and supporting copy share a predictable, balanced closing layout. */
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.release-section-intro,.india-intro-grid,.call-sheet-closing-grid),
+html body #top.creative-site #main.inner-page .productions-closing.inner-closing>div,
+html body #top.creative-site #main.inner-page .produce-closing.inner-closing:not(.pl-section-content):not(.fl-section-content)>div:has(h2) {
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:32px clamp(28px,5vw,64px);
+ padding:0;border:0;
+}
+html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.release-section-intro,.india-intro-grid,.call-sheet-closing-grid)>div>p:first-child,
+html body #top.creative-site #main.inner-page .productions-closing.inner-closing>div>div>p:first-child {margin-top:0}
+@media(max-width:750px){
+ html body #top.creative-site #main.inner-page .inner-closing.inner-closing:not(.pl-section-content):not(.fl-section-content) {margin-block:24px 36px!important;border-radius:14px!important}
+ html body #top.creative-site #main.inner-page .inner-closing.inner-closing :is(.release-section-intro,.india-intro-grid,.call-sheet-closing-grid),
+ html body #top.creative-site #main.inner-page .productions-closing.inner-closing>div,
+ html body #top.creative-site #main.inner-page .produce-closing.inner-closing:not(.pl-section-content):not(.fl-section-content)>div:has(h2) {grid-template-columns:minmax(0,1fr);gap:24px}
+ html body #top.creative-site #main.inner-page .inner-closing.inner-closing .creative-cta {max-width:100%;min-width:0;white-space:normal}
+}

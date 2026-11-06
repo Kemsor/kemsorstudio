@@ -69,9 +69,9 @@ export default function ProducePage() {
 
     <section className="produce-section produce-services" id="produce-services" aria-labelledby="produce-services-title">
       <Label>{cmsText("ProducePage","37a2d4eb804f6bf6","PRODUCTION SERVICES")}</Label>
-      <div className="produce-section-head"><MotionHeading as="h2" id="produce-services-title">{cmsText("ProducePage","8101df4fecc6ed2e","Six services,")}<br /><em>{cmsText("ProducePage","e4695fed31525d15","one production partner.")}</em></MotionHeading><span className="produce-count" aria-hidden="true">01 - 06</span></div>
+      <div className="produce-section-head"><MotionHeading as="h2" id="produce-services-title">{cmsText("ProducePage","8101df4fecc6ed2e","Six services,")}<br /><em>{cmsText("ProducePage","e4695fed31525d15","one production partner.")}</em></MotionHeading></div>
       <div className="produce-service-grid">{services.map((service, index) => <a className="produce-service" href={service.href} key={service.title}>
-        <div className="produce-service-image"><StudioImage mediaSlot="ProducePage-2" src={service.image} srcSet={service.image.endsWith('-960.webp')?[640,960,1600].map(width=>`${service.image.replace('-960.webp',`-${width}.webp`)} ${width}w`).join(', '):undefined} sizes="(max-width: 480px) 90vw, (max-width: 1050px) 44vw, 30vw" alt="" loading="lazy" decoding="async" width="960" height="540"/><span>{String(index + 1).padStart(2, '0')} / 06</span></div>
+        <div className="produce-service-image"><StudioImage mediaSlot="ProducePage-2" src={service.image} srcSet={service.image.endsWith('-960.webp')?[640,960,1600].map(width=>`${service.image.replace('-960.webp',`-${width}.webp`)} ${width}w`).join(', '):undefined} sizes="(max-width: 480px) 90vw, (max-width: 1050px) 44vw, 30vw" alt="" loading="lazy" decoding="async" width="960" height="540"/></div>
         <div className="produce-service-body"><h3>{service.title}</h3><p>{service.description}</p><span className="produce-card-link">{cmsText("ProducePage","790112deede67562","Explore service ")}<Arrow /></span></div>
       </a>)}</div>
     </section>
@@ -79,19 +79,19 @@ export default function ProducePage() {
     <section className="produce-section produce-process" id="produce-process" aria-labelledby="produce-process-title">
       <Label>{cmsText("ProducePage","59c5015334c26484","HOW WE WORK")}</Label>
       <MotionHeading as="h2" id="produce-process-title">{cmsText("ProducePage","3cb85b423a4cd273","How we work.")}</MotionHeading>
-      <ol className="produce-steps">{steps.map(([title, description], index) => <li key={title}><span className="produce-step-number">0{index + 1}</span><h3>{title}</h3><p>{description}</p></li>)}</ol>
+      <ol className="produce-steps">{steps.map(([title, description], index) => <li key={title}><h3>{title}</h3><p>{description}</p></li>)}</ol>
     </section>
 
     <section className="produce-section produce-audiences" aria-labelledby="produce-audiences-title">
       <div><Label>{cmsText("ProducePage","47804cf4de4a66ea","WHO IT’S FOR")}</Label><MotionHeading as="h2" id="produce-audiences-title">{cmsText("ProducePage","05e2d55bbb495b0d","Who it’s for.")}</MotionHeading><div className="produce-audience-mark" aria-hidden="true"><span>{cmsText("ProducePage","4f59d82bc66dc86d","THE STORY")}</span><i>+</i><span>{cmsText("ProducePage","1eda40071be2326d","THE PEOPLE")}</span><i>+</i><span>{cmsText("ProducePage","c9d03c95ed15ca43","THE PLAN")}</span></div></div>
-      <ul>{audiences.map(([title, description], index) => <li key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul>
+      <ul>{audiences.map(([title, description], index) => <li key={title}><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul>
     </section>
 
     {/* No project title, year or production credit was supplied. Keep unverified
         project cards out of the page; the productions archive remains accessible. */}
     <section className="produce-section produce-work" aria-labelledby="produce-work-title"><Label>{cmsText("ProducePage","4ea2710d72e958a6","RELATED WORK")}</Label><div><MotionHeading as="h2" id="produce-work-title">{cmsText("ProducePage","187e4f4d58007084","Related work.")}</MotionHeading><TextLink href="/productions/">{cmsText("ProducePage","7ebf781895b1f8ce","Explore productions")}</TextLink></div></section>
 
-    <section className="produce-section produce-related" aria-labelledby="produce-related-title"><Label>{cmsText("ProducePage","b29fbe5967528721","RELATED SERVICES")}</Label><MotionHeading as="h2" id="produce-related-title">{cmsText("ProducePage","018bcd75038dcdf7","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, description, href]) => <a href={href} key={title}><span className="produce-related-number">{number}</span><h3>{title}</h3><p>{description}</p><Arrow /></a>)}</div></section>
+    <section className="produce-section produce-related" aria-labelledby="produce-related-title"><Label>{cmsText("ProducePage","b29fbe5967528721","RELATED SERVICES")}</Label><MotionHeading as="h2" id="produce-related-title">{cmsText("ProducePage","018bcd75038dcdf7","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, description, href]) => <a href={href} key={title}><h3>{title}</h3><p>{description}</p><Arrow /></a>)}</div></section>
 
     <section className="produce-section produce-questions" aria-labelledby="produce-questions-title"><div><Label>{cmsText("ProducePage","b8a88556bf67af8f","QUESTIONS")}</Label><MotionHeading as="h2" id="produce-questions-title">{cmsText("ProducePage","f0fe56481faa7faf","Questions.")}</MotionHeading></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></section>
   </div></ProduceLayout>;

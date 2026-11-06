@@ -50,7 +50,7 @@ const questions = cmsData(()=>([
 ]));
 
 function Label({ children, number }) {
-  return <div className="documentary-label"><span>{children}</span><span aria-hidden="true">{number}</span></div>;
+  return <div className="documentary-label"><span>{children}</span></div>;
 }
 function JournalSketch({ kind }) {
   return <svg viewBox="0 0 240 190" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -105,7 +105,7 @@ export default function DocumentariesPage() {
     <section className="documentary-section documentary-width" aria-labelledby="documentary-asks-title">
       <Label number="01">{cmsText("DocumentariesPage","5f539393c2a1f567","WHAT ONLY DOCUMENTARIES ASK FOR")}</Label>
       <MotionHeading as="h2" id="documentary-asks-title">{cmsText("DocumentariesPage","42fb737e3f1b8c00","Four things you can’t schedule.")}</MotionHeading>
-      <div className="documentary-note-cards">{notes.map(([title,copy],index) => <article key={title}><span aria-hidden="true">0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
+      <div className="documentary-note-cards">{notes.map(([title,copy],index) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div>
     </section>
 
     <section className="documentary-section documentary-width" id="documentary-changes" aria-labelledby="documentary-changes-title">
@@ -127,7 +127,7 @@ export default function DocumentariesPage() {
 
     <section className="documentary-section documentary-width" aria-labelledby="documentary-stages-title">
       <Label number="05">{cmsText("DocumentariesPage","1b4db85eb066c023","FROM FIRST LEAD TO FIRST SCREENING")}</Label>
-      <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-stages-title">{cmsText("DocumentariesPage","1caf13c5cee24a9e","From first lead to first screening.")}</MotionHeading><ol className="documentary-stages studio-ledger studio-ledger-numbered">{stages.map(([title,copy],index) => <li key={title}><span className="documentary-stage-number" aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><div><h3>{title}</h3><p>{copy}</p>{title === 'The edit' && <span className="documentary-margin-note">{cmsText("DocumentariesPage","b53bc16c525ba34a","- the longest bit")}</span>}</div></li>)}</ol></div>
+      <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-stages-title">{cmsText("DocumentariesPage","1caf13c5cee24a9e","From first lead to first screening.")}</MotionHeading><ol className="documentary-stages studio-ledger studio-ledger-numbered">{stages.map(([title,copy],index) => <li key={title}><div><h3>{title}</h3><p>{copy}</p>{title === 'The edit' && <span className="documentary-margin-note">{cmsText("DocumentariesPage","b53bc16c525ba34a","- the longest bit")}</span>}</div></li>)}</ol></div>
     </section>
 
     <section className="documentary-section documentary-width" aria-labelledby="documentary-funding-title">
@@ -139,7 +139,7 @@ export default function DocumentariesPage() {
       <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-questions-title">{cmsText("DocumentariesPage","ba2c5e90597a79b2","Questions.")}</MotionHeading><div className="documentary-faq">{questions.map(([question,answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
     </section>
 
-    <section className="documentary-section documentary-width documentary-closing" aria-labelledby="documentary-closing-title">
+    <section className="documentary-section documentary-width documentary-closing inner-closing" aria-labelledby="documentary-closing-title">
       <div className="documentary-intro-grid"><div><p className="documentary-field-kicker">{cmsText("DocumentariesPage","a17bf12840e79c55","field notes, page one")}</p><MotionHeading as="h2" id="documentary-closing-title">{cmsText("DocumentariesPage","e2edb077a64f69f7","Tell us what you’ve found.")}</MotionHeading></div><div><MotionCopy>{cmsText("DocumentariesPage","56ffc90397abb91c","Tell us about the subject, the people involved and any access or footage you already have. We’ll discuss how to develop the documentary.")}</MotionCopy><div className="documentary-actions"><CTA href="/contact/?partner=filmmakers">{cmsText("DocumentariesPage","8f864fbcda74c7aa","Start a conversation")}</CTA><TextLink href="/finance/finance-structuring/">{cmsText("DocumentariesPage","9fdf35eafe54664f","Finance Structuring")}</TextLink></div></div></div>
     </section>
   </div></PageVisuals>;

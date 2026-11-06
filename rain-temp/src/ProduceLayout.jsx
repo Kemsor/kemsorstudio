@@ -1,3 +1,4 @@
+import PageBreadcrumbs from './PageBreadcrumbs';
 import StudioImage from './StudioImage';
 import {chapterStyler} from './VisualChapters';
 import { isTextElement } from './TextMotion';
@@ -29,14 +30,15 @@ export default function ProduceLayout({page,children}) {
   const foot = find(hero,node=>hasClass(node,'produce-hero-foot'));
   const breadcrumb = all.find(node=>hasClass(node,'produce-breadcrumb'));
   const sections = all.filter(node=>node!==hero&&node!==breadcrumb);
-  return <div className={`${root.props.className || ''} production-layout`}>
+  return <div className={`${root.props.className || ''} production-layout service-page-layout`} data-service-page={page}>
     <header className="inner-hero pl-hero"><div className="pl-width">
-      <div className="pl-breadcrumb">{breadcrumb}</div>
-      <div className="pl-hero-heading"><div>{kicker}{heading}</div><span className="pl-stage-number" aria-hidden="true">03</span></div>
+
+      <div className="pl-hero-heading"><div>{kicker}{heading}</div></div>
       <figure className="pl-panorama">{image&&cloneElement(image,{alt:image.props.alt||'Illustrative production image',sizes:'(max-width: 600px) 90vw, 92vw'})}<span className="pl-frame pl-frame-a" aria-hidden="true"/><span className="pl-frame pl-frame-b" aria-hidden="true"/></figure>
       <div className="pl-hero-brief"><div>{description}</div>{actions}</div>
       {foot&&<div className="pl-hero-foot">{foot.props.children}</div>}
     </div></header>
+    <PageBreadcrumbs page={page}>{breadcrumb}</PageBreadcrumbs>
     <SectionSubmenu section="produce" page={page}/>
     <div className="pl-body">{sections.map((node,index)=>{
       if(!isValidElement(node))return node;

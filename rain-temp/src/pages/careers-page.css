@@ -8,7 +8,7 @@ html .creative-site #main .careers-page p{font-size:13px;line-height:1.85;color:
 .careers-reasons article{border-top:1px solid var(--careers-rule);padding-top:22px}
 .careers-reasons p{margin-top:14px}
 .careers-teams{display:grid;grid-template-columns:1fr 1fr;gap:0 45px}
-.careers-teams article{display:grid;grid-template-columns:30px 1fr;gap:20px;padding:25px 0;border-top:1px solid var(--careers-rule)}
+.careers-teams article{display:grid;grid-template-columns:minmax(0,1fr);min-width:0;gap:20px;padding:25px 0;border-top:1px solid var(--careers-rule)}
 .careers-teams .careers-index{margin:5px 0 0}.careers-teams p{margin-top:8px}
 .careers-section-heading{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .careers-filters,.careers-intake-switch{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}

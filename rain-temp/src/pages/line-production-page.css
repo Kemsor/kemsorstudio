@@ -21,3 +21,9 @@ html .creative-site #main .line-production-related h3{font-size:21px;line-height
 @media(max-width:1050px){.line-production-scope{grid-template-columns:1.6fr 1fr;gap:5%}.line-production-deliverables>div{grid-template-columns:1fr;gap:9px}.line-production-deliverables dd{padding-left:32px}.line-production-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px}}
 @media(max-width:700px){html .creative-site #main .line-production-hero h1{font-size:33px;line-height:1.17}.line-production-hero h1>span{margin-top:20px}.line-production-scope{grid-template-columns:1fr;gap:30px;margin-top:28px}.line-production-deliverables>div{padding:22px 0}.line-production-planning{display:grid;grid-template-columns:1fr 1fr;align-items:center}.line-production-planning img{aspect-ratio:1;height:100%;min-height:200px}.line-production-planning figcaption{padding:20px}.line-production-steps{grid-template-columns:1fr}}
 @media(max-width:400px){.line-production-planning{grid-template-columns:1fr}.line-production-planning img{height:auto;aspect-ratio:1.7;min-height:0}.line-production-hero .produce-hero-content{padding-bottom:40px}}
+
+/* Process rows contain a heading and description, without a number column. */
+html body #top.creative-site #main.inner-page .line-production-steps>li{grid-template-columns:minmax(0,1.1fr) minmax(0,1.7fr);gap:20px 28px}
+html body #top.creative-site #main.inner-page .line-production-steps>li>h3{min-width:0;word-break:normal;overflow-wrap:normal}
+html body #top.creative-site #main.inner-page .line-production-steps>li>p{grid-column:auto;max-width:none;margin:0}
+@media(max-width:700px){html body #top.creative-site #main.inner-page .line-production-steps>li{grid-template-columns:minmax(0,1fr);gap:12px}html body #top.creative-site #main.inner-page .line-production-steps>li>p{grid-column:1}}

@@ -1,0 +1,23 @@
+/* Inner pages use descriptive titles instead of decorative sequence numbers. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.packaging-audiences li,.develop-audiences li,.story-deliverables li,.budgeting-deliverables li,.international-audiences li,.coproduction-audiences li,.make-capabilities>div,.distribution-windows li)::before{content:none!important;display:none!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .packaging-audiences li{padding-left:0}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .make-capabilities>div{padding-left:0}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger-numbered>li{grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr)!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger-numbered>li:has(>div){grid-template-columns:minmax(0,1fr)!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger-metadata>li{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger-accordion .ep-accordion-copy{padding-left:0}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .documentary-stages>li{grid-template-columns:minmax(0,1fr)}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.story-deliverables,.budgeting-deliverables)>li{grid-template-columns:minmax(0,1fr)}
+/* The formats register has a title and description, with no number column. */
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article>h3{min-width:0;word-break:normal;overflow-wrap:normal}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article>p{min-width:0;grid-column:auto}
+@media(max-width:650px){
+ html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article{grid-template-columns:minmax(0,1fr)}
+ html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list article>p{grid-column:1}
+}
+@media(max-width:700px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.studio-ledger-numbered>li,.studio-ledger-metadata>li){grid-template-columns:minmax(0,1fr)!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.studio-ledger-numbered>li,.studio-ledger-metadata>li)>p{grid-column:1!important;grid-row:auto!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger-metadata>li>span:last-child{grid-column:1!important;grid-row:auto!important}
+}

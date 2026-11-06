@@ -8,7 +8,7 @@ const smooth = value => value * value * (3 - 2 * value);
 const stillPath = name => `${import.meta.env.BASE_URL}assets/chair/${name}.webp`;
 
 export default function DirectorChair({ paused = false }) {
-  const [localPaused, setLocalPaused] = useState(false);
+  const localPaused = false;
   const [nearby, setNearby] = useState(false);
   const [visible, setVisible] = useState(false);
   const [tabHidden, setTabHidden] = useState(() => typeof document!=='undefined' && document.hidden);
@@ -113,9 +113,7 @@ export default function DirectorChair({ paused = false }) {
         else setPortraitReady(true);
       }} />
       <span className="director-stage-label">THE DIRECTOR’S CHAIR</span>
-      {!staticScreen && <button className="director-pause" type="button" onClick={() => setLocalPaused(value => !value)} aria-label={localPaused ? 'Resume director’s chair motion' : 'Pause director’s chair motion'} aria-pressed={localPaused} disabled={paused}>
-        <span aria-hidden="true">{localPaused || paused ? '▶' : 'Ⅱ'}</span>
-      </button>}
+
     </div>
     <figcaption className="director-caption"><span>A SEAT FOR YOUR NEXT CHAPTER</span><span>{staticView ? 'CREATIVE / PRODUCTION / POST' : 'SCROLL TO TURN THE CHAIR'}</span></figcaption>
   </figure>;

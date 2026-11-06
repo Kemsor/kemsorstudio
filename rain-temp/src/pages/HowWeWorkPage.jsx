@@ -49,7 +49,7 @@ const needs = cmsData(()=>([
 ]));
 
 function SheetLabel({ children, index }) {
-  return <div className="call-sheet-label"><span>{children}</span><span aria-hidden="true">{index}</span></div>;
+  return <div className="call-sheet-label"><span>{children}</span></div>;
 }
 
 export default function HowWeWorkPage() {
@@ -71,9 +71,9 @@ export default function HowWeWorkPage() {
     <section className="call-sheet-section call-sheet-width" aria-labelledby="call-sheet-schedule-title">
       <SheetLabel index="01 / 06">{cmsText("HowWeWorkPage","aa458424df7fc15d","SCHEDULE")}</SheetLabel>
       <MotionHeading as="h2" id="call-sheet-schedule-title">{cmsText("HowWeWorkPage","603c047b0ad13edd","From first call to wrap. ")}<em>{cmsText("HowWeWorkPage","37f86fd8be558393","Six steps, every project.")}</em></MotionHeading>
-      <div className="call-sheet-schedule-head" aria-hidden="true"><span>{cmsText("HowWeWorkPage","9bfbe8e6b0c69a19","Step")}</span><span>{cmsText("HowWeWorkPage","f754e1a9a4187b38","Scene")}</span><span>{cmsText("HowWeWorkPage","1d22965e75344668","Action")}</span><span>{cmsText("HowWeWorkPage","1d7878c3d7a73f59","You receive")}</span></div>
+      <div className="call-sheet-schedule-head" aria-hidden="true"><span>{cmsText("HowWeWorkPage","f754e1a9a4187b38","Scene")}</span><span>{cmsText("HowWeWorkPage","1d22965e75344668","Action")}</span><span>{cmsText("HowWeWorkPage","1d7878c3d7a73f59","You receive")}</span></div>
       <ol className="call-sheet-schedule">{schedule.map(([scene, action, receive], index) => <li key={scene}>
-        <span className="call-sheet-step" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+
         <h3>{scene}</h3>
         <p><span className="call-sheet-mobile-label">{cmsText("HowWeWorkPage","37d9d649cd7f76e2","Action")}</span>{action}</p>
         <p><span className="call-sheet-mobile-label">{cmsText("HowWeWorkPage","303fb36ffe7ae97d","You receive")}</span>{receive}</p>
@@ -98,7 +98,7 @@ export default function HowWeWorkPage() {
     <section className="call-sheet-section call-sheet-width" aria-labelledby="call-sheet-principles-title">
       <SheetLabel index="04 / 06">{cmsText("HowWeWorkPage","e40476ddb8786fd5","NOTES FROM PRODUCTION")}</SheetLabel>
       <MotionHeading as="h2" id="call-sheet-principles-title">{cmsText("HowWeWorkPage","1e9d850a603a9c33","Our principles, ")}<em>{cmsText("HowWeWorkPage","67423ab1d34bba6f","on an ordinary Tuesday.")}</em></MotionHeading>
-      <SlidingCards as="ol" className="call-sheet-principles">{principles.map(([title, copy], index) => <li key={title}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}</SlidingCards>
+      <SlidingCards as="ol" className="call-sheet-principles">{principles.map(([title, copy], index) => <li key={title}><div><h3>{title}</h3><p>{copy}</p></div></li>)}</SlidingCards>
     </section>
 
     <section className="call-sheet-section call-sheet-width call-sheet-split" aria-labelledby="call-sheet-needs-title">
@@ -106,7 +106,7 @@ export default function HowWeWorkPage() {
       <ul className="call-sheet-needs">{needs.map(need => <li key={need}><span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span>{need}</li>)}</ul>
     </section>
 
-    <section className="call-sheet-section call-sheet-closing call-sheet-width" aria-labelledby="call-sheet-closing-title">
+    <section className="call-sheet-section call-sheet-closing call-sheet-width inner-closing" aria-labelledby="call-sheet-closing-title">
       <SheetLabel index="06 / 06">{cmsText("HowWeWorkPage","8a3f3b11141cdf6e","END OF CALL SHEET")}</SheetLabel>
       <div className="call-sheet-closing-grid"><MotionHeading as="h2" id="call-sheet-closing-title">{cmsText("HowWeWorkPage","4e6f3488124b6e93","That’s the call sheet. ")}<em>{cmsText("HowWeWorkPage","0c984b50bf044745","Ready for day one?")}</em></MotionHeading><div><MotionCopy>{cmsText("HowWeWorkPage","9aa140d5e97b2a1d","Start with a conversation. We’ll show you how your project would run.")}</MotionCopy><div className="call-sheet-actions"><CTA href="/contact/">{cmsText("HowWeWorkPage","d89a8ff94c8a31dd","Start a conversation")}</CTA><TextLink href="/about/#leadership">{cmsText("HowWeWorkPage","3bb08d9a429e88a3","Meet the leadership")}</TextLink></div></div></div>
       <dl className="call-sheet-signoff"><div><dt>{cmsText("HowWeWorkPage","095bd5cf2be387d0","PREPARED BY")}</dt><dd>{cmsText("HowWeWorkPage","2099c49944cce344","Kemsor Studios")}</dd></div><div><dt>{cmsText("HowWeWorkPage","f3c6bba4d0ec9aaa","APPROVED BY")}</dt><dd>{cmsText("HowWeWorkPage","24132530ecc8dfd2","You")}</dd></div><div><dt>{cmsText("HowWeWorkPage","eee579d54dc22cc0","DATE")}</dt><dd>{cmsText("HowWeWorkPage","f0b8d5f0e1eec482","Day one")}</dd></div></dl>

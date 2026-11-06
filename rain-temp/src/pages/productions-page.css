@@ -54,3 +54,7 @@ html body #top.creative-site #main.inner-page .productions-page .productions-clo
 @media(prefers-reduced-motion:reduce){.productions-page *{transition:none!important}}
 
 html body #top.creative-site #main.inner-page .productions-page .productions-process-section .line-link{color:#e4c38b!important;-webkit-text-fill-color:#e4c38b!important;border-color:#e4c38b77!important}
+html body #top.creative-site #main.inner-page .productions-page .productions-process-section{--inner-heading-ink:#fff;--inner-heading-accent:#f0b858}
+html body #top.creative-site #main.inner-page .productions-page .productions-process-section :is(h2,h3){-webkit-text-fill-color:#fff!important}
+html body #top.creative-site #main.inner-page .productions-page .productions-process-section p{-webkit-text-fill-color:#d2cfc9!important}
+html body #top.creative-site #main.inner-page .productions-page .productions-process-section>.produce-label{-webkit-text-fill-color:#dfbb7c!important}

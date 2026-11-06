@@ -9,8 +9,8 @@ const stages = [
 export default function PlannerWorkflow() {
  const [stage,setStage]=useState(0);
  return <div className="planner-workflow">
-  <div className="planner-workflow-top"><span>HOW THE PLANNER WORKS</span><span aria-hidden="true">0{stage+1} / 03</span></div>
-  <div className="planner-workflow-controls" role="group" aria-label="Explore the planning workflow">{stages.map(([title],index)=><button type="button" id={`planner-workflow-step-${index}`} key={title} aria-pressed={stage===index} onClick={()=>setStage(index)}><span>0{index+1}</span>{title}</button>)}</div>
+  <div className="planner-workflow-top"><span>HOW THE PLANNER WORKS</span></div>
+  <div className="planner-workflow-controls" role="group" aria-label="Explore the planning workflow">{stages.map(([title],index)=><button type="button" id={`planner-workflow-step-${index}`} key={title} aria-pressed={stage===index} onClick={()=>setStage(index)}>{title}</button>)}</div>
   <svg className="planner-workflow-drawing" data-stage={stage} viewBox="0 0 620 270" fill="none" aria-hidden="true">
    <defs><linearGradient id="planner-paper" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#fff"/><stop offset="1" stopColor="#ffffff"/></linearGradient></defs>
    <path d="M24 243H596M24 27H596" stroke="#dedede" strokeDasharray="2 7"/>

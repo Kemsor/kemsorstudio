@@ -48,10 +48,10 @@ html body #top.creative-site #main #services.designer-services{padding:clamp(64p
  #services.designer-services .ds-wrap{width:calc(100% - 44px)}
  #services.designer-services .ds-label{flex-wrap:wrap;gap:15px;margin-bottom:26px}
  #services.designer-services .ds-label>span:first-child{white-space:normal}
- #services.designer-services .ds-label>span:last-child{flex:1 1 140px;min-width:0;text-align:right;overflow-wrap:anywhere}
+ #services.designer-services .ds-label>span:last-child{flex:1 1 140px;min-width:0;text-align:left;overflow-wrap:anywhere}
  #services.designer-services .ds-heading-row{display:block;margin-bottom:32px}
  #services.designer-services .ds-heading-row h2{font-size:29px}
- #services.designer-services .ds-heading-row>p{margin-top:22px;max-width:none}
+ #services.designer-services .ds-heading-row>p{margin-top:22px;max-width:none;text-align:left}
  #services.designer-services .ds-inner{padding-block:40px}
  #services.designer-services .ds-controls{margin-bottom:40px}
  #services.designer-services .ds-count{padding:7px 12px}
@@ -71,7 +71,7 @@ html body #top.creative-site #main #services.designer-services{padding:clamp(64p
 html body #top.creative-site #main #services.designer-services :is(p,li){font-size:14px!important}
 #services.designer-services .ds-cta{min-width:180px}
 
-#services.designer-services .ds-tabs-band{background:#000;padding:0;margin:0}
+#services.designer-services .ds-tabs-band{background:#000;padding:40px 0 0;margin:0}
 #services.designer-services .ds-tabs-band .ds-tabs{margin-top:0}
 #services.designer-services .ds-tabs button:hover{color:#fff;border-bottom-color:#d6ad67}
 
@@ -106,7 +106,7 @@ html body #top.creative-site #main #services.designer-services{background:#000}
 }
 
 /* Give the services introduction room after the full-width showreel. */
-html body #top.creative-site.site-page-home #main #services.designer-services{padding-top:clamp(88px,8vw,128px)}
+html body #top.creative-site.site-page-home #main #services.designer-services{padding-top:clamp(120px,10vw,160px)}
 @media(max-width:600px){
- html body #top.creative-site.site-page-home #main #services.designer-services{padding-top:64px}
+ html body #top.creative-site.site-page-home #main #services.designer-services{padding-top:88px}
 }

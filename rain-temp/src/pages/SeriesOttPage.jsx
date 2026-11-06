@@ -48,7 +48,7 @@ const locations = cmsData(()=>([cmsText("SeriesOttPage","e7373c758d5e4b04","Fami
 const scenes = Array.from({ length:12 }, (_, index) => ({ id:index + 1, episode:Math.floor(index / 3) + 1, location:index % 3 }));
 
 function Label({ children, number }) {
-  return <div className="series-label"><span>{children}</span><span aria-hidden="true">{number}</span></div>;
+  return <div className="series-label"><span>{children}</span></div>;
 }
 function WritersBoard() {
   return <div className="series-writers-board" aria-labelledby="series-board-title">
@@ -125,7 +125,7 @@ export default function SeriesOttPage() {
     <section className="series-section series-width" aria-labelledby="series-pipeline-title">
       <Label number="04">{cmsText("SeriesOttPage","eb1e16bbe81807bc","FROM PITCH TO PLATFORM")}</Label>
       <MotionHeading as="h2" id="series-pipeline-title">{cmsText("SeriesOttPage","02df239c97c41bf7","From pitch to platform.")}</MotionHeading>
-      <ol className="series-pipeline">{pipeline.map(([title, copy],index) => <li key={title}><span aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><h3>{title}</h3><p>{copy}</p></li>)}</ol>
+      <ol className="series-pipeline">{pipeline.map(([title, copy],index) => <li key={title}><h3>{title}</h3><p>{copy}</p></li>)}</ol>
     </section>
 
     <section className="series-section series-width" aria-labelledby="series-formats-title">
@@ -144,8 +144,8 @@ export default function SeriesOttPage() {
       <div className="series-intro-grid"><MotionHeading as="h2" id="series-questions-title">{cmsText("SeriesOttPage","256629916deff8af","Before you pitch.")}</MotionHeading><div className="series-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
     </section>
 
-    <section className="series-section series-width series-closing" aria-labelledby="series-closing-title">
-      <div className="series-intro-grid"><div><MotionHeading as="h2" id="series-closing-title">{cmsText("SeriesOttPage","e31a9865751f2e22","Pitch us episode one.")}</MotionHeading><MotionCopy>{cmsText("SeriesOttPage","15dd713859946e51","Share your idea, pilot script or series bible. We’ll review the material and discuss what the project needs next.")}</MotionCopy><div className="series-actions"><CTA href="/script-to-production/">{cmsText("SeriesOttPage","b2a641b0f0285888","Send us your pilot")}</CTA><TextLink href="/contact/">{cmsText("SeriesOttPage","24781b21c6781ced","Talk to the studio")}</TextLink></div></div><figure className="series-next-episode"><span>{cmsText("SeriesOttPage","b5f9b29f846c4388","Next episode")}</span><div className="series-next-number" aria-hidden="true">01</div><figcaption><strong>{cmsText("SeriesOttPage","cbb4fa36152fc4b3","E01 · Your series")}</strong><span>{cmsText("SeriesOttPage","cea32b4fa8234c71","Starting when you are")}</span></figcaption></figure></div>
+    <section className="series-section series-width series-closing inner-closing" aria-labelledby="series-closing-title">
+      <div className="series-intro-grid"><div><MotionHeading as="h2" id="series-closing-title">{cmsText("SeriesOttPage","e31a9865751f2e22","Pitch us episode one.")}</MotionHeading><MotionCopy>{cmsText("SeriesOttPage","15dd713859946e51","Share your idea, pilot script or series bible. We’ll review the material and discuss what the project needs next.")}</MotionCopy><div className="series-actions"><CTA href="/script-to-production/">{cmsText("SeriesOttPage","b2a641b0f0285888","Send us your pilot")}</CTA><TextLink href="/contact/">{cmsText("SeriesOttPage","24781b21c6781ced","Talk to the studio")}</TextLink></div></div><figure className="series-next-episode"><span>{cmsText("SeriesOttPage","b5f9b29f846c4388","Next episode")}</span><figcaption><strong>{cmsText("SeriesOttPage","cbb4fa36152fc4b3","E01 · Your series")}</strong><span>{cmsText("SeriesOttPage","cea32b4fa8234c71","Starting when you are")}</span></figcaption></figure></div>
     </section>
   </div></PageVisuals>;
 }

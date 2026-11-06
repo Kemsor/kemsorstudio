@@ -13,12 +13,14 @@ html .creative-site #main .co-production-page .coproduction-small{display:block;
 .coproduction-brief h3{font-family:Manrope,sans-serif;font-size:20px;font-weight:500;line-height:1.4}
 .coproduction-brief p{margin:9px 0 0;line-height:1.7;color:var(--muted)}
 .coproduction-roles{margin-top:32px}
-.coproduction-roles article{display:grid;grid-template-columns:32px 1fr 1.5fr;gap:22px;border-top:1px solid var(--line);padding:26px 0}
+.coproduction-roles article{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:22px;border-top:1px solid var(--line);padding:26px 0}
 .coproduction-roles article>span{padding-top:6px}
 .coproduction-production-link{margin-top:32px}
 .coproduction-audiences{list-style:none;padding:0;margin:28px 0 0;counter-reset:audience}
 .coproduction-audiences li{counter-increment:audience;padding:20px 0;display:flex;gap:24px;border-top:1px solid var(--line);line-height:1.7}
 .coproduction-audiences li::before{content:'0' counter(audience);color:#636363;font-size:12px;padding-top:4px}
 .co-production-page .produce-faqs p a{text-decoration:underline;text-underline-offset:4px}
-@media(max-width:700px){.coproduction-roles article{grid-template-columns:30px 1fr}.coproduction-roles article>p{grid-column:2}}
+@media(max-width:700px){.coproduction-roles article{grid-template-columns:minmax(0,1fr);gap:12px}.coproduction-roles article>p{grid-column:1}}
 @media(max-width:600px){.coproduction-benefits{grid-template-columns:1fr}.coproduction-benefits article{padding:24px}.coproduction-benefits article:nth-child(odd){background:#fff}.coproduction-benefits article:nth-child(even){background:#ffffff}.coproduction-brief{padding:24px 20px}.coproduction-brief ol>li{gap:18px}.coproduction-brief h3{font-size:19px}}
+
+.coproduction-roles article>h3{min-width:0;word-break:normal;overflow-wrap:normal}

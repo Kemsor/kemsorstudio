@@ -14,3 +14,13 @@ html .creative-site #main .structuring-page .structuring-small{display:block;fon
 .structuring-production-link{margin-top:32px}
 @media(max-width:900px){.structuring-rows article{grid-template-columns:1fr 1fr}.structuring-rows article>div:first-child{grid-column:1/-1}}
 @media(max-width:600px){.structuring-rows article{grid-template-columns:1fr;gap:20px}.structuring-rows article>div:first-child{grid-column:auto}.structuring-formats{grid-template-columns:1fr}.structuring-formats article{padding:24px}.structuring-formats article:nth-child(odd){background:#fff}.structuring-formats article:nth-child(even){background:#ffffff}}
+
+/* Give each format a complete reading surface inside the finance chapter. */
+html body #top.creative-site #main.inner-page #structure-by-format{padding:clamp(28px,4vw,56px)!important}
+html body #top.creative-site #main.inner-page #structure-by-format .structuring-formats{grid-template-columns:minmax(0,1fr);gap:14px;padding:0;border:0;border-radius:0;background:transparent!important}
+html body #top.creative-site #main.inner-page #structure-by-format .structuring-formats article{display:block;min-width:0;padding:24px 26px;border:1px solid #b9945c30;border-left:3px solid #bd914d;border-radius:0 14px 14px 0;background:#fff!important;transition:border-color .25s ease,box-shadow .25s ease}
+html body #top.creative-site #main.inner-page #structure-by-format .structuring-formats h3{margin:0;word-break:normal;overflow-wrap:normal;color:#28252b!important;-webkit-text-fill-color:#28252b!important}
+html body #top.creative-site #main.inner-page #structure-by-format .structuring-formats p{margin:10px 0 0;max-width:62ch;line-height:1.75;color:#56505b!important;-webkit-text-fill-color:#56505b!important}
+@media(hover:hover){html body #top.creative-site #main.inner-page #structure-by-format .structuring-formats article:hover{border-color:#bd914d;box-shadow:0 8px 24px #6947180a}}
+@media(max-width:600px){html body #top.creative-site #main.inner-page #structure-by-format .structuring-formats article{padding:20px}}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page #structure-by-format .structuring-formats article{transition:none}}

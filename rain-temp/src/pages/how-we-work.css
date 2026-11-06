@@ -17,7 +17,7 @@
 .call-sheet-label>span:last-child{white-space:nowrap}
 .call-sheet-section h2{font-size:clamp(28px,3.6vw,50px);line-height:1.16;font-weight:500;letter-spacing:-.04em;margin:0 0 28px;max-width:830px}
 .call-sheet-section h2 em{font-weight:400;color:var(--sheet-accent)}
-.call-sheet-schedule-head,.call-sheet-schedule>li{display:grid;grid-template-columns:55px minmax(0,1fr) minmax(0,1.65fr) minmax(0,1.25fr);gap:clamp(16px,2.2vw,32px)}
+.call-sheet-schedule-head,.call-sheet-schedule>li{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1.5fr) minmax(0,1.2fr);gap:clamp(16px,2.2vw,32px)}
 .call-sheet-schedule-head{padding:16px 0;border-bottom:2px solid #242424;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
 .call-sheet-schedule{list-style:none;padding:0;margin:0}
 .call-sheet-schedule>li{padding-block:28px;border-bottom:1px solid var(--sheet-line)}
@@ -49,8 +49,8 @@
  .call-sheet-hero-grid,.call-sheet-split,.call-sheet-closing-grid{grid-template-columns:1fr}
  .call-sheet-hero-grid{gap:36px}.call-sheet-fields>div{padding-block:12px}
  .call-sheet-schedule-head{display:none}.call-sheet-schedule{border-top:2px solid #242424}
- .call-sheet-schedule>li{grid-template-columns:32px minmax(0,1fr);gap:16px;padding-block:24px}
- .call-sheet-schedule p{grid-column:2}.call-sheet-mobile-label{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sheet-accent);margin-bottom:6px}
+ .call-sheet-schedule>li{grid-template-columns:minmax(0,1fr);gap:16px;padding-block:24px}
+ .call-sheet-schedule p{grid-column:1}.call-sheet-mobile-label{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sheet-accent);margin-bottom:6px}
  .call-sheet-engagements{grid-template-columns:1fr}.call-sheet-engagements>article,.call-sheet-engagements>article:first-child,.call-sheet-engagements>article:last-child{padding:28px 0;border-right:0;border-bottom:1px solid var(--sheet-line)}
  .call-sheet-engagements>article:last-child{border-bottom:0}.call-sheet-unit{font-size:48px;margin-bottom:20px}
  .call-sheet-principles{grid-template-columns:1fr}.call-sheet-principles>li,.call-sheet-principles>li:nth-child(even){padding:24px 0;border-left:0;gap:20px}
@@ -66,9 +66,9 @@ html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-conta
 html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] h2{max-width:none;margin:0 0 18px;line-height:1.2!important}
 html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .visual-chapter-content>div>p{margin:0 0 28px}
 html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 28px;border:0;margin:0}
-html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts>div{padding:19px 0 0;border-top:1px solid #ffffff25;border-bottom:0;min-width:0}
-html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts dt{font-size:15px;font-weight:500;line-height:1.5;color:#f6e8cf!important;margin-bottom:9px}
-html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts dd{font-size:13px;line-height:1.8;max-width:none;margin:0;color:#c9bdab!important}
+html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts>div{padding:19px 0 0;border-top:1px solid #e6dfd4;border-bottom:0;min-width:0}
+html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts dt{font-size:15px;font-weight:500;line-height:1.5;color:#282018!important;-webkit-text-fill-color:#282018!important;margin-bottom:9px}
+html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts dd{font-size:13px;line-height:1.8;max-width:none;margin:0;color:#53504b!important;-webkit-text-fill-color:#53504b!important}
 html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .visual-chapter-image{align-self:start;width:100%}
 html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .visual-chapter-image>div{aspect-ratio:1.1;max-height:440px}
 @media(max-width:900px){html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"]>.visual-chapter-layout{grid-template-columns:1fr;gap:28px}html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .visual-chapter-image>div{aspect-ratio:1.7;max-height:320px}}
@@ -89,3 +89,5 @@ html body #top.creative-site #main.inner-page .engagement-ground-cards>article:f
 @media(hover:none){.engagement-ground-detail{grid-template-rows:1fr;opacity:1}}
 @media(max-width:600px){html body #top.creative-site #main.inner-page .engagement-ground-cards>article:nth-child(n){min-height:260px;padding:25px}}
 @media(prefers-reduced-motion:reduce){.engagement-ground-detail,html body #top.creative-site #main.inner-page .engagement-ground-cards>article::before{transition:none}}
+
+.call-sheet-schedule h3{min-width:0;word-break:normal;overflow-wrap:normal;align-self:start}

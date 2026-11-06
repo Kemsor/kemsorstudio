@@ -5,6 +5,7 @@ import SiteIcon from './SiteIcon';
 import {CTA} from './PageUI';
 import {productions} from '../../designer-theme/src/data';
 import './designer-productions.css';
+const formatLinks=['/what-we-make/short-films/','/finance/co-production/','/what-we-make/series-ott/','/post-production/','/finance/international-co-productions/'];
 
 export default function DesignerProductions({reduced=false}){
  const [active,setActive]=useState(0),buttons=useRef([]);
@@ -20,11 +21,11 @@ export default function DesignerProductions({reduced=false}){
  return <section id="productions" className="motion-work" aria-labelledby="motion-work-title" data-reduced={reduced}>
   <div className="mw-layout">
    <div className="mw-intro"><span className="mw-pill"><SiteIcon name="scan" size={15}/>{cmsText("DesignerProductions","57eb1614793facc1","STORIES, SEEN IN MOTION")}</span><p className="mw-eyebrow">{cmsText("DesignerProductions","f68dccc8bd02a991","STORIES, SEEN IN MOTION")}</p><h2 id="motion-work-title">{cmsText("DesignerProductions","4bfeb5a2c769cf7b","The work.")}<br/><span className="heading-accent">{cmsText("DesignerProductions","5e3ea49a74a344f7","In frame.")}</span></h2><p className="mw-description">{cmsText("DesignerProductions","c326534e81be93cb","A selection of the formats and production settings at the heart of our work.")}</p><CTA href="/productions/" className="cta-white">{cmsText("DesignerProductions","c582c4db08413e5f","View all productions")}</CTA></div>
-   <div className="mw-gallery" role="group" aria-label="Explore production references">{productions.map((item,index)=><button key={item.title} ref={node=>{buttons.current[index]=node}} type="button" className={`mw-card${active===index?' is-active':''}`} aria-expanded={active===index} aria-controls={`motion-work-caption-${index}`} aria-label={`Explore ${item.title}`} onPointerEnter={event=>{if(event.pointerType==='mouse'&&matchMedia('(hover:hover) and (pointer:fine)').matches)setActive(index)}} onFocus={()=>setActive(index)} onClick={()=>setActive(index)} onKeyDown={event=>move(event,index)}>
+   <div className="mw-gallery-wrap"><div className="mw-gallery" role="group" aria-label="Explore production references">{productions.map((item,index)=><button key={item.title} ref={node=>{buttons.current[index]=node}} type="button" className={`mw-card${active===index?' is-active':''}`} aria-expanded={active===index} aria-controls={`motion-work-caption-${index}`} aria-label={`Explore ${item.title}`} onPointerEnter={event=>{if(event.pointerType==='mouse'&&matchMedia('(hover:hover) and (pointer:fine)').matches)setActive(index)}} onFocus={()=>setActive(index)} onClick={()=>setActive(index)} onKeyDown={event=>move(event,index)}>
     <StudioImage mediaSlot="DesignerProductions-1" src={`/assets/designer-productions/${item.image}`} alt="" loading="lazy" decoding="async" width="640" height="900"/>
     <span className="mw-scrim" aria-hidden="true"/><span className="mw-vertical" aria-hidden="true">{item.label.replace(/^\d+\s+/,'')}</span>
     <span className="mw-caption" id={`motion-work-caption-${index}`} aria-hidden={active!==index}><small>{item.category}</small><strong>{item.title}</strong><span>{cmsText("DesignerProductions","a933db72f5fd6764","Production reference")}</span></span>
-   </button>)}</div>
+   </button>)}</div><a className="mw-format-link" href={formatLinks[active]||'/productions/'}>Explore {productions[active].category}<SiteIcon name="arrow" size={18}/></a></div>
   </div>
  </section>;
 }

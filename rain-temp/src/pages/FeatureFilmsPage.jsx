@@ -39,7 +39,7 @@ const languages = [ ['hi','कहानी'], ['ta','கதை'], ['te','కథ'
 const journey = cmsData(()=>([cmsText("FeatureFilmsPage","752056ea0099c6b3","Develop"), cmsText("FeatureFilmsPage","ba50d7ac68a014fd","Finance"), cmsText("FeatureFilmsPage","cc4e364c6ea31821","Shoot"), cmsText("FeatureFilmsPage","a0f39f04cce475f4","Finish"), cmsText("FeatureFilmsPage","b45dd0cfe5f37fdb","Release")]));
 
 function Label({ children, number }) {
-  return <div className="feature-label"><span>{children}</span><span aria-hidden="true">{number}</span></div>;
+  return <div className="feature-label"><span>{children}</span></div>;
 }
 
 function FeaturePlanner() {
@@ -88,7 +88,7 @@ export default function FeatureFilmsPage() {
       <Label number="02">{cmsText("FeatureFilmsPage","8f886c3b56511764","THE FEATURE LEDGER")}</Label>
       <div className="feature-intro-grid"><MotionHeading as="h2" id="feature-ledger-title">{cmsText("FeatureFilmsPage","1a71dc445c4c5475","What you hold at the end of each stage.")}</MotionHeading><MotionCopy>{cmsText("FeatureFilmsPage","78baf45b0d613bcd","Every stage ends with something you can put in front of a financier, a partner or a platform.")}</MotionCopy></div>
       <div className="feature-ledger-head" aria-hidden="true"><span>#</span><span>{cmsText("FeatureFilmsPage","957ee23e8a4846e0","Stage")}</span><span>{cmsText("FeatureFilmsPage","4f4621579af1ea33","What you hold")}</span></div>
-      <ol className="feature-ledger studio-ledger studio-ledger-numbered">{ledger.map(([stage, copy],index) => <li key={stage}><span className="feature-ledger-number" aria-hidden="true">{String(index + 1).padStart(2,'0')}</span><h3>{stage}</h3><p>{copy}</p></li>)}</ol>
+      <ol className="feature-ledger studio-ledger studio-ledger-numbered">{ledger.map(([stage, copy],index) => <li key={stage}><h3>{stage}</h3><p>{copy}</p></li>)}</ol>
     </section>
 
     <section className="feature-section feature-width" aria-labelledby="feature-debut-title">
@@ -113,7 +113,7 @@ export default function FeatureFilmsPage() {
       <div className="feature-intro-grid"><MotionHeading as="h2" id="feature-questions-title">{cmsText("FeatureFilmsPage","1417f6c205a5fe75","Straight answers.")}</MotionHeading><div className="feature-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
     </section>
 
-    <section className="feature-section feature-width feature-closing" aria-labelledby="feature-closing-title">
+    <section className="feature-section feature-width feature-closing inner-closing" aria-labelledby="feature-closing-title">
       <div className="feature-intro-grid"><div className="feature-script" aria-label="Screenplay page one"><span className="feature-script-page">1.</span><p>{cmsText("FeatureFilmsPage","4532de907dd76474","FADE IN:")}</p><p>{cmsText("FeatureFilmsPage","93dd211b594fd16f","INT. WHERE YOUR STORY BEGINS / DAY")}</p><p>{cmsText("FeatureFilmsPage","5afdfeeae5435641","Your first page goes here.")}</p></div><div><MotionHeading as="h2" id="feature-closing-title">{cmsText("FeatureFilmsPage","6b2dccea3b46b278","Send us page one.")}</MotionHeading><MotionCopy>{cmsText("FeatureFilmsPage","6b70c3e71e628b7d","A script, a treatment, or a single page. Tell us where your feature is, and we’ll come back with an honest next step.")}</MotionCopy><div className="feature-actions"><CTA href="/script-to-production/">{cmsText("FeatureFilmsPage","16aa2597325974d5","Send us your script")}</CTA><TextLink href="/contact/">{cmsText("FeatureFilmsPage","eca38a433323be4c","Talk to the studio")}</TextLink></div></div></div>
     </section>
   </div></PageVisuals>;

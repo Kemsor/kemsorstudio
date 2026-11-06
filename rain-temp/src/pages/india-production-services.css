@@ -52,14 +52,14 @@
 
 /* One coloured panel follows the active step, rather than flashing each card. */
 html body #top.creative-site #main.inner-page .india-process-sliding{position:relative;isolation:isolate;gap:12px;border:0;list-style:none;padding:0;--process-x:0px;--process-y:0px;--process-width:0px;--process-height:0px;--process-glow-x:50%;--process-glow-y:30%}
-html body #top.creative-site #main.inner-page .india-process-sliding::before{content:'';position:absolute;left:0;top:0;width:var(--process-width);height:var(--process-height);transform:translate(var(--process-x),var(--process-y));border-radius:17px;opacity:0;pointer-events:none;z-index:0;background:radial-gradient(circle at var(--process-glow-x) var(--process-glow-y),#ffffff1c,transparent 65%),linear-gradient(135deg,#ad632c 0%,#765069 48%,#484aa4 100%);box-shadow:0 10px 24px #4c3a751c;transition:transform .42s cubic-bezier(.22,.68,.25,1),width .42s cubic-bezier(.22,.68,.25,1),height .42s cubic-bezier(.22,.68,.25,1),opacity .2s}
+html body #top.creative-site #main.inner-page .india-process-sliding::before{content:'';position:absolute;left:0;top:0;width:var(--process-width);height:var(--process-height);transform:translate(var(--process-x),var(--process-y));border-radius:17px;opacity:0;pointer-events:none;z-index:0;background:radial-gradient(circle at var(--process-glow-x) var(--process-glow-y),#ffffff26,transparent 65%),linear-gradient(135deg,#f1d58e,#c3913e);box-shadow:0 10px 24px #79551f24;transition:transform .42s cubic-bezier(.22,.68,.25,1),width .42s cubic-bezier(.22,.68,.25,1),height .42s cubic-bezier(.22,.68,.25,1),opacity .2s}
 html body #top.creative-site #main.inner-page .india-process-sliding[data-active=true]::before{opacity:1}
 html body #top.creative-site #main.inner-page .india-process-sliding>li:nth-child(n){position:relative;z-index:1;padding:28px clamp(20px,2.4vw,36px);border:1px solid #ded8ce;border-radius:17px;background:transparent!important;outline:none;transition:border-color .25s}
 html body #top.creative-site #main.inner-page .india-process-sliding>li::marker{content:''}
 html body #top.creative-site #main.inner-page .india-process-sliding>li :is(h3,p,.india-step-number){transition:color .25s}
 html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true]{border-color:transparent}
-html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true] :is(h3,p,.india-step-number){color:#fff!important;-webkit-text-fill-color:#fff}
-html body #top.creative-site #main.inner-page .india-process-sliding>li:focus-visible{outline:3px solid #505dc9;outline-offset:4px}
+html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true] :is(h3,p,.india-step-number){color:#30251a!important;-webkit-text-fill-color:#30251a!important}
+html body #top.creative-site #main.inner-page .india-process-sliding>li:focus-visible{outline:3px solid #966622;outline-offset:4px}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page .india-process-sliding::before,html body #top.creative-site #main.inner-page .india-process-sliding>li,html body #top.creative-site #main.inner-page .india-process-sliding>li :is(h3,p,.india-step-number){transition:none}}
 @media(forced-colors:active){html body #top.creative-site #main.inner-page .india-process-sliding::before{display:none}html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true]{border-color:Highlight}html body #top.creative-site #main.inner-page .india-process-sliding>li[data-active=true] :is(h3,p,.india-step-number){color:CanvasText!important;-webkit-text-fill-color:CanvasText}}
 
@@ -83,3 +83,9 @@ html body #top.creative-site #main.inner-page .india-band .india-label{margin-bo
 @media(max-width:800px){.india-story-split{grid-template-columns:1fr;gap:28px}.india-image-first .india-story-copy{grid-row:1}.india-editorial-image-window,.india-borders-editorial .india-editorial-image-window,.india-respect .india-editorial-image-window{aspect-ratio:1.6}.india-story-copy .india-intro-grid{gap:22px}.india-editorial-image figcaption{flex-direction:row;gap:12px}.india-story-copy .india-intro-grid>div{max-width:none}}
 @media(max-width:480px){.india-backdrops-editorial .india-row-list{grid-template-columns:1fr}.india-editorial-image-window{border-radius:14px}.india-editorial-image figcaption{flex-direction:column;gap:3px}.india-image-index{left:12px;bottom:12px}.india-backdrops-editorial .india-row-head{display:none}}
 @media(prefers-reduced-motion:reduce){.india-editorial-image-window img{transition:none}.india-editorial-image:hover img{transform:none}}
+
+/* Dark India chapters own their text fill as well as their colour. */
+html body #top.creative-site #main.inner-page .india-band-dark{--inner-heading-ink:#f5efe5;--inner-heading-accent:#f0b858}
+html body #top.creative-site #main.inner-page .india-band-dark :is(h2,h3){-webkit-text-fill-color:#f5efe5!important}
+html body #top.creative-site #main.inner-page .india-band-dark :is(h2,h3) :is(em,.heading-accent){color:#f0b858!important;-webkit-text-fill-color:#f0b858!important}
+html body #top.creative-site #main.inner-page .india-band-dark :is(p,li){-webkit-text-fill-color:#c3b8a8!important}

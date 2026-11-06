@@ -1,0 +1,101 @@
+/* Shared white navigation and inset hero frame for public inner pages. */
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true]{
+ --nav-bg:#fff;--nav-ink:#171717;--nav-muted:#626262;--nav-line:#dedede;--nav-panel:#f3f3f3;
+ background:transparent!important;background-image:none!important;border:0!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true]::before,
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true]::after{content:none!important;display:none!important}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] .creative-header-inner{
+ background:#fff!important;background-image:none!important;color:#171717!important;
+ border:0!important;box-shadow:0 5px 14px #0000000d!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true][data-scrolled=true]{padding:0!important}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true][data-scrolled=true] .creative-header-inner{
+ width:100%!important;max-width:none!important;margin-inline:0!important;
+ border-radius:0 0 24px 24px!important;box-shadow:0 6px 16px #00000014!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle,.creative-nav-chevron),
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *{
+ color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login):is(:hover,:focus-visible,[aria-expanded=true]){background:#f3f3f3!important}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]){
+ background:#fff!important;background-image:none!important;color:#171717!important;border-color:#dedede!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(.creative-nav-group,.creative-dropdown-groups,.creative-nav-drawer-head,.account-dropdown-intro,.account-dropdown-registration){background:transparent!important}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button,p,span,b,small,strong){
+ color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] :is(.creative-dropdown,.account-dropdown-panel) a:is(:hover,:focus-visible){background:#f3f3f3!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page{
+ --inner-frame:clamp(12px,1.65vw,28px);
+ background:#fff!important;background-image:none!important;
+ padding-top:calc(var(--site-header-height,100px) + 24px)!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero.inner-hero,.page-hero.page-hero){
+ width:calc(100% - var(--inner-frame) * 2)!important;max-width:none!important;
+ margin:0 var(--inner-frame) 28px!important;
+ border-radius:clamp(20px,2vw,32px)!important;overflow:hidden;
+}
+@media(max-width:600px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page{padding-top:92px!important}
+ html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true][data-scrolled=true] .creative-header-inner{border-radius:0 0 18px 18px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero.inner-hero,.page-hero.page-hero){border-radius:20px!important;margin-bottom:20px!important}
+}
+/* Bespoke directory and leadership introductions retain their own composition. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.sitemap-header,.directory-discovery-header,.leadership-page>.leadership-width:first-child){
+ border-radius:clamp(20px,2vw,32px)!important;overflow:hidden;
+}
+@media(max-width:600px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.sitemap-header,.directory-discovery-header,.leadership-page>.leadership-width:first-child){border-radius:20px!important}
+}
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] .creative-header-inner .header-account-links .header-login,
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] .creative-header-inner .header-account-links .header-login span{
+ color:#171717!important;-webkit-text-fill-color:#171717!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.privacy-policy-header,.auth-page,.planner-explainer){
+ border-radius:clamp(20px,2vw,32px)!important;overflow:hidden;
+}
+@media(max-width:600px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.privacy-policy-header,.auth-page,.planner-explainer){border-radius:20px!important}
+}
+/* Explicit desktop label faces also cover the animated navigation copies. */
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] .creative-header-inner .creative-nav .creative-nav-list>.creative-nav-item>:is(a,button) :is(.creative-nav-roll,.creative-nav-roll-track,span){
+ color:#171717!important;-webkit-text-fill-color:#171717!important;
+}
+/* Top-level desktop navigation uses the homepage's type and spacing everywhere. */
+@media(min-width:1441px){
+ html body #top.creative-site .creative-header .creative-nav-list{gap:clamp(3px,.6vw,14px)}
+ html body #top.creative-site .creative-header :is(.creative-nav-trigger,.creative-nav-direct){
+  font-family:Inter,Arial,sans-serif;font-size:13px!important;font-weight:600!important;
+  line-height:1.3;letter-spacing:normal;text-transform:uppercase;padding-inline:9px;
+ }
+}
+/* Match the homepage's square resting navigation surface. */
+html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true][data-scrolled=false] .creative-header-inner{
+ border-radius:0!important;
+}
+/* Sticky navigation labels remain still on hover and keyboard focus. */
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-list>.creative-nav-item .creative-nav-roll-track,
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-list>.creative-nav-item>:is(a,button):is(:hover,:focus-visible) .creative-nav-roll-track{
+ transform:none!important;transition:none!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-list>.creative-nav-item .creative-nav-roll-track>span[aria-hidden=true]{visibility:hidden!important}
+
+/* A quiet, shared breadcrumb row below the hero, without a coloured strip. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row{
+ box-sizing:border-box;width:100%;max-width:1600px;margin:0 auto;
+ padding:4px clamp(20px,5vw,80px) 24px;background:transparent;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row>nav[aria-label="Breadcrumb"]{
+ width:auto!important;max-width:none!important;min-height:0!important;
+ margin:0!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important;
+ color:#625e58!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row>nav[aria-label="Breadcrumb"]>a{color:#625e58!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row>nav[aria-label="Breadcrumb"]>[aria-current=page]{color:#292622!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .ep-docket{justify-content:flex-end}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .ep-docket:empty{display:none}
+@media(max-width:600px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row{padding:0 20px 20px}
+}

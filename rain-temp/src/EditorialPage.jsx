@@ -1,3 +1,4 @@
+import PageBreadcrumbs from './PageBreadcrumbs';
 import {cmsText,cmsData} from './siteContent';
 import StudioImage from './StudioImage';
 import {chapterStyler} from './VisualChapters';
@@ -49,7 +50,6 @@ function text(node) {
   return node.type === 'br' ? ' ' : text(node.props.children);
 }
 const tidy = value => value.replace(/\s+/g, ' ').trim();
-const sentence = value => value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 
 export function ProductionDrawing({ kind = 'production' }) {
   return <svg className={`ep-drawing ep-drawing-${kind}`} viewBox="0 0 300 315" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -78,8 +78,7 @@ export function ProcessRoute() {
 
 export function EditorialHero({ page = 'studio', heading, title, accent, description, eyebrow, image, alt, caption, actions, breadcrumb, foot, id, compact = false, paused = false, graphic, onMotionChange }) {
   const reduced = useReducedMotion();
-  const [stopped, setStopped] = useState(false);
-  const stop = paused || reduced || stopped;
+  const stop = paused || reduced;
   const [label, line, ending, kind] = directions[page] || defaultDirection;
   const sourceCopy = clientContentPages.has(page);
   const headingNode = heading || <MotionHeading as="h1" id={id}>{title}{accent && <span>{accent}</span>}</MotionHeading>;
@@ -92,14 +91,14 @@ export function EditorialHero({ page = 'studio', heading, title, accent, descrip
     event.currentTarget.style.setProperty('--ep-image-y',`${(event.clientY-rect.top-rect.height/2)*-.012}px`);
   }
   function reset(event) {event.currentTarget.style.setProperty('--ep-image-x','0px');event.currentTarget.style.setProperty('--ep-image-y','0px');}
-  return <section className={`inner-hero ep-hero${compact ? ' ep-hero-compact' : ''}`} data-ep-motion={stop?'paused':'playing'} aria-labelledby={headingNode.props.id || undefined}>
-    <div className="ep-width"><div className="ep-docket">{breadcrumb || <nav className="ep-eyebrow site-breadcrumb" aria-label="Breadcrumb"><a href="/">{cmsText("EditorialPage","844a3f7af91e7cf8","Kemsor Studios")}</a><span aria-hidden="true">/</span><span aria-current="page">{eyebrow}</span></nav>}{!compact && <button className="ep-motion-toggle" type="button" aria-pressed={stop} disabled={reduced || paused} onClick={()=>{setStopped(value=>!value);onMotionChange?.(!stopped);}}><span aria-hidden="true">{stop?'▷':'Ⅱ'}</span>{reduced?'Reduced motion':stop?'Play motion':'Pause motion'}</button>}</div>
+  return <><section className={`inner-hero ep-hero${compact ? ' ep-hero-compact' : ''}`} data-ep-motion={stop?'paused':'playing'} aria-labelledby={headingNode.props.id || undefined}>
+    <div className="ep-width">
       <div className="ep-hero-heading"><div>{headingNode}{caption && <p className="ep-hero-note">{caption}</p>}</div><div className="ep-hero-copy">{description && (isValidElement(description) ? description : <p>{description}</p>)}{actions && <div className="ep-actions">{actions}</div>}</div></div>
       {!compact && imageNode && <div className="ep-board"><figure className="ep-hero-photo"><div className="ep-image-window" onPointerMove={move} onPointerLeave={reset}>{cloneElement(imageNode,{alt:imageNode.props.alt || alt || cmsText("EditorialPage","b06bd5e721f9ca3b","Production visual supplied for Kemsor Studios"),sizes:cmsText("EditorialPage","c5ab29676d354502","(max-width: 600px) 90vw, (max-width: 900px) 65vw, 70vw")})}{['a','b','c','d'].map(c=><span key={c} className={`ep-corner ep-corner-${c}`} aria-hidden="true"/>)}<span className="ep-focus" aria-hidden="true"><i/></span><span className="ep-frame-tab">{cmsText("EditorialPage","2e357267b4309176","STORY. CRAFT. CINEMA.")}</span></div><figcaption><span>{eyebrow}</span><span>{cmsText("EditorialPage","0f452bf909f900a9","VISUAL STUDY / KEMSOR STUDIOS")}</span></figcaption></figure><aside className="ep-file-card" aria-label={graphic?.props['aria-label'] || `${label.toLowerCase()} illustration`}><div className="ep-file-heading"><span>{label}</span><span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></div>{graphic || <ProductionDrawing kind={kind}/>}{!sourceCopy && <div className="ep-file-caption"><span>{line}<br/><strong>{ending}</strong></span><span className="ep-file-mark" aria-hidden="true">{cmsText("EditorialPage","e49c7dbc81bb767b","K")}</span></div>}</aside></div>}
       {!compact && imageNode && <details className="ep-mobile-study"><summary><span>{label}</span><span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><div className="ep-mobile-study-content">{graphic || <ProductionDrawing kind={kind}/>}</div></details>}
       {foot && <div className="ep-hero-foot">{foot}</div>}
     </div>
-  </section>;
+  </section><PageBreadcrumbs page={page}>{breadcrumb}</PageBreadcrumbs></>;
 }
 
 function ServiceAccordion({ list }) {
@@ -111,27 +110,15 @@ function ServiceAccordion({ list }) {
     const dd = findNode(item,n=>n.type==='dd');
     if(!dt || !dd) return item;
     const title = nodes(dt.props.children).filter(n=>!(isValidElement(n)&&n.type==='span'&&n.props['aria-hidden']));
-    return <details key={item.key || index} open={active===index} onPointerEnter={event=>{if(event.pointerType==='mouse')setActive(index);}}><summary onClick={event=>{event.preventDefault();setActive(value=>value===index?-1:index);}}><span className="ep-item-number">{String(index+1).padStart(2,'0')}</span><h3>{title}</h3><span className="ep-plus" aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><div className="ep-accordion-copy">{dd.props.children}</div></details>;
+    return <details key={item.key || index} open={active===index} onPointerEnter={event=>{if(event.pointerType==='mouse')setActive(index);}}><summary onClick={event=>{event.preventDefault();setActive(value=>value===index?-1:index);}}><h3>{title}</h3><span className="ep-plus" aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><div className="ep-accordion-copy">{dd.props.children}</div></details>;
   })}</div>;
 }
 function prepareSection(node, process) {
   if (!isValidElement(node)) return node;
   if(hasClass(node,'line-production-deliverables')) return <ServiceAccordion key={node.key} list={node}/>;
   const content = nodes(node.props.children).map(child=>prepareSection(child,false));
-  if(process) {
-    const position = content.findIndex(child=>isValidElement(child)&&child.type==='ol');
-    if(position>=0) content.splice(position,0,<ProcessRoute key="process-route"/>);
-    else {const grid=content.findIndex(child=>hasClass(child,'page-principles')||hasClass(child,'process-grid'));if(grid>=0)content.splice(grid,0,<ProcessRoute key="process-route"/>);}
-  }
   return cloneElement(node,{},...content);
 }
-function chapterLabel(node,index) {
-  if(hasClass(node,'finance-pack'))return 'Finance-ready pack';
-  const label = findNode(node,n=>n.type?.displayName==='EditorialLabel'||n.type===SectionHeading||hasClass(n,'page-eyebrow')||hasClass(n,'produce-label'));
-  const content = label ? (label.props.label || label.props.children) : (node.props.eyebrow || node.props['aria-label'] || text(findNode(node,n=>isTextElement(n,'h2'))) || `Chapter ${index+1}`);
-  return sentence(tidy(text(content)).replace(/^\d+\s*[/.·—-]\s*/,''));
-}
-
 // Adapts the existing, authored section elements without duplicating page copy.
 // The original section IDs and all nested forms, links and CMS components survive.
 export default function EditorialPage({page,children}) {
@@ -155,16 +142,13 @@ export default function EditorialPage({page,children}) {
   const serviceSubmenu = ['develop','story-script','packaging-talent','budgeting-scheduling'].includes(page) ? all.find(n=>hasClass(n,'finance-subnav')) : null;
   const body = all.filter(n=>n!==hero&&n!==breadcrumb&&n!==outsideActions&&!hasClass(n,'make-top-strip')).flatMap(n=>hasClass(n,'page-directory')?nodes(n.props.children):[n]);
   if(pack) body.unshift(cloneElement(pack,{key:'finance-pack-chapter',id:'finance-ready-pack'}));
-  const chapters = [];
   const content = body.map((node,index)=>{
     if(!isValidElement(node))return node;
     if(node===serviceSubmenu)return null;
     const section = node.type==='section'||node.type==='aside'||node.type===PageCTA;
     if(!section)return node;
-    const label = chapterLabel(node,index);
     const id = node.props.id || `${page}-chapter-${index+1}`;
     const process = hasClass(node,'produce-process') || hasClass(node,'about-approach') || id==='production-process';
-    chapters.push({id,label});
     const props = {id,className:`${node.props.className||''} ep-chapter${process?' ep-process':''}`, 'data-ep-chapter':true};
     const prepared = prepareSection(node,process);
     return styleChapter(typeof node.type==='string' ? cloneElement(prepared,{...props,key:node.key||id}) : <div {...props} key={id}>{prepared}</div>,index);
@@ -172,27 +156,17 @@ export default function EditorialPage({page,children}) {
   const host = useRef(null);
   const reduced = useReducedMotion();
   const [motionPaused,setMotionPaused] = useState(false);
-  const [active,setActive] = useState(chapters[0]?.id);
   useEffect(()=>{
     const container = host.current;
     const elements = [...container.querySelectorAll('[data-ep-chapter]')];
-    let frame;
-    const update = ()=>{
-      let current = elements[0];
-      elements.forEach(element=>{if(element.getBoundingClientRect().top<innerHeight*.4)current=element;});
-      if(current)setActive(current.id);
-      frame=null;
-    };
-    const scroll = ()=>{if(!frame)frame=requestAnimationFrame(update);};
     const observer = new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('ep-in-view');observer.unobserve(entry.target);}}),{rootMargin:cmsText("EditorialPage","67055bdace6960a4","0px 0px 20px 0px"),threshold:0});
-    elements.forEach(element=>observer.observe(element));update();
-    addEventListener('scroll',scroll,{passive:true});addEventListener('resize',scroll);
-    return()=>{observer.disconnect();removeEventListener('scroll',scroll);removeEventListener('resize',scroll);cancelAnimationFrame(frame);};
+    elements.forEach(element=>observer.observe(element));
+    return()=>observer.disconnect();
   },[page,content.length]);
   const shared = isSharedHero ? hero.props : {};
-  return <div ref={host} className={`${root.props.className||''} ep-page editorial-page`} data-ep-motion={motionPaused?'paused':'playing'} data-ep-reduced={reduced?'true':'false'}>
+  return <div ref={host} className={`${root.props.className||''} ep-page editorial-page service-page-layout`} data-service-page={page} data-ep-motion={motionPaused?'paused':'playing'} data-ep-reduced={reduced?'true':'false'}>
     <EditorialHero {...shared} graphic={graphic} page={page} onMotionChange={setMotionPaused} breadcrumb={breadcrumb} heading={heading} description={description||shared.description} eyebrow={tidy(text(kicker))||shared.eyebrow} image={image||shared.image} actions={actionGroup?.props.children || directAction?.length>0&&directAction || outsideActions?.props.children} foot={heroFoot?.props.children} caption={shared.caption}/>
     {serviceSubmenu && <SectionSubmenu section="develop" page={page}/>}
-    <div className={`ep-body ep-width${chapters.length?'':' ep-body-single'}`}>{chapters.length>0 && <aside className="ep-index"><div className="ep-mobile-chapters"><label htmlFor={`chapters-${page}`}>{cmsText("EditorialPage","5a0d44efff9e2bc6","ON THIS PAGE")}</label><select id={`chapters-${page}`} value={active || chapters[0]?.id} onChange={event=>{const id=event.target.value;setActive(id);location.hash=id;}}>{chapters.map(({id,label},i)=><option value={id} key={id}>{String(i+1).padStart(2,'0')} · {label.split(' · ')[0]}</option>)}</select></div><p className="ep-eyebrow">{cmsText("EditorialPage","38724431a695cf76","IN THIS CHAPTER")}</p><nav aria-label="Page sections">{chapters.map(({id,label},i)=><a key={id} href={`#${id}`} aria-current={active===id?'location':undefined}><span>{String(i+1).padStart(2,'0')}</span>{label}<i aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></i></a>)}</nav>{!clientContentPages.has(page) && <p className="ep-index-note">{cmsText("EditorialPage","60318ba14aa742d6","A story in the making.")}<br/>{cmsText("EditorialPage","46d9fc46d87a7ae6","A plan to bring it to screen.")}<br/><strong>{cmsText("EditorialPage","c6f992e9978a1360","Kemsor Studios.")}</strong></p>}</aside>}<div className="ep-chapters">{content}</div></div>
+    <div className="ep-body ep-width ep-body-single"><div className="ep-chapters">{content}</div></div>
   </div>;
 }

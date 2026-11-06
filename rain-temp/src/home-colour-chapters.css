@@ -80,9 +80,9 @@ html body #top.creative-site.site-page-home[data-home-colors] #main .script-card
 
 /* Navigation surfaces, link states and nested label text share one palette. */
 
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-header-inner{--nav-bg:var(--home-nav-bg,var(--chapter-bg));--nav-ink:var(--home-nav-ink,var(--chapter-ink));--nav-muted:var(--home-nav-muted,var(--chapter-muted));--nav-line:var(--home-nav-line,var(--chapter-line));--nav-panel:var(--home-nav-panel,var(--chapter-panel));}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-header-inner{--nav-bg:#fff;--nav-ink:#171717;--nav-muted:#626262;--nav-line:#dedede;--nav-panel:#f3f3f3;}
 
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header{--nav-bg:var(--home-nav-bg,var(--chapter-bg));--nav-ink:var(--home-nav-ink,var(--chapter-ink));--nav-muted:var(--home-nav-muted,var(--chapter-muted));--nav-line:var(--home-nav-line,var(--chapter-line));--nav-panel:var(--home-nav-panel,var(--chapter-panel));}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header{--nav-bg:#fff;--nav-ink:#171717;--nav-muted:#626262;--nav-line:#dedede;--nav-panel:#f3f3f3;}
 
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner{background:var(--nav-bg)!important;background-image:none!important;color:var(--nav-ink)!important;border-color:var(--nav-line)!important;box-shadow:none!important;transition:box-shadow .2s ease!important;}
 
@@ -233,4 +233,96 @@ html body #top.creative-site.site-page-home[data-home-colors] #main .script-card
 }
 html body #top.creative-site.site-page-home[data-home-colors] #main #services .ds-label>span:last-child{
  color:#ededed;-webkit-text-fill-color:#ededed;
+}
+
+/* Inset the opening film below the navigation, with a quiet white frame. */
+html body #top.creative-site.site-page-home[data-home-colors] #main>section#home.immersive-opening{
+ --hero-frame:clamp(12px,1.65vw,28px);
+ margin:calc(var(--site-header-height,100px) + 24px) var(--hero-frame) 0;
+ border-radius:clamp(20px,2vw,32px);
+ overflow:hidden;
+}
+html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-screen{
+ height:calc(100svh - var(--site-header-height,100px) - 40px);
+ min-height:640px;
+ padding-top:64px;
+}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] .creative-header-inner{
+ background:#fff!important;background-image:none!important;color:#171717!important;box-shadow:none!important;
+}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle,.creative-nav-chevron),
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *{
+ color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
+}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home[data-home-colors] #main>section#home.immersive-opening{margin-top:92px;border-radius:20px}
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-screen{height:auto;min-height:620px;padding-top:56px;padding-inline:20px}
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-playback-tools{right:20px}
+}
+
+/* A soft lower edge lifts the navigation above the page. */
+html body #top.creative-site .creative-header .creative-header-inner,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] .creative-header-inner,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner{
+ box-shadow:0 5px 14px #0000000d!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true]{padding-inline:12px!important}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner{
+ border-radius:0 0 24px 24px!important;border:0!important;
+ box-shadow:0 6px 16px #00000014!important;
+}
+@media(max-width:600px){
+ html body #top.creative-site .creative-header[data-scrolled=true]{padding-inline:8px!important}
+ html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner,
+ html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner{border-radius:0 0 18px 18px!important}
+}
+
+/* Keep a visible white breathing space after the edge-to-edge reels. */
+html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about{
+ padding-bottom:104px!important;
+}
+/* The sticky surface reaches both edges; no darker wrapper strips. */
+html body #top.creative-site .creative-header[data-scrolled=true]{
+ padding-inline:0!important;background:transparent!important;background-image:none!important;
+}
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner{
+ width:100%!important;max-width:none!important;margin-inline:0!important;
+}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about{padding-bottom:64px!important}
+}
+
+/* Navigation has one permanent white palette, independent of content chapters. */
+html body #top.creative-site .creative-header::before,
+html body #top.creative-site .creative-header::after{content:none!important;display:none!important}
+html body #top.creative-site .creative-header .creative-header-inner{
+ background:#fff!important;background-image:none!important;color:#171717!important;
+}
+html body #top.creative-site .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle,.creative-nav-chevron),
+html body #top.creative-site .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *{
+ color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
+}
+html body #top.creative-site .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]){
+ background:#fff!important;background-image:none!important;color:#171717!important;border-color:#dedede!important;
+}
+html body #top.creative-site .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button,p,span,b,small,strong){
+ color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
+}
+
+/* The service introduction belongs to the white editorial area above the gallery. */
+html body #top.creative-site.site-page-home #main #services.designer-services{padding-top:0!important}
+html body #top.creative-site.site-page-home #main #services .ds-intro-band{
+ background:#fff;color:#171717;padding:48px 0 64px;
+ --ink:#171717;--muted:#555;--line:#dedede;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #services .ds-intro-band :is(h2,p,.ds-label>span){
+ color:#171717!important;-webkit-text-fill-color:#171717!important;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #services .ds-intro-band :is(p,.ds-label>span:last-child){
+ color:#555!important;-webkit-text-fill-color:#555!important;
+}
+html body #top.creative-site.site-page-home #main #services .ds-intro-band .ds-heading-row{margin-bottom:0}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main #services .ds-intro-band{padding:24px 0 44px}
 }

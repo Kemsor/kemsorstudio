@@ -1,0 +1,210 @@
+/* Shared inner-page reading template. Hero imagery and interactive content are authored. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page {
+ --inner-content-width:1200px;
+ --inner-content-gutter:clamp(20px,4vw,56px);
+ --inner-section-space:clamp(36px,5vw,64px);
+ --inner-heading-ink:#212121;
+ --inner-heading-accent:#965715;
+}
+/* Content stays in one consistent frame without a page-section select menu. */
+html body #top.creative-site #main.inner-page .ep-body.ep-width {
+ display:block;max-width:var(--inner-content-width);width:calc(100% - var(--inner-content-gutter)*2);
+ padding:0;margin:0 auto;
+}
+/* White sections, consistent spacing, and a single quiet tone for the closing CTA. */
+html body #top.creative-site #main.inner-page :is(.inner-content-section,.ep-chapter,.india-section,.careers-section,.productions-section) {
+ --inner-heading-ink:#212121;--inner-heading-accent:#965715;
+ background:#fff!important;background-image:none!important;color:#454545;
+ border-radius:0!important;box-shadow:none!important;min-height:0;
+ padding-block:var(--inner-section-space)!important;margin-block:0!important;
+}
+html body #top.creative-site #main.inner-page .ep-chapter.ep-chapter {
+ padding-inline:0!important;border:0;border-bottom:1px solid #ebe7e0;
+}
+html body #top.creative-site #main.inner-page :is(.fl-body,.pl-body) {
+ max-width:var(--inner-content-width);width:calc(100% - var(--inner-content-gutter)*2);margin-inline:auto;
+}
+html body #top.creative-site #main.inner-page :is(.fl-section,.pl-section) {
+ padding-inline:0!important;border:0;border-bottom:1px solid #ebe7e0;
+}
+html body #top.creative-site #main.inner-page :is(.fl-section,.pl-section)>:is(.fl-width,.pl-width) {
+ width:100%;max-width:none;padding:0;margin:0;
+}
+html body #top.creative-site #main.inner-page .fl-section-grid {display:block}
+html body #top.creative-site #main.inner-page .fl-section-heading {margin-bottom:18px}
+html body #top.creative-site #main.inner-page .fl-section-heading>p {max-width:none;color:#766044}
+html body #top.creative-site #main.inner-page :is(.pl-section-content,.fl-section-content) {
+ background:transparent!important;min-height:0;padding:0!important;
+}
+html body #top.creative-site #main.inner-page :is(.ep-chapter,.pl-section-content,.fl-section-content) :is(.produce-intro,.produce-copy,.page-section-heading,.release-section-intro,.call-sheet-split,.finance-section-heading) {
+ display:block;max-width:none;
+}
+html body #top.creative-site #main.inner-page :is(.ep-chapter,.pl-section-content,.fl-section-content) h2 {margin-bottom:24px;max-width:30ch}
+html body #top.creative-site #main.inner-page :is(.ep-chapter,.pl-section-content,.fl-section-content)>p {max-width:74ch}
+html body #top.creative-site #main.inner-page :is(.ep-chapter,.pl-section-content,.fl-section-content) :is(.produce-label,.index-label,.call-sheet-label,.release-label) {
+ border:0;margin-bottom:18px;color:#766044;
+}
+html body #top.creative-site #main.inner-page :is(.ep-chapter,.pl-section-content,.fl-section-content) :is(p,li) {line-height:1.75}
+/* Repeated text lists use one paper panel, rather than unrelated dark blocks. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger.studio-ledger {
+ --inner-heading-ink:#212121;--inner-heading-accent:#965715;--ledger-line:#e6dfd4;
+ background:#f8f6f2!important;color:#454545!important;border:1px solid #e6dfd4!important;border-radius:12px;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger.studio-ledger :is(dt,h3,summary) {
+ color:#212121!important;-webkit-text-fill-color:#212121!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger.studio-ledger :is(dd,p) {
+ color:#53504b!important;-webkit-text-fill-color:#53504b!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger.studio-ledger a {color:#865017!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger.studio-ledger .ep-plus {color:#865017}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger-head.studio-ledger-head {
+ background:#eee9e0!important;color:#69593f!important;border-radius:10px 10px 0 0;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger-head.studio-ledger-head>:is(span,h3) {color:#69593f!important}
+html body #top.creative-site #main.inner-page :is(.produce-closing,.pl-closing,.fl-closing-section).inner-content-section {
+ background:#f8f6f2!important;border:1px solid #e6dfd4;border-radius:12px!important;padding:clamp(24px,4vw,40px)!important;margin-block:32px!important;
+}
+@media(max-width:650px){
+ html body #top.creative-site #main.inner-page :is(.ep-chapter,.pl-section-content,.fl-section-content) h2 {margin-bottom:20px}
+}
+/* Native content pages use the same gutters and section rhythm as service pages. */
+html body #top.creative-site #main.inner-page :is(.inner-content-section:not(.ep-chapter):not(.fl-section):not(.pl-section),.careers-section,.productions-section,.india-section,.studio-section,.studio-journey,.studio-method,.studio-collaboration,.studio-mission,.studio-end) {
+ max-width:var(--inner-content-width);width:calc(100% - var(--inner-content-gutter)*2);
+ margin-inline:auto!important;padding-inline:0!important;
+}
+html body #top.creative-site #main.inner-page :is(.studio-section,.studio-journey,.studio-method,.studio-collaboration,.studio-mission,.studio-end) {
+ background:#fff!important;color:#454545;padding-block:var(--inner-section-space)!important;margin-block:0!important;
+}
+html body #top.creative-site #main.inner-page :is(.studio-journey,.studio-method,.studio-collaboration,.studio-mission,.india-section)>:is(.studio-width,.india-width) {
+ width:100%;max-width:none;margin:0;padding-inline:0;
+}
+html body #top.creative-site #main.inner-page :is(.inner-content-section,.careers-section,.productions-section,.india-section,.studio-section,.studio-journey,.studio-method,.studio-collaboration) h2 {max-width:30ch}
+html body #top.creative-site #main.inner-page :is(.india-section,.studio-section,.studio-journey) :is(.india-intro-grid,.studio-section-head) {
+ display:block;
+}
+html body #top.creative-site #main.inner-page :is(.india-intro-grid,.studio-section-head) h2 {margin-bottom:24px}
+/* Neutralise the old dark chapters, including their explicit text-fill overrides. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.india-band-dark.india-band-dark,#about-chapter-3,#about-chapter-4,.productions-process-section.productions-process-section) {
+ --inner-heading-ink:#212121;--inner-heading-accent:#965715;
+ background:#fff!important;color:#454545!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.india-band-dark.india-band-dark,#about-chapter-3,#about-chapter-4,.productions-process-section.productions-process-section) :is(h2,h3,h4) {
+ color:#212121!important;-webkit-text-fill-color:#212121!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.india-band-dark.india-band-dark,#about-chapter-3,#about-chapter-4,.productions-process-section.productions-process-section) :is(h2,h3,h4) :is(em,.heading-accent) {
+ color:#965715!important;-webkit-text-fill-color:#965715!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.india-band-dark.india-band-dark,#about-chapter-3,#about-chapter-4,.productions-process-section.productions-process-section) :is(p,li,figcaption) {
+ color:#53504b!important;-webkit-text-fill-color:#53504b!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(#about-chapter-3,#about-chapter-4,.productions-process-section.productions-process-section) :is(.studio-label,.line-link,a) {
+ color:#865017!important;-webkit-text-fill-color:currentColor!important;
+}
+html body #top.creative-site #main.inner-page :is(.studio-stage-panel,.studio-stage-tabs,.studio-format-list,.productions-process) {
+ background:#f8f6f2!important;border-color:#e6dfd4!important;
+}
+html body #top.creative-site #main.inner-page :is(.studio-stage-panel,.studio-stage-tabs,.studio-format-list,.productions-process)>* {border-color:#e6dfd4!important}
+html body #top.creative-site #main.inner-page .studio-stage-tabs button {
+ color:#645b4d!important;background:transparent!important;border-color:#e6dfd4!important;
+}
+html body #top.creative-site #main.inner-page .studio-stage-tabs button[aria-selected=true] {
+ color:#6e4315!important;background:#eee4d4!important;box-shadow:inset 3px 0 #b4833f;
+}
+html body #top.creative-site #main.inner-page .studio-stage-panel {padding:clamp(24px,3vw,40px)}
+/* Keep the format panel on the same left edge as the rest of the page. */
+html body #top.creative-site #main.inner-page :is(#by-format,#structure-by-format).ep-chapter.inner-content-section {padding-inline:0!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 :is(.studio-stage-tabs,.studio-stage-panels,.studio-stage-panel,.studio-stage-copy,.studio-ground) {
+ --ink:#212121;--muted:#53504b;--line:#e6dfd4;background:#f8f6f2!important;color:#454545!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-stage-tabs button {
+ background:transparent!important;color:#645b4d!important;-webkit-text-fill-color:currentColor;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-stage-tabs button:is([aria-selected=true],:hover,:focus-visible) {
+ background:#eee4d4!important;color:#6e4315!important;box-shadow:inset 3px 0 #b4833f;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-stage-tabs button:is(:hover,:focus-visible) span {color:inherit!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-4 {
+ max-width:var(--inner-content-width);--studio-line:#e6dfd4;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-stage-link,
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-stage-link * {
+ color:#865017!important;-webkit-text-fill-color:#865017!important;
+}
+/* Supporting service cards are readable immediately, without large empty hover areas. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .ground-card {
+ min-height:0;padding:26px;background:#f8f6f2!important;border:1px solid #e6dfd4!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .ground-card::before {display:none}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .ground-card-content {transform:none}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .ground-card-detail {height:auto;opacity:1}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .ground-card :is(h3,p,span) {
+ color:#454545!important;-webkit-text-fill-color:#454545!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .ground-card svg {color:#965715}
+html body #top.creative-site #main.inner-page .inner-content-section.produce-work {padding-block:24px!important}
+/* Production-stage cards: the entire padded card remains a single link. */
+html body #top.creative-site #main.inner-page .productions-page .productions-process {
+ gap:16px;background:transparent!important;margin-top:32px;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-process>li {
+ min-width:0;padding:0;border:1px solid #e6dfd4;border-radius:12px;background:#f8f6f2;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-process>li>a {
+ box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;
+ height:100%;padding:26px 22px;color:#282018!important;border-radius:inherit;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-process>li>a h3 {margin:0;overflow-wrap:normal}
+html body #top.creative-site #main.inner-page .productions-page .productions-process>li>a p {flex:1;margin:14px 0 24px}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .productions-process-section .productions-process .line-link {
+ margin:0;color:#865017!important;-webkit-text-fill-color:#865017!important;border-color:#b89b6c!important;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-process>li>a:focus-visible {outline:2px solid #966622;outline-offset:4px}
+@media(max-width:600px){
+ html body #top.creative-site #main.inner-page .productions-page .productions-process {grid-template-columns:minmax(0,1fr);gap:14px}
+ html body #top.creative-site #main.inner-page .productions-page .productions-process>li>a {padding:24px}
+}
+/* Inset the India process content within its existing background band. */
+html body #top.creative-site #main.inner-page .india-services-page #india-process.india-process-section {
+ box-sizing:border-box;padding:clamp(32px,4vw,56px) clamp(24px,3vw,44px)!important;
+}
+html body #top.creative-site #main.inner-page .india-process-section.india-process-section>.india-width {padding:0!important;width:100%}
+html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-label {margin:0 0 20px;padding:0;border-top:0}
+html body #top.creative-site #main.inner-page .india-process-section.india-process-section h2 {margin:0}
+html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding {margin:32px 0 0;gap:16px}
+html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding>li:nth-child(n) {padding:26px 24px}
+@media(max-width:600px){
+ html body #top.creative-site #main.inner-page .india-services-page #india-process.india-process-section {padding:32px 24px!important}
+ html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding {margin-top:26px;gap:14px}
+ html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding>li:nth-child(n) {padding:24px 20px}
+}
+/* Background bands share an inset so their images and copy never touch the edge. */
+html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby] {
+ box-sizing:border-box;padding:clamp(32px,4vw,56px) clamp(24px,3vw,44px)!important;
+}
+html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby]>.india-width {
+ padding:0!important;width:100%;max-width:none;
+}
+html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby] .india-label {
+ padding:0;border-top:0;margin:0 0 24px;
+}
+html body #top.creative-site #main.inner-page .india-respect .india-editorial-image figcaption {
+ flex-wrap:wrap;gap:4px 16px;margin-top:14px;
+}
+@media(max-width:600px){
+ html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby] {padding:32px 24px!important}
+ html body #top.creative-site #main.inner-page .india-respect .india-story-split {gap:28px}
+}
+/* About formats: inset every row inside the shared paper panel. */
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list.studio-format-list {
+ box-sizing:border-box;min-width:0;padding:0;border:1px solid #e6dfd4;border-radius:12px;
+}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list.studio-format-list>article {
+ padding:26px 28px;gap:18px 28px;align-items:start;border-color:#e6dfd4;
+}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list.studio-format-list>article:first-child {border-top:0}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list.studio-format-list>article:last-child {border-bottom:0}
+html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list.studio-format-list>article>:is(h3,p) {margin:0}
+@media(max-width:650px){
+ html body #top.creative-site #main.inner-page #about-chapter-4 .studio-format-list.studio-format-list>article {padding:24px;gap:12px}
+}

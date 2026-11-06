@@ -118,7 +118,7 @@ const process = cmsData(()=>([
 ]));
 
 const jumpLinks = cmsData(()=>([
-  ...chapters.map(({ id, index, label }) => ({ id, label: `${index} / ${label}` })),
+  ...chapters.map(({ id, label }) => ({ id, label })),
   { id: 'india-production-services', label: cmsText("ServicesPage","e0a7700d99dbb9ea","08 / INDIA PRODUCTION SERVICES") },
   { id: 'festival-strategy', label: cmsText("ServicesPage","a5a6d3808136064e","09 / FESTIVAL STRATEGY") },
   { id: 'production-process', label: cmsText("ServicesPage","3167fba4c185d64f","10 / HOW WE WORK") },
@@ -160,10 +160,10 @@ export function ServicesPage() {
           <section className={`page-section service-chapter${index % 2 ? ' is-reversed' : ''}`} id={chapter.id} key={chapter.id} aria-labelledby={`${chapter.id}-title`}>
             <figure className="page-image" data-reveal>
               <StudioImage mediaSlot="ServicesPage-1" src={`/assets/services/${chapter.image}.webp`} alt={chapter.alt} loading="lazy" decoding="async" width="1672" height="941" />
-              <figcaption className="page-caption">{chapter.index} / {chapter.label}</figcaption>
+              <figcaption className="page-caption">{chapter.label}</figcaption>
             </figure>
             <div className="page-copy" data-reveal>
-              <p className="page-eyebrow">{chapter.index} / {chapter.label}</p>
+              <p className="page-eyebrow">{chapter.label}</p>
               <MotionHeading as="h2" id={`${chapter.id}-title`}>{chapter.title}</MotionHeading>
               <p className="page-lead">{chapter.description}</p>
               <div className="service-details">

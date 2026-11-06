@@ -9,7 +9,8 @@ import './designer-services.css';
 const asset=name=>`/assets/designer-services/${name}`;
 export default function DesignerServices({reduced=false}){
  const [active,setActive]=useState(0);
- const [paused,setPaused]=useState(false),[focused,setFocused]=useState(false),[visible,setVisible]=useState(false),[pageVisible,setPageVisible]=useState(()=>typeof document==='undefined'||!document.hidden);
+ const paused=false;
+ const [focused,setFocused]=useState(false),[visible,setVisible]=useState(false),[pageVisible,setPageVisible]=useState(()=>typeof document==='undefined'||!document.hidden);
  const stage=useRef(null);
  const touch=useRef(null);
  useEffect(()=>{
@@ -33,20 +34,20 @@ export default function DesignerServices({reduced=false}){
   if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.3)change(dx<0?1:-1);
  };
  return <section id="services" className="designer-services" aria-labelledby="designer-services-title" data-reduced={reduced} onFocusCapture={()=>setFocused(true)} onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocused(false)}}>
-  <div className="ds-wrap ds-intro">
+  <div className="ds-intro-band"><div className="ds-wrap ds-intro">
    <div className="ds-label"><span><SiteIcon name="scan" size={15}/>{cmsText("DesignerServices","c71777029a1380af","WHAT WE OFFER")}</span><span>{cmsText("DesignerServices","a4ed8830787e4c03","SERVICES, WITH THE WORK BESIDE THEM")}</span></div>
    <div className="ds-heading-row"><h2 id="designer-services-title">{cmsText("DesignerServices","389ed7229b0ddb87","Everything a story needs")}<br/>{cmsText("DesignerServices","1a4f5a38f03e2794","to reach the screen.")}</h2><p>{cmsText("DesignerServices","19d1ef42d6d0e6c0","Work with us from development or bring us in for a specific service. Explore the support available at each stage of production.")}</p></div>
-  </div>
+  </div></div>
   <div className="ds-tabs-band"><div className="ds-wrap ds-tabs" role="group" aria-label="Choose a production service">{services.map((item,index)=><button key={item.title} type="button" aria-pressed={active===index} aria-controls="designer-service-panel" onPointerEnter={event=>{if(event.pointerType==='mouse')setActive(index)}} onFocus={()=>setActive(index)} onClick={()=>setActive(index)}>{item.title}</button>)}</div></div>
   <div className="ds-stage" ref={stage} onTouchStart={event=>{const t=event.touches[0];touch.current={x:t.clientX,y:t.clientY}}} onTouchEnd={swipeEnd} onTouchCancel={()=>touch.current=null}>
    <StudioImage mediaSlot="DesignerServices-1" className="ds-backdrop" src={asset('services-background.webp')} width="736" height="451" alt="" loading="lazy" decoding="async"/>
    <div className="ds-shade"/>
    <div className="ds-wrap ds-inner">
     <div className="ds-slides" id="designer-service-panel" role="region" aria-labelledby={`designer-service-name-${active}`} >{services.map((service,index)=><div className={`ds-content${active===index?' is-active':''}`} key={service.title} aria-hidden={active!==index} inert={active!==index}>
-     <div className="ds-copy"><h3 id={`designer-service-name-${index}`}>{service.title}</h3><p>{service.text}</p><ul>{service.points.map(point=><li key={point}>{point}</li>)}</ul><a className="ds-cta" href={service.href}><RollingLabel>{cmsText("DesignerServices","89d0cc21a7ea50b0","Explore service")}</RollingLabel><SiteIcon name="film" size={17}/></a></div>
+     <div className="ds-copy"><h3 id={`designer-service-name-${index}`}>{service.title}</h3><p>{service.text}</p><ul>{service.points.map(point=><li key={point}>{point}</li>)}</ul><a className="ds-cta" href={service.href}><RollingLabel>{cmsText("DesignerServices","89d0cc21a7ea50b0","Explore service")}</RollingLabel><SiteIcon name="film" size={17}/></a>{index===4&&<a className="ds-release-link" href="/release/">Explore release support <SiteIcon name="arrow" size={17}/></a>}</div>
      <a href={service.href} className="ds-picture" aria-label={`Explore ${service.title}`}><StudioImage mediaSlot="DesignerServices-2" src={asset(service.image)} alt={"Production reference"} loading="lazy" decoding="async" width="640" height="640"/></a>
     </div>)}</div>
-    <div className="ds-controls"><div className="ds-arrows">{!reduced&&<button type="button" aria-label={paused?'Play services automatically':'Pause automatic services'} onClick={()=>setPaused(value=>!value)}><span aria-hidden="true">{paused?'▶':'Ⅱ'}</span></button>}<button type="button" aria-label="Previous service" onClick={()=>change(-1)}><SiteIcon name="arrow-left" size={18}/></button><button type="button" aria-label="Next service" onClick={()=>change(1)}><SiteIcon name="arrow" size={18}/></button></div></div>
+    <div className="ds-controls"><div className="ds-arrows"><button type="button" aria-label="Previous service" onClick={()=>change(-1)}><SiteIcon name="arrow-left" size={18}/></button><button type="button" aria-label="Next service" onClick={()=>change(1)}><SiteIcon name="arrow" size={18}/></button></div></div>
    </div>
   </div>
  </section>;

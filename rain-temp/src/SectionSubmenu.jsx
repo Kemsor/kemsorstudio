@@ -1,4 +1,4 @@
-import {cmsText,cmsData} from "./siteContent.js";
+import {cmsText,cmsData,withoutStageNumber} from "./siteContent.js";
 import React, {useEffect,useRef,useState} from 'react';
 import { pageHref } from './pageInfo';
 import './section-submenu.css';
@@ -33,5 +33,5 @@ export default function SectionSubmenu({section,page,menu:customMenu,id}) {
   },[]);
   const menu=customMenu||sections[section];
   if(!menu)return null;
-  return <nav ref={ref} data-stuck={stuck} id={id} className="section-submenu" aria-label={menu.name}><div className="section-submenu-width"><a className="section-submenu-category" href={menu.href||pageHref(section)}>{menu.label}</a><div className="section-submenu-links">{menu.pages.map(([key,label,href])=><a href={href||(customMenu?`#${key}`:pageHref(key))} key={key} aria-current={page===key?(customMenu?'location':'page'):undefined}>{label}</a>)}</div></div></nav>;
+  return <nav ref={ref} data-stuck={stuck} id={id} className="section-submenu" aria-label={menu.name}><div className="section-submenu-width"><a className="section-submenu-category" href={menu.href||pageHref(section)}>{withoutStageNumber(menu.label)}</a><div className="section-submenu-links">{menu.pages.map(([key,label,href])=><a href={href||(customMenu?`#${key}`:pageHref(key))} key={key} aria-current={page===key?(customMenu?'location':'page'):undefined}>{withoutStageNumber(label)}</a>)}</div></div></nav>;
 }

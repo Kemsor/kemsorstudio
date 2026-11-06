@@ -2,7 +2,15 @@
 let modules={};
 export function setSiteModules(value){modules=value&&typeof value==='object'?value:{};}
 export function getSiteModule(key,fallback){return Object.hasOwn(modules,key)?modules[key]:fallback;}
-export function cmsText(group,key,fallback){const value=modules[`copy:${group}`]?.[key];return typeof value==='string'?value:fallback;}
+// Stage labels remain unnumbered even when older CMS copy includes a prefix.
+export function withoutStageNumber(value){
+ if(typeof value!=='string')return value;
+ return value.replace(/^\d{2}\s*[·/]\s*/, '')
+  .replace(/^00:\d{2}\s*·\s*(?:REEL\s+\d+\s*·\s*)?/i,'')
+  .replace(/^00:\d{2}\s+(?=[A-Za-z])/,'')
+  .replace(/^(\s*(?:(?:Next:|Go to)\s+)?)0\d\s+(?=(?:Develop|Finance|Produce|Post|Release)\b)/i,'$1');
+}
+export function cmsText(group,key,fallback){const value=modules[`copy:${group}`]?.[key];const result=typeof value==='string'?value:fallback;return (group.endsWith('Page')||group==='StudioPages'||group==='SectionSubmenu')&&withoutStageNumber(fallback)!==fallback?withoutStageNumber(result):result;}
 // Existing source data stays lazy, so a CMS refresh updates array-driven sections too.
 export function cmsData(factory){const first=factory();return new Proxy(Array.isArray(first)?[]:{},{get(_target,key){return Reflect.get(factory(),key)},has(_target,key){return Reflect.has(factory(),key)},ownKeys(){return Reflect.ownKeys(factory())},getOwnPropertyDescriptor(_target,key){const descriptor=Object.getOwnPropertyDescriptor(factory(),key);return descriptor&&{...descriptor,configurable:key==='length'?false:true}}});}
 export function cmsDocument(group,value,prefix=''){

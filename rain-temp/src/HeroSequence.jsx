@@ -108,7 +108,7 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
       <p className="opening-eyebrow">{films[active].eyebrow||'FILM & PRODUCTION PARTNER'}</p>
       <h1 id="opening-title">{films[active].title || (customTitle ? hero.title : <><span>From your first page.</span><span className="heading-accent">To the <em>big screen.</em></span></>)}</h1>
       <p className="opening-description">{films[active].description || (customSummary ? hero.summary : 'Creative ambition. Practical production. Kemsor is the studio for the journey in between, from development and financing to the shoot, post and release.')}</p>
-      <div className="opening-actions"><CTA href={localAsset(films[active].buttonHref)||"#work-with-kemsor"}>{films[active].buttonLabel||'Partner with us'}</CTA><a className="opening-watch" href="#showreel"><RollingLabel>Watch the showreel</RollingLabel></a></div>
+      <div className="opening-actions"><CTA href={localAsset(films[active].buttonHref)||"/partner-with-us/"}>{films[active].buttonLabel||'Partner with us'}</CTA><a className="opening-watch" href="#showreel"><RollingLabel>Watch the showreel</RollingLabel></a></div>
     </div>
       <div className="opening-playback-tools" role="group" aria-label="Hero video controls">
         <button type="button" className="opening-next" disabled={films.length<2} onClick={() => { advance(); setPaused(false); }} aria-label={`Play next hero film: ${films[(active + 1) % films.length].label}`}><span>Next</span><SiteIcon name="arrow" size={17} /></button>

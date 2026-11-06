@@ -31,5 +31,5 @@ export function SectionHeading({index,label,title,description}) {
  return <><IndexLabel index={index}>{label}</IndexLabel><div className="page-section-heading" data-reveal><MotionHeading as="h2">{title}</MotionHeading>{description&&<p>{description}</p>}</div></>;
 }
 export function PageCTA({eyebrow='YOUR NEXT CHAPTER',title='What are you working on?',description='Start with a script, a concept or a production already in progress. Tell us where the work stands.',href='/contact/#project-brief',children='Start with a story'}) {
- return <section className="page-next page-section"><IndexLabel index="+">{eyebrow}</IndexLabel><div className="page-next-layout" data-reveal><MotionHeading as="h2">{title}</MotionHeading><div><p>{description}</p><CTA href={href}>{children}</CTA></div><FrameMark className="page-next-mark"/></div></section>;
+ return <section className="page-next page-section inner-closing"><IndexLabel index="+">{eyebrow}</IndexLabel><div className="page-next-layout" data-reveal><MotionHeading as="h2">{title}</MotionHeading><div><p>{description}</p><CTA href={href}>{children}</CTA></div><FrameMark className="page-next-mark"/></div></section>;
 }
