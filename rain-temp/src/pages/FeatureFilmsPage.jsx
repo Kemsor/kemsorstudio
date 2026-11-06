@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
@@ -108,10 +109,7 @@ export default function FeatureFilmsPage() {
       {/* Poster, title, year, language, status and role rows require supplied titles and confirmed Kemsor credits. */}
     </section>
 
-    <section className="feature-section feature-width" aria-labelledby="feature-questions-title">
-      <Label number="06">{cmsText("FeatureFilmsPage","839d9a6e10f8df64","STRAIGHT ANSWERS")}</Label>
-      <div className="feature-intro-grid"><MotionHeading as="h2" id="feature-questions-title">{cmsText("FeatureFilmsPage","1417f6c205a5fe75","Straight answers.")}</MotionHeading><div className="feature-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
-    </section>
+    <section className="feature-section feature-width" aria-labelledby="feature-questions-title"><FaqPanel heading={<> <Label number="06">{cmsText("FeatureFilmsPage","839d9a6e10f8df64","STRAIGHT ANSWERS")}</Label><MotionHeading as="h2" id="feature-questions-title">{cmsText("FeatureFilmsPage","1417f6c205a5fe75","Straight answers.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
     <section className="feature-section feature-width feature-closing inner-closing" aria-labelledby="feature-closing-title">
       <div className="feature-intro-grid"><div className="feature-script" aria-label="Screenplay page one"><span className="feature-script-page">1.</span><p>{cmsText("FeatureFilmsPage","4532de907dd76474","FADE IN:")}</p><p>{cmsText("FeatureFilmsPage","93dd211b594fd16f","INT. WHERE YOUR STORY BEGINS / DAY")}</p><p>{cmsText("FeatureFilmsPage","5afdfeeae5435641","Your first page goes here.")}</p></div><div><MotionHeading as="h2" id="feature-closing-title">{cmsText("FeatureFilmsPage","6b2dccea3b46b278","Send us page one.")}</MotionHeading><MotionCopy>{cmsText("FeatureFilmsPage","6b70c3e71e628b7d","A script, a treatment, or a single page. Tell us where your feature is, and we’ll come back with an honest next step.")}</MotionCopy><div className="feature-actions"><CTA href="/script-to-production/">{cmsText("FeatureFilmsPage","16aa2597325974d5","Send us your script")}</CTA><TextLink href="/contact/">{cmsText("FeatureFilmsPage","eca38a433323be4c","Talk to the studio")}</TextLink></div></div></div>

@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
@@ -65,6 +66,6 @@ export default function LocationsLogisticsPage() {
 
     <section className="produce-section produce-related line-production-related" aria-labelledby="locations-logistics-related-title"><Label>{cmsText("LocationsLogisticsPage","e5d35820208d62b3","CONNECTED PRODUCTION SUPPORT")}</Label><MotionHeading as="h2" id="locations-logistics-related-title">{cmsText("LocationsLogisticsPage","c6619ed754f693a1","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, href]) => <a href={href} key={title}><h3>{title}</h3><span className="line-production-related-link">{cmsText("LocationsLogisticsPage","60a4a17ec07b8eb9","Explore service ")}<Arrow/></span></a>)}</div></section>
 
-    <section className="produce-section produce-questions" aria-labelledby="locations-logistics-questions-title"><div><Label>{cmsText("LocationsLogisticsPage","0e7035f742369b35","A FEW THINGS TO KNOW")}</Label><MotionHeading as="h2" id="locations-logistics-questions-title">{cmsText("LocationsLogisticsPage","9bf3ea73a2ecdd95","Questions.")}</MotionHeading></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></section>
+    <section className="produce-section produce-questions" aria-labelledby="locations-logistics-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("LocationsLogisticsPage","0e7035f742369b35","A FEW THINGS TO KNOW")}</Label><MotionHeading as="h2" id="locations-logistics-questions-title">{cmsText("LocationsLogisticsPage","9bf3ea73a2ecdd95","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
   </div></ProduceLayout>;
 }

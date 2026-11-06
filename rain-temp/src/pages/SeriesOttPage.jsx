@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
@@ -139,10 +140,7 @@ export default function SeriesOttPage() {
       {/* Stills, titles, seasons, episode counts, language, platform, year and roles require confirmed production records. */}
     </section>
 
-    <section className="series-section series-width" aria-labelledby="series-questions-title">
-      <Label number="07">{cmsText("SeriesOttPage","e78e28d93a6ebdbf","BEFORE YOU PITCH")}</Label>
-      <div className="series-intro-grid"><MotionHeading as="h2" id="series-questions-title">{cmsText("SeriesOttPage","256629916deff8af","Before you pitch.")}</MotionHeading><div className="series-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
-    </section>
+    <section className="series-section series-width" aria-labelledby="series-questions-title"><FaqPanel heading={<> <Label number="07">{cmsText("SeriesOttPage","e78e28d93a6ebdbf","BEFORE YOU PITCH")}</Label><MotionHeading as="h2" id="series-questions-title">{cmsText("SeriesOttPage","256629916deff8af","Before you pitch.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
     <section className="series-section series-width series-closing inner-closing" aria-labelledby="series-closing-title">
       <div className="series-intro-grid"><div><MotionHeading as="h2" id="series-closing-title">{cmsText("SeriesOttPage","e31a9865751f2e22","Pitch us episode one.")}</MotionHeading><MotionCopy>{cmsText("SeriesOttPage","15dd713859946e51","Share your idea, pilot script or series bible. We’ll review the material and discuss what the project needs next.")}</MotionCopy><div className="series-actions"><CTA href="/script-to-production/">{cmsText("SeriesOttPage","b2a641b0f0285888","Send us your pilot")}</CTA><TextLink href="/contact/">{cmsText("SeriesOttPage","24781b21c6781ced","Talk to the studio")}</TextLink></div></div><figure className="series-next-episode"><span>{cmsText("SeriesOttPage","b5f9b29f846c4388","Next episode")}</span><figcaption><strong>{cmsText("SeriesOttPage","cbb4fa36152fc4b3","E01 · Your series")}</strong><span>{cmsText("SeriesOttPage","cea32b4fa8234c71","Starting when you are")}</span></figcaption></figure></div>

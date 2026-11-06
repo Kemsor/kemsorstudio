@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
@@ -65,6 +66,6 @@ export default function CastingPage() {
 
     <section className="produce-section produce-related line-production-related" aria-labelledby="casting-related-title"><Label>{cmsText("CastingPage","c1b01cc471d9be58","RELATED SERVICES")}</Label><MotionHeading as="h2" id="casting-related-title">{cmsText("CastingPage","424ac1b7d32bfaab","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, href, action]) => <a href={href} key={title}><h3>{title}</h3><span className="line-production-related-link">{action}<Arrow /></span></a>)}</div></section>
 
-    <section className="produce-section produce-questions" aria-labelledby="casting-questions-title"><div><Label>{cmsText("CastingPage","1c1abd5a613422ab","QUESTIONS")}</Label><MotionHeading as="h2" id="casting-questions-title">{cmsText("CastingPage","cf7f18fae9943e5e","Questions.")}</MotionHeading></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></section>
+    <section className="produce-section produce-questions" aria-labelledby="casting-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("CastingPage","1c1abd5a613422ab","QUESTIONS")}</Label><MotionHeading as="h2" id="casting-questions-title">{cmsText("CastingPage","cf7f18fae9943e5e","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
   </div></ProduceLayout>;
 }

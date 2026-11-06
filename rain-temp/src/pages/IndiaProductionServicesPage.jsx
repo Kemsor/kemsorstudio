@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import PageBreadcrumbs from '../PageBreadcrumbs';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
@@ -138,10 +139,7 @@ export default function IndiaProductionServicesPage() {
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-paperwork-title">{cmsText("IndiaProductionServicesPage","60fcbcdfba4e4768","The fine print, handled carefully.")}</MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","2a631772075fd7dc","India offers national and state-level support for some productions filming here. Whether a project qualifies depends on its details and the rules in force at the time. We prepare the production information that applications need, and work alongside your legal and financial advisors, who confirm eligibility with the relevant authorities.")}</MotionCopy><MotionCopy>{cmsText("IndiaProductionServicesPage","b6da89215846c73f","The same applies to visas and other formal requirements for visiting cast and crew: we provide the production documentation, and your advisors confirm the right route for each person.")}</MotionCopy></div></div>
     </section>
 
-    <section className="india-section india-width" aria-labelledby="india-questions-title">
-      <Label number="09">{cmsText("IndiaProductionServicesPage","7c58a64618825f38","QUESTIONS")}</Label>
-      <div className="india-intro-grid"><MotionHeading as="h2" id="india-questions-title">{cmsText("IndiaProductionServicesPage","d334cc3d9b1e13a5","Before you book the flights.")}</MotionHeading><div className="india-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
-    </section>
+    <section className="india-section india-width" aria-labelledby="india-questions-title"><FaqPanel heading={<> <Label number="09">{cmsText("IndiaProductionServicesPage","7c58a64618825f38","QUESTIONS")}</Label><MotionHeading as="h2" id="india-questions-title">{cmsText("IndiaProductionServicesPage","d334cc3d9b1e13a5","Before you book the flights.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
     <section className="india-section india-width india-closing inner-closing" aria-labelledby="india-closing-title">
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-closing-title">{cmsText("IndiaProductionServicesPage","a1896c78dab97432","Tell us where the story ")}<em>{cmsText("IndiaProductionServicesPage","6936956288409969","needs to go.")}</em></MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","e2eb1694ec6fe756","Share the script, the locations you’re imagining and your dates. We’ll come back with a clear, honest view of how to make it happen in India.")}</MotionCopy><div className="india-actions"><CTA href={enquiry}>{cmsText("IndiaProductionServicesPage","449fcedeb488a22a","Plan a shoot in India")}</CTA><TextLink href="/contact/">{cmsText("IndiaProductionServicesPage","2fb315b0630513c0","Talk to the studio")}</TextLink></div></div></div>

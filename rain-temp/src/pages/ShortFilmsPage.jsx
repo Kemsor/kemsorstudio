@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
@@ -114,10 +115,7 @@ export default function ShortFilmsPage() {
       <div className="short-intro-grid"><div><MotionHeading as="h2" id="short-tail-title">{cmsText("ShortFilmsPage","982a66a993e9df6c","Short shoot, long tail.")}</MotionHeading><MotionCopy>{cmsText("ShortFilmsPage","fbc2861002e42e9e","Short shoot, long tail: plan for the festival months before you roll.")}</MotionCopy></div><div><div className="short-timeline-head" aria-hidden="true"><span>{cmsText("ShortFilmsPage","c87dacefdd72d87f","Stage")}</span><span>{cmsText("ShortFilmsPage","b1df90316e139cb1","Typical length")}</span></div><dl className="short-timeline">{timeline.map(([stage, length]) => <div key={stage}><dt>{stage}</dt><dd>{length}</dd></div>)}</dl></div></div>
     </section>
 
-    <section className="short-section short-width" aria-labelledby="short-questions-title">
-      <Label>{cmsText("ShortFilmsPage","192522d3c8ea5338","QUICK ANSWERS")}</Label>
-      <div className="short-intro-grid"><MotionHeading as="h2" id="short-questions-title">{cmsText("ShortFilmsPage","8ebbbcab2712bd00","Quick answers.")}</MotionHeading><div className="short-faq">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
-    </section>
+    <section className="short-section short-width" aria-labelledby="short-questions-title"><FaqPanel heading={<> <Label>{cmsText("ShortFilmsPage","192522d3c8ea5338","QUICK ANSWERS")}</Label><MotionHeading as="h2" id="short-questions-title">{cmsText("ShortFilmsPage","8ebbbcab2712bd00","Quick answers.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
     <section className="short-section short-width short-closing inner-closing" aria-labelledby="short-closing-title">
       <Label time="03:00">{cmsText("ShortFilmsPage","9bda077d7baeb361","03:00 · THE END")}</Label>

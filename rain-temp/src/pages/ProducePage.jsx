@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
@@ -93,6 +94,6 @@ export default function ProducePage() {
 
     <section className="produce-section produce-related" aria-labelledby="produce-related-title"><Label>{cmsText("ProducePage","b29fbe5967528721","RELATED SERVICES")}</Label><MotionHeading as="h2" id="produce-related-title">{cmsText("ProducePage","018bcd75038dcdf7","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, description, href]) => <a href={href} key={title}><h3>{title}</h3><p>{description}</p><Arrow /></a>)}</div></section>
 
-    <section className="produce-section produce-questions" aria-labelledby="produce-questions-title"><div><Label>{cmsText("ProducePage","b8a88556bf67af8f","QUESTIONS")}</Label><MotionHeading as="h2" id="produce-questions-title">{cmsText("ProducePage","f0fe56481faa7faf","Questions.")}</MotionHeading></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></section>
+    <section className="produce-section produce-questions" aria-labelledby="produce-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("ProducePage","b8a88556bf67af8f","QUESTIONS")}</Label><MotionHeading as="h2" id="produce-questions-title">{cmsText("ProducePage","f0fe56481faa7faf","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
   </div></ProduceLayout>;
 }

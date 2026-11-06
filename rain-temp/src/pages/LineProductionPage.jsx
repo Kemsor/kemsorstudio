@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
@@ -69,6 +70,6 @@ export default function LineProductionPage() {
 
     <section className="produce-section produce-related line-production-related" aria-labelledby="line-production-related-title"><Label>{cmsText("LineProductionPage","89752a0dad1dada6","RELATED SERVICES")}</Label><MotionHeading as="h2" id="line-production-related-title">{cmsText("LineProductionPage","f714438f19867a89","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, href]) => <a href={href} key={title}><h3>{title}</h3><span className="line-production-related-link">{cmsText("LineProductionPage","ee24ae979468c4f5","Explore service ")}<Arrow /></span></a>)}</div></section>
 
-    <section className="produce-section produce-questions" aria-labelledby="line-production-questions-title"><div><Label>{cmsText("LineProductionPage","7253ebb20e0c0882","QUESTIONS")}</Label><MotionHeading as="h2" id="line-production-questions-title">{cmsText("LineProductionPage","c05e5d3825bb9393","Questions.")}</MotionHeading></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></section>
+    <section className="produce-section produce-questions" aria-labelledby="line-production-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("LineProductionPage","7253ebb20e0c0882","QUESTIONS")}</Label><MotionHeading as="h2" id="line-production-questions-title">{cmsText("LineProductionPage","c05e5d3825bb9393","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
   </div></ProduceLayout>;
 }

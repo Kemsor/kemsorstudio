@@ -4,10 +4,11 @@ import StudioImage from '../StudioImage';
 import PrincipleSteps from '../PrincipleSteps';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { TextLink, CTA } from '../PageUI';
 import { CmsEntries, useCms } from '../CmsContent';
 import './about-page.css';
+import './about-lifecycle.css';
 
 const lifecycle = cmsData(()=>([
  [cmsText("StudioPages","8d5e3ed1ce621357","Development & Packaging"),cmsText("StudioPages","fe523450564628c1","Shaping the idea, the script and the creative package that makes a project ready to pitch.")],
@@ -18,7 +19,15 @@ const lifecycle = cmsData(()=>([
  [cmsText("StudioPages","f839a13dadd2aa77","Post-Production Supervision"),cmsText("StudioPages","967e17d5a42ac30e","Overseeing edit, sound, colour and VFX workflows through to final deliverables.")],
  [cmsText("StudioPages","d422dab804ef0bd8","Distribution & Release Support"),cmsText("StudioPages","438105667892b65f","Preparing deliverables and coordinating with platforms and distributors for release.")],
 ]));
-const lifecycleVisuals=['detective-scene','white-olive-tree-poster','ensemble-poster','costume-portrait','action-scene','office-scene','riders-scene'];
+const lifecycleCards=[
+ {href:'/develop/',icon:'script',image:'detective-scene',style:'feature'},
+ {href:'/finance/finance-structuring/',icon:'briefcase',style:'gold'},
+ {href:'/finance/co-production/',icon:'partnership',style:'cream'},
+ {href:'/produce/casting/',icon:'people',image:'costume-portrait',style:'photo'},
+ {href:'/produce/line-production/',icon:'film',image:'action-scene',style:'photo'},
+ {href:'/post-production/',icon:'video',style:'cream'},
+ {href:'/release/distribution-release-support/',icon:'guide',style:'gold'},
+];
 const ground=cmsData(()=>([cmsText("StudioPages","c0541090c6db27ca","Production management"),cmsText("StudioPages","8568bcec7ec11680","Location and logistics management"),cmsText("StudioPages","fd6536dc318926e7","Casting and talent coordination"),cmsText("StudioPages","02f9c4ce1bbe0f04","Crew and equipment management"),cmsText("StudioPages","29bdb39680b41e43","Set design and production design"),cmsText("StudioPages","562ccbfc46b6d849","Shooting and on-location production")]));
 const formats=cmsData(()=>([
  [cmsText("StudioPages","9e826e89bc4eaa0a","Web Series & OTT"),cmsText("StudioPages","8cc1c0f8e90bb8b4","Episodic storytelling built for streaming audiences and platform delivery.")],
@@ -41,17 +50,6 @@ const principles=cmsData(()=>([
 export function AboutPage(){
  const {entries}=useCms();
  const hasTeam=entries.some(entry=>entry.type==='team');
- const [stage,setStage]=useState(0);
- const tabs=useRef([]);
- function selectWithKey(event,index){
-  let next;
-  if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(index+1)%lifecycle.length;
-  else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(index+lifecycle.length-1)%lifecycle.length;
-  else if(event.key==='Home')next=0;
-  else if(event.key==='End')next=lifecycle.length-1;
-  else return;
-  event.preventDefault();setStage(next);tabs.current[next]?.focus();
- }
  return <div className="studio-about">
   <section className="inner-hero studio-opening" aria-labelledby="about-title">
    <div className="studio-width"><div className="studio-docket"><a href="/">{cmsText("StudioPages","a58878213c8330b9","KEMSOR STUDIOS")}</a><span>{cmsText("StudioPages","b01d557b09a68d63","ABOUT KEMSOR")}</span></div>
@@ -65,8 +63,12 @@ export function AboutPage(){
   <section className="studio-section studio-width studio-introduction" id="about-chapter-2" aria-labelledby="about-who-title"><div data-reveal><p className="studio-label">{cmsText("StudioPages","66ca26c659762666","01 / WHO WE ARE")}</p><MotionHeading as="h2" id="about-who-title">{cmsText("StudioPages","e02468ec32067e65","A production partner for stories of every scale.")}</MotionHeading></div><div className="studio-copy" data-reveal><MotionCopy>{cmsText("StudioPages","4a706ff9c9ca1380","Kemsor is a film and production partner for creators, filmmakers, studios and platforms. We work across web series and OTT content, regional cinema, documentaries, short films and international co-productions.")}</MotionCopy><MotionCopy>{cmsText("StudioPages","9c636d642007525f","No two projects share the same creative priorities or production realities, so we begin by understanding both. Then we bring together the planning, people, and coordination the work requires, whether that means focused line production on a single shoot or partnership across the full production lifecycle.")}</MotionCopy></div></section>
 
   <section className="studio-journey" id="about-chapter-3" aria-labelledby="about-journey-title"><div className="studio-width"><div className="studio-section-head"><div><p className="studio-label">{cmsText("StudioPages","a4a9caaf3821e2a4","02 / WHAT WE DO")}</p><MotionHeading as="h2" id="about-journey-title">{cmsText("StudioPages","fb9a5be8b2a209c4","From first conversation")}{' '}<br/>{cmsText("StudioPages","a0a537775ac77d8e","to final delivery.")}</MotionHeading></div><MotionCopy>{cmsText("StudioPages","580e0fe65b75a610","Kemsor supports projects at every stage of the production lifecycle. Bring us in at the start, or at the stage where you need us most.")}</MotionCopy></div>
-   <div className="studio-stage-tabs" role="tablist" aria-label="Production lifecycle">{lifecycle.map(([title],i)=><button key={title} ref={el=>{tabs.current[i]=el;}} type="button" role="tab" id={`studio-stage-${i}`} aria-selected={stage===i} aria-controls={`studio-stage-panel-${i}`} tabIndex={stage===i?0:-1} onPointerEnter={event=>{if(event.pointerType==='mouse')setStage(i);}} onFocus={()=>setStage(i)} onClick={()=>setStage(i)} onKeyDown={event=>selectWithKey(event,i)}><span>{title}</span></button>)}</div>
-   <div className="studio-stage-panels">{lifecycle.map(([title,copy],i)=><div className="studio-stage-panel" role="tabpanel" tabIndex="0" id={`studio-stage-panel-${i}`} aria-labelledby={`studio-stage-${i}`} hidden={stage!==i} key={title}><figure><StudioImage mediaSlot="StudioPages-3" src={`/assets/stills/${lifecycleVisuals[i]}.webp`} alt={`Supplied screen artwork accompanying ${title.toLowerCase()}`} loading="lazy" decoding="async"/><figcaption>{cmsText("StudioPages","e0ca01e2a203cba4","VISUAL STUDY / SUPPLIED ARTWORK")}</figcaption></figure><div className="studio-stage-copy"><h3>{title}</h3><p>{copy}</p><span className="studio-stage-link" aria-hidden="true">{cmsText("StudioPages","d4edebd111f7e61b","THE PRODUCTION JOURNEY ")}<span><SiteIcon name="arrow-up-right" size={16} /></span></span></div></div>)}</div>
+   <div className="studio-lifecycle-grid">{lifecycle.map(([title,copy],i)=>{const card=lifecycleCards[i];return <a className={`studio-lifecycle-card studio-lifecycle-${card.style}`} href={card.href} key={title}>
+    {card.image&&<StudioImage mediaSlot="StudioPages-3" src={`/assets/stills/${card.image}.webp`} alt="" loading="lazy" decoding="async" className="studio-lifecycle-image"/>}
+    <span className="studio-lifecycle-icon"><SiteIcon name={card.icon} size={25}/></span>
+    <div className="studio-lifecycle-copy"><h3>{title}</h3><p>{copy}</p></div>
+    <span className="studio-lifecycle-arrow"><SiteIcon name="arrow-up-right" size={21}/></span>
+   </a>})}</div>
    <div className="studio-ground"><h3>{cmsText("StudioPages","db1ea2a956df1862","On the ground")}</h3><ul>{ground.map((item,i)=>{
     const details=[
      ['film',cmsText("StudioPages","096ab6bdf11ba314","Planning and coordination to keep your production moving."),'/produce/line-production/'],

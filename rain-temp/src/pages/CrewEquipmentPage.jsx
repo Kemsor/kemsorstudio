@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
@@ -65,6 +66,6 @@ export default function CrewEquipmentPage() {
 
     <section className="produce-section produce-related line-production-related" aria-labelledby="crew-equipment-related-title"><Label>{cmsText("CrewEquipmentPage","9c2cfc8db9088a3a","CONNECTED PRODUCTION SUPPORT")}</Label><MotionHeading as="h2" id="crew-equipment-related-title">{cmsText("CrewEquipmentPage","1131b10a9992ec3f","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, href]) => <a href={href} key={title}><h3>{title}</h3><span className="line-production-related-link">{cmsText("CrewEquipmentPage","badb17c68eac1489","Explore service ")}<Arrow/></span></a>)}</div></section>
 
-    <section className="produce-section produce-questions" aria-labelledby="crew-equipment-questions-title"><div><Label>{cmsText("CrewEquipmentPage","22039be56a0dcbce","A FEW THINGS TO KNOW")}</Label><MotionHeading as="h2" id="crew-equipment-questions-title">{cmsText("CrewEquipmentPage","4e3490fa56881e7a","Questions.")}</MotionHeading></div><div className="produce-faqs">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p>{question === 'Can crew members join Kemsor’s network?' && <p><TextLink href="/join/">{cmsText("CrewEquipmentPage","cd2c6174f1785c8b","Join the Kemsor Talent Network")}</TextLink></p>}</details>)}</div></section>
+    <section className="produce-section produce-questions" aria-labelledby="crew-equipment-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("CrewEquipmentPage","22039be56a0dcbce","A FEW THINGS TO KNOW")}</Label><MotionHeading as="h2" id="crew-equipment-questions-title">{cmsText("CrewEquipmentPage","4e3490fa56881e7a","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p>{question === 'Can crew members join Kemsor’s network?' && <p><TextLink href="/join/">{cmsText("CrewEquipmentPage","cd2c6174f1785c8b","Join the Kemsor Talent Network")}</TextLink></p>}</details>)}</div> </FaqPanel></section>
   </div></ProduceLayout>;
 }

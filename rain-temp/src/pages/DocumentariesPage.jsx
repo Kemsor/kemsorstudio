@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
@@ -134,10 +135,7 @@ export default function DocumentariesPage() {
       <div className="documentary-intro-grid documentary-funding"><MotionHeading as="h2" id="documentary-funding-title">{cmsText("DocumentariesPage","2ae380ed793d4434","How documentaries are usually funded")}</MotionHeading><div><MotionCopy>{cmsText("DocumentariesPage","9c33107fd0698875","Documentaries are often funded in stages through development support, co-production partners, platforms or broadcasters. We plan funding around the research, filming and editing each project needs.")}</MotionCopy><TextLink href="/finance/finance-structuring/">{cmsText("DocumentariesPage","d95abf693a86b0c1","See Finance Structuring")}</TextLink></div></div>
     </section>
 
-    <section className="documentary-section documentary-width" aria-labelledby="documentary-questions-title">
-      <Label number="06">{cmsText("DocumentariesPage","55c45d89f2bb8355","QUESTIONS")}</Label>
-      <div className="documentary-intro-grid"><MotionHeading as="h2" id="documentary-questions-title">{cmsText("DocumentariesPage","ba2c5e90597a79b2","Questions.")}</MotionHeading><div className="documentary-faq">{questions.map(([question,answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div></div>
-    </section>
+    <section className="documentary-section documentary-width" aria-labelledby="documentary-questions-title"><FaqPanel heading={<> <Label number="06">{cmsText("DocumentariesPage","55c45d89f2bb8355","QUESTIONS")}</Label><MotionHeading as="h2" id="documentary-questions-title">{cmsText("DocumentariesPage","ba2c5e90597a79b2","Questions.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question,answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
     <section className="documentary-section documentary-width documentary-closing inner-closing" aria-labelledby="documentary-closing-title">
       <div className="documentary-intro-grid"><div><p className="documentary-field-kicker">{cmsText("DocumentariesPage","a17bf12840e79c55","field notes, page one")}</p><MotionHeading as="h2" id="documentary-closing-title">{cmsText("DocumentariesPage","e2edb077a64f69f7","Tell us what you’ve found.")}</MotionHeading></div><div><MotionCopy>{cmsText("DocumentariesPage","56ffc90397abb91c","Tell us about the subject, the people involved and any access or footage you already have. We’ll discuss how to develop the documentary.")}</MotionCopy><div className="documentary-actions"><CTA href="/contact/?partner=filmmakers">{cmsText("DocumentariesPage","8f864fbcda74c7aa","Start a conversation")}</CTA><TextLink href="/finance/finance-structuring/">{cmsText("DocumentariesPage","9fdf35eafe54664f","Finance Structuring")}</TextLink></div></div></div>

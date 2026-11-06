@@ -78,7 +78,7 @@ html body #top.creative-site #main.inner-page .directory-discovery-header .disco
 /* Warm studio colours give the directory a brighter, more welcoming finish. */
 html body #top.creative-site #main.inner-page .directory-discovery{background:#fffdf9!important}
 html body #top.creative-site #main.inner-page .directory-discovery-header{
- background:linear-gradient(115deg,#44301f 0%,#78502c 58%,#b48645 100%)!important;
+ background:linear-gradient(90deg,#070b13d9 0%,#070b138c 48%,#070b1326 100%),url('/assets/stills/find-talent-team-1920.webp') center 58% / cover no-repeat!important;
 }
 html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide{
  background:#fff0d4!important;border:0;border-radius:16px;padding:28px;

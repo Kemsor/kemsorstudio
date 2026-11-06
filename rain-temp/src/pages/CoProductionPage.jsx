@@ -1,3 +1,4 @@
+import FaqPanel from '../FaqPanel';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
@@ -79,7 +80,7 @@ export default function CoProductionPage() {
     {/* No approved project title, format, partners or co-production credits supplied. */}
     <section className="produce-section produce-work" id="related-work" aria-labelledby="work-title"><Label>{cmsText("CoProductionPage","97bc9dda899e9dd6","RELATED WORK")}</Label><div><MotionHeading as="h2" id="work-title">{cmsText("CoProductionPage","4cae29bf421366b1","Related work.")}</MotionHeading><TextLink href="/productions/">{cmsText("CoProductionPage","61481b7d48571f3a","Explore productions")}</TextLink></div></section>
 
-    <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><div><Label>{cmsText("CoProductionPage","01d7974ba44b69ac","QUESTIONS")}</Label><MotionHeading as="h2" id="questions-title">{cmsText("CoProductionPage","63c0abe8b60de551","Questions.")}</MotionHeading></div><div className="produce-faqs">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div></section>
+    <section className="produce-section produce-questions" id="questions" aria-labelledby="questions-title"><FaqPanel heading={<> <div><Label>{cmsText("CoProductionPage","01d7974ba44b69ac","QUESTIONS")}</Label><MotionHeading as="h2" id="questions-title">{cmsText("CoProductionPage","63c0abe8b60de551","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true"><SiteIcon name="plus" size={16} /></span></summary><p>{a}</p></details>)}</div> </FaqPanel></section>
 
     <section className="produce-section produce-closing finance-closing inner-closing" id="explore-co-production" aria-labelledby="closing-title"><Label>{cmsText("CoProductionPage","f74d4a70aa50fb00","CO-PRODUCTION")}</Label><div><MotionHeading as="h2" id="closing-title">{cmsText("CoProductionPage","da3dec9e7abec727","Better together")}<br/><em>{cmsText("CoProductionPage","359a444d87c4c5df","if it’s clear.")}</em></MotionHeading><div><MotionCopy>{cmsText("CoProductionPage","123b5c2f5c11c769","Tell us about the project and the partners involved. We’ll help make the partnership work.")}</MotionCopy><CTA href={contact}>{cmsText("CoProductionPage","3174f7b7beed4863","Explore a co-production")}</CTA></div></div></section>
   </div></FinanceLayout>;
