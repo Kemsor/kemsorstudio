@@ -37,12 +37,11 @@ html body #top.creative-site.site-page-home #main#main #opening-title {
   white-space:normal;
 }
 html body #top.creative-site:not(.site-page-home) #main#main.inner-page h1 {
-  font-size:clamp(30px,3vw,42px)!important;
+  font-size:var(--inner-type-page)!important;
   line-height:1.15!important;
 }
 @media(max-width:600px) {
   html body #top.creative-site.site-page-home #main#main #opening-title {font-size:clamp(24px,6.5vw,32px)!important}
-  html body #top.creative-site:not(.site-page-home) #main#main.inner-page h1 {font-size:clamp(24px,6.8vw,28px)!important}
-  html body #top.creative-site #main#main h2 {font-size:clamp(26px,7vw,30px)!important}
+  html body #top.creative-site.site-page-home #main#main h2 {font-size:clamp(26px,7vw,30px)!important}
   html body #top.creative-site #main#main :is(h1,h2) {overflow-wrap:anywhere}
 }

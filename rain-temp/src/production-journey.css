@@ -69,7 +69,7 @@ html body #top.creative-site #main.inner-page #production-process .journey-stage
   min-width:0;padding:40px clamp(28px,4vw,52px);
 }
 html body #top.creative-site #main.inner-page #production-process .journey-stage-copy h3 {
-  margin:0 0 16px;font-size:32px!important;line-height:1.25!important;letter-spacing:-.025em;
+  margin:0 0 16px;font-size:var(--inner-type-card)!important;line-height:1.25!important;letter-spacing:-.025em;
   color:var(--scene-ink)!important;-webkit-text-fill-color:var(--scene-ink)!important;
 }
 html body #top.creative-site #main.inner-page #production-process .journey-stage-copy p {
@@ -105,7 +105,7 @@ html body #top.creative-site #main.inner-page #production-process .journey-explo
   html body #top.creative-site #main.inner-page #production-process .journey-stage-art {grid-column:1;grid-row:1;padding:8px 16px 0}
   html body #top.creative-site #main.inner-page #production-process .journey-stage-art>svg {max-height:240px}
   html body #top.creative-site #main.inner-page #production-process .journey-stage-copy {grid-column:1;grid-row:2;padding:20px 24px 30px}
-  html body #top.creative-site #main.inner-page #production-process .journey-stage-copy h3 {font-size:28px!important;margin-bottom:14px}
+  html body #top.creative-site #main.inner-page #production-process .journey-stage-copy h3 {margin-bottom:14px}
   html body #top.creative-site #main.inner-page #production-process .journey-stage-copy p {font-size:15px!important}
   html body #top.creative-site #main.inner-page #production-process .journey-explore {margin-top:24px}
 }

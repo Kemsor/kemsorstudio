@@ -324,5 +324,20 @@ html body #top.creative-site.site-page-home[data-home-colors] #main #services .d
 }
 html body #top.creative-site.site-page-home #main #services .ds-intro-band .ds-heading-row{margin-bottom:0}
 @media(max-width:600px){
- html body #top.creative-site.site-page-home #main #services .ds-intro-band{padding:24px 0 44px}
+ /* Match the About introduction's mobile gutters and left-aligned reading rhythm. */
+ html body #top.creative-site.site-page-home #main #services .ds-intro-band{padding:40px 0 44px}
+ html body #top.creative-site.site-page-home #main #services .ds-intro{width:calc(100% - 40px)}
+ html body #top.creative-site.site-page-home #main #services .ds-label{
+  flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:28px;
+ }
+ html body #top.creative-site.site-page-home #main #services .ds-label>span{
+  flex:none;max-width:100%;font-size:10px;line-height:1.5;letter-spacing:.06em;
+  text-align:left;overflow-wrap:normal;
+ }
+ html body #top.creative-site.site-page-home #main #services .ds-heading-row{
+  display:grid;grid-template-columns:minmax(0,1fr);gap:18px;text-align:left;
+ }
+ html body #top.creative-site.site-page-home #main #services .ds-heading-row>p{
+  margin:0;max-width:none;font-size:13px!important;line-height:1.7;text-align:left;
+ }
 }

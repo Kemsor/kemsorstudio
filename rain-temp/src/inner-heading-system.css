@@ -1,9 +1,17 @@
-/* Match the homepage's Manrope hierarchy and solid warm-gold accents. */
+/* Inner-page hierarchy, with display fonts applied in display-headings.css. */
 html body #top.creative-site:not(.site-page-home) #main.inner-page{
  --inner-heading-ink:#171717;--inner-heading-accent:#965715;
- --inner-type-page:clamp(36px,4vw,56px);
- --inner-type-section:clamp(30px,3.2vw,44px);
- --inner-type-card:clamp(22px,2vw,28px);
+ --inner-type-page:clamp(30px,3vw,42px);
+ --inner-type-section:clamp(24px,2.25vw,32px);
+ --inner-type-card:clamp(18px,1.6vw,22px);
+ --inner-type-detail:clamp(16px,1.4vw,18px);
+}
+@media(max-width:600px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page{
+  --inner-type-page:clamp(24px,6.8vw,28px);
+  --inner-type-section:clamp(20px,5.6vw,24px);
+  --inner-type-card:clamp(18px,5vw,20px);
+ }
 }
 html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero,.auth-story,.directory-discovery-header,.visual-chapter-dark,.finance-audience-investors,.engagement-ground-cards>article){
  --inner-heading-ink:#fff;--inner-heading-accent:#f0b858;
@@ -55,17 +63,17 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(h1,h2,h3,
  min-width:0;overflow-wrap:anywhere;
  -webkit-text-fill-color:var(--inner-heading-ink)!important;
 }
-html body #top.creative-site:not(.site-page-home) #main.inner-page h1{
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page h1{
  font-size:var(--inner-type-page)!important;line-height:1.12!important;
 }
-html body #top.creative-site:not(.site-page-home) #main.inner-page h2{
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page h2{
  font-size:var(--inner-type-section)!important;line-height:1.16!important;
 }
-html body #top.creative-site:not(.site-page-home) #main.inner-page h3{
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page h3{
  font-size:var(--inner-type-card)!important;line-height:1.25!important;
 }
-html body #top.creative-site:not(.site-page-home) #main.inner-page h4{
- font-size:clamp(18px,1.6vw,22px)!important;line-height:1.3!important;
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page h4{
+ font-size:var(--inner-type-detail)!important;line-height:1.3!important;
 }
 html body #top.creative-site:not(.site-page-home) #main.inner-page :is(h1,h2,h3,h4)>:is(span,em){font-size:inherit!important;line-height:inherit!important}
 html body #top.creative-site:not(.site-page-home) #main.inner-page :is(h1,h2,h3,h4) :is(.heading-accent,em),
@@ -76,16 +84,16 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page h1>span .text
  color:var(--inner-heading-accent)!important;-webkit-text-fill-color:var(--inner-heading-accent)!important;
 }
 /* Supporting hero captions and compact card titles sit below section headings. */
-html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero h2,
-html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.blog-card,.newsroom-story,.career-listing,.sitemap-start,.auth-panel,.directory-results-heading,.directory-bottom-cta,.professional-discovery) h2{
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .inner-hero h2,
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.blog-card,.newsroom-story,.career-listing,.sitemap-start,.auth-panel,.directory-results-heading,.directory-bottom-cta,.professional-discovery) h2{
  font-size:var(--inner-type-card)!important;line-height:1.25!important;
 }
-html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.directory-card,.produce-service,.ep-file-card,.finance-pack,.sitemap-card) h3{
- font-size:clamp(20px,1.8vw,24px)!important;line-height:1.3!important;
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.directory-card,.produce-service,.ep-file-card,.finance-pack,.sitemap-card) h3{
+ font-size:var(--inner-type-card)!important;line-height:1.3!important;
 }
 /* Legal documents keep a comfortable reading scale for numbered sections. */
-html body #top.creative-site:not(.site-page-home) #main.inner-page .privacy-policy-copy h2{
- font-size:clamp(24px,2.2vw,30px)!important;line-height:1.3!important;
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .privacy-policy-copy h2{
+ font-size:var(--inner-type-section)!important;line-height:1.3!important;
 }
 @media(forced-colors:active){
  html body #top.creative-site:not(.site-page-home) #main.inner-page :is(h1,h2,h3,h4),

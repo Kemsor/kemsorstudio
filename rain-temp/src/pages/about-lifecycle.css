@@ -8,7 +8,7 @@ html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-photo::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#10100fed,#10100f88 65%,#10100f22)}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-icon{display:grid;place-items:center;width:48px;height:48px;flex-shrink:0;border-radius:50%;background:#fff;color:#75501f}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-copy{margin-top:auto;min-width:0}
-html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-copy h3{font-size:21px!important;line-height:1.35!important;letter-spacing:-.02em!important;margin:0 0 14px;color:#30251a!important;-webkit-text-fill-color:#30251a!important}
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-copy h3{font-size:var(--inner-type-card)!important;line-height:1.35!important;letter-spacing:-.02em!important;margin:0 0 14px;color:#30251a!important;-webkit-text-fill-color:#30251a!important}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-copy p{font-size:13px!important;line-height:1.75!important;margin:0;color:#514536!important;-webkit-text-fill-color:#514536!important}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-photo .studio-lifecycle-copy :is(h3,p){color:#fff!important;-webkit-text-fill-color:#fff!important}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-arrow{display:flex;align-self:flex-end;color:inherit}

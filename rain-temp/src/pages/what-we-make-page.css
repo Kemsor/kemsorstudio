@@ -42,6 +42,8 @@ html .creative-site #main .make-format-copy>.make-hook{font-size:18px;color:var(
 .make-capability-head{grid-column:1;align-self:start;border-top:1px solid var(--line);padding-top:20px}
 html .creative-site #main .make-capability-head h3{font:500 22px/1.4 Manrope,sans-serif;margin-bottom:7px}
 .make-capability-head>span{font-size:12px;color:var(--muted)}
+/* Keep both table labels readable alongside their full-width capability rows. */
+html body #top.creative-site #main.inner-page .what-we-make-page :is(.make-capability-head,.make-capabilities){grid-column:1/-1}
 .make-capabilities{grid-column:2;display:block;margin:0;counter-reset:capability}
 .make-capabilities>div{position:relative;display:grid;grid-template-columns:1fr 1.1fr;gap:18px;padding:17px 0 17px 28px;border-top:1px solid var(--line);counter-increment:capability}
 .make-capabilities>div::before{content:counter(capability,decimal-leading-zero);position:absolute;left:0;top:20px;color:var(--produce-accent);font-size:10px}
