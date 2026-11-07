@@ -54,6 +54,7 @@ import './inner-closing.css';
 import './service-page-layouts.css';
 import './display-headings.css';
 import './navigation-type.css';
+import './mobile-navigation.css';
 import '../../backend/public/form-controls.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 

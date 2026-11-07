@@ -21,6 +21,7 @@ export default function Header({ page = 'home' } = {}) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [accountOpen,setAccountOpen]=useState(false);
   const [activePanel, setActivePanel] = useState(null);
+  const [activeGroup, setActiveGroup] = useState(null);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY >= 48);
   useEffect(()=>{
@@ -49,6 +50,7 @@ export default function Header({ page = 'home' } = {}) {
   const [currentHash, setCurrentHash] = useState(() => typeof window !== 'undefined' ? window.location?.hash || '' : '');
   const headerRef = useRef(null);
   const navRef = useRef(null);
+  const drawerBodyRef = useRef(null);
   useEffect(()=>{
     const header=headerRef.current;
     if(!header)return;
@@ -105,6 +107,7 @@ export default function Header({ page = 'home' } = {}) {
     clearHoverTimer();
     setDrawerOpen(false);
     setActivePanel(null);
+    setActiveGroup(null);
     if (restoreFocus) toggleRef.current?.focus();
   };
 
@@ -156,6 +159,7 @@ export default function Header({ page = 'home' } = {}) {
       setDrawerMode(query.matches);
       setDrawerOpen(false);
       setActivePanel(null);
+      setActiveGroup(null);
     };
     query.addEventListener('change', update);
     return () => { query.removeEventListener('change', update); clearHoverTimer(); };
@@ -187,7 +191,7 @@ export default function Header({ page = 'home' } = {}) {
 
   useEffect(() => {
     if (!drawerOpen) return;
-    navRef.current.scrollTop = 0;
+    drawerBodyRef.current.scrollTop = 0;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const background = [...document.querySelectorAll('main, footer, .experience-tools')].filter(element => !element.contains(headerRef.current));
@@ -224,7 +228,7 @@ export default function Header({ page = 'home' } = {}) {
     clearHoverTimer();
     setActivePanel(item.id);
     requestAnimationFrame(() => {
-      const links = headerRef.current.querySelectorAll(`#creative-menu-${item.id} a`);
+      const links = headerRef.current.querySelectorAll(`#creative-menu-${item.id} ${drawerMode && item.id === 'capabilities' ? '.creative-nav-group-toggle' : 'a'}`);
       (event.key === 'ArrowUp' ? links[links.length - 1] : links[0])?.focus();
     });
   };
@@ -237,12 +241,32 @@ export default function Header({ page = 'home' } = {}) {
         </a>
         <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerOpen} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
           <div className="creative-nav-drawer-head"><span>{cmsText("Header","bb1ee5567870d5af","THE STUDIO INDEX")}</span><button ref={closeRef} type="button" onClick={() => closeDrawer()} aria-label="Close navigation">{cmsText("Header","6b80cfee72cc8502","Close ")}<span aria-hidden="true"><SiteIcon name="close" size={16} /></span></button></div>
+          <div ref={drawerBodyRef} className="creative-nav-drawer-body" data-lenis-prevent>
           <div className="creative-nav-list">
             {applyNavigation(defaultNavigation).map(item => <div className={`creative-nav-item creative-nav-item-${item.id}`} data-current={currentItem === item.id} key={item.id} onPointerEnter={event => enterItem(event, item)} onPointerLeave={leaveItem}>
               {item.href ? <a className={item.cta ? 'creative-nav-cta' : 'creative-nav-direct'} href={item.href} aria-current={currentItem === item.id ? currentHash && item.href.endsWith(currentHash) ? 'location' : 'page' : undefined} onClick={event => followLink(item.href, event)}><RollingLabel>{item.label}</RollingLabel>{item.cta && <span className="creative-nav-cta-mark" aria-hidden="true"><SiteIcon name="plus" size={16} /></span>}</a> : <>
-                <button ref={element => { triggerRefs.current[item.id] = element; }} type="button" className="creative-nav-trigger" aria-current={currentItem === item.id ? 'page' : undefined} aria-expanded={activePanel === item.id} aria-controls={`creative-menu-${item.id}`} onClick={event => { clearHoverTimer(); setActivePanel(drawerMode || event.detail === 0 ? activePanel === item.id ? null : item.id : item.id); }} onKeyDown={event => focusDropdown(event, item)}><RollingLabel>{item.label}</RollingLabel><span className="creative-nav-chevron" aria-hidden="true"><SiteIcon name="chevron" size={12} /></span></button>
+                <button ref={element => { triggerRefs.current[item.id] = element; }} type="button" className="creative-nav-trigger" aria-current={currentItem === item.id ? 'page' : undefined} aria-expanded={activePanel === item.id} aria-controls={`creative-menu-${item.id}`} onClick={event => {
+                  clearHoverTimer();
+                  if (drawerMode && item.id === 'capabilities' && activePanel !== item.id) {
+                    const currentGroup = item.groups.findIndex(group => group.links.some(link => new URL(link.href, window.location.href).pathname === window.location.pathname));
+                    setActiveGroup(currentGroup < 0 ? null : currentGroup);
+                  }
+                  setActivePanel(drawerMode || event.detail === 0 ? activePanel === item.id ? null : item.id : item.id);
+                }} onKeyDown={event => focusDropdown(event, item)}><RollingLabel>{item.label}</RollingLabel><span className="creative-nav-chevron" aria-hidden="true"><SiteIcon name="chevron" size={12} /></span></button>
                 <div id={`creative-menu-${item.id}`} className={`creative-dropdown${item.id === 'capabilities' ? ' creative-dropdown-mega' : ''}`} hidden={activePanel !== item.id}>
-                  <div className="creative-dropdown-groups">{item.groups.map((group, index) => <div className="creative-nav-group" key={group.title || index}>{group.title && <p className="creative-nav-group-title">{group.title}</p>}{group.links.map(link => <a key={link.label} href={link.href} aria-current={currentSubLink === link.label ? currentHash ? 'location' : 'page' : undefined} onClick={event => followLink(link.href, event)}>{link.label}</a>)}</div>)}</div>
+                  <div className="creative-dropdown-groups">{item.groups.map((group, index) => {
+                    const collapsible = drawerMode && item.id === 'capabilities';
+                    const groupId = `creative-menu-${item.id}-group-${index}`;
+                    const links = group.links.map(link => <a key={link.label} href={link.href} aria-current={currentSubLink === link.label ? currentHash ? 'location' : 'page' : undefined} onClick={event => followLink(link.href, event)}>{link.label}</a>);
+                    return <div className={`creative-nav-group${collapsible ? ' creative-nav-group-collapsible' : ''}`} key={group.title || index}>
+                      {collapsible ? <>
+                        <button type="button" className="creative-nav-group-toggle" aria-expanded={activeGroup === index} aria-controls={groupId} onClick={() => setActiveGroup(activeGroup === index ? null : index)}>
+                          <span>{group.title?.replace(/^\d+\s+/, '')}</span><SiteIcon name="chevron" size={14} />
+                        </button>
+                        <div id={groupId} className="creative-nav-group-links" hidden={activeGroup !== index}>{links}</div>
+                      </> : <>{group.title && <p className="creative-nav-group-title">{group.title}</p>}{links}</>}
+                    </div>;
+                  })}</div>
                 </div>
               </>}
             </div>)}
@@ -251,6 +275,7 @@ export default function Header({ page = 'home' } = {}) {
             <AccountDropdown mobile/>
           </div>
           <p className="creative-nav-drawer-foot">{cmsText("Header","9503bc8f674cd51d","Film. Series. Documentaries.")}<br />{cmsText("Header","3c8d270e69ad31f5","Good stories start with a conversation.")}</p>
+          </div>
         </nav>
         <div className="creative-header-controls">
           {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">{cmsText("Header","69ea66274b2abbc9","Script to Production")}</b> <span aria-hidden="true"><SiteIcon name="script" size={16} /></span></a>}
