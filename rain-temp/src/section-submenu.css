@@ -35,3 +35,28 @@ html body #top.creative-site #main.inner-page .section-submenu[data-stuck=true] 
 }
 
 html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services){border-bottom:0!important;box-shadow:none!important}
+
+/* Rounded white section links, shared across all inner pages. */
+html body #top.creative-site #main.inner-page .section-submenu{border:0;box-shadow:none;background:#fff}
+html body #top.creative-site #main.inner-page .section-submenu-width{padding-block:16px}
+html body #top.creative-site #main.inner-page .section-submenu-links{gap:10px;padding:4px;align-items:center}
+html body #top.creative-site #main.inner-page .section-submenu-links>a{
+ display:flex;align-items:center;justify-content:center;gap:8px;
+ min-height:44px;padding:11px 20px;border:0;border-radius:999px;
+ background:#fff!important;color:#555!important;-webkit-text-fill-color:#555!important;
+ box-shadow:inset 0 0 0 1px #00000015;font-weight:500;text-decoration:none;
+ transition:box-shadow .2s ease,color .2s ease;
+}
+html body #top.creative-site #main.inner-page .section-submenu-links>a:is([aria-current],:hover,:focus-visible){
+ background:#fff!important;color:#202020!important;-webkit-text-fill-color:#202020!important;
+ box-shadow:inset 0 0 0 1.5px #242424,0 4px 12px #00000009;
+}
+html body #top.creative-site #main.inner-page .section-submenu-links>a[aria-current]::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}
+@media(max-width:600px){
+ html body #top.creative-site #main.inner-page .section-submenu-width{padding:16px}
+ html body #top.creative-site #main.inner-page .section-submenu-links{display:flex;flex-wrap:wrap;overflow:visible;gap:10px;width:100%}
+ html body #top.creative-site #main.inner-page .section-submenu-links>a{flex:0 1 auto;min-height:44px;padding:12px 17px;font-size:12px;line-height:1.5;text-align:center;white-space:normal}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site #main.inner-page .section-submenu-links>a{transition:none}
+}
