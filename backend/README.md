@@ -138,15 +138,10 @@ app uses GoDaddy's built-in loopback email gateway, without SMTP credentials or
 third-party API keys. Production defaults to this transport. See the official
 [GoDaddy email contract](https://github.com/godaddy/nodejs-hosting-agent-skill/blob/main/skills/godaddy-nodejs-hosting/email.md).
 
-The gateway uses this app's original platform sender,
-`sxqc7mdcy1@airoapp.ai`, as a hardcoded From address. This address delivered a
-confirmation before custom-domain attachment. Pinning it tests the possibility
-that GoDaddy's automatic sender change affected delivery; this is not a proven
-delivery fix until a new confirmation reaches the inbox. Replies go to
-`info@kemsorstudio.com`. The website domain remains independent. GoDaddy's email
-contract permits the app's local-part on its platform default domain. User form
-fields never set or override the sender. A future branded From address requires
-verified sender-domain authentication.
+The gateway uses `info@kemsorstudio.com` as its fixed From and Reply-To address.
+User form fields never set or override the sender. GoDaddy must authorize this
+sender and authenticate the domain for delivery. Gateway acceptance alone does
+not confirm inbox delivery; verify a receipt after deployment.
 
 **Local SMTP or other hosts that permit it:** set `EMAIL_TRANSPORT=smtp`,
 `SMTP_ENABLED=true`, `SMTP_HOST`, `SMTP_PORT` (465 or 587), `SMTP_USER` and
