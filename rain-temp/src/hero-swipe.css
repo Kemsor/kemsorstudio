@@ -1,0 +1,12 @@
+@media(max-width:1024px){
+ html body #top.creative-site #main .immersive-opening{touch-action:pan-y pinch-zoom}
+ html body #top.creative-site #main .immersive-opening .opening-films{
+  transform:translate3d(var(--hero-drag-offset,0px),0,0);
+  transition:transform 220ms ease-out;
+ }
+ html body #top.creative-site #main .immersive-opening[data-dragging=true] .opening-films{transition:none}
+ html body #top.creative-site #main .immersive-opening[data-dragging=true]{user-select:none;-webkit-user-select:none}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site #main .immersive-opening .opening-films{transform:none;transition:none}
+}

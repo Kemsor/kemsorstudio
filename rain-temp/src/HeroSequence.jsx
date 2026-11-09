@@ -7,6 +7,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useCms } from './CmsContent';
 import { CTA } from './PageUI';
 import StudioClipViewer from './StudioClipViewer';
+import {heroSwipeDirection} from './hero-swipe';
+import './hero-swipe.css';
 
 const localAsset=value=>value?.startsWith('/')&&!value.startsWith('//')&&!(import.meta.env.BASE_URL!=='/'&&value.startsWith(import.meta.env.BASE_URL))?`${import.meta.env.BASE_URL}${value.slice(1)}`:value;
 export default function HeroSequence(props) {
@@ -32,9 +34,12 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
   const [expanded, setExpanded] = useState(false);
   const [active, setActive] = useState(0);
   const [outgoing, setOutgoing] = useState(null);
-  const advance = useCallback(() => {
+  const gesture=useRef(null);
+  const [dragging,setDragging]=useState(false);
+  const advance = useCallback((direction=1) => {
+    if(films.length<2)return;
     setOutgoing(active);
-    setActive((active + 1) % films.length);
+    setActive((active + direction + films.length) % films.length);
   }, [active,films.length]);
   useEffect(() => {
     if (outgoing === null) return;
@@ -54,7 +59,37 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
   const [saveData, setSaveData] = useState(() => Boolean(navigator.connection?.saveData));
   const prefersReduced = reduced || Boolean(globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
   const blocked = prefersReduced || motionPaused || saveData;
-  const playing = enabled && !paused && !blocked && visible && tabVisible && !expanded;
+  const playing = enabled && !paused && !blocked && visible && tabVisible && !expanded && !dragging;
+
+  const resetDrag=()=>{
+    gesture.current=null;setDragging(false);
+    section.current?.style.setProperty('--hero-drag-offset','0px');
+  };
+  const startDrag=event=>{
+    if(!event.isPrimary){resetDrag();return;}
+    if(films.length<2||expanded||!matchMedia('(max-width:1024px)').matches||!['touch','pen'].includes(event.pointerType))return;
+    if(event.target.closest('a,button,input,select,textarea,[role=button]'))return;
+    gesture.current={id:event.pointerId,x:event.clientX,y:event.clientY,horizontal:false};
+  };
+  const moveDrag=event=>{
+    const start=gesture.current;if(!start||start.id!==event.pointerId)return;
+    const dx=event.clientX-start.x,dy=event.clientY-start.y;
+    if(!start.horizontal){
+      if(Math.max(Math.abs(dx),Math.abs(dy))<10)return;
+      if(Math.abs(dx)<Math.abs(dy)*1.3){resetDrag();return;}
+      start.horizontal=true;setDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+    if(!prefersReduced)section.current.style.setProperty('--hero-drag-offset',`${Math.max(-32,Math.min(32,dx*.15))}px`);
+  };
+  const endDrag=event=>{
+    const start=gesture.current;
+    if(start?.id===event.pointerId&&start.horizontal){
+      const direction=heroSwipeDirection(event.clientX-start.x,event.clientY-start.y,section.current.clientWidth);
+      if(direction)advance(direction);
+    }
+    resetDrag();
+  };
 
   useEffect(() => {
     const connection = navigator.connection;
@@ -91,7 +126,8 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
     return () => clearTimeout(timer);
   }, [advance, active, playing, failed]);
 
-  return <><section id="home" ref={section} className="cinema-opening immersive-opening" data-in-view={visible} aria-labelledby="opening-title">
+  return <><section id="home" ref={section} className="cinema-opening immersive-opening" data-in-view={visible} data-dragging={dragging} aria-labelledby="opening-title"
+    onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={resetDrag} onLostPointerCapture={event=>{if(event.target===event.currentTarget)resetDrag();}}>
     <div className="opening-screen">
     <div className="opening-films" aria-hidden="true">{films.map((film, index) => <div className="opening-film" key={film.id||film.slug||index} data-active={active === index} data-outgoing={outgoing === index} data-entering={active === index && outgoing !== null} data-ready={!blocked && ready[index] && !failed[index]}>
       <StudioImage mediaSlot="HeroSequence-1" src={(requestedPosters[index] || index===active) ? film.poster : undefined} srcSet={(requestedPosters[index] || index===active) ? `${film.poster.replace('.jpg','-640.webp')} 640w, ${film.poster} 960w, ${film.poster.replace('.jpg','-1600.webp')} 1600w` : undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} decoding="async" />
