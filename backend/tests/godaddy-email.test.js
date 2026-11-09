@@ -14,13 +14,13 @@ test('GoDaddy uses its gateway without SMTP credentials',async()=>{
 
 test('Gateway keeps the studio sender while ignoring caller-supplied From addresses',async()=>{
  let payload;
- const result=await sendEmail({to:'submitter@example.test',subject:'Your reference',text:'Receipt',from:'attacker@example.test'},async(url,options)=>{
+ const result=await sendEmail({to:'submitter@example.test',subject:'Your reference',text:'Receipt',html:'<p>Receipt</p>',from:'attacker@example.test'},async(url,options)=>{
   assert.equal(url,'http://127.0.0.1:2525/api/email/send');
   assert(options.signal instanceof AbortSignal);assert.equal(options.method,'POST');
   payload=JSON.parse(options.body);return {ok:true,json:async()=>({success:true,messageId:'test-message-1'})};
  });
  assert.deepEqual(payload.to,['submitter@example.test']);assert.equal(payload.from,'info@kemsorstudio.com');
- assert.equal(payload.replyTo,'info@kemsorstudio.com');assert.equal(result.messageId,'test-message-1');
+ assert.equal(payload.html,'<p>Receipt</p>');assert.equal(payload.text,'Receipt');assert.equal(payload.replyTo,'info@kemsorstudio.com');assert.equal(result.messageId,'test-message-1');
 });
 
 test('Gateway rejection, invalid bodies and timeout remain failures with safe diagnostics',async()=>{

@@ -4,13 +4,13 @@ const endpoint='http://127.0.0.1:2525/api/email/send';
 const fail=(code,responseCode)=>Object.assign(new Error('GoDaddy email gateway request failed'),{code,responseCode});
 
 // The gateway is local to GoDaddy's app container. Never take its URL from a form.
-export async function sendEmail({to,subject,text},request=globalThis.fetch) {
+export async function sendEmail({to,subject,text,html},request=globalThis.fetch) {
   let response,body;
   try {
     response=await request(endpoint,{
       method:'POST',headers:{'Content-Type':'application/json'},
       // Keep the studio sender fixed so form input cannot override it.
-      body:JSON.stringify({to:[to],subject,text,from:'info@kemsorstudio.com',replyTo:'info@kemsorstudio.com'}),
+      body:JSON.stringify({to:[to],subject,text,...(html?{html}:{}),from:'info@kemsorstudio.com',replyTo:'info@kemsorstudio.com'}),
       signal:AbortSignal.timeout(30000)
     });
     body=await response.json();
