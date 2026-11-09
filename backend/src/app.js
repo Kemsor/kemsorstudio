@@ -13,7 +13,7 @@ import {kpiRouter} from './kpi-admin.js';
 import {optimizeImage} from './image-optimizer.js';
 import {categories,statuses,workflowFields} from './enquiry-options.js';
 import { saveWithReceipt, mailConfiguration, verifyMailConnection } from './mail.js';
-import { website } from './website.js';
+import { website, websiteNotFound } from './website.js';
 import express from 'express';
 import session from 'express-session';
 import multer from 'multer';
@@ -495,6 +495,7 @@ export function createApp(db, options={}) {
   app.use(bulkRouter(db));
   app.use(careersRouter(db));
   app.use(talentRouter(db,{imageKind}));
+  app.use(websiteNotFound(options.frontendDirectory));
   app.use((req,res)=>res.status(404).render('error',{message:'Page not found.',status:404}));
   app.use((error,req,res,next)=>{
     if(res.headersSent)return next(error);

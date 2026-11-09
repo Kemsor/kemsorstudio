@@ -18,3 +18,12 @@ export function website(directory=websiteDirectory) {
     return files(req,res,next);
   };
 }
+
+// Run after API, CMS and public-file routes so missing assets never receive HTML.
+export function websiteNotFound(directory=websiteDirectory){
+ const page=path.join(directory,'404.html');
+ return (req,res,next)=>{
+  if(!['GET','HEAD'].includes(req.method)||/^\/(?:api|admin|media|health|assets)(?:\/|$)/.test(req.path)||!req.accepts('html')||!existsSync(page))return next();
+  res.status(404).set({'Cache-Control':'no-cache','X-Robots-Tag':'noindex, follow'}).sendFile(page);
+ };
+}
