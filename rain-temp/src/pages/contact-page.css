@@ -7,3 +7,18 @@
 @media(max-width:800px){.contact-simple .ember-wordmark-only{max-width:none;margin:0 0 28px}.contact-simple .ember-wordmark{height:clamp(80px,20vw,160px)}}
 
 html body #top.creative-site #main.inner-page .contact-details .studio-location-map{display:block;width:100%;height:clamp(280px,32vw,420px);border:0;border-radius:14px;margin-top:18px}
+/* Give the enquiry page heading the same rounded outline as its form fields. */
+html body #top.creative-site.site-page-contact #main.inner-page .ep-hero .ep-hero-heading h1{
+ display:inline-block;width:fit-content;max-width:100%;box-sizing:border-box;
+ padding:16px 28px!important;border:1px solid #d8d2c7!important;border-radius:999px!important;
+ background:#fff!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;
+ color:#282828!important;-webkit-text-fill-color:#282828!important;font-size:clamp(24px,3vw,36px)!important;
+ line-height:1.3!important;
+}
+html body #top.creative-site.site-page-contact #main.inner-page .ep-hero .ep-hero-heading h1 :is(span,em,.text-flow-word){
+ color:#282828!important;-webkit-text-fill-color:#282828!important;
+ background-image:none!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;
+}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-contact #main.inner-page .ep-hero .ep-hero-heading h1{padding:14px 22px!important}
+}

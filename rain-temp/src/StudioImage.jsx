@@ -2,6 +2,8 @@ import slots from '../../shared/site-image-slots.json';
 import {getSiteModule} from './siteContent';
 import React from 'react';
 import placements from './media-placements.json';
+import optimizedImages from './optimized-images.json';
+import {optimizedImage} from './image-delivery';
 import './studio-image.css';
 
 export function imageIdentity(src=''){
@@ -23,5 +25,13 @@ export default function StudioImage({mediaSlot,src,srcSet,alt,...props}){
 
  const audit={'data-media-slot':mediaSlot,'data-media-original':src};
  if(replacement===null)return <span {...audit} className={`studio-image-needed ${props.className||''}`} role="img" aria-label="Provide image"><span>Provide image</span></span>;
- return <img {...props} {...audit} src={replacement?.src||src} srcSet={replacement?replacement.srcSet:srcSet} alt={replacement?.alt??alt}/>;
+ const resolvedSrc=replacement?.src||src;
+ const optimized=optimizedImage(resolvedSrc,optimizedImages,import.meta.env.BASE_URL);
+ const resolvedSrcSet=optimized?.srcSet||(replacement?replacement.srcSet:srcSet);
+ const eager=props.loading==='eager'||props.fetchPriority==='high';
+ return <img decoding="async" loading={eager?'eager':'lazy'} {...props} {...audit}
+  src={optimized?.src||resolvedSrc} srcSet={resolvedSrcSet}
+  sizes={props.sizes||(resolvedSrcSet?(props.fetchPriority==='high'?'100vw':'(max-width: 600px) calc(100vw - 32px), (max-width: 1000px) 70vw, 800px'):undefined)}
+  width={props.width||(!props.height?optimized?.width:undefined)} height={props.height||(!props.width?optimized?.height:undefined)}
+  alt={replacement?.alt??alt}/>;
 }
