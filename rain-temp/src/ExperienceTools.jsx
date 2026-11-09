@@ -10,7 +10,6 @@ export default function ExperienceTools({ page }) {
   const { entries, settings } = useCms();
   const dialog = useRef(null);
   const opener = useRef(null);
-  const topButton = useRef(null);
   const [guideTarget, setGuideTarget] = useState(null);
   const [topVisible, setTopVisible] = useState(false);
   const [flow, setFlow] = useState(null);
@@ -19,17 +18,10 @@ export default function ExperienceTools({ page }) {
     let frame;
     const update = () => {
       frame = null;
-      const button = topButton.current;
-      if (!button) return;
-      const rect = button.getBoundingClientRect();
-      // Leave text, links and media unobstructed, including on narrow screens.
-      const obstructsContent = [0.15, 0.5, 0.85].some(x => [0.15, 0.5, 0.85].some(y =>
-        document.elementsFromPoint(rect.left + rect.width * x, rect.top + rect.height * y).some(element =>
-          !button.contains(element) && element.closest('main, footer') &&
-          element.closest('a, button, input, select, textarea, h1, h2, h3, p, li, img, video, .footer-word, .footer-studios-signature')
-        )
-      ));
-      setTopVisible(window.scrollY > window.innerHeight * 0.75 && !obstructsContent);
+      // Fixed thresholds avoid mobile toolbar resizing and content-dependent flicker.
+      // Once shown, keep the control available until the visitor is near the top.
+      const position=Math.max(0,window.scrollY);
+      setTopVisible(visible=>visible?position>80:position>320);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     schedule();
@@ -43,7 +35,7 @@ export default function ExperienceTools({ page }) {
   }, [page]);
   const openGuide = event => { opener.current = event.currentTarget; setFlow(null); dialog.current.showModal(); };
   return <aside className="experience-tools" aria-label="Site tools">
-    <button ref={topButton} className={`experience-top experience-top-floating${topVisible ? ' is-visible' : ''}`} type="button" aria-label="Back to top" title={cmsText("ExperienceTools","11841fba5791f174","Back to top")} disabled={!topVisible} onClick={() => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })}><SiteIcon name="arrow-up" size={20}/></button>
+    <button className={`experience-top experience-top-floating${topVisible ? ' is-visible' : ''}`} type="button" aria-label="Back to top" title={cmsText("ExperienceTools","11841fba5791f174","Back to top")} disabled={!topVisible} onClick={() => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })}><SiteIcon name="arrow-up" size={20}/></button>
     {guideTarget && createPortal(<button className="experience-guide-launch" type="button" onClick={openGuide} aria-haspopup="dialog">{cmsText("ExperienceTools","ebfff2dcbf9b60ab","Studio guide ")}<span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></button>, guideTarget)}
     <dialog ref={dialog} className="studio-guide" aria-labelledby="studio-guide-title" onClose={() => opener.current?.focus()} onClick={event => { if (event.target === event.currentTarget) dialog.current.close(); }}>
       <div className="studio-guide-head"><div><p className="page-eyebrow">{cmsText("ExperienceTools","a43e34bb10d0f9f2","KEMSOR / YOUR WAY THROUGH")}</p><h2 id="studio-guide-title">{cmsText("ExperienceTools","423f3ee7d5b9ce1f","Studio guide")}</h2></div><button type="button" autoFocus aria-label="Close studio guide" onClick={() => dialog.current.close()}>×</button></div>
