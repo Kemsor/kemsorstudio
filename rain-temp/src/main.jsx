@@ -4,6 +4,7 @@ import SeoMetadata from './SeoMetadata';
 import useFaqAccordions from './useFaqAccordions';
 import './inner-layout-repairs.css';
 import PageProgress from './PageProgress';
+import {incomingTransition} from './page-transition';
 import CursorDot from './CursorDot';
 import useThemeMotion from './useThemeMotion';
 import './theme-motion.css';
@@ -112,6 +113,7 @@ const routes={
  contact:lazy(()=>import('./pages/ContactPage').then(module=>({default:module.ContactPage}))),
 };
 function shouldShowOpening() {
+ if(incomingTransition())return false;
  const navigation=performance.getEntriesByType('navigation')[0];
  if(navigation?.type==='back_forward')return false;
  if(navigation?.type==='reload')return true;
@@ -153,6 +155,7 @@ function App() {
  const reduced=useReducedMotion();
  const [opening,setOpening]=useState(()=>!formOnly && shouldShowOpening());
  const [ready,setReady]=useState(false);
+ const [switching,setSwitching]=useState(false);
  const onReady=useCallback(()=>setReady(true),[]);
  const finishOpening=useCallback(()=>setOpening(false),[]);
  useEffect(()=>{
@@ -161,7 +164,7 @@ function App() {
   document.body.style.overflow='hidden';
   return()=>{document.body.style.overflow=previous;};
  },[opening]);
- const paused=false;
+ const paused=switching;
  useSmoothScroll(reduced || opening || paused || !ready);
  useThemeMotion(ready && !opening && !reduced);
  useEffect(()=>{
@@ -172,13 +175,13 @@ function App() {
   return()=>cancelAnimationFrame(frame);
  },[page]);
 
- return <><SeoMetadata page={page}/><PageProgress/><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening?true:undefined} aria-hidden={opening?true:undefined}>
+ return <><SeoMetadata page={page}/><PageProgress ready={ready} onActiveChange={setSwitching}/><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening||switching?true:undefined} aria-hidden={opening||switching?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
   <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && contentPages.some(item=>item.key===page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>
   <Footer page={page} reduced={reduced}/>
   {!formOnly && <ExperienceTools page={page}/>}
- </div><CookiePreferences hidden={opening}/></>;
+ </div><CookiePreferences hidden={opening||switching}/></>;
 }
 createRoot(document.getElementById('root')).render(<CookieConsentProvider><CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider></CookieConsentProvider>);
 
