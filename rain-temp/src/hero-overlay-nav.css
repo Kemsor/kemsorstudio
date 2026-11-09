@@ -137,11 +137,23 @@ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-
 
 /* Follow scroll direction without moving page content. */
 html body #top.creative-site .creative-header{
- transition:transform var(--nav-settle),padding var(--nav-settle),box-shadow var(--nav-settle)!important;
+ --header-hide-distance:128px;
+ transform:translate3d(0,0,0)!important;
+ backface-visibility:hidden;-webkit-backface-visibility:hidden;
+ will-change:transform;
+ transition:transform 360ms cubic-bezier(.22,.61,.36,1),padding var(--nav-settle)!important;
 }
-html body #top.creative-site .creative-header[data-hidden=true]{transform:translateY(-100%)!important;pointer-events:none}
+/* A fixed distance cannot change halfway through a slide as the header compacts.
+   Include the shadow so the last few pixels do not linger at the viewport edge. */
+html body #top.creative-site .creative-header[data-hidden=true]{transform:translate3d(0,calc(-1 * var(--header-hide-distance)),0)!important;pointer-events:none}
 html body #top.creative-site .creative-header[data-hidden=false],
-html body #top.creative-site .creative-header:focus-within{transform:translateY(0)!important;pointer-events:auto}
+html body #top.creative-site .creative-header:focus-within{transform:translate3d(0,0,0)!important;pointer-events:auto}
+/* Scrolled headers have an opaque surface; a moving backdrop blur only adds
+   repaints of the page behind them, particularly in mobile Safari. */
+html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner{
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+@media(max-width:1440px){html body #top.creative-site .creative-header{--header-hide-distance:104px}}
 @media(min-width:601px){
  html body #top.creative-site:has(.creative-header[data-hidden=true]) #main :is(.section-submenu,.fl-nav){top:0!important}
 }
@@ -269,7 +281,7 @@ html body #top.creative-site .creative-header[data-scrolled=true]::after{
 
 /* Move the pinned section navigation once per header transition, never per scroll pixel. */
 @media(min-width:601px){
- html body #top.creative-site #main.inner-page :is(.section-submenu,.fl-nav){transition:top 460ms cubic-bezier(.22,.61,.36,1)}
+ html body #top.creative-site #main.inner-page :is(.section-submenu,.fl-nav){transition:top 360ms cubic-bezier(.22,.61,.36,1)}
 }
 @media(prefers-reduced-motion:reduce){
  html body #top.creative-site #main.inner-page :is(.section-submenu,.fl-nav){transition:none}
