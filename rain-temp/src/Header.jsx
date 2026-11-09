@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { navigation as defaultNavigation } from './navigation';
 import { pageHref } from './pageInfo';
 import './header.css';
+import {createHeaderScroll} from './header-scroll';
 import {useMember} from './MemberSession';
 
 const drawerQuery = '(max-width: 1440px)';
@@ -25,28 +26,19 @@ export default function Header({ page = 'home' } = {}) {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY >= 48);
   useEffect(()=>{
-    let previous=Math.max(0,window.scrollY),travel=0,direction=0,frame;
-    let settleUntil=performance.now()+500;
+    let frame;
+    const measureScroll=()=>Math.max(0,Math.min(window.scrollY,Math.max(0,document.documentElement.scrollHeight-window.innerHeight)));
+    const decide=createHeaderScroll(measureScroll());
+    setHidden(false);
     const update=()=>{
       frame=null;
-      const current=Math.max(0,window.scrollY);
-      const delta=current-previous;
-      previous=current;
-      if(current<48)settleUntil=performance.now()+500;
-      if(current<240||performance.now()<settleUntil){setHidden(false);travel=0;direction=0;return;}
-      if(Math.abs(delta)<1)return;
-      const nextDirection=Math.sign(delta);
-      travel=nextDirection===direction?travel+Math.abs(delta):Math.abs(delta);
-      direction=nextDirection;
-      if(travel>(direction>0?48:24)){
-        if(!headerRef.current?.contains(document.activeElement))setHidden(direction>0);
-        else if(direction<0)setHidden(false);
-      }
+      const blocked=drawerOpen||Boolean(activePanel)||accountOpen||headerRef.current?.contains(document.activeElement);
+      setHidden(decide(measureScroll(),performance.now(),blocked));
     };
     const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};
     window.addEventListener('scroll',scroll,{passive:true});
     return()=>{window.removeEventListener('scroll',scroll);cancelAnimationFrame(frame)};
-  },[]);
+  },[drawerOpen,activePanel,accountOpen]);
   const [currentHash, setCurrentHash] = useState(() => typeof window !== 'undefined' ? window.location?.hash || '' : '');
   const headerRef = useRef(null);
   const navRef = useRef(null);
@@ -55,14 +47,14 @@ export default function Header({ page = 'home' } = {}) {
     const header=headerRef.current;
     if(!header)return;
     const surface=header.querySelector('.creative-header-inner');
-    const update=()=>document.documentElement.style.setProperty('--inner-nav-bottom',`${Math.max(0,(surface||header).getBoundingClientRect().bottom)}px`);
+    // Layout geometry stays stable while the header transforms offscreen.
+    const update=()=>document.documentElement.style.setProperty('--inner-nav-bottom',`${Math.max(0,header.offsetTop+(surface?.offsetTop||0)+(surface||header).offsetHeight)}px`);
     const observer=new ResizeObserver(update);
     observer.observe(header);
     if(surface)observer.observe(surface);
-    window.addEventListener('scroll',update,{passive:true});
     update();
     window.addEventListener('resize',update);
-    return()=>{observer.disconnect();window.removeEventListener('scroll',update);window.removeEventListener('resize',update);document.documentElement.style.removeProperty('--inner-nav-bottom');};
+    return()=>{observer.disconnect();window.removeEventListener('resize',update);document.documentElement.style.removeProperty('--inner-nav-bottom');};
   },[]);
 
   const toggleRef = useRef(null);
