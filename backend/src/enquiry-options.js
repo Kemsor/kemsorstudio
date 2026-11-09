@@ -1,4 +1,5 @@
-export const categories={business:'Business',partnerships:'Strategic partnerships / co-production',press:'Press & media',careers:'Careers / work with us',production:'Production services',copyright:'Copyright / anti-piracy',general:'General / other',creative:'Creative enquiry',brand:'Marketing / brand collaboration',distribution:'Distribution / OTT partnership',financing:'Co-production / financing',international:'International production services',partner_registration:'Production partner registration'};
+import categories from '../../shared/enquiry-categories.json' with {type:'json'};
+export {categories};
 export const statuses=['new','assigned','in_review','information_required','contacted','meeting_scheduled','qualified','accepted','converted','rejected','closed','spam'];
 export function workflowFields(body){
  const priority=body.priority||'normal',tags=typeof body.tags==='string'?body.tags.trim():'',source=typeof body.source==='string'?body.source.trim():'website';

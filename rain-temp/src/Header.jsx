@@ -35,7 +35,7 @@ export default function Header({ page = 'home' } = {}) {
     setHidden(false);
     const update=()=>{
       frame=null;
-      const blocked=drawerOpen||Boolean(activePanel)||accountOpen||headerRef.current?.contains(document.activeElement);
+      const blocked=drawerOpen||Boolean(activePanel)||accountOpen||(headerRef.current?.contains(document.activeElement)&&document.activeElement?.matches(':focus-visible'));
       setHidden(decide(measureScroll(),performance.now(),blocked));
     };
     const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};

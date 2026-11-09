@@ -132,6 +132,7 @@ test('Enquiries require consent, record notice version, and support follow-up',a
  await guest.post('/api/enquiries').set('X-CSRF-Token',token).send(enquiry).expect(422);
  const result=await guest.post('/api/enquiries').set('X-CSRF-Token',token).send({...enquiry,consent:true}).expect(201);assert.match(result.body.reference,/^KEM-\d{6}$/);
  const receipt=(await rows(db,'SELECT * FROM cms_email_outbox WHERE receipt_key=?',[result.body.reference]))[0];assert.equal(receipt.recipient,enquiry.email);assert.equal(receipt.status,'pending');assert.ok(receipt.body.includes('get back to you'));
+ assert.ok(receipt.body.includes('Enquiry type: Business'));assert.ok(receipt.body.includes(`Enquiry subject: ${enquiry.subject}`));assert.ok(receipt.subject.includes('Business'));
  const row=(await rows(db,'SELECT * FROM cms_enquiries'))[0];assert.equal(row.consent_version,'test-v1');assert.equal(row.status,'new');
  await manager.get(`/admin/enquiries/${row.id}`).expect(200);
  await manager.post(`/admin/enquiries/${row.id}`).type('form').send({_csrf:csrfManager,status:'contacted',note:'Followed up in test'}).expect(302);

@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import {categories} from './enquiry-options.js';
 import { confirmationHtml } from './email-templates.js';
 import { randomUUID } from 'node:crypto';
 import { rows,json } from './db.js';
@@ -6,22 +7,24 @@ import { gatewayTransport } from './godaddy-email.js';
 
 const mailProvider=env=>env.EMAIL_TRANSPORT || (env.NODE_ENV==='production'?'godaddy':'smtp');
 
-export function receipt(kind, id, name) {
+export function receipt(kind, id, name, details={}) {
   const reference=`${kind==='application'?'APP':'KEM'}-${String(id).padStart(6,'0')}`;
   const subject=kind==='application'?'We received your application':'We received your enquiry';
   const message=kind==='application'
     ? 'Thank you for your interest in working with Kemsor. We have received your application. Our team will review it and contact you if your profile matches the opportunity.'
     : 'Thank you for contacting Kemsor. We have received your enquiry. Our team will review your message and get back to you.';
-  return {reference,subject:`${subject} | ${reference}`,body:`Hello ${name},\n\n${message}\n\nYour reference: ${reference}\n\nKemsor Studios`};
+  const category=kind==='enquiry'&&Object.hasOwn(categories,details.category)?categories[details.category]:null;
+  const enquiryDetails=category?`Enquiry type: ${category}\n${details.subject?`Enquiry subject: ${details.subject}\n`:''}\n`:'';
+  return {reference,subject:`${subject}${category?` — ${category}`:''} | ${reference}`,body:`Hello ${name},\n\n${message}\n\n${enquiryDetails}Your reference: ${reference}\n\nKemsor Studios`};
 }
 
 // Save the form and its receipt together. SMTP is deliberately outside this transaction.
-export async function saveWithReceipt(db, kind, name, email, save) {
+export async function saveWithReceipt(db, kind, name, email, save, details={}) {
   const connection=await db.getConnection();
   try {
     await connection.beginTransaction();
     const result=await save(connection);
-    const mail=receipt(kind,result.insertId,name);
+    const mail=receipt(kind,result.insertId,name,details);
     await rows(connection,'INSERT INTO cms_email_outbox(receipt_key,recipient,subject,body,available_at) VALUES(?,?,?,?,UTC_TIMESTAMP())',[mail.reference,email,mail.subject,mail.body]);
     await connection.commit();
     return mail.reference;

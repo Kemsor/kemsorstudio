@@ -3,6 +3,21 @@ import assert from 'node:assert/strict';
 import {confirmationHtml} from '../src/email-templates.js';
 import {receipt,deliverReceipt} from '../src/mail.js';
 import {sendEmail} from '../src/godaddy-email.js';
+import {categories} from '../src/enquiry-options.js';
+
+test('Every enquiry category appears exactly in both receipt formats and the subject',()=>{
+ for(const [category,label] of Object.entries(categories)){
+  const mail=receipt('enquiry',25,'Sam',{category,subject:'Project <development> & planning'});
+  const html=confirmationHtml({reference:mail.reference,body:mail.body});
+  assert(mail.subject.includes(label));assert(mail.body.includes(`Enquiry type: ${label}`));
+  assert(mail.body.includes('Enquiry subject: Project <development> & planning'));
+  assert(html.includes(label.replaceAll('&','&amp;')));
+  assert(html.includes('Project &lt;development&gt; &amp; planning'));
+  assert(html.includes('KEM-000025'));assert(!html.includes('<development>'));
+ }
+ assert(!receipt('application',1,'Sam',{category:'business',subject:'Ignore'}).body.includes('Enquiry type:'));
+ assert(!receipt('enquiry',1,'Sam',{category:'<invalid>'}).body.includes('<invalid>'));
+});
 
 test('Enquiry and application templates preserve references and distinct next steps',()=>{
  for(const kind of ['enquiry','application']){

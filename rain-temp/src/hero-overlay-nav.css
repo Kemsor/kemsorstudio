@@ -147,7 +147,7 @@ html body #top.creative-site .creative-header{
    Include the shadow so the last few pixels do not linger at the viewport edge. */
 html body #top.creative-site .creative-header[data-hidden=true]{transform:translate3d(0,calc(-1 * var(--header-hide-distance)),0)!important;pointer-events:none}
 html body #top.creative-site .creative-header[data-hidden=false],
-html body #top.creative-site .creative-header:focus-within{transform:translate3d(0,0,0)!important;pointer-events:auto}
+html body #top.creative-site .creative-header:has(:focus-visible){transform:translate3d(0,0,0)!important;pointer-events:auto}
 /* Scrolled headers have an opaque surface; a moving backdrop blur only adds
    repaints of the page behind them, particularly in mobile Safari. */
 html body #top.creative-site .creative-header[data-scrolled=true] .creative-header-inner{

@@ -2,7 +2,7 @@
 html{scroll-padding-top:calc(var(--site-header-height) + 16px)}
 .creative-header{transition:transform .25s ease}
 .creative-header[data-hidden=true]{transform:translateY(-100%)}
-.creative-header:focus-within,.creative-header[data-drawer-open=true]{transform:none}
+.creative-header:has(:focus-visible),.creative-header[data-drawer-open=true]{transform:none}
 .creative-header .creative-header-inner{min-height:var(--site-header-height);gap:18px}
 .creative-header .creative-header-brand img{width:60px}
 @media(min-width:1441px){.creative-header .creative-nav{height:var(--site-header-height)}}
