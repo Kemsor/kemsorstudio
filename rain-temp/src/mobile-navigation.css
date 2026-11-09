@@ -119,5 +119,37 @@
  html body #top.creative-site .creative-header[data-overlay=true] #creative-navigation .creative-nav-drawer-foot{margin-top:26px;color:#686868;line-height:1.85}
 }
 @media(max-width:600px){
- html body #top.creative-site .creative-header[data-overlay=true] #creative-navigation.creative-nav{width:calc(100vw - 12px);height:calc(100dvh - 12px);top:6px;right:6px;border-radius:32px}
+ html body #top.creative-site .creative-header[data-overlay=true] #creative-navigation.creative-nav{width:100vw;height:100dvh;top:0;right:0;border-radius:32px 0 0 32px}
+}
+
+/* Keep the mobile drawer outside the transforming header and its blur layer. */
+@media(max-width:1440px){
+ html body #top.creative-site .creative-header.creative-drawer-layer[data-overlay=true]{
+  position:fixed!important;inset:0!important;width:100%!important;height:100dvh;
+  margin:0!important;padding:0!important;border:0!important;z-index:110;
+  background:transparent!important;box-shadow:none!important;pointer-events:none;
+  transform:none!important;will-change:auto!important;backface-visibility:visible;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transition:none!important;
+ }
+ html body #top.creative-site .creative-header.creative-drawer-layer[data-overlay=true]::before,
+ html body #top.creative-site .creative-header.creative-drawer-layer[data-overlay=true]::after{display:none!important}
+ html body #top.creative-site .creative-header.creative-drawer-layer #creative-navigation.creative-nav{
+  position:fixed;inset:0 0 0 auto;right:0!important;top:0!important;margin:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform;
+  transform:translate3d(105%,0,0);visibility:hidden;pointer-events:none;
+  transition:transform 360ms cubic-bezier(.22,.61,.36,1),visibility 0s 360ms!important;
+ }
+ html body #top.creative-site .creative-header.creative-drawer-layer #creative-navigation.creative-nav[data-open=true]{
+  transform:translate3d(0,0,0);visibility:visible;pointer-events:auto;
+  transition:transform 360ms cubic-bezier(.22,.61,.36,1),visibility 0s!important;
+ }
+ html body #top.creative-site .creative-nav-backdrop{
+  animation:none!important;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity 360ms ease,visibility 0s 360ms!important;
+ }
+ html body #top.creative-site .creative-nav-backdrop[data-open=true]{opacity:1;visibility:visible;pointer-events:auto;transition:opacity 360ms ease,visibility 0s!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site .creative-header.creative-drawer-layer #creative-navigation.creative-nav,
+ html body #top.creative-site .creative-nav-backdrop{transition:none!important}
 }

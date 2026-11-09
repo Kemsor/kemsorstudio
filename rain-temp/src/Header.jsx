@@ -4,6 +4,7 @@ import StudioImage from './StudioImage';
 import AccountDropdown from './AccountDropdown';
 import SiteIcon from './SiteIcon';
 import React, { useEffect, useRef, useState } from 'react';
+import {createPortal} from 'react-dom';
 import { navigation as defaultNavigation } from './navigation';
 import { pageHref } from './pageInfo';
 import './header.css';
@@ -20,6 +21,8 @@ export default function Header({ page = 'home' } = {}) {
   const {user,loading}=useMember();
   const [drawerMode, setDrawerMode] = useState(() => typeof window !== 'undefined' && window.matchMedia(drawerQuery).matches);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerHost,setDrawerHost]=useState(null);
+  useEffect(()=>setDrawerHost(document.getElementById('top')),[]);
   const [accountOpen,setAccountOpen]=useState(false);
   const [activePanel, setActivePanel] = useState(null);
   const [activeGroup, setActiveGroup] = useState(null);
@@ -100,7 +103,7 @@ export default function Header({ page = 'home' } = {}) {
     setDrawerOpen(false);
     setActivePanel(null);
     setActiveGroup(null);
-    if (restoreFocus) toggleRef.current?.focus();
+    if (restoreFocus) toggleRef.current?.focus({preventScroll:true});
   };
 
   const followLink = (href, event) => {
@@ -168,7 +171,7 @@ export default function Header({ page = 'home' } = {}) {
       }
     };
     const onOutsidePointer = event => {
-      if (!headerRef.current?.contains(event.target)) {
+      if (!headerRef.current?.contains(event.target) && !navRef.current?.contains(event.target)) {
         clearHoverTimer();
         setActivePanel(null);
       }
@@ -189,7 +192,7 @@ export default function Header({ page = 'home' } = {}) {
     const background = [...document.querySelectorAll('main, footer, .experience-tools')].filter(element => !element.contains(headerRef.current));
     const originalInert = background.map(element => element.inert);
     background.forEach(element => { element.inert = true; });
-    const firstFrame = requestAnimationFrame(() => closeRef.current?.focus());
+    const firstFrame = requestAnimationFrame(() => closeRef.current?.focus({preventScroll:true}));
     const trapFocus = event => {
       if (event.key !== 'Tab') return;
       const controls = [...navRef.current.querySelectorAll('a, button')].filter(element => element.getClientRects().length > 0 && !element.closest('[hidden]'));
@@ -220,18 +223,12 @@ export default function Header({ page = 'home' } = {}) {
     clearHoverTimer();
     setActivePanel(item.id);
     requestAnimationFrame(() => {
-      const links = headerRef.current.querySelectorAll(`#creative-menu-${item.id} ${drawerMode && item.id === 'capabilities' ? '.creative-nav-group-toggle' : 'a'}`);
+      const links = navRef.current.querySelectorAll(`#creative-menu-${item.id} ${drawerMode && item.id === 'capabilities' ? '.creative-nav-group-toggle' : 'a'}`);
       (event.key === 'ArrowUp' ? links[links.length - 1] : links[0])?.focus();
     });
   };
 
-  return <>
-    <header ref={headerRef} className="creative-header" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel && !accountOpen} onFocusCapture={() => setHidden(false)}>
-      <div className="creative-header-inner">
-        <a className="creative-header-brand" href="/" onClick={event => followLink('/', event)} aria-label="Kemsor Studios home">
-          <picture>{!getSiteModule('branding',{}).logo&&<source srcSet="/assets/kemsor-logo.webp" type="image/webp" />}<StudioImage mediaSlot="Header-1" src={getSiteModule('branding',{}).logo||'/assets/kemsor-logo.svg'} alt={getSiteModule('branding',{}).alt||'Kemsor Studios'} width="3650" height="3300" loading="eager" decoding="async" /></picture>
-        </a>
-        <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerOpen} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
+  const navigation = <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerOpen} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
           <div className="creative-nav-drawer-head"><span>{cmsText("Header","bb1ee5567870d5af","THE STUDIO INDEX")}</span><button ref={closeRef} type="button" onClick={() => closeDrawer()} aria-label="Close navigation">{cmsText("Header","6b80cfee72cc8502","Close ")}<span aria-hidden="true"><SiteIcon name="close" size={16} /></span></button></div>
           <div ref={drawerBodyRef} className="creative-nav-drawer-body" data-lenis-prevent>
           <div className="creative-nav-list">
@@ -268,7 +265,15 @@ export default function Header({ page = 'home' } = {}) {
           </div>
           <p className="creative-nav-drawer-foot">{cmsText("Header","9503bc8f674cd51d","Film. Series. Documentaries.")}<br />{cmsText("Header","3c8d270e69ad31f5","Good stories start with a conversation.")}</p>
           </div>
-        </nav>
+        </nav>;
+
+  return <>
+    <header ref={headerRef} className="creative-header" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel && !accountOpen} onFocusCapture={() => setHidden(false)}>
+      <div className="creative-header-inner">
+        <a className="creative-header-brand" href="/" onClick={event => followLink('/', event)} aria-label="Kemsor Studios home">
+          <picture>{!getSiteModule('branding',{}).logo&&<source srcSet="/assets/kemsor-logo.webp" type="image/webp" />}<StudioImage mediaSlot="Header-1" src={getSiteModule('branding',{}).logo||'/assets/kemsor-logo.svg'} alt={getSiteModule('branding',{}).alt||'Kemsor Studios'} width="3650" height="3300" loading="eager" decoding="async" /></picture>
+        </a>
+        {!drawerMode&&navigation}
         <div className="creative-header-controls">
           {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">{cmsText("Header","69ea66274b2abbc9","Script to Production")}</b> <span aria-hidden="true"><SiteIcon name="script" size={16} /></span></a>}
           <div className="header-account-links" aria-label="Account links"><AccountDropdown onOpenChange={setAccountOpen}/></div>
@@ -278,6 +283,7 @@ export default function Header({ page = 'home' } = {}) {
         </div>
       </div>
     </header>
-    {drawerOpen && <button type="button" className="creative-nav-backdrop" aria-label="Close navigation" tabIndex={-1} onClick={() => closeDrawer()} />}
+    {drawerMode&&drawerHost&&createPortal(<div className="creative-header creative-drawer-layer" data-page={page} data-overlay="true" data-drawer-open={drawerOpen} onFocusCapture={()=>setHidden(false)}>{navigation}</div>,drawerHost)}
+    {drawerMode&&<button type="button" className="creative-nav-backdrop" data-open={drawerOpen} aria-label="Close navigation backdrop" aria-hidden={!drawerOpen} disabled={!drawerOpen} tabIndex={-1} onClick={() => closeDrawer()} />}
   </>;
 }
