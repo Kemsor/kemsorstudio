@@ -1,0 +1,18 @@
+.legal-centre-page .ep-hero-heading{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:center;gap:clamp(28px,5vw,72px)}
+.legal-centre-page .ep-hero-copy{max-width:480px}
+.legal-centre-section{box-sizing:border-box;width:calc(100% - var(--inner-content-gutter)*2);max-width:var(--inner-content-width);margin-inline:auto;padding-block:clamp(40px,6vw,80px);scroll-margin-top:110px;min-width:0}
+.legal-centre-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:32px}
+.legal-centre-heading>p{max-width:360px;margin:0;color:var(--muted);line-height:1.75}
+.legal-centre-section h2{font-size:clamp(30px,3.5vw,46px);line-height:1.15;margin:0 0 16px}
+.legal-policy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.legal-policy-card{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(24px,3vw,40px);border:1px solid #e4ded5;border-radius:12px;background:#faf9f6;min-width:0;overflow-wrap:anywhere}
+.legal-policy-icon{display:grid;place-items:center;width:56px;height:56px;background:#eee8dd;color:#805d37;border-radius:10px;margin-bottom:28px}
+.legal-policy-card h3{font-size:clamp(24px,2.5vw,32px);line-height:1.2;margin:0 0 16px}
+.legal-policy-card>p{font-size:16px;line-height:1.75;color:var(--muted);margin:0 0 28px;max-width:52ch}
+.legal-policy-card .line-link{margin-top:auto}
+.legal-enquiries{display:flex;justify-content:space-between;align-items:center;gap:32px;border-top:1px solid #e4ded5}
+.legal-enquiries>div{max-width:620px}
+.legal-enquiries p{line-height:1.75;color:var(--muted)}
+.legal-enquiries>.creative-cta{flex-shrink:0}
+@media(max-width:800px){.legal-centre-page .ep-hero-heading{grid-template-columns:1fr}.legal-centre-heading{flex-direction:column;align-items:flex-start}.legal-enquiries{align-items:flex-start;flex-direction:column}}
+@media(max-width:600px){.legal-policy-grid{grid-template-columns:1fr;gap:20px}}

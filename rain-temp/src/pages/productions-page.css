@@ -1,4 +1,50 @@
 .productions-page{--page-gutter:clamp(20px,5.5vw,88px);--produce-accent:#686868;padding-top:0;background:#fff;color:#282828}
+html body #top.creative-site #main.inner-page .productions-page .productions-strengths h3{
+ font-size:var(--inner-type-card)!important;font-weight:600!important;line-height:1.45!important;margin:0 0 12px;
+}
+@media(min-width:601px){
+ html body #top.creative-site #main.inner-page .productions-page .productions-section[id]{
+  scroll-margin-top:calc(var(--inner-nav-bottom,var(--site-header-height,76px)) + 100px);
+ }
+}
+/* Compact slate controls; status pills stay on one line and swipe on small screens. */
+html body #top.creative-site #main.inner-page .productions-page .productions-filters{
+ display:flex;align-items:flex-start;gap:18px;padding:16px 18px!important;
+ background:#faf7f0!important;border:1px solid #e6dfd4!important;border-radius:12px;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters fieldset{
+ flex:1;min-width:0;max-width:100%;padding:0!important;margin:0;border:0;background:transparent!important;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters fieldset>div{
+ display:flex;flex-wrap:nowrap;gap:6px;margin-top:8px;padding:3px;
+ overflow-x:auto;scrollbar-width:thin;overscroll-behavior-x:contain;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters button{
+ display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;min-height:36px;
+ padding:8px 11px!important;border:1px solid #ded5c6!important;border-radius:999px;white-space:nowrap;
+ background:#fff!important;color:#514638!important;font:500 11px/1.5 Inter,Arial,sans-serif;
+ cursor:pointer;transition:background .2s,border-color .2s;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters button:is(:hover,:focus-visible){
+ background:#f2e8d7!important;border-color:#b99a6a!important;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters button[aria-pressed=true]{
+ background:var(--header-cta-bg,#e5b765)!important;border-color:var(--header-cta-bg,#e5b765)!important;color:#171109!important;
+}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters button:focus-visible{outline:2px solid #95764a;outline-offset:3px}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters>label{flex:0 0 168px}
+html body #top.creative-site #main.inner-page .productions-page .productions-filters select{
+ width:100%;min-width:0!important;height:36px!important;min-height:36px!important;margin-top:11px;
+ padding:6px 30px 6px 12px!important;font-size:11px!important;
+}
+@media(max-width:1100px){
+ html body #top.creative-site #main.inner-page .productions-page .productions-filters>label{flex:auto;width:100%}
+}
+@media(max-width:600px){
+ html body #top.creative-site #main.inner-page .productions-page .productions-filters{padding:14px!important;gap:14px}
+ html body #top.creative-site #main.inner-page .productions-page .productions-filters fieldset{width:100%;max-width:100%}
+ html body #top.creative-site #main.inner-page .productions-page .productions-filters button{min-height:44px;padding:10px 14px!important}
+}
 .productions-page .productions-section{max-width:1440px;margin:auto;padding:70px var(--page-gutter);border-top:1px solid #28282826;position:relative;scroll-margin-top:110px}
 html .creative-site #main .productions-page h2{font:500 clamp(27px,3vw,40px)/1.2 Manrope,sans-serif;letter-spacing:-.035em;margin-bottom:28px}
 html .creative-site #main .productions-page h3{font:500 20px/1.4 Manrope,sans-serif;letter-spacing:-.025em}

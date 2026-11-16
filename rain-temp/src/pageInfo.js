@@ -1,4 +1,6 @@
 export const pageInfo = {
+ 'career-application':{label:'Career application',title:'Career Application | Kemsor Studios',description:'Apply for a role or internship at Kemsor Studios. Send your details, portfolio and CV.'},
+ 'latest-openings':{label:'Latest openings',title:'Latest Openings | Kemsor Studios',description:'Browse current studio roles, project opportunities and internships at Kemsor Studios. Read role details and apply.'},
  leadership:{label:'Leadership',title:'Leadership | Kemsor Studios',description:'Meet Dev Raturi, Founder of KEMSOR Studios. Actor and storyteller from the hills of Uttarakhand.'},
  'sitemap':{label:'Sitemap',title:'Sitemap | Kemsor Studios',description:'Browse all Kemsor Studios pages, including productions, capabilities, talent, studio information and policies.'},
  'privacy-policy':{label:'Privacy Policy',title:'Privacy Policy | Kemsor Studios',description:'Privacy Policy of KEMSOR Studios Private Limited. Effective 1 November 2026. Information collection, processing, individual rights and privacy contacts.'},

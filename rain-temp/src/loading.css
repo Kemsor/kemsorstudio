@@ -1,5 +1,5 @@
-.opening-loader{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;justify-content:space-between;padding:36px var(--page-gutter,5.2vw);background:#101010;color:#fff;overflow:hidden;isolation:isolate;transition:opacity .2s,transform .25s cubic-bezier(.76,0,.24,1)}
-.opening-loader::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(transparent,transparent),radial-gradient(ellipse at 50% 45%,#ffffff06,transparent 65%)}
+.opening-loader{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;justify-content:space-between;padding:36px var(--page-gutter,5.2vw);background:#171109;color:#fff;overflow:hidden;isolation:isolate;transition:opacity .2s,transform .25s cubic-bezier(.76,0,.24,1)}
+.opening-loader::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:none}
 .opening-center{width:min(100%,320px);margin:auto;text-align:center}
 .opening-word{display:flex;align-items:center;justify-content:center;height:240px;font-family:var(--display,'Manrope',Arial,sans-serif);font-size:clamp(120px,18vw,210px);font-weight:600;line-height:1}
 .opening-word>span{display:block;animation:opening-letter-drop .12s cubic-bezier(.22,.75,.22,1) both;background:none;color:#fff}

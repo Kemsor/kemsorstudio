@@ -14,7 +14,17 @@ export function website(directory=websiteDirectory) {
     res.setHeader('Cache-Control',file.endsWith('.html')?'no-cache':'public, max-age=604800');
   }});
   return (req,res,next)=>{
+    if(/^\/(?:admin|api|login|join|profile)(?:\/|$)/.test(req.path))res.setHeader('X-Robots-Tag','noindex, follow');
     if(/^\/(?:api|admin|media|health)(?:\/|$)/.test(req.path))return next();
+    if(['GET','HEAD'].includes(req.method)){
+      const query=req.originalUrl.includes('?')?req.originalUrl.slice(req.originalUrl.indexOf('?')):'';
+      const legacy=req.path.match(/^\/(projects|news)(?:\/|\/index\.html)?$/);
+      if(legacy)return res.redirect(301,`/${legacy[1]==='projects'?'productions':'press-media'}/${query}`);
+      if(req.path.endsWith('/index.html')){
+        const destination=req.path.slice(0,-'index.html'.length);
+        if(existsSync(path.join(directory,`.${req.path}`)))return res.redirect(301,destination+query);
+      }
+    }
     return files(req,res,next);
   };
 }

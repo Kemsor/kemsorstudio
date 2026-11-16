@@ -235,15 +235,15 @@ html body #top.creative-site.site-page-home[data-home-colors] #main #services .d
  color:#ededed;-webkit-text-fill-color:#ededed;
 }
 
-/* Inset the opening film below the navigation, with a quiet white frame. */
+/* Edge-to-edge opening footage directly below the fixed navigation. */
 html body #top.creative-site.site-page-home[data-home-colors] #main>section#home.immersive-opening{
- --hero-frame:clamp(12px,1.65vw,28px);
- margin:calc(var(--site-header-height,100px) + 24px) var(--hero-frame) 0;
- border-radius:clamp(20px,2vw,32px);
+ margin:76px 0 0;
+ width:100%;max-width:none;
+ border-radius:0;
  overflow:hidden;
 }
 html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-screen{
- height:calc(100svh - var(--site-header-height,100px) - 40px);
+ height:calc(100svh - 76px);
  min-height:640px;
  padding-top:64px;
 }
@@ -255,8 +255,8 @@ html body #top.creative-site.site-page-home[data-home-colors] .creative-header[d
  color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
 }
 @media(max-width:600px){
- html body #top.creative-site.site-page-home[data-home-colors] #main>section#home.immersive-opening{margin-top:92px;border-radius:20px}
- html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-screen{height:auto;min-height:620px;padding-top:56px;padding-inline:20px}
+ html body #top.creative-site.site-page-home[data-home-colors] #main>section#home.immersive-opening{margin:68px 0 0;border-radius:0}
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-screen{height:auto;min-height:max(620px,calc(100svh - 68px));padding-top:56px;padding-inline:20px}
  html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-playback-tools{right:20px}
 }
 
@@ -340,4 +340,9 @@ html body #top.creative-site.site-page-home #main #services .ds-intro-band .ds-h
  html body #top.creative-site.site-page-home #main #services .ds-heading-row>p{
   margin:0;max-width:none;font-size:13px!important;line-height:1.7;text-align:left;
  }
+}
+
+@media(min-width:601px) and (max-width:1100px){
+ html body #top.creative-site.site-page-home[data-home-colors] #main>section#home.immersive-opening{margin-top:68px}
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-screen{height:calc(100svh - 68px)}
 }

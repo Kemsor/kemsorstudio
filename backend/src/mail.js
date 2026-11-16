@@ -1,3 +1,4 @@
+import {castingMailHtml} from './casting-mail.js';
 import nodemailer from 'nodemailer';
 import {categories} from './enquiry-options.js';
 import { confirmationHtml } from './email-templates.js';
@@ -113,7 +114,13 @@ export async function deliverReceipt(db, transport, from) {
   const mail=(await rows(db,'SELECT * FROM cms_email_outbox WHERE claim_token=?',[claim]))[0];
   try {
     if(mail.subscription_id){const [subscription]=await rows(db,'SELECT status,topics FROM cms_news_subscriptions WHERE id=?',[mail.subscription_id]);const [campaign]=await rows(db,'SELECT c.status,c.topics,e.status AS news_status,(e.published_at<=UTC_TIMESTAMP()) AS live FROM cms_news_campaigns c JOIN cms_entries e ON e.id=c.news_id WHERE c.id=?',[mail.campaign_id]);if(subscription?.status!=='active'||campaign?.status!=='queued'||campaign.news_status!=='published'||!campaign.live||!json(subscription.topics).some(topic=>json(campaign.topics).includes(topic))){await rows(db,"UPDATE cms_email_outbox SET status='cancelled',claim_token=NULL,last_error='Subscriber or campaign no longer eligible' WHERE id=? AND claim_token=?",[mail.id,claim]);return true;}}
-    const result=await transport.sendMail({from,to:mail.recipient,subject:mail.subject,text:mail.body,html:confirmationHtml({reference:mail.receipt_key,body:mail.body})});
+    if(mail.casting_application_id){
+      const application=(await rows(db,'SELECT a.status,t.status AS account_status FROM casting_applications a JOIN talent_accounts t ON t.id=a.account_id WHERE a.id=?',[mail.casting_application_id]))[0];
+      const event=mail.casting_event_id?(await rows(db,'SELECT status FROM casting_application_events WHERE id=? AND application_id=?',[mail.casting_event_id,mail.casting_application_id]))[0]:null;
+      const superseded=event?(await rows(db,'SELECT id FROM casting_application_events WHERE application_id=? AND id>? AND status<>? LIMIT 1',[mail.casting_application_id,mail.casting_event_id,event.status])).length:false;
+      if(!application||application.account_status==='suspended'||(mail.casting_event_id&&(!event||application.status!==event.status||superseded))){await rows(db,"UPDATE cms_email_outbox SET status='cancelled',claim_token=NULL,last_error='Casting application decision is no longer current or account unavailable.' WHERE id=? AND claim_token=?",[mail.id,claim]);return true;}
+    }
+    const result=await transport.sendMail({from,to:mail.recipient,subject:mail.subject,text:mail.body,html:castingMailHtml(mail)||confirmationHtml({reference:mail.receipt_key,body:mail.body})});
     if(result?.rejected?.length && !result.accepted?.length)throw Object.assign(new Error('Recipient rejected'),{code:'EENVELOPE'});
     const messageId=typeof result?.messageId==='string'?result.messageId.slice(0,255):null;
     await rows(db,"UPDATE cms_email_outbox SET status='sent',sent_at=UTC_TIMESTAMP(),claim_token=NULL,last_error=NULL,provider_message_id=? WHERE id=? AND claim_token=?",[messageId,mail.id,claim]);

@@ -3,18 +3,20 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page{
  --inner-heading-ink:#171717;--inner-heading-accent:#965715;
  --inner-type-page:clamp(30px,3vw,42px);
  --inner-type-section:clamp(24px,2.25vw,32px);
- --inner-type-card:clamp(18px,1.6vw,22px);
- --inner-type-detail:clamp(16px,1.4vw,18px);
+ --inner-type-card:15px;
+ --inner-type-detail:14px;
+ --inner-card-ink:#57351f;
 }
 @media(max-width:600px){
  html body #top.creative-site:not(.site-page-home) #main.inner-page{
   --inner-type-page:clamp(24px,6.8vw,28px);
   --inner-type-section:clamp(20px,5.6vw,24px);
-  --inner-type-card:clamp(18px,5vw,20px);
+  --inner-type-card:15px;
  }
 }
-html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero,.auth-story,.directory-discovery-header,.visual-chapter-dark,.finance-audience-investors,.engagement-ground-cards>article){
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero,.auth-story,.directory-discovery-header,.visual-chapter-dark,.finance-audience-investors,.engagement-ground-cards>article,.sitemap-start){
  --inner-heading-ink:#fff;--inner-heading-accent:#f0b858;
+ --inner-card-ink:#f0d2a3;
 }
 /* Ledger panels have dark surfaces, including headings inside accordion rows. */
 html body #top.creative-site:not(.site-page-home) #main.inner-page .studio-ledger{
@@ -56,6 +58,7 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page .distribution
 /* White diagrams and paper cards inside dark hero bands retain dark ink. */
 html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.ep-file-card,.ep-mobile-study-content,.feature-planner,.series-writers-board,.documentary-journal,.post-edit-timeline,.distribution-board,.release-marquee,.studio-frame-location,.finance-pack){
  --inner-heading-ink:#171717;--inner-heading-accent:#965715;
+ --inner-card-ink:#57351f;
 }
 html body #top.creative-site:not(.site-page-home) #main.inner-page :is(h1,h2,h3,h4){
  font-family:Manrope,Inter,sans-serif!important;font-weight:600!important;
@@ -70,10 +73,12 @@ html body #top.creative-site:not(.site-page-home) #main#main.inner-page h2{
  font-size:var(--inner-type-section)!important;line-height:1.16!important;
 }
 html body #top.creative-site:not(.site-page-home) #main#main.inner-page h3{
- font-size:var(--inner-type-card)!important;line-height:1.25!important;
+ font-size:var(--inner-type-card)!important;line-height:1.45!important;font-weight:600!important;
+ color:var(--inner-card-ink)!important;-webkit-text-fill-color:var(--inner-card-ink)!important;
 }
-html body #top.creative-site:not(.site-page-home) #main#main.inner-page h4{
- font-size:var(--inner-type-detail)!important;line-height:1.3!important;
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(h4,h5,h6){
+ font-size:var(--inner-type-detail)!important;line-height:1.45!important;font-weight:600!important;
+ color:var(--inner-card-ink)!important;-webkit-text-fill-color:var(--inner-card-ink)!important;
 }
 html body #top.creative-site:not(.site-page-home) #main.inner-page :is(h1,h2,h3,h4)>:is(span,em){font-size:inherit!important;line-height:inherit!important}
 html body #top.creative-site:not(.site-page-home) #main.inner-page :is(h1,h2,h3,h4) :is(.heading-accent,em),
@@ -84,12 +89,15 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page h1>span .text
  color:var(--inner-heading-accent)!important;-webkit-text-fill-color:var(--inner-heading-accent)!important;
 }
 /* Supporting hero captions and compact card titles sit below section headings. */
-html body #top.creative-site:not(.site-page-home) #main#main.inner-page .inner-hero h2,
-html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.blog-card,.newsroom-story,.career-listing,.sitemap-start,.auth-panel,.directory-results-heading,.directory-bottom-cta,.professional-discovery) h2{
- font-size:var(--inner-type-card)!important;line-height:1.25!important;
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .inner-hero h2{
+ font-size:var(--inner-accent,24px)!important;line-height:1.25!important;
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.blog-card,.newsroom-story,.career-listing,.sitemap-start,.directory-results-heading,.directory-bottom-cta,.professional-discovery,.feature-stage-panel,.series-writers-board,.documentary-journal,.post-edit-timeline,.finance-pack,.sitemap-card,.cms-entry,.production-card-copy,.tool-preview) h2{
+ font-size:var(--inner-type-card)!important;line-height:1.35!important;font-weight:600!important;
+ color:var(--inner-card-ink)!important;-webkit-text-fill-color:var(--inner-card-ink)!important;
 }
 html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.directory-card,.produce-service,.ep-file-card,.finance-pack,.sitemap-card) h3{
- font-size:var(--inner-type-card)!important;line-height:1.3!important;
+ font-size:var(--inner-type-card)!important;line-height:1.45!important;
 }
 /* Legal documents keep a comfortable reading scale for numbered sections. */
 html body #top.creative-site:not(.site-page-home) #main#main.inner-page .privacy-policy-copy h2{

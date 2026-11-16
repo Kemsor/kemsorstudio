@@ -1824,5 +1824,38 @@
       "srcSet": "/assets/home-gallery/photo-1621976498727-9e5d56476276-640.webp 640w, /assets/home-gallery/photo-1621976498727-9e5d56476276-960.webp 960w, /assets/home-gallery/photo-1621976498727-9e5d56476276-1600.webp 1600w",
       "alt": "Dance ensemble performing under purple and red stage lights"
     }
+  },
+  "/how-we-work/|HowWeWorkPage-engagement-1|/assets/supplied/collection/script-reading": {
+    "id": "35e7c8f26c8528e8",
+    "page": "/how-we-work/",
+    "slot": "HowWeWorkPage-engagement-1",
+    "original": "/assets/supplied/collection/script-reading",
+    "value": {
+      "src": "/assets/supplied/collection/script-reading-960.webp",
+      "srcSet": "/assets/supplied/collection/script-reading-640.webp 640w, /assets/supplied/collection/script-reading-960.webp 960w, /assets/supplied/collection/script-reading-1600.webp 1600w",
+      "alt": ""
+    }
+  },
+  "/how-we-work/|HowWeWorkPage-engagement-2|/assets/supplied/collection/crew-discussion": {
+    "id": "5725e5b8061428df",
+    "page": "/how-we-work/",
+    "slot": "HowWeWorkPage-engagement-2",
+    "original": "/assets/supplied/collection/crew-discussion",
+    "value": {
+      "src": "/assets/supplied/collection/crew-discussion-960.webp",
+      "srcSet": "/assets/supplied/collection/crew-discussion-640.webp 640w, /assets/supplied/collection/crew-discussion-960.webp 960w, /assets/supplied/collection/crew-discussion-1600.webp 1600w",
+      "alt": ""
+    }
+  },
+  "/how-we-work/|HowWeWorkPage-engagement-3|/assets/supplied/collection/projector-beam": {
+    "id": "05532b07c0b68869",
+    "page": "/how-we-work/",
+    "slot": "HowWeWorkPage-engagement-3",
+    "original": "/assets/supplied/collection/projector-beam",
+    "value": {
+      "src": "/assets/supplied/collection/projector-beam-960.webp",
+      "srcSet": "/assets/supplied/collection/projector-beam-640.webp 640w, /assets/supplied/collection/projector-beam-960.webp 960w, /assets/supplied/collection/projector-beam-1600.webp 1600w",
+      "alt": ""
+    }
   }
 }

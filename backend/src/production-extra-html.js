@@ -1,0 +1,10 @@
+const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const link=(url,label)=>url?`<a href="${escape(url)}" target="_blank" rel="noopener noreferrer">${escape(label)}</a>`:'';
+export function productionExtraHtml(meta,{staff=false}={}){
+ const rights=[['Rights holder',meta.rights_holder],['Availability',meta.rights_status?.replaceAll('_',' ')],['Territories',meta.rights_territories],['Rights statement',meta.rights_summary],...(staff?[['Private rights notes',meta.rights_notes]]:[])].filter(([,value])=>value);
+ return (rights.length?`<section class="production-rights"><h2>Rights information</h2><dl>${rights.map(([label,value])=>`<dt>${label}</dt><dd>${escape(value)}</dd>`).join('')}</dl></section>`:'')+
+ (meta.platform_links?.length?`<section><h2>Watch and explore</h2><ul>${meta.platform_links.map(item=>`<li>${link(item.url,item.label)} ${escape(item.kind)} ${escape(item.territories)}</li>`).join('')}</ul></section>`:'')+
+ (meta.production_media?.length?`<section><h2>Production media</h2>${meta.production_media.map(item=>`<figure>${item.type==='poster'?`<img src="${escape(item.url)}" alt="${escape(item.alt)}" loading="lazy">`:link(item.url,item.title)}<figcaption>${escape(item.type.replaceAll('_',' '))} — ${escape(item.title)}</figcaption></figure>`).join('')}</section>`:'')+
+ (meta.awards?.length?`<section><h2>Awards and festival selections</h2><ul>${meta.awards.map(item=>`<li><strong>${escape(item.event)}</strong> — ${escape(item.year)} · ${escape(item.outcome.replaceAll('_',' '))} · ${escape(item.category)} ${escape(item.recipient)} ${link(item.source_url,'Source')}</li>`).join('')}</ul></section>`:'')+
+ (meta.screenings?.length?`<section><h2>Premieres and screenings</h2><ul>${meta.screenings.map(item=>`<li><strong>${escape(item.event)}</strong> — ${escape(item.type)} · <time datetime="${escape(item.date)}">${escape(item.date)}</time> · ${escape([item.venue,item.city,item.country].filter(Boolean).join(', '))}<p>${escape(item.notes)}</p>${link(item.source_url,'Event information')}</li>`).join('')}</ul></section>`:'');
+}

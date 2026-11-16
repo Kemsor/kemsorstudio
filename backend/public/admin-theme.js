@@ -6,7 +6,7 @@
   const preferred = () => ['light', 'dark'].includes(read()) ? read() : system.matches ? 'dark' : 'light';
   const apply = theme => {
     root.dataset.adminTheme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#26232e' : '#ffffff');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#ffffff');
     for (const control of document.querySelectorAll('.admin-theme-switch')) control.checked = theme === 'dark';
   };
   // Runs before the stylesheets so a saved dark theme does not flash white.

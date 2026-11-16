@@ -7,3 +7,8 @@
 
 .campaign-message{white-space:pre-line}
 .library-video{display:block;width:100%;aspect-ratio:16/9;background:#181818}.library-file-link{display:grid;place-content:center;gap:16px;min-height:180px;text-align:center;background:linear-gradient(135deg,#9764ed18,#35bcb818)}.library-file-link strong{font-size:32px}.library-card-copy label{margin-top:16px}.library-card-copy input[readonly]{font-size:11px}
+/* Uploaded previews must fit the editor's single-column mobile grid. */
+.editor .field-grid>.wide,.media-upload-stage,.media-upload-stage>*{min-width:0}
+.media-upload-stage{grid-template-columns:minmax(0,1fr)}
+.media-upload-stage input,.media-upload-stage .media-upload-preview{max-width:100%}
+.media-upload-stage .media-upload-preview{width:min(320px,100%)}

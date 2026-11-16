@@ -2,6 +2,7 @@ import slots from '../../shared/site-image-slots.json';
 import {getSiteModule} from './siteContent';
 import React from 'react';
 import placements from './media-placements.json';
+import retiredImages from './retired-images.json';
 import optimizedImages from './optimized-images.json';
 import {optimizedImage} from './image-delivery';
 import './studio-image.css';
@@ -25,7 +26,10 @@ export default function StudioImage({mediaSlot,src,srcSet,alt,...props}){
 
  const audit={'data-media-slot':mediaSlot,'data-media-original':src};
  if(replacement===null)return <span {...audit} className={`studio-image-needed ${props.className||''}`} role="img" aria-label="Provide image"><span>Provide image</span></span>;
+ // A retired CMS URL must never reintroduce removed artwork.
+ if(retiredImages.includes(replacement?.src))replacement=getImagePlacement(mediaSlot,src);
  const resolvedSrc=replacement?.src||src;
+ if(retiredImages.includes(resolvedSrc))return null;
  const optimized=optimizedImage(resolvedSrc,optimizedImages,import.meta.env.BASE_URL);
  const resolvedSrcSet=optimized?.srcSet||(replacement?replacement.srcSet:srcSet);
  const eager=props.loading==='eager'||props.fetchPriority==='high';

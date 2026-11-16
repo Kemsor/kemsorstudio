@@ -1,0 +1,42 @@
+/* Existing hero photos become a faded right-hand background, within the same rails. */
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background{
+ position:relative!important;isolation:isolate;overflow:hidden!important;
+}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background:before{
+ content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:linear-gradient(90deg,#211b29 0%,#211b29fa 24%,#1b1716d9 43%,#1b171663 65%,#30231526 100%),linear-gradient(0deg,#1b1716a6,transparent 50%),var(--hero-background-photo) right center/75% auto no-repeat;
+}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background>.ep-width,
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background>.pl-width,
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background>.fl-width,
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background>.studio-width{position:relative!important;z-index:1;display:block!important;padding-inline:32px!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .hero-background-source{display:none!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .hero-background-flat{display:contents!important;background:none!important;border:0!important;box-shadow:none!important;transform:none!important;padding:0!important;margin:0!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.pl-hero-heading,.pl-hero-brief,.fl-hero-copy,.ep-hero-heading,.studio-opening-copy){position:relative;z-index:1;width:62%!important;max-width:700px;display:block!important;margin:0!important;min-width:0}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.pl-hero-brief,.fl-hero-copy,.ep-hero-copy){padding:0!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .pl-hero-brief{margin-top:14px!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .ep-hero-heading{margin-bottom:14px!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.ep-hero-heading,.studio-opening-copy){grid-template-columns:1fr!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.pl-frame,.ep-corner,.ep-focus,.ep-frame-tab,.studio-frame-count){display:none!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.ep-hero-photo,.studio-frame-main,.studio-frame-location,.india-hero-visual)>figcaption{position:relative;z-index:1;display:flex!important;gap:14px;justify-content:flex-end;background:none!important;border:0!important;margin-top:18px!important;font-size:9px!important;color:#e5dccb!important;-webkit-text-fill-color:#e5dccb!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.ep-hero-photo,.studio-frame-main,.studio-frame-location,.india-hero-visual)>figcaption *{color:#e5dccb!important;-webkit-text-fill-color:#e5dccb!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.pl-hero-foot,.ep-hero-foot,.studio-docket){position:relative;z-index:1;width:100%;margin-top:18px!important;text-shadow:0 1px 8px #0008}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .produce-actions{justify-content:flex-start}
+/* India has a direct visual and copy grid instead of a shared layout wrapper. */
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background.india-hero{display:block!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background.india-hero .india-hero-grid{position:relative;z-index:1;width:62%;display:block!important}
+/* Remove the trial's absolutely positioned photo now that the backdrop is shared. */
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .pl-panorama.hero-background-flat{position:static!important;width:auto!important;height:auto!important;opacity:1;mask-image:none;-webkit-mask-image:none}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .pl-panorama.hero-background-flat:after{display:none}
+@media(max-width:900px){
+ html body #top.creative-site #main#main.inner-page .inner-hero-photo-background:before{background:linear-gradient(90deg,#211b29f5,#1b1716cf 55%,#302315a6),var(--hero-background-photo) center/cover no-repeat}
+ html body #top.creative-site #main#main.inner-page .inner-hero-photo-background :is(.pl-hero-heading,.pl-hero-brief,.fl-hero-copy,.ep-hero-heading,.studio-opening-copy),html body #top.creative-site #main#main.inner-page .inner-hero-photo-background.india-hero .india-hero-grid{width:100%!important;max-width:650px}
+}
+@media(max-width:600px){html body #top.creative-site #main#main.inner-page .inner-hero-photo-background>:is(.ep-width,.pl-width,.fl-width,.studio-width){padding-inline:24px!important}}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background> *{position:relative;z-index:1}
+
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .hero-background-flat:before,
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .hero-background-flat:after{display:none!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .ep-mobile-study{position:relative;z-index:1;background:#17130f80!important;border:1px solid #ffffff30!important;border-radius:10px}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .ep-mobile-study summary{color:#f4efe7!important;-webkit-text-fill-color:#f4efe7!important}
+html body #top.creative-site #main#main.inner-page .inner-hero-photo-background .ep-mobile-study-content{background:#fdfbf8!important;border-radius:0 0 10px 10px}

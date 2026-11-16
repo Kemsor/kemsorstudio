@@ -85,7 +85,7 @@ function FilmCard({ film, index, paused, automaticBlocked, takePlayback, onEnlar
         {status === 'loading' && <TaskLoader overlay progress={bufferProgress} label="Preparing preview" />}
         <span className="film-preview-shade" aria-hidden="true" />
 
-        <button className="film-enlarge" type="button" onClick={event => onEnlarge(film, event.currentTarget)} aria-label={`Enlarge ${film.title}`} aria-describedby={`film-preview-status-${film.id}`} title={`Enlarge ${film.title}`}><span className="film-play-symbol" aria-hidden="true"><SiteIcon name="play" /></span><span className="film-watch-label">Watch film <span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span></span></button>
+        <button className="film-enlarge" type="button" onClick={event => onEnlarge(film, event.currentTarget)} aria-label={`Enlarge ${film.title}`} aria-describedby={`film-preview-status-${film.id}`} title={`Enlarge ${film.title}`}><span className="film-play-symbol" aria-hidden="true"><SiteIcon name="play" /></span><span className="film-watch-label">Watch film <span aria-hidden="true"><SiteIcon name="arrow" size={16} /></span></span></button>
       </div>
       <div className="film-desk-card-caption"><h3>{film.title}</h3><span>{durationLabel(film.duration)}</span></div>
       <p className="film-desk-description">{film.description}</p>

@@ -1,0 +1,38 @@
+[
+  {
+    "source": "pexels-rdne-8197232.jpg",
+    "asset": "sound-production-workspace",
+    "page": "/finance/finance-structuring/",
+    "slot": "FinanceStructuringPage-/assets/stills/work-camera-crew-960.webp"
+  },
+  {
+    "source": "pexels-silverkblack-39190690.jpg",
+    "asset": "creative-project-planning",
+    "page": "/finance/finance-structuring/",
+    "slot": "FinanceStructuringPage-plan"
+  },
+  {
+    "source": "pexels-ron-lach-8088376.jpg",
+    "asset": "director-studio-team",
+    "page": "/finance/co-production/",
+    "slot": "CoProductionPage-brief"
+  },
+  {
+    "source": "rafi-mohammed-L70rE9UChmI-unsplash.jpg",
+    "asset": "cinema-projection-room",
+    "page": "/finance/co-production/",
+    "slot": "CoProductionPage-role-2"
+  },
+  {
+    "source": "pexels-wolrider-27970468.jpg",
+    "asset": "blue-studio-camera-session",
+    "page": "/finance/international-co-productions/",
+    "slot": "InternationalCoProductionsPage-direction-0"
+  },
+  {
+    "source": "pexels-weavehall-collective-746895245-18770991.jpg",
+    "asset": "voice-recording-session",
+    "page": "/finance/international-co-productions/",
+    "slot": "InternationalCoProductionsPage-communication"
+  }
+]

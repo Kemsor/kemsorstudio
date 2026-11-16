@@ -1,3 +1,5 @@
+import {personSeo} from './personSeo';
+import {productionSeo} from './productionSeo';
 import {legalHref,legalSlug} from './LegalDocument';
 import React, { useEffect } from 'react';
 import { useCms } from './CmsContent';
@@ -12,7 +14,9 @@ export default function SeoMetadata({ page }) {
  const title = documentInfo?.title ? `${documentInfo.title} | Kemsor Studios` : sections.find(entry => entry.metadata?.seo_title)?.metadata.seo_title;
  const description = documentInfo?.description || sections.find(entry => entry.metadata?.seo_description)?.metadata.seo_description;
  useEffect(() => {
-  const seo = pageSeo(page,{origin:import.meta.env.VITE_SITE_URL||defaultSiteUrl,base:import.meta.env.BASE_URL,title,description,...(documentInfo?{href:legalHref(documentInfo.slug),label:documentInfo.title}:{})});
+  const production=page==='production-detail'?JSON.parse(document.getElementById('production-record')?.textContent||'null'):null;
+  const person=page==='person-detail'?JSON.parse(document.getElementById('person-record')?.textContent||'null'):null;
+  const seo = person ? personSeo(person,{origin:import.meta.env.VITE_SITE_URL||defaultSiteUrl}) : production ? productionSeo(production,{origin:import.meta.env.VITE_SITE_URL||defaultSiteUrl}) : pageSeo(['production-detail','person-detail'].includes(page)?'productions':page,{origin:import.meta.env.VITE_SITE_URL||defaultSiteUrl,base:import.meta.env.BASE_URL,title,description,...(documentInfo?{href:legalHref(documentInfo.slug),label:documentInfo.title}:{})});
   document.title = seo.title;
   for(const attrs of seoMetaTags(seo)) {
    const attribute = attrs.property ? 'property' : 'name';

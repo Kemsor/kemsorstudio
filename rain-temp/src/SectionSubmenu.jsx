@@ -12,7 +12,7 @@ const sections = cmsData(()=>({
   finance: { label:cmsText("SectionSubmenu","d1d7abb02a06ff4a","02 · FINANCE"), name:'Finance services', pages:[['finance',cmsText("SectionSubmenu","d05145232dc7a41b","Overview")],['finance-structuring',cmsText("SectionSubmenu","e8f51a729eb6df15","Finance Structuring")],['co-production',cmsText("SectionSubmenu","6780501a30e6fb75","Co-Production")],['international-co-productions',cmsText("SectionSubmenu","8968327055b84d26","International Co-Productions")]] },
   produce: { label:cmsText("SectionSubmenu","4e881270b05f7d52","03 · PRODUCE"), name:'Produce services', pages:[['produce',cmsText("SectionSubmenu","51670799707de4a7","Overview")],['line-production',cmsText("SectionSubmenu","4763195d1e91c40e","Line Production")],['casting',cmsText("SectionSubmenu","a99ef8c8c23a4bdd","Casting & Talent")],['locations-logistics',cmsText("SectionSubmenu","8fbcd86b07bb58fe","Locations & Logistics")],['crew-equipment',cmsText("SectionSubmenu","17cd92d55c4d86c8","Crew & Equipment")],['set-production-design',cmsText("SectionSubmenu","fb8160cb234a19a8","Set & Design")],['shooting-on-location',cmsText("SectionSubmenu","59611fc3408a2262","Shooting")]] },
 }));
-export default function SectionSubmenu({section,page,menu:customMenu,id}) {
+export default function SectionSubmenu({section,page,menu:customMenu,id,onNavigate}) {
   const ref=useRef(null);
   const [stuck,setStuck]=useState(false);
   useEffect(()=>{
@@ -33,5 +33,5 @@ export default function SectionSubmenu({section,page,menu:customMenu,id}) {
   },[]);
   const menu=customMenu||sections[section];
   if(!menu)return null;
-  return <nav ref={ref} data-stuck={stuck} id={id} className="section-submenu" aria-label={menu.name}><div className="section-submenu-width"><a className="section-submenu-category" href={menu.href||pageHref(section)}>{withoutStageNumber(menu.label)}</a><div className="section-submenu-links">{menu.pages.map(([key,label,href])=><a href={href||(customMenu?`#${key}`:pageHref(key))} key={key} aria-current={page===key?(customMenu?'location':'page'):undefined}>{withoutStageNumber(label)}</a>)}</div></div></nav>;
+  return <nav ref={ref} data-stuck={stuck} id={id} className="section-submenu" aria-label={menu.name}><div className="section-submenu-width"><a className="section-submenu-category" href={menu.href||pageHref(section)}>{withoutStageNumber(menu.label)}</a><div className="section-submenu-links">{menu.pages.map(([key,label,href])=><a href={href||(customMenu?`#${key}`:pageHref(key))} key={key} aria-current={page===key?(customMenu?'location':'page'):undefined} onClick={()=>onNavigate?.(key)}>{withoutStageNumber(label)}</a>)}</div></div></nav>;
 }

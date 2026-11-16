@@ -1,3 +1,11 @@
+import {publicEpkRouter,epkAdminRouter} from './production-epk.js';
+import {productionExtraHtml} from './production-extra-html.js';
+import {publicPeopleRouter,productionPeopleRouter} from './production-people.js';
+import {castingApplicationsRouter} from './casting-applications.js';
+import {castingCallsRouter} from './casting-calls.js';
+import {publicProductionsRouter} from './public-productions.js';
+import {productionMetadata,publicProductionMetadata} from './production-records.js';
+import {enquiryRepliesRouter} from './enquiry-replies.js';
 import {newsCampaignsRouter} from './news-campaigns.js';
 import {siteModulesRouter,publishedSiteModules} from './site-modules.js';
 import contentPages from '../../shared/content-pages.json' with {type:'json'};
@@ -30,7 +38,7 @@ import {tableView,bulkRouter} from './admin-tables.js';
 import { adminIcon } from './icons.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const types = { news:'Newsroom', media_partner:'Media partners', blog:'Blog', career:'Careers', team:'Leadership & team', home:'Homepage & promotions', page:'Page content', legal:'Legal centre', production:'Production announcements', press_asset:'Press resources' };
+export const types = { news:'Newsroom', media_partner:'Media partners', blog:'Blog', career:'Careers', team:'Leadership & team', home:'Homepage & promotions', page:'Page content', legal:'Legal centre', production:'Productions', press_asset:'Press resources' };
 export {categories,statuses} from './enquiry-options.js';
 const text = (value, max, label, required = false) => {
   const result = typeof value === 'string' ? value.trim() : '';
@@ -56,8 +64,12 @@ async function fileSave(file, extension) {
 export function createApp(db, options={}) {
   const app=express();
   app.locals.adminIcon = adminIcon;
+  app.locals.productionExtraHtml=productionExtraHtml;
   app.locals.richTextHtml=richTextHtml;
   app.disable('x-powered-by');
+  app.use(publicEpkRouter(db));
+  app.use(publicPeopleRouter(db,options.frontendDirectory));
+  app.use(publicProductionsRouter(db,options.frontendDirectory));
   app.use(publicLegalRouter(db,options.frontendDirectory));
   app.use(website(options.frontendDirectory));
   if(process.env.TRUST_PROXY==='true')app.set('trust proxy',1);
@@ -163,6 +175,13 @@ export function createApp(db, options={}) {
     const entries=await rows(db,`SELECT id,type,title,slug,status,updated_at FROM cms_entries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
     res.render('content',{entries,type,state,search,pageFilter,table});
   });
+  app.use('/admin/content',editor,async(req,res,next)=>{
+    res.locals.productionPeople=[];res.locals.productionAssets=[];
+    if(req.method==='GET'&&(req.query.type==='production'||/^\/\d+(?:\/preview)?$/.test(req.path))){
+      res.locals.productionPeople=await rows(db,'SELECT id,name,status FROM production_people ORDER BY name,id');
+      res.locals.productionAssets=await rows(db,'SELECT id,original_name,mime FROM cms_media WHERE mime="video/mp4" ORDER BY id DESC');
+    }next();
+  });
   app.get('/admin/content/new',editor,(req,res,next)=>{if(req.query.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);return res.redirect('/admin/manage/legal');}next();},async(req,res)=>res.render(req.query.type==='blog'?'blog-edit':req.query.type==='news'?'news-edit':req.query.type==='career'?'career-edit':'edit',{entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{page:req.query.type==='page'&&contentPageKeys.includes(req.query.page)?req.query.page:''}},media:await rows(db,'SELECT m.* FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')}));
   app.get('/admin/content/:id/preview',editor,async(req,res)=>{
     const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
@@ -188,6 +207,13 @@ export function createApp(db, options={}) {
     const automatic=!b.slug;
     const base=title.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,180).replace(/-$/,'') || 'content';
     let slug=automatic?base:text(b.slug,190,'Slug',true);ensure(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug),'Use lowercase letters, numbers and hyphens in the slug.');
+    const id=b.id ? Number(b.id) : null;
+    let previousEntry=null;
+    if(id!==null){
+      ensure(Number.isSafeInteger(id)&&id>0,'Choose a valid content record.');
+      previousEntry=(await rows(db,'SELECT type,slug,metadata FROM cms_entries WHERE id=?',[id]))[0];
+      ensure(previousEntry,'Content not found.',404);ensure(previousEntry.type===type,'Content area cannot be changed.');slug=previousEntry.slug;
+    }
     let richText=null;
     try{richText=parseRichText(b.rich_text);}catch(error){throw Object.assign(new Error(error.message),{status:422});}
     const summary=text(b.summary,2000,'Summary'),body=text(richText?richTextPlain(richText):b.body,60000,'Body');ensure(['draft','published','archived'].includes(b.status),'Choose a valid publishing status.');
@@ -204,8 +230,28 @@ export function createApp(db, options={}) {
       if(metadata.category==='Press Releases'&&b.status==='published')ensure(metadata.pdf_url,'Add the approved PDF before publishing a press release.');
     }
     if(type==='production'){
-      ensure(['upcoming','in_development','in_pre_production','in_production','in_post_production','coming_soon','released'].includes(b.production_stage),'Choose a production stage.');
-      metadata.year=text(b.year,4,'Year');metadata.production_stage=b.production_stage;metadata.format=text(b.format,100,'Format');metadata.language=text(b.language,100,'Language');
+      Object.assign(metadata,productionMetadata(b,previousEntry?json(previousEntry.metadata):{}));
+      for(const credit of [...metadata.cast_credits,...metadata.crew_credits,...metadata.contributor_credits])if(credit.person_id)ensure((await rows(db,'SELECT id FROM production_people WHERE id=?',[credit.person_id])).length,'Choose an existing person profile.');
+      for(const item of metadata.production_media){
+        const local=item.url.match(/^\/media\/(\d+)(?:\/video\.mp4)?$/);
+        if(local)ensure((await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND m.mime=? AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[local[1],item.type==='poster'?'image/webp':'video/mp4'])).length||(item.type==='poster'&&(await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND m.mime IN ("image/png","image/jpeg","image/avif") AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[local[1]])).length),'Choose existing studio images or MP4 media.');
+        if(item.captions_url)ensure((await rows(db,'SELECT id FROM cms_media WHERE id=? AND mime="text/vtt"',[item.captions_url.split('/')[2]])).length,'Choose existing subtitle media.');
+      }
+      for(const item of metadata.epk_people)ensure((await rows(db,'SELECT id FROM production_people WHERE id=?',[item.person_id])).length,'Choose existing EPK biographies.');
+      if(metadata.epk_url){
+        const others=await rows(db,'SELECT id,metadata FROM cms_entries WHERE type="production" AND id<>? AND JSON_UNQUOTE(JSON_EXTRACT(metadata,"$.epk_url"))=?',[id||0,metadata.epk_url]);
+        ensure(!others.some(entry=>(json(entry.metadata).epk_mode||'public')!=='public'),'This PDF belongs to another restricted press kit. Upload a separate file.');
+        if(metadata.epk_mode!=='public'){
+          const used=await rows(db,"SELECT id FROM cms_entries WHERE id<>? AND JSON_SEARCH(metadata,'one',?) IS NOT NULL LIMIT 1",[id||0,metadata.epk_url]);ensure(!used.length,'Use a separate PDF for a restricted press kit; this file is referenced by other content.');
+        }
+      }
+      if(metadata.epk_url){
+        const mediaId=metadata.epk_url.split('/')[2];
+        ensure((await rows(db,'SELECT id FROM cms_media WHERE id=? AND mime="application/pdf"',[mediaId])).length,'Choose an uploaded PDF for the production press kit.');
+      }
+      for(const item of metadata.gallery){
+        ensure((await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[item.media_id])).length,'Choose existing studio images for the gallery.');
+      }
     }
     if(type==='press_asset'){
       const assetUrl=text(b.asset_url,1000,'Asset URL',true);
@@ -232,8 +278,6 @@ export function createApp(db, options={}) {
     }
     let imageId=b.image_id ? Number(b.image_id) : null;
     if(imageId)ensure((await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[imageId])).length,'Selected image does not exist.');
-    const id=b.id ? Number(b.id) : null;
-    if(id){const old=(await rows(db,'SELECT type,slug FROM cms_entries WHERE id=?',[id]))[0];ensure(old,'Content not found.',404);ensure(old.type===type,'Content area cannot be changed.');slug=old.slug;}
     let banner=req.files?.image?.[0];
     let uploaded=null,contentSaved=false;
     if(banner){
@@ -289,6 +333,8 @@ export function createApp(db, options={}) {
   app.post('/admin/media/:id/delete',editor,async(req,res)=>{
     const connection=await db.getConnection();let image;
     try{await connection.beginTransaction();image=(await rows(connection,'SELECT * FROM cms_media WHERE id=? FOR UPDATE',[req.params.id]))[0];ensure(image,'Image not found.',404);
+      ensure(!(await rows(connection,'SELECT id FROM production_people WHERE image_id=? LIMIT 1',[req.params.id])).length,'This portrait is in use by a person profile.',409);
+      const galleries=await rows(connection,`SELECT id FROM cms_entries WHERE type="production" AND JSON_CONTAINS(COALESCE(JSON_EXTRACT(metadata,'$.gallery'),JSON_ARRAY()),JSON_OBJECT('media_id',?)) LIMIT 1`,[Number(image.id)]);ensure(!galleries.length,'This image is used in a production gallery. Remove it from that gallery before deleting it.',409);
       const references=[`/media/${image.id}`,`/media/${image.id}/video.mp4`,`/media/${image.id}/captions.vtt`,`/media/${image.id}/document.pdf`];
       for(const [table,columns]of [['cms_site_modules',['draft','published']],['cms_site_module_revisions',['snapshot']],['cms_managed_content',['draft','published']],['cms_managed_revisions',['snapshot']]]){
         const clauses=columns.flatMap(column=>references.map(()=>`JSON_SEARCH(${column},'one',?) IS NOT NULL`));
@@ -325,7 +371,7 @@ export function createApp(db, options={}) {
     }else{file=await optimizeImage(original);extension='webp';mime='image/webp';}
     const alt=text(req.body.alt,300,video?'Video description':'Alternative text',true),filename=await fileSave(file,extension);
     let id;
-    try{const result=await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by) VALUES(?,?,?,?,?,?)',[filename,path.basename(original.originalname).slice(0,255),mime,file.size,alt,req.user.id]);id=result.insertId;}
+    try{const result=await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by,private_epk) VALUES(?,?,?,?,?,?,?)',[filename,path.basename(original.originalname).slice(0,255),mime,file.size,alt,req.user.id,document&&req.body.epk_private==='true']);id=result.insertId;}
     catch(error){await unlink(path.join(root,'storage/uploads',filename)).catch(()=>{});throw error;}
     await audit(db,req.user,'upload','media',id);
     res.status(201).json({id,url:video?`/media/${id}/video.mp4`:document?`/media/${id}/document.pdf`:captions?`/media/${id}/captions.vtt`:`/media/${id}`,mime,name:path.basename(original.originalname),alt,size:file.size});
@@ -339,23 +385,31 @@ export function createApp(db, options={}) {
   app.get(['/media/:id','/media/:id/video.mp4','/media/:id/document.pdf','/media/:id/captions.vtt'],async(req,res)=>{
     const owner=(await rows(db,'SELECT id,status,visible,contact_checked FROM talent_accounts WHERE image_id=?',[req.params.id]))[0];
     if(owner && !(owner.status==='approved' && owner.visible && owner.contact_checked) && req.session.memberId!==owner.id && req.user?.role!=='admin')return res.status(404).end();
-    const image=(await rows(db,'SELECT filename,mime FROM cms_media WHERE id=?',[req.params.id]))[0];ensure(image,'Image not found.',404);
+    const image=(await rows(db,'SELECT filename,mime,private_epk FROM cms_media WHERE id=?',[req.params.id]))[0];ensure(image,'Image not found.',404);
+    if(image.mime==='application/pdf'&&!canEdit(req.user)){
+      const privateUse=await rows(db,`SELECT id FROM cms_entries WHERE type='production' AND JSON_UNQUOTE(JSON_EXTRACT(metadata,'$.epk_url'))=? AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(metadata,'$.epk_mode')),'public')<>'public' LIMIT 1`,[`/media/${req.params.id}/document.pdf`]);
+      ensure(!image.private_epk&&!privateUse.length,'Media not found.',404);
+    }
     const suffix=req.path.split('/').at(-1);const expected={'video.mp4':'video/mp4','document.pdf':'application/pdf','captions.vtt':'text/vtt'}[suffix];ensure(!expected||image.mime===expected,'Media not found.',404);
     if(image.mime==='application/pdf')res.set('Content-Disposition','attachment; filename="kemsor-resource.pdf"');
     res.set({'Content-Type':image.mime,'Cache-Control':owner?'private, no-store':'public, max-age=86400'});res.sendFile(path.join(root,'storage/uploads',image.filename));
   });
   app.get('/admin/enquiries',manager,async(req,res)=>{
     const state=statuses.includes(req.query.status)?req.query.status:'',category=Object.hasOwn(categories,req.query.category)?req.query.category:'',search=text(req.query.q,100,'Search');
-    const where='WHERE (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?)';const params=[state,state,category,category,...Array(5).fill(`%${search}%`)];
+    const section=req.query.section==='other'?'other':'contact';
+    const sourceCondition="COALESCE(source,'') REGEXP '(^|/)contact(/index[.]html|/)?([?].*)?$'";
+    const where=`WHERE ${section==='contact'?sourceCondition:`NOT (${sourceCondition})`} AND (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?)`;const params=[state,state,category,category,...Array(5).fill(`%${search}%`)];
     const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM cms_enquiries ${where}`,params))[0].total);
-    const table=tableView(req,total,{name:'name',subject:'subject',category:'category',status:'status',received:'created_at'},'received',{status:state,category,q:search});
+    const table=tableView(req,total,{name:'name',subject:'subject',category:'category',status:'status',received:'created_at'},'received',{section,status:state,category,q:search});
     const enquiries=await rows(db,`SELECT id,category,name,email,subject,status,created_at FROM cms_enquiries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
-    res.render('enquiries',{enquiries,state,category,search,table});
+    res.render('enquiries',{enquiries,state,category,search,table,section});
   });
   app.get('/admin/enquiries/export.csv',manager,async(req,res)=>{
     const state=statuses.includes(req.query.status)?req.query.status:'',category=Object.hasOwn(categories,req.query.category)?req.query.category:'';
     const search=text(req.query.q,100,'Search');
-    const entries=await rows(db,'SELECT id,category,name,email,organisation,subject,status,assigned_to,priority,tags,source,follow_up_at,created_at FROM cms_enquiries WHERE (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?) ORDER BY id DESC LIMIT 10000',[state,state,category,category,...Array(5).fill(`%${search}%`)]);
+    const section=req.query.section==='other'?'other':'contact';
+    const sourceCondition="COALESCE(source,'') REGEXP '(^|/)contact(/index[.]html|/)?([?].*)?$'";
+    const entries=await rows(db,`SELECT id,category,name,email,organisation,subject,status,assigned_to,priority,tags,source,follow_up_at,created_at FROM cms_enquiries WHERE ${section==='contact'?sourceCondition:`NOT (${sourceCondition})`} AND (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?) ORDER BY id DESC LIMIT 10000`,[state,state,category,category,...Array(5).fill(`%${search}%`)]);
     const columns=['id','category','name','email','organisation','subject','status','assigned_to','priority','tags','source','follow_up_at','created_at'];
     const cell=value=>'"'+String(value??'').replace(/^[=+@-]/,"'$&").replaceAll('"','""')+'"';
     await audit(db,req.user,'export','enquiries',String(entries.length));
@@ -468,7 +522,7 @@ export function createApp(db, options={}) {
     const records=await rows(db,`SELECT e.id,e.type,e.title,e.slug,e.summary,e.body,e.metadata,e.published_at,e.updated_at,m.id AS media_id,m.alt AS image_alt FROM cms_entries e LEFT JOIN cms_media m ON m.id=e.image_id WHERE e.type<>"legal" AND e.status="published" AND e.published_at<=UTC_TIMESTAMP() AND e.id<=? AND e.published_at<=? ${cursor?'AND (e.published_at<? OR (e.published_at=? AND e.id<?))':''} ORDER BY e.published_at DESC,e.id DESC LIMIT 301`,params);
     const hasMore=records.length>300,entries=records.slice(0,300),last=entries.at(-1);
     const nextCursor=hasMore?Buffer.from(JSON.stringify({id:last.id,time:last.published_at,max:Number(snapshot.max_id),before:snapshot.publication_bound})).toString('base64url'):null;
-    res.json({nextCursor,...await publicManagedContent(db),siteModules:await publishedSiteModules(db),entries:entries.map(e=>({...e,metadata:json(e.metadata),image_url:e.media_id?`/media/${e.media_id}`:null})),settings:Object.fromEntries(['facebook','instagram','youtube','linkedin','contact_email','contact_phone','contact_landline','contact_whatsapp','contact_website','contact_address','contact_note','map_location','map_caption','footer_kicker','footer_title','footer_accent','footer_description','footer_cta_label','footer_copyright','footer_social_label','enquiries_enabled','attachments_enabled','privacy_notice','consent_version','script_submissions_enabled','script_terms','script_terms_version'].map(key=>[key,config[key]??null]))});
+    res.json({nextCursor,...await publicManagedContent(db),siteModules:await publishedSiteModules(db),entries:entries.map(e=>({...e,metadata:e.type==='production'?publicProductionMetadata(json(e.metadata)):json(e.metadata),image_url:e.media_id?`/media/${e.media_id}`:null})),settings:Object.fromEntries(['facebook','instagram','youtube','linkedin','contact_email','contact_phone','contact_landline','contact_whatsapp','contact_website','contact_address','contact_note','map_location','map_caption','footer_kicker','footer_title','footer_accent','footer_description','footer_cta_label','footer_copyright','footer_social_label','enquiries_enabled','attachments_enabled','privacy_notice','consent_version','script_submissions_enabled','script_terms','script_terms_version'].map(key=>[key,config[key]??null]))});
   });
   app.post('/api/enquiries',async(req,res)=>{
     const config=await settings(db);ensure(config.enquiries_enabled,'Enquiries are not enabled yet.',503);
@@ -493,7 +547,12 @@ export function createApp(db, options={}) {
   app.use(kpiRouter(db));
   app.use(reportsRouter(db));
   app.use(bulkRouter(db));
+  app.use(enquiryRepliesRouter(db,options.smtpEnvironment || process.env));
   app.use(careersRouter(db));
+  app.use(epkAdminRouter(db));
+  app.use(productionPeopleRouter(db));
+  app.use(castingApplicationsRouter(db));
+  app.use(castingCallsRouter(db));
   app.use(talentRouter(db,{imageKind}));
   app.use(websiteNotFound(options.frontendDirectory));
   app.use((req,res)=>res.status(404).render('error',{message:'Page not found.',status:404}));

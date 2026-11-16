@@ -49,7 +49,7 @@ Reviewed the user-supplied signed agreement dated 18 September 2026, Annexure A 
 
 This implements the basic T04 content/enquiry workspace and supporting access controls locally. It does not claim completion or contractual acceptance of all Phase 1 deliverables. The freeze names Laravel/MySQL; the user subsequently instructed that the backend use Node.js, which this implementation follows.
 
-Full individual film records, cast/crew databases, casting and script submissions are Phase 2 and are not implemented. Paid KPI/maintenance services remain excluded under the definitive agreement.
+Production records and individual public pages are implemented. Cast/crew databases, casting and script submission workflows remain Phase 2 work. Paid KPI/maintenance services remain excluded under the definitive agreement.
 
 Privileged MFA is now implemented; see the Phase 1 feature completion notes below. Production HTTPS, secure cookies, approved reverse-proxy configuration, staging/UAT separation, malware controls where agreed, legal review, automated retention/backup and launch approval remain deployment requirements. No production deployment was performed.
 
@@ -682,3 +682,240 @@ link is shown on the Contact page. Indian local
 numbers are normalized to +91 in call/WhatsApp links; WhatsApp uses `wa.me`, never
 `tel:`. The map uses the corrected address and remains gated by media consent.
 The supplied website is a contact link, not a DNS or deployment-domain change.
+
+## Dashboard email replies
+
+Contact/other studio enquiry details, career application details, and talent
+conversation cards link to **Reply by email**. The reply page uses the sender's
+stored address, queues plain-text mail through the configured studio transport,
+and displays outgoing reply history and delivery status. Talent replies are
+administrator-only; enquiry managers can reply to studio enquiries and career
+applications. Member registrations do not have an enquiry reply action.
+
+The existing email outbox stores replies under unique `KEM-`, `APP-`, or `TAL-`
+references with a `-REPLY-` suffix; no migration is required. Form retries reuse
+the same key to prevent duplicate queue entries. Personal-data deletion removes
+related enquiry/application replies and blocks deletion during active delivery.
+The existing email worker handles retries. `sent` means provider acceptance,
+not verified inbox delivery. Incoming email responses remain in the configured
+mailbox; mailbox synchronisation is not implemented.
+
+## Phase 2 — production record foundation
+
+Admin → **Productions** uses the existing content records and publication workflow.
+The production editor now includes public title, internal working title, format,
+multiple comma-separated genres/languages, production status, year and optional
+release date. Summary is labelled **Logline / short summary**, and the rich-text
+body is labelled **Synopsis**. Production status is separate from draft/published/
+archived visibility. The saved private preview includes the structured fields.
+
+No migration is needed: new fields are stored in the existing JSON metadata.
+Existing slugs and announcement records remain compatible. Older edit clients
+that omit working title, genres or release date retain their saved values;
+explicit empty values clear them. Impossible calendar dates and invalid field
+values are rejected. Working titles are staff-only and stripped from the public
+content feed even when the production is published. Approved public titles,
+loglines and synopses continue through the existing feed.
+
+The production-record fields and individual detail pages are implemented.
+Production-specific credits, galleries and EPKs remain subsequent work.
+Verify with `node --test tests/production-records.test.js` and the isolated CMS
+integration test named `Production record fields`.
+
+
+### Individual production pages
+Published productions now have `/productions/:slug/` pages linked from the slate.
+Pages show approved artwork, logline, synopsis, status, format, genres, languages,
+year, optional release date and video. Draft, scheduled and archived productions
+return 404; internal working titles are removed from page data as well as the API.
+The initial HTML contains crawlable content, canonical/sharing metadata and
+production structured data. Published pages are included in the XML sitemap.
+Credits, galleries and production EPK downloads remain separate work.
+
+### Production cast and crew credits
+In the production editor, enter one credit per line as `Name | Role`.
+Cast character names are optional; crew job titles are required. Each section
+supports up to 100 credits with names and roles limited to 160 characters.
+Line order sets billing order. Delete lines to remove credits; clearing a section
+removes all its credits. Older clients that omit the fields preserve saved credits.
+Credits appear in staff previews and on published production pages, including the
+initial crawlable HTML. Empty sections are hidden. No database migration is needed.
+These are production-specific credits, not a searchable people database.
+
+### Production image galleries
+Production editors can select up to 24 distinct studio-library images, set each
+image as a production still or behind-the-scenes shot, provide required alt text
+and an optional caption, and reorder or remove images before saving. Upload new
+images through the existing image library. Gallery metadata uses the existing
+production record; no migration is required. Non-image files, private talent
+photos, missing images and duplicate selections are rejected. Images used in a
+production gallery cannot be deleted until removed from that gallery.
+
+Published pages show a responsive gallery and a full-screen dialog with previous /
+next buttons, arrow-key navigation, Escape to close and restored keyboard focus.
+The initial HTML also includes gallery images and captions. Empty galleries stay
+hidden. Draft, scheduled and archived production pages remain private. Omitted
+gallery fields on older edit clients preserve existing images; an empty list
+explicitly clears the gallery. Test with the `Production galleries persist` CMS
+integration test and `tests/production-records.test.js`.
+
+### Production electronic press kits (EPK)
+The production editor accepts an optional uploaded PDF in the EPK field, using
+existing staged document uploads (PDF signature validation, maximum 10 MB).
+Upload a replacement and save, or clear the field and save to remove the button.
+Only existing PDF media references are accepted. Older clients that omit the
+field preserve the current press kit. Files referenced by productions are
+protected from deletion through the media library.
+
+Published production pages show a Download press kit (PDF) button. The dedicated
+`/productions/:slug/press-kit.pdf` download checks publication status and date,
+returns an attachment named after the production slug, and disables caching.
+Draft, scheduled, archived, missing and unattached productions return 404 on this
+route. EPK uploads are staged as protected PDFs. Access is controlled by the production
+EPK routes and the access settings described below. No database migration is required.
+Verify with `Production press kits upload` in the isolated CMS integration suite
+and `tests/production-records.test.js`.
+
+### Production-linked casting calls
+Migration `027_casting_calls.sql` adds a separate casting call table. Editors and
+administrators manage calls at `/admin/casting`. Each call links to a production
+and includes a title, summary, location, deadline, roles with eligibility, and
+requirements / audition details. Enter one role per line as `Role | Eligibility`.
+Publishing status (draft, published, archived) is separate from open/closed
+availability. A production must already be published to publish its casting call.
+
+The public board is `/find-talent/#casting-calls`, powered by the paginated
+`/api/casting-calls` endpoint. Only published calls linked to currently published
+productions appear. Deadlines are inclusive through the selected calendar date
+in India Standard Time, after which availability becomes closed automatically.
+Calls can also be closed early. Archived/draft calls and calls linked to private
+productions are excluded. Calls are included in content exports. Talent applications, audition links, shortlisting and dashboard status tracking
+are implemented below. Email notifications remain separate work.
+Verify with `tests/casting-calls.test.js` and the isolated CMS integration test
+named `Casting calls link`.
+
+
+### Casting applications and review
+Migration `028_casting_applications.sql` adds application settings, submissions and
+review history. Talent accounts apply to specific roles with a message and up to
+five HTTPS audition/portfolio links. The submitted profile, role brief and accepted
+terms are snapshotted. Role identity is based on its normalized name, so reordering
+roles cannot bypass duplicate protection. Renaming a role creates a new identity.
+Duplicate normalized role names are rejected when saving calls.
+
+Submissions require a signed-in, non-suspended artist account, CSRF validation,
+accepted current terms and an open, unexpired, published call linked to a published
+production. Transactions serialize submission with call closure / terms changes;
+a database unique key prevents duplicate applications per account, call and role.
+Audition links are never fetched by the server. No file-upload handling is added.
+
+Editors and administrators review at `/admin/casting-applications`, with status /
+call filters and submitted, reviewing, shortlisted and rejected states. Profile
+snapshots, links, consent and private notes are visible to reviewers. Concurrent
+review changes are rejected for stale forms. Status changes and reviewer notes are
+recorded in history. Artists see only their own summaries and statuses in
+`/profile/#applications`; private reviewer notes are never returned. Applications
+and their histories cascade on account deletion and are included in exports.
+
+New submissions are disabled by default. An administrator must enter the client's
+approved terms and version, confirm approval and enable applications at
+`/admin/casting-application-settings`. Changing terms requires a new version.
+Disabling intake does not hide existing applicant tracking or the review queue.
+No client legal text has been invented or activated. Applicant acknowledgements
+are shown on screen; email receipts/status notifications are separate work.
+
+Verify with `tests/casting-calls.test.js`, `Talent casting applications` in the
+isolated CMS integration suite, and the frontend member-workspace tests.
+
+### Production rights, people, dedicated media and event history
+The production editor now has ordered record editors for platform links, linked
+cast/crew/contributor credits, dedicated media, awards and screenings. Omitted
+fields in older edit clients preserve saved values; empty lists explicitly clear
+sections. Existing production URLs, galleries and EPKs remain compatible.
+
+Rights fields include the holder, public statement, territories, availability and
+private studio notes. `rights_notes` is stripped alongside internal working titles
+from every public production payload. Platform links support watch, tickets,
+official and music destinations with HTTPS URLs and territory labels.
+
+Migration `029_production_people.sql` adds reusable biographies managed at
+`/admin/people`. Profiles have name, profession, biography, portrait, official HTTPS
+website and independent draft/published/archived status. Public URLs are immutable
+`/people/:slug/` pages with crawlable biography content, metadata and structured
+data. Published profiles are included in the sitemap and show their published
+production credits. Credits can link to these profiles while retaining their own
+credited name, role and billing order. Draft/archived biographies never generate
+public links or reveal biography content through production data. Existing text
+credits can remain unlinked. Private member portraits cannot be selected.
+
+Dedicated media records distinguish posters, trailers, teasers, songs and BTS.
+Posters use studio-library images with required alt text and full-screen viewing.
+Videos support uploaded MP4s or direct HTTPS MP4 links; songs additionally support
+HTTPS MP3 audio. Upload MP4s through the existing uploader / media library before
+selecting them; local MP3 uploads and embedded streaming-platform players are not
+part of this implementation. Video records support existing uploaded WebVTT tracks
+and a language code. External audio/video follows the site's external-media consent
+controls. Referenced library assets and person portraits are protected from deletion.
+
+Awards store event/festival, outcome (winner, nominee, official selection), category,
+year, recipient and optional source URL. Screenings store premiere/festival/screening
+type, event, valid calendar date, venue, city, country, notes and optional source URL.
+Public sections preserve the editor's order and hide empty records. Only staff can
+publish these records through the linked production. No real awards or rights claims
+have been seeded. Source URLs are validated but not independently verified.
+
+Verify using `tests/production-records.test.js` and the isolated CMS integration
+test `Four production extensions`. Desktop/mobile browser checks cover profile
+links, poster viewer, all four public sections and the ordered admin controls.
+
+
+### Casting acknowledgement and decision emails
+Migration `030_casting_mail_epk_access.sql` links the existing mail outbox to
+casting applications and review events. New submissions queue an acknowledgement
+in the same transaction as the application. Changed shortlist/rejection decisions
+queue a notification in the same transaction as the review event. Note-only edits,
+reviewing states and reopening a submitted application do not send notices. Unique
+receipt keys deduplicate the acknowledgement and individual decision events.
+Emails contain the call, role, CAST reference and dashboard URL; reviewer notes,
+profile contents and audition links are excluded. No historic messages are queued.
+
+The existing mail worker handles HTML/plain-text delivery, automatic retries and
+provider status. Before delivery it cancels decision notices that have been
+superseded, or notices for unavailable/suspended accounts. Reviewers see delivery
+status and can retry failed notices from the application page. Sent or cancelled
+messages cannot be manually retried there. Application/account deletion cascades
+to the linked email records. Delivery is tested with a synthetic transport; no
+real test emails are sent. SMTP acceptance is not an inbox-delivery guarantee.
+
+### Structured EPKs and controlled downloads
+Production editors can enable a structured kit, add an introduction, select ordered
+published biographies and add director/producer/other statements. The kit includes
+approved synopsis, credits, biographies, statements and production history.
+`/productions/:slug/press-kit/` provides a print-friendly page; `press-kit.html` is
+a standalone HTML download, and `press-kit.pdf` serves the approved uploaded PDF.
+The HTML can be printed or saved as PDF using the browser; server-generated PDFs
+and ZIP packages are not implemented. Internal working titles/contracts never
+appear in a kit. Draft biographies are omitted.
+
+Access modes are public (the legacy default), private links only, and disabled.
+Restricted EPK payloads are removed from public production metadata and APIs. New
+PDF uploads from the EPK editor are marked `private_epk` before any production save
+and require staff access on raw media URLs. Legacy PDFs referenced by restricted
+kits are also blocked on raw URLs. Reusing a restricted PDF in another production
+is rejected; public PDF routes additionally refuse files owned by another restricted
+kit. Keep separate assets for independently controlled press kits.
+
+Editors manage links at `/admin/production-epks/:id`. Private links have 256-bit
+random tokens (only SHA-256 hashes are stored), a label, 1–30 day expiry, a combined
+1–100 HTML/PDF download limit and revocation. Links work only for currently published
+productions in private-link mode. The full link is shown once on creation.
+Downloads are counted atomically under a database lock; HEAD and page views do not
+consume downloads. Exhausted, expired or revoked links stop serving the kit. All
+kit responses use no-store, no-referrer and noindex headers. Disabled/archived
+productions stop both public and private access; staff can still preview content.
+Limits govern the server's downloads, not printing, copying or already saved files.
+
+Verify with `tests/casting-mail.test.js`, `tests/production-records.test.js`, and
+the isolated integration tests `Talent casting applications` and `Structured EPKs
+enforce`. Browser checks cover the editor, protected uploads, structured kit view /
+HTML download, private-link controls and email-delivery status on desktop/mobile.

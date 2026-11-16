@@ -15,7 +15,7 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary::-webkit-details-marker{display:none}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary::marker{content:''}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary>span{display:grid;place-items:center;flex-shrink:0;width:30px;height:30px;border:1px solid #d6bd8d;border-radius:50%;font-size:20px!important;line-height:1;color:#866024!important;-webkit-text-fill-color:#866024!important;transition:transform .2s,background .2s}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details[open] summary>span{transform:rotate(45deg);background:#f1d58e}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details[open] summary>span{transform:rotate(180deg);background:#f1d58e}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary:is(:hover,:focus-visible){color:#956122!important;-webkit-text-fill-color:#956122!important}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary:focus-visible{outline:2px solid #966622;outline-offset:4px;border-radius:3px}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details p{display:block;margin:0;padding:0 44px 22px 0;font-size:13px!important;line-height:1.85!important;color:#514638!important;-webkit-text-fill-color:#514638!important;max-width:none}

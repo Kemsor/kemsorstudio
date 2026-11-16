@@ -1,0 +1,58 @@
+/* Release overview: image-led routes, a readable countdown and warm ticket cards. */
+html body #top.creative-site #main#main.inner-page .release-overview .release-section{border:0!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-roads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:28px}
+html body #top.creative-site #main#main.inner-page .release-overview .release-roads>article{
+ display:flex;flex-direction:column;align-items:stretch;padding:0!important;overflow:hidden;border:1px solid #e9e0d2;border-radius:16px;
+ background:#fdfbf8!important;transition:background .25s,border-color .25s,box-shadow .25s;
+}
+html body #top.creative-site #main#main.inner-page .release-overview .release-road-photo{display:block;width:100%;height:180px;object-fit:cover;transition:transform .5s}
+html body #top.creative-site #main#main.inner-page .release-overview .release-road-copy{display:flex;flex:1;flex-direction:column;align-items:start;padding:24px}
+html body #top.creative-site #main#main.inner-page .release-overview .release-road-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#f2e8d7;color:#89632d;margin-bottom:18px}
+html body #top.creative-site #main#main.inner-page .release-overview .release-roads h3{margin:0!important}
+html body #top.creative-site #main#main.inner-page .release-overview :is(.release-roads,.release-countdown,.release-ticket) p{font-size:13px!important;line-height:1.75!important;color:#62584c!important;-webkit-text-fill-color:#62584c!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-roads p{margin:12px 0 20px}
+html body #top.creative-site #main#main.inner-page .release-overview .release-roads .line-link{margin-top:auto;border:0!important;font-size:12px;color:#57351f!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-countdown{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;list-style:none;margin:28px 0 0;padding:0;background:none!important;border:0!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-countdown>li{
+ display:flex;flex-direction:column;align-items:start;gap:0;padding:22px 20px;border:1px solid #e9e0d2;border-radius:14px;
+ background:#fdfbf8!important;transition:background .25s,border-color .25s;
+}
+html body #top.creative-site #main#main.inner-page .release-overview .release-count-badge{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#f2e8d7;color:#89632d;font:600 12px/1 Inter,sans-serif;margin-bottom:20px}
+html body #top.creative-site #main#main.inner-page .release-overview .release-countdown h3{margin:0 0 10px!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-countdown p{margin:0!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-tickets{gap:22px;margin-top:28px}
+html body #top.creative-site #main#main.inner-page .release-overview .release-ticket{
+ overflow:hidden;border:1px solid #e3d6be;border-radius:16px;background:#fdfbf8!important;transform:none;transition:background .25s,border-color .25s,box-shadow .25s;
+}
+html body #top.creative-site #main#main.inner-page .release-overview .release-ticket-stub{
+ background:#f2e8d7!important;color:#89632d!important;border-right:1px dashed #ceb98f;justify-content:center;align-items:center;text-align:center;gap:16px;flex-basis:86px;padding:22px 12px;
+}
+html body #top.creative-site #main#main.inner-page .release-overview .release-ticket-content{padding:28px;display:flex;flex-direction:column;justify-content:center}
+html body #top.creative-site #main#main.inner-page .release-overview .release-ticket h3{margin:0!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-ticket h3 a{color:#57351f!important;-webkit-text-fill-color:#57351f!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-ticket p{margin:12px 0 0!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-honesty{padding:32px!important;background:#faf7f1!important;border:1px solid #e9e0d2!important;border-radius:18px!important;text-align:left}
+html body #top.creative-site #main#main.inner-page .release-overview .release-honesty p{max-width:80ch;margin:18px 0 0;font-size:13px!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-marquee-frame{border-color:#c5a15e;border-radius:12px;background:#fff9ef!important}
+html body #top.creative-site #main#main.inner-page .release-overview .release-marquee-copy{border-color:#e2cfab;color:#57351f!important;border-radius:6px}
+html body #top.creative-site #main#main.inner-page .release-overview .release-marquee-bulbs{background:radial-gradient(circle,#c5a15e 2px,transparent 3px) left top/22px 8px repeat-x,radial-gradient(circle,#c5a15e 2px,transparent 3px) left bottom/22px 8px repeat-x,radial-gradient(circle,#c5a15e 2px,transparent 3px) left top/8px 22px repeat-y,radial-gradient(circle,#c5a15e 2px,transparent 3px) right top/8px 22px repeat-y}
+@media(hover:hover){
+ html body #top.creative-site #main#main.inner-page .release-overview :is(.release-roads>article,.release-countdown>li,.release-ticket):is(:hover,:focus-within){background:#f8edcf!important;border-color:#c5a15e;box-shadow:0 10px 26px #79551f0d;transform:none}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-roads>article:is(:hover,:focus-within) .release-road-photo{transform:scale(1.025)}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-ticket:is(:hover,:focus-within) .release-ticket-stub{background:#e5b765!important;color:#57351f!important}
+}
+@media(max-width:1000px){
+ html body #top.creative-site #main#main.inner-page .release-overview .release-countdown{grid-template-columns:repeat(3,minmax(0,1fr))}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-roads{grid-template-columns:1fr}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-road-photo{height:220px}
+}
+@media(max-width:650px){
+ html body #top.creative-site #main#main.inner-page .release-overview .release-countdown{grid-template-columns:1fr}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-ticket-stub{flex-basis:60px;padding:20px 8px}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-ticket-content{padding:22px 18px}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-road-photo{height:180px}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site #main#main.inner-page .release-overview :is(.release-roads>article,.release-road-photo,.release-countdown>li,.release-ticket){transition:none}
+ html body #top.creative-site #main#main.inner-page .release-overview .release-road-photo{transform:none!important}
+}

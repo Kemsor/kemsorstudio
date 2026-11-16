@@ -4,6 +4,7 @@ import {memberTab,profileReadiness,matchingItems} from '../src/member-workspace.
 test('Workspace links restore valid tabs and respect artist permissions',()=>{
  assert.equal(memberTab('#profile','artist'),'profile');assert.equal(memberTab('#messages','hirer'),'messages');
  assert.equal(memberTab('#saved','artist'),'overview');assert.equal(memberTab('#saved','hirer'),'saved');
+ assert.equal(memberTab('#applications','artist'),'applications');assert.equal(memberTab('#applications','hirer'),'overview');
  assert.equal(memberTab('#unknown','artist'),'overview');
 });
 test('Profile readiness reflects the account role and ignores whitespace-only fields',()=>{

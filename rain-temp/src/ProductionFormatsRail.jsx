@@ -58,7 +58,7 @@ export default function ProductionFormatsRail({formats,formatLabel,exploreLabel}
   if(el.hasPointerCapture(event.pointerId))el.releasePointerCapture(event.pointerId);
   model.resumeAt=performance.now()+1200;el.dataset.dragging='false';
  }
- return <div className="production-formats-rail" ref={viewport} role="region" aria-label="Production formats. Drag or swipe to browse, or use the left and right arrow keys." tabIndex={0} data-lenis-prevent
+ return <div className="production-formats-rail" ref={viewport} role="region" aria-label="Production formats. Drag or swipe to browse, or use the left and right arrow keys." tabIndex={0}
   onPointerEnter={event=>{if(event.pointerType==='mouse')control.current.hover=true;}}
   onPointerLeave={event=>{control.current.hover=false;if(!control.current.drag?.moved)release(event);}}
   onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={release} onPointerCancel={release} onLostPointerCapture={release}
@@ -70,7 +70,7 @@ export default function ProductionFormatsRail({formats,formatLabel,exploreLabel}
   <div className="production-formats-track">
    {[0,1,2].map(copy=><div className="production-formats-group" key={copy} ref={copy===1?group:undefined} data-copy={copy!==1?'true':undefined} aria-hidden={copy!==1?true:undefined}>
     {formats.map(([id,title,text,image])=><article className="production-format-slide" key={id} id={copy===1?id:undefined}>
-     <a href={pageHref(id)} tabIndex={-1} aria-hidden="true" className="production-format-photo"><StudioImage src={`/assets/stills/${image}-960.webp`} alt="" loading="lazy" width="960" height="540" draggable={false}/></a>
+     <a href={pageHref(id)} tabIndex={-1} aria-hidden="true" className="production-format-photo"><StudioImage mediaSlot={`ProductionFormatsRail-${id}`} src={`/assets/stills/${image}-960.webp`} alt="" loading="lazy" width="960" height="540" draggable={false}/></a>
      <div className="production-format-copy"><span className="produce-label">{formatLabel}</span><h3>{title}</h3><p>{text}</p>{copy===1?<TextLink href={pageHref(id)}>{exploreLabel}{title}</TextLink>:<a className="line-link" href={pageHref(id)} tabIndex={-1}>{exploreLabel}{title}</a>}</div>
     </article>)}
    </div>)}

@@ -28,3 +28,33 @@ html .creative-site #main .career-application-inline h2{font-size:24px;margin-bo
 @media(max-width:1000px){.careers-reasons{grid-template-columns:1fr 1fr}.careers-process{grid-template-columns:repeat(3,minmax(0,1fr))}.careers-split{gap:6%}}
 @media(max-width:760px){.careers-page .careers-section{padding-block:42px}.careers-split,.careers-notice{grid-template-columns:1fr;gap:28px}.careers-teams{grid-template-columns:1fr}.careers-section-heading{align-items:flex-start;flex-direction:column;margin-bottom:24px}.careers-section-heading h2{margin-bottom:0!important}.career-application-inline{padding:20px}.careers-empty{padding:25px}}
 @media(max-width:480px){.careers-reasons,.careers-process{grid-template-columns:1fr}.careers-intake-switch button{flex-grow:1}}
+
+/* Careers overview and dedicated opportunities board share the inner-page frame. */
+html body #top.creative-site #main.inner-page .careers-page .careers-section{box-sizing:border-box;width:calc(100% - var(--inner-content-gutter)*2);max-width:var(--inner-content-width);margin:0 auto;padding:48px 0;min-width:0}
+html body #top.creative-site #main.inner-page .careers-page .ep-hero-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(24px,4vw,56px)}
+html body #top.creative-site #main.inner-page .careers-page .ep-hero-copy{width:100%;max-width:560px;min-width:0}
+.careers-hero-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;padding-top:18px;border-top:1px solid var(--careers-rule);font-size:12px}
+.careers-page :is(article,.careers-split>div,.career-role-copy,.career-application-inline){min-width:0;box-sizing:border-box;overflow-wrap:anywhere}
+.careers-page .careers-reasons article{padding:24px;border:1px solid var(--careers-rule);border-radius:16px;background:#faf8f3}
+.careers-page .careers-teams{gap:16px}
+.careers-page .careers-teams article{padding:24px;border:1px solid var(--careers-rule);border-radius:14px}
+.careers-openings-preview{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:center}
+.careers-openings-preview>div:last-child{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.careers-page .careers-role-count{display:inline-flex;padding:9px 14px;border:1px solid var(--careers-rule);border-radius:999px;font-size:12px}
+.careers-page .careers-process{counter-reset:hiring}
+.careers-page .careers-process li::before{counter-increment:hiring;content:counter(hiring,decimal-leading-zero);display:block;margin-bottom:16px;font-size:12px;color:#91652a}
+html body #top.creative-site #main.inner-page .careers-page .careers-notice{padding:28px;border-radius:16px;margin-bottom:48px}
+.careers-openings-page .career-list{gap:18px}
+.careers-openings-page .career-listing{border-radius:16px;padding:28px;background:#faf8f3}
+.careers-openings-page .careers-filters button,.careers-page .careers-intake-switch button{border-radius:999px}
+.careers-page .career-application-inline{border-radius:16px;max-width:100%}
+.careers-page :is(input,textarea,select){box-sizing:border-box;min-width:0;max-width:100%}
+@media(max-width:800px){
+ html body #top.creative-site #main.inner-page .careers-page .ep-hero-heading,.careers-page .careers-openings-preview{grid-template-columns:minmax(0,1fr)}
+ .careers-page .careers-split{grid-template-columns:minmax(0,1fr);gap:24px}
+ html body #top.creative-site #main.inner-page .careers-page .careers-section{padding-block:32px}
+}
+.career-form-page .career-form-wrap{box-sizing:border-box;width:calc(100% - var(--inner-content-gutter)*2);max-width:780px;margin:0 auto;padding:40px 0 64px;min-width:0}
+html .creative-site #main .career-form-page .career-application-head h1{font:500 clamp(24px,4vw,34px)/1.25 Manrope,sans-serif;letter-spacing:-.035em;margin:0}
+.career-form-page .career-application-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:550px){.career-form-page .career-application-fields{grid-template-columns:minmax(0,1fr)}.career-form-page .career-form-wrap{padding-top:24px}}

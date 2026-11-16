@@ -24,11 +24,7 @@
 .call-sheet-schedule h3,.call-sheet-engagements h3,.call-sheet-principles h3{font-size:18px;line-height:1.4;font-weight:500;letter-spacing:-.02em;margin:0}
 .call-sheet-schedule p{margin:0}.call-sheet-step{font-size:13px;color:var(--sheet-accent);font-variant-numeric:tabular-nums;line-height:1.85}
 .call-sheet-mobile-label{display:none}
-.call-sheet-engagements{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-block:1px solid var(--sheet-line);margin-top:28px}
-.call-sheet-engagements>article{padding:30px clamp(20px,3vw,44px);border-right:1px solid var(--sheet-line);display:flex;flex-direction:column;align-items:flex-start}
-.call-sheet-engagements>article:first-child{padding-left:0}.call-sheet-engagements>article:last-child{padding-right:0;border-right:0}
-.call-sheet-unit{font-size:clamp(48px,6vw,80px);font-weight:400;line-height:1;color:var(--sheet-accent);margin-bottom:30px}
-.call-sheet-engagements p{margin:16px 0 24px}.call-sheet-engagements .call-sheet-best{margin:auto 0 0;padding-top:18px;border-top:1px dashed var(--sheet-line);width:100%}
+.call-sheet-engagements{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:28px}
 .call-sheet-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(28px,7vw,100px)}
 .call-sheet-contacts{margin:0;border-top:1px solid var(--sheet-line)}
 .call-sheet-contacts>div{padding-block:24px;border-bottom:1px solid var(--sheet-line)}
@@ -51,8 +47,7 @@
  .call-sheet-schedule-head{display:none}.call-sheet-schedule{border-top:2px solid #242424}
  .call-sheet-schedule>li{grid-template-columns:minmax(0,1fr);gap:16px;padding-block:24px}
  .call-sheet-schedule p{grid-column:1}.call-sheet-mobile-label{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sheet-accent);margin-bottom:6px}
- .call-sheet-engagements{grid-template-columns:1fr}.call-sheet-engagements>article,.call-sheet-engagements>article:first-child,.call-sheet-engagements>article:last-child{padding:28px 0;border-right:0;border-bottom:1px solid var(--sheet-line)}
- .call-sheet-engagements>article:last-child{border-bottom:0}.call-sheet-unit{font-size:48px;margin-bottom:20px}
+ .call-sheet-engagements{grid-template-columns:1fr}
  .call-sheet-principles{grid-template-columns:1fr}.call-sheet-principles>li,.call-sheet-principles>li:nth-child(even){padding:24px 0;border-left:0;gap:20px}
  .call-sheet-signoff{grid-template-columns:1fr 1fr;gap:22px}.call-sheet-signoff>div:first-child{grid-column:1/-1}
 }
@@ -74,20 +69,21 @@ html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-conta
 @media(max-width:900px){html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"]>.visual-chapter-layout{grid-template-columns:1fr;gap:28px}html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .visual-chapter-image>div{aspect-ratio:1.7;max-height:320px}}
 @media(max-width:480px){html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"] .call-sheet-contacts{grid-template-columns:1fr;gap:18px}html body #top.creative-site #main.inner-page [aria-labelledby="call-sheet-contacts-title"].visual-chapter{padding-block:28px!important}}
 
-/* Match About's On the ground cards: individual bottom-up colour and copy reveal. */
-html body #top.creative-site #main.inner-page .engagement-ground-cards{gap:20px;border:0}
-html body #top.creative-site #main.inner-page .engagement-ground-cards>article:nth-child(n){position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:flex-end;min-height:360px;height:100%;padding:30px;border:1px solid #ffffff26;border-radius:12px;background:#000!important;color:#fff}
-html body #top.creative-site #main.inner-page .engagement-ground-cards>article::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(130deg,#641b27,#260d12 70%,#110708);transform:translateY(101%);transition:transform .65s cubic-bezier(.22,.61,.36,1)}
-.engagement-ground-content{width:100%}.engagement-ground-detail{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .65s cubic-bezier(.22,.61,.36,1),opacity .35s}.engagement-ground-detail>div{overflow:hidden;min-height:0}
-html body #top.creative-site #main.inner-page .engagement-ground-cards .call-sheet-unit{color:#bba4aa!important;font-size:38px;margin:0 0 18px;line-height:1}
-html body #top.creative-site #main.inner-page .engagement-ground-cards h3{color:#fff!important;font-size:18px;line-height:1.4;margin:0}
-html body #top.creative-site #main.inner-page .engagement-ground-cards p{color:#e8d9dc!important;font-size:13px!important;line-height:1.7;margin:16px 0 20px}
-html body #top.creative-site #main.inner-page .engagement-ground-cards .call-sheet-best{padding-top:15px;margin:0;border-color:#ffffff26;color:#c9adb5!important;font-size:11px!important}
-html body #top.creative-site #main.inner-page .engagement-ground-cards>article:is(:hover,:focus-visible)::before{transform:translateY(0)}
-html body #top.creative-site #main.inner-page .engagement-ground-cards>article:is(:hover,:focus-visible) .engagement-ground-detail{grid-template-rows:1fr;opacity:1;transition-delay:0s,.15s}
-html body #top.creative-site #main.inner-page .engagement-ground-cards>article:focus-visible{outline:3px solid #b58bcc;outline-offset:4px}
-@media(hover:none){.engagement-ground-detail{grid-template-rows:1fr;opacity:1}}
-@media(max-width:600px){html body #top.creative-site #main.inner-page .engagement-ground-cards>article:nth-child(n){min-height:260px;padding:25px}}
-@media(prefers-reduced-motion:reduce){.engagement-ground-detail,html body #top.creative-site #main.inner-page .engagement-ground-cards>article::before{transition:none}}
+/* Compact image cards keep every engagement option readable without a hover. */
+html body #top.creative-site #main.inner-page .engagement-ground-cards{gap:16px;border:0}
+html body #top.creative-site #main.inner-page .engagement-ground-cards>article:nth-child(n){position:relative;isolation:isolate;overflow:hidden;display:grid;align-items:end;min-width:0;min-height:284px;padding:24px;border:1px solid #b58b454d;border-radius:14px;background:#302419!important;color:#fff}
+.engagement-ground-image{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,.61,.36,1)}
+html body #top.creative-site #main.inner-page .engagement-ground-cards>article::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#21160d1a 0%,#21160dbf 35%,#1d150ff2 78%);pointer-events:none}
+.engagement-ground-content{display:grid;gap:12px;width:100%;min-width:0}
+.engagement-ground-heading{display:flex;align-items:center;gap:12px;min-width:0}
+html body #top.creative-site #main.inner-page .engagement-ground-cards .call-sheet-unit{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;margin:0;border:1px solid #e9c88280;border-radius:50%;background:#30241980;color:#f5d593!important;font-size:12px;font-weight:700;line-height:1}
+html body #top.creative-site #main.inner-page .engagement-ground-cards h3{color:#fff!important;line-height:1.35;margin:0}
+html body #top.creative-site #main.inner-page .engagement-ground-cards p{color:#f3eee5!important;-webkit-text-fill-color:#f3eee5!important;font-size:13px!important;line-height:1.65;margin:0}
+.engagement-ground-copy{min-height:65px}
+html body #top.creative-site #main.inner-page .engagement-ground-cards .call-sheet-best{min-height:48px;padding-top:12px;border-top:1px solid #e6c17d59;color:#efce8d!important;-webkit-text-fill-color:#efce8d!important;font-size:12px!important}
+@media(hover:hover) and (pointer:fine){.engagement-ground-cards>article:hover .engagement-ground-image{transform:scale(1.045)}}
+@media(max-width:800px){html body #top.creative-site #main.inner-page .engagement-ground-cards>article:nth-child(n){min-height:240px}.engagement-ground-copy{min-height:0}html body #top.creative-site #main.inner-page .engagement-ground-cards .call-sheet-best{min-height:0}}
+@media(max-width:380px){html body #top.creative-site #main.inner-page .engagement-ground-cards>article:nth-child(n){padding:20px}}
+@media(prefers-reduced-motion:reduce){.engagement-ground-image{transition:none}.engagement-ground-cards>article:hover .engagement-ground-image{transform:none}}
 
 .call-sheet-schedule h3{min-width:0;word-break:normal;overflow-wrap:normal;align-self:start}

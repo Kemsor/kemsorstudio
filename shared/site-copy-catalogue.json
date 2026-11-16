@@ -17658,19 +17658,19 @@
       {
         "key": "e02468ec32067e65",
         "label": "A production partner for stories of every scale.",
-        "default": "A production partner for stories of every scale.",
+        "default": "A studio with roots, and a production partner for stories of every scale.",
         "type": "text"
       },
       {
         "key": "4a706ff9c9ca1380",
         "label": "Kemsor is a film and production partner for creators, filmmakers, studios and platfor",
-        "default": "Kemsor is a film and production partner for creators, filmmakers, studios and platforms. We work across web series and OTT content, regional cinema, documentaries, short films and international co-productions.",
+        "default": "Alongside our own slate, we partner with writers, directors, studios and platforms. We take on web series and OTT content, regional cinema, documentaries, short films and international co-productions.",
         "type": "text"
       },
       {
         "key": "9c636d642007525f",
         "label": "No two projects share the same creative priorities or production realities, so we beg",
-        "default": "No two projects share the same creative priorities or production realities, so we begin by understanding both. Then we bring together the planning, people, and coordination the work requires, whether that means focused line production on a single shoot or partnership across the full production lifecycle.",
+        "default": "No two projects share the same creative priorities or production realities, so we begin by understanding both. Then we bring together the planning, people and coordination the work needs, from focused line production on a single shoot to partnership across the full production lifecycle.",
         "type": "text"
       },
       {
@@ -17929,6 +17929,18 @@
         "key": "d6f94e3c283a1b3d",
         "label": "International Collaborators",
         "default": "International Collaborators",
+        "type": "text"
+      },
+      {
+        "key": "about-founder-introduction",
+        "label": "Who we are: studio origins",
+        "default": "KEMSOR Studios was founded in 2026 by actor Dev Raturi, who grew up in Kemriya Saur in Tehri Garhwal and went on to appear in more than 20 Chinese films and series. He started KEMSOR to tell stories rooted in Uttarakhand and to create opportunities for local talent. Our first Hindi feature film goes into production in December 2026.",
+        "type": "text"
+      },
+      {
+        "key": "about-founder-link",
+        "label": "Who we are: founder link",
+        "default": "Meet our founder",
         "type": "text"
       }
     ]

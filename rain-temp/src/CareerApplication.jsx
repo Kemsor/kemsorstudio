@@ -3,7 +3,7 @@ import {cmsApi} from './CmsContent';
 import EnquirySuccess from './EnquirySuccess';
 import careerContent from '../../shared/careers-content.json';
 import './career-application.css';
-export default function CareerApplication({role,onClose,inline=false,onBusyChange}){
+export default function CareerApplication({role,onClose,inline=false,onBusyChange,titleAs:Title='h2'}){
  const dialog=useRef(null),request=useRef(null),titleId=useId();
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[result,setResult]=useState(null);
  const general=['general','internship'].includes(role.id);
@@ -22,7 +22,7 @@ export default function CareerApplication({role,onClose,inline=false,onBusyChang
  }
  const Container=inline?'section':'dialog';
  return <Container ref={inline?undefined:dialog} className={inline?'career-application-inline':'career-application-dialog'} aria-labelledby={titleId} onCancel={inline?undefined:event=>{event.preventDefault();if(!busy)onClose();}} onClick={inline?undefined:event=>{if(event.target===event.currentTarget&&!busy)onClose();}}>
-  <div className="career-application-head"><div><p>{role.id==='internship'?'INTERNSHIP APPLICATION':'CAREER APPLICATION'}</p><h2 id={titleId}>{role.title}</h2></div>{!inline&&<button type="button" aria-label="Close application form" disabled={busy} onClick={onClose}>×</button>}</div>
+  <div className="career-application-head"><div><p>{role.id==='internship'?'INTERNSHIP APPLICATION':'CAREER APPLICATION'}</p><Title id={titleId}>{role.title}</Title></div>{!inline&&<button type="button" aria-label="Close application form" disabled={busy} onClick={onClose}>×</button>}</div>
   {result?<EnquirySuccess reference={result.reference} message="Your application and CV have been submitted successfully. Our team will review your details and contact you about a suitable opportunity."/>:<form onSubmit={submit} className="career-application-form">
    <fieldset disabled={busy}><div className="career-application-fields">
     <label>Full name<input name="name" autoComplete="name" required maxLength="100"/></label><label>Email address<input name="email" type="email" autoComplete="email" required maxLength="254"/></label>

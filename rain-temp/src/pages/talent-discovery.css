@@ -4,7 +4,8 @@ html body #top.creative-site #main.inner-page .directory-discovery{
 }
 html body #top.creative-site #main.inner-page .directory-discovery-header{
  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,.65fr);gap:clamp(40px,8vw,120px);align-items:center;
- width:calc(100% - var(--inner-frame) * 2);max-width:none;margin:0 var(--inner-frame) 32px;
+ /* Use the same content container as the other public inner pages. */
+ width:calc(100% - var(--inner-content-gutter) * 2);max-width:var(--inner-content-width);margin:0 auto 32px;
  min-height:320px;padding:48px clamp(24px,5vw,80px)!important;border:0;background:#212121!important;position:relative;
 }
 .directory-discovery-header::before{content:none}
@@ -19,7 +20,7 @@ html body #top.creative-site #main.inner-page .directory-discovery .directory-jo
 .discovery-hero-guide strong{font:500 19px/1.4 Manrope,sans-serif;color:#fff}
 .discovery-hero-guide span{font-size:12px;line-height:1.7;color:#c7c7c7;margin-top:4px}
 .discovery-hero-guide>a{display:inline-flex;align-items:center;gap:16px;color:#edc675;min-height:44px;font-size:12px}
-html body #top.creative-site #main.inner-page .directory-discovery .directory-content{max-width:1600px;margin:auto;padding:12px var(--page-gutter) 64px!important;background:#fff!important}
+html body #top.creative-site #main.inner-page .directory-discovery .directory-content{width:calc(100% - var(--inner-content-gutter) * 2);max-width:var(--inner-content-width);margin:auto;padding:12px 0 64px!important;background:#fff!important}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-toolbar{background:none!important;border:0!important;box-shadow:none;padding:0 0 22px!important;margin:0;gap:18px}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-tabs{background:none!important;border:0;border-bottom:1px solid #dedbd5;border-radius:0;padding:0;gap:24px}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-tabs button{border-radius:0;background:none!important;border-bottom:2px solid transparent;font-size:13px;padding:10px 0!important;color:#666!important;min-height:44px}
@@ -106,3 +107,10 @@ html body #top.creative-site #main.inner-page .directory-discovery .directory-bo
 html body #top.creative-site:not(.site-page-home) #main.inner-page .directory-bottom-cta.inner-closing.inner-closing .page-eyebrow{color:#f1cf80!important;-webkit-text-fill-color:#f1cf80!important;margin:0 0 20px}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .directory-bottom-cta.inner-closing.inner-closing h2+p{margin:20px 0 0}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .directory-bottom-cta.inner-closing.inner-closing .talent-button{background:linear-gradient(110deg,#f1d58e,#ef9d2d)!important;border-color:transparent!important;color:#211a10!important;-webkit-text-fill-color:#211a10!important;flex-shrink:0}
+
+/* Keep the closing title legible against its shared dark panel. */
+html body #top.creative-site #main#main.inner-page .directory-discovery .directory-bottom-cta.inner-closing h2,
+html body #top.creative-site #main#main.inner-page .directory-discovery .directory-bottom-cta.inner-closing h2 *{
+ color:#fffaf0!important;-webkit-text-fill-color:#fffaf0!important;
+}
+html body #top.creative-site #main#main.inner-page .directory-discovery .directory-bottom-cta.inner-closing h2{font-size:clamp(24px,2.4vw,32px)!important;line-height:1.3!important}

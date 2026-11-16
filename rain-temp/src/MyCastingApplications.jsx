@@ -1,0 +1,7 @@
+import React,{useEffect,useState} from 'react';
+import {api} from './talent-api';
+export default function MyCastingApplications(){
+ const [page,setPage]=useState(1),[data,setData]=useState(null),[error,setError]=useState(''),[retry,setRetry]=useState(0);
+ useEffect(()=>{let current=true;setData(null);setError('');api(`/api/casting-applications?page=${page}`).then(data=>{if(current)setData(data);}).catch(error=>{if(current)setError(error.message);});return()=>{current=false;};},[page,retry]);
+ return <section className="member-panel"><h2>My casting applications</h2>{error?<div role="alert"><p>{error}</p><button onClick={()=>setRetry(value=>value+1)}>Try again</button></div>:!data?<p role="status">Loading applications…</p>:<>{!data.applications.length?<p>Your casting applications will appear here. <a href="/find-talent/#casting-calls">Explore casting calls</a>.</p>:data.applications.map(application=><article className="member-conversation" key={application.id}><h3>{application.call_title}</h3><p>{application.role_name}</p><p><strong>Status:</strong> {application.status}</p><p>Reference CAST-{String(application.id).padStart(6,'0')} · Submitted {new Date(application.created_at.replace(' ','T')+'Z').toLocaleDateString('en-GB')}</p></article>)}<nav aria-label="My application pages"><button disabled={page===1} onClick={()=>setPage(value=>value-1)}>Previous</button> Page {page} <button disabled={!data.hasMore} onClick={()=>setPage(value=>value+1)}>Next</button></nav></>}</section>;
+}

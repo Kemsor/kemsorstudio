@@ -18,7 +18,7 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
  for(const {target,file:provided,kind}of targets){
   const box=document.createElement('div');box.className='media-upload-stage';
   const file=provided||document.createElement('input');
-  if(!provided){file.type='file';file.accept=kind==='video'?'video/mp4':kind==='captions'?'.vtt,text/vtt':kind==='document'?'application/pdf':'image/jpeg,image/png,image/webp,image/avif';const label=document.createElement('label');label.textContent=kind==='video'?'Upload an MP4 video (up to 50 MB)':kind==='captions'?'Upload WebVTT subtitles':kind==='document'?'Upload a PDF document':'Upload a new image';label.append(file);box.append(label);}
+  if(!provided){file.type='file';file.accept=kind==='video'?'video/mp4':kind==='captions'?'.vtt,text/vtt':kind==='document'?'application/pdf':'image/jpeg,image/png,image/webp,image/avif';const label=document.createElement('label');label.textContent=kind==='video'?'Upload an MP4 video (up to 50 MB)':kind==='captions'?'Upload WebVTT subtitles':kind==='document'?'Upload a PDF document (up to 10 MB)':'Upload a new image';label.append(file);box.append(label);}
   const alt=provided?form.querySelector('[data-banner-alt]'):null;
   const description=alt||document.createElement('input');
   if(!alt){description.type='text';description.maxLength=300;const label=document.createElement('label');label.textContent=kind==='video'?'Video description':kind==='document'?'Document title':kind==='captions'?'Subtitle description':'Image description';label.append(description);box.append(label);}
@@ -35,13 +35,14 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
   upload.addEventListener('click',async()=>{
    const selected=file.files[0];if(!selected||state.busy||form.dataset.mediaUploading==='true')return;
    if(!description.value.trim()){status.textContent='Add a description before uploading.';description.focus();return;}
-   if(selected.size>50*1024*1024){status.textContent='Choose a file of up to 50 MB.';return;}
+   const limit=kind==='document'?10:kind==='captions'?1:50;
+   if(selected.size>limit*1024*1024){status.textContent=`Choose a file of up to ${limit} MB.`;return;}
    const pageWasDisabled=page?.disabled;if(page)page.disabled=true;state.busy=true;form.dataset.mediaUploading='true';cancel.disabled=true;file.disabled=true;upload.disabled=true;progress.hidden=false;progress.value=0;status.textContent='Uploading…';
    const buttons=[...form.querySelectorAll('button:not([type="button"]),input[type="submit"]')].map(button=>[button,button.disabled]);buttons.forEach(([button])=>button.disabled=true);
    try{
     const session=await fetch('/api/csrf',{headers:{Accept:'application/json'}});if(!session.ok)throw new Error('Your session expired. Sign in again and retry.');
     const {token}=await session.json();const csrf=form.querySelector('input[name="_csrf"]');if(csrf)csrf.value=token;
-    const data=new FormData();data.set('_csrf',token);data.set('image',selected);data.set('kind',kind);data.set('alt',description.value.trim());
+    const data=new FormData();data.set('_csrf',token);data.set('image',selected);data.set('kind',kind);if(target.name==='epk_url')data.set('epk_private','true');data.set('alt',description.value.trim());
     const result=await new Promise((resolve,reject)=>{
      xhr=new XMLHttpRequest();xhr.open('POST','/admin/media/upload');xhr.setRequestHeader('Accept','application/json');xhr.timeout=600000;
      xhr.upload.onprogress=event=>{if(event.lengthComputable){const percent=Math.round(event.loaded/event.total*100);progress.value=percent;status.textContent=percent===100?'Processing upload…':`Uploading ${percent}%`;}};

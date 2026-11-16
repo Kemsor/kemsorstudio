@@ -23,12 +23,12 @@ export default function ProductionJourney({ steps, exploreLabel }) {
   return <div className="production-journey">
     <div className="journey-stage-tabs" role="tablist" aria-label="Production journey">
       {stages.map(([title, , path], index) => <button
-        key={path} ref={el => { tabs.current[index] = el; }} type="button" role="tab" style={{ '--stage-rise': index }}
+        key={path} ref={el => { tabs.current[index] = el; }} type="button" role="tab"
         id={`journey-tab-${path}`} data-stage={path} aria-selected={active === index} aria-controls={`journey-panel-${path}`}
         tabIndex={active === index ? 0 : -1} onFocus={() => setActive(index)} onClick={() => setActive(index)}
         onPointerEnter={event => { if (event.pointerType === 'mouse') setActive(index); }}
         onKeyDown={event => navigate(event, index)}
-      ><span>{title}</span><SiteIcon name="arrow-up-right" size={18} /></button>)}
+      ><span>{title}</span></button>)}
     </div>
     <div className="journey-stage-display">
       {stages.map(([title, copy, path], index) => <div key={path} className="journey-stage-panel" data-stage={path}
@@ -37,7 +37,7 @@ export default function ProductionJourney({ steps, exploreLabel }) {
         <div className="journey-stage-art" aria-hidden="true"><JourneyArtwork stage={path} /></div>
         <div className="journey-stage-copy">
           <h3>{title}</h3><p>{copy}</p>
-          <a className="journey-explore" href={`/${path}/`}><span>{exploreLabel}{title}</span><span className="journey-explore-arrow"><SiteIcon name="arrow-up-right" size={24} /></span></a>
+          <a className="journey-explore" href={`/${path}/`}><span>{exploreLabel}{title}</span><span className="journey-explore-arrow"><SiteIcon name="arrow" size={24} /></span></a>
         </div>
       </div>)}
     </div>

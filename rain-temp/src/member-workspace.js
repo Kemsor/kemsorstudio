@@ -1,7 +1,7 @@
-export const memberTabs=['overview','profile','saved','messages'];
+export const memberTabs=['overview','profile','saved','messages','applications'];
 export function memberTab(hash,role){
  const tab=String(hash||'').replace(/^#/,'');
- return memberTabs.includes(tab)&&!(role==='artist'&&tab==='saved')?tab:'overview';
+ return memberTabs.includes(tab)&&!(role==='artist'&&tab==='saved')&&!(role==='hirer'&&tab==='applications')?tab:'overview';
 }
 export function profileReadiness(user){
  const filled=value=>typeof value==='string'?value.trim().length>0:Boolean(value);

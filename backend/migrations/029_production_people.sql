@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS production_people (
+ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ slug VARCHAR(190) NOT NULL UNIQUE,
+ name VARCHAR(160) NOT NULL,
+ profession VARCHAR(200) NOT NULL DEFAULT '',
+ biography TEXT NOT NULL,
+ image_id INT UNSIGNED NULL,
+ website VARCHAR(1500) NOT NULL DEFAULT '',
+ status ENUM('draft','published','archived') NOT NULL DEFAULT 'draft',
+ published_at DATETIME NULL,
+ created_by INT UNSIGNED NULL,
+ updated_by INT UNSIGNED NULL,
+ updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ FOREIGN KEY(image_id) REFERENCES cms_media(id) ON DELETE RESTRICT,
+ FOREIGN KEY(created_by) REFERENCES cms_users(id) ON DELETE SET NULL,
+ FOREIGN KEY(updated_by) REFERENCES cms_users(id) ON DELETE SET NULL,
+ INDEX(status,published_at)
+);

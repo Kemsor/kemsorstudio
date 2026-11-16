@@ -6,12 +6,11 @@ import SiteIcon from './SiteIcon';
 import React, { useEffect, useRef, useState } from 'react';
 import {createPortal} from 'react-dom';
 import { navigation as defaultNavigation } from './navigation';
-import { pageHref } from './pageInfo';
 import './header.css';
 import {createHeaderScroll} from './header-scroll';
 import {useMember} from './MemberSession';
 
-const drawerQuery = '(max-width: 1440px)';
+const drawerQuery = '(max-width: 1100px)';
 
 function RollingLabel({ children }) {
   return <span className="creative-nav-roll"><span className="creative-nav-roll-track"><span>{children}</span><span aria-hidden="true">{children}</span></span></span>;
@@ -87,11 +86,18 @@ export default function Header({ page = 'home' } = {}) {
       cancelAnimationFrame(frame);
     };
   }, []);
-  let currentItem = { 'documentaries':'capabilities', 'series-ott':'capabilities', 'short-films':'capabilities', 'feature-films':'capabilities', 'india-production-services':'india', post:'capabilities', 'post-production':'capabilities', release:'capabilities', 'distribution-release':'capabilities', 'festival-awards':'capabilities', 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', 'how-we-work':'studio', careers: 'studio', 'shooting-on-location': 'capabilities', 'set-production-design': 'capabilities', 'locations-logistics': 'capabilities', 'crew-equipment': 'capabilities', 'story-script': 'capabilities', 'packaging-talent': 'capabilities', 'budgeting-scheduling': 'capabilities', develop: 'capabilities', finance: 'capabilities', 'co-production': 'capabilities', 'finance-structuring': 'capabilities', 'international-co-productions': 'capabilities', 'what-we-make': 'capabilities', casting: 'capabilities', 'line-production': 'capabilities', produce: 'capabilities', services: 'capabilities', productions: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
+  let currentItem = { 'documentaries':'capabilities', 'series-ott':'capabilities', 'short-films':'capabilities', 'feature-films':'capabilities', 'india-production-services':'india', post:'capabilities', 'post-production':'capabilities', release:'capabilities', 'distribution-release':'capabilities', 'festival-awards':'capabilities', 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', 'how-we-work':'studio', careers: 'studio', 'shooting-on-location': 'capabilities', 'set-production-design': 'capabilities', 'locations-logistics': 'capabilities', 'crew-equipment': 'capabilities', 'story-script': 'capabilities', 'packaging-talent': 'capabilities', 'budgeting-scheduling': 'capabilities', develop: 'capabilities', finance: 'capabilities', 'co-production': 'capabilities', 'finance-structuring': 'capabilities', 'international-co-productions': 'capabilities', 'what-we-make': 'capabilities', casting: 'capabilities', 'line-production': 'capabilities', produce: 'capabilities', services: 'capabilities', 'person-detail':'productions','production-detail':'productions', productions: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
   if (page === 'services' && currentHash === '#india-production-services') currentItem = 'india';
   if (page === 'services' && currentHash === '#production-process') currentItem = 'studio';
   if (page === 'contact' && ['#filmmakers', '#studios', '#co-producers', '#international-productions'].includes(currentHash)) currentItem = 'partners';
-  const currentSubLink = applyNavigation(defaultNavigation).flatMap(item => item.groups?.flatMap(group => group.links) || []).find(link => link.href === `${pageHref(page)}${currentHash}`)?.label;
+  const navigationItems = applyNavigation(defaultNavigation);
+  const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  const matchesPath = href => new URL(href, window.location.href).pathname.replace(/\/+$/, '') === currentPath;
+  const dropdownLinks = navigationItems.flatMap(item => item.groups?.flatMap(group => group.links) || []);
+  const currentSubLink = (currentHash && dropdownLinks.find(link => matchesPath(link.href) && new URL(link.href, window.location.href).hash === currentHash))
+    || dropdownLinks.find(link => matchesPath(link.href) && !new URL(link.href, window.location.href).hash);
+  const currentMenu = navigationItems.find(item => item.href ? matchesPath(item.href) : item.groups?.some(group => group.links.includes(currentSubLink)));
+  if (currentMenu) currentItem = currentMenu.id;
 
   const clearHoverTimer = () => {
     clearTimeout(hoverTimer.current);
@@ -232,7 +238,7 @@ export default function Header({ page = 'home' } = {}) {
           <div className="creative-nav-drawer-head"><span>{cmsText("Header","bb1ee5567870d5af","THE STUDIO INDEX")}</span><button ref={closeRef} type="button" onClick={() => closeDrawer()} aria-label="Close navigation">{cmsText("Header","6b80cfee72cc8502","Close ")}<span aria-hidden="true"><SiteIcon name="close" size={16} /></span></button></div>
           <div ref={drawerBodyRef} className="creative-nav-drawer-body" data-lenis-prevent>
           <div className="creative-nav-list">
-            {applyNavigation(defaultNavigation).map(item => <div className={`creative-nav-item creative-nav-item-${item.id}`} data-current={currentItem === item.id} key={item.id} onPointerEnter={event => enterItem(event, item)} onPointerLeave={leaveItem}>
+            {navigationItems.map(item => <div className={`creative-nav-item creative-nav-item-${item.id}`} data-current={currentItem === item.id} key={item.id} onPointerEnter={event => enterItem(event, item)} onPointerLeave={leaveItem}>
               {item.href ? <a className={item.cta ? 'creative-nav-cta' : 'creative-nav-direct'} href={item.href} aria-current={currentItem === item.id ? currentHash && item.href.endsWith(currentHash) ? 'location' : 'page' : undefined} onClick={event => followLink(item.href, event)}><RollingLabel>{item.label}</RollingLabel>{item.cta && <span className="creative-nav-cta-mark" aria-hidden="true"><SiteIcon name="plus" size={16} /></span>}</a> : <>
                 <button ref={element => { triggerRefs.current[item.id] = element; }} type="button" className="creative-nav-trigger" aria-current={currentItem === item.id ? 'page' : undefined} aria-expanded={activePanel === item.id} aria-controls={`creative-menu-${item.id}`} onClick={event => {
                   clearHoverTimer();
@@ -246,7 +252,7 @@ export default function Header({ page = 'home' } = {}) {
                   <div className="creative-dropdown-groups">{item.groups.map((group, index) => {
                     const collapsible = drawerMode && item.id === 'capabilities';
                     const groupId = `creative-menu-${item.id}-group-${index}`;
-                    const links = group.links.map(link => <a key={link.label} href={link.href} aria-current={currentSubLink === link.label ? currentHash ? 'location' : 'page' : undefined} onClick={event => followLink(link.href, event)}>{link.label}</a>);
+                    const links = group.links.map(link => <a key={link.href} href={link.href} aria-current={currentSubLink === link ? new URL(link.href, window.location.href).hash ? 'location' : 'page' : undefined} onClick={event => followLink(link.href, event)}>{link.label}</a>);
                     return <div className={`creative-nav-group${collapsible ? ' creative-nav-group-collapsible' : ''}`} key={group.title || index}>
                       {collapsible ? <>
                         <button type="button" className="creative-nav-group-toggle" aria-expanded={activeGroup === index} aria-controls={groupId} onClick={() => setActiveGroup(activeGroup === index ? null : index)}>
@@ -268,14 +274,14 @@ export default function Header({ page = 'home' } = {}) {
         </nav>;
 
   return <>
-    <header ref={headerRef} className="creative-header" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel && !accountOpen} onFocusCapture={() => setHidden(false)}>
+    <header ref={headerRef} className="creative-header reference-navigation" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel && !accountOpen} onFocusCapture={() => setHidden(false)}>
       <div className="creative-header-inner">
         <a className="creative-header-brand" href="/" onClick={event => followLink('/', event)} aria-label="Kemsor Studios home">
-          <picture>{!getSiteModule('branding',{}).logo&&<source srcSet="/assets/kemsor-logo.webp" type="image/webp" />}<StudioImage mediaSlot="Header-1" src={getSiteModule('branding',{}).logo||'/assets/kemsor-logo.svg'} alt={getSiteModule('branding',{}).alt||'Kemsor Studios'} width="3650" height="3300" loading="eager" decoding="async" /></picture>
+          <picture>{!getSiteModule('branding',{}).logo&&<source srcSet="/assets/kemsor-logo.webp" type="image/webp" />}<StudioImage mediaSlot="Header-1" src={getSiteModule('branding',{}).logo||'/assets/kemsor-logo.svg'} alt={getSiteModule('branding',{}).alt||'Kemsor Studios'} width="3650" height="3300" loading="eager" decoding="async" /></picture><span className="header-wordmark">KEMSOR</span>
         </a>
         {!drawerMode&&navigation}
         <div className="creative-header-controls">
-          {!loading&&user?.role!=='artist'&&<a href="/script-to-production/" className="header-script-tool" aria-current={page==='script-to-production'?'page':undefined}><b className="cta-label">{cmsText("Header","69ea66274b2abbc9","Script to Production")}</b> <span aria-hidden="true"><SiteIcon name="script" size={16} /></span></a>}
+          {!loading&&user?.role!=='artist'&&<a href="/contact/" className="header-script-tool" aria-current={page==='contact'?'page':undefined}><b className="cta-label">Talk to studio</b> <span aria-hidden="true"><SiteIcon name="arrow-right" size={16} /></span></a>}
           <div className="header-account-links" aria-label="Account links"><AccountDropdown onOpenChange={setAccountOpen}/></div>
           <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { clearHoverTimer(); setDrawerOpen(!drawerOpen); setActivePanel(null); }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true"><SiteIcon name={drawerOpen?'close':'menu'} size={23} /></span>
@@ -283,7 +289,7 @@ export default function Header({ page = 'home' } = {}) {
         </div>
       </div>
     </header>
-    {drawerMode&&drawerHost&&createPortal(<div className="creative-header creative-drawer-layer" data-page={page} data-overlay="true" data-drawer-open={drawerOpen} onFocusCapture={()=>setHidden(false)}>{navigation}</div>,drawerHost)}
+    {drawerMode&&drawerHost&&createPortal(<div className="creative-header reference-navigation creative-drawer-layer" data-page={page} data-overlay="true" data-drawer-open={drawerOpen} onFocusCapture={()=>setHidden(false)}>{navigation}</div>,drawerHost)}
     {drawerMode&&<button type="button" className="creative-nav-backdrop" data-open={drawerOpen} aria-label="Close navigation backdrop" aria-hidden={!drawerOpen} disabled={!drawerOpen} tabIndex={-1} onClick={() => closeDrawer()} />}
   </>;
 }

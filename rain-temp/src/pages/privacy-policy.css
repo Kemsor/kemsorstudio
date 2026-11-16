@@ -21,3 +21,25 @@ html .creative-site #main .privacy-policy-page p{font-size:13px;line-height:1.9;
 @media(max-width:850px){.privacy-policy-layout{grid-template-columns:1fr}.privacy-policy-contents{position:static;max-height:none;padding-bottom:24px;border-bottom:1px solid var(--line,#ccc)}.privacy-policy-contents ol{columns:2;column-gap:32px}.privacy-policy-contents li{break-inside:avoid}.privacy-policy-header .site-breadcrumb{margin-bottom:30px}}
 @media(max-width:480px){.privacy-policy-contents ol{columns:1}.privacy-policy-layout{padding-top:28px;gap:32px}.privacy-policy-dates{flex-direction:column}.privacy-policy-page{padding-top:15px}}
 @media print{.privacy-policy-contents{display:none}.privacy-policy-layout{display:block}.privacy-policy-page{max-width:none;padding:0}.privacy-policy-copy{max-width:none}.privacy-policy-copy section{break-inside:avoid}}
+
+/* Shared page width and a comfortable policy reading column. */
+.privacy-policy-page{box-sizing:border-box;width:calc(100% - var(--inner-content-gutter)*2);max-width:var(--inner-content-width);padding:clamp(28px,4vw,56px) 0 80px}
+.privacy-policy-header{padding:12px 0 32px}
+.privacy-policy-dates{padding:16px 20px;background:#f7f5f1;border-radius:8px;gap:8px 32px}
+.privacy-policy-dates p{margin:0}
+.privacy-policy-layout{grid-template-columns:260px minmax(0,1fr);gap:clamp(32px,5vw,64px)}
+.privacy-policy-contents{padding:24px;background:#f7f5f1;border:1px solid #e7e0d6;border-radius:10px;box-sizing:border-box}
+.privacy-policy-contents ol{font-size:14px;line-height:1.65;padding-left:20px}
+.privacy-policy-contents a{text-transform:none}
+.privacy-policy-contents>p{font-weight:600;letter-spacing:.08em}
+html .creative-site #main .privacy-policy-page p{font-size:16px;line-height:1.85}
+html .creative-site #main .privacy-policy-page .privacy-policy-eyebrow,html .creative-site #main .privacy-policy-contents>p{font-size:12px}
+html .creative-site #main .privacy-policy-page h2{font-size:clamp(22px,2.2vw,28px);line-height:1.35}
+.privacy-policy-copy{max-width:760px}
+.privacy-policy-copy section{padding-bottom:32px;margin-bottom:32px}
+.privacy-policy-copy a{overflow-wrap:anywhere}
+.privacy-policy-signoff{padding:24px;background:#f7f5f1;border-radius:10px}
+.privacy-policy-signoff>a{font-size:15px}
+@media(max-width:850px){.privacy-policy-layout{grid-template-columns:1fr;gap:32px}.privacy-policy-contents{padding:22px;max-height:none}.privacy-policy-contents ol{columns:2}.privacy-policy-copy{max-width:none}}
+@media(max-width:540px){.privacy-policy-contents ol{columns:1}.privacy-policy-dates{flex-direction:column;padding:16px}.privacy-policy-signoff{padding:20px}}
+@media print{.privacy-policy-page{width:100%;max-width:none;padding:0}.privacy-policy-layout{display:block}.privacy-policy-contents{display:none}.privacy-policy-signoff,.privacy-policy-dates{background:none;padding:0}}

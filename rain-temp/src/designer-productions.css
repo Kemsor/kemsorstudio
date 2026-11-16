@@ -65,3 +65,20 @@ html body #top.creative-site #main #productions.motion-work p{font:400 14px/1.7 
 }
 #productions.motion-work .mw-pill svg{display:none}
 #productions.motion-work .mw-eyebrow{display:none}
+
+/* Standard slideshow within the existing gallery frame. */
+#productions.motion-work .mw-gallery{display:block;position:relative;overflow:hidden;border:1px solid #d1aa6c;border-radius:45px}
+#productions.motion-work .mw-slide-track{display:flex;width:100%;height:100%;transition:transform .65s ease}
+#productions.motion-work .mw-card,#productions.motion-work .mw-card.is-active{flex:0 0 100%;width:100%;height:100%;min-height:0;border:0;border-radius:0;cursor:default}
+#productions.motion-work .mw-caption{bottom:90px;opacity:1;visibility:visible;transform:none;transition:none}
+#productions.motion-work .mw-slide-controls{position:absolute;bottom:22px;right:22px;left:22px;display:flex;align-items:center;justify-content:flex-end;gap:16px;z-index:2;color:#fff}
+#productions.motion-work .mw-slide-controls button{width:44px;height:44px;border:1px solid #e5b765;border-radius:50%;background:#251c12;color:#fff;font-size:24px;cursor:pointer}
+#productions.motion-work .mw-slide-controls button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+#productions.motion-work .mw-slide-controls span{font-size:13px}
+@media(max-width:1200px){#productions.motion-work .mw-gallery{border-radius:32px}}
+@media(max-width:600px){#productions.motion-work .mw-gallery{height:638px;border-radius:24px}}
+@media(prefers-reduced-motion:reduce){#productions.motion-work .mw-slide-track{transition:none}}
+#productions.motion-work[data-reduced=true] .mw-slide-track{transition:none}
+
+#productions.motion-work .mw-card.mw-poster{background:#100e0b}
+#productions.motion-work .mw-card.mw-poster>img{object-fit:contain;object-position:center;filter:none}

@@ -4,6 +4,8 @@ html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-gold{background:linear-gradient(135deg,#f1d58e,#c3913e);border-color:transparent}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-feature{grid-row:span 2;justify-content:flex-end;background:#ede5d7}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-image{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+/* Keep the lead actor's face in the narrow Development & Packaging card. */
+html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-feature .studio-lifecycle-image{object-position:30% top}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-feature::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#faf7f0 0%,#faf7f0f5 25%,#faf7f000 70%)}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-photo::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#10100fed,#10100f88 65%,#10100f22)}
 html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-icon{display:grid;place-items:center;width:48px;height:48px;flex-shrink:0;border-radius:50%;background:#fff;color:#75501f}
@@ -21,7 +23,7 @@ html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle
 @media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-card,html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-image{transition:none}html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-card:hover{transform:none}html body #top.creative-site #main.inner-page #about-chapter-3 .studio-lifecycle-card:hover .studio-lifecycle-image{transform:none}}
 
 /* On-the-ground services: comfortable spacing and the shared gold hover treatment. */
-html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground{display:block;margin-top:clamp(40px,5vw,64px);padding-top:0;border:0}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground{display:block;box-sizing:border-box;min-width:0;margin-top:clamp(40px,5vw,64px);padding:clamp(24px,3vw,40px);border:0;border-radius:14px}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground>h3{margin:0 0 24px}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0;margin:0;list-style:none}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground li{padding:0;min-width:0;display:flex}
@@ -30,7 +32,7 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapte
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card::before{content:'';display:block;position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,#f1d58e,#c3913e);opacity:0;transform:none;transition:opacity .3s}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card-content{display:flex;flex-direction:column;width:100%;transform:none}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card-content>svg{margin:0 0 22px;flex-shrink:0}
-html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card h3{margin:0 0 14px;font-size:20px!important;line-height:1.4!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card h3{margin:0 0 14px;font-size:var(--inner-type-card)!important;line-height:1.4!important}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card-detail{display:flex;flex:1;flex-direction:column;height:auto;opacity:1;overflow:visible}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card-detail p{margin:0 0 24px;font-size:13px!important;line-height:1.8}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card-detail span{display:block;margin-top:auto;font-size:12px;line-height:1.5}
@@ -39,5 +41,5 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapte
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card:is(:hover,:focus-visible) :is(h3,p,span,svg){color:#30251a!important;-webkit-text-fill-color:#30251a!important}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card:focus-visible{outline:3px solid #966622;outline-offset:4px}
 @media(max-width:950px){html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground ul{grid-template-columns:1fr;gap:16px}html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card{padding:24px!important}}
+@media(max-width:600px){html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground{padding:20px}html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground ul{grid-template-columns:1fr;gap:16px}html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card{padding:24px!important}}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card,html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-ground .ground-card::before{transition:none}}

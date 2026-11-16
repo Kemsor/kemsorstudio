@@ -1,0 +1,58 @@
+/* Cross-border production, with the same visual language as the Finance family. */
+html body #top.creative-site #main#main.inner-page .international-page .fl-section:not(.inner-closing){padding-inline:0!important;border:0!important}
+html body #top.creative-site #main#main.inner-page .international-page .fl-section-content:not(.produce-work):not(.inner-closing){padding:0!important;min-width:0}
+html body #top.creative-site #main#main.inner-page .international-page .fl-section-content:not(.produce-work):not(.inner-closing)>h2{max-width:none;margin:0 0 24px!important}
+html body #top.creative-site #main#main.inner-page .international-page .international-intro{margin:0 0 28px!important;font-size:13px!important;line-height:1.8!important}
+html body #top.creative-site #main#main.inner-page .international-page .international-directions{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:24px;border:0;margin-top:28px;
+}
+html body #top.creative-site #main#main.inner-page .international-page .international-directions>article{
+ padding:0!important;background:#fdfbf8!important;border:1px solid #e9e0d2!important;overflow:hidden;border-radius:16px;transition:background .2s,border-color .2s;
+}
+html body #top.creative-site #main#main.inner-page .international-page .international-direction-photo{display:block;width:100%;height:210px;object-fit:cover}
+html body #top.creative-site #main#main.inner-page .international-page .international-direction-body{padding:26px}
+html body #top.creative-site #main#main.inner-page .international-page .international-direction-label{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#f2e8d7;color:#89632d;font-size:22px;margin:0 0 16px}
+html body #top.creative-site #main#main.inner-page .international-page :is(.international-directions,.international-crossings,.international-reporting,.finance-steps) h3{margin:0 0 10px!important}
+html body #top.creative-site #main#main.inner-page .international-page :is(.international-directions,.international-crossings,.international-reporting,.finance-steps) p{font-size:13px!important;line-height:1.75!important;margin:0!important;color:#62584c!important;-webkit-text-fill-color:#62584c!important}
+html body #top.creative-site #main#main.inner-page .international-page :is(.international-directions,.international-crossings) .international-small-label{font-size:10px!important;font-weight:600;letter-spacing:.04em;color:#9a7438!important;-webkit-text-fill-color:#9a7438!important;margin:18px 0 6px!important}
+html body #top.creative-site #main#main.inner-page .international-page .international-crossings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
+html body #top.creative-site #main#main.inner-page .international-page .international-crossings>article{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px;align-content:start;padding:24px;
+ border:1px solid #e9e0d2!important;border-radius:14px;background:#fdfbf8!important;transition:background .2s,border-color .2s;
+}
+html body #top.creative-site #main#main.inner-page .international-page .international-crossing-title{grid-column:1/-1;display:flex;gap:14px;align-items:center}
+html body #top.creative-site #main#main.inner-page .international-page .international-crossing-title h3{margin:0!important}
+html body #top.creative-site #main#main.inner-page .international-page .international-card-icon{display:inline-grid;place-items:center;width:44px;height:44px;background:#f2e8d7;color:#89632d;border-radius:12px;flex:none}
+html body #top.creative-site #main#main.inner-page .international-page .international-crossings .international-small-label{margin-top:0!important}
+html body #top.creative-site #main#main.inner-page .international-page .international-communication-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:28px;align-items:stretch}
+html body #top.creative-site #main#main.inner-page .international-page .international-communication-layout figure{position:relative;min-height:350px;overflow:hidden;border-radius:16px;margin:0}
+html body #top.creative-site #main#main.inner-page .international-page .international-communication-layout img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+html body #top.creative-site #main#main.inner-page .international-page .international-reporting{display:grid;grid-template-columns:1fr;gap:16px;padding:0;border:0;margin:0}
+html body #top.creative-site #main#main.inner-page .international-page .international-reporting article{display:flex;gap:18px;align-items:center;padding:24px;border:1px solid #e9e0d2!important;border-radius:14px;background:#fdfbf8;transition:background .2s,border-color .2s}
+html body #top.creative-site #main#main.inner-page .international-page .international-framework-card{display:flex;align-items:start;gap:24px;padding:32px;background:#faf7f1;border:1px solid #e9e0d2;border-radius:18px}
+html body #top.creative-site #main#main.inner-page .international-page .international-framework-card h2{max-width:none;margin:0 0 20px!important}
+html body #top.creative-site #main#main.inner-page .international-page .international-framework-card .international-intro{margin:0!important;max-width:none}
+html body #top.creative-site #main#main.inner-page .international-page .finance-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding:0;margin:28px 0 0;list-style:none}
+html body #top.creative-site #main#main.inner-page .international-page .finance-steps>li{padding:24px;border:1px solid #e9e0d2!important;background:#fdfbf8;border-radius:14px;transition:background .2s,border-color .2s}
+html body #top.creative-site #main#main.inner-page .international-page .finance-steps>li::before{content:none!important}
+html body #top.creative-site #main#main.inner-page .international-page .international-step-number{display:inline-grid;place-items:center;width:32px;height:32px;background:#f2e8d7;color:#89632d;border-radius:50%;font:600 11px/1 Inter,sans-serif;margin-bottom:18px}
+html body #top.creative-site #main#main.inner-page .international-page .international-audiences{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:0;margin:28px 0 0}
+html body #top.creative-site #main#main.inner-page .international-page .international-audiences li{display:flex;align-items:center;gap:16px;padding:22px;border:1px solid #e9e0d2!important;border-radius:14px;background:#fdfbf8;color:#62584c;font-size:13px;line-height:1.75;transition:background .2s,border-color .2s}
+html body #top.creative-site #main#main.inner-page .international-page .international-audiences li::before{content:none}
+@media(hover:hover){
+ html body #top.creative-site #main#main.inner-page .international-page :is(.international-directions>article,.international-crossings>article,.international-reporting article,.finance-steps>li,.international-audiences li):is(:hover,:focus-within){background:#f8edcf!important;border-color:#c5a15e!important}
+}
+@media(max-width:1000px){
+ html body #top.creative-site #main#main.inner-page .international-page .international-communication-layout{grid-template-columns:1fr}
+ html body #top.creative-site #main#main.inner-page .international-page .international-communication-layout figure{min-height:260px}
+ html body #top.creative-site #main#main.inner-page .international-page .finance-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px){
+ html body #top.creative-site #main#main.inner-page .international-page :is(.international-directions,.international-crossings,.international-crossings>article,.finance-steps,.international-audiences){grid-template-columns:minmax(0,1fr)!important}
+ html body #top.creative-site #main#main.inner-page .international-page .international-direction-photo{height:180px}
+ html body #top.creative-site #main#main.inner-page .international-page .international-framework-card{display:block;padding:24px}
+ html body #top.creative-site #main#main.inner-page .international-page .international-framework-card>.international-card-icon{margin-bottom:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site #main#main.inner-page .international-page :is(.international-directions>article,.international-crossings>article,.international-reporting article,.finance-steps>li,.international-audiences li){transition:none}
+}

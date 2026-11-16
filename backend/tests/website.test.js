@@ -22,6 +22,15 @@ test('Unified hosting serves website pages while preserving API and admin routes
   await request(app).get('/press-media/').expect(200).then(r=>assert.match(r.text,/Press & Media/));
   await request(app).get('/api/site').expect(200,{entries:[]});
   await request(app).get('/admin/login').expect(200,'CMS login');
+  await request(app).get('/admin/login').expect('X-Robots-Tag','noindex, follow');
+  await request(app).get('/api/site').expect('X-Robots-Tag','noindex, follow');
+  for(const route of ['/login/','/join/','/profile/'])await request(app).get(route).expect('X-Robots-Tag','noindex, follow');
+  for(const [source,destination] of [['/projects','/productions/'],['/projects/','/productions/'],['/projects/index.html','/productions/'],['/news/','/press-media/'],['/news/index.html','/press-media/'],['/index.html','/'],['/press-media/index.html','/press-media/']]){
+   await request(app).get(source+'?ref=archive').expect(301).expect('Location',destination+'?ref=archive');
+   await request(app).head(source).expect(301).expect('Location',destination);
+  }
+  await request(app).get('/missing/index.html').expect(404);
+  await request(app).post('/projects/').expect(404);
   await request(app).get('/.env').expect(404);
   await request(app).get('/missing-page/').expect(404);
  }finally{await rm(directory,{recursive:true,force:true});}

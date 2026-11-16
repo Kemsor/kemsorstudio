@@ -1,0 +1,81 @@
+/* Finance Structuring follows the same content rails and visual rhythm as Finance. */
+html body #top.creative-site #main#main.inner-page .structuring-page .fl-section:not(.inner-closing){
+ padding-inline:0!important;border:0!important;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .fl-section-content:not(.produce-work):not(.inner-closing){padding:0!important;min-width:0}
+html body #top.creative-site #main#main.inner-page .structuring-page .fl-section-content:not(.produce-work):not(.inner-closing)>h2{max-width:none;margin-bottom:24px!important}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-section-intro{
+ display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;align-items:center;margin-bottom:28px;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-section-intro h2{max-width:none;margin:0 0 20px!important}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-intro{margin:0!important;font-size:13px!important;line-height:1.8!important}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-section-intro figure{margin:0;height:260px;overflow:hidden;border-radius:16px}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-section-intro img{display:block;width:100%;height:100%;object-fit:cover}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-rows{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:0;border:0;border-radius:0;overflow:visible;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-rows>article{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px;align-content:start;
+ padding:24px!important;background:#fdfbf8!important;border:1px solid #e9e0d2!important;border-radius:14px;
+ transition:background .2s,border-color .2s;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-question-title{
+ grid-column:1/-1;display:flex;align-items:center;gap:12px;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-number{
+ display:inline-grid;place-items:center;width:32px;height:32px;background:#f2e8d7;color:#89632d;border-radius:50%;font:600 11px/1 Inter,sans-serif;flex:none;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-rows h3{margin:0!important}
+html body #top.creative-site #main#main.inner-page .structuring-page :is(.structuring-rows,.structuring-formats,.structuring-mistakes,.finance-steps) p{
+ font-size:13px!important;line-height:1.75!important;margin:10px 0 0!important;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-rows .structuring-small{
+ font-size:10px!important;font-weight:600;color:#9a7438!important;-webkit-text-fill-color:#9a7438!important;margin:0 0 7px!important;letter-spacing:.04em;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page #cash-flow .structuring-rows{grid-template-columns:1fr}
+html body #top.creative-site #main#main.inner-page .structuring-page #cash-flow .structuring-rows>article{grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,1.4fr)!important;align-items:start}
+html body #top.creative-site #main#main.inner-page .structuring-page #cash-flow .structuring-question-title{grid-column:auto}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-formats{
+ display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px;background:none!important;border:0!important;margin-top:28px;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-formats>article{
+ display:block!important;padding:0!important;background:#fdfbf8!important;overflow:hidden;border:1px solid #e9e0d2!important;border-radius:14px!important;transition:background .2s,border-color .2s;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-format-photo{display:block;width:100%;height:150px;object-fit:cover}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-formats>article>div{padding:22px}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-formats h3{color:#57351f!important;-webkit-text-fill-color:#57351f!important}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-delivery-layout{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:28px;align-items:stretch}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-delivery-layout figure{position:relative;min-height:340px;margin:0;overflow:hidden;border-radius:16px}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-delivery-layout img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-delivery-layout .studio-ledger{margin:0!important}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-mistakes{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px;padding:0;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-mistakes>li{
+ display:flex;align-items:start;gap:16px;padding:24px;border:1px solid #e9e0d2!important;background:#fdfbf8;border-radius:14px;
+}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-mistake-icon{display:grid;place-items:center;width:40px;height:40px;background:#f2e8d7;color:#89632d;border-radius:10px;flex:none;padding:0}
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-mistakes h3{margin:0!important}
+html body #top.creative-site #main#main.inner-page .structuring-page .finance-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px;padding:0;list-style:none}
+html body #top.creative-site #main#main.inner-page .structuring-page .finance-steps>li{padding:24px;border:1px solid #e9e0d2!important;background:#fdfbf8;border-radius:14px}
+html body #top.creative-site #main#main.inner-page .structuring-page .finance-steps>li::before{content:none!important}
+html body #top.creative-site #main#main.inner-page .structuring-page .finance-steps h3{margin:14px 0 0!important}
+@media(hover:hover){
+ html body #top.creative-site #main#main.inner-page .structuring-page :is(.structuring-rows>article,.structuring-formats>article,.structuring-mistakes>li,.finance-steps>li):is(:hover,:focus-within){background:#f8edcf!important;border-color:#c5a15e!important}
+}
+@media(max-width:1000px){
+ html body #top.creative-site #main#main.inner-page .structuring-page :is(.structuring-section-intro,.structuring-delivery-layout){grid-template-columns:1fr;gap:24px}
+ html body #top.creative-site #main#main.inner-page .structuring-page .structuring-delivery-layout figure{min-height:240px}
+ html body #top.creative-site #main#main.inner-page .structuring-page .structuring-formats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body #top.creative-site #main#main.inner-page .structuring-page .finance-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px){
+ html body #top.creative-site #main#main.inner-page .structuring-page :is(.structuring-rows,.structuring-mistakes,.finance-steps){grid-template-columns:1fr}
+ html body #top.creative-site #main#main.inner-page .structuring-page .structuring-rows>article,
+ html body #top.creative-site #main#main.inner-page .structuring-page #cash-flow .structuring-rows>article{grid-template-columns:minmax(0,1fr)!important;padding:20px!important}
+ html body #top.creative-site #main#main.inner-page .structuring-page .structuring-rows>article>div:first-child{grid-column:1/-1}
+ html body #top.creative-site #main#main.inner-page .structuring-page .structuring-formats{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site #main#main.inner-page .structuring-page :is(.structuring-rows>article,.structuring-formats>article){transition:none}
+}

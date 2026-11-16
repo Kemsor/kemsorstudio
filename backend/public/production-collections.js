@@ -1,0 +1,11 @@
+for(const editor of document.querySelectorAll('[data-production-collection]')){
+ const input=editor.querySelector('[data-collection-value]'),container=editor.querySelector('[data-collection-rows]'),add=editor.querySelector('[data-collection-add]'),status=editor.querySelector('[data-collection-status]'),limit=Number(editor.dataset.limit);
+ const sync=()=>{input.value=JSON.stringify([...container.children].map(row=>Object.fromEntries([...row.querySelectorAll('[data-record-field]')].map(field=>[field.dataset.recordField,field.value]))));[...container.children].forEach((row,index)=>{row.querySelector('legend').textContent=`Record ${index+1}`;row.querySelector('[data-record-up]').disabled=index===0;row.querySelector('[data-record-down]').disabled=index===container.children.length-1;});add.disabled=container.children.length>=limit;};
+ const append=value=>{const row=editor.querySelector('template').content.firstElementChild.cloneNode(true);for(const field of row.querySelectorAll('[data-record-field]')){if(value[field.dataset.recordField]!=null)field.value=String(value[field.dataset.recordField]);}
+ row.addEventListener('input',sync);row.addEventListener('change',event=>{if(event.target.matches('[data-record-asset]'))row.querySelector('[data-record-field=url]').value=event.target.value;if(event.target.matches('[data-record-field=person_id]')){const name=row.querySelector('[data-record-field=name]');if(name&&!name.value)name.value=event.target.selectedOptions[0]?.dataset.personName||'';}sync();});
+ row.querySelector('[data-record-remove]').onclick=()=>{row.remove();sync();status.textContent='Record removed. Save the production to apply changes.';add.focus();};
+ row.querySelector('[data-record-up]').onclick=()=>{if(row.previousElementSibling){container.insertBefore(row,row.previousElementSibling);sync();row.querySelector('[data-record-down]').focus();}};
+ row.querySelector('[data-record-down]').onclick=()=>{if(row.nextElementSibling){container.insertBefore(row.nextElementSibling,row);sync();row.querySelector('[data-record-up]').focus();}};
+ container.append(row);sync();return row;};
+ const saved=JSON.parse(input.value||'[]');saved.forEach(append);add.onclick=()=>{if(container.children.length<limit)append({}).querySelector('[data-record-field]').focus();};editor.closest('form').addEventListener('submit',sync);
+}

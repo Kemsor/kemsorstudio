@@ -38,11 +38,11 @@ export async function deletePersonalRecord(db,resource,id,{user=null,policyVersi
   if(retentionDays&&(!record.eligible_age||!config.terminal.includes(record.status))){await connection.rollback();return false;}
   const receipt=`${config.prefix}-${String(id).padStart(6,'0')}`;
   // Lock the receipt before deleting it; do not race an actively claimed delivery.
-  const outbox=await rows(connection,'SELECT id,status FROM cms_email_outbox WHERE receipt_key=? FOR UPDATE',[receipt]);
+  const outbox=await rows(connection,'SELECT id,status FROM cms_email_outbox WHERE receipt_key=? OR receipt_key LIKE ? FOR UPDATE',[receipt,`${receipt}-REPLY-%`]);
   if(outbox.some(record=>record.status==='sending'))throw failure('Confirmation delivery is in progress. Retry deletion after it finishes.',409);
   if(record[config.file])await rows(connection,'INSERT IGNORE INTO cms_file_deletions(area,filename) VALUES(?,?)',[config.area,record[config.file]]);
   if(resource==='enquiry')await rows(connection,'DELETE FROM cms_notification_history WHERE category="enquiry" AND source_id=?',[id]);
-  await rows(connection,'DELETE FROM cms_email_outbox WHERE receipt_key=?',[receipt]);
+  await rows(connection,'DELETE FROM cms_email_outbox WHERE receipt_key=? OR receipt_key LIKE ?',[receipt,`${receipt}-REPLY-%`]);
   await rows(connection,'INSERT IGNORE INTO cms_data_deletions(resource,source_id,source_created_at,policy_version) VALUES(?,?,?,?)',[resource,id,record.created_at,policyVersion]);
   await rows(connection,`DELETE FROM ${config.table} WHERE id=?`,[id]);
   await audit(connection,user,'delete_personal_data',resource,id);
@@ -85,7 +85,7 @@ export async function reconcileDeletions(restoredDb,ledger) {
   if(!matching.length)continue;
   // The current ledger records a completed erasure, overriding a hold in an older snapshot.
   await rows(restoredDb,`UPDATE ${config.table} SET retention_hold=0 WHERE id=?`,[entry.source_id]);
-  await rows(restoredDb,"UPDATE cms_email_outbox SET status='failed',claim_token=NULL WHERE receipt_key=? AND status='sending'",[`${config.prefix}-${String(entry.source_id).padStart(6,'0')}`]);
+  await rows(restoredDb,"UPDATE cms_email_outbox SET status='failed',claim_token=NULL WHERE (receipt_key=? OR receipt_key LIKE ?) AND status='sending'",[`${config.prefix}-${String(entry.source_id).padStart(6,'0')}`,`${config.prefix}-${String(entry.source_id).padStart(6,'0')}-REPLY-%`]);
   if(await deletePersonalRecord(restoredDb,entry.resource,entry.source_id,{policyVersion:'recovery-reconciliation'}))erased++;
  }
  return erased;

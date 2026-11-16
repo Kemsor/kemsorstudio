@@ -45,7 +45,7 @@ html .creative-site #main .finance-audience-label{font-size:11px;line-height:1.7
 html .creative-site #main .finance-audience-card h3{font-size:clamp(25px,2.5vw,34px);line-height:1.25}
 .finance-audience-card ul{padding:0;margin:26px 0 32px;list-style:none;width:100%}
 .finance-audience-card li{position:relative;padding:13px 0 13px 24px;border-bottom:1px solid var(--line);color:var(--muted);font-size:15px;line-height:1.75}
-.finance-audience-card li::before{content:'';display:inline-block;width:1em;height:1em;background:currentColor;mask:url(/assets/icons/arrow-up-right.svg) center/contain no-repeat;position:absolute;left:0;color:var(--produce-accent)}
+.finance-audience-card li::before{content:'';display:inline-block;width:1em;height:1em;background:currentColor;mask:url(/assets/icons/arrow-right.svg) center/contain no-repeat;position:absolute;left:0;color:var(--produce-accent)}
 .finance-audience-card .creative-cta{margin-top:auto}
 .finance-audience-investors{background:#1d1d1d;color:#fff;--line:#ffffff30;--muted:#cacaca;--produce-accent:#cbcbcb}
 .finance-audience-investors h3>span{color:#cbcbcb}

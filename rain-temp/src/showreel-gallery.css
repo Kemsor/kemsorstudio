@@ -279,3 +279,35 @@ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edg
 /* Join the final video edge directly to the services section. */
 html body #top.creative-site.site-page-home #main #studio.final-about{padding-bottom:0}
 html body #top.creative-site.site-page-home #main #studio #showreel.showreel-edge{margin-bottom:0}
+
+/* Reference-template reel cards; the existing scroll rail, arrows and progress stay in place. */
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference{--showreel-columns:4}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-viewport{margin-inline:clamp(20px,5vw,104px);padding-block:14px 26px;margin-top:-14px}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card{box-sizing:border-box;flex:0 0 auto;width:clamp(220px,calc(100% / min(var(--showreel-columns),var(--showreel-count))),335px);padding-inline:10px;overflow:visible;scroll-snap-align:start}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-screen{height:auto;min-height:0;aspect-ratio:9/16;border-radius:22px;background:#5b3c20;transition:transform .3s,box-shadow .3s}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-screen::after{inset:45% 0 0;background:linear-gradient(transparent,#170f08ee)}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference video{transform:none;transition:transform .7s;object-fit:cover}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-take{position:absolute;top:14px;left:14px;z-index:2;padding:5px 8px;background:#21170cc2;color:#f2e8d7;font:10px/1.4 monospace;letter-spacing:2px;pointer-events:none}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-take i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ed6247;margin-right:5px}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference figcaption{inset:auto 64px 20px 16px;gap:0}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference figcaption strong{color:#fff4e3;font:700 16px/1.5 'Cinzel Decorative',Georgia,serif;letter-spacing:.25px;text-transform:none}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-expand{inset:0;display:block;width:100%;height:100%;min-height:0;padding:0;border:0;border-radius:22px;background:transparent;color:#21170c;cursor:pointer}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-expand:focus-visible{outline:3px solid #e5b765;outline-offset:-5px}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-play-icon{position:absolute;right:16px;bottom:18px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#e5b765;color:#21170c}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-play-icon svg{fill:currentColor;stroke-width:0}
+@media(hover:hover) and (pointer:fine){
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card:hover .showreel-card-screen{transform:translateY(-10px);box-shadow:0 20px 35px #0005}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card:hover video{transform:scale(1.025)}
+}
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card:focus-within video{transform:none}
+@media(max-width:1000px){html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference{--showreel-columns:2.5}}
+@media(max-width:600px){
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference{--showreel-columns:1.45}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card{padding-inline:8px;width:230px}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-screen{border-radius:20px}
+ html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-expand{border-radius:20px}
+}
+@media(prefers-reduced-motion:reduce){html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-screen{transition:none;transform:none!important}}
+
+/* Match the production slideshow’s thin gold frame. */
+html body #top.creative-site.site-page-home #main #studio #showreel.showreel-reference .showreel-card-screen{border:1px solid #d1aa6c;box-sizing:border-box}

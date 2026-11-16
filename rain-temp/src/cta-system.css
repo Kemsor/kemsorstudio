@@ -1,6 +1,8 @@
 /* Shared with the designer preview: warm gradient, white alternative and plain arrow. */
 html body #top.creative-site{
+ --header-cta-bg:#e5b765;
  --cta-size:42px;--cta-min-width:180px;--cta-radius:30px;
+ --cta-outline-gradient:linear-gradient(110deg,#86532d 0%,#976124 28%,#dba44f 58%,#b47a38 80%,#976124 100%);
 }
 html body #top.creative-site :is(.creative-cta,.header-script-tool,.creative-nav-mobile-cta,.footer-conversation,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit,.opening-watch,.ds-cta){
  display:inline-flex;align-items:center;justify-content:center;gap:12px;
@@ -39,11 +41,11 @@ html body #top.creative-site .creative-cta.cta-white::before{background:#fff!imp
 html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation){
  position:relative;isolation:isolate;overflow:hidden;
  border:2px solid transparent!important;
- background:linear-gradient(#fff,#fff) padding-box,linear-gradient(110deg,#f5d77d 0%,#ed9634 45%,#1f1dff 100%) border-box!important;
+ background:linear-gradient(#fff,#fff) padding-box,var(--cta-outline-gradient) border-box!important;
  color:#111!important;
 }
 html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation):is(:hover,:focus-visible){
- background:linear-gradient(#fff,#fff) padding-box,linear-gradient(110deg,#f5d77d 0%,#ed9634 45%,#1f1dff 100%) border-box!important;
+ background:linear-gradient(#fff,#fff) padding-box,var(--cta-outline-gradient) border-box!important;
 }
 html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation)::before{content:none!important}
 .rolling-label{display:block;min-width:0;overflow:hidden;flex:1;max-width:100%;text-align:left}
@@ -60,7 +62,7 @@ html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,
 }
 html body #top.creative-site :is(.creative-cta.cta-white,.opening-watch,.ds-cta,.footer-invitation-main .footer-conversation)::after{
  content:'';position:absolute;inset:0;padding:2px;border-radius:inherit;pointer-events:none;
- background:linear-gradient(110deg,#f5d77d 0%,#ed9634 45%,#1f1dff 100%);
+ background:var(--cta-outline-gradient);
  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
  -webkit-mask-composite:xor;mask-composite:exclude;
 }
@@ -86,4 +88,39 @@ html body #top.creative-site .rolling-label-copy{display:block;flex:0 0 auto;wid
 @media(prefers-reduced-motion:reduce){html body #top.creative-site .rolling-label-track{animation:none}html body #top.creative-site .rolling-label-copy:not(:first-child){display:none}html body #top.creative-site .rolling-label-copy{padding:0}}
 
 /* Text links stand on their typography; directional arrows remain on carousel controls. */
-html body #top.creative-site a:not(.header-script-tool):not(.creative-cta):not(.footer-conversation):not(.ds-cta) :is(svg.lucide-arrow-right,svg.lucide-arrow-up-right){display:none}
+html body #top.creative-site a:not(.header-script-tool):not(.creative-cta):not(.footer-conversation):not(.ds-cta) svg.lucide-arrow-right{display:none}
+
+/* Inner-page primary actions match the homepage header's solid gold button. */
+html body #top.creative-site:not(.site-page-home){
+ --cta-gradient:var(--header-cta-bg);--cta-gradient-hover:var(--header-cta-bg);--cta-ink:#171109;
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.creative-cta,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit,.journey-explore,.directory-join),
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.creative-cta,.talent-button,.auth-register-button,.tool-start,.enquiry-success-another,.partner-submit,.journey-explore,.directory-join):is(:hover,:focus-visible){
+ background:var(--header-cta-bg)!important;color:#171109!important;-webkit-text-fill-color:#171109!important;filter:none;
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.creative-cta,.journey-explore,.directory-join) :is(span,svg){
+ color:#171109!important;-webkit-text-fill-color:#171109!important;
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .creative-cta.cta-white::after{content:none!important}
+
+/* Solid service slide buttons stay legible over every slide background. */
+html body #top.creative-site #services.designer-services a.ds-cta{
+ background:#54351f!important;color:#fff!important;border:1px solid #54351f!important;
+ box-shadow:0 3px 10px #24160d20;
+}
+html body #top.creative-site #services.designer-services a.ds-cta:is(:hover,:focus-visible){
+ background:#3d2516!important;border-color:#3d2516!important;color:#fff!important;filter:none;
+}
+html body #top.creative-site #services.designer-services a.ds-cta::after{content:none!important}
+html body #top.creative-site #services.designer-services a.ds-cta :is(span,svg){color:#fff!important;-webkit-text-fill-color:#fff}
+html body #top.creative-site #services.designer-services a.ds-cta:focus-visible{outline:3px solid #bd8a53;outline-offset:4px}
+
+/* Match the homepage submission button to the simple navbar fill. */
+html body #top.creative-site.site-page-home #main .script-card .creative-cta,
+html body #top.creative-site.site-page-home #main .script-card .creative-cta:is(:hover,:focus-visible){
+ background:var(--header-cta-bg,#e5b765)!important;background-image:none!important;color:#171109!important;border:0!important;filter:none;
+}
+html body #top.creative-site.site-page-home #main .script-card .creative-cta:is(:hover,:focus-visible){background:#edc47f!important}
+html body #top.creative-site.site-page-home #main .script-card .creative-cta::before,
+html body #top.creative-site.site-page-home #main .script-card .creative-cta::after{content:none!important}
+html body #top.creative-site.site-page-home #main .script-card .creative-cta *{color:#171109!important;-webkit-text-fill-color:#171109!important}

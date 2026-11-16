@@ -1,3 +1,6 @@
+import {rows} from './db.js';
+import {publishedProductionsSql} from './public-productions.js';
+import {productionHref} from '../../rain-temp/src/productionSeo.js';
 import {Router} from 'express';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
@@ -23,7 +26,9 @@ export function publicLegalRouter(db,directory=websiteDirectory) {
  });
  router.get('/sitemap.xml',async(req,res)=>{
   const documents=(await publicManagedContent(db)).legalDocuments;
-  const urls=new Set([...sitePages.filter(page=>page.indexable&&(page.key!=='privacy-policy'||documents.some(item=>item.slug==='privacy-policy'))).map(page=>page.href),...documents.map(document=>href(document.slug))]);
+  const productions=await rows(db,publishedProductionsSql);
+  const people=await rows(db,"SELECT slug FROM production_people WHERE status='published' AND published_at<=UTC_TIMESTAMP()");
+  const urls=new Set([...people.map(person=>`/people/${person.slug}/`),...productions.map(item=>productionHref(item.slug)),...sitePages.filter(page=>page.indexable&&(page.key!=='privacy-policy'||documents.some(item=>item.slug==='privacy-policy'))).map(page=>page.href),...documents.map(document=>href(document.slug))]);
   res.set('Cache-Control','no-cache').type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...urls].map(url=>`<url><loc>${escape(new URL(url,origin()).href)}</loc></url>`).join('\n')}\n</urlset>`);
  });
  return router;

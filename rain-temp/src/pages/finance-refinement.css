@@ -1,0 +1,160 @@
+/* Finance overview: photography, warm cards and space in place of divider rules. */
+html body #top.creative-site #main#main.inner-page .finance-page .fl-pack-section .fl-section-heading{display:none}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack{
+ display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:28px;
+ padding:24px!important;background:#faf7f1!important;border:1px solid #e9e0d2!important;border-radius:18px;box-shadow:none!important;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack-cover{
+ overflow:hidden;background:#fff;border-radius:12px;border:1px solid #ece5d9;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack-cover>img{display:block;width:100%;height:190px;object-fit:cover}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack-intro{padding:22px}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack-intro>span{font-size:12px;color:#786b5b}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack-intro h2{margin:16px 0 10px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack ol{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;border:0;padding:0;counter-reset:pack-item;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack li{
+ display:block;position:relative;padding:18px!important;margin:0;border:1px solid #ece5d9!important;border-radius:12px;background:#fff;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack li::before{
+ counter-increment:pack-item;content:counter(pack-item,decimal-leading-zero);display:block;margin-bottom:12px;color:#aa823f;font:600 11px/1 Inter,sans-serif;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack li:last-child{grid-column:1/-1}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack li h3{margin-bottom:7px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-pack li p{font-size:13px!important;line-height:1.65!important;margin:0!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-gap-intro{
+ display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.8fr);gap:40px;align-items:center;margin-bottom:28px;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-gap-intro .finance-section-heading{margin:0!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-gap-intro h2{max-width:none;margin-bottom:20px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-gap-intro p{font-size:13px!important;max-width:62ch}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-gap-photo{margin:0;overflow:hidden;border-radius:16px;height:260px}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-gap-photo img{width:100%;height:100%;object-fit:cover}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-cards article{
+ padding:22px;background:#fdfbf8!important;border:1px solid #e9e0d2;border-radius:14px;transition:background .2s,border-color .2s;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:#f2e8d7;color:#89632d;margin-bottom:18px}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-cards h3{margin:0 0 20px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-cards p{font-size:13px!important;line-height:1.75!important;margin:0!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-cards .finance-comparison-label{font-size:10px!important;font-weight:600;letter-spacing:.03em;color:#9a7438!important;margin:16px 0 5px!important}
+@media(hover:hover){html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-cards article:hover{background:#f8edcf!important;border-color:#c5a15e!important}}
+@media(max-width:900px){
+ html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-pack,.finance-gap-intro){grid-template-columns:1fr}
+ html body #top.creative-site #main#main.inner-page .finance-page .finance-comparison-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:550px){
+ html body #top.creative-site #main#main.inner-page .finance-page .finance-pack{padding:16px!important;gap:16px}
+ html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-pack ol,.finance-comparison-cards){grid-template-columns:1fr}
+}
+html body #top.creative-site #main#main.inner-page .finance-page[data-service-page="finance"] .fl-section{
+ border:0!important;
+}
+html body #top.creative-site #main#main.inner-page .finance-page[data-service-page="finance"] :is(.finance-service-grid,.finance-audience-grid,.finance-steps,.finance-principles){
+ gap:20px;min-width:0;
+}
+html body #top.creative-site #main#main.inner-page .finance-page[data-service-page="finance"] .finance-service-grid{
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;border:0!important;
+}
+html body #top.creative-site #main#main.inner-page .finance-page[data-service-page="finance"] .finance-service-grid>.finance-service-card{
+ position:relative;overflow:hidden;padding:24px!important;gap:14px;
+ background:#fdfbf8!important;border:1px solid #e9e0d2!important;border-radius:16px;
+ transition:background .25s,border-color .25s,box-shadow .25s;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-service-photo{
+ display:block;width:calc(100% + 48px);max-width:none;height:172px;object-fit:cover;
+ margin:-24px -24px 6px;flex:none;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-service-card :is(p,h3,ul){margin:0!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-service-card>p:not(.finance-service-name){font-size:13px!important;line-height:1.75!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-service-card .finance-service-name{
+ color:#8a662d!important;-webkit-text-fill-color:#8a662d!important;font-size:11px!important;font-weight:600;letter-spacing:.04em;
+}
+html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-service-card,.finance-audience-card) ul{
+ border:0!important;padding:0!important;display:grid;gap:10px;list-style:none;
+}
+html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-service-card,.finance-audience-card) li{
+ position:relative;border:0!important;padding:0 0 0 21px!important;font-size:13px!important;line-height:1.7;
+ color:#62584c!important;
+}
+html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-service-card,.finance-audience-card) li::before{
+ content:'';display:block;position:absolute;left:2px;top:6px;width:6px;height:10px;
+ border:solid #a67c38;border-width:0 1.5px 1.5px 0;transform:rotate(45deg);background:none;mask:none;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-service-card .line-link{
+ margin-top:auto;padding-top:10px;border:0!important;color:#57351f!important;font-size:12px!important;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-audience-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-audience-card{
+ --inner-card-ink:#57351f;--inner-heading-ink:#57351f;--inner-heading-accent:#57351f;
+ padding:30px!important;border:1px solid #e9e0d2!important;border-radius:18px;
+ background:#fdfbf8!important;color:#57351f!important;
+ transition:background .25s,border-color .25s,box-shadow .25s;
+}
+html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-audience-icon,.finance-principle-icon){
+ display:grid;place-items:center;width:46px;height:46px;border-radius:12px;
+ background:#f2e8d7;color:#89632d;margin-bottom:18px;flex:none;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-audience-label{
+ font-size:10px!important;color:#8a662d!important;margin:0 0 14px!important;max-width:100%;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-audience-card h3{
+ margin:0!important;color:#57351f!important;-webkit-text-fill-color:#57351f!important;line-height:1.6!important;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-audience-card h3 span{color:inherit!important;-webkit-text-fill-color:inherit!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-audience-card ul{margin:22px 0 26px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-process-layout{
+ display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:32px;margin-top:28px;align-items:stretch;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-process-photo{
+ position:relative;margin:0;min-height:380px;overflow:hidden;border-radius:18px;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-process-photo img{
+ position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:45% center;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-process-intro{margin:0 0 22px!important;font-size:13px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-steps{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:0;margin:0;counter-reset:none;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-steps>li{
+ padding:22px!important;border:1px solid #e9e0d2!important;border-radius:14px;background:#fdfbf8!important;
+ transition:background .25s,border-color .25s;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-steps>li::before{content:none!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-step-number{
+ display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+ background:#f2e8d7;border-radius:50%;color:#89632d;font:600 11px/1 Inter,sans-serif;margin-bottom:14px;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-steps h3{margin:0 0 10px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-steps p{margin:0!important;font-size:13px!important;line-height:1.75!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-principles.fl-section-content{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-principles article{
+ padding:26px;border:1px solid #e9e0d2!important;border-radius:16px;background:#fdfbf8!important;
+ transition:background .25s,border-color .25s,box-shadow .25s;
+}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-principles h3{margin:0 0 10px!important}
+html body #top.creative-site #main#main.inner-page .finance-page .finance-principles p{margin:0!important;font-size:13px!important;line-height:1.75!important}
+@media(hover:hover){
+ html body #top.creative-site #main#main.inner-page .finance-page[data-service-page="finance"] :is(.finance-service-card,.finance-audience-card,.finance-steps>li,.finance-principles article):is(:hover,:focus-within){
+  background:#f8edcf!important;border-color:#c5a15e!important;box-shadow:0 10px 26px #79551f0d;
+ }
+}
+@media(max-width:1000px){
+ html body #top.creative-site #main#main.inner-page .finance-page[data-service-page="finance"] .finance-service-grid{grid-template-columns:minmax(0,1fr)!important}
+ html body #top.creative-site #main#main.inner-page .finance-page .finance-service-photo{height:220px}
+ html body #top.creative-site #main#main.inner-page .finance-page .finance-process-layout{grid-template-columns:1fr}
+ html body #top.creative-site #main#main.inner-page .finance-page .finance-process-photo{min-height:260px}
+}
+@media(max-width:650px){
+ html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-audience-grid,.finance-steps,.finance-principles.fl-section-content){grid-template-columns:minmax(0,1fr)}
+ html body #top.creative-site #main#main.inner-page .finance-page .finance-audience-card{padding:24px!important}
+ html body #top.creative-site #main#main.inner-page .finance-page .finance-service-photo{height:180px}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #top.creative-site #main#main.inner-page .finance-page :is(.finance-service-card,.finance-audience-card,.finance-steps>li,.finance-principles article){transition:none}
+}

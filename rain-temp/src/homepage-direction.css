@@ -220,7 +220,7 @@ html[data-theme=dark] :is(.screenplay-copy>p:not(.page-eyebrow),.screenplay-cue,
 .creative-header .creative-dropdown-groups{position:relative}
 .creative-header .creative-nav-group-title{margin-bottom:9px;padding:0 12px 8px;border:0;color:var(--brand-bronze);font-size:10px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
 .creative-header .creative-nav-group a{position:relative;min-height:44px;padding:10px 38px 10px 12px;border-radius:7px;color:var(--ink);line-height:1.45;text-decoration:none;transform:translateX(0);transition:color .2s ease,background .2s ease,transform .24s ease}
-.creative-header .creative-nav-group a::after{content:'';display:inline-block;width:1em;height:1em;background:currentColor;mask:url(/assets/icons/arrow-up-right.svg) center/contain no-repeat;position:absolute;right:13px;top:50%;font-size:16px;color:var(--brand-bronze);opacity:0;transform:translate(-7px,-50%);transition:opacity .2s ease,transform .24s ease}
+.creative-header .creative-nav-group a::after{content:'';display:inline-block;width:1em;height:1em;background:currentColor;mask:url(/assets/icons/arrow-right.svg) center/contain no-repeat;position:absolute;right:13px;top:50%;font-size:16px;color:var(--brand-bronze);opacity:0;transform:translate(-7px,-50%);transition:opacity .2s ease,transform .24s ease}
 .creative-header .creative-nav-group a:hover,.creative-header .creative-nav-group a:focus-visible{background:color-mix(in srgb,var(--brand-gold) 22%,transparent);color:var(--ink);text-decoration:none;transform:translateX(3px)}
 .creative-header .creative-nav-group a:hover::after,.creative-header .creative-nav-group a:focus-visible::after,.creative-header .creative-nav-group a[aria-current]::after{opacity:1;transform:translate(0,-50%)}
 .creative-header .creative-nav-group a[aria-current]{background:color-mix(in srgb,var(--brand-gold) 16%,transparent);color:var(--brand-bronze);text-decoration:none}
@@ -471,3 +471,5 @@ html[data-theme=dark] .creative-site .project-note em{color:#282828}
 .opening-next-film:hover b{transform:translateX(2px)}
 @media(max-width:760px){.opening-next-film{display:none}}
 @media(prefers-reduced-motion:reduce){.opening-next-film,.opening-next-film b{transition:none}}
+
+html body #top.creative-site #main .home-process-link,html body #top.creative-site #main .home-process-link:hover{border-bottom:0!important;text-decoration:none!important}

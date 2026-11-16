@@ -1,0 +1,62 @@
+[
+  {
+    "source": "pexels-cottonbro-7598545.jpg",
+    "asset": "script-recording",
+    "page": "/develop/story-script/",
+    "slot": "StoryScriptPage-1"
+  },
+  {
+    "source": "pexels-cottonbro-9644680.jpg",
+    "asset": "young-vocalist",
+    "page": "/how-we-work/",
+    "slot": "HowWeWorkPage-engagement-1"
+  },
+  {
+    "source": "pexels-cottonbro-9644697.jpg",
+    "asset": "band-performance",
+    "page": "/produce/",
+    "slot": "ProducePage-2"
+  },
+  {
+    "source": "pexels-dennis-truong-91950818-13808611.jpg",
+    "asset": "studio-portrait-session",
+    "page": "/finance/co-production/",
+    "slot": "CoProductionPage-role-1"
+  },
+  {
+    "source": "pexels-dennis-truong-91950818-13808615.jpg",
+    "asset": "purple-studio-light",
+    "page": "/finance/",
+    "slot": "FinancePage-service-1"
+  },
+  {
+    "source": "pexels-diego-salamanca-289675900-15241263.jpg",
+    "asset": "magenta-performance",
+    "page": "/finance/co-production/",
+    "slot": "CoProductionPage-benefits"
+  },
+  {
+    "source": "pexels-ekaterina-bolovtsova-7658743.jpg",
+    "asset": "colour-studio-session",
+    "page": "/india-production-services/",
+    "slot": "IndiaProductionServicesPage-1"
+  },
+  {
+    "source": "pexels-faisal-baig-23255120-13984365.jpg",
+    "asset": "microphone-headphones",
+    "page": "/how-we-work/",
+    "slot": "HowWeWorkPage-engagement-2"
+  },
+  {
+    "source": "pexels-gabriella-ally-3664539-33401241.jpg",
+    "asset": "orange-studio-production",
+    "page": "/finance/",
+    "slot": "FinancePage-process"
+  },
+  {
+    "source": "pexels-israyosoy-30714259.jpg",
+    "asset": "red-studio-seat",
+    "page": "/finance/",
+    "slot": "FinancePage-pack"
+  }
+]

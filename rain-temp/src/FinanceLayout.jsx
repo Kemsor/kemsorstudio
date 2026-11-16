@@ -63,6 +63,9 @@ export default function FinanceLayout({ page, children }) {
       const id = node.props.id || `${page}-chapter-${index + 1}`;
       const sectionChildren = isPack ? cloneElement(node, { id: undefined }) : nodes(node.props.children).map(stripLabels);
       const sectionLabel = isPack ? 'FINANCE-READY PACK' : label ? label.props.children : node.props['aria-label'] || words(sectionTitle);
+      if (hasClass(node, 'produce-work')) return styleChapter(<section id={id} className="fl-section" aria-labelledby={node.props['aria-labelledby']} key={id}>
+        <div className="fl-width"><div className={`fl-section-content ${node.props.className}`}><div className="produce-label"><span>{sectionLabel}</span></div>{sectionChildren}</div></div>
+      </section>,index);
       return styleChapter(<section id={id} className={`fl-section ${isPack ? 'fl-pack-section' : ''} ${hasClass(node, 'produce-process') ? 'fl-process-section' : ''} ${hasClass(node, 'produce-closing') ? 'fl-closing-section' : ''}`} aria-labelledby={node.props['aria-labelledby']} aria-label={node.props['aria-label']} key={id}>
         <div className="fl-width fl-section-grid"><div className="fl-section-heading"><p>{sectionLabel}</p></div><div className={`fl-section-content ${isPack ? 'fl-pack-content' : node.props.className || ''}`}>{sectionChildren}</div></div>
       </section>,index);

@@ -1,0 +1,540 @@
+/* Important layer keeps lazy-loaded page styles from restoring white surfaces. */
+@layer warm-surfaces {
+/* Main-site reading surfaces use the requested warm studio background. */
+#top.creative-site.site-page-home{
+ --kemsor-60:#251c12!important;--kemsor-60-soft:#251c12!important;
+ --kemsor-30:#f2e8d7!important;--kemsor-30-muted:#cbbda7!important;
+ --page-bg:#251c12!important;--panel-bg:#251c12!important;--ink:#f2e8d7!important;
+ --muted:#cbbda7!important;--soft-ink:#cbbda7!important;--line:#e5b76533!important;
+}
+html:has(#top.site-page-home),html body:has(#top.site-page-home),html body #top.creative-site.site-page-home,html body #top.creative-site.site-page-home #main{
+ background-color:#251c12!important;color:#f2e8d7!important;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main :is(#studio.final-about,.final-process:not(#services)),
+html body #top.creative-site.site-page-home #main #services .ds-intro-band{
+ --chapter-bg:#251c12!important;--chapter-ink:#f2e8d7!important;--chapter-muted:#cbbda7!important;
+ --chapter-line:#e5b76533!important;--chapter-panel:#302419!important;
+ --ink:#f2e8d7!important;--muted:#cbbda7!important;--line:#e5b76533!important;
+ background:#251c12!important;color:#f2e8d7!important;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main #services .ds-intro-band :is(h2,p,.ds-label>span),
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-process>h2{
+ color:#f2e8d7!important;-webkit-text-fill-color:#f2e8d7!important;
+}
+html body #top.creative-site.site-page-home[data-home-colors] #main .final-process ol li{
+ --chapter-panel:#302419!important;--chapter-ink:#f2e8d7!important;--chapter-muted:#cbbda7!important;
+}
+html body #top.creative-site.site-page-home .creative-header .creative-header-inner,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] .creative-header-inner,
+html body #top.creative-site.site-page-home .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]){
+ background:#251c12!important;background-image:none!important;color:#f2e8d7!important;border-color:#e5b76533!important;
+}
+html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle,.creative-nav-chevron),
+html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *,
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle,.creative-nav-chevron),
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *,
+html body #top.creative-site.site-page-home .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button,p,span,b,small,strong){
+ color:#f2e8d7!important;-webkit-text-fill-color:#f2e8d7!important;
+}
+html body #top.creative-site.site-page-home #main :is(.final-process,.collaboration-editorial){background:#251c12!important;color:#f2e8d7!important}
+html body #top.creative-site.site-page-home #main .final-process ol>li:not(:nth-child(2)){background:#302419!important;color:#f2e8d7!important}
+html body #top.creative-site.site-page-home #main .final-process ol>li:not(:nth-child(2)) :is(h3,p){color:#f2e8d7!important;-webkit-text-fill-color:#f2e8d7!important}
+html body #top.creative-site.site-page-home #main .collaboration-editorial :is(h2,p,nav a,.collaboration-path-arrow){color:#f2e8d7!important}
+
+}
+
+@layer warm-surfaces {
+ html:has(#top.site-page-home),body:has(#top.site-page-home),#root:has(#top.site-page-home),#top.creative-site.site-page-home,#top.creative-site.site-page-home #main{
+  background:#251c12!important;
+ }
+ #top.creative-site.site-page-home #main #home.immersive-opening,
+ #top.creative-site.site-page-home #main #home.immersive-opening .opening-films{
+  background-color:#251c12!important;
+ }
+}
+
+/* The navigation keeps its white palette over the warm page background. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home .creative-header .creative-header-inner,
+ html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] .creative-header-inner,
+ html body #top.creative-site.site-page-home .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true],.creative-nav-drawer-head,.creative-nav-group){
+  background:#fff!important;background-image:none!important;color:#171717!important;border-color:#dedede!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle,.creative-nav-chevron),
+ html body #top.creative-site.site-page-home .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *,
+ html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle,.creative-nav-chevron),
+ html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=false] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *,
+ html body #top.creative-site.site-page-home .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button,p,span,b,small,strong){
+  color:#171717!important;-webkit-text-fill-color:#171717!important;
+ }
+}
+
+/* One continuous surface connects the services introduction and its tabs. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #services.designer-services,
+ html body #top.creative-site.site-page-home #main #services.designer-services :is(.ds-intro-band,.ds-tabs-band,.ds-stage){
+  background:#251c12!important;
+ }
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs-band{
+  padding-top:0!important;
+ }
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs{
+  border-bottom-color:#e5b76540!important;
+ }
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs button{
+  color:#cbbda7!important;
+ }
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs button:is(:hover,:focus-visible,[aria-pressed=true]){
+  color:#f2e8d7!important;border-bottom-color:#e5b765!important;
+ }
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-stage::after{
+  background:linear-gradient(180deg,#251c12 0%,transparent 22%,transparent 78%,#251c12 100%)!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home .creative-header[data-scrolled=false] .creative-header-inner{
+  border-radius:999px!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main .final-process ol>li:is(:first-child,:nth-child(3)){
+  --chapter-panel:#f2e8d7!important;--chapter-ink:#24252b!important;--chapter-muted:#5b5b62!important;
+  background:#f2e8d7!important;color:#24252b!important;
+ }
+ html body #top.creative-site.site-page-home #main .final-process ol>li:is(:first-child,:nth-child(3)) :is(h3,p){
+  color:#24252b!important;-webkit-text-fill-color:#24252b!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main .final-process ol>li:is(:first-child,:nth-child(3)){
+  background:#f2e8d7!important;background-image:none!important;
+  border-color:#f2e8d7!important;box-shadow:0 8px 30px #ffffff16!important;
+  opacity:1!important;filter:none!important;
+ }
+ html body #top.creative-site.site-page-home #main .final-process ol>li:is(:first-child,:nth-child(3))::after{display:none!important}
+ html body #top.creative-site.site-page-home #main .final-process ol>li:is(:first-child,:nth-child(3)) h3{color:#151515!important;-webkit-text-fill-color:#151515!important}
+ html body #top.creative-site.site-page-home #main .final-process ol>li:is(:first-child,:nth-child(3)) p{color:#414141!important;-webkit-text-fill-color:#414141!important}
+ html body #top.creative-site.site-page-home #main .final-process ol>li:is(:first-child,:nth-child(3))>b{color:#a75c17!important;-webkit-text-fill-color:#a75c17!important}
+}
+
+/* The unscrolled navigation sits flush against the top edge. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home .creative-header[data-scrolled=false]{
+  padding-top:0!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header[data-scrolled=false] .creative-header-inner{
+  border-radius:0!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home .creative-header{
+  padding-inline:0!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header .creative-header-inner{
+  width:100%!important;max-width:none!important;margin-inline:0!important;
+ }
+}
+
+/* Compact sticky navigation; the opening navigation retains its normal height. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home .creative-header[data-scrolled=true]{padding-top:0!important}
+ html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] .creative-header-inner{
+  height:58px!important;min-height:58px!important;padding-block:4px!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] .creative-header-brand img{
+  width:44px!important;height:44px!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] :is(.header-script-tool,.header-login,.creative-nav-toggle){
+  min-height:36px!important;padding-block:7px!important;
+ }
+}
+@media(max-width:600px){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] .creative-header-inner{height:54px!important;min-height:54px!important}
+  html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] .creative-header-brand img{width:38px!important;height:38px!important}
+ }
+}
+
+/* Ease the entire normal-to-compact change, including min-height constraints. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home .creative-header{
+  transition:transform 400ms cubic-bezier(.22,.61,.36,1)!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header .creative-header-inner{
+  transition:height 400ms cubic-bezier(.22,.61,.36,1),min-height 400ms cubic-bezier(.22,.61,.36,1),padding 400ms cubic-bezier(.22,.61,.36,1),border-radius 400ms cubic-bezier(.22,.61,.36,1),box-shadow 400ms ease!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header .creative-header-brand img{
+  transition:width 400ms cubic-bezier(.22,.61,.36,1),height 400ms cubic-bezier(.22,.61,.36,1)!important;
+ }
+ html body #top.creative-site.site-page-home .creative-header :is(.header-script-tool,.header-login,.creative-nav-toggle){
+  transition:min-height 400ms cubic-bezier(.22,.61,.36,1),padding 400ms cubic-bezier(.22,.61,.36,1),background-color 200ms ease,color 200ms ease!important;
+ }
+}
+@media(min-width:1441px){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home .creative-header .creative-nav{transition:height 400ms cubic-bezier(.22,.61,.36,1)!important}
+  html body #top.creative-site.site-page-home .creative-header[data-scrolled=true] .creative-nav{height:50px!important}
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home .creative-header,
+  html body #top.creative-site.site-page-home .creative-header :is(.creative-header-inner,.creative-header-brand img,.header-script-tool,.header-login,.creative-nav-toggle,.creative-nav){transition:none!important}
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main .final-formats{
+  background:#e5b765!important;background-image:none!important;color:#171109!important;
+  --chapter-bg:#e5b765!important;--chapter-ink:#171109!important;
+ }
+ html body #top.creative-site.site-page-home #main .final-formats :is(span,i){
+  color:#171109!important;-webkit-text-fill-color:#171109!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main .final-formats{
+  margin-top:20px!important;padding-block:10px!important;
+  min-height:0!important;height:auto!important;
+ }
+ html body #top.creative-site.site-page-home #main .final-formats :is(span,i){line-height:1.5!important}
+}
+@media(max-width:600px){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home #main .final-formats{margin-top:14px!important;padding-block:8px!important}
+ }
+}
+
+/* About Kemsor matches the cream-and-bronze reference homepage palette. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home[data-home-colors] #main #studio.final-about{
+  --chapter-bg:#f2e8d7!important;--chapter-ink:#171109!important;
+  --chapter-muted:#554b3b!important;--chapter-line:#cdbb9f!important;--chapter-panel:#f2e8d7!important;
+  --page-bg:#f2e8d7!important;--ink:#171109!important;--muted:#554b3b!important;--line:#cdbb9f!important;
+  background:#f2e8d7!important;color:#171109!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .final-about-grid h2{
+  color:#171109!important;-webkit-text-fill-color:#171109!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .final-about-grid h2 :is(.heading-accent,.heading-accent .text-flow-word){
+  background:none!important;color:#976124!important;-webkit-text-fill-color:#976124!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .final-about-grid p{
+  color:#554b3b!important;-webkit-text-fill-color:#554b3b!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .final-about-grid .final-lead{
+  font-weight:700!important;color:#30271b!important;-webkit-text-fill-color:#30271b!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio>.index-label,
+ html body #top.creative-site.site-page-home #main #studio>.index-label .index-right{
+  color:#976124!important;-webkit-text-fill-color:#976124!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .final-about-grid .line-link{
+  color:#82531e!important;-webkit-text-fill-color:#82531e!important;border-color:#976124!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .proof-strip>div{background:#f2e8d7!important;border-color:#cdbb9f!important}
+ html body #top.creative-site.site-page-home #main #studio .proof-strip strong{color:#976124!important;-webkit-text-fill-color:#976124!important;background:transparent!important}
+ html body #top.creative-site.site-page-home #main #studio .proof-strip span{color:#554b3b!important;-webkit-text-fill-color:#554b3b!important}
+ /* The showreel remains a separate dark chapter within the shared wrapper. */
+ html body #top.creative-site.site-page-home #main #studio #showreel{
+  --chapter-bg:#251c12!important;--chapter-ink:#f2e8d7!important;
+  --chapter-muted:#cbbda7!important;--chapter-line:#e5b76533!important;--page-bg:#251c12!important;
+  background:#251c12!important;color:#f2e8d7!important;
+ }
+}
+
+/* Distinct statistic boxes with a warm metallic dot pattern. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #studio .proof-strip>div{
+  background:#fff8ed!important;border:1px solid #d6bc94!important;
+  border-radius:24px!important;box-shadow:0 8px 24px #7950220d!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .proof-strip strong{
+  background:#fff!important;border:1px solid #eee0cb!important;
+  border-radius:18px!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .proof-strip>div::after{
+  display:block!important;
+  background:linear-gradient(135deg,#f8dc94 0%,#d8a348 40%,#a86c22 75%,#e5b765 100%)!important;
+  -webkit-mask:radial-gradient(circle,#000 2px,transparent 2.5px) 0 0/12px 12px!important;
+  mask:radial-gradient(circle,#000 2px,transparent 2.5px) 0 0/12px 12px!important;
+ }
+}
+@media(max-width:700px){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home #main #studio .proof-strip>div::after{width:36px!important;height:24px!important;top:12px!important;right:12px!important;opacity:.6!important}
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-progress{background:#e5b76526!important}
+ html body #top.creative-site.site-page-home #main #studio #showreel .showreel-progress>span{background:linear-gradient(90deg,#a86c22 0%,#e5b765 45%,#f8dc94 75%,#d8a348 100%)!important}
+}
+
+/* Keep the space after the reels inside the dark showreel chapter. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #studio.final-about{padding-bottom:0!important}
+ html body #top.creative-site.site-page-home #main #studio #showreel{padding-bottom:104px!important;margin-bottom:0!important;background:#251c12!important}
+}
+@media(max-width:600px){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home #main #studio #showreel{padding-bottom:64px!important}
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #productions.motion-work{
+  --chapter-bg:#251c12!important;--page-bg:#251c12!important;
+  background:#251c12!important;
+  background-image:none!important;
+ }
+}
+
+/* Match the reference hero's warm directional overlay and caption palette. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-film :is(img,video){
+  filter:saturate(.72)!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-shade{
+  background:linear-gradient(90deg,rgba(20,13,6,.87) 0%,rgba(24,15,7,.63) 37%,rgba(29,17,8,.1) 76%),linear-gradient(0deg,rgba(20,13,6,.86),transparent 65%)!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-copy{text-shadow:none!important}
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-eyebrow{
+  color:#e5b765!important;-webkit-text-fill-color:#e5b765!important;letter-spacing:.18em!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening #opening-title,
+ html body #top.creative-site.site-page-home #main #home.immersive-opening #opening-title>span:first-child{
+  background:none!important;color:#fbf4e7!important;-webkit-text-fill-color:#fbf4e7!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening #opening-title :is(.heading-accent,em),
+ html body #top.creative-site.site-page-home #main #home.immersive-opening #opening-title .heading-accent *{
+  background:none!important;color:#e5b765!important;-webkit-text-fill-color:#e5b765!important;text-decoration:none!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-description{
+  color:#f2e8d7!important;-webkit-text-fill-color:#f2e8d7!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-actions .creative-cta,
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-actions .creative-cta::before{
+  background:#e5b765!important;border-color:#e5b765!important;color:#171109!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-watch{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  min-height:48px!important;padding:10px 22px!important;border:1px solid #b6a58b!important;
+  border-radius:999px!important;background:transparent!important;color:#fbf4e7!important;
+  text-decoration:none!important;font-weight:700!important;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-playback-tools button{
+  color:#e5b765!important;
+ }
+}
+@media(max-width:760px){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-shade{
+   background:linear-gradient(90deg,#130c06d9,#130c0650),linear-gradient(0deg,#130c06e8,transparent)!important;
+  }
+ }
+}
+
+/* Two solid heading tones, following the supplied homepage reference. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main :is(
+  #productions h2,#showreel h2,.final-process>h2,.script-card h3,
+  #work-with-kemsor .collaboration-path h2
+ ){
+  color:#fbf4e7!important;-webkit-text-fill-color:#fbf4e7!important;
+ }
+ html body #top.creative-site.site-page-home #main :is(
+  #productions h2,#showreel h2,.final-process>h2,.script-card h3,
+  #work-with-kemsor .collaboration-path h2
+ ) :is(.heading-accent,.heading-accent *,em){
+  background:none!important;color:#e5b765!important;-webkit-text-fill-color:#e5b765!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .final-about-grid h2{
+  color:#171109!important;-webkit-text-fill-color:#171109!important;
+ }
+ html body #top.creative-site.site-page-home #main #studio .final-about-grid h2 :is(.heading-accent,.heading-accent *,em){
+  background:none!important;color:#976124!important;-webkit-text-fill-color:#976124!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #services #designer-services-title{color:#fbf4e7!important;-webkit-text-fill-color:#fbf4e7!important}
+ html body #top.creative-site.site-page-home #main #services #designer-services-title .heading-accent{background:none!important;color:#e5b765!important;-webkit-text-fill-color:#e5b765!important}
+}
+
+/* Partner and Talent share the About chapter's cream-and-bronze palette. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #work-with-kemsor,
+ html body #top.creative-site.site-page-home #main #work-with-kemsor :is(.collaboration-layout,.collaboration-path){
+  --chapter-bg:#f2e8d7!important;--chapter-ink:#171109!important;
+  --chapter-muted:#554b3b!important;--chapter-line:#cdbb9f!important;
+  background:#f2e8d7!important;color:#171109!important;border-color:#cdbb9f!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path h2{
+  color:#171109!important;-webkit-text-fill-color:#171109!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path h2 :is(.heading-accent,.heading-accent *){
+  background:none!important;color:#976124!important;-webkit-text-fill-color:#976124!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path h2>.heading-accent{display:block!important}
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path p{
+  color:#554b3b!important;-webkit-text-fill-color:#554b3b!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor :is(.index-label,.index-right,.collaboration-path-label,.collaboration-path-label span){
+  color:#976124!important;-webkit-text-fill-color:#976124!important;border-color:#cdbb9f!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path nav a{
+  color:#171109!important;-webkit-text-fill-color:#171109!important;border-color:#cdbb9f!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path-arrow{
+  color:#976124!important;-webkit-text-fill-color:#976124!important;border-color:#b99a6a!important;background:#fff8ed!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path-arrow svg{
+  display:block!important;width:18px!important;height:18px!important;opacity:1!important;visibility:visible!important;color:#976124!important;stroke:currentColor!important;
+ }
+ html body #top.creative-site.site-page-home #main #work-with-kemsor .collaboration-path a:is(:hover,:focus-visible) .collaboration-path-arrow{
+  background:linear-gradient(135deg,#f8dc94,#e5b765,#bd873a)!important;color:#171109!important;
+ }
+}
+
+/* Only the Back to top button background changes; its icon keeps its styling. */
+@layer warm-surfaces {
+ html body #top.creative-site .experience-top-floating,
+ html body #top.creative-site .experience-top-floating:hover{
+  background:#f0b858!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main .final-process{padding-bottom:64px!important;margin-bottom:0!important}
+ html body #top.creative-site.site-page-home #main .final-process .script-card{margin-bottom:0!important}
+}
+
+/* Match the reference homepage footer's solid dark background. */
+@layer warm-surfaces {
+ html body #top.creative-site .creative-footer,
+ html body #top.creative-site .creative-footer :is(.footer-invitation,.footer-directory,.footer-baseline){
+  --chapter-bg:#171109!important;--page-bg:#171109!important;
+  background:#171109!important;background-image:none!important;
+ }
+}
+
+/* Footer brand artwork. */
+@layer warm-surfaces {
+ html body #top.creative-site .footer-grid .footer-grid-brand{
+  display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;
+  gap:12px!important;color:#e5b765!important;text-decoration:none!important;
+ }
+ html body #top.creative-site .footer-grid .footer-grid-brand img{
+  width:180px!important;height:180px!important;object-fit:contain!important;
+ }
+}
+
+/* Footer-toned background behind the borderless service tabs. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs-band{
+  background:#171109!important;padding-block:12px!important;
+  border:0!important;
+ }
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs{
+  border-bottom:0!important;
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site .experience-top-floating svg{color:#000!important;stroke:#000!important}
+}
+
+@property --hero-border-angle{
+ syntax:'<angle>';
+ initial-value:0deg;
+ inherits:false;
+}
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #home.immersive-opening::after{
+  content:'';position:absolute;inset:0;z-index:5;padding:2px;
+  border-radius:inherit;pointer-events:none;
+  background:conic-gradient(from var(--hero-border-angle),#795014 0deg,#d6a541 70deg,#ffe6a4 120deg,#a57624 180deg,#e5b765 250deg,#fff0be 295deg,#795014 360deg);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:hero-gold-border 7s linear infinite;
+ }
+}
+@keyframes hero-gold-border{to{--hero-border-angle:360deg}}
+@media(prefers-reduced-motion:reduce){
+ @layer warm-surfaces {
+  html body #top.creative-site.site-page-home #main #home.immersive-opening::after{animation:none}
+ }
+}
+
+/* Brighter travelling highlights, intensified while interacting with the hero. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #home.immersive-opening::after{
+  padding:3px;
+  background:conic-gradient(from var(--hero-border-angle),#705014 0deg,#b78120 35deg,#ffdc73 65deg,#fff8d6 82deg,#e9b94c 100deg,#805715 145deg,#b78120 210deg,#ffe58c 245deg,#fff9dc 262deg,#e9b94c 280deg,#705014 360deg);
+  animation-duration:3.5s;
+  filter:brightness(1.15);
+  transition:filter .3s ease,padding .3s ease;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening:is(:hover,:has(:focus-visible)){
+  box-shadow:0 0 24px #e5b76545,inset 0 0 18px #e5b76524;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening:is(:hover,:has(:focus-visible))::after{
+  padding:4px;filter:brightness(1.5);
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #home.immersive-opening::after{
+  opacity:.15;transition:opacity .3s ease,filter .3s ease,padding .3s ease;
+ }
+ html body #top.creative-site.site-page-home #main #home.immersive-opening:is(:hover,:has(:focus-visible))::after{opacity:1}
+}
+
+/* Keep the same bright brown image shade across every homepage service slide. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-stage .ds-shade{
+  background:linear-gradient(180deg,rgba(125,76,37,.95) 0%,rgba(178,115,57,.94) 45%,#251c12 100%)!important;
+ }
+}
+
+/* Join services directly to the production section on the same dark endpoint. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #services.designer-services{padding-bottom:0!important;margin-bottom:0!important}
+ html body #top.creative-site.site-page-home #main #productions.motion-work{margin-top:0!important;border-top:0!important}
+}
+
+/* Sentence-case service labels with compact type and discreet separators. */
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs button{
+  position:relative;font-family:Inter,Arial,sans-serif!important;font-size:13px!important;
+  font-weight:600!important;line-height:1.5!important;letter-spacing:0!important;
+  text-transform:none!important;padding-inline:14px!important;
+ }
+ html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs button:not(:last-child)::after{
+  content:'';position:absolute;right:0;top:50%;width:1px;height:18px;
+  transform:translateY(-50%);background:#e5b76555;pointer-events:none;
+ }
+ @media(max-width:950px){
+  html body #top.creative-site.site-page-home #main #services.designer-services .ds-tabs button:nth-child(3n)::after{content:none}
+ }
+}
+
+@layer warm-surfaces {
+ @media(max-width:600px){
+  html body #top.creative-site.site-page-home #main .final-process{padding-bottom:40px!important}
+ }
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site .footer-grid h3{color:#e5b765!important;-webkit-text-fill-color:#e5b765!important}
+}
+
+@layer warm-surfaces {
+ html body #top.creative-site.site-page-home #main .final-process ol>li:nth-child(2){border:1px solid #d1aa6c!important;box-sizing:border-box}
+}

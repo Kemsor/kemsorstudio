@@ -3,7 +3,7 @@ html .creative-site:is(.site-page-login,.site-page-join) #main{background:#fffff
 html .creative-site #main .auth-page{max-width:1160px;margin:0 auto;padding:36px 24px 48px;grid-template-columns:.95fr 1.05fr;min-height:0;align-items:stretch}
 html .creative-site #main .auth-story{position:relative;min-height:600px;padding:36px;border:1px solid #ffffff16;border-radius:20px 0 0 20px;background:#1a1a1a;gap:48px;color:#ffffff;box-shadow:0 16px 50px #30303010}
 html .creative-site #main .auth-story::before{background:linear-gradient(180deg,#141414c9,#141414e6),url('/assets/stills/development-packaging.png') center/cover}
-html .creative-site #main .auth-register .auth-story::before{background:linear-gradient(180deg,#141414c9,#141414e6),url('/assets/stills/pre-production-casting.png') center/cover}
+html .creative-site #main .auth-register .auth-story::before{background:linear-gradient(180deg,#141414c9,#141414e6)}
 html .creative-site #main .auth-story::after{inset:14px;border:1px solid #dadada20;border-radius:10px;background:none}
 .auth-story-brand{display:flex;align-items:center;gap:12px;color:#d4d4d4;position:relative;z-index:1}.auth-story-brand>svg{width:34px;height:34px}.auth-story-brand>span{font-size:16px;letter-spacing:.15em;font-weight:600}.auth-story-brand>span>span{display:block;font-size:9px;letter-spacing:.13em;color:#c5c5c5;margin-top:5px}
 html .creative-site #main .auth-story-copy h1{font-size:clamp(28px,3vw,38px);line-height:1.22;color:#ffffff;max-width:15ch;margin:14px 0 0;font-weight:500;letter-spacing:-.035em}

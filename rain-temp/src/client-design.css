@@ -13,7 +13,7 @@
 /* Both reference treatments use the same black circular arrow. */
 .creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation){display:inline-flex;align-items:center;justify-content:space-between;gap:22px;min-height:54px;width:auto;max-width:100%;padding:9px 12px 9px 24px;border:1px solid transparent;border-radius:999px;clip-path:none;background:var(--action-gold);color:#131313;font-size:15px;font-weight:500;line-height:1.35;letter-spacing:-.02em;text-decoration:none;box-shadow:none;transition:filter .2s ease,transform .2s ease}
 .creative-site :is(.creative-cta .cta-arrow,.creative-header .header-script-tool>span,.footer-conversation>span){display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:#111111;color:#fff;font-size:20px;line-height:1;transform:none}
-.creative-site .creative-cta .cta-arrow .site-icon{width:18px;height:18px;transform:rotate(-45deg)}
+.creative-site .creative-cta .cta-arrow .site-icon{width:18px;height:18px;transform:none}
 .creative-site :is(.creative-cta,.creative-header .header-script-tool,.footer-conversation):hover{filter:brightness(1.06);color:#131313;transform:translateY(-1px)}
 .creative-site .creative-header .header-script-tool{background:#ffffff;border-color:#e5e5e5;font-size:12px;min-height:44px;padding:6px 8px 6px 18px;gap:14px}
 .creative-site .creative-header .header-script-tool>span{width:30px;height:30px;flex-basis:30px;color:#aeaeae;font-size:18px}

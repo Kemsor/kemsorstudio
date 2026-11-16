@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS casting_calls (
+ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ production_id INT UNSIGNED NOT NULL,
+ title VARCHAR(200) NOT NULL,
+ summary TEXT NOT NULL,
+ requirements TEXT NOT NULL,
+ location VARCHAR(200) NOT NULL,
+ deadline DATE NOT NULL,
+ roles JSON NOT NULL,
+ call_state ENUM('open','closed') NOT NULL DEFAULT 'open',
+ status ENUM('draft','published','archived') NOT NULL DEFAULT 'draft',
+ published_at DATETIME NULL,
+ created_by INT UNSIGNED NULL,
+ updated_by INT UNSIGNED NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ INDEX(status,published_at,deadline),
+ FOREIGN KEY(production_id) REFERENCES cms_entries(id) ON DELETE RESTRICT,
+ FOREIGN KEY(created_by) REFERENCES cms_users(id) ON DELETE SET NULL,
+ FOREIGN KEY(updated_by) REFERENCES cms_users(id) ON DELETE SET NULL
+);

@@ -1,0 +1,143 @@
+/* Hero, breadcrumb and section navigation share the page's content rails. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.page-breadcrumb-row,.section-submenu,.fl-nav,.pl-services,.productions-directory){
+ box-sizing:border-box;width:calc(100% - var(--inner-content-gutter)*2)!important;
+ max-width:var(--inner-content-width)!important;margin-inline:auto!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row{
+ padding-inline:0!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.section-submenu-width,.fl-nav>.fl-width,.pl-services>.pl-width){
+ box-sizing:border-box;width:100%!important;max-width:none!important;min-width:0;padding-inline:0!important;
+}
+html body #top.creative-site #main.inner-page .section-submenu-links{min-width:0;max-width:100%}
+html body #top.creative-site #main.inner-page .hero-support{
+ width:calc(100% - var(--inner-content-gutter)*2);max-width:var(--inner-content-width);margin:24px auto;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .ep-hero-copy{
+ justify-self:start;width:100%;max-width:none;text-align:left;
+}
+/* Use Find Talent's rendered 364px desktop introduction as the shared baseline.
+   Content can grow rather than being clipped when it wraps or text is enlarged. */
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero.inner-hero,.page-hero.page-hero){
+ --inner-hero-image:200px;box-sizing:border-box;min-height:364px!important;
+ padding-block:28px!important;
+}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero:is(.india-width,.feature-width,.series-width,.short-width,.documentary-width,.call-sheet-width,.partner-width,.release-width){
+ padding-inline:clamp(24px,3vw,40px)!important;
+}
+@media(min-width:901px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero:is(.ep-hero,.pl-hero,.fl-hero,.studio-opening,.feature-hero,.series-hero,.documentary-hero,.india-hero,.call-sheet-hero,.short-hero){display:grid;align-content:center}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .post-overview-frames{padding-block:12px;gap:10px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .sitemap-header{--inner-type-page:28px;min-height:364px;padding-block:20px;box-sizing:border-box}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .sitemap-start{padding:20px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .sitemap-start>svg{display:none}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .sitemap-start h2{font-size:24px;margin-bottom:12px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .sitemap-start a{min-height:36px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .ep-hero{
+  --inner-type-page:28px;--inner-title:28px;
+  display:flex;align-items:center;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .ep-hero>.ep-width{
+  grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr);gap:32px;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .ep-hero h1{max-width:none}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .ep-hero-copy>p{margin-block:12px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .ep-actions{margin-top:12px!important;justify-content:flex-start}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .productions-page .ep-hero-photo{padding:0}
+ /* India previously stacked a full-width photograph below two text columns. */
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.india-hero{
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);align-items:center;gap:28px;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero .india-hero-top{display:none}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero .india-hero-grid{
+  display:block;margin:0!important;padding:0!important;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero h1{font-size:28px!important;max-width:none}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero .india-kicker{margin-bottom:10px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero .india-hero-copy>p{margin-block:12px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero .india-actions{margin-top:12px!important;gap:12px 20px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero .india-hero-visual{margin:0;min-width:0}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .india-hero .india-hero-visual>img{height:220px!important;aspect-ratio:auto;object-fit:cover}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero{--inner-title:32px;--inner-accent:26px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-planner,.series-writers-board,.documentary-journal,.post-edit-timeline){padding:16px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-planner-question,.series-board-label){margin-bottom:12px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .distribution-board-scroll{padding:12px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .distribution-board-grid{grid-template-rows:24px repeat(5,32px)}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .release-marquee-frame{padding:16px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .release-marquee-copy{padding:16px 12px;gap:10px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero>:is(.ep-width,.pl-width,.studio-width){
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:16px 32px;
+  align-items:center;padding-inline:32px!important;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .ep-hero-heading{
+  grid-template-columns:1fr;gap:8px!important;margin:0!important;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .ep-board{
+  grid-template-columns:1fr!important;margin:0!important;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.ep-file-card,.ep-mobile-study,.studio-frame-location,.studio-sheet-line){display:none!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.ep-hero-foot,.pl-hero-foot){
+  grid-column:1/-1;margin:0!important;padding-block:8px!important;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .pl-hero-heading{grid-column:1;grid-row:1;margin:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .pl-panorama{grid-column:2;grid-row:1/3;margin:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .pl-hero-brief{
+  grid-column:1;grid-row:2;display:block;padding:0!important;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .studio-docket{grid-column:1/-1}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .studio-opening-copy{grid-template-columns:1fr;margin:0!important;gap:12px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .studio-contact-sheet{display:block;padding:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.ep-hero-compact>.ep-width{display:block}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.ep-hero-compact .ep-hero-heading{grid-template-columns:1fr 1fr}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .produce-hero-content{padding-block:0!important}
+}
+@media(max-width:900px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero.inner-hero,.page-hero.page-hero){
+  min-height:0!important;padding-block:24px!important;
+ }
+}
+
+/* Shared compact desktop composition for every authored hero variant. */
+@media(min-width:901px){
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero.inner-hero,.page-hero.page-hero){
+  --inner-type-page:28px;--inner-title:28px;--inner-accent:24px;
+  padding-block:20px!important;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero h1{max-width:none}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .service-page-layout[data-service-page="develop"] .inner-hero .ep-board{grid-template-columns:minmax(0,1fr)!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .service-page-layout[data-service-page="develop"] .inner-hero .ep-image-window{height:200px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-hero-grid,.series-hero-grid,.documentary-hero-grid){display:block}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-hero-copy,.series-hero-grid>div,.documentary-hero-grid>div){
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 36px;max-width:none;align-items:center;
+ }
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-kicker,.series-kicker,.documentary-kicker){grid-column:1/-1}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-hero-copy,.series-hero-grid>div,.documentary-hero-grid>div)>h1{grid-column:1;grid-row:2}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-intro-accent,.series-hero-accent,.documentary-hero-accent){grid-column:1;grid-row:3/5;margin-bottom:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-hero-copy,.series-hero-grid>div,.documentary-hero-grid>div)>p:not([class$="kicker"]){grid-column:2;grid-row:2/4;margin-block:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.series-actions,.documentary-actions){grid-column:2;grid-row:4}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.ep-hero-copy,.fl-hero-copy){justify-self:start;max-width:none;text-align:left}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero>:is(.ep-width,.pl-width,.studio-width){grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr)}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero>:is(.ep-width,.pl-width,.fl-width,.studio-width){padding-inline:32px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.ep-hero-copy,.fl-hero-copy,.pl-hero-brief,.studio-opening-copy,.india-hero-copy,.produce-hero-content)>p:not([class$="kicker"]):not(.studio-label){margin-block:12px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.ep-actions,.produce-actions,.studio-actions,.india-actions,.feature-actions,.series-actions,.short-actions,.documentary-actions,.release-actions){margin-top:12px!important;gap:12px 20px!important;justify-content:flex-start}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.ep-hero-photo,.fl-hero-image){padding:0;margin:0}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .fl-hero-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr);margin:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.feature-hero-grid,.series-hero-grid,.documentary-hero-grid){grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.studio-docket,.short-hero-meta,.call-sheet-masthead){padding-block:0!important;margin-bottom:12px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .studio-docket{display:none}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero :is(.call-sheet-hero-grid,.short-intro-grid){margin-block:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .call-sheet-fields>div{padding-block:8px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .call-sheet-highlight{font-size:20px!important;margin-block:12px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.produce-hero-light{grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr);gap:12px 32px;padding-inline:32px!important;align-content:center}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.produce-hero-light .produce-hero-content{padding:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .produce-hero-foot{padding:8px 0!important;margin:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.make-hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px 32px;padding-inline:32px!important;align-content:center}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.make-hero .produce-hero-content{display:block;padding:0!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero.make-hero .produce-hero-foot{grid-column:1/-1}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .make-contact-sheet{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0;border:0}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .make-contact-sheet::before,
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .make-contact-sheet::after{content:none}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .make-contact-sheet>a{padding:0}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .make-sheet-photo{height:90px;aspect-ratio:auto}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .inner-hero .make-sheet-caption{font-size:11px;padding-top:6px}
+}

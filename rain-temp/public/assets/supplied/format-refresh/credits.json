@@ -1,0 +1,26 @@
+[
+  {
+    "source": "pexels-kudung-setiawan-92376778-19102538.jpg",
+    "asset": "feature-camera-team",
+    "page": "/productions/",
+    "slot": "ProductionFormatsRail-feature-films"
+  },
+  {
+    "source": "pexels-minhle17vn-3062539.jpg",
+    "asset": "series-location-filming",
+    "page": "/productions/",
+    "slot": "ProductionFormatsRail-series-ott"
+  },
+  {
+    "source": "pexels-jaycee300s-3059779-14783478.jpg",
+    "asset": "documentary-camera-study",
+    "page": "/productions/",
+    "slot": "ProductionFormatsRail-documentaries"
+  },
+  {
+    "source": "pexels-margarita-141441249-16495458.jpg",
+    "asset": "short-film-lighting",
+    "page": "/productions/",
+    "slot": "ProductionFormatsRail-short-films"
+  }
+]

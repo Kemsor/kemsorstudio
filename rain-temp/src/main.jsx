@@ -1,7 +1,7 @@
+import useHeroPhotoBackground from './useHeroPhotoBackground';
 import contentPages from '../../shared/content-pages.json';
 import { CookieConsentProvider, CookiePreferences } from './CookieConsent';
 import SeoMetadata from './SeoMetadata';
-import useFaqAccordions from './useFaqAccordions';
 import './inner-layout-repairs.css';
 import PageProgress from './PageProgress';
 import {incomingTransition} from './page-transition';
@@ -53,10 +53,13 @@ import './cta-system.css';
 import './inner-template.css';
 import './inner-closing.css';
 import './service-page-layouts.css';
+import './inner-hero-alignment.css';
 import './display-headings.css';
 import './navigation-type.css';
 import './mobile-navigation.css';
 import '../../backend/public/form-controls.css';
+import './reference-navigation.css';
+import './warm-background.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 
 if (location.hash === '#home') history.replaceState(history.state, '', `${location.pathname}${location.search}`);
@@ -64,6 +67,8 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 const routes={
+ 'person-detail':lazy(()=>import('./pages/ProductionPersonPage')),
+ 'production-detail':lazy(()=>import('./pages/ProductionDetailPage')),
  'sitemap':lazy(()=>import('./pages/SitemapPage')),
  'privacy-policy':lazy(()=>import('./pages/PrivacyPolicyPage')),
  'press-media':lazy(()=>import('./pages/PressMediaPage')),
@@ -109,6 +114,8 @@ const routes={
  news:lazy(()=>import('./pages/NewsPage').then(module=>({default:module.NewsPage}))),
  blog:lazy(()=>import('./pages/BlogPage')),
  legal:lazy(()=>import('./pages/LegalPage')),
+ 'career-application':lazy(()=>import('./pages/CareersPage').then(module=>({default:module.CareerApplicationPage}))),
+ 'latest-openings':lazy(()=>import('./pages/CareersPage').then(module=>({default:module.LatestOpeningsPage}))),
  careers:lazy(()=>import('./pages/CareersPage').then(module=>({default:module.CareersPage}))),
  contact:lazy(()=>import('./pages/ContactPage').then(module=>({default:module.ContactPage}))),
 };
@@ -131,7 +138,6 @@ function PendingPage() {
 }
 function ReadyPage({children,paused,reduced,onReady}) {
  useReveals(paused||reduced);
- useFaqAccordions();
  useEffect(() => { onReady(); }, [onReady]);
  useEffect(()=>{
   let cancelled=false,frame;
@@ -164,6 +170,7 @@ function App() {
   document.body.style.overflow='hidden';
   return()=>{document.body.style.overflow=previous;};
  },[opening]);
+ useHeroPhotoBackground(ready && page!=='home');
  const paused=switching;
  useSmoothScroll(reduced || opening || paused || !ready);
  useThemeMotion(ready && !opening && !reduced);
@@ -186,3 +193,7 @@ function App() {
 createRoot(document.getElementById('root')).render(<CookieConsentProvider><CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider></CookieConsentProvider>);
 
 import './icons.css';
+
+import './related-work.css';
+
+import './produce-intro-surfaces.css';

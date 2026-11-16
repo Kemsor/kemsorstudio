@@ -13,7 +13,7 @@ export default function JourneyRouter(){
   <p>WHERE ARE YOU IN THE JOURNEY?</p>
   <div>{routes.map(({theme,icon,title,action,href},index)=><a className={`journey-option journey-option-${theme}`} key={theme} href={href}>
    <span className="journey-card-top"><span className="journey-symbol" aria-hidden="true"><SiteIcon name={icon} size={22}/></span><strong>{title}</strong><span className="journey-number" aria-hidden="true">0{index+1}</span></span>
-   <span className="journey-card-action"><span>{action}</span><span className="journey-arrow" aria-hidden="true"><SiteIcon name={theme==='production'?'arrow-down':'arrow-up-right'} size={18}/></span></span>
+   <span className="journey-card-action"><span>{action}</span><span className="journey-arrow" aria-hidden="true"><SiteIcon name={theme==='production'?'arrow-down':'arrow'} size={18}/></span></span>
   </a>)}</div>
  </nav>;
 }

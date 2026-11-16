@@ -52,8 +52,7 @@ export default function Footer({ reduced, page = 'home' }) {
     <div className="footer-grid-layout">
       <div className="footer-grid-brand-column">
         <a className="footer-grid-brand" href="/" aria-label="Kemsor Studios home">
-          <img src={branding.logo||'/assets/kemsor-logo.webp'} alt="" width="70" height="70" loading="lazy" decoding="async"/>
-          <span>Kemsor<br/><span>Studios</span></span>
+          <img src={branding.logo||'/assets/kemsor-logo.webp'} alt="" width="180" height="180" loading="lazy" decoding="async"/>
         </a>
         <div className="footer-grid-social-group"><p>{settings.footer_social_label||'Follow the frame'}</p><SocialIcons/></div>
       </div>

@@ -39,8 +39,9 @@
     "alt": "Production slate on an interior set"
   },
   "/india-production-services/|IndiaProductionServicesPage-1|/assets/stills/work-camera-crew": {
-    "src": "/assets/supplied/supplied-film-still.webp",
-    "alt": "Camera operators working together on a studio set"
+    "src": "/assets/supplied/faq-refresh/colour-studio-session-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/colour-studio-session-640.webp 640w, /assets/supplied/faq-refresh/colour-studio-session-960.webp 960w, /assets/supplied/faq-refresh/colour-studio-session-1600.webp 1600w",
+    "alt": "Performer framed by studio panels in red and green lighting"
   },
   "/how-we-work/|VisualChapters-how-we-work-1|/assets/stills/work-camera-crew": {
     "src": "/assets/supplied/collection/purple-camera-operator-1600.webp",
@@ -87,9 +88,9 @@
     "alt": "Camera operator and collaborator preparing an interior shot"
   },
   "/develop/story-script/|StoryScriptPage-1|/assets/stills/daylight-interior-production": {
-    "src": "/assets/supplied/collection/script-reading-1600.webp",
-    "srcSet": "/assets/supplied/collection/script-reading-640.webp 640w, /assets/supplied/collection/script-reading-960.webp 960w, /assets/supplied/collection/script-reading-1600.webp 987w",
-    "alt": "Person reviewing a printed screenplay"
+    "src": "/assets/supplied/faq-refresh/script-recording-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/script-recording-640.webp 640w, /assets/supplied/faq-refresh/script-recording-960.webp 960w, /assets/supplied/faq-refresh/script-recording-1600.webp 1600w",
+    "alt": "Performers reading a script beside studio microphones"
   },
   "/develop/story-script/|VisualChapters-story-script-0|/assets/stills/daylight-interior-production": {
     "src": "/assets/supplied/collection/empty-camera-studio-1600.webp",
@@ -252,9 +253,9 @@
     "alt": "Two performers seated on a lit interview set"
   },
   "/produce/casting/|CastingPage-2|/assets/stills/pre-production-casting": {
-    "src": "/assets/supplied/collection/audition-camera-1600.webp",
-    "srcSet": "/assets/supplied/collection/audition-camera-640.webp 640w, /assets/supplied/collection/audition-camera-960.webp 960w, /assets/supplied/collection/audition-camera-1600.webp 1600w",
-    "alt": "Performer standing in front of a camera on an outdoor set"
+    "src": "/assets/supplied/refresh/studio-vocalist-1600.webp",
+    "srcSet": "/assets/supplied/refresh/studio-vocalist-640.webp 640w, /assets/supplied/refresh/studio-vocalist-960.webp 960w, /assets/supplied/refresh/studio-vocalist-1600.webp 1600w",
+    "alt": "Vocalist beside a studio microphone"
   },
   "/produce/casting/|VisualChapters-casting-1|/assets/stills/family-drama-scene": {
     "src": "/assets/supplied/collection/stage-rehearsal-1600.webp",
@@ -302,9 +303,9 @@
     "alt": "Detailed miniature interior set with furniture and warm lighting"
   },
   "/produce/set-production-design/|SetProductionDesignPage-2|/assets/stills/work-period-set": {
-    "src": "/assets/supplied/collection/character-makeup-1600.webp",
-    "srcSet": "/assets/supplied/collection/character-makeup-640.webp 640w, /assets/supplied/collection/character-makeup-960.webp 960w, /assets/supplied/collection/character-makeup-1600.webp 1600w",
-    "alt": "Makeup artist preparing a performer's face"
+    "src": "/assets/supplied/refresh/colour-set-1600.webp",
+    "srcSet": "/assets/supplied/refresh/colour-set-640.webp 640w, /assets/supplied/refresh/colour-set-960.webp 960w, /assets/supplied/refresh/colour-set-1600.webp 1600w",
+    "alt": "Crew filming a performer on a colourful studio set"
   },
   "/produce/set-production-design/|VisualChapters-set-production-design-1|/assets/stills/work-period-set": {
     "src": "/assets/supplied/collection/red-interior-set-1600.webp",
@@ -406,11 +407,6 @@
     "srcSet": "/assets/supplied/collection/cultural-portrait-640.webp 640w, /assets/supplied/collection/cultural-portrait-960.webp 960w, /assets/supplied/collection/cultural-portrait-1600.webp 987w",
     "alt": "Cultural performer wearing decorative headwear and body paint"
   },
-  "/what-we-make/short-films/|VisualChapters-short-films-0|/assets/stills/work-camera-crew": {
-    "src": "/assets/supplied/collection/classic-camera-1600.webp",
-    "srcSet": "/assets/supplied/collection/classic-camera-640.webp 640w, /assets/supplied/collection/classic-camera-960.webp 960w, /assets/supplied/collection/classic-camera-1600.webp 1065w",
-    "alt": "Black and white close-up of a classic film camera"
-  },
   "/what-we-make/short-films/|VisualChapters-short-films-1|/assets/stills/daylight-interior-production": {
     "src": "/assets/supplied/collection/handheld-camera-operator-1600.webp",
     "srcSet": "/assets/supplied/collection/handheld-camera-operator-640.webp 640w, /assets/supplied/collection/handheld-camera-operator-960.webp 960w, /assets/supplied/collection/handheld-camera-operator-1600.webp 1035w",
@@ -461,11 +457,6 @@
     "srcSet": "/assets/supplied/collection/vintage-film-camera-640.webp 640w, /assets/supplied/collection/vintage-film-camera-960.webp 960w, /assets/supplied/collection/vintage-film-camera-1600.webp 1480w",
     "alt": "Vintage motion-picture camera with a circular film magazine"
   },
-  "/post/|VisualChapters-post-0|/assets/stills/post-production-release": {
-    "src": "/assets/supplied/collection/stacked-film-reels-1600.webp",
-    "srcSet": "/assets/supplied/collection/stacked-film-reels-640.webp 640w, /assets/supplied/collection/stacked-film-reels-960.webp 960w, /assets/supplied/collection/stacked-film-reels-1600.webp 1035w",
-    "alt": "Stacked metal film reels and strips"
-  },
   "/post/|VisualChapters-post-1|/assets/stills/work-camera-crew": {
     "src": "/assets/supplied/collection/film-collection-1600.webp",
     "srcSet": "/assets/supplied/collection/film-collection-640.webp 640w, /assets/supplied/collection/film-collection-960.webp 960w, /assets/supplied/collection/film-collection-1600.webp 987w",
@@ -475,11 +466,6 @@
     "src": "/assets/supplied/collection/digital-projection-1600.webp",
     "srcSet": "/assets/supplied/collection/digital-projection-640.webp 640w, /assets/supplied/collection/digital-projection-960.webp 960w, /assets/supplied/collection/digital-projection-1600.webp 1600w",
     "alt": "Close-up of a digital projector casting a beam of light"
-  },
-  "/post-production/|VisualChapters-post-production-0|/assets/stills/post-production-release": {
-    "src": "/assets/supplied/collection/film-reel-1600.webp",
-    "srcSet": "/assets/supplied/collection/film-reel-640.webp 640w, /assets/supplied/collection/film-reel-960.webp 960w, /assets/supplied/collection/film-reel-1600.webp 1035w",
-    "alt": "Film reel and strip against a dark background"
   },
   "/post-production/|VisualChapters-post-production-1|/assets/stills/work-period-camera": {
     "src": "/assets/supplied/collection/projector-beam-1600.webp",
@@ -501,25 +487,10 @@
     "srcSet": "/assets/supplied/collection/cinema-seating-640.webp 640w, /assets/supplied/collection/cinema-seating-960.webp 960w, /assets/supplied/collection/cinema-seating-1600.webp 1600w",
     "alt": "Rows of red seats in a cinema auditorium"
   },
-  "/release/|VisualChapters-release-1|/assets/stills/post-production-release": {
-    "src": "/assets/supplied/collection/cinema-neon-1600.webp",
-    "srcSet": "/assets/supplied/collection/cinema-neon-640.webp 640w, /assets/supplied/collection/cinema-neon-960.webp 960w, /assets/supplied/collection/cinema-neon-1600.webp 987w",
-    "alt": "Vertical cinema sign glowing against the evening sky"
-  },
-  "/release/distribution-release-support/|VisualChapters-distribution-release-0|/assets/stills/post-production-release": {
-    "src": "/assets/supplied/collection/streaming-screen-1600.webp",
-    "srcSet": "/assets/supplied/collection/streaming-screen-640.webp 640w, /assets/supplied/collection/streaming-screen-960.webp 960w, /assets/supplied/collection/streaming-screen-1600.webp 988w",
-    "alt": "Streaming service on a television in a dark room"
-  },
   "/release/distribution-release-support/|VisualChapters-distribution-release-1|/assets/stills/partner-studio": {
     "src": "/assets/supplied/collection/open-air-screening-1600.webp",
     "srcSet": "/assets/supplied/collection/open-air-screening-640.webp 640w, /assets/supplied/collection/open-air-screening-960.webp 960w, /assets/supplied/collection/open-air-screening-1600.webp 1600w",
     "alt": "Audience at an open-air film screening beside a city skyline"
-  },
-  "/release/festival-awards-strategy/|VisualChapters-festival-awards-0|/assets/stills/work-celebration-set": {
-    "src": "/assets/supplied/collection/cinema-entrance-1600.webp",
-    "srcSet": "/assets/supplied/collection/cinema-entrance-640.webp 640w, /assets/supplied/collection/cinema-entrance-960.webp 960w, /assets/supplied/collection/cinema-entrance-1600.webp 1600w",
-    "alt": "Cinema entrance illuminated with pink neon lights"
   },
   "/release/festival-awards-strategy/|VisualChapters-festival-awards-1|/assets/stills/work-period-camera": {
     "src": "/assets/supplied/collection/cinema-audience-1600.webp",
@@ -566,7 +537,7 @@
     "srcSet": "/assets/supplied/collection/monochrome-performance-640.webp 640w, /assets/supplied/collection/monochrome-performance-960.webp 960w, /assets/supplied/collection/monochrome-performance-1600.webp 987w",
     "alt": "Black and white photograph of a performer holding a stage structure",
     "title": "Movement and atmosphere",
-    "detail": "Supplied photography \u00b7 performance study",
+    "detail": "Supplied photography · performance study",
     "width": 987,
     "height": 1480
   },
@@ -575,7 +546,7 @@
     "srcSet": "/assets/supplied/collection/costume-and-props-640.webp 640w, /assets/supplied/collection/costume-and-props-960.webp 960w, /assets/supplied/collection/costume-and-props-1600.webp 1037w",
     "alt": "Costumed performers holding stage props under theatrical lighting",
     "title": "Staging the story",
-    "detail": "Supplied photography \u00b7 costume and props",
+    "detail": "Supplied photography · costume and props",
     "width": 1037,
     "height": 1379
   },
@@ -584,7 +555,7 @@
     "srcSet": "/assets/supplied/collection/young-character-portrait-640.webp 640w, /assets/supplied/collection/young-character-portrait-960.webp 960w, /assets/supplied/collection/young-character-portrait-1600.webp 1600w",
     "alt": "Young performer posing in dramatic character makeup",
     "title": "Character, in frame",
-    "detail": "Supplied photography \u00b7 character portrait",
+    "detail": "Supplied photography · character portrait",
     "width": 2072,
     "height": 1379
   },
@@ -593,7 +564,7 @@
     "srcSet": "/assets/supplied/collection/blue-camera-lighting-640.webp 640w, /assets/supplied/collection/blue-camera-lighting-960.webp 960w, /assets/supplied/collection/blue-camera-lighting-1600.webp 1600w",
     "alt": "Performer and camera framed by deep blue production lighting",
     "title": "Camera and light",
-    "detail": "Supplied photography \u00b7 lighting study",
+    "detail": "Supplied photography · lighting study",
     "width": 1974,
     "height": 1480
   },
@@ -602,7 +573,7 @@
     "srcSet": "/assets/supplied/collection/two-performer-scene-640.webp 640w, /assets/supplied/collection/two-performer-scene-960.webp 960w, /assets/supplied/collection/two-performer-scene-1600.webp 1600w",
     "alt": "Two costumed performers in a scene on a dark theatre stage",
     "title": "Two voices, one scene",
-    "detail": "Supplied photography \u00b7 stage dialogue",
+    "detail": "Supplied photography · stage dialogue",
     "width": 2070,
     "height": 1380
   },
@@ -611,7 +582,7 @@
     "srcSet": "/assets/supplied/collection/ensemble-rehearsal-640.webp 640w, /assets/supplied/collection/ensemble-rehearsal-960.webp 960w, /assets/supplied/collection/ensemble-rehearsal-1600.webp 1600w",
     "alt": "Performers creating a scene with director chairs on stage",
     "title": "Stories on stage",
-    "detail": "Supplied photography \u00b7 ensemble staging",
+    "detail": "Supplied photography · ensemble staging",
     "width": 1974,
     "height": 1481
   },
@@ -620,7 +591,7 @@
     "srcSet": "/assets/supplied/collection/seated-ensemble-640.webp 640w, /assets/supplied/collection/seated-ensemble-960.webp 960w, /assets/supplied/collection/seated-ensemble-1600.webp 1600w",
     "alt": "Seated ensemble of performers making expressive gestures on stage",
     "title": "An ensemble, in frame",
-    "detail": "Supplied photography \u00b7 ensemble performance",
+    "detail": "Supplied photography · ensemble performance",
     "width": 1974,
     "height": 1481
   },
@@ -629,7 +600,7 @@
     "srcSet": "/assets/supplied/collection/monochrome-film-crew-640.webp 640w, /assets/supplied/collection/monochrome-film-crew-960.webp 960w, /assets/supplied/collection/monochrome-film-crew-1600.webp 1600w",
     "alt": "Production crew working together on a set in black and white",
     "title": "On set together",
-    "detail": "Supplied photography \u00b7 production crew",
+    "detail": "Supplied photography · production crew",
     "width": 2070,
     "height": 1380
   },
@@ -638,7 +609,7 @@
     "srcSet": "/assets/supplied/collection/blue-character-makeup-640.webp 640w, /assets/supplied/collection/blue-character-makeup-960.webp 960w, /assets/supplied/collection/blue-character-makeup-1600.webp 987w",
     "alt": "Character portrait with makeup under blue stage lighting",
     "title": "Character, up close",
-    "detail": "Supplied photography \u00b7 makeup and lighting",
+    "detail": "Supplied photography · makeup and lighting",
     "width": 987,
     "height": 1480
   },
@@ -647,7 +618,7 @@
     "srcSet": "/assets/supplied/collection/pilot-character-reference-640.webp 640w, /assets/supplied/collection/pilot-character-reference-960.webp 960w, /assets/supplied/collection/pilot-character-reference-1600.webp 1600w",
     "alt": "Illustrative screen-character portrait in a pilot costume beside an aircraft",
     "title": "Character and costume",
-    "detail": "Supplied photography \u00b7 screen reference",
+    "detail": "Supplied photography · screen reference",
     "width": 1926,
     "height": 1540
   },
@@ -656,7 +627,7 @@
     "srcSet": "/assets/supplied/collection/solo-stage-performer-640.webp 640w, /assets/supplied/collection/solo-stage-performer-960.webp 960w, /assets/supplied/collection/solo-stage-performer-1600.webp 987w",
     "alt": "Solo performer standing beside a bed on a dark theatre stage",
     "title": "Solo performance",
-    "detail": "Supplied photography \u00b7 theatre performance",
+    "detail": "Supplied photography · theatre performance",
     "width": 987,
     "height": 1481
   },
@@ -665,7 +636,7 @@
     "srcSet": "/assets/supplied/collection/stage-character-closeup-640.webp 640w, /assets/supplied/collection/stage-character-closeup-960.webp 960w, /assets/supplied/collection/stage-character-closeup-1600.webp 987w",
     "alt": "Theatre performer expressing emotion in a character costume",
     "title": "Performance, up close",
-    "detail": "Supplied photography \u00b7 character study",
+    "detail": "Supplied photography · character study",
     "width": 987,
     "height": 1481
   },
@@ -674,7 +645,7 @@
     "srcSet": "/assets/supplied/collection/interior-stage-scene-640.webp 640w, /assets/supplied/collection/interior-stage-scene-960.webp 960w, /assets/supplied/collection/interior-stage-scene-1600.webp 1600w",
     "alt": "Performer on a furnished interior theatre set",
     "title": "Inside the scene",
-    "detail": "Supplied photography \u00b7 interior staging",
+    "detail": "Supplied photography · interior staging",
     "width": 2070,
     "height": 1380
   },
@@ -683,7 +654,7 @@
     "srcSet": "/assets/supplied/collection/ensemble-stage-scene-640.webp 640w, /assets/supplied/collection/ensemble-stage-scene-960.webp 960w, /assets/supplied/collection/ensemble-stage-scene-1600.webp 1600w",
     "alt": "Performers sharing a dramatically lit stage scene",
     "title": "Ensemble in performance",
-    "detail": "Supplied photography \u00b7 ensemble scene",
+    "detail": "Supplied photography · ensemble scene",
     "width": 2070,
     "height": 1380
   },
@@ -741,5 +712,155 @@
     "src": "/assets/supplied/collection/script-reading-960.webp",
     "srcSet": "/assets/supplied/collection/script-reading-640.webp 640w, /assets/supplied/collection/script-reading-960.webp 960w, /assets/supplied/collection/script-reading-1600.webp 1600w",
     "alt": "A filmmaker annotating a printed script during project preparation"
+  },
+  "/|DesignerServices-2|/assets/designer-services/finance": {
+    "src": "/assets/supplied/refresh/creative-collaboration-1600.webp",
+    "srcSet": "/assets/supplied/refresh/creative-collaboration-640.webp 640w, /assets/supplied/refresh/creative-collaboration-960.webp 960w, /assets/supplied/refresh/creative-collaboration-1600.webp 1600w",
+    "alt": "Producer and vocalist preparing a recording"
+  },
+  "/|DesignerServices-2|/assets/designer-services/casting": {
+    "src": "/assets/supplied/refresh/production-workshop-1600.webp",
+    "srcSet": "/assets/supplied/refresh/production-workshop-640.webp 640w, /assets/supplied/refresh/production-workshop-960.webp 960w, /assets/supplied/refresh/production-workshop-1600.webp 1600w",
+    "alt": "Filmmaking workshop with crew and lighting equipment"
+  },
+  "/|DesignerServices-2|/assets/designer-services/post": {
+    "src": "/assets/supplied/refresh/sound-controls-1600.webp",
+    "srcSet": "/assets/supplied/refresh/sound-controls-640.webp 640w, /assets/supplied/refresh/sound-controls-960.webp 960w, /assets/supplied/refresh/sound-controls-1600.webp 1600w",
+    "alt": "Sound engineer adjusting studio audio controls"
+  },
+  "/|DesignerServices-2|/assets/designer-services/valley": {
+    "src": "/assets/supplied/refresh/interior-camera-1600.webp",
+    "srcSet": "/assets/supplied/refresh/interior-camera-640.webp 640w, /assets/supplied/refresh/interior-camera-960.webp 960w, /assets/supplied/refresh/interior-camera-1600.webp 1600w",
+    "alt": "Camera operator filming an interior scene"
+  },
+  "/productions/|EditorialPage-1|/assets/stills/fort-helicopter-action": {
+    "src": "/assets/supplied/refresh/cinema-entrance-1600.webp",
+    "srcSet": "/assets/supplied/refresh/cinema-entrance-640.webp 640w, /assets/supplied/refresh/cinema-entrance-960.webp 960w, /assets/supplied/refresh/cinema-entrance-1600.webp 1600w",
+    "alt": "Neon-lit cinema entrance"
+  },
+  "/produce/|ProducePage-1|/assets/stills/work-period-set": {
+    "src": "/assets/supplied/refresh/red-studio-1600.webp",
+    "srcSet": "/assets/supplied/refresh/red-studio-640.webp 640w, /assets/supplied/refresh/red-studio-960.webp 960w, /assets/supplied/refresh/red-studio-1600.webp 1600w",
+    "alt": "Crew preparing a performer on a red-lit studio set"
+  },
+  "/produce/casting/|CastingPage-1|/assets/stills/family-drama-scene": {
+    "src": "/assets/supplied/refresh/vocal-session-1600.webp",
+    "srcSet": "/assets/supplied/refresh/vocal-session-640.webp 640w, /assets/supplied/refresh/vocal-session-960.webp 960w, /assets/supplied/refresh/vocal-session-1600.webp 1600w",
+    "alt": "Vocalist recording in a studio"
+  },
+  "/release/|ReleaseOverviewPage-route-1|/assets/stills/post-production-release": {
+    "src": "/assets/supplied/refresh/film-projector-1600.webp",
+    "srcSet": "/assets/supplied/refresh/film-projector-640.webp 640w, /assets/supplied/refresh/film-projector-960.webp 960w, /assets/supplied/refresh/film-projector-1600.webp 1600w",
+    "alt": "Film projector casting a beam of light"
+  },
+  "/post/|PostOverviewPage-supervision|/assets/stills/post-production-release": {
+    "src": "/assets/supplied/refresh/band-session-1600.webp",
+    "srcSet": "/assets/supplied/refresh/band-session-640.webp 640w, /assets/supplied/refresh/band-session-960.webp 960w, /assets/supplied/refresh/band-session-1600.webp 1600w",
+    "alt": "Musicians rehearsing together in a recording studio"
+  },
+  "/release/distribution-release-support/|DistributionReleasePage-launch|/assets/motion-films/theatre-facade": {
+    "src": "/assets/supplied/refresh/cinema-popcorn-1600.webp",
+    "srcSet": "/assets/supplied/refresh/cinema-popcorn-640.webp 640w, /assets/supplied/refresh/cinema-popcorn-960.webp 960w, /assets/supplied/refresh/cinema-popcorn-1600.webp 1600w",
+    "alt": "Popcorn bucket on a cinema floor"
+  },
+  "/release/distribution-release-support/|DistributionReleasePage-audience|/assets/supplied/collection/cinema-audience": {
+    "src": "/assets/supplied/refresh/stage-microphone-1600.webp",
+    "srcSet": "/assets/supplied/refresh/stage-microphone-640.webp 640w, /assets/supplied/refresh/stage-microphone-960.webp 960w, /assets/supplied/refresh/stage-microphone-1600.webp 1600w",
+    "alt": "Close-up of a stage microphone"
+  },
+  "/release/festival-awards-strategy/|FestivalAwardsPage-awards|/assets/supplied/collection/open-air-screening": {
+    "src": "/assets/supplied/refresh/audience-lights-1600.webp",
+    "srcSet": "/assets/supplied/refresh/audience-lights-640.webp 640w, /assets/supplied/refresh/audience-lights-960.webp 960w, /assets/supplied/refresh/audience-lights-1600.webp 1600w",
+    "alt": "Audience member facing colourful stage lighting"
+  },
+  "/how-we-work/|HowWeWorkPage-engagement-1|/assets/supplied/collection/script-reading": {
+    "src": "/assets/supplied/faq-refresh/young-vocalist-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/young-vocalist-640.webp 640w, /assets/supplied/faq-refresh/young-vocalist-960.webp 960w, /assets/supplied/faq-refresh/young-vocalist-1600.webp 1600w",
+    "alt": "Young performer holding a microphone"
+  },
+  "/produce/|ProducePage-2|/assets/stills/courtyard-dance-production": {
+    "src": "/assets/supplied/faq-refresh/band-performance-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/band-performance-640.webp 640w, /assets/supplied/faq-refresh/band-performance-960.webp 960w, /assets/supplied/faq-refresh/band-performance-1600.webp 1600w",
+    "alt": "Young vocalist performing with a drummer"
+  },
+  "/finance/co-production/|CoProductionPage-role-1|/assets/stills/work-camera-crew": {
+    "src": "/assets/supplied/faq-refresh/studio-portrait-session-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/studio-portrait-session-640.webp 640w, /assets/supplied/faq-refresh/studio-portrait-session-960.webp 960w, /assets/supplied/faq-refresh/studio-portrait-session-1600.webp 1600w",
+    "alt": "Performer posing during a studio photography session"
+  },
+  "/finance/|FinancePage-service-1|/assets/stills/development-packaging": {
+    "src": "/assets/supplied/faq-refresh/purple-studio-light-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/purple-studio-light-640.webp 640w, /assets/supplied/faq-refresh/purple-studio-light-960.webp 960w, /assets/supplied/faq-refresh/purple-studio-light-1600.webp 1600w",
+    "alt": "Studio LED light casting purple light"
+  },
+  "/finance/co-production/|CoProductionPage-benefits|/assets/stills/daylight-valley-production": {
+    "src": "/assets/supplied/faq-refresh/magenta-performance-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/magenta-performance-640.webp 640w, /assets/supplied/faq-refresh/magenta-performance-960.webp 960w, /assets/supplied/faq-refresh/magenta-performance-1600.webp 1600w",
+    "alt": "Performer silhouetted against magenta stage lighting"
+  },
+  "/how-we-work/|HowWeWorkPage-engagement-2|/assets/supplied/collection/crew-discussion": {
+    "src": "/assets/supplied/faq-refresh/microphone-headphones-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/microphone-headphones-640.webp 640w, /assets/supplied/faq-refresh/microphone-headphones-960.webp 960w, /assets/supplied/faq-refresh/microphone-headphones-1600.webp 1600w",
+    "alt": "Microphone and headphones in warm recording studio lighting"
+  },
+  "/finance/|FinancePage-process|/assets/stills/work-camera-crew": {
+    "src": "/assets/supplied/faq-refresh/orange-studio-production-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/orange-studio-production-640.webp 640w, /assets/supplied/faq-refresh/orange-studio-production-960.webp 960w, /assets/supplied/faq-refresh/orange-studio-production-1600.webp 1600w",
+    "alt": "Crew lighting a performer on an orange studio set"
+  },
+  "/finance/|FinancePage-pack|/assets/services/planning": {
+    "src": "/assets/supplied/faq-refresh/red-studio-seat-1600.webp",
+    "srcSet": "/assets/supplied/faq-refresh/red-studio-seat-640.webp 640w, /assets/supplied/faq-refresh/red-studio-seat-960.webp 960w, /assets/supplied/faq-refresh/red-studio-seat-1600.webp 1600w",
+    "alt": "Wooden director chair against a red studio backdrop"
+  },
+  "/finance/finance-structuring/|FinanceStructuringPage-/assets/stills/work-camera-crew-960.webp|/assets/stills/work-camera-crew": {
+    "src": "/assets/supplied/page-refresh/sound-production-workspace-1600.webp",
+    "srcSet": "/assets/supplied/page-refresh/sound-production-workspace-640.webp 640w, /assets/supplied/page-refresh/sound-production-workspace-960.webp 960w, /assets/supplied/page-refresh/sound-production-workspace-1600.webp 1600w",
+    "alt": "Audio engineer working at a studio mixing console"
+  },
+  "/finance/finance-structuring/|FinanceStructuringPage-plan|/assets/services/planning": {
+    "src": "/assets/supplied/page-refresh/creative-project-planning-1600.webp",
+    "srcSet": "/assets/supplied/page-refresh/creative-project-planning-640.webp 640w, /assets/supplied/page-refresh/creative-project-planning-960.webp 960w, /assets/supplied/page-refresh/creative-project-planning-1600.webp 1600w",
+    "alt": "Creative professional working on a laptop beside camera equipment"
+  },
+  "/finance/co-production/|CoProductionPage-brief|/assets/stills/development-packaging": {
+    "src": "/assets/supplied/page-refresh/director-studio-team-1600.webp",
+    "srcSet": "/assets/supplied/page-refresh/director-studio-team-640.webp 640w, /assets/supplied/page-refresh/director-studio-team-960.webp 960w, /assets/supplied/page-refresh/director-studio-team-1600.webp 1600w",
+    "alt": "Director and crew preparing performers on a red-lit studio set"
+  },
+  "/finance/co-production/|CoProductionPage-role-2|/assets/services/planning": {
+    "src": "/assets/supplied/page-refresh/cinema-projection-room-1600.webp",
+    "srcSet": "/assets/supplied/page-refresh/cinema-projection-room-640.webp 640w, /assets/supplied/page-refresh/cinema-projection-room-960.webp 960w, /assets/supplied/page-refresh/cinema-projection-room-1600.webp 1600w",
+    "alt": "Projector beams shining across rows of cinema seats"
+  },
+  "/finance/international-co-productions/|InternationalCoProductionsPage-direction-0|/assets/stills/daylight-snow-production": {
+    "src": "/assets/supplied/page-refresh/blue-studio-camera-session-1600.webp",
+    "srcSet": "/assets/supplied/page-refresh/blue-studio-camera-session-640.webp 640w, /assets/supplied/page-refresh/blue-studio-camera-session-960.webp 960w, /assets/supplied/page-refresh/blue-studio-camera-session-1600.webp 1600w",
+    "alt": "Camera operator filming a performer on a blue studio set"
+  },
+  "/finance/international-co-productions/|InternationalCoProductionsPage-communication|/assets/stills/work-camera-crew": {
+    "src": "/assets/supplied/page-refresh/voice-recording-session-1600.webp",
+    "srcSet": "/assets/supplied/page-refresh/voice-recording-session-640.webp 640w, /assets/supplied/page-refresh/voice-recording-session-960.webp 960w, /assets/supplied/page-refresh/voice-recording-session-1600.webp 1600w",
+    "alt": "Voice performer recording with headphones and a studio microphone"
+  },
+  "/productions/|ProductionFormatsRail-feature-films|/assets/stills/coastal-motorcycle-chase": {
+    "src": "/assets/supplied/format-refresh/feature-camera-team-1600.webp",
+    "srcSet": "/assets/supplied/format-refresh/feature-camera-team-640.webp 640w, /assets/supplied/format-refresh/feature-camera-team-960.webp 960w, /assets/supplied/format-refresh/feature-camera-team-1600.webp 1600w",
+    "alt": "Film crew preparing a cinema camera in an interior location"
+  },
+  "/productions/|ProductionFormatsRail-series-ott|/assets/stills/courtyard-dance-production": {
+    "src": "/assets/supplied/format-refresh/series-location-filming-1600.webp",
+    "srcSet": "/assets/supplied/format-refresh/series-location-filming-640.webp 640w, /assets/supplied/format-refresh/series-location-filming-960.webp 960w, /assets/supplied/format-refresh/series-location-filming-1600.webp 1600w",
+    "alt": "Camera crew filming a performer on a bright exterior set"
+  },
+  "/productions/|ProductionFormatsRail-documentaries|/assets/stills/daylight-forest-action": {
+    "src": "/assets/supplied/format-refresh/documentary-camera-study-1600.webp",
+    "srcSet": "/assets/supplied/format-refresh/documentary-camera-study-640.webp 640w, /assets/supplied/format-refresh/documentary-camera-study-960.webp 960w, /assets/supplied/format-refresh/documentary-camera-study-1600.webp 1600w",
+    "alt": "Camera operator filming a performer in a sunlit studio"
+  },
+  "/productions/|ProductionFormatsRail-short-films|/assets/stills/family-drama-scene": {
+    "src": "/assets/supplied/format-refresh/short-film-lighting-1600.webp",
+    "srcSet": "/assets/supplied/format-refresh/short-film-lighting-640.webp 640w, /assets/supplied/format-refresh/short-film-lighting-960.webp 960w, /assets/supplied/format-refresh/short-film-lighting-1600.webp 1600w",
+    "alt": "Crew member adjusting a studio light for filming"
   }
 }

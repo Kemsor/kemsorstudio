@@ -2,6 +2,7 @@ import {cmsText,cmsData} from '../siteContent';
 import SlidingCards from '../SlidingCards';
 import PageVisuals from '../VisualChapters';
 import SiteIcon from '../SiteIcon';
+import StudioImage from '../StudioImage';
 import React from 'react';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import SectionSubmenu from '../SectionSubmenu';
@@ -29,6 +30,7 @@ const engagements = cmsData(()=>([
   [cmsText("HowWeWorkPage","01355a662b29f8df","B"), cmsText("HowWeWorkPage","4923b382a279cb3e","Stage partner"), cmsText("HowWeWorkPage","4fe5cbb22be65954","Kemsor carries one full stage: Develop, Finance, Produce, Post, or Release."), cmsText("HowWeWorkPage","1a40efd961651a2f","Best when one stage is your gap.")],
   [cmsText("HowWeWorkPage","0bc7aa7a17c53d65","C"), cmsText("HowWeWorkPage","1f4b97d29838d01c","Lifecycle partner"), cmsText("HowWeWorkPage","9eeff36bd63b8654","From first idea to final screen, with one team throughout."), cmsText("HowWeWorkPage","22d57d5287316a30","Best when you want one partner accountable for it all.")],
 ]));
+const engagementImages = ['script-reading', 'crew-discussion', 'projector-beam'];
 const contacts = cmsData(()=>([
   [cmsText("HowWeWorkPage","8854f7cca27380ca","Your Kemsor lead"), cmsText("HowWeWorkPage","ee90c2dae649eb88","One named person accountable for your project, day-to-day.")],
   [cmsText("HowWeWorkPage","7ea48771ed2dc063","Stage leads"), cmsText("HowWeWorkPage","88bc4941f023c7ed","The heads of each stage join when their stage begins.")],
@@ -84,9 +86,20 @@ export default function HowWeWorkPage() {
       <SheetLabel index="02 / 06">{cmsText("HowWeWorkPage","305bf2ecdb207d64","ENGAGEMENT TYPES")}</SheetLabel>
       <MotionHeading as="h2" id="call-sheet-engagement-title">{cmsText("HowWeWorkPage","e32743a645123d60","Three ways to work with us.")}</MotionHeading>
       <p>{cmsText("HowWeWorkPage","256180e2539278c4","Pick the one that fits.")}</p>
-      <div className="call-sheet-engagements engagement-ground-cards">{engagements.map(([unit, type, copy, best]) => <article key={unit} tabIndex={0}><div className="engagement-ground-content">
-        <span className="call-sheet-unit" aria-label={`Unit ${unit}`}>{unit}</span>
-        <h3>{type}</h3><div className="engagement-ground-detail"><div><p>{copy}</p><p className="call-sheet-best">{best}</p></div></div></div>
+      <div className="call-sheet-engagements engagement-ground-cards">{engagements.map(([unit, type, copy, best], index) => <article key={unit}>
+        <StudioImage
+          mediaSlot={`HowWeWorkPage-engagement-${index + 1}`}
+          className="engagement-ground-image"
+          src={`/assets/supplied/collection/${engagementImages[index]}-960.webp`}
+          srcSet={[640, 960, 1600].map(width => `/assets/supplied/collection/${engagementImages[index]}-${width}.webp ${width}w`).join(', ')}
+          sizes="(max-width: 800px) 100vw, (max-width: 1440px) 30vw, 420px"
+          alt="" aria-hidden="true" loading="lazy" decoding="async"
+        />
+        <div className="engagement-ground-content">
+          <div className="engagement-ground-heading"><span className="call-sheet-unit">{unit}</span><h3>{type}</h3></div>
+          <p className="engagement-ground-copy">{copy}</p>
+          <p className="call-sheet-best">{best}</p>
+        </div>
       </article>)}</div>
     </section>
 
@@ -103,7 +116,7 @@ export default function HowWeWorkPage() {
 
     <section className="call-sheet-section call-sheet-width call-sheet-split" aria-labelledby="call-sheet-needs-title">
       <div><SheetLabel index="05 / 06">{cmsText("HowWeWorkPage","a32d416ef338dd53","WHAT WE NEED FROM YOU")}</SheetLabel><MotionHeading as="h2" id="call-sheet-needs-title">{cmsText("HowWeWorkPage","fbd8c076898901b2","Good productions are ")}<em>{cmsText("HowWeWorkPage","11cbdcb442b1472b","two-way.")}</em></MotionHeading></div>
-      <ul className="call-sheet-needs">{needs.map(need => <li key={need}><span aria-hidden="true"><SiteIcon name="arrow-up-right" size={16} /></span>{need}</li>)}</ul>
+      <ul className="call-sheet-needs">{needs.map(need => <li key={need}><span aria-hidden="true"><SiteIcon name="arrow" size={16} /></span>{need}</li>)}</ul>
     </section>
 
     <section className="call-sheet-section call-sheet-closing call-sheet-width inner-closing" aria-labelledby="call-sheet-closing-title">

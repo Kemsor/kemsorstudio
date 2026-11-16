@@ -1,0 +1,62 @@
+/* Shared frontend palette: warm brown, cream, bronze and gold. */
+:root[data-admin-theme=light]{
+ --studio-canvas:#fff;--studio-panel:#fff;--studio-raised:#faf8f3;
+ --studio-ink:#251c12;--studio-muted:#70604b;--studio-line:#deceb4;
+ --studio-accent:#976124;--studio-accent-soft:#efdfbf;
+ --studio-blue:#b88735;--studio-violet:#d4ae64;--studio-slate:#a39072;
+ --flat-primary:#e5b765;--flat-primary-hover:#d9a54e;
+ --flat-sidebar:#171109;--flat-sidebar-ink:#f2e8d7;--flat-sidebar-muted:#b7a485;
+ --flat-sidebar-line:#e5b76526;--flat-sidebar-hover:#302419;
+ --flat-sidebar-active:#4b371c;--flat-sidebar-selected:#f3cc80;
+}
+:root[data-admin-theme=dark]{
+ --studio-canvas:#fff;--studio-panel:#fff;--studio-raised:#faf8f3;
+ --studio-ink:#251c12;--studio-muted:#70604b;--studio-line:#deceb4;
+ --studio-accent:#976124;--studio-accent-soft:#efdfbf;
+ --studio-blue:#d7a74f;--studio-violet:#e8c786;--studio-slate:#ad9774;
+ --flat-primary:#e5b765;--flat-primary-hover:#edc780;
+ --flat-sidebar:#171109;--flat-sidebar-ink:#f2e8d7;--flat-sidebar-muted:#b7a485;
+ --flat-sidebar-line:#e5b76526;--flat-sidebar-hover:#302419;
+ --flat-sidebar-active:#49351c;--flat-sidebar-selected:#f3cc80;
+}
+html[data-admin-theme] body .cms-nav>a{
+ font-size:14px;line-height:1.5;min-height:44px;padding:10px 12px;
+ overflow-wrap:break-word;
+}
+html[data-admin-theme] body .cms-nav>a>.ui-icon{width:18px;height:18px;flex-shrink:0}
+html[data-admin-theme] body .cms-nav .nav-label{font-size:10px;letter-spacing:.1em;margin-top:22px;margin-bottom:7px}
+html[data-admin-theme] body .cms-nav>a[aria-current=page]::before{background:#e5b765}
+html[data-admin-theme] body #main :is(button,.button){color:#171109}
+html[data-admin-theme] body #main :is(button,.button):hover{color:#171109}
+html[data-admin-theme] body #main :is(.quiet,.button.quiet,.filters button,.table-pagination a,.table-pagination button){color:var(--studio-ink)}
+html[data-admin-theme] body #main :is(.quiet,.button.quiet,.filters button):hover{color:var(--studio-ink)}
+html[data-admin-theme] body #main :is(.delete-blog,.danger button){color:#fff}
+html[data-admin-theme] body .cms-header .notification-count{color:#171109}
+html[data-admin-theme] body :is(.admin-theme-control,.cms-nav){--control-accent:#e5b765}
+html[data-admin-theme] body :is(button,a,input,select,textarea):focus-visible{outline-color:var(--studio-accent)}
+html[data-admin-theme] body :is(input,select,textarea):focus{
+ border-color:var(--studio-accent)!important;
+ box-shadow:0 0 0 3px color-mix(in srgb,var(--studio-accent) 18%,transparent)!important;
+}
+html[data-admin-theme=dark] body :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]),select,textarea){
+ background-color:#fff!important;color:var(--studio-ink)!important;border-color:var(--studio-line)!important;
+ box-shadow:none!important;--control-ink:#251c12;--control-muted:#70604b;
+}
+html[data-admin-theme=dark] body :is(input,select,textarea)::placeholder{color:var(--studio-muted)!important}
+html[data-admin-theme=dark] body :is(input,select,textarea):disabled,
+html[data-admin-theme=dark] body :is(input,textarea)[readonly]{background-color:var(--studio-raised)!important;color:var(--studio-muted)!important}
+html[data-admin-theme=dark] body :is(select option,select optgroup){background:#fff;color:var(--studio-ink)}
+html[data-admin-theme] body .cms-nav{scrollbar-color:#976124 #171109}
+@media(prefers-reduced-motion:reduce){html[data-admin-theme] body .cms-nav>a{transition:none}}
+
+/* Every admin page stays white; the sidebar keeps the studio palette. */
+html[data-admin-theme] body .cms-shell{background:#fff}
+html[data-admin-theme] body #main{
+ --studio-canvas:#fff;--studio-panel:#fff;--studio-raised:#faf8f3;
+ --studio-ink:#251c12;--studio-muted:#70604b;--studio-line:#e4dacb;
+ --studio-accent:#976124;--studio-accent-soft:#f2e5cb;
+ background:#fff;color:var(--studio-ink);color-scheme:light;
+}
+
+html[data-admin-theme] body{background:#fff;color-scheme:light}
+html[data-admin-theme] body .cms-footer{background:#fff}
