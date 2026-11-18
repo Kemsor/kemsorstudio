@@ -40,7 +40,7 @@ html[data-admin-theme] body :is(input,select,textarea):focus{
 }
 html[data-admin-theme=dark] body :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]),select,textarea){
  background-color:#fff!important;color:var(--studio-ink)!important;border-color:var(--studio-line)!important;
- box-shadow:none!important;--control-ink:#251c12;--control-muted:#70604b;
+ box-shadow:none!important;--control-ink:var(--studio-ink);--control-muted:var(--studio-muted);
 }
 html[data-admin-theme=dark] body :is(input,select,textarea)::placeholder{color:var(--studio-muted)!important}
 html[data-admin-theme=dark] body :is(input,select,textarea):disabled,
@@ -49,14 +49,134 @@ html[data-admin-theme=dark] body :is(select option,select optgroup){background:#
 html[data-admin-theme] body .cms-nav{scrollbar-color:#976124 #171109}
 @media(prefers-reduced-motion:reduce){html[data-admin-theme] body .cms-nav>a{transition:none}}
 
-/* Every admin page stays white; the sidebar keeps the studio palette. */
+/* Cool neutral content surfaces; the sidebar keeps the studio palette. */
 html[data-admin-theme] body .cms-shell{background:#fff}
 html[data-admin-theme] body #main{
- --studio-canvas:#fff;--studio-panel:#fff;--studio-raised:#faf8f3;
- --studio-ink:#251c12;--studio-muted:#70604b;--studio-line:#e4dacb;
- --studio-accent:#976124;--studio-accent-soft:#f2e5cb;
+ --studio-canvas:#fff;--studio-panel:#fff;--studio-raised:#f8fafc;
+ --studio-ink:#1f2937;--studio-muted:#64748b;--studio-line:#e2e8f0;
+ --studio-accent:#2563eb;--studio-accent-soft:#eff6ff;
+ --studio-blue:#3b82f6;--studio-violet:#8b5cf6;--studio-slate:#94a3b8;
+ --flat-primary:#333;--flat-primary-hover:#444;
+ --control-ink:#1f2937;--control-muted:#64748b;--control-border:#cbd5e1;
+ --control-accent:#2563eb;--control-warm:#64748b;
+ --control-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
  background:#fff;color:var(--studio-ink);color-scheme:light;
 }
+html[data-admin-theme] body #main :is(.welcome-actions a,.filters button){
+ background:var(--flat-primary);border:1px solid var(--flat-primary);color:#251c12;
+}
+html[data-admin-theme] body #main :is(.welcome-actions a,.filters button):hover{
+ background:var(--flat-primary-hover);border-color:var(--flat-primary-hover);color:#251c12;
+}
+
+/* Overview actions need the same breathing room as standard buttons. */
+html[data-admin-theme] body #main :is(.welcome-actions>a,.dashboard-heading-actions>.button){
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ box-sizing:border-box;min-height:42px;padding:10px 18px;
+ line-height:1.4;text-decoration:none;
+}
+html[data-admin-theme] body #main .welcome-actions>a>.ui-icon{flex-shrink:0}
+html[data-admin-theme] body #main .quick-create>a{padding:10px 12px;gap:12px}
 
 html[data-admin-theme] body{background:#fff;color-scheme:light}
 html[data-admin-theme] body .cms-footer{background:#fff}
+
+/* Clear action and status colours against the light workspace. */
+html[data-admin-theme] body #main :is(.quiet,.button.quiet,.library-file-link,.workspace-links a,.registration-pages a,.table-wrap td a){background:#fff;border-color:#d1d5db;color:#181818}
+html[data-admin-theme] body #main :is(.quiet,.button.quiet,.library-file-link,.workspace-links a,.registration-pages a,.table-wrap td a):hover{background:#fff;border-color:#181818;color:#181818}
+html[data-admin-theme] body #main :is(.badge,.mini-count,.notification-read-state){background:#7c3aed;color:#fff;font-weight:600}
+html[data-admin-theme] body #main .notification-row-meta span.notification-read-state{background:#475569;color:#fff}
+html[data-admin-theme] body #main .notification-inbox-row.is-unread .notification-row-meta span.notification-read-state{background:#dc2626;color:#fff}
+html[data-admin-theme] body #main .notification-inbox-row.is-read .notification-row-meta span.notification-read-state{background:#00ab84;color:#fff}
+html[data-admin-theme] body #main :is(.badge-published,.badge-approved,.badge-sent,.badge-active,.badge-interested,.badge-converted,.badge-accepted,.badge-shortlisted,.badge-completed){background:#00ab84;color:#fff}
+html[data-admin-theme] body #main :is(.badge-draft,.badge-new,.badge-pending,.badge-submitted,.badge-queued){background:#fef3c7;color:#374151}
+html[data-admin-theme] body #main :is(.badge-in_review,.badge-reviewing,.badge-contacted,.badge-qualified,.badge-processing){background:#2563eb;color:#fff}
+html[data-admin-theme] body #main :is(.badge-rejected,.badge-suspended,.badge-declined,.badge-failed,.badge-spam){background:#dc2626;color:#fff}
+html[data-admin-theme] body #main :is(.badge-archived,.badge-closed,.badge-cancelled){background:#475569;color:#fff}
+html[data-admin-theme] body #main :is(.delete-blog,.danger button){background:#dc2626;border-color:#dc2626;color:#fff}
+html[data-admin-theme] body #main :is(.delete-blog,.danger button):hover{background:#b91c1c;border-color:#b91c1c;color:#fff}
+html[data-admin-theme] body #main :is(.metric-icon,.content-symbol,.admin-page-icon,.notification-indicator,.sender-avatar,.quick-create>a>span){background:#eff6ff;color:#2563eb}
+
+/* White action buttons, with dedicated notification colours below. */
+html[data-admin-theme] body #main :is(button,.button,input[type=submit],input[type=button],input[type=reset],.quiet,.welcome-actions a,.quick-create>a,.library-file-link,.workspace-links a,.registration-pages a,.table-wrap td a,.table-pagination a){background:#fff;background-image:none;border-color:#d1d5db;border-radius:999px;color:#181818;box-shadow:none}
+html[data-admin-theme] body #main :is(button,.button,input[type=submit],input[type=button],input[type=reset],.quiet,.welcome-actions a,.quick-create>a,.library-file-link,.workspace-links a,.registration-pages a,.table-wrap td a,.table-pagination a):hover{background:#fff;border-color:#181818;color:#181818}
+html[data-admin-theme] body .cms-header :is(button,.button,.admin-website-link){background:#fff;border-color:#d1d5db;border-radius:999px;color:#181818}
+html[data-admin-theme] body .cms-header :is(button,.button,.admin-website-link):hover{background:#fff;border-color:#181818;color:#181818}
+html[data-admin-theme] body #main form[action="/admin/notifications/read"] button,
+html[data-admin-theme] body .cms-header .notification-popover form[action="/admin/notifications/read"] button{background:#dc2626;border-color:#dc2626;border-radius:999px;color:#fff}
+html[data-admin-theme] body #main form[action="/admin/notifications/read"] button:hover,
+html[data-admin-theme] body .cms-header .notification-popover form[action="/admin/notifications/read"] button:hover{background:#b91c1c;border-color:#b91c1c;color:#fff}
+html[data-admin-theme] body .notification-item.is-read .notification-indicator{background:#00ab84;color:#fff}
+html[data-admin-theme] body #main .notification-row-actions .notification-view,
+html[data-admin-theme] body .cms-header .notification-dropdown-footer .notification-view{display:inline-flex;align-items:center;justify-content:center;background:#333333;background-image:none;border:1px solid #333333;border-radius:999px;color:#fff;padding:7px 14px;text-decoration:none}
+html[data-admin-theme] body #main .notification-row-actions .notification-view:hover,
+html[data-admin-theme] body .cms-header .notification-dropdown-footer .notification-view:hover{background:#444444;border-color:#444444;color:#fff}
+html[data-admin-theme] body #main .notification-row-actions button.notification-read,
+html[data-admin-theme] body .cms-header .notification-popover button.notification-read,
+html[data-admin-theme] body .cms-header .notification-dropdown-footer button.notification-mark-all{background:#dc2626;background-image:none;border:1px solid #dc2626;border-radius:999px;color:#fff;padding:7px 14px}
+html[data-admin-theme] body #main .notification-row-actions button.notification-read:hover,
+html[data-admin-theme] body .cms-header .notification-popover button.notification-read:hover,
+html[data-admin-theme] body .cms-header .notification-dropdown-footer button.notification-mark-all:hover{background:#b91c1c;border-color:#b91c1c;color:#fff}
+
+/* Keep field interiors white in both themes and every field state. */
+html[data-admin-theme] body #main :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]),select,textarea){background-color:#fff!important}
+html[data-admin-theme] body #main input:-webkit-autofill,
+html[data-admin-theme] body #main input:-webkit-autofill:hover,
+html[data-admin-theme] body #main input:-webkit-autofill:focus{box-shadow:inset 0 0 0 1000px #fff!important;-webkit-text-fill-color:var(--studio-ink)!important}
+
+/* Delete actions remain red; regular edit and preview actions stay white. */
+html[data-admin-theme] body #main :is(.preview-button,.button.quiet){background:#fff;background-image:none;border-color:#d1d5db;color:#181818}
+html[data-admin-theme] body #main :is(.preview-button,.button.quiet):hover{background:#fff;border-color:#181818;color:#181818}
+html[data-admin-theme] body #main :is(button.delete-blog,.danger button,form[action$="/delete"] button){background:#dc2626;background-image:none;border-color:#dc2626;border-radius:999px;color:#fff}
+html[data-admin-theme] body #main :is(button.delete-blog,.danger button,form[action$="/delete"] button):hover{background:#b91c1c;border-color:#b91c1c;color:#fff}
+html[data-admin-theme] body #main :is(button.admin-save,button.quiet.admin-save){background:#00ab84;background-image:none;border-color:#00ab84;border-radius:999px;color:#fff}
+html[data-admin-theme] body #main :is(button.admin-save,button.quiet.admin-save):hover{background:#00ab84;border-color:#181818;color:#fff}
+html[data-admin-theme] body #main :is(.admin-standard-action,button.quiet.admin-standard-action),
+html[data-admin-theme] body #main :is(.admin-standard-action,button.quiet.admin-standard-action):hover{background:#fff;background-image:none;border:1px solid #d1d5db;border-radius:999px;color:#181818;box-shadow:none}
+html[data-admin-theme] body #main :is(.admin-standard-action,button.quiet.admin-standard-action):disabled{background:#fff;color:#777;opacity:1;cursor:not-allowed}
+
+/* One height for single-line fields, including table and filter controls. */
+html[data-admin-theme] body #main :is(:where(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=submit]):not([type=button]):not([type=reset]):not([type=image]):not([type=file])),select:not([multiple]):not([size]),select[size="1"]:not([multiple])){
+ box-sizing:border-box!important;height:44px!important;min-height:44px!important;
+ padding-block:10px!important;line-height:22px!important;
+}
+html[data-admin-theme] body #main input[type=file]{box-sizing:border-box!important;height:44px!important;min-height:44px!important;padding-block:4px!important}
+html[data-admin-theme] body #main input[type=file]::file-selector-button{padding-block:6px!important}
+
+/* Table tools use compact controls aligned with their action buttons. */
+html[data-admin-theme] body #main :is(.table-view-controls,.table-bulk-form) select:not([multiple]):not([size]){
+ height:34px!important;min-height:34px!important;padding-block:5px!important;
+ padding-inline:12px 36px!important;line-height:22px!important;
+ background-position:right 12px center!important;
+}
+html[data-admin-theme] body #main .table-view-controls select{width:100px}
+html[data-admin-theme] body #main :is(.table-view-controls,.table-view-actions,.table-bulk-form) button{
+ box-sizing:border-box;height:34px;min-height:34px;padding-block:5px;line-height:22px;
+}
+html[data-admin-theme] body #main :is(.table-view-controls,.table-bulk-form) label{margin:0;align-items:center}
+
+/* Search and status filters share the compact table-control sizing. */
+html[data-admin-theme] body #main .filters input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=range]):not([type=color]):not([type=file]),
+html[data-admin-theme] body #main .filters select:not([multiple]):not([size]),
+html[data-admin-theme] body #main .filters select[size="1"]:not([multiple]){
+ height:34px!important;min-height:34px!important;padding-block:5px!important;
+ padding-inline:12px!important;line-height:22px!important;
+}
+html[data-admin-theme] body #main .filters select:not([multiple]){padding-inline-end:36px!important;background-position:right 12px center!important}
+html[data-admin-theme] body #main .filters{align-items:flex-end;gap:12px}
+html[data-admin-theme] body #main .filters label{gap:6px;margin:0;font-weight:500}
+html[data-admin-theme] body #main .filters button{width:auto;min-height:34px;height:34px;padding-block:5px;line-height:22px;flex-shrink:0}
+html[data-admin-theme] body #main .table-view-actions button[data-load-table-view]:disabled{background:#fff;background-image:none;border-color:#d1d5db;color:#777;opacity:1}
+html[data-admin-theme] body #main :is(select option,select optgroup){background:#fff;color:#1f2937}
+html[data-admin-theme] body #main input[type=file]::file-selector-button{background:#fff;border-color:#cbd5e1;color:#1f2937}
+html[data-admin-theme] body #main input[type=file]:hover::file-selector-button{background:#fff;border-color:#64748b}
+
+/* Bright sidebar with a regular-weight section/link hierarchy. */
+html[data-admin-theme] body .cms-nav .nav-label{font-size:14px;font-weight:400;letter-spacing:0;line-height:1.5;text-transform:none}
+html[data-admin-theme] body .cms-nav a{font-size:13px;font-weight:400;line-height:1.55}
+html[data-admin-theme] body .cms-nav a[aria-current=page]{font-weight:400}
+
+html[data-admin-theme] body .cms-nav{--flat-sidebar:#fff;--flat-sidebar-ink:#1f2937;--flat-sidebar-muted:#475569;--flat-sidebar-line:#e2e8f0;--flat-sidebar-hover:#f1f5f9;--flat-sidebar-active:#eff6ff;--flat-sidebar-selected:#1d4ed8;background:#fff;border-right-color:#e2e8f0}
+html[data-admin-theme] body .cms-nav .nav-label{color:#334155}
+html[data-admin-theme] body .cms-nav .sidebar-note strong{font-weight:400}
+html[data-admin-theme] body .cms-nav a[aria-current=page]::before{background:#2563eb}

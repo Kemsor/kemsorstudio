@@ -1,0 +1,21 @@
+/* A short preview; filtering and individual actions belong on the notifications page. */
+html[data-admin-theme] body .cms-header .notification-popover{width:360px;max-height:min(560px,calc(100dvh - 90px));border-radius:12px}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading{padding:18px 20px;border-bottom:1px solid #eaedf1;gap:12px;flex-shrink:0}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading strong{font-size:16px;font-weight:500;color:#313b5e}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading small{font-size:11px;margin-top:4px;color:#5d7186}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading form{margin:0;flex-shrink:0}
+html[data-admin-theme] body .cms-header .notification-popover .notification-dropdown-heading button.notification-mark-all{font-size:10px;min-height:28px;padding:5px 9px;font-weight:400;background:#dc2626;border:1px solid #dc2626;border-radius:999px;color:#fff}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading button.notification-mark-all:disabled{opacity:.45;cursor:default}
+html[data-admin-theme] body .cms-header .notification-dropdown-list{max-height:350px;flex:1 1 auto}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item{padding:16px 18px;gap:12px}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item.is-unread{background:#f8f9fb}
+html[data-admin-theme] body .cms-header .notification-popover .notification-content{display:block}
+html[data-admin-theme] body .cms-header .notification-popover .notification-indicator{width:36px;height:36px;border-radius:50%;flex-basis:36px}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item a strong{font-size:12px;font-weight:500;color:#313b5e}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item a span{font-size:12px;line-height:1.6;color:#5d7186}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item small{font-size:10px;margin-top:7px}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item .unread-dot{display:block;width:6px;min-width:6px;height:6px;background:#dc2626;border-radius:50%;margin-top:7px}
+html[data-admin-theme] body .cms-header .notification-dropdown-footer{justify-content:center;padding:16px 18px;border-top:1px solid #eaedf1}
+html[data-admin-theme] body .cms-header .notification-dropdown-footer .notification-view{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:36px;font-size:12px;font-weight:400;background:#333;color:#fff;border:1px solid #333}
+html[data-admin-theme] body .cms-header .notification-popover .notification-dropdown-error{color:#991b1b}
+@media(max-width:700px){html[data-admin-theme] body .cms-header .notification-popover{width:auto;max-height:calc(100dvh - 90px)}html[data-admin-theme] body .cms-header .notification-dropdown-list{max-height:calc(100dvh - 245px)}}

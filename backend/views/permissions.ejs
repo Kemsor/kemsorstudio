@@ -1,0 +1,6 @@
+<%- include('head') %>
+<p class="eyebrow">ACCESS CONTROL</p><h1>Roles and permissions.</h1>
+<section class="panel"><h2>Your role: <%= staffRoles[user.role] %></h2><p>Access follows your assigned staff role. Editors can publish website content and review casting applications. Contact enquiries and career applications belong to administrators and enquiry managers.</p><% if(user.role==='admin'){ %><a class="button" href="/admin/users">Manage staff access</a><% }else{ %><p>Ask a studio administrator if you need a different role. Staff cannot change their own permissions.</p><% } %></section>
+<%- include('permission-matrix') %>
+<p>Public artist and hirer accounts are separate from staff accounts. Staff role changes and disabled access sign the affected account out; enabling access requires a fresh sign-in.</p>
+<%- include('foot') %>

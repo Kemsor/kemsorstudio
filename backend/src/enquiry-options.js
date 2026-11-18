@@ -1,6 +1,16 @@
 import categories from '../../shared/enquiry-categories.json' with {type:'json'};
 export {categories};
 export const statuses=['new','assigned','in_review','information_required','contacted','meeting_scheduled','qualified','accepted','converted','rejected','closed','spam'];
+export const followUpStatuses=['assigned','in_review','information_required','contacted','meeting_scheduled','qualified','accepted'];
+// Shared by the list and CSV export so dashboard links and exports show the same scope.
+export function enquiryListScope(query){
+ const section=['all','other'].includes(query.section)?query.section:'contact';
+ const state=[...statuses,'follow_up'].includes(query.status)?query.status:'';
+ const contact="COALESCE(source,'') REGEXP '(^|/)contact(/index[.]html|/)?([?].*)?$'";
+ const source=section==='all'?'1=1':section==='contact'?contact:`NOT (${contact})`;
+ const condition=state==='follow_up'?`status IN (${followUpStatuses.map(()=>'?').join(',')})`:'(?="" OR status=?)';
+ return {section,state,where:`${source} AND ${condition}`,params:state==='follow_up'?followUpStatuses:[state,state]};
+}
 export function workflowFields(body){
  const priority=body.priority||'normal',tags=typeof body.tags==='string'?body.tags.trim():'',source=typeof body.source==='string'?body.source.trim():'website';
  if(!['low','normal','high','urgent'].includes(priority)||tags.length>500||source.length>200)throw Object.assign(new Error('Check priority, tags and source.'),{status:422});

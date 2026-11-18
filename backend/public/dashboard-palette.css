@@ -1,0 +1,34 @@
+/* Larkon-inspired orange and slate palette, with the studio's Pantone Green C. */
+html[data-admin-theme] body #main:has(>.dashboard-colour-theme){background:#f9f7f7}
+html[data-admin-theme] body #main .dashboard-colour-theme{--studio-blue:#ff6c2f;--studio-violet:#f9b931;--studio-mint:#00ab84;--studio-rose:#ef5f5f;--studio-slate:#5d7186;--studio-accent:#b7410e;--studio-accent-soft:#fff0e9;--studio-ink:#313b5e;--studio-muted:#5d7186;--studio-line:#eaedf1;color:#313b5e}
+html[data-admin-theme] body #main .dashboard-colour-theme :is(.dashboard-panel,.dashboard-attention-card,.metric-card){background:#fff;border-color:#eaedf1}
+html[data-admin-theme] body #main .dashboard-colour-theme :is(.dashboard-panel h2,.dashboard-heading h1,.dashboard-attention-heading h2){color:#313b5e}
+html[data-admin-theme] body #main .dashboard-colour-theme .studio-welcome{background:#fff;border-color:#eaedf1;border-left:4px solid #ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme .welcome-tag{color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .studio-welcome h2{color:#313b5e}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-card{border-top:3px solid #ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-icon{background:#fff0e9;color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-card:nth-child(2){border-top-color:#f9b931}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-card:nth-child(2) .dashboard-attention-icon{background:#fef1d6;color:#845300}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-card[href*="/enquiries"]{border-top-color:#ef5f5f}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-card[href*="/enquiries"] .dashboard-attention-icon{background:#fff0f0;color:#b91c1c}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-card.is-clear{border-top-color:#00ab84}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-attention-card.is-clear .dashboard-attention-icon{background:#00ab84;color:#fff}
+html[data-admin-theme] body #main .dashboard-colour-theme .metric-card{border-top:3px solid #ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme .metric-card.tone-violet{border-top-color:#ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme .metric-card.tone-violet .metric-icon{background:#fff0e9;color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .metric-card.tone-mint{border-top-color:#00ab84}
+html[data-admin-theme] body #main .dashboard-colour-theme .metric-card.tone-mint .metric-icon{background:#00ab84;color:#fff}
+html[data-admin-theme] body #main .dashboard-colour-theme .premium-activity-chart{color:#ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme .chart-point{fill:#fff;stroke:#ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme .chart-legend i{background:#ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme .quick-create>a>span{background:#fff0e9;color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .quick-create>a:nth-of-type(2n)>span{background:#fef1d6;color:#845300}
+html[data-admin-theme] body #main .dashboard-colour-theme .timeline-dot{background:#ff6c2f}
+html[data-admin-theme] body #main .dashboard-colour-theme :is(.content-symbol,.sender-avatar){background:#fff0e9;color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .library-card{background:#fff0e9;border-color:#ffc4ac}
+html[data-admin-theme] body #main .dashboard-colour-theme .library-card>span:first-child{background:#ffe2d5;color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .library-card :is(h3,p){color:#313b5e}
+html[data-admin-theme] body #main .dashboard-colour-theme :is(.panel-heading>a,.breakdown-link,.activity-record-link,.notification-summary-link,.dashboard-breadcrumb strong){color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-aside .mini-count{background:#fff0e9;color:#b7410e}
+html[data-admin-theme] body #main .dashboard-colour-theme .dashboard-aside .notification-indicator{background:#fff0e9;color:#b7410e}

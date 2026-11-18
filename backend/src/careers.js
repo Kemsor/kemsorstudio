@@ -2,6 +2,7 @@ import careerContent from '../../shared/careers-content.json' with {type:'json'}
 import { saveWithReceipt } from './mail.js';
 import {Router} from 'express';
 import {tableView} from './admin-tables.js';
+import {workflowFilters,followUpOrder,followUpState,workflowReturn,workflowRecordUrl,workflowDetails,workflowChanges,workflowSummary,recordTimeline} from './follow-up.js';
 import {rows,audit} from './db.js';
 import {canEnquire,rateLimited} from './security.js';
 import {mkdir,writeFile,unlink} from 'node:fs/promises';
@@ -40,30 +41,37 @@ export function careersRouter(db){
   catch(error){await unlink(new URL(filename,storage)).catch(()=>{});throw error;}
  });
  router.get('/admin/applications',staff,async(req,res)=>{
-  const state=states.includes(req.query.status)?req.query.status:'';const search=text(req.query.q,100);
-  const where='WHERE (?="" OR status=?) AND (name LIKE ? OR email LIKE ? OR career_title LIKE ? OR team LIKE ?)';const params=[state,state,...Array(4).fill(`%${search}%`)];
+  const state=states.includes(req.query.status)?req.query.status:'',search=text(req.query.q,100),workflow=workflowFilters(req.query,req.user.id,'application');
+  const base='(?="" OR status=?) AND (name LIKE ? OR email LIKE ? OR career_title LIKE ? OR team LIKE ?)',params=[state,state,...Array(4).fill(`%${search}%`),...workflow.params];
+  const where=`WHERE ${base} AND ${workflow.where}`;
   const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM career_applications ${where}`,params))[0].total);
-  const table=tableView(req,total,{name:'name',opportunity:'career_title',status:'status',received:'created_at'},'received',{q:search,status:state});const page=table.page;
-  const applications=await rows(db,`SELECT id,career_title,name,email,status,created_at FROM career_applications ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);res.render('applications',{applications,total,page,state,search,states,table});
+  const summary=await workflowSummary(db,'career_applications',`${base} AND ${workflow.withoutDue}`,params,workflow.active);
+  const table=tableView(req,total,{name:'name',opportunity:'career_title',status:'status',received:'created_at',follow_up:followUpOrder('application')},'follow_up',{q:search,status:state,owner:workflow.owner,priority:workflow.priority,due:workflow.due},'asc');const page=table.page;
+  const applications=await rows(db,`SELECT id,career_title,name,email,status,created_at,assigned_to,priority,follow_up_at,next_action,(SELECT CONCAT(u.name,IF(u.active=0,' (inactive)','')) FROM cms_users u WHERE u.id=career_applications.assigned_to) AS assigned_name FROM career_applications ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);res.render('applications',{applications,total,page,state,search,states,table,workflow,summary,followUpState});
  });
  router.get('/admin/applications/:id',staff,async(req,res)=>{
   const application=(await rows(db,'SELECT * FROM career_applications WHERE id=?',[req.params.id]))[0];fail(application,'Application not found.',404);
   const notes=await rows(db,'SELECT n.*,u.name AS staff_name FROM career_application_notes n LEFT JOIN cms_users u ON u.id=n.user_id WHERE application_id=? ORDER BY n.id DESC',[application.id]);
   const history=await rows(db,'SELECT h.*,u.name AS staff_name FROM career_application_history h LEFT JOIN cms_users u ON u.id=h.user_id WHERE application_id=? ORDER BY h.id DESC',[application.id]);
   const related=await rows(db,'SELECT id,career_title,status,created_at FROM career_applications WHERE email=? ORDER BY id DESC',[application.email]);
+  const users=await rows(db,'SELECT id,name,active FROM cms_users WHERE (active=1 AND role IN ("admin","enquiry_manager")) OR id=?',[application.assigned_to||0]);
+  const timeline=await recordTimeline(db,'application',application,notes,history,users);
   res.set('Content-Security-Policy',"default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-src 'self'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'");
-  res.render('application',{application,states,notes,history,related});
+  res.render('application',{application,states,notes,history,related,users,timeline,back:workflowReturn(req.query.return_to,'application'),returnTo:typeof req.query.return_to==='string'?workflowReturn(req.query.return_to,'application'):'',followUp:followUpState(application,'application')});
  });
  router.post('/admin/applications/:id',staff,async(req,res)=>{
   fail(states.includes(req.body.status),'Choose a valid application status.');const note=text(req.body.note,4000);
   const conn=await db.getConnection();try{
-   await conn.beginTransaction();const old=(await rows(conn,'SELECT status FROM career_applications WHERE id=? FOR UPDATE',[req.params.id]))[0];fail(old,'Application not found.',404);
-   if(old.status!==req.body.status){await rows(conn,'UPDATE career_applications SET status=? WHERE id=?',[req.body.status,req.params.id]);await rows(conn,'INSERT INTO career_application_history(application_id,user_id,from_status,to_status) VALUES(?,?,?,?)',[req.params.id,req.user.id,old.status,req.body.status]);}
+   await conn.beginTransaction();const old=(await rows(conn,'SELECT * FROM career_applications WHERE id=? FOR UPDATE',[req.params.id]))[0];fail(old,'Application not found.',404);
+   const fields=workflowDetails(req.body,old),changes=workflowChanges(old,fields);
+   if(fields.assigned&&fields.assigned!==old.assigned_to)fail((await rows(conn,'SELECT id FROM cms_users WHERE id=? AND active=1 AND role IN ("admin","enquiry_manager")',[fields.assigned])).length,'Choose an active enquiry manager.');
+   await rows(conn,'UPDATE career_applications SET status=?,assigned_to=?,priority=?,follow_up_at=?,next_action=? WHERE id=?',[req.body.status,fields.assigned,fields.priority,fields.followUp,fields.nextAction,req.params.id]);
+   if(old.status!==req.body.status||Object.keys(changes).length)await rows(conn,'INSERT INTO career_application_history(application_id,user_id,from_status,to_status,changes) VALUES(?,?,?,?,?)',[req.params.id,req.user.id,old.status,req.body.status,JSON.stringify(changes)]);
    if(note)await rows(conn,'UPDATE career_applications SET updated_at=UTC_TIMESTAMP() WHERE id=?',[req.params.id]);
    if(note)await rows(conn,'INSERT INTO career_application_notes(application_id,user_id,note) VALUES(?,?,?)',[req.params.id,req.user.id,note]);
    await audit(conn,req.user,'review','career_application',req.params.id);await conn.commit();
   }catch(error){await conn.rollback();throw error;}finally{conn.release();}
-  res.redirect(`/admin/applications/${req.params.id}?saved=1`);
+  res.redirect(workflowRecordUrl('application',req.params.id,req.body.return_to,true));
  });
  router.get('/admin/applications/:id/resume/preview',staff,async(req,res)=>{
   const application=(await rows(db,'SELECT resume_filename FROM career_applications WHERE id=?',[req.params.id]))[0];fail(application,'Résumé not found.',404);

@@ -8,6 +8,7 @@ export const json = value => typeof value === 'string' ? JSON.parse(value) : val
 export async function settings(db) {
   return Object.fromEntries((await rows(db, 'SELECT name,value FROM cms_settings')).map(row => [row.name, json(row.value)]));
 }
-export async function audit(db, user, action, type, id) {
+export async function audit(db, user, action, type, id, details = null) {
+  if(details!==null){await rows(db,'INSERT INTO cms_audit(user_id,action,target_type,target_id,details) VALUES(?,?,?,?,?)',[user?.id||null,action,type,String(id),JSON.stringify(details)]);return;}
   await rows(db, 'INSERT INTO cms_audit(user_id,action,target_type,target_id) VALUES(?,?,?,?)', [user?.id || null, action, type, String(id)]);
 }

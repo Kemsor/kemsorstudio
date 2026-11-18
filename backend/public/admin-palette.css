@@ -1,0 +1,30 @@
+/* Shared Larkon-inspired colours across every admin page. */
+html[data-admin-theme]{--studio-canvas:#f9f7f7;--studio-panel:#fff;--studio-raised:#f8f9fa;--studio-ink:#313b5e;--studio-muted:#5d7186;--studio-line:#eaedf1;--studio-accent:#b7410e;--studio-accent-soft:#fff0e9;--studio-blue:#ff6c2f;--studio-violet:#f9b931;--studio-mint:#00ab84;--studio-rose:#ef5f5f;--studio-slate:#5d7186}
+html[data-admin-theme] body{background:#f9f7f7;color:#313b5e}
+html[data-admin-theme] body #main{--studio-canvas:#f9f7f7;--studio-panel:#fff;--studio-raised:#f8f9fa;--studio-ink:#313b5e;--studio-muted:#5d7186;--studio-line:#eaedf1;--studio-accent:#b7410e;--studio-accent-soft:#fff0e9;--studio-blue:#ff6c2f;--studio-violet:#f9b931;--studio-mint:#00ab84;--studio-rose:#ef5f5f;--studio-slate:#5d7186;--control-accent:#b7410e;background:#f9f7f7;color:#313b5e}
+html[data-admin-theme] body #main :is(h1,h2,h3){color:#313b5e}
+html[data-admin-theme] body #main :is(.panel,.dashboard-panel,.login-panel,.table-wrap,.admin-data-table,.metric-card,.admin-page-card,.library-card,.site-content-field,.media-upload-stage,.publishing-toolbar){background-color:#fff;border-color:#eaedf1}
+html[data-admin-theme] body #main :is(.eyebrow,.lead,.muted){color:#5d7186}
+html[data-admin-theme] body #main :is(.text-link,.panel-heading>a,.activity-record-link,.breakdown-link){color:#b7410e}
+html[data-admin-theme] body #main :is(.content-symbol,.metric-icon,.sender-avatar,.admin-page-icon){background:#fff0e9;color:#b7410e}
+html[data-admin-theme] body #main :is(.admin-data-table thead th,.report-table-scroll thead th,.table-wrap thead th){background:#f8f9fa;color:#5d7186}
+html[data-admin-theme] body #main .admin-data-table tbody tr.is-selected{background:#fff0e9}
+html[data-admin-theme] body #main .table-pagination nav a[aria-current=page]{background:#fff;border-color:#ff6c2f;color:#b7410e}
+html[data-admin-theme] body #main .admin-active-filters a{border-color:#ffc4ac;color:#b7410e;background:#fff}
+html[data-admin-theme] body #main .admin-accessible-table{scrollbar-color:#bec6cf #f8f9fa}
+html[data-admin-theme] body .cms-nav{--flat-sidebar:#fff;--flat-sidebar-ink:#5d7186;--flat-sidebar-muted:#5d7186;--flat-sidebar-line:#eaedf1;--flat-sidebar-hover:#f8f9fa;--flat-sidebar-active:#fff0e9;--flat-sidebar-selected:#b7410e;background:#fff;border-right-color:#eaedf1}
+html[data-admin-theme] body .cms-nav .nav-label{color:#313b5e}
+html[data-admin-theme] body .cms-nav a[aria-current=page]{background:#fff0e9;color:#b7410e;font-weight:400}
+html[data-admin-theme] body .cms-nav a[aria-current=page]::before{background:#ff6c2f}
+html[data-admin-theme] body .cms-nav .nav-count{background:#fff0e9;color:#b7410e;border-color:#ffc4ac}
+html[data-admin-theme] body .cms-header{border-bottom-color:#eaedf1;background:#fff}
+html[data-admin-theme] body .cms-header .workspace-label{color:#5d7186;border-color:#eaedf1}
+html[data-admin-theme] body .cms-header .header-profile-link .account-avatar{background:#fff0e9;color:#b7410e;border-color:#ffc4ac}
+html[data-admin-theme] body .cms-header .account-copy strong{color:#313b5e}
+html[data-admin-theme] body .cms-header .account-copy small{color:#5d7186}
+html[data-admin-theme] body .cms-header .notification-dropdown[open]>summary{background:#fff0e9;border-color:#ff6c2f;color:#b7410e}
+html[data-admin-theme] body .cms-header .notification-popover{--studio-accent:#b7410e;--studio-accent-soft:#fff0e9;--studio-ink:#313b5e;--studio-muted:#5d7186;--studio-line:#eaedf1}
+html[data-admin-theme] body .cms-header .notification-popover .notification-indicator{background:#fff0e9;color:#b7410e}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item.is-read .notification-indicator{background:#00ab84;color:#fff}
+html[data-admin-theme] body .cms-header .notification-unread-toggle[aria-pressed=true]{background:#fff;border-color:#ff6c2f;color:#b7410e}
+html[data-admin-theme] body .cms-footer{background:#f9f7f7;border-top-color:#eaedf1;color:#5d7186}

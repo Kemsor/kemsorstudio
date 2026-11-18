@@ -19,7 +19,7 @@ import {deletePersonalRecord} from './retention.js';
 import {reportsRouter} from './reports.js';
 import {kpiRouter} from './kpi-admin.js';
 import {optimizeImage} from './image-optimizer.js';
-import {categories,statuses,workflowFields} from './enquiry-options.js';
+import {categories,statuses,enquiryListScope} from './enquiry-options.js';
 import { saveWithReceipt, mailConfiguration, verifyMailConnection } from './mail.js';
 import { website, websiteNotFound } from './website.js';
 import express from 'express';
@@ -34,8 +34,12 @@ import { token, hashPassword, verifyPassword, canEdit, canEnquire, csrfValid, My
 import { notifications, dashboard, notificationPreferences, notificationCategories } from './dashboard.js';
 import { talentRouter } from './talent.js';
 import { careersRouter } from './careers.js';
+import {contentRevisionsRouter,requireEntryRevision,captureEntryRevision} from './content-revisions.js';
 import {tableView,bulkRouter} from './admin-tables.js';
+import {workflowFilters,followUpOrder,followUpState,workflowReturn,workflowRecordUrl,workflowDetails,workflowChanges,workflowSummary,recordTimeline} from './follow-up.js';
+import {auditLogRouter,contentAuditDetails} from './audit-log.js';
 import { adminIcon } from './icons.js';
+import {staffAccessRouter,staffRoles,permissionGuide} from './staff-access.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const types = { news:'Newsroom', media_partner:'Media partners', blog:'Blog', career:'Careers', team:'Leadership & team', home:'Homepage & promotions', page:'Page content', legal:'Legal centre', production:'Productions', press_asset:'Press resources' };
@@ -64,6 +68,7 @@ async function fileSave(file, extension) {
 export function createApp(db, options={}) {
   const app=express();
   app.locals.adminIcon = adminIcon;
+  app.locals.workflowRecordUrl=workflowRecordUrl;
   app.locals.productionExtraHtml=productionExtraHtml;
   app.locals.richTextHtml=richTextHtml;
   app.disable('x-powered-by');
@@ -182,6 +187,7 @@ export function createApp(db, options={}) {
       res.locals.productionAssets=await rows(db,'SELECT id,original_name,mime FROM cms_media WHERE mime="video/mp4" ORDER BY id DESC');
     }next();
   });
+  app.use(contentRevisionsRouter(db));
   app.get('/admin/content/new',editor,(req,res,next)=>{if(req.query.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);return res.redirect('/admin/manage/legal');}next();},async(req,res)=>res.render(req.query.type==='blog'?'blog-edit':req.query.type==='news'?'news-edit':req.query.type==='career'?'career-edit':'edit',{entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{page:req.query.type==='page'&&contentPageKeys.includes(req.query.page)?req.query.page:''}},media:await rows(db,'SELECT m.* FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')}));
   app.get('/admin/content/:id/preview',editor,async(req,res)=>{
     const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
@@ -191,7 +197,7 @@ export function createApp(db, options={}) {
     res.render('content-preview',{entry,image});
   });
   app.get('/admin/content/:id',editor,async(req,res)=>{
-    const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
+    const entry=(await rows(db,'SELECT e.*,u.name AS last_editor FROM cms_entries e LEFT JOIN cms_users u ON u.id=e.updated_by WHERE e.id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
     if(entry.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);const managed=(await rows(db,"SELECT id FROM cms_managed_content WHERE kind='legal' AND slug=?",[entry.slug]))[0];return res.redirect(managed?`/admin/manage/legal/${managed.id}${req.path.endsWith('/preview')?'/preview':''}`:'/admin/manage/legal');}
     res.render(entry.type==='blog'?'blog-edit':entry.type==='news'?'news-edit':entry.type==='career'?'career-edit':'edit',{entry,media:await rows(db,'SELECT m.* FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')});
   });
@@ -211,8 +217,8 @@ export function createApp(db, options={}) {
     let previousEntry=null;
     if(id!==null){
       ensure(Number.isSafeInteger(id)&&id>0,'Choose a valid content record.');
-      previousEntry=(await rows(db,'SELECT type,slug,metadata FROM cms_entries WHERE id=?',[id]))[0];
-      ensure(previousEntry,'Content not found.',404);ensure(previousEntry.type===type,'Content area cannot be changed.');slug=previousEntry.slug;
+      previousEntry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[id]))[0];
+      ensure(previousEntry,'Content not found.',404);ensure(previousEntry.type===type,'Content area cannot be changed.');requireEntryRevision(previousEntry,b.revision);slug=previousEntry.slug;
     }
     let richText=null;
     try{richText=parseRichText(b.rich_text);}catch(error){throw Object.assign(new Error(error.message),{status:422});}
@@ -282,33 +288,36 @@ export function createApp(db, options={}) {
     let uploaded=null,contentSaved=false;
     if(banner){
       ensure(['blog','news'].includes(type),'Upload content images from the image library.');
-      banner=await optimizeImage(banner);const kind=['webp','image/webp'];
-      const alt=text(b.banner_alt,300,'Banner description',true);
-      const filename=await fileSave(banner,kind[0]);
-      try{const media=await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by) VALUES(?,?,?,?,?,?)',[filename,path.basename(banner.originalname).slice(0,255),kind[1],banner.size,alt,req.user.id]);imageId=media.insertId;uploaded={id:imageId,filename};}
-      catch(error){await unlink(path.join(root,'storage/uploads',filename)).catch(()=>{});throw error;}
+      banner=await optimizeImage(banner);
+      const alt=text(b.banner_alt,300,'Banner description',true),filename=await fileSave(banner,'webp');
+      uploaded={filename,alt,file:banner};
     }
     try {
-    const values=[title,slug,summary,body,imageId,JSON.stringify(metadata),b.status,b.status==='published'?new Date():null,req.user.id];
-    let result;
-    if(id)result=await rows(db,'UPDATE cms_entries SET title=?,slug=?,summary=?,body=?,image_id=?,metadata=?,status=?,published_at=?,updated_by=? WHERE id=?',[...values,id]);
-    else {
-      let suffix=1;
-      while(true){
-        if(automatic){slug=suffix===1?base:`${base}-${suffix}`;values[1]=slug;}
-        try{result=await rows(db,'INSERT INTO cms_entries(title,slug,summary,body,image_id,metadata,status,published_at,updated_by,type,created_by) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[...values,type,req.user.id]);break;}
-        catch(error){if(!automatic || error.code!=='ER_DUP_ENTRY')throw error;suffix++;}
-      }
-    }
-    contentSaved=true;
-    await audit(db,req.user,b.status==='published'?'publish':'save','content',id || result.insertId);
-    res.redirect(`/admin/content?type=${type}&saved=1`);
-    }catch(error){
-      if(uploaded&&!contentSaved){await rows(db,'DELETE FROM cms_media WHERE id=?',[uploaded.id]).catch(()=>{});await unlink(path.join(root,'storage/uploads',uploaded.filename)).catch(()=>{});}
-      throw error;
-    }
-
+      if(b.status==='published'&&imageId&&!uploaded){const image=(await rows(db,'SELECT alt FROM cms_media WHERE id=?',[imageId]))[0];ensure(image?.alt?.trim(),'Add an image description in Media library before publishing this image.');}
+      const connection=await db.getConnection();let contentId;
+      try{
+        await connection.beginTransaction();
+        const locked=id?(await rows(connection,'SELECT * FROM cms_entries WHERE id=? FOR UPDATE',[id]))[0]:null;
+        if(id){ensure(locked,'Content not found.',404);requireEntryRevision(locked,b.revision);await captureEntryRevision(connection,locked,'before-change',locked.updated_by,{initial:true});}
+        if(uploaded){const media=await rows(connection,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by) VALUES(?,?,?,?,?,?)',[uploaded.filename,path.basename(uploaded.file.originalname).slice(0,255),'image/webp',uploaded.file.size,uploaded.alt,req.user.id]);imageId=media.insertId;}
+        const values=[title,slug,summary,body,imageId,JSON.stringify(metadata),b.status,b.status==='published'?new Date():null,req.user.id];
+        if(id){await rows(connection,'UPDATE cms_entries SET title=?,slug=?,summary=?,body=?,image_id=?,metadata=?,status=?,published_at=?,updated_by=?,revision=revision+1,updated_at=UTC_TIMESTAMP() WHERE id=?',[...values,id]);contentId=id;}
+        else{
+          let suffix=1;
+          while(true){
+            if(automatic){slug=suffix===1?base:`${base}-${suffix}`;values[1]=slug;}
+            try{contentId=(await rows(connection,'INSERT INTO cms_entries(title,slug,summary,body,image_id,metadata,status,published_at,updated_by,type,created_by) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[...values,type,req.user.id])).insertId;break;}
+            catch(error){if(!automatic||error.code!=='ER_DUP_ENTRY')throw error;suffix++;}
+          }
+        }
+        const saved=(await rows(connection,'SELECT * FROM cms_entries WHERE id=?',[contentId]))[0];
+        await captureEntryRevision(connection,saved,b.status==='published'?'publish':'save-draft',req.user.id);
+        await audit(connection,req.user,b.status==='published'?'publish':'save','content',contentId,contentAuditDetails(locked,saved));await connection.commit();contentSaved=true;
+      }catch(error){await connection.rollback();throw error;}finally{connection.release();}
+      res.redirect(`/admin/content?type=${type}&saved=1`);
+    }catch(error){if(uploaded&&!contentSaved)await unlink(path.join(root,'storage/uploads',uploaded.filename)).catch(()=>{});throw error;}
   });
+
   app.post('/admin/content/:id/delete',editor,async(req,res)=>{
     const entry=(await rows(db,'SELECT id,type FROM cms_entries WHERE id=?',[req.params.id]))[0];
     ensure(entry,'Content not found.',404);ensure(entry.type==='blog','Only blog posts can be deleted here.');
@@ -318,23 +327,42 @@ export function createApp(db, options={}) {
     res.redirect('/admin/content?type=blog&saved=1');
   });
   app.post('/admin/content/:id/archive',editor,async(req,res)=>{
-    const record=(await rows(db,'SELECT type FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(record?.type!=='legal','Use the managed legal editor to unpublish a legal document.');
-    await rows(db,'UPDATE cms_entries SET status="archived",updated_by=? WHERE id=?',[req.user.id,req.params.id]);await audit(db,req.user,'archive','content',req.params.id);res.redirect('/admin/content?saved=1');
+    const connection=await db.getConnection();
+    try{await connection.beginTransaction();const record=(await rows(connection,'SELECT * FROM cms_entries WHERE id=? FOR UPDATE',[req.params.id]))[0];ensure(record,'Content not found.',404);ensure(record.type!=='legal','Use the managed legal editor to unpublish a legal document.');requireEntryRevision(record,req.body.revision);
+      await captureEntryRevision(connection,record,'before-change',record.updated_by,{initial:true});
+      await rows(connection,'UPDATE cms_entries SET status="archived",updated_by=?,revision=revision+1,updated_at=UTC_TIMESTAMP() WHERE id=?',[req.user.id,record.id]);
+      const archived=(await rows(connection,'SELECT * FROM cms_entries WHERE id=?',[record.id]))[0];await captureEntryRevision(connection,archived,'archive',req.user.id);await audit(connection,req.user,'archive','content',record.id,{changes:[{field:'Publishing status',before:record.status,after:'archived'}]});await connection.commit();
+    }catch(error){await connection.rollback();throw error;}finally{connection.release();}res.redirect('/admin/content?saved=1');
+  });
+  app.get('/admin/media/images.json',editor,async(req,res)=>{
+    const images=await rows(db,'SELECT m.id,m.original_name,m.alt FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC');
+    res.json({images});
   });
   app.get('/admin/media',editor,async(req,res)=>{
-    const search=text(req.query.q,100,'Search'),format=['image/png','image/jpeg','image/webp','video/mp4','application/pdf','text/vtt'].includes(req.query.format)?req.query.format:'',usage=['used','unused'].includes(req.query.usage)?req.query.usage:'';
+    const search=text(req.query.q,100,'Search'),format=['image/png','image/jpeg','image/webp','image/avif','video/mp4','application/pdf','text/vtt'].includes(req.query.format)?req.query.format:'',usage=['used','unused'].includes(req.query.usage)?req.query.usage:'',kind=['image','video','document','captions'].includes(req.query.kind)?req.query.kind:'';
     const url=`CASE m.mime WHEN 'video/mp4' THEN CONCAT('/media/',m.id,'/video.mp4') WHEN 'application/pdf' THEN CONCAT('/media/',m.id,'/document.pdf') WHEN 'text/vtt' THEN CONCAT('/media/',m.id,'/captions.vtt') ELSE CONCAT('/media/',m.id) END`;
     const references=[`CONCAT('/media/',m.id)`,url];
     const linked=(column)=>references.map(ref=>`JSON_SEARCH(${column},'one',${ref}) IS NOT NULL`).join(' OR ');
-    const uses=`(SELECT COUNT(*) FROM cms_entries e WHERE e.image_id=m.id OR ${linked('e.metadata')})+(EXISTS(SELECT 1 FROM cms_site_modules s WHERE ${linked('s.draft')} OR ${linked('s.published')}))+(EXISTS(SELECT 1 FROM cms_site_module_revisions r WHERE ${linked('r.snapshot')}))+(EXISTS(SELECT 1 FROM cms_managed_content d WHERE ${linked('d.draft')} OR ${linked('d.published')}))+(EXISTS(SELECT 1 FROM cms_managed_revisions h WHERE ${linked('h.snapshot')}))`;
-    const media=await rows(db,`SELECT m.*,${url} AS url,(${uses}) AS uses FROM cms_media m WHERE NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) AND (m.original_name LIKE ? OR m.alt LIKE ?) AND (?='' OR m.mime=?) HAVING (?='' OR (?='used' AND uses>0) OR (?='unused' AND uses=0)) ORDER BY m.id DESC`,[`%${search}%`,`%${search}%`,format,format,usage,usage,usage]);
-    res.render('media',{media,search,format,usage});
+    const contentUses=`(SELECT COUNT(*) FROM cms_entries e WHERE e.image_id=m.id OR ${linked('e.metadata')} OR (e.type='production' AND JSON_CONTAINS(COALESCE(JSON_EXTRACT(e.metadata,'$.gallery'),JSON_ARRAY()),JSON_OBJECT('media_id',m.id))))`;
+    const peopleUses='(SELECT COUNT(*) FROM production_people p WHERE p.image_id=m.id)';
+    const websiteUses=`(EXISTS(SELECT 1 FROM cms_site_modules s WHERE ${linked('s.draft')} OR ${linked('s.published')}))+(EXISTS(SELECT 1 FROM cms_managed_content d WHERE ${linked('d.draft')} OR ${linked('d.published')}))`;
+    const revisionUses=`(EXISTS(SELECT 1 FROM cms_site_module_revisions r WHERE ${linked('r.snapshot')}))+(EXISTS(SELECT 1 FROM cms_managed_revisions h WHERE ${linked('h.snapshot')}))+(EXISTS(SELECT 1 FROM cms_entry_revisions r WHERE JSON_EXTRACT(r.snapshot,'$.image_id')=m.id OR JSON_CONTAINS(COALESCE(JSON_EXTRACT(r.snapshot,'$.metadata.gallery'),JSON_ARRAY()),JSON_OBJECT('media_id',m.id)) OR ${linked('r.snapshot')}))`;
+    const media=await rows(db,`SELECT tracked.*,(content_uses+people_uses+website_uses+revision_uses) AS uses FROM (SELECT m.*,${url} AS url,${contentUses} AS content_uses,${peopleUses} AS people_uses,(${websiteUses}) AS website_uses,(${revisionUses}) AS revision_uses FROM cms_media m WHERE NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) AND (m.original_name LIKE ? OR m.alt LIKE ?) AND (?='' OR m.mime=?) AND (?='' OR (?='image' AND m.mime LIKE 'image/%') OR (?='video' AND m.mime='video/mp4') OR (?='document' AND m.mime='application/pdf') OR (?='captions' AND m.mime='text/vtt'))) tracked HAVING (?='' OR (?='used' AND uses>0) OR (?='unused' AND uses=0)) ORDER BY id DESC`,[`%${search}%`,`%${search}%`,format,format,kind,kind,kind,kind,kind,usage,usage,usage]);
+    for(const file of media)for(const key of ['uses','content_uses','people_uses','website_uses','revision_uses'])file[key]=Number(file[key]);
+    res.render('media',{media,search,format,usage,kind});
+  });
+  app.post('/admin/media/:id/description',editor,async(req,res)=>{
+    const alt=text(req.body.alt,300,'Description',true);
+    const file=(await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[req.params.id]))[0];ensure(file,'Media not found.',404);
+    await rows(db,'UPDATE cms_media SET alt=? WHERE id=?',[alt,file.id]);await audit(db,req.user,'update','media',file.id);
+    res.redirect('/admin/media?saved=1');
   });
   app.post('/admin/media/:id/delete',editor,async(req,res)=>{
     const connection=await db.getConnection();let image;
     try{await connection.beginTransaction();image=(await rows(connection,'SELECT * FROM cms_media WHERE id=? FOR UPDATE',[req.params.id]))[0];ensure(image,'Image not found.',404);
       ensure(!(await rows(connection,'SELECT id FROM production_people WHERE image_id=? LIMIT 1',[req.params.id])).length,'This portrait is in use by a person profile.',409);
       const galleries=await rows(connection,`SELECT id FROM cms_entries WHERE type="production" AND JSON_CONTAINS(COALESCE(JSON_EXTRACT(metadata,'$.gallery'),JSON_ARRAY()),JSON_OBJECT('media_id',?)) LIMIT 1`,[Number(image.id)]);ensure(!galleries.length,'This image is used in a production gallery. Remove it from that gallery before deleting it.',409);
+      const historical=await rows(connection,`SELECT id FROM cms_entry_revisions WHERE JSON_EXTRACT(snapshot,'$.image_id')=? OR JSON_CONTAINS(COALESCE(JSON_EXTRACT(snapshot,'$.metadata.gallery'),JSON_ARRAY()),JSON_OBJECT('media_id',?)) OR JSON_SEARCH(snapshot,'one',?) IS NOT NULL OR JSON_SEARCH(snapshot,'one',?) IS NOT NULL OR JSON_SEARCH(snapshot,'one',?) IS NOT NULL OR JSON_SEARCH(snapshot,'one',?) IS NOT NULL LIMIT 1`,[image.id,image.id,`/media/${image.id}`,`/media/${image.id}/video.mp4`,`/media/${image.id}/document.pdf`,`/media/${image.id}/captions.vtt`]);ensure(!historical.length,'This media is retained in content revision history. Keep it to allow earlier versions to be restored.',409);
       const references=[`/media/${image.id}`,`/media/${image.id}/video.mp4`,`/media/${image.id}/captions.vtt`,`/media/${image.id}/document.pdf`];
       for(const [table,columns]of [['cms_site_modules',['draft','published']],['cms_site_module_revisions',['snapshot']],['cms_managed_content',['draft','published']],['cms_managed_revisions',['snapshot']]]){
         const clauses=columns.flatMap(column=>references.map(()=>`JSON_SEARCH(${column},'one',?) IS NOT NULL`));
@@ -395,22 +423,21 @@ export function createApp(db, options={}) {
     res.set({'Content-Type':image.mime,'Cache-Control':owner?'private, no-store':'public, max-age=86400'});res.sendFile(path.join(root,'storage/uploads',image.filename));
   });
   app.get('/admin/enquiries',manager,async(req,res)=>{
-    const state=statuses.includes(req.query.status)?req.query.status:'',category=Object.hasOwn(categories,req.query.category)?req.query.category:'',search=text(req.query.q,100,'Search');
-    const section=req.query.section==='other'?'other':'contact';
-    const sourceCondition="COALESCE(source,'') REGEXP '(^|/)contact(/index[.]html|/)?([?].*)?$'";
-    const where=`WHERE ${section==='contact'?sourceCondition:`NOT (${sourceCondition})`} AND (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?)`;const params=[state,state,category,category,...Array(5).fill(`%${search}%`)];
+    const {section,state,where:scope,params:scopeParams}=enquiryListScope(req.query),workflow=workflowFilters(req.query,req.user.id,'enquiry');
+    const category=Object.hasOwn(categories,req.query.category)?req.query.category:'',search=text(req.query.q,100,'Search');
+    const tail=`AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?)`;
+    const where=`WHERE ${scope} AND ${workflow.where} ${tail}`,params=[...scopeParams,...workflow.params,category,category,...Array(5).fill(`%${search}%`)];
     const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM cms_enquiries ${where}`,params))[0].total);
-    const table=tableView(req,total,{name:'name',subject:'subject',category:'category',status:'status',received:'created_at'},'received',{section,status:state,category,q:search});
-    const enquiries=await rows(db,`SELECT id,category,name,email,subject,status,created_at FROM cms_enquiries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
-    res.render('enquiries',{enquiries,state,category,search,table,section});
+    const summary=await workflowSummary(db,'cms_enquiries',`${scope} AND ${workflow.withoutDue} ${tail}`,params,workflow.active);
+    const table=tableView(req,total,{name:'name',subject:'subject',category:'category',status:'status',received:'created_at',follow_up:followUpOrder('enquiry')},'follow_up',{section,status:state,category,q:search,owner:workflow.owner,priority:workflow.priority,due:workflow.due},'asc');
+    const enquiries=await rows(db,`SELECT id,category,name,email,subject,status,created_at,assigned_to,priority,follow_up_at,next_action,(SELECT CONCAT(u.name,IF(u.active=0,' (inactive)','')) FROM cms_users u WHERE u.id=cms_enquiries.assigned_to) AS assigned_name FROM cms_enquiries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
+    res.render('enquiries',{enquiries,state,category,search,table,section,workflow,summary,followUpState});
   });
   app.get('/admin/enquiries/export.csv',manager,async(req,res)=>{
-    const state=statuses.includes(req.query.status)?req.query.status:'',category=Object.hasOwn(categories,req.query.category)?req.query.category:'';
-    const search=text(req.query.q,100,'Search');
-    const section=req.query.section==='other'?'other':'contact';
-    const sourceCondition="COALESCE(source,'') REGEXP '(^|/)contact(/index[.]html|/)?([?].*)?$'";
-    const entries=await rows(db,`SELECT id,category,name,email,organisation,subject,status,assigned_to,priority,tags,source,follow_up_at,created_at FROM cms_enquiries WHERE ${section==='contact'?sourceCondition:`NOT (${sourceCondition})`} AND (?="" OR status=?) AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?) ORDER BY id DESC LIMIT 10000`,[state,state,category,category,...Array(5).fill(`%${search}%`)]);
-    const columns=['id','category','name','email','organisation','subject','status','assigned_to','priority','tags','source','follow_up_at','created_at'];
+    const {where:scope,params:scopeParams}=enquiryListScope(req.query),workflow=workflowFilters(req.query,req.user.id,'enquiry');
+    const category=Object.hasOwn(categories,req.query.category)?req.query.category:'',search=text(req.query.q,100,'Search');
+    const entries=await rows(db,`SELECT id,category,name,email,organisation,subject,status,assigned_to,priority,tags,source,follow_up_at,next_action,created_at FROM cms_enquiries WHERE ${scope} AND ${workflow.where} AND (?="" OR category=?) AND (name LIKE ? OR email LIKE ? OR subject LIKE ? OR tags LIKE ? OR source LIKE ?) ORDER BY id DESC LIMIT 10000`,[...scopeParams,...workflow.params,category,category,...Array(5).fill(`%${search}%`)]);
+    const columns=['id','category','name','email','organisation','subject','status','assigned_to','priority','tags','source','follow_up_at','next_action','created_at'];
     const cell=value=>'"'+String(value??'').replace(/^[=+@-]/,"'$&").replaceAll('"','""')+'"';
     await audit(db,req.user,'export','enquiries',String(entries.length));
     res.set({'Content-Type':'text/csv; charset=utf-8','Content-Disposition':'attachment; filename="studio-enquiries.csv"'}).send([columns.join(','),...entries.map(entry=>columns.map(key=>cell(entry[key])).join(','))].join('\r\n'));
@@ -418,26 +445,28 @@ export function createApp(db, options={}) {
   app.get('/admin/enquiries/:id',manager,async(req,res)=>{
     const enquiry=(await rows(db,'SELECT * FROM cms_enquiries WHERE id=?',[req.params.id]))[0];ensure(enquiry,'Enquiry not found.',404);
     const notes=await rows(db,'SELECT n.*,u.name FROM cms_enquiry_notes n LEFT JOIN cms_users u ON u.id=n.user_id WHERE enquiry_id=? ORDER BY n.id DESC',[enquiry.id]);
-    const users=await rows(db,'SELECT id,name FROM cms_users WHERE active=1 AND role IN ("admin","enquiry_manager")');
+    const users=await rows(db,'SELECT id,name,active FROM cms_users WHERE (active=1 AND role IN ("admin","enquiry_manager")) OR id=?',[enquiry.assigned_to||0]);
     const history=await rows(db,'SELECT h.*,u.name FROM cms_enquiry_history h LEFT JOIN cms_users u ON u.id=h.user_id WHERE enquiry_id=? ORDER BY h.id DESC',[enquiry.id]);
-    res.render('enquiry',{enquiry,notes,users,history});
+    const timeline=await recordTimeline(db,'enquiry',enquiry,notes,history,users);
+    res.render('enquiry',{enquiry,notes,users,history,timeline,back:workflowReturn(req.query.return_to,'enquiry'),returnTo:typeof req.query.return_to==='string'?workflowReturn(req.query.return_to,'enquiry'):'',followUp:followUpState(enquiry,'enquiry')});
   });
   app.post('/admin/enquiries/:id',manager,async(req,res)=>{
-    ensure(statuses.includes(req.body.status),'Choose a valid status.');const assigned=req.body.assigned_to?Number(req.body.assigned_to):null;
-    if(assigned)ensure((await rows(db,'SELECT id FROM cms_users WHERE id=? AND active=1 AND role IN ("admin","enquiry_manager")',[assigned])).length,'Choose an enquiry manager.');
-    const fields=workflowFields(req.body),note=text(req.body.note,4000,'Follow-up note');
+    ensure(statuses.includes(req.body.status),'Choose a valid status.');const note=text(req.body.note,4000,'Follow-up note');
     const connection=await db.getConnection();
     try{
       await connection.beginTransaction();
-      const old=(await rows(connection,'SELECT status,assigned_to FROM cms_enquiries WHERE id=? FOR UPDATE',[req.params.id]))[0];ensure(old,'Enquiry not found.',404);
+      const old=(await rows(connection,'SELECT * FROM cms_enquiries WHERE id=? FOR UPDATE',[req.params.id]))[0];ensure(old,'Enquiry not found.',404);
+      const fields=workflowDetails(req.body,old),assigned=fields.assigned;
+      if(assigned&&assigned!==old.assigned_to)ensure((await rows(connection,'SELECT id FROM cms_users WHERE id=? AND active=1 AND role IN ("admin","enquiry_manager")',[assigned])).length,'Choose an active enquiry manager.');
       ensure(req.body.status!=='assigned'||assigned,'Assign an internal user before selecting Assigned.');
-      await rows(connection,'UPDATE cms_enquiries SET status=?,assigned_to=?,priority=?,tags=?,source=?,follow_up_at=? WHERE id=?',[req.body.status,assigned,fields.priority,fields.tags,fields.source,fields.followUp,req.params.id]);
-      if(old.status!==req.body.status||old.assigned_to!==assigned)await rows(connection,'INSERT INTO cms_enquiry_history(enquiry_id,user_id,from_status,to_status,assigned_to) VALUES(?,?,?,?,?)',[req.params.id,req.user.id,old.status,req.body.status,assigned]);
+      const changes=workflowChanges(old,fields);
+      await rows(connection,'UPDATE cms_enquiries SET status=?,assigned_to=?,priority=?,tags=?,source=?,follow_up_at=?,next_action=? WHERE id=?',[req.body.status,assigned,fields.priority,fields.tags,fields.source,fields.followUp,fields.nextAction,req.params.id]);
+      if(old.status!==req.body.status||Object.keys(changes).length)await rows(connection,'INSERT INTO cms_enquiry_history(enquiry_id,user_id,from_status,to_status,assigned_to,changes) VALUES(?,?,?,?,?,?)',[req.params.id,req.user.id,old.status,req.body.status,assigned,JSON.stringify(changes)]);
       if(note)await rows(connection,'UPDATE cms_enquiries SET updated_at=UTC_TIMESTAMP() WHERE id=?',[req.params.id]);
       if(note)await rows(connection,'INSERT INTO cms_enquiry_notes(enquiry_id,user_id,note) VALUES(?,?,?)',[req.params.id,req.user.id,note]);
       await audit(connection,req.user,'update','enquiry',req.params.id);await connection.commit();
     }catch(error){await connection.rollback();throw error}finally{connection.release()}
-    res.redirect(`/admin/enquiries/${req.params.id}?saved=1`);
+    res.redirect(workflowRecordUrl('enquiry',req.params.id,req.body.return_to,true));
   });
   app.get('/admin/enquiries/:id/attachment',manager,async(req,res)=>{
     const e=(await rows(db,'SELECT attachment_filename,attachment_name FROM cms_enquiries WHERE id=?',[req.params.id]))[0];ensure(e?.attachment_filename,'Attachment not found.',404);
@@ -493,13 +522,11 @@ export function createApp(db, options={}) {
     }catch(error){await conn.rollback();throw error;}finally{conn.release();}
     res.redirect('/admin/settings?saved=1');
   });
-  app.get('/admin/users',admin,async(req,res)=>res.render('users',{users:await rows(db,'SELECT id,name,email,role,active FROM cms_users ORDER BY id')}));
+  app.use(staffAccessRouter(db));
+  app.get('/admin/users',admin,async(req,res)=>res.render('users',{staffRoles,permissionGuide,users:await rows(db,'SELECT id,name,email,role,active FROM cms_users ORDER BY id')}));
   app.post('/admin/users',admin,async(req,res)=>{
     const b=req.body;const name=text(b.name,100,'Name',true),email=text(b.email,254,'Email',true).toLowerCase();ensure(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),'Enter a valid email.');ensure(['admin','editor','enquiry_manager'].includes(b.role),'Choose a valid role.');const password=text(b.password,200,'Password',true);ensure(password.length>=12,'Use a password of at least 12 characters.');
     const result=await rows(db,'INSERT INTO cms_users(name,email,role,password_hash) VALUES(?,?,?,?)',[name,email,b.role,await hashPassword(password)]);await audit(db,req.user,'create','user',result.insertId);res.redirect('/admin/users?saved=1');
-  });
-  app.post('/admin/users/:id/toggle',admin,async(req,res)=>{
-    ensure(Number(req.params.id)!==req.user.id,'You cannot disable your own account.');await rows(db,'UPDATE cms_users SET active=NOT active WHERE id=?',[req.params.id]);await audit(db,req.user,'toggle_access','user',req.params.id);res.redirect('/admin/users?saved=1');
   });
   app.get('/admin/profile',async(req,res)=>{
     const profile=(await rows(db,'SELECT name,email,role,active,created_at FROM cms_users WHERE id=?',[req.user.id]))[0];
@@ -512,7 +539,7 @@ export function createApp(db, options={}) {
     await rows(db,'UPDATE cms_users SET password_hash=? WHERE id=?',[await hashPassword(next),req.user.id]);
     const id=req.user.id;await rows(db,"DELETE FROM cms_sessions WHERE JSON_EXTRACT(data,'$.userId')=?",[id]);await regenerate(req);req.session.userId=id;req.session.csrf=token();await saveSession(req);await audit(db,req.user,'change_password','user',id);res.redirect('/admin/profile?saved=1#password');
   });
-  app.get('/admin/audit',admin,async(req,res)=>res.render('audit',{events:await rows(db,'SELECT a.*,u.name FROM cms_audit a LEFT JOIN cms_users u ON u.id=a.user_id ORDER BY a.id DESC LIMIT 200')}));
+  app.use(auditLogRouter(db));
   app.get('/api/csrf',async(req,res)=>{await saveSession(req);res.json({token:req.session.csrf});});
   app.get('/api/site',async(req,res)=>{
     const config=await settings(db);
@@ -566,9 +593,9 @@ export function createApp(db, options={}) {
       const mappings=[[/This image could not/,'image'],[/contact email/i,'contact_email'],[/contact phone/i,'contact_phone'],[/^Title|^Title is/,'title'],[/^Name /,'name'],[/^Email |email address|valid email/i,'email'],[/^Summary/,'summary'],[/^Body/,'body'],[/slug|lowercase letters/i,'slug'],[/publishing status/i,'status'],[/valid page/i,'page'],[/selected image/i,'image_id'],[/banner description/i,'banner_alt'],[/banners|banner|content images/i,'image'],[/privacy notice.*version|approved privacy/i,'privacy_notice'],[/current password/i,'current'],[/password/i,'password']];
       const match=mappings.find(([pattern])=>pattern.test(message));if(match)fields[match[1]]=message;
       if(error instanceof multer.MulterError)fields[error.field || (['/admin/blog/save','/admin/news/save'].includes(req.path)?'image':'attachment')]=message;
-      return res.status(status).json({error:message,fields});
+      return res.status(status).json({error:message,fields,...(error.code==='CONTENT_CONFLICT'?{code:error.code,conflict:error.conflict}:{})});
     }
-    res.status(status).render('error',{message,status,title:`Error ${status} — Kemsor CMS`,user:null,unreadCount:0,csrf:'',saved:false,currentPath:req.path,currentType:'',notifications:[],websiteUrl:process.env.WEBSITE_URL || '/',types});
+    res.status(status).render('error',{message,status,title:`Error ${status} — Kemsor CMS`,user:req.user||null,unreadCount:res.locals.unreadCount||0,csrf:res.locals.csrf||'',saved:false,currentPath:req.path,currentType:'',notifications:[],websiteUrl:process.env.WEBSITE_URL || '/',types});
   });
   return app;
 }

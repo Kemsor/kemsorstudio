@@ -1,0 +1,32 @@
+/* Visible keyboard focus, including controls that use a hidden native input. */
+html[data-admin-theme] body :is(a,button,input,select,textarea,summary,[tabindex],[contenteditable="true"]):focus-visible{outline:3px solid #1d4ed8!important;outline-offset:3px!important;scroll-margin-block:90px 24px}
+html[data-admin-theme] body .cms-nav :is(a,button):focus-visible{outline-color:#1d4ed8!important;outline-offset:-3px!important}
+html[data-admin-theme] body .admin-theme-control:has(input:focus-visible){outline:3px solid #1d4ed8;outline-offset:3px;border-radius:999px}
+.admin-skip-link{position:fixed;top:8px;left:12px;transform:translateY(-180%);z-index:10000;padding:12px 18px;background:#fff!important;color:#181818!important;border:2px solid #1d4ed8;border-radius:8px;text-decoration:underline}
+.admin-skip-link:focus{transform:translateY(0)}
+html[data-admin-theme] body #main{min-width:0;scroll-margin-top:80px}
+html[data-admin-theme] body #main:focus{outline:none}
+html[data-admin-theme] body #main .admin-table-scroll-hint{margin:12px 0 8px;color:#475569;font-size:12px;line-height:1.6}
+html[data-admin-theme] body #main .admin-accessible-table{max-width:100%;overflow:auto;scroll-padding:72px 16px 16px}
+html[data-admin-theme] body #main .admin-accessible-table:focus-visible{outline-offset:-3px!important}
+html[data-admin-theme] body #main :is(.admin-field-error,.rich-editor-feedback){overflow-wrap:anywhere}
+html[data-admin-theme] body #main :is(p,dd,.admin-active-filters a){overflow-wrap:anywhere}
+@media(max-width:700px){
+ html[data-admin-theme] body #main :is(.field-grid,.profile-grid,.heading-row,.button-row,.filters,.panel){min-width:0;max-width:100%}
+ html[data-admin-theme] body #main :is(input:not([type=checkbox]):not([type=radio]):not([type=hidden]),select,textarea){max-width:100%;font-size:16px}
+ html[data-admin-theme] body #main :is(.heading-row,.button-row){flex-wrap:wrap}
+ html[data-admin-theme] body #main :is(.field-grid,.profile-grid){grid-template-columns:minmax(0,1fr)}
+ html[data-admin-theme] body #main .filters label{min-width:0}
+ html[data-admin-theme] body .cms-header :is(.admin-menu-toggle,.sign-out,.notification-dropdown>summary){min-width:40px;min-height:40px}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+@media(forced-colors:active){
+ html[data-admin-theme] body :is(a,button,input,select,textarea,summary,[tabindex],[contenteditable]):focus-visible{outline:3px solid Highlight!important}
+}
+
+/* Distinguish white input boundaries from the white workspace. */
+html[data-admin-theme] body #main :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=reset]),select,textarea){border-color:#7c8aa0!important}
+html[data-admin-theme] body #main :is(input,select,textarea)[aria-invalid=true]{border-color:#b91c1c!important}

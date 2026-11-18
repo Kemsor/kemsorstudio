@@ -1,0 +1,6 @@
+<section class="dashboard-attention" aria-labelledby="attention-title">
+ <div class="dashboard-attention-heading"><div><p class="eyebrow">START HERE</p><h2 id="attention-title">Needs attention</h2></div><span><%= attentionTotal %> <%= attentionTotal===1?'record':'records' %> to review</span></div>
+ <p class="dashboard-attention-help">These queues track pending work. Reading a notification does not complete a review.</p>
+ <div class="dashboard-attention-grid"><% attentionTasks.forEach(task=>{ %><a class="dashboard-attention-card <%= task.value?'has-pending':'is-clear' %>" href="<%= task.href %>"><div class="dashboard-attention-main"><span class="dashboard-attention-icon" aria-hidden="true"><%- include('icon',{name:task.icon}) %></span><div><span><%= task.label %></span><strong><%= task.value.toLocaleString('en-IN') %></strong></div></div><div class="dashboard-attention-footer"><small><%= task.value?task.hint:'Nothing waiting for review' %></small><span class="dashboard-attention-view">Review <span aria-hidden="true">→</span></span></div></a><% }); %></div>
+ <% if(!attentionTotal){ %><p class="dashboard-queues-clear"><%- include('icon',{name:'check'}) %>You’re up to date. New work will appear here automatically.</p><% } %>
+</section>

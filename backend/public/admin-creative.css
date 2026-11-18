@@ -1,17 +1,17 @@
 /* Coloured light and dark workspaces retain their existing base palette. */
 html[data-admin-theme=light]{
- --creative-blue:#506ad6;--creative-violet:#8c4fbd;--creative-mint:#14806d;
+ --creative-blue:#506ad6;--creative-violet:#8c4fbd;--creative-mint:#00ab84;
  --creative-rose:#b94c7d;--creative-amber:#a96d15;
  --creative-glow-blue:#739aff26;--creative-glow-violet:#bc8dfb24;
- --creative-glow-mint:#62d6bc1a;--creative-glow-amber:#ffc87120;
+ --creative-glow-mint:#00ab841a;--creative-glow-amber:#ffc87120;
  --creative-card-blend:12%;--creative-card-hover:20%;--creative-panel-blend:4%;
  --creative-shadow:0 10px 32px #545b8d0b;
 }
 html[data-admin-theme=dark]{
- --creative-blue:#91b5ff;--creative-violet:#d0a1ff;--creative-mint:#6ce4c2;
+ --creative-blue:#91b5ff;--creative-violet:#d0a1ff;--creative-mint:#00ab84;
  --creative-rose:#ffabc9;--creative-amber:#f5c474;
  --creative-glow-blue:#4679db20;--creative-glow-violet:#9355d520;
- --creative-glow-mint:#36a78c13;--creative-glow-amber:#c78d3913;
+ --creative-glow-mint:#00ab8413;--creative-glow-amber:#c78d3913;
  --creative-card-blend:15%;--creative-card-hover:22%;--creative-panel-blend:7%;
  --creative-shadow:0 12px 36px #00000024;
 }

@@ -1,0 +1,49 @@
+/* Publishing controls preserve white secondary buttons and Pantone Green C saves. */
+html[data-admin-theme] body.cms-authenticated #main button.publishing-preview-trigger{background:#fff;border:1px dashed #64748b;color:#334155}
+html[data-admin-theme] body.cms-authenticated #main button.publishing-publish{background:#fff;border:2px solid #2563eb;color:#1d4ed8;font-weight:600}
+html[data-admin-theme] body.cms-authenticated #main button.publishing-publish::before{content:'↑';font-size:16px}
+html[data-admin-theme] body.cms-authenticated #main button.publishing-publish:hover{background:#fff;border-color:#1d4ed8;color:#1d4ed8}
+.publishing-preview-expanded{width:min(1180px,calc(100% - 24px));padding:20px;max-height:92dvh;background:#fff;color:#1f2937}
+.publishing-preview-expanded .publishing-preview-heading{position:sticky;top:-20px;background:#fff;padding:12px 0;z-index:1}
+.preview-device-controls{display:flex;align-items:center;gap:8px;margin:16px 0 12px;flex-wrap:wrap}
+html[data-admin-theme] body.cms-authenticated :is(.publishing-preview-surface,.image-picker-dialog,.publishing-preview-expanded) :is(button,button.quiet){background:#fff;background-image:none;color:#1f2937;border:1px solid #cbd5e1;border-radius:999px;box-shadow:none}
+html[data-admin-theme] body.cms-authenticated #main .preview-device-controls button[aria-pressed=true],html[data-admin-theme] body.cms-authenticated .preview-device-controls button[aria-pressed=true]{background:#fff;border-color:#2563eb;color:#1d4ed8;font-weight:600}
+.preview-device-size{font-size:12px;color:#64748b;margin-left:auto}
+.preview-frame-scroll{overflow:auto;max-width:100%;border:1px solid #e2e8f0;border-radius:8px;background:#f1f5f9;padding:12px;overscroll-behavior:contain}
+.publishing-preview-frame{display:block;max-width:none;min-height:480px;border:0;background:#fff;margin:0 auto}
+.preview-link-hint{font-size:12px;color:#64748b;margin:10px 0 0;overflow-wrap:anywhere;min-height:18px}
+.publishing-readiness{border:1px solid #e2e8f0;background:#f8fafc;border-radius:8px;padding:12px 16px;font-size:12px;margin:0 0 12px}
+.publishing-readiness summary{cursor:pointer;font-weight:600}
+.publishing-readiness ul{padding-left:20px;margin:8px 0}
+html[data-admin-theme] body.cms-authenticated .publishing-readiness li button.quiet{display:inline;text-align:left;white-space:normal;background:transparent;border:0;border-radius:0;min-height:30px;padding:4px 0;text-decoration:underline;text-underline-offset:3px;font-size:12px;line-height:1.6}
+html[data-admin-theme] body.cms-authenticated .publishing-readiness li.needs-detail button.quiet{color:#b91c1c}
+.publishing-readiness>a{display:inline-block;color:#2563eb;text-decoration:underline;margin-top:8px}
+html[data-admin-theme] body.cms-authenticated #main .library-type-filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+html[data-admin-theme] body.cms-authenticated #main .library-type-filters a[aria-current=page]{border-color:#2563eb;color:#1d4ed8;background:#fff}
+html[data-admin-theme] body.cms-authenticated #main .library-card-copy>h2{overflow-wrap:anywhere}
+html[data-admin-theme] body.cms-authenticated #main :is(.media-usage-details,.media-description-editor){border-top:1px solid #e2e8f0;padding-top:12px;margin-top:14px;color:#475569;font-size:12px}
+html[data-admin-theme] body.cms-authenticated #main :is(.media-usage-details,.media-description-editor) summary{cursor:pointer;font-weight:500;min-height:30px}
+html[data-admin-theme] body.cms-authenticated #main :is(.media-usage-details,.media-description-editor) p{font-size:12px;margin:8px 0;line-height:1.6}
+.media-usage-details ul{padding-left:18px;line-height:1.7}
+.media-description-editor form{margin:10px 0 0}
+.media-copy-feedback{display:block;margin-top:6px;font-size:12px;color:#475569;min-height:18px}
+.image-picker-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.image-picker-current{display:flex;align-items:center;gap:8px;min-width:0;flex-basis:100%;font-size:12px;color:#64748b;overflow-wrap:anywhere}
+.image-picker-thumb{width:48px;height:40px;object-fit:cover;border:1px solid #e2e8f0;border-radius:5px}
+.image-picker-dialog{width:min(960px,calc(100% - 24px));max-height:88dvh;overflow:auto;border:1px solid #cbd5e1;border-radius:12px;padding:24px;background:#fff;color:#1f2937}
+.image-picker-dialog::backdrop{background:#0f172a88}
+.image-picker-dialog>.publishing-preview-heading{position:sticky;top:-24px;background:#fff;padding:12px 0;z-index:1}
+.image-picker-dialog>label{margin:0 0 12px}
+.image-picker-dialog>label input{background:#fff!important;color:#1f2937!important}
+.image-picker-count{font-size:12px;color:#64748b}
+.image-picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:12px 0 20px}
+html[data-admin-theme] body.cms-authenticated .image-picker-grid .image-picker-option{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#1f2937;text-align:left;min-width:0}
+html[data-admin-theme] body.cms-authenticated .image-picker-grid .image-picker-option[aria-pressed=true]{border:2px solid #2563eb}
+.image-picker-option img{display:block;aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:4px}
+.image-picker-option>span{font-size:12px;font-weight:500;overflow-wrap:anywhere}
+.image-picker-option>small{font-size:11px;color:#64748b;font-weight:400;overflow-wrap:anywhere}
+.image-picker-dialog>a{color:#2563eb;font-size:13px;text-decoration:underline}
+@media(max-width:600px){.publishing-preview-expanded,.image-picker-dialog{padding:16px}.image-picker-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.preview-frame-scroll{padding:6px}.preview-device-controls button{min-height:40px}.publishing-preview-heading{gap:10px;flex-wrap:wrap}.publishing-preview-heading strong{font-size:15px}}
+/* Dialogs sit outside #main, so give them the same cool workspace tokens. */
+html[data-admin-theme] body.cms-authenticated :is(.publishing-preview-expanded,.image-picker-dialog){--studio-panel:#fff;--studio-raised:#f8fafc;--studio-ink:#1f2937;--studio-muted:#64748b;--studio-line:#e2e8f0;--studio-accent:#2563eb;--studio-accent-soft:#eff6ff;--control-ink:#1f2937;--control-muted:#64748b;--control-border:#cbd5e1;--control-accent:#2563eb}
+html[data-admin-theme] body.cms-authenticated .publishing-preview-expanded .preview-notice{background:#f1f5f9;color:#475569}

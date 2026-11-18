@@ -1,0 +1,2 @@
+<td class="workflow-owner-cell"><strong><%= record.assigned_name||'Unassigned' %></strong><span class="workflow-priority priority-<%= record.priority||'normal' %>"><%= record.priority||'normal' %></span><small><%= record.next_action||'Next action not set' %></small></td>
+<td class="workflow-date-cell"><% const dueState=followUpState(record,resource); %><span class="workflow-due due-<%= dueState.key %>"><%= dueState.label %></span><small><%= record.follow_up_at?record.follow_up_at+' UTC':'—' %></small></td>

@@ -4,12 +4,19 @@ import mysql from 'mysql2/promise';
 import request from 'supertest';
 import { readFile, unlink } from 'node:fs/promises';
 import { createApp } from '../src/app.js';
+import {dashboard as buildDashboard} from '../src/dashboard.js';
 import { recoverAdmin } from '../src/admin-recovery.js';
 import { hashPassword, csrfValid } from '../src/security.js';
 import { rows, createPool, settings } from '../src/db.js';
 let db, root, app, admin, editor, manager, csrfAdmin, csrfEditor, csrfManager;
 const database=`kemsor_cms_test_${process.pid}`;
 const options={host:process.env.DB_HOST || '127.0.0.1',socketPath:process.env.DB_SOCKET || undefined,user:process.env.DB_MIGRATION_USER || process.env.DB_USER || 'root',password:process.env.DB_MIGRATION_PASSWORD || '',timezone:'Z',dateStrings:true};
+// Sequential workflow tests load the latest save version; conflict tests below submit explicit stale/missing versions.
+async function withContentVersion(payload){
+ if(!payload?.id||Object.hasOwn(payload,'revision'))return payload;
+ const record=(await rows(db,'SELECT revision FROM cms_entries WHERE id=?',[payload.id]))[0];
+ return {...payload,revision:record?.revision};
+}
 async function login(role){
  const agent=request.agent(app), token=(await agent.get('/api/csrf')).body.token;
  await agent.post('/admin/login').type('form').send({_csrf:token,email:`${role}@test.local`,password:'A-secure-test-password'}).expect(302);
@@ -41,7 +48,7 @@ before(async()=>{
  const trackingSql=await readFile(new URL('../migrations/011_email_message_tracking.sql',import.meta.url),'utf8');
  for(const statement of trackingSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const role of ['admin','editor','enquiry_manager'])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[role,`${role}@test.local`,await hashPassword('A-secure-test-password'),role]);
- for(const name of ['013_phase_one_workflows.sql','014_admin_mfa.sql','015_submission_terms.sql','016_professional_registration.sql','017_operations.sql','018_managed_content.sql','020_careers_intake.sql','021_news_alerts.sql','022_site_modules_campaigns.sql','024_kpi_reporting.sql','027_casting_calls.sql','028_casting_applications.sql','029_production_people.sql','030_casting_mail_epk_access.sql']){
+ for(const name of ['013_phase_one_workflows.sql','014_admin_mfa.sql','015_submission_terms.sql','016_professional_registration.sql','017_operations.sql','018_managed_content.sql','020_careers_intake.sql','021_news_alerts.sql','022_site_modules_campaigns.sql','024_kpi_reporting.sql','027_casting_calls.sql','028_casting_applications.sql','029_production_people.sql','030_casting_mail_epk_access.sql','031_follow_up_workflow.sql','032_content_revision_safety.sql','033_audit_change_details.sql']){
   const sql=await readFile(new URL(`../migrations/${name}`,import.meta.url),'utf8');
   for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  }
@@ -67,7 +74,7 @@ test('Footer copy migration replaces old defaults and preserves custom content',
 });
 test('Unauthenticated admin requests are redirected and mutations require CSRF',async()=>{
  await request(app).get('/admin/enquiries').expect(302).expect('Location','/admin/login');
- await admin.post('/admin/content/save').type('form').send({type:'news',title:'Bad mutation'}).expect(403);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({type:'news',title:'Bad mutation'})).expect(403);
 });
 test('All admin screens render, and role restrictions are enforced',async()=>{
  for(const url of ['/admin','/admin/content?type=blog','/admin/content/new?type=team','/admin/media','/admin/enquiries','/admin/settings','/admin/users','/admin/profile','/admin/password','/admin/audit','/admin/notifications','/admin/talent','/admin/talent/enquiries','/admin/talent/projects'])await admin.get(url).expect(200);
@@ -106,20 +113,20 @@ test('Profile password change validates input, rotates the session, and signs ou
 
 test('Drafts remain private, publishing reaches the API, and archiving removes them',async()=>{
  const item={_csrf:csrfEditor,type:'news',title:'<script>alert(1)</script>',slug:'test-draft',summary:'A draft',body:'Private draft',status:'draft'};
- await editor.post('/admin/content/save').type('form').send(item).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion(item)).expect(302);
  const entry=(await rows(db,'SELECT * FROM cms_entries WHERE slug=?',['test-draft']))[0];
  assert.equal((await request(app).get('/api/site')).body.entries.length,0);
  await editor.get(`/admin/content/${entry.id}`).expect(200).then(res=>assert.ok(res.text.includes('&lt;script&gt;')));
- await editor.post('/admin/content/save').type('form').send({...item,id:entry.id,status:'published'}).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...item,id:entry.id,status:'published'})).expect(302);
  const response=await request(app).get('/api/site').expect(200);assert.equal(response.body.entries[0].body,'Private draft');assert.equal(response.body.entries[0].created_by,undefined);
- await editor.post(`/admin/content/${entry.id}/archive`).type('form').send({_csrf:csrfEditor}).expect(302);
+ await editor.post(`/admin/content/${entry.id}/archive`).type('form').send({_csrf:csrfEditor,revision:(await rows(db,'SELECT revision FROM cms_entries WHERE id=?',[entry.id]))[0].revision}).expect(302);
  assert.equal((await request(app).get('/api/site')).body.entries.length,0);
 });
 test('Invalid content slugs and duplicate slugs are rejected',async()=>{
  const item={_csrf:csrfEditor,type:'blog',title:'Example',slug:'../unsafe',status:'draft'};
- await editor.post('/admin/content/save').type('form').send(item).expect(422);
- await editor.post('/admin/content/save').type('form').send({...item,slug:'unique-slug'}).expect(302);
- await editor.post('/admin/content/save').type('form').send({...item,slug:'unique-slug'}).expect(422);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion(item)).expect(422);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...item,slug:'unique-slug'})).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...item,slug:'unique-slug'})).expect(422);
 });
 test('Settings require an approved notice to enable enquiries and validate social URLs',async()=>{
  await admin.post('/admin/settings').type('form').send({_csrf:csrfAdmin,enquiries_enabled:'on'}).expect(422);
@@ -193,9 +200,12 @@ test('Notification reads persist per user and cannot mark inaccessible notificat
 test('Self-disable is rejected and disabled users lose access immediately',async()=>{
  const current=(await rows(db,'SELECT id FROM cms_users WHERE role="admin"'))[0];
  await admin.post(`/admin/users/${current.id}/toggle`).type('form').send({_csrf:csrfAdmin}).expect(422);
- const e=(await rows(db,'SELECT id FROM cms_users WHERE role="editor"'))[0];
+ const created=await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Disable test editor','disable-editor@test.local',await hashPassword('A-secure-test-password'),'editor']);
+ const [disabledEditor]=await login('disable-editor');
+ const e={id:created.insertId};
  await admin.post(`/admin/users/${e.id}/toggle`).type('form').send({_csrf:csrfAdmin}).expect(302);
- await editor.get('/admin/content').expect(302);
+ await disabledEditor.get('/admin/content').expect(302);
+ await editor.get('/admin/content').expect(200);
 });
 
 test('Talent registration, review, directory privacy, enquiries and private projects work end to end',async()=>{
@@ -262,7 +272,7 @@ test('Every publishing module saves and publishes through the shared editor',asy
  for(const type of ['news','blog','career','team','home','page','media_partner']){
   await admin.get(`/admin/content?type=${type}`).expect(200);
   await admin.get(`/admin/content/new?type=${type}`).expect(200);
-  await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type,title:`Module ${type}`,slug:`module-${type.replaceAll("_","-")}`,summary:'Module verification',body:'Test content',status:'published',page:type==='legal'?'legal':'about'}).expect(302);
+  await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type,title:`Module ${type}`,slug:`module-${type.replaceAll("_","-")}`,summary:'Module verification',body:'Test content',status:'published',page:type==='legal'?'legal':'about'})).expect(302);
   const entry=(await request(app).get('/api/site')).body.entries.find(e=>e.slug===`module-${type.replaceAll("_","-")}`);assert.ok(entry);assert.equal(entry.type,type);
  }
 });
@@ -292,14 +302,14 @@ test('Blog deletion requires publishing access and CSRF, and removes the public 
 test('Slugs generate from titles, handle duplicates, and remain stable on edits',async()=>{
  for(const type of ['blog','career','news','team','home','page','media_partner']){
   const data={_csrf:csrfAdmin,type,title:'Café & Studio: New Story!',status:'draft',page:'about'};
-  await admin.post('/admin/content/save').type('form').send(data).expect(302);
-  await admin.post('/admin/content/save').type('form').send(data).expect(302);
+  await admin.post('/admin/content/save').type('form').send(await withContentVersion(data)).expect(302);
+  await admin.post('/admin/content/save').type('form').send(await withContentVersion(data)).expect(302);
   const items=await rows(db,'SELECT id,slug FROM cms_entries WHERE type=? AND title=? ORDER BY id',[type,data.title]);
   assert.deepEqual(items.map(item=>item.slug),['cafe-studio-new-story','cafe-studio-new-story-2']);
-  await admin.post('/admin/content/save').type('form').send({...data,id:items[0].id,title:'Changed title'}).expect(302);
+  await admin.post('/admin/content/save').type('form').send(await withContentVersion({...data,id:items[0].id,title:'Changed title'})).expect(302);
   assert.equal((await rows(db,'SELECT slug FROM cms_entries WHERE id=?',[items[0].id]))[0].slug,items[0].slug);
  }
- await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'blog',title:'🎬',status:'draft'}).expect(302);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'blog',title:'🎬',status:'draft'})).expect(302);
  assert.equal((await rows(db,'SELECT slug FROM cms_entries WHERE title=?',['🎬']))[0].slug,'content');
 });
 
@@ -308,7 +318,7 @@ test('Dedicated blog editor uploads banners and cannot publish other content typ
  assert.match(form.text,/Upload banner/);assert.ok(form.text.includes('action="/admin/blog/save"'));
  assert.match(form.text,/name="category"/);
  for(const name of ['role','location','page','author'])assert.ok(!form.text.includes(`name="${name}"`));
- await admin.post('/admin/blog/save').type('form').send({_csrf:csrfAdmin,type:'news',title:'Wrong form',status:'draft'}).expect(422);
+ await admin.post('/admin/blog/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'news',title:'Wrong form',status:'draft'})).expect(422);
  const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64');
  await admin.post('/admin/blog/save').field('_csrf',csrfAdmin).field('type','blog').field('title','Banner upload post').field('body','Blog body').field('status','published').field('banner_alt','Test banner description').attach('image',image,{filename:'blog-banner.png',contentType:'image/png'}).expect(302);
  const post=(await request(app).get('/api/site')).body.entries.find(entry=>entry.slug==='banner-upload-post');
@@ -321,37 +331,37 @@ test('Career editor is dedicated and page management respects publishing permiss
  const form=await admin.get('/admin/content/new?type=career').expect(200);
  assert.ok(form.text.includes('action="/admin/career/save"'));assert.ok(form.text.includes('Role details'));
  for(const name of ['page','author','image_id'])assert.ok(!form.text.includes(`name="${name}"`));
- await admin.post('/admin/career/save').type('form').send({_csrf:csrfAdmin,type:'blog',title:'Wrong content',status:'draft'}).expect(422);
- await admin.post('/admin/career/save').type('form').send({_csrf:csrfAdmin,type:'career',title:'Dedicated role',summary:'Role summary',body:'Responsibilities',role:'Freelance',location:'Remote',category:'Production',status:'draft',publish_action:'published'}).expect(302);
+ await admin.post('/admin/career/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'blog',title:'Wrong content',status:'draft'})).expect(422);
+ await admin.post('/admin/career/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'career',title:'Dedicated role',summary:'Role summary',body:'Responsibilities',role:'Freelance',location:'Remote',category:'Production',status:'draft',publish_action:'published'})).expect(302);
  const role=(await request(app).get('/api/site')).body.entries.find(entry=>entry.slug==='dedicated-role');assert.equal(role.type,'career');assert.equal(role.metadata.location,'Remote');assert.equal(role.metadata.page,undefined);
- const hub=await admin.get('/admin/pages').expect(200);assert.match(hub.text,/Website pages/);assert.match(hub.text,/USERS & MEMBERS/);assert.match(hub.text,/ENQUIRIES/);
+ const hub=await admin.get('/admin/pages').expect(200);assert.match(hub.text,/Website pages/);assert.match(hub.text,/Users & members/);assert.match(hub.text,/Enquiries & applications/);
  await manager.get('/admin/pages').expect(403);
  const pageForm=await admin.get('/admin/content/new?type=page&page=services').expect(200);assert.match(pageForm.text,/<option value="services" selected>/);
  await admin.get('/admin/content?type=page&page=services').expect(200);
  assert.match(hub.text,/page=how-we-work/);
  const workForm=await admin.get('/admin/content/new?type=page&page=how-we-work').expect(200);assert.match(workForm.text,/<option value="how-we-work" selected>/);
- await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'How We Work test section',body:'Additional client-approved content',page:'how-we-work',status:'draft'}).expect(302);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'How We Work test section',body:'Additional client-approved content',page:'how-we-work',status:'draft'})).expect(302);
  const workList=await admin.get('/admin/content?type=page&page=how-we-work').expect(200);assert.match(workList.text,/How We Work test section/);
  const serviceList=await admin.get('/admin/content?type=page&page=services').expect(200);assert.ok(!(serviceList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('How We Work test section'));
  assert.match(hub.text,/page=india-production-services/);
  const indiaForm=await admin.get('/admin/content/new?type=page&page=india-production-services').expect(200);assert.match(indiaForm.text,/<option value="india-production-services" selected>/);
- await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'India Production Services test section',body:'Additional client-approved India content',page:'india-production-services',status:'draft'}).expect(302);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'India Production Services test section',body:'Additional client-approved India content',page:'india-production-services',status:'draft'})).expect(302);
  const indiaList=await admin.get('/admin/content?type=page&page=india-production-services').expect(200);assert.match(indiaList.text,/India Production Services test section/);assert.ok(!(indiaList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('How We Work test section'));
  assert.match(hub.text,/page=feature-films/);
  const featureForm=await admin.get('/admin/content/new?type=page&page=feature-films').expect(200);assert.match(featureForm.text,/<option value="feature-films" selected>/);
- await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Feature Films test section',body:'Additional client-approved feature content',page:'feature-films',status:'draft'}).expect(302);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Feature Films test section',body:'Additional client-approved feature content',page:'feature-films',status:'draft'})).expect(302);
  const featureList=await admin.get('/admin/content?type=page&page=feature-films').expect(200);assert.match(featureList.text,/Feature Films test section/);assert.ok(!(featureList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('India Production Services test section'));
  assert.match(hub.text,/page=short-films/);
  const shortForm=await admin.get('/admin/content/new?type=page&page=short-films').expect(200);assert.match(shortForm.text,/<option value="short-films" selected>/);
- await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Short Films test section',body:'Additional client-approved short film content',page:'short-films',status:'draft'}).expect(302);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Short Films test section',body:'Additional client-approved short film content',page:'short-films',status:'draft'})).expect(302);
  const shortList=await admin.get('/admin/content?type=page&page=short-films').expect(200);assert.match(shortList.text,/Short Films test section/);assert.ok(!(shortList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Feature Films test section'));
  assert.match(hub.text,/page=series-ott/);
  const seriesForm=await admin.get('/admin/content/new?type=page&page=series-ott').expect(200);assert.match(seriesForm.text,/<option value="series-ott" selected>/);
- await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Series OTT test section',body:'Additional client-approved series content',page:'series-ott',status:'draft'}).expect(302);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Series OTT test section',body:'Additional client-approved series content',page:'series-ott',status:'draft'})).expect(302);
  const seriesList=await admin.get('/admin/content?type=page&page=series-ott').expect(200);assert.match(seriesList.text,/Series OTT test section/);assert.ok(!(seriesList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Short Films test section'));
  assert.match(hub.text,/page=documentaries/);
  const documentaryForm=await admin.get('/admin/content/new?type=page&page=documentaries').expect(200);assert.match(documentaryForm.text,/<option value="documentaries" selected>/);
- await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'page',title:'Documentaries test section',body:'Additional client-approved documentary content',page:'documentaries',status:'draft'}).expect(302);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Documentaries test section',body:'Additional client-approved documentary content',page:'documentaries',status:'draft'})).expect(302);
  const documentaryList=await admin.get('/admin/content?type=page&page=documentaries').expect(200);assert.match(documentaryList.text,/Documentaries test section/);assert.ok(!(documentaryList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Series OTT test section'));
 });
 
@@ -379,22 +389,22 @@ test('Member lists filter roles and detail pages never expose password hashes',a
 
 test('Enhanced admin forms return field errors without saving invalid content',async()=>{
  const form=await admin.get('/admin/content/new?type=blog').expect(200);assert.match(form.text,/admin-ui.css/);
- const badTitle=await admin.post('/admin/blog/save').set('Accept','application/json').type('form').send({_csrf:csrfAdmin,type:'blog',title:'',summary:'Keep this summary',body:'Keep my draft body',status:'draft'}).expect(422);
+ const badTitle=await admin.post('/admin/blog/save').set('Accept','application/json').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'blog',title:'',summary:'Keep this summary',body:'Keep my draft body',status:'draft'})).expect(422);
  assert.ok(badTitle.body.fields.title);
  const image=await admin.post('/admin/blog/save').set('Accept','application/json').field('_csrf',csrfAdmin).field('type','blog').field('title','Failed upload should not save').field('body','Preserved body').field('status','draft').field('banner_alt','Banner').attach('image',Buffer.from('<html>fake</html>'),{filename:'bad.png',contentType:'image/png'}).expect(422);
  assert.ok(image.body.fields.image);assert.equal((await rows(db,'SELECT id FROM cms_entries WHERE title=?',['Failed upload should not save'])).length,0);
- await admin.post('/admin/blog/save').set('Accept','application/json').type('form').send({_csrf:csrfAdmin,type:'blog',title:'Enhanced save',body:'Saved draft',status:'draft'}).expect(302).expect('Location','/admin/content?type=blog&saved=1');
+ await admin.post('/admin/blog/save').set('Accept','application/json').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'blog',title:'Enhanced save',body:'Saved draft',status:'draft'})).expect(302).expect('Location','/admin/content?type=blog&saved=1');
 });
 
 test('Publishing previews remain private and draft actions do not publish',async()=>{
- await admin.post('/admin/blog/save').type('form').send({_csrf:csrfAdmin,type:'blog',title:'Private preview',body:'<script>not executable</script>',status:'published',publish_action:'draft'}).expect(302);
+ await admin.post('/admin/blog/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'blog',title:'Private preview',body:'<script>not executable</script>',status:'published',publish_action:'draft'})).expect(302);
  const entry=(await rows(db,'SELECT id,status FROM cms_entries WHERE title=?',['Private preview']))[0];assert.equal(entry.status,'draft');
  await request(app).get(`/admin/content/${entry.id}/preview`).expect(302);
  await manager.get(`/admin/content/${entry.id}/preview`).expect(403);
  const preview=await admin.get(`/admin/content/${entry.id}/preview`).expect(200);assert.match(preview.text,/&lt;script&gt;not executable&lt;\/script&gt;/);assert.match(preview.text,/Private publishing preview/);
  assert.ok(!(await request(app).get('/api/site')).body.entries.some(item=>item.id===entry.id));
  const editor=await admin.get(`/admin/content/${entry.id}`).expect(200);assert.match(editor.text,/Preview changes/);assert.match(editor.text,/Save selected status/);
- await admin.post('/admin/blog/save').type('form').send({_csrf:csrfAdmin,type:'blog',id:entry.id,title:'Private preview',status:'draft',publish_action:'published'}).expect(302);
+ await admin.post('/admin/blog/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'blog',id:entry.id,title:'Private preview',status:'draft',publish_action:'published'})).expect(302);
  assert.equal((await rows(db,'SELECT status FROM cms_entries WHERE id=?',[entry.id]))[0].status,'published');
 });
 
@@ -402,13 +412,13 @@ test('Dedicated news editor handles banners, previews, and publishing without un
  const form=await admin.get('/admin/content/new?type=news').expect(200);assert.ok(form.text.includes('action="/admin/news/save"'));assert.match(form.text,/Upload banner/);assert.match(form.text,/Preview changes/);
  assert.match(form.text,/name="category"/);
  for(const name of ['role','location','page','author'])assert.ok(!form.text.includes(`name="${name}"`));
- await admin.post('/admin/news/save').type('form').send({_csrf:csrfAdmin,type:'career',title:'Wrong form',status:'draft'}).expect(422);
+ await admin.post('/admin/news/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'career',title:'Wrong form',status:'draft'})).expect(422);
  const image=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64');
  await admin.post('/admin/news/save').field('_csrf',csrfAdmin).field('type','news').field('title','Studio news banner').field('body','News text').field('status','published').field('publish_action','draft').field('banner_alt','News banner description').attach('image',image,{filename:'news-banner.png',contentType:'image/png'}).expect(302);
  const draft=(await rows(db,'SELECT id,slug,image_id,status FROM cms_entries WHERE title=?',['Studio news banner']))[0];assert.equal(draft.status,'draft');assert.ok(draft.image_id);
  assert.ok(!(await request(app).get('/api/site')).body.entries.some(e=>e.id===draft.id));
  const edit=await admin.get(`/admin/content/${draft.id}`).expect(200);assert.match(edit.text,/Edit news post/);assert.match(edit.text,/Current news banner/);
- await admin.post('/admin/news/save').type('form').send({_csrf:csrfAdmin,type:'news',id:draft.id,title:'Updated news title',body:'Published news text',image_id:draft.image_id,status:'draft',publish_action:'published'}).expect(302);
+ await admin.post('/admin/news/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'news',id:draft.id,title:'Updated news title',body:'Published news text',image_id:draft.image_id,status:'draft',publish_action:'published'})).expect(302);
  const published=(await request(app).get('/api/site')).body.entries.find(e=>e.id===draft.id);assert.equal(published.slug,draft.slug);assert.equal(published.image_alt,'News banner description');assert.ok(published.image_url);
  await admin.get(`/admin/content/${draft.id}/preview`).expect(200);
  await admin.post('/admin/news/save').set('Accept','application/json').field('_csrf',csrfAdmin).field('type','news').field('title','Invalid news upload').field('status','draft').field('banner_alt','Bad file').attach('image',Buffer.from('fake'),{filename:'fake.png',contentType:'image/png'}).expect(422).then(r=>assert.ok(r.body.fields.image));
@@ -544,19 +554,21 @@ test('Email diagnostics and retries are admin-only, CSRF protected and keep secr
 });
 
 test('Hosted admin recovery is single-use, revokes sessions and rejects non-admin targets',async()=>{
+ await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Recovery test admin','admin-recovery@test.local',await hashPassword('A-secure-test-password'),'admin']);
+ const [admin]=await login('admin-recovery');
  assert.equal(await recoverAdmin(db,{}),false);
- await assert.rejects(recoverAdmin(db,{ADMIN_RESET_EMAIL:'admin@test.local'}),/requires/);
+ await assert.rejects(recoverAdmin(db,{ADMIN_RESET_EMAIL:'admin-recovery@test.local'}),/requires/);
  const env={ADMIN_RESET_EMAIL:'manager@test.local',ADMIN_RESET_PASSWORD:'Recovery-test-password-2026',ADMIN_RESET_ID:'test_recovery_request_0001'};
  await assert.rejects(recoverAdmin(db,env),/administrator/);
- await assert.rejects(recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin@test.local',ADMIN_RESET_PASSWORD:'short'}),/16–128/);
+ await assert.rejects(recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin-recovery@test.local',ADMIN_RESET_PASSWORD:'short'}),/16–128/);
  await admin.get('/admin').expect(200);
- assert.equal(await recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin@test.local'}),true);
+ assert.equal(await recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin-recovery@test.local'}),true);
  await admin.get('/admin').expect(302);
  const recovered=request.agent(app),token=(await recovered.get('/api/csrf')).body.token;
- await recovered.post('/admin/login').type('form').send({_csrf:token,email:'admin@test.local',password:env.ADMIN_RESET_PASSWORD}).expect(302);
- const original=(await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash;
- assert.equal(await recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin@test.local',ADMIN_RESET_PASSWORD:'Different-test-password-2026'}),false);
- assert.equal((await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin@test.local"'))[0].password_hash,original);
+ await recovered.post('/admin/login').type('form').send({_csrf:token,email:'admin-recovery@test.local',password:env.ADMIN_RESET_PASSWORD}).expect(302);
+ const original=(await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin-recovery@test.local"'))[0].password_hash;
+ assert.equal(await recoverAdmin(db,{...env,ADMIN_RESET_EMAIL:'admin-recovery@test.local',ADMIN_RESET_PASSWORD:'Different-test-password-2026'}),false);
+ assert.equal((await rows(db,'SELECT password_hash FROM cms_users WHERE email="admin-recovery@test.local"'))[0].password_hash,original);
  const log=await rows(db,'SELECT * FROM cms_audit WHERE action="recover_password"');assert.equal(log.length,1);
 });
 
@@ -597,15 +609,15 @@ test('Production drafts stay private and approved production stages and press re
  const [editor,csrfEditor]=await login('publishing-editor');
  for(const type of ['production','press_asset'])await editor.get(`/admin/content/new?type=${type}`).expect(200);
  const project={_csrf:csrfEditor,type:'production',title:'Synthetic project',summary:'Test announcement',body:'Test only',status:'draft',production_stage:'in_development',format:'Feature film',language:'English'};
- await editor.post('/admin/content/save').type('form').send({...project,production_stage:'invalid'}).expect(422);
- await editor.post('/admin/content/save').type('form').send(project).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...project,production_stage:'invalid'})).expect(422);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion(project)).expect(302);
  const row=(await rows(db,'SELECT id FROM cms_entries WHERE type="production" AND title="Synthetic project"'))[0];
  assert.ok(!(await request(app).get('/api/site')).body.entries.some(entry=>entry.id===row.id));
- await editor.post('/admin/content/save').type('form').send({...project,id:row.id,status:'published'}).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...project,id:row.id,status:'published'})).expect(302);
  const published=(await request(app).get('/api/site')).body.entries.find(entry=>entry.id===row.id);assert.equal(published.metadata.production_stage,'in_development');
  const asset={_csrf:csrfEditor,type:'press_asset',title:'Synthetic press profile',status:'published',asset_url:'javascript:alert(1)',usage:'Editorial use only'};
- await editor.post('/admin/content/save').type('form').send(asset).expect(422);
- await editor.post('/admin/content/save').type('form').send({...asset,asset_url:'https://example.test/profile.pdf'}).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion(asset)).expect(422);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...asset,asset_url:'https://example.test/profile.pdf'})).expect(302);
  assert.ok((await request(app).get('/api/site')).body.entries.some(entry=>entry.type==='press_asset'&&entry.metadata.usage==='Editorial use only'));
 });
 
@@ -827,17 +839,17 @@ test('Publishing editor saves structured formatting, derives plain text and keep
  const [editor,csrf]=await login('publishing-editor');
  const rich={version:1,type:'doc',children:[{type:'h2',children:[{type:'text',text:'Formatted heading'}]},{type:'p',children:[{type:'strong',children:[{type:'text',text:'Bold text'}]},{type:'text',text:' and '},{type:'a',href:'https://example.test/read',children:[{type:'text',text:'Read more'}]}]},{type:'ol',children:[{type:'li',children:[{type:'text',text:'First item'}]},{type:'li',children:[{type:'text',text:'Second item'}]}]}]};
  const fields={_csrf:csrf,type:'blog',title:'Synthetic formatted article',summary:'Rich text test',body:'This fallback should be replaced',status:'draft',rich_text:JSON.stringify(rich)};
- await editor.post('/admin/blog/save').type('form').send(fields).expect(302);
+ await editor.post('/admin/blog/save').type('form').send(await withContentVersion(fields)).expect(302);
  const saved=(await rows(db,'SELECT * FROM cms_entries WHERE title="Synthetic formatted article"'))[0];
  assert.ok(saved.body.includes('Formatted heading'));assert.ok(!saved.body.includes('fallback should be replaced'));
  assert.deepEqual(JSON.parse(saved.metadata).rich_text,rich);
  const edit=await editor.get(`/admin/content/${saved.id}`).expect(200);assert.match(edit.text,/data-rich-editor/);
  const preview=await editor.get(`/admin/content/${saved.id}/preview`).expect(200);assert.match(preview.text,/<strong>Bold text<\/strong>/);assert.match(preview.text,/<ol><li>First item/);
  assert.ok(!(await request(app).get('/api/site')).body.entries.some(entry=>entry.id===saved.id));
- await editor.post('/admin/blog/save').type('form').send({...fields,id:saved.id,status:'published'}).expect(302);
+ await editor.post('/admin/blog/save').type('form').send(await withContentVersion({...fields,id:saved.id,status:'published'})).expect(302);
  const published=(await request(app).get('/api/site')).body.entries.find(entry=>entry.id===saved.id);assert.deepEqual(published.metadata.rich_text,rich);
  const unsafe={version:1,type:'doc',children:[{type:'p',children:[{type:'a',href:'javascript:alert(1)',children:[{type:'text',text:'Bad'}]}]}]};
- await editor.post('/admin/blog/save').type('form').send({...fields,id:saved.id,rich_text:JSON.stringify(unsafe)}).expect(422);
+ await editor.post('/admin/blog/save').type('form').send(await withContentVersion({...fields,id:saved.id,rich_text:JSON.stringify(unsafe)})).expect(422);
  assert.deepEqual(JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[saved.id]))[0].metadata).rich_text,rich);
 });
 
@@ -874,13 +886,13 @@ test('General and internship applications accept private CVs without an open vac
 test('News categories, lead stories and release PDFs are editable without publishing placeholders',async()=>{
  await rows(db,'DELETE FROM cms_rate_limits');const [editor,csrf]=await login('publishing-editor');
  const fields={_csrf:csrf,type:'news',title:'Synthetic featured news',summary:'Synthetic only',body:'Synthetic studio update',status:'published',category:'Productions',featured:'on'};
- await editor.post('/admin/news/save').type('form').send(fields).expect(302);
+ await editor.post('/admin/news/save').type('form').send(await withContentVersion(fields)).expect(302);
  const news=(await rows(db,'SELECT * FROM cms_entries WHERE title="Synthetic featured news"'))[0];
  const published=(await request(app).get('/api/site')).body.entries.find(entry=>entry.id===news.id);assert.equal(published.metadata.category,'Productions');assert.equal(published.metadata.featured,true);assert.ok(published.updated_at);
- await editor.post('/admin/news/save').type('form').send({...fields,id:news.id,category:'Press Releases',featured:''}).expect(422);
- await editor.post('/admin/news/save').type('form').send({...fields,id:news.id,category:'Press Releases',status:'draft',featured:''}).expect(302);
- await editor.post('/admin/news/save').type('form').send({...fields,id:news.id,category:'Press Releases',pdf_url:'javascript:alert(1)'}).expect(422);
- await editor.post('/admin/news/save').type('form').send({...fields,id:news.id,category:'Press Releases',pdf_url:'https://example.test/release.pdf',featured:''}).expect(302);
+ await editor.post('/admin/news/save').type('form').send(await withContentVersion({...fields,id:news.id,category:'Press Releases',featured:''})).expect(422);
+ await editor.post('/admin/news/save').type('form').send(await withContentVersion({...fields,id:news.id,category:'Press Releases',status:'draft',featured:''})).expect(302);
+ await editor.post('/admin/news/save').type('form').send(await withContentVersion({...fields,id:news.id,category:'Press Releases',pdf_url:'javascript:alert(1)'})).expect(422);
+ await editor.post('/admin/news/save').type('form').send(await withContentVersion({...fields,id:news.id,category:'Press Releases',pdf_url:'https://example.test/release.pdf',featured:''})).expect(302);
  const release=(await request(app).get('/api/site')).body.entries.find(entry=>entry.id===news.id);assert.equal(release.metadata.pdf_url,'https://example.test/release.pdf');
 });
 
@@ -923,7 +935,7 @@ test('Separate media uploads persist before content save and support MP4 range p
  const uploaded=await editor.post('/admin/media/upload').set('Accept','application/json').field('_csrf',editorCsrf).field('alt','Staged banner').attach('image',image,{filename:'stage.png',contentType:'image/png'}).expect(201);
  assert.equal(uploaded.body.mime,'image/webp');assert.equal(Number((await rows(db,'SELECT COUNT(*) AS n FROM cms_entries'))[0].n),before);
  await request(app).get(uploaded.body.url).expect(200).expect('Content-Type',/image\/webp/);
- await editor.post('/admin/news/save').type('form').send({_csrf:editorCsrf,type:'news',title:'Staged media post',status:'draft',image_id:uploaded.body.id}).expect(302);
+ await editor.post('/admin/news/save').type('form').send(await withContentVersion({_csrf:editorCsrf,type:'news',title:'Staged media post',status:'draft',image_id:uploaded.body.id})).expect(302);
  assert.equal((await rows(db,'SELECT image_id FROM cms_entries WHERE title=?',['Staged media post']))[0].image_id,uploaded.body.id);
  await admin.post('/admin/media/upload').set('Accept','application/json').field('_csrf',csrf).field('kind','video').field('alt','Invalid video').attach('image',Buffer.from('not a video'),{filename:'bad.mp4',contentType:'video/mp4'}).expect(422);
  const video=await readFile(new URL('../../rain-temp/public/assets/motion-films/period-intrigue-preview.mp4',import.meta.url));
@@ -931,7 +943,7 @@ test('Separate media uploads persist before content save and support MP4 range p
  const clip=await admin.post('/admin/media/upload').set('Accept','application/json').field('_csrf',csrf).field('kind','video').field('alt','Hero clip').attach('image',video,{filename:'clip.mp4',contentType:'video/mp4'}).expect(201);
  assert.match(clip.body.url,/\/video\.mp4$/);
  await request(app).get(clip.body.url).set('Range','bytes=0-99').expect(206).expect('Content-Type',/video\/mp4/);
- await admin.post('/admin/news/save').type('form').send({_csrf:csrf,type:'news',title:'Video is not a banner',status:'draft',image_id:clip.body.id}).expect(422);
+ await admin.post('/admin/news/save').type('form').send(await withContentVersion({_csrf:csrf,type:'news',title:'Video is not a banner',status:'draft',image_id:clip.body.id})).expect(422);
  const form=await admin.get('/admin/content/new?type=news').expect(200);assert.ok(!form.text.includes(`value="${clip.body.id}"`));assert.match(form.text,/media-upload\.js/);
 });
 
@@ -944,22 +956,22 @@ test('Format pages and productions publish optional videos with a poster and cap
  for(const page of ['feature-films','series-ott','documentaries','productions']){
   const form=await editor.get(`/admin/content/new?type=page&page=${page}`).expect(200);assert.match(form.text,/data-content-video/);
   const fields={_csrf:csrf,type:'page',page,title:`Video section ${page}`,status:'draft',video_url,image_id:image.id,video_caption:'Official trailer'};
-  await editor.post('/admin/content/save').type('form').send({...fields,image_id:''}).expect(422);
-  await editor.post('/admin/content/save').type('form').send({...fields,video_caption:''}).expect(422);
-  await editor.post('/admin/content/save').type('form').send({...fields,video_url:'javascript:alert(1)'}).expect(422);
-  await editor.post('/admin/content/save').type('form').send(fields).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...fields,image_id:''})).expect(422);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...fields,video_caption:''})).expect(422);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...fields,video_url:'javascript:alert(1)'})).expect(422);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion(fields)).expect(302);
   const record=(await rows(db,'SELECT id FROM cms_entries WHERE title=?',[fields.title]))[0];
   assert.ok(!(await request(app).get('/api/site')).body.entries.some(e=>e.id===record.id));
   const preview=await editor.get(`/admin/content/${record.id}/preview`).expect(200);assert.ok(preview.text.includes(video_url));
-  await editor.post('/admin/content/save').type('form').send({...fields,id:record.id,status:'published'}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...fields,id:record.id,status:'published'})).expect(302);
   const entry=(await request(app).get('/api/site')).body.entries.find(e=>e.id===record.id);assert.equal(entry.metadata.video_url,video_url);assert.equal(entry.metadata.video_caption,'Official trailer');assert.ok(entry.image_url);
  }
  const production={_csrf:csrf,type:'production',title:'Video production fixture',status:'published',production_stage:'released',format:'Feature Films',video_url,image_id:image.id,video_caption:'Official teaser'};
- await editor.post('/admin/content/save').type('form').send(production).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion(production)).expect(302);
  await editor.post(`/admin/media/${video.id}/delete`).type('form').send({_csrf:csrf}).expect(409);
- await editor.post('/admin/content/save').type('form').send({...production,type:'page',page:'about'}).expect(422);
- await editor.post('/admin/content/save').type('form').send({...production,video_url:'/media/999999/video.mp4'}).expect(422);
- await editor.post('/admin/content/save').type('form').send({...production,title:'Image-only production fixture',video_url:'',video_caption:''}).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...production,type:'page',page:'about'})).expect(422);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...production,video_url:'/media/999999/video.mp4'})).expect(422);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...production,title:'Image-only production fixture',video_url:'',video_caption:''})).expect(302);
 });
 
 test('CMS page controls cover the shared frontend page registry and preserve homepage and blog placements',async()=>{
@@ -972,18 +984,18 @@ test('CMS page controls cover the shared frontend page registry and preserve hom
   assert.ok(pageInfo[page.key],`Frontend page missing for ${page.key}`);
   const edit=await editor.get(`/admin/content/new?type=page&page=${page.key}`).expect(200);
   assert.ok(edit.text.includes(`value="${page.key}" selected`),`Missing page option ${page.key}`);
-  await editor.post('/admin/content/save').type('form').send({_csrf:csrf,type:'page',page:page.key,title:`Registry audit ${page.key}`,body:'Synthetic page content',status:'published'}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrf,type:'page',page:page.key,title:`Registry audit ${page.key}`,body:'Synthetic page content',status:'published'})).expect(302);
   const list=await editor.get(`/admin/content?type=page&page=${page.key}`).expect(200);assert.ok(list.text.includes(`Registry audit ${page.key}`));
  }
  const publicEntries=(await request(app).get('/api/site')).body.entries;
  for(const page of pages)assert.ok(publicEntries.some(entry=>entry.type==='page'&&entry.metadata.page===page.key&&entry.title===`Registry audit ${page.key}`));
  assert.match(controls.text,/Additional published page sections/);
- await editor.post('/admin/content/save').type('form').send({_csrf:csrf,type:'page',page:'not-a-page',title:'Invalid target',status:'published'}).expect(422);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrf,type:'page',page:'not-a-page',title:'Invalid target',status:'published'})).expect(422);
  for(const home_slot of ['hero','section']){
-  await editor.post('/admin/content/save').type('form').send({_csrf:csrf,type:'home',title:`Homepage audit ${home_slot}`,home_slot,status:'published'}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrf,type:'home',title:`Homepage audit ${home_slot}`,home_slot,status:'published'})).expect(302);
   assert.ok((await request(app).get('/api/site')).body.entries.some(entry=>entry.title===`Homepage audit ${home_slot}`&&entry.metadata.home_slot===home_slot));
  }
- await editor.post('/admin/blog/save').type('form').send({_csrf:csrf,type:'blog',title:'Category audit blog',category:'Post-production',status:'published'}).expect(302);
+ await editor.post('/admin/blog/save').type('form').send(await withContentVersion({_csrf:csrf,type:'blog',title:'Category audit blog',category:'Post-production',status:'published'})).expect(302);
  assert.equal((await request(app).get('/api/site')).body.entries.find(entry=>entry.title==='Category audit blog').metadata.category,'Post-production');
 });
 
@@ -1022,8 +1034,8 @@ test('CMS uploads PDF resources and subtitle tracks with validated media routes'
  const subtitle=await editor.post('/admin/media/upload').set('Accept','application/json').field('_csrf',csrf).field('kind','captions').field('alt','English subtitles').attach('image',Buffer.from('WEBVTT\n\n00:00.000 --> 00:02.000\nWelcome to the studio.\n'),{filename:'english.vtt',contentType:'text/vtt'}).expect(201);
  await request(app).get(subtitle.body.url).expect(200).expect('Content-Type',/text\/vtt/);
  await editor.post('/admin/media/upload').set('Accept','application/json').field('_csrf',csrf).field('kind','captions').field('alt','Bad captions').attach('image',Buffer.from('<script>bad</script>'),{filename:'bad.vtt',contentType:'text/vtt'}).expect(422);
- await editor.post('/admin/content/save').type('form').send({_csrf:csrf,type:'press_asset',title:'Uploaded fact sheet',asset_url:pdf.body.url,usage:'Editorial use',status:'published'}).expect(302);
- await editor.post('/admin/news/save').type('form').send({_csrf:csrf,type:'news',title:'Uploaded PDF press release',category:'Press Releases',pdf_url:pdf.body.url,status:'published'}).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrf,type:'press_asset',title:'Uploaded fact sheet',asset_url:pdf.body.url,usage:'Editorial use',status:'published'})).expect(302);
+ await editor.post('/admin/news/save').type('form').send(await withContentVersion({_csrf:csrf,type:'news',title:'Uploaded PDF press release',category:'Press Releases',pdf_url:pdf.body.url,status:'published'})).expect(302);
 });
 
 test('News campaigns queue only confirmed topical subscribers and recheck consent before delivery',async()=>{
@@ -1057,7 +1069,7 @@ test('Legacy legal entry controls delegate to the managed editor and reject disc
  const inserted=await rows(db,"INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status,published_at) VALUES('legal','Preserved legacy legal record','preserved-legacy-legal-record','','','{}','published',UTC_TIMESTAMP())");
  await admin.get('/admin/content?type=legal').expect(302).expect('Location','/admin/manage/legal');await admin.get('/admin/content/new?type=legal').expect(302);
  await admin.get(`/admin/content/${inserted.insertId}`).expect(302);await editor.get(`/admin/content/${inserted.insertId}`).expect(403);
- await admin.post('/admin/content/save').type('form').send({_csrf:csrf,type:'legal',title:'Wrong publishing path',status:'published',page:'legal'}).expect(422);
+ await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrf,type:'legal',title:'Wrong publishing path',status:'published',page:'legal'})).expect(422);
  await admin.post(`/admin/content/${inserted.insertId}/archive`).type('form').send({_csrf:csrf}).expect(422);
  await admin.post('/admin/tables/content/bulk').type('form').send({_csrf:csrf,ids:[inserted.insertId],status:'archived'}).expect(422);
  const published=(await request(app).get('/api/site')).body;assert.ok(!published.entries.some(entry=>entry.id===inserted.insertId));
@@ -1251,7 +1263,7 @@ test('Staff email replies use stored recipients, deduplicate submissions, and ke
   await rows(db,"UPDATE cms_email_outbox SET available_at=DATE_ADD(UTC_TIMESTAMP(),INTERVAL 1 DAY) WHERE id<>?",[queued[0].id]);
   let sent;await deliverReceipt(db,{sendMail:async mail=>{sent=mail;return {messageId:'synthetic-reply-id',accepted:[mail.to]};}},'studio@test.local');
   assert.equal(sent.to,'reply@test.local');assert.equal(sent.text,payload.message);
-  const history=await manager.get(url).expect(200);assert.match(history.text,/Hello, we can discuss/);assert.match(history.text,/>sent</);
+  const history=await manager.get(url).expect(200);assert.match(history.text,/Hello, we can discuss/);assert.match(history.text,/>Sent</);
   await manager.get(`/admin/replies/application/${applicationId}`).expect(200);
   await manager.post(`/admin/replies/application/${applicationId}`).type('form').send({...payload,reply_token:randomUUID()}).expect(303);
   await manager.get(`/admin/replies/talent/${talentId}`).expect(403);
@@ -1272,20 +1284,20 @@ test('Production record fields persist through editing and keep working titles p
  const form=await editor.get('/admin/content/new?type=production').expect(200);
  for(const name of ['working_title','genres','language','release_date','cast_credits_rows','crew_credits_rows'])assert.ok(form.text.includes(`name="${name}"`));
  const values={_csrf:csrfEditor,type:'production',title:'Production record fixture',summary:'A concise logline',body:'An approved production synopsis.',production_stage:'in_development',format:'Feature film',language:'Hindi, English',genres:'Drama, Thriller',working_title:'CONFIDENTIAL WORKING TITLE',cast_credits:'Actor <One> | Lead\nActor Two',crew_credits:'Crew One | Director',year:'2028',release_date:'2028-02-29',status:'draft'};
- await editor.post('/admin/content/save').type('form').send({...values,release_date:'2026-02-29'}).expect(422);
- await manager.post('/admin/content/save').type('form').send({...values,_csrf:csrfManager}).expect(403);
- await editor.post('/admin/content/save').type('form').send(values).expect(302);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,release_date:'2026-02-29'})).expect(422);
+ await manager.post('/admin/content/save').type('form').send(await withContentVersion({...values,_csrf:csrfManager})).expect(403);
+ await editor.post('/admin/content/save').type('form').send(await withContentVersion(values)).expect(302);
  const record=(await rows(db,'SELECT * FROM cms_entries WHERE type="production" AND title=?',[values.title]))[0];assert.ok(record);
  try{
   const metadata=JSON.parse(record.metadata);assert.equal(metadata.working_title,values.working_title);assert.deepEqual(metadata.genres,['Drama','Thriller']);assert.deepEqual(metadata.languages,['Hindi','English']);assert.equal(metadata.release_date,'2028-02-29');
   assert.ok(!(await request(app).get('/api/site')).body.entries.some(entry=>entry.id===record.id));
   const preview=await editor.get(`/admin/content/${record.id}/preview`).expect(200);assert.ok(preview.text.includes('CONFIDENTIAL WORKING TITLE'));assert.ok(preview.text.includes('2028-02-29'));
-  await editor.post('/admin/content/save').type('form').send({...values,id:record.id,status:'published'}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id:record.id,status:'published'})).expect(302);
   const published=(await request(app).get('/api/site')).body.entries.find(entry=>entry.id===record.id);assert.ok(published);assert.equal(published.metadata.working_title,undefined);assert.deepEqual(published.metadata.genres,['Drama','Thriller']);assert.equal(published.summary,values.summary);assert.equal(published.body,values.body);
   assert.deepEqual(published.metadata.cast_credits,[{name:'Actor <One>',role:'Lead'},{name:'Actor Two',role:''}]);
   const detail=await request(app).get(`/productions/${record.slug}/`).expect(200);assert.match(detail.text,/Actor &lt;One&gt;/);assert.match(detail.text,/Crew One/);
   const {working_title,genres,release_date,cast_credits,crew_credits,...legacy}=values;
-  await editor.post('/admin/content/save').type('form').send({...legacy,id:record.id,production_stage:'in_production',status:'draft'}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...legacy,id:record.id,production_stage:'in_production',status:'draft'})).expect(302);
   const updated=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[record.id]))[0];assert.equal(updated.slug,record.slug);assert.equal(JSON.parse(updated.metadata).working_title,values.working_title);assert.equal(JSON.parse(updated.metadata).release_date,'2028-02-29');
   const edit=await editor.get(`/admin/content/${record.id}`).expect(200);assert.ok(edit.text.includes('Drama, Thriller'));assert.ok(edit.text.includes('CONFIDENTIAL WORKING TITLE'));
  }finally{await rows(db,'DELETE FROM cms_entries WHERE id=?',[record.id]);}
@@ -1318,21 +1330,21 @@ test('Production galleries persist studio images, render safely and protect imag
  const values={_csrf:csrfEditor,type:'production',title:'Gallery production fixture',production_stage:'in_production',status:'draft',gallery:JSON.stringify(gallery)};
  let id;
  try{
-  await editor.post('/admin/content/save').type('form').send({...values,gallery:JSON.stringify([{...gallery[0],media_id:document}])}).expect(422);
-  await editor.post('/admin/content/save').type('form').send({...values,gallery:JSON.stringify([{...gallery[0],media_id:999999999}])}).expect(422);
-  await manager.post('/admin/content/save').type('form').send({...values,_csrf:csrfManager}).expect(403);
-  await editor.post('/admin/content/save').type('form').send(values).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,gallery:JSON.stringify([{...gallery[0],media_id:document}])})).expect(422);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,gallery:JSON.stringify([{...gallery[0],media_id:999999999}])})).expect(422);
+  await manager.post('/admin/content/save').type('form').send(await withContentVersion({...values,_csrf:csrfManager})).expect(403);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion(values)).expect(302);
   const entry=(await rows(db,'SELECT * FROM cms_entries WHERE title=?',[values.title]))[0];id=entry.id;
   assert.deepEqual(JSON.parse(entry.metadata).gallery,gallery);
   const preview=await editor.get(`/admin/content/${id}/preview`).expect(200);assert.match(preview.text,/Crew &lt;on set&gt;/);
   await request(app).get(`/productions/${entry.slug}/`).expect(404);
   await editor.post(`/admin/media/${image}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);
-  await editor.post('/admin/content/save').type('form').send({...values,id,status:'published'}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,status:'published'})).expect(302);
   const page=await request(app).get(`/productions/${entry.slug}/`).expect(200);assert.match(page.text,/class="production-gallery"/);assert.ok(page.text.includes(`src="/media/${image}"`));assert.match(page.text,/Crew &lt;on set&gt;/);assert.ok(!page.text.includes('<script>alert(1)</script>'));
-  const {gallery:omitted,...legacy}=values;await editor.post('/admin/content/save').type('form').send({...legacy,id}).expect(302);
+  const {gallery:omitted,...legacy}=values;await editor.post('/admin/content/save').type('form').send(await withContentVersion({...legacy,id})).expect(302);
   assert.deepEqual(JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[id]))[0].metadata).gallery,gallery);
-  await editor.post('/admin/content/save').type('form').send({...values,id,gallery:'[]'}).expect(302);
-  await editor.post(`/admin/media/${image}/delete`).type('form').send({_csrf:csrfEditor}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,gallery:'[]'})).expect(302);
+  await editor.post(`/admin/media/${image}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);
  }finally{
   if(id)await rows(db,'DELETE FROM cms_entries WHERE id=?',[id]);await rows(db,'DELETE FROM cms_media WHERE id IN (?,?)',[image,document]);
  }
@@ -1346,25 +1358,25 @@ test('Production press kits upload, replace and remove with published-only downl
  const values={_csrf:csrfEditor,type:'production',title:'EPK production fixture',production_stage:'in_production',status:'draft',epk_url:first.url};
  let id;
  try{
-  await editor.post('/admin/content/save').type('form').send({...values,epk_url:'/media/99999999/document.pdf'}).expect(422);
-  await manager.post('/admin/content/save').type('form').send({...values,_csrf:csrfManager}).expect(403);
-  await editor.post('/admin/content/save').type('form').send(values).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,epk_url:'/media/99999999/document.pdf'})).expect(422);
+  await manager.post('/admin/content/save').type('form').send(await withContentVersion({...values,_csrf:csrfManager})).expect(403);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion(values)).expect(302);
   const record=(await rows(db,'SELECT * FROM cms_entries WHERE title=?',[values.title]))[0];id=record.id;const url=`/productions/${record.slug}/press-kit.pdf`;
   await request(app).get(url).expect(404);
   await editor.get(`/admin/content/${id}`).expect(200).then(r=>assert.match(r.text,/data-document-upload/));
   await editor.get(`/admin/content/${id}/preview`).expect(200).then(r=>assert.match(r.text,/Preview press kit PDF/));
   await editor.post(`/admin/media/${first.id}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);
-  await editor.post('/admin/content/save').type('form').send({...values,id,status:'published'}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,status:'published'})).expect(302);
   await request(app).get(`/productions/${record.slug}/`).expect(200).then(r=>assert.ok(r.text.includes(`href="${url}" download`)));
   await request(app).get(url).expect(200).expect('Content-Type',/application\/pdf/).expect('Content-Disposition',`attachment; filename="${record.slug}-press-kit.pdf"`).expect('Cache-Control','no-store').then(r=>assert.deepEqual(r.body,pdf));
-  const {epk_url,...legacy}=values;await editor.post('/admin/content/save').type('form').send({...legacy,id,status:'published'}).expect(302);assert.equal(JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[id]))[0].metadata).epk_url,first.url);
+  const {epk_url,...legacy}=values;await editor.post('/admin/content/save').type('form').send(await withContentVersion({...legacy,id,status:'published'})).expect(302);assert.equal(JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[id]))[0].metadata).epk_url,first.url);
   await rows(db,'UPDATE cms_entries SET published_at=DATE_ADD(UTC_TIMESTAMP(),INTERVAL 1 DAY) WHERE id=?',[id]);await request(app).get(url).expect(404);
-  await editor.post('/admin/content/save').type('form').send({...values,id,status:'published',epk_url:replacement.url}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,status:'published',epk_url:replacement.url})).expect(302);
   assert.equal(JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[id]))[0].metadata).epk_url,replacement.url);
-  await editor.post(`/admin/media/${first.id}/delete`).type('form').send({_csrf:csrfEditor}).expect(302);
+  await editor.post(`/admin/media/${first.id}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);
   await rows(db,'UPDATE cms_entries SET published_at=UTC_TIMESTAMP(),status="published" WHERE id=?',[id]);await request(app).get(url).expect(200);
   await rows(db,'UPDATE cms_entries SET status="archived" WHERE id=?',[id]);await request(app).get(url).expect(404);
-  await editor.post('/admin/content/save').type('form').send({...values,id,status:'published',epk_url:''}).expect(302);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,status:'published',epk_url:''})).expect(302);
   await request(app).get(url).expect(404);await request(app).get(`/productions/${record.slug}/`).expect(200).then(r=>assert.ok(!r.text.includes('Download press kit')));
  }finally{if(id)await rows(db,'DELETE FROM cms_entries WHERE id=?',[id]);}
 });
@@ -1447,8 +1459,8 @@ test('Four production extensions publish safe rights, linked biographies, typed 
   await manager.get('/admin/people').expect(403);await editor.get('/admin/people/new').expect(200);await manager.post('/admin/people/save').type('form').send({...personValues,_csrf:csrfManager}).expect(403);
   await editor.post('/admin/people/save').type('form').send(personValues).expect(303);let person=(await rows(db,'SELECT * FROM production_people WHERE name=?',[personValues.name]))[0];personId=person.id;await request(app).get(`/people/${person.slug}/`).expect(404);
   const values={_csrf:csrfEditor,type:'production',title:'Four extensions fixture',production_stage:'released',status:'published',rights_holder:'Studio rights holder',rights_summary:'Approved rights statement',rights_status:'partially_available',rights_territories:'India',rights_notes:'SECRET CONTRACT TERMS',cast_credits_rows:JSON.stringify([{name:'Credited filmmaker',role:'Lead',person_id:personId}]),contributor_credits_rows:JSON.stringify([{name:'Credited researcher',role:'Research',person_id:personId}]),platform_links:JSON.stringify([{kind:'watch',label:'Official platform',url:'https://example.test/watch',territories:'India'}]),production_media:JSON.stringify([{type:'poster',title:'Official poster',url:`/media/${image}`,alt:'Poster <artwork>'},{type:'trailer',title:'Official trailer',url:`/media/${video}/video.mp4`},{type:'teaser',title:'Teaser',url:'https://example.test/teaser.mp4'},{type:'song',title:'Theme song',url:'https://example.test/theme.mp3'},{type:'behind_the_scenes',title:'Making the film',url:`/media/${video}/video.mp4`}]),awards:JSON.stringify([{event:'Example Film Festival',category:'Feature film',outcome:'official_selection',year:'2026',source_url:'https://example.test/selection'}]),screenings:JSON.stringify([{event:'World premiere',type:'premiere',date:'2026-11-01',venue:'Example Theatre',city:'Dehradun',country:'India',source_url:'https://example.test/premiere'}])};
-  await editor.post('/admin/content/save').type('form').send({...values,production_media:JSON.stringify([{type:'poster',title:'Wrong format',url:`/media/${video}`,alt:'Poster'}])}).expect(422);
-  await editor.post('/admin/content/save').type('form').send(values).expect(302);const entry=(await rows(db,'SELECT * FROM cms_entries WHERE title=?',[values.title]))[0];productionId=entry.id;
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,production_media:JSON.stringify([{type:'poster',title:'Wrong format',url:`/media/${video}`,alt:'Poster'}])})).expect(422);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion(values)).expect(302);const entry=(await rows(db,'SELECT * FROM cms_entries WHERE title=?',[values.title]))[0];productionId=entry.id;
   let page=await request(app).get(`/productions/${entry.slug}/`).expect(200);assert.match(page.text,/Studio rights holder/);assert.match(page.text,/Official platform/);assert.match(page.text,/Example Film Festival/);assert.match(page.text,/World premiere/);assert.match(page.text,/Theme song/);assert.ok(!page.text.includes('SECRET CONTRACT TERMS'));assert.ok(!page.text.includes('PRIVATE BIO UNTIL PUBLISHED'));assert.ok(!page.text.includes(`href="/people/${person.slug}/"`));
   const feed=(await request(app).get('/api/site')).body.entries.find(item=>item.id===productionId);assert.equal(feed.metadata.rights_notes,undefined);
   await editor.get(`/admin/content/${productionId}/preview`).expect(200).then(r=>assert.match(r.text,/SECRET CONTRACT TERMS/));
@@ -1459,7 +1471,7 @@ test('Four production extensions publish safe rights, linked biographies, typed 
   await request(app).get('/sitemap.xml').expect(200).then(r=>assert.ok(r.text.includes(`/people/${person.slug}/`)));
   await editor.post(`/admin/media/${image}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);await editor.post(`/admin/media/${video}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);
   await editor.post('/admin/people/save').type('form').send({...personValues,id:personId,name:'Updated public name',status:'archived'}).expect(303);assert.equal((await rows(db,'SELECT slug FROM production_people WHERE id=?',[personId]))[0].slug,person.slug);await request(app).get(`/people/${person.slug}/`).expect(404);await request(app).get(`/productions/${entry.slug}/`).expect(200).then(r=>assert.ok(!r.text.includes(`href="/people/${person.slug}/"`)));
-  const legacy={_csrf:csrfEditor,id:productionId,type:'production',title:values.title,production_stage:'released',status:'published'};await editor.post('/admin/content/save').type('form').send(legacy).expect(302);const saved=JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[productionId]))[0].metadata);assert.equal(saved.cast_credits[0].person_id,personId);assert.equal(saved.awards.length,1);assert.equal(saved.production_media.length,5);assert.equal(saved.rights_notes,values.rights_notes);
+  const legacy={_csrf:csrfEditor,id:productionId,type:'production',title:values.title,production_stage:'released',status:'published'};await editor.post('/admin/content/save').type('form').send(await withContentVersion(legacy)).expect(302);const saved=JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[productionId]))[0].metadata);assert.equal(saved.cast_credits[0].person_id,personId);assert.equal(saved.awards.length,1);assert.equal(saved.production_media.length,5);assert.equal(saved.rights_notes,values.rights_notes);
  }finally{if(productionId)await rows(db,'DELETE FROM cms_entries WHERE id=?',[productionId]);if(personId)await rows(db,'DELETE FROM production_people WHERE id=?',[personId]);await rows(db,'DELETE FROM cms_media WHERE id IN (?,?)',[image,video]);}
 });
 
@@ -1471,7 +1483,7 @@ test('Structured EPKs enforce private grants, PDF protection, expiry, revocation
  try{
   for(const [name,status]of [['Public EPK biography','published'],['HIDDEN DRAFT BIOGRAPHY','draft']])people.push((await rows(db,'INSERT INTO production_people(slug,name,biography,status,published_at) VALUES(?,?,?,?,UTC_TIMESTAMP())',[name.toLowerCase().replaceAll(' ','-'),name,name+' text',status])).insertId);
   const values={_csrf:csrfEditor,type:'production',title:'Controlled structured EPK fixture',production_stage:'released',status:'published',body:'Public synopsis',rights_notes:'PRIVATE CONTRACT',epk_url:uploaded.url,epk_mode:'link_only',epk_structured:'yes',epk_intro:'PRIVATE KIT INTRODUCTION',epk_people:JSON.stringify(people.map(person_id=>({person_id}))),epk_statements:JSON.stringify([{title:'Director statement',author:'Director',body:'A statement about the film.'}])};
-  await editor.post('/admin/content/save').type('form').send(values).expect(302);const entry=(await rows(db,'SELECT * FROM cms_entries WHERE title=?',[values.title]))[0];id=entry.id;
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion(values)).expect(302);const entry=(await rows(db,'SELECT * FROM cms_entries WHERE title=?',[values.title]))[0];id=entry.id;
   for(const suffix of ['press-kit/','press-kit.pdf','press-kit.html'])await request(app).get(`/productions/${entry.slug}/${suffix}`).expect(404);
   await request(app).get(`/media/${uploaded.id}`).expect(404);
   const feed=(await request(app).get('/api/site')).body.entries.find(item=>item.id===id);assert.equal(feed.metadata.epk_url,undefined);assert.equal(feed.metadata.epk_intro,undefined);assert.equal(feed.metadata.epk_statements,undefined);
@@ -1485,7 +1497,195 @@ test('Structured EPKs enforce private grants, PDF protection, expiry, revocation
   const secondId=(await rows(db,'SELECT id FROM production_epk_grants WHERE production_id=? ORDER BY id DESC LIMIT 1',[id]))[0].id;await editor.post(`/admin/production-epks/${id}/grants/${secondId}/revoke`).type('form').send({_csrf:csrfEditor}).expect(303);await request(app).get(second.url).expect(404);
   const expired=await grant();await rows(db,'UPDATE production_epk_grants SET expires_at=DATE_SUB(UTC_TIMESTAMP(),INTERVAL 1 DAY) WHERE production_id=?',[id]);await request(app).get(expired.url).expect(404);
   const active=await grant();await rows(db,'UPDATE cms_entries SET status="archived" WHERE id=?',[id]);await request(app).get(active.url).expect(404);
-  await editor.post('/admin/content/save').type('form').send({...values,id,epk_mode:'public'}).expect(302);await request(app).get(`/productions/${entry.slug}/press-kit/`).expect(200);await request(app).get(`/productions/${entry.slug}/press-kit.html`).expect(200).expect('Content-Disposition',/attachment/);await request(app).get(`/productions/${entry.slug}/press-kit.pdf`).expect(200);await request(app).get(uploaded.url).expect(404);
-  await editor.post('/admin/content/save').type('form').send({...values,id,epk_mode:'disabled'}).expect(302);await request(app).get(`/productions/${entry.slug}/press-kit/`).expect(404);await request(app).get(active.url).expect(404);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,epk_mode:'public'})).expect(302);await request(app).get(`/productions/${entry.slug}/press-kit/`).expect(200);await request(app).get(`/productions/${entry.slug}/press-kit.html`).expect(200).expect('Content-Disposition',/attachment/);await request(app).get(`/productions/${entry.slug}/press-kit.pdf`).expect(200);await request(app).get(uploaded.url).expect(404);
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,epk_mode:'disabled'})).expect(302);await request(app).get(`/productions/${entry.slug}/press-kit/`).expect(404);await request(app).get(active.url).expect(404);
  }finally{if(id)await rows(db,'DELETE FROM cms_entries WHERE id=?',[id]);for(const person of people)await rows(db,'DELETE FROM production_people WHERE id=?',[person]);}
+});
+
+
+test('Dashboard review queues match their destination lists, exports and role permissions',async()=>{
+ const staff=(await rows(db,'SELECT id,name,role FROM cms_users WHERE email=?',['admin@test.local']))[0];
+ const enquiryIds=[];let contentId,memberId,applicationId;
+ try{
+  for(const [name,status,source] of [['Dashboard contact new','new','/contact/'],['Dashboard partner new','new','/partner/'],['Dashboard assigned','assigned','/partner/'],['Dashboard accepted','accepted','/contact/'],['Dashboard closed','closed','/contact/']]){
+   const result=await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,status,source,consent_at,consent_version) VALUES("general",?,"dashboard@example.test","Dashboard scope check","Synthetic test",?,?,UTC_TIMESTAMP(),"test")',[name,status,source]);enquiryIds.push(result.insertId);
+  }
+  contentId=(await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status) VALUES("blog","Dashboard linked <story>","dashboard-scope-story","","","{}","draft")')).insertId;
+  memberId=(await rows(db,'INSERT INTO talent_accounts(email,password_hash,name,role,status) VALUES("dashboard-member@example.test","test-only","Dashboard pending member","artist","pending")')).insertId;
+  applicationId=(await rows(db,'INSERT INTO career_applications(career_title,name,email,phone,message,resume_filename,resume_name,consent_version) VALUES("Dashboard role","Dashboard applicant","dashboard-applicant@example.test","1234567890","Synthetic test","dashboard-fixture.pdf","fixture.pdf","test")')).insertId;
+  await rows(db,'INSERT INTO cms_audit(user_id,action,target_type,target_id) VALUES(?,"save","content",?)',[staff.id,String(contentId)]);
+  const data=await buildDashboard(db,staff);
+  const newCount=Number((await rows(db,'SELECT COUNT(*) AS total FROM cms_enquiries WHERE status="new"'))[0].total);
+  assert.equal(data.attentionTasks.find(item=>item.label==='New enquiries').value,newCount);
+  assert.equal(data.attentionTasks.find(item=>item.label==='New enquiries').href,'/admin/enquiries?section=all&status=new');
+  assert.equal(data.activity[0].recordTitle,'Dashboard linked <story>');assert.equal(data.activity[0].href,`/admin/content/${contentId}`);
+  const list=await manager.get('/admin/enquiries?section=all&status=new&q=Dashboard').expect(200);assert.match(list.text,/Dashboard contact new/);assert.match(list.text,/Dashboard partner new/);assert.ok(!list.text.includes('Dashboard closed'));
+  const follow=await manager.get('/admin/enquiries?section=all&status=follow_up&q=Dashboard').expect(200);assert.match(follow.text,/Dashboard assigned/);assert.match(follow.text,/Dashboard accepted/);assert.ok(!follow.text.includes('Dashboard contact new'));assert.ok(!follow.text.includes('Dashboard closed'));
+  const csv=await manager.get('/admin/enquiries/export.csv?section=all&status=follow_up&q=Dashboard').expect(200);assert.match(csv.text,/Dashboard assigned/);assert.match(csv.text,/Dashboard accepted/);assert.ok(!csv.text.includes('Dashboard closed'));
+  const html=await admin.get('/admin').expect(200);assert.match(html.text,/Dashboard linked &lt;story&gt;/);assert.match(html.text,/dashboard-attention-grid/);
+  await admin.post('/admin/notifications/read').type('form').send({_csrf:csrfAdmin,key:'all'}).expect(302);
+  assert.equal((await buildDashboard(db,staff)).attentionTotal,data.attentionTotal);
+  const editorUser=(await rows(db,'SELECT id,role FROM cms_users WHERE email="editor@test.local"'))[0];const editorData=await buildDashboard(db,editorUser);assert.deepEqual(editorData.attentionTasks.map(task=>task.label),['Drafts in the making']);
+  const managerUser=(await rows(db,'SELECT id,role FROM cms_users WHERE email="enquiry_manager@test.local"'))[0];const managerData=await buildDashboard(db,managerUser);assert.deepEqual(managerData.attentionTasks.map(task=>task.label),['New enquiries','New career applications']);
+ }finally{
+  for(const id of enquiryIds)await rows(db,'DELETE FROM cms_enquiries WHERE id=?',[id]);
+  if(contentId)await rows(db,'DELETE FROM cms_entries WHERE id=?',[contentId]);if(memberId)await rows(db,'DELETE FROM talent_accounts WHERE id=?',[memberId]);if(applicationId)await rows(db,'DELETE FROM career_applications WHERE id=?',[applicationId]);
+ }
+});
+
+test('Media type filters, gallery and portrait usage, and descriptions stay accurate and protected',async()=>{
+ const ids=[];let entryId,personId;
+ try{
+  for(const [name,mime] of [['media-check.webp','image/webp'],['media-check.mp4','video/mp4'],['media-check.pdf','application/pdf'],['media-check.vtt','text/vtt']])ids.push((await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt) VALUES(?,?,?,?,?)',[name,name,mime,1024,'Media scope fixture'])).insertId);
+  entryId=(await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status) VALUES("production","Media gallery test","media-gallery-check","","",?,"draft")',[JSON.stringify({gallery:[{media_id:ids[0],kind:'still',alt:'Gallery scene',caption:''}]})])).insertId;
+  personId=(await rows(db,'INSERT INTO production_people(slug,name,biography,image_id) VALUES("media-check-person","Media check person","Test biography",?)',[ids[0]])).insertId;
+  const used=await editor.get('/admin/media?kind=image&usage=used&q=media-check').expect(200);assert.match(used.text,/media-check.webp/);assert.match(used.text,/1 content record/);assert.match(used.text,/1 person profile/);assert.ok(!used.text.includes('data-confirm="Permanently delete this unused file?"'));
+  const unused=await editor.get('/admin/media?kind=image&usage=unused&q=media-check').expect(200);assert.ok(!unused.text.includes('data-media-id="'+ids[0]+'"'));
+  for(const [index,kind] of [[1,'video'],[2,'document'],[3,'captions']]){const page=await editor.get(`/admin/media?kind=${kind}&q=media-check`).expect(200);assert.ok(page.text.includes('data-media-id="'+ids[index]+'"'));assert.ok(!page.text.includes('data-media-id="'+ids[0]+'"'));}
+  await manager.post(`/admin/media/${ids[0]}/description`).type('form').send({_csrf:csrfManager,alt:'Not allowed'}).expect(403);
+  await editor.post(`/admin/media/${ids[0]}/description`).type('form').send({alt:'Missing CSRF'}).expect(403);
+  await editor.post(`/admin/media/${ids[0]}/description`).type('form').send({_csrf:csrfEditor,alt:''}).expect(422);
+  await editor.post(`/admin/media/${ids[0]}/description`).type('form').send({_csrf:csrfEditor,alt:'Sunlight over the production set'}).expect(302);
+  assert.equal((await rows(db,'SELECT alt FROM cms_media WHERE id=?',[ids[0]]))[0].alt,'Sunlight over the production set');
+  const selector=await editor.get('/admin/content/new?type=blog').expect(200);assert.match(selector.text,/data-media-alt="Sunlight over the production set"/);
+  const portraitSelector=await editor.get('/admin/people/new').expect(200);assert.match(portraitSelector.text,/data-media-alt="Sunlight over the production set"/);
+  const images=await editor.get('/admin/media/images.json').expect(200);assert.equal(images.body.images.find(image=>image.id===ids[0]).alt,'Sunlight over the production set');assert.ok(images.body.images.every(image=>!['password_hash','email'].some(key=>key in image)));await manager.get('/admin/media/images.json').expect(403);
+ }finally{
+  if(personId)await rows(db,'DELETE FROM production_people WHERE id=?',[personId]);if(entryId)await rows(db,'DELETE FROM cms_entries WHERE id=?',[entryId]);for(const id of ids)await rows(db,'DELETE FROM cms_media WHERE id=?',[id]);
+ }
+});
+
+test('Enquiry and application follow-up queues preserve filters, validate owners and keep unified history',async()=>{
+ const staff=(await rows(db,'SELECT id FROM cms_users WHERE email="enquiry_manager@test.local"'))[0],publisher=(await rows(db,'SELECT id FROM cms_users WHERE email="editor@test.local"'))[0];
+ const enquiryIds=[],applicationIds=[];
+ try{
+  for(const [name,status,owner,days] of [['Followup test overdue','new',staff.id,-2],['Followup test upcoming','new',null,2],['Followup test closed','closed',staff.id,-3]])enquiryIds.push((await rows(db,'INSERT INTO cms_enquiries(category,name,email,subject,message,status,assigned_to,source,priority,next_action,follow_up_at,consent_at,consent_version) VALUES("general",?,"followup@example.test","Followup test enquiry","Synthetic test",?,?,"/contact/","high","Call the producer",DATE_ADD(UTC_TIMESTAMP(),INTERVAL ? DAY),UTC_TIMESTAMP(),"test")',[name,status,owner,days])).insertId);
+  for(const [name,status,owner,days] of [['Followup test candidate overdue','new',staff.id,-2],['Followup test candidate upcoming','new',null,2],['Followup test candidate rejected','rejected',staff.id,-3]])applicationIds.push((await rows(db,'INSERT INTO career_applications(career_title,name,email,phone,message,resume_filename,resume_name,consent_version,status,assigned_to,priority,next_action,follow_up_at) VALUES("Followup test role",?,"workflow@example.test","1234567890","Test only","workflow-fixture.pdf","fixture.pdf","test",?,?,"high","Review the portfolio",DATE_ADD(UTC_TIMESTAMP(),INTERVAL ? DAY))',[name,status,owner,days])).insertId);
+  const list='/admin/enquiries?section=all&q=Followup%20test&owner=me&priority=high&due=overdue&per_page=25&p=1';
+  const overdue=await manager.get(list).expect(200);assert.ok(overdue.text.includes('name="ids" value="'+enquiryIds[0]+'"'));assert.ok(!overdue.text.includes('name="ids" value="'+enquiryIds[1]+'"'));assert.ok(!overdue.text.includes('name="ids" value="'+enquiryIds[2]+'"'));assert.match(overdue.text,/Call the producer/);assert.match(overdue.text,/Overdue/);
+  const upcoming=await manager.get('/admin/enquiries?section=all&q=Followup%20test&due=upcoming&owner=unassigned').expect(200);assert.ok(upcoming.text.includes('name="ids" value="'+enquiryIds[1]+'"'));
+  const csv=await manager.get('/admin/enquiries/export.csv?section=all&q=Followup%20test&owner=me&priority=high&due=overdue').expect(200);assert.match(csv.text,/Followup test overdue/);assert.ok(!csv.text.includes('Followup test closed'));assert.match(csv.text,/next_action/);
+  const appList='/admin/applications?q=Followup%20test&owner=me&due=overdue';const apps=await manager.get(appList).expect(200);assert.ok(apps.text.includes('name="ids" value="'+applicationIds[0]+'"'));assert.ok(!apps.text.includes('name="ids" value="'+applicationIds[2]+'"'));assert.match(apps.text,/Review the portfolio/);
+  for(const [resource,id,returnTo] of [['enquiry',enquiryIds[0],list],['application',applicationIds[0],appList]]){
+   const base=resource==='enquiry'?'/admin/enquiries':'/admin/applications';
+   const payload={_csrf:csrfManager,status:resource==='enquiry'?'in_review':'reviewing',assigned_to:staff.id,priority:'urgent',next_action:'Arrange a production call',follow_up_at:'2099-01-02T10:00',note:'Private workflow note',return_to:returnTo};
+   await manager.post(`${base}/${id}`).type('form').send({...payload,assigned_to:publisher.id}).expect(422);
+   const save=await manager.post(`${base}/${id}`).type('form').send(payload).expect(302);const target=new URL(save.headers.location,'http://local');assert.equal(target.searchParams.get('return_to'),returnTo);assert.equal(target.searchParams.get('saved'),'1');
+   const detail=await manager.get(save.headers.location).expect(200);assert.match(detail.text,/Activity timeline/);assert.match(detail.text,/Private workflow note/);assert.match(detail.text,/Arrange a production call/);assert.match(detail.text,/Owner/);assert.match(detail.text,/Follow-up updated|Status updated/);
+   const stored=(await rows(db,`SELECT assigned_to,priority,next_action,follow_up_at FROM ${resource==='enquiry'?'cms_enquiries':'career_applications'} WHERE id=?`,[id]))[0];assert.equal(stored.assigned_to,staff.id);assert.equal(stored.priority,'urgent');assert.equal(stored.follow_up_at,'2099-01-02 10:00:00');
+   await manager.post(`${base}/${id}`).type('form').send({_csrf:csrfManager,status:payload.status,note:'Note-only update'}).expect(302);assert.equal((await rows(db,`SELECT next_action FROM ${resource==='enquiry'?'cms_enquiries':'career_applications'} WHERE id=?`,[id]))[0].next_action,payload.next_action);
+   const reply=await manager.get(`/admin/replies/${resource}/${id}?return_to=${encodeURIComponent(returnTo)}`).expect(200);assert.ok(reply.text.includes('return_to='));
+   await editor.get(`${base}/${id}`).expect(403);
+  }
+  const prefix=`KEM-${String(enquiryIds[0]).padStart(6,'0')}-REPLY-`;
+  for(const [key,status]of [['sent','sent'],['failed','failed']])await rows(db,'INSERT INTO cms_email_outbox(receipt_key,recipient,subject,body,status,sent_at) VALUES(?,"followup@example.test",?,"Reply body <script> is escaped",?,IF(?="sent",UTC_TIMESTAMP(),NULL))',[prefix+key,'Workflow '+key+' reply',status,status]);
+  const timeline=await manager.get(`/admin/enquiries/${enquiryIds[0]}`).expect(200);assert.match(timeline.text,/Workflow sent reply/);assert.match(timeline.text,/Workflow failed reply/);assert.match(timeline.text,/>Sent</);assert.match(timeline.text,/>Failed</);assert.match(timeline.text,/Reply body &lt;script&gt; is escaped/);
+  const unsafe=await manager.get(`/admin/enquiries/${enquiryIds[0]}?return_to=${encodeURIComponent('https://evil.test/')}`).expect(200);assert.ok(!unsafe.text.includes('href="https://evil.test/"'));
+ }finally{
+  for(const id of enquiryIds){await rows(db,'DELETE FROM cms_email_outbox WHERE receipt_key LIKE ?',[`KEM-${String(id).padStart(6,'0')}-REPLY-%`]);await rows(db,'DELETE FROM cms_enquiries WHERE id=?',[id]);}for(const id of applicationIds)await rows(db,'DELETE FROM career_applications WHERE id=?',[id]);
+ }
+});
+
+test('Content revisions prevent stale saves, preserve history and restore earlier content only as a draft',async()=>{
+ let id,imageId,otherId,legalId;const csrf=csrfEditor;
+ try{
+  imageId=(await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt) VALUES("revision-fixture.webp","Revision fixture","image/webp",1,"A production scene")')).insertId;
+  const original={_csrf:csrf,type:'blog',title:'Revision safety original',summary:'Original summary',body:'Original <script> text stays escaped',image_id:imageId,status:'draft'};
+  await editor.post('/admin/blog/save').type('form').send(original).expect(302);id=(await rows(db,'SELECT id FROM cms_entries WHERE slug="revision-safety-original"'))[0].id;
+  const edit=await editor.get(`/admin/content/${id}`).expect(200);assert.match(edit.text,/name="revision" value="1"/);assert.match(edit.text,/Last edited/);
+  await admin.post('/admin/blog/save').type('form').send({...original,_csrf:csrfAdmin,id,revision:1,title:'A newer saved title',body:'Newer content',status:'published'}).expect(302);
+  const before=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[id]))[0];assert.equal(before.revision,2);
+  const stale=await editor.post('/admin/blog/save').set('Accept','application/json').type('form').send({...original,id,revision:1,title:'Stale title'}).expect(409);assert.equal(stale.body.code,'CONTENT_CONFLICT');assert.equal(stale.body.conflict.revision,2);
+  await editor.post('/admin/blog/save').type('form').send({...original,id,title:'Missing version'}).expect(409);
+  const after=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[id]))[0];assert.deepEqual(after,before);
+  const mediaBefore=(await rows(db,'SELECT COUNT(*) AS n FROM cms_media'))[0].n;
+  await editor.post('/admin/blog/save').field('_csrf',csrf).field('type','blog').field('id',String(id)).field('revision','1').field('title','Stale upload').field('status','draft').field('banner_alt','A scene').attach('image',Buffer.from('not-decoded-because-stale'),{filename:'stale.png',contentType:'image/png'}).expect(409);
+  assert.equal((await rows(db,'SELECT COUNT(*) AS n FROM cms_media'))[0].n,mediaBefore);
+  const race=await Promise.all([editor.post('/admin/blog/save').type('form').send({...original,id,revision:2,title:'Race one'}),admin.post('/admin/blog/save').type('form').send({...original,_csrf:csrfAdmin,id,revision:2,title:'Race two'})]);assert.deepEqual(race.map(response=>response.status).sort(),[302,409]);assert.equal((await rows(db,'SELECT revision FROM cms_entries WHERE id=?',[id]))[0].revision,3);
+  await editor.post('/admin/blog/save').type('form').send({...original,id,revision:3,title:'Latest published title',image_id:'',status:'published'}).expect(302);
+  const first=(await rows(db,'SELECT id FROM cms_entry_revisions WHERE content_id=? AND revision=1',[id]))[0];
+  const history=await editor.get(`/admin/content/${id}/revisions?version=1`).expect(200);assert.match(history.text,/Revision safety original/);assert.match(history.text,/Latest published title/);assert.match(history.text,/Original &lt;script&gt; text stays escaped/);assert.match(history.text,/hide this currently published item/);
+  await editor.post(`/admin/media/${imageId}/delete`).type('form').send({_csrf:csrf}).expect(409);
+  await editor.post('/admin/blog/save').type('form').send({...original,title:'Another revision record',image_id:''}).expect(302);otherId=(await rows(db,'SELECT id FROM cms_entries WHERE slug="another-revision-record"'))[0].id;const otherSnapshot=(await rows(db,'SELECT id FROM cms_entry_revisions WHERE content_id=?',[otherId]))[0].id;
+  const restore={_csrf:csrf,revision:4,snapshot_id:first.id,confirm_restore:'draft'};
+  await editor.post(`/admin/content/${id}/revisions/restore`).type('form').send({...restore,snapshot_id:otherSnapshot}).expect(404);
+  await editor.post(`/admin/content/${id}/revisions/restore`).type('form').send({...restore,revision:3}).expect(409);
+  await editor.post(`/admin/content/${id}/revisions/restore`).type('form').send({...restore,confirm_restore:''}).expect(422);
+  await editor.post(`/admin/content/${id}/revisions/restore`).type('form').send({revision:4,snapshot_id:first.id,confirm_restore:'draft'}).expect(403);
+  await manager.get(`/admin/content/${id}/revisions`).expect(403);await manager.get(`/admin/content/${id}/version`).expect(403);
+  await editor.post(`/admin/content/${id}/revisions/restore`).type('form').send(restore).expect(302);
+  const restored=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[id]))[0];assert.equal(restored.revision,5);assert.equal(restored.title,original.title);assert.equal(restored.status,'draft');assert.equal(restored.published_at,null);assert.equal(restored.slug,'revision-safety-original');assert.equal(restored.image_id,imageId);
+  assert.ok(!(await request(app).get('/api/site')).body.entries.some(entry=>entry.id===id));assert.equal((await rows(db,'SELECT COUNT(*) AS n FROM cms_entry_revisions WHERE content_id=?',[id]))[0].n,5);
+  await editor.post(`/admin/content/${id}/archive`).type('form').send({_csrf:csrf,revision:4}).expect(409);await editor.post(`/admin/content/${id}/archive`).type('form').send({_csrf:csrf,revision:5}).expect(302);
+  await editor.post('/admin/tables/content/bulk').type('form').send({_csrf:csrf,ids:[id],status:'draft'}).expect(302);assert.equal((await rows(db,'SELECT revision FROM cms_entries WHERE id=?',[id]))[0].revision,7);
+  await editor.post('/admin/blog/save').type('form').send({...original,id,revision:6}).expect(409);
+  const version=await editor.get(`/admin/content/${id}/version`).expect(200);assert.equal(version.body.revision,7);assert.ok(!('email' in version.body));
+  legalId=(await rows(db,'INSERT INTO cms_entries(type,title,slug,summary,body,metadata,status) VALUES("legal","Private legal revision test","private-legal-revision-test","","","{}","draft")')).insertId;await editor.get(`/admin/content/${legalId}/revisions`).expect(403);await admin.get(`/admin/content/${legalId}/version`).expect(403);
+ }finally{for(const entryId of [id,otherId,legalId].filter(Boolean))await rows(db,'DELETE FROM cms_entries WHERE id=?',[entryId]);if(imageId)await rows(db,'DELETE FROM cms_media WHERE id=?',[imageId]);}
+});
+
+test('Staff permissions reject direct reads, writes and exports outside each role',async()=>{
+ const adminOnly=['/admin/users','/admin/settings','/admin/talent','/admin/talent/enquiries','/admin/talent/projects','/admin/manage/legal','/admin/manage/hero','/admin/operations','/admin/email','/admin/audit','/admin/news-campaigns','/admin/newsletter','/admin/casting-application-settings','/admin/reports/activity','/admin/reports/registrations/download.csv'];
+ for(const [agent,csrf] of [[editor,csrfEditor],[manager,csrfManager]]){
+  for(const url of adminOnly)await agent.get(url).expect(403);
+  for(const url of ['/admin/users','/admin/users/1/access','/admin/users/1/toggle','/admin/settings','/admin/talent/1','/admin/enquiries/1/delete','/admin/kpi/settings','/admin/kpi/reports/1/approve','/admin/news-campaigns','/admin/news-campaigns/1/queue','/admin/tables/members/bulk'])await agent.post(url).type('form').send({_csrf:csrf}).expect(403);
+ }
+ for(const url of ['/admin/content','/admin/content/new','/admin/content/1','/admin/content/1/version','/admin/content/1/revisions','/admin/media','/admin/site-content','/admin/people','/admin/casting','/admin/casting-applications','/admin/production-epks/1','/admin/reports/content'])await manager.get(url).expect(403);
+ for(const url of ['/admin/content/save','/admin/content/1/delete','/admin/content/1/revisions/restore','/admin/media','/admin/media/1/delete','/admin/site-content/save','/admin/casting/save','/admin/tables/content/bulk'])await manager.post(url).type('form').send({_csrf:csrfManager}).expect(403);
+ for(const url of ['/admin/enquiries','/admin/enquiries/1','/admin/applications','/admin/applications/1/resume','/admin/replies/enquiry/1','/admin/kpi','/admin/reports/enquiries','/admin/reports/applications'])await editor.get(url).expect(403);
+ for(const url of ['/admin/enquiries/1','/admin/applications/1','/admin/replies/enquiry/1','/admin/tables/enquiries/bulk','/admin/tables/applications/bulk'])await editor.post(url).type('form').send({_csrf:csrfEditor}).expect(403);
+ for(const [agent,label] of [[admin,'Administrator'],[editor,'Editor'],[manager,'Enquiry manager']]){
+  const guide=await agent.get('/admin/permissions').expect(200);assert.ok(guide.text.includes(`Your role: ${label}`));assert.match(guide.text,/Staff permissions by role/);assert.ok(!guide.text.includes('password_hash'));
+ }
+ const denied=await editor.get('/admin/users').expect(403);assert.match(denied.text,/This action is restricted/);assert.match(denied.text,/View role permissions/);assert.match(denied.text,/CMS navigation/);
+ await request(app).get('/admin/permissions').expect(302).expect('Location','/admin/login');
+});
+
+test('Staff access changes are administrator-only, reject stale forms and revoke every affected session',async()=>{
+ const result=await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Access test','access-test@test.local',await hashPassword('A-secure-test-password'),'editor']);
+ const id=result.insertId;
+ const [first,firstCsrf]=await login('access-test'),[second]=await login('access-test');
+ const url=`/admin/users/${id}/access`;
+ const initial={_csrf:csrfAdmin,previous_role:'editor',previous_active:'1',role:'enquiry_manager',active:'1'};
+ await admin.post(url).type('form').send({...initial,_csrf:'bad'}).expect(403);
+ await first.post(url).type('form').send({...initial,_csrf:firstCsrf,role:'admin'}).expect(403);
+ await admin.post(url).type('form').send({...initial,role:'owner'}).expect(422);
+ await admin.post(url).type('form').send({...initial,active:'yes'}).expect(422);
+ await admin.post(url).type('form').send({...initial,previous_role:undefined}).expect(409);
+ await admin.post(url).type('form').send(initial).expect(302);
+ await first.get('/admin/content').expect(302).expect('Location','/admin/login');await second.get('/admin/enquiries').expect(302);
+ let [fresh]=await login('access-test');await fresh.get('/admin/content').expect(403);await fresh.get('/admin/enquiries').expect(200);
+ await admin.post(url).type('form').send({...initial,role:'admin'}).expect(409);
+ assert.equal((await rows(db,'SELECT role FROM cms_users WHERE id=?',[id]))[0].role,'enquiry_manager');
+ await admin.post(url).type('form').send({...initial,previous_role:'enquiry_manager',active:'0'}).expect(302);
+ await fresh.get('/admin/enquiries').expect(302);
+ await admin.post(url).type('form').send({...initial,previous_role:'enquiry_manager',previous_active:'0'}).expect(302);
+ await fresh.get('/admin/enquiries').expect(302); // Reenabling access must never revive an old session.
+ [fresh]=await login('access-test');await fresh.get('/admin/enquiries').expect(200);
+ const own=(await rows(db,"SELECT id FROM cms_users WHERE email='admin@test.local'"))[0];
+ await admin.post(`/admin/users/${own.id}/access`).type('form').send({...initial,previous_role:'admin',role:'editor'}).expect(422);
+ await admin.post('/admin/users/99999999/access').type('form').send(initial).expect(404);
+ const events=await rows(db,"SELECT action FROM cms_audit WHERE target_type='user' AND target_id=? AND action LIKE 'access_%'",[id]);assert.equal(events.length,3);
+ await rows(db,"DELETE FROM cms_sessions WHERE JSON_EXTRACT(data,'$.userId')=?",[id]);await rows(db,'DELETE FROM cms_users WHERE id=?',[id]);
+});
+
+test('Activity log filters staff, actions, modules and UTC dates with stable pagination and recorded change details',async()=>{
+ const actor=(await rows(db,"SELECT id FROM cms_users WHERE email='admin@test.local'"))[0].id;
+ const inserted=[];
+ try{
+  for(let i=0;i<32;i++)inserted.push((await rows(db,'INSERT INTO cms_audit(user_id,action,target_type,target_id,created_at,details) VALUES(?,?,?,?,?,?)',[i%2?null:actor,'audit_fixture','content',String(90000+i),i===31?'2026-05-03 00:00:00':'2026-05-02 23:59:59',i===0?JSON.stringify({changes:[{field:'Title',before:'<script>old</script>',after:'Unique audit title'},{field:'Body'}]}):null])).insertId);
+  const base='/admin/audit?action=audit_fixture&module=content&from=2026-05-02&to=2026-05-02';
+  const first=await admin.get(base).expect(200);assert.match(first.text,/31 matching events/);assert.match(first.text,/Page 1 of 2/);assert.ok(!first.text.includes('content / 90031'));
+  const second=await admin.get(base+'&p=2').expect(200);assert.match(second.text,/Page 2 of 2/);assert.match(second.text,/Unique audit title/);assert.ok(!second.text.includes('<script>old</script>'));assert.ok(second.text.includes('&lt;script&gt;old&lt;/script&gt;'));assert.match(second.text,/text is not copied/);
+  const search=await admin.get(base+'&q=Unique%20audit%20title').expect(200);assert.match(search.text,/1 matching event/);
+  const byStaff=await admin.get(base+`&actor=${actor}`).expect(200);assert.match(byStaff.text,/16 matching events/);
+  const noStaff=await admin.get(base+'&actor=system').expect(200);assert.match(noStaff.text,/15 matching events/);assert.match(noStaff.text,/System \/ member \/ unavailable/);
+  const empty=await admin.get(base+'&q=missing-fixture-value').expect(200);assert.match(empty.text,/No matching activity/);
+  for(const query of ['from=2026-02-30','from=2026-06-01&to=2026-05-01','actor=invalid'])await admin.get('/admin/audit?'+query).expect(422);
+  const contentResult=await admin.post('/admin/content/save').type('form').send({_csrf:csrfAdmin,type:'blog',title:'Audit tracked draft',slug:'audit-tracked-draft',summary:'Public summary',body:'Body not copied',status:'draft'}).expect(302);
+  const content=(await rows(db,"SELECT * FROM cms_entries WHERE slug='audit-tracked-draft'"))[0];
+  const audit=(await rows(db,"SELECT details FROM cms_audit WHERE target_type='content' AND target_id=? ORDER BY id DESC LIMIT 1",[content.id]))[0];
+  const encoded=typeof audit.details==='string'?audit.details:JSON.stringify(audit.details);assert.match(encoded,/Audit tracked draft/);assert.ok(!encoded.includes('Body not copied'));assert.match(encoded,/Publishing status/);
+  await rows(db,'DELETE FROM cms_entries WHERE id=?',[content.id]);
+ }finally{for(const id of inserted)await rows(db,'DELETE FROM cms_audit WHERE id=?',[id]);}
 });

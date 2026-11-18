@@ -1,0 +1,29 @@
+html[data-admin-theme] body #main .publishing-toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+html[data-admin-theme] body #main .publishing-edit-info{font-size:12px;color:#64748b;margin:4px 0 20px;line-height:1.6}
+html[data-admin-theme] body #main .publishing-newer-version{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:14px 16px;border:1px solid #93c5fd;border-radius:8px;background:#eff6ff;color:#1e3a8a;font-size:13px;margin-bottom:18px}
+html[data-admin-theme] body #main .publishing-newer-version a{color:#1d4ed8;text-decoration:underline;text-underline-offset:3px}
+html[data-admin-theme] body #main [data-publication-errors] button{background:#fff;color:#991b1b;border:0;min-height:30px;padding:4px 0;white-space:normal;text-align:left;text-decoration:underline;box-shadow:none}
+.publication-review-dialog{width:min(580px,calc(100% - 24px));max-height:90dvh;overflow:auto;padding:26px;border:1px solid #cbd5e1;border-radius:12px;background:#fff;color:#1f2937;font:400 14px/1.6 Inter,Arial,sans-serif}
+.publication-review-dialog::backdrop{background:#0f172a88}
+.publication-review-dialog h2{font-size:22px;line-height:1.3;letter-spacing:-.02em;margin:0 0 12px}
+.publication-review-dialog p{color:#64748b;margin-bottom:18px}
+.publication-review-details{display:grid;gap:12px;margin:18px 0}
+.publication-review-details>div{display:grid;grid-template-columns:140px minmax(0,1fr);gap:12px;border-bottom:1px solid #e2e8f0;padding-bottom:10px}
+.publication-review-details dt{font-size:12px;color:#64748b}.publication-review-details dd{margin:0;overflow-wrap:anywhere;font-weight:500}
+html[data-admin-theme] body.cms-authenticated .publication-review-dialog :is(button,button.quiet){background:#fff;background-image:none;border:1px solid #cbd5e1;border-radius:999px;color:#1f2937;box-shadow:none}
+html[data-admin-theme] body.cms-authenticated .publication-review-dialog button.publication-confirm{border:2px solid #2563eb;color:#1d4ed8;font-weight:600}
+.publication-review-dialog .button-row{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;flex-wrap:wrap}
+.publication-suggestions{border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;padding:12px 14px;font-size:12px;color:#475569}.publication-suggestions summary{cursor:pointer}.publication-suggestions ul{padding-left:18px;margin-bottom:0}
+html[data-admin-theme] body #main .revision-compare-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:20px 0;font-size:13px}
+html[data-admin-theme] body #main .revision-compare-heading p{margin:0}.revision-compare-heading label{margin:0}
+.revision-column-heading{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:14px 18px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px}
+.revision-field{border:1px solid #e2e8f0;border-radius:8px;margin:14px 0;overflow:hidden}
+html[data-admin-theme] body #main .revision-field>h2{font-size:13px;font-weight:600;padding:12px 18px;margin:0;background:#f8fafc;display:flex;align-items:center;gap:10px}
+.revision-field>h2>span{font-size:10px;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;background:#fff;padding:2px 7px;font-weight:500}
+.revision-field-values{display:grid;grid-template-columns:1fr 1fr}
+.revision-field-values>div{min-width:0;padding:18px;overflow-wrap:anywhere;font-size:13px;line-height:1.7}
+.revision-field-values>div+div{border-left:1px solid #e2e8f0}.revision-field-values p:last-child{margin-bottom:0}
+.revision-field-values img{display:block;max-width:100%;max-height:260px;object-fit:contain;margin-bottom:12px}
+.revision-mobile-label{display:none}.revision-restore .check{font-size:13px;line-height:1.7}
+html[data-admin-theme] body #main .publishing-conflict-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+@media(max-width:650px){.revision-field-values{grid-template-columns:1fr}.revision-field-values>div+div{border-left:0;border-top:1px solid #e2e8f0}.revision-column-heading{display:none}.revision-mobile-label{display:block;font-size:11px;color:#64748b;margin-bottom:10px}.publication-review-details>div{grid-template-columns:100px minmax(0,1fr)}.publication-review-dialog{padding:20px}}

@@ -11,7 +11,15 @@
     "test": "node --env-file=.env --test tests/*.test.js",
     "export": "node --env-file=.env src/export.js",
     "operations": "node --env-file-if-exists=.env src/operations-cli.js",
-    "check:browser": "node --env-file=.env scripts/browser-cms-check.mjs"
+    "check:browser": "node --env-file=.env scripts/browser-cms-check.mjs",
+    "check:admin-ui": "node scripts/check-admin-experience.mjs",
+    "check:publishing": "node scripts/check-publishing-tools.mjs",
+    "check:workflow": "node scripts/check-follow-up-workflow.mjs",
+    "check:publishing-safety": "node scripts/check-publishing-safety.mjs",
+    "check:staff-access": "node scripts/check-staff-access.mjs",
+    "check:audit-log": "node scripts/check-audit-log.mjs",
+    "check:accessibility": "node scripts/check-admin-accessibility.mjs",
+    "check:header": "node scripts/check-admin-header.mjs"
   },
   "engines": {
     "node": ">=22"

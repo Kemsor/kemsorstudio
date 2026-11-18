@@ -3,6 +3,7 @@ import {randomUUID} from 'node:crypto';
 import {rows,audit} from './db.js';
 import {canEnquire} from './security.js';
 import {mailConfiguration} from './mail.js';
+import {workflowReturn,workflowRecordUrl} from './follow-up.js';
 
 const resources={
  enquiry:{prefix:'KEM',table:'cms_enquiries',select:'SELECT id,name,email,subject,message FROM cms_enquiries WHERE id=?',back:'/admin/enquiries/'},
@@ -25,7 +26,8 @@ export function enquiryRepliesRouter(db,env=process.env){
  router.get('/admin/replies/:kind/:id',async(req,res)=>{
   const {record,resource,reference,kind}=req.reply;
   const replies=await rows(db,'SELECT subject,body,recipient,status,created_at,sent_at,last_error FROM cms_email_outbox WHERE receipt_key LIKE ? ORDER BY id DESC',[`${reference}-REPLY-%`]);
-  res.render('enquiry-reply',{record,reference,kind,replies,replyToken:randomUUID(),queued:req.query.queued==='1',configuration:mailConfiguration(env),back:resource.back+(kind==='talent'?'':record.id)});
+  const returnTo=kind!=='talent'&&typeof req.query.return_to==='string'?workflowReturn(req.query.return_to,kind):'';
+  res.render('enquiry-reply',{record,reference,kind,replies,replyToken:randomUUID(),queued:req.query.queued==='1',configuration:mailConfiguration(env),returnTo,back:kind==='talent'?resource.back:workflowRecordUrl(kind,record.id,returnTo)});
  });
  router.post('/admin/replies/:kind/:id',async(req,res)=>{
   const {record,resource,reference,kind}=req.reply;
@@ -51,7 +53,8 @@ export function enquiryRepliesRouter(db,env=process.env){
    }
    await connection.commit();
   }catch(error){await connection.rollback();throw error;}finally{connection.release();}
-  res.redirect(303,`/admin/replies/${kind}/${record.id}?queued=1`);
+  const query=new URLSearchParams({queued:'1'});const returnTo=req.body.return_to||req.query.return_to;if(kind!=='talent'&&returnTo)query.set('return_to',workflowReturn(returnTo,kind));
+  res.redirect(303,`/admin/replies/${kind}/${record.id}?${query}`);
  });
  return router;
 }

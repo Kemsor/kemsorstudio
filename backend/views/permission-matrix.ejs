@@ -1,0 +1,2 @@
+<% const matrixRoles=[user.role,...Object.keys(staffRoles).filter(key=>key!==user.role)]; %>
+<div class="table-wrap permissions-table"><table><caption>Staff permissions by role</caption><thead><tr><th scope="col">Area</th><% matrixRoles.forEach(key=>{ const label=staffRoles[key]; %><th scope="col"><%= label %><%= user.role===key?' (your role)':'' %></th><% }) %></tr></thead><tbody><% permissionGuide.forEach(item=>{ %><tr><th scope="row"><%= item.area %></th><% matrixRoles.forEach(key=>{ %><td><%= item[key] %></td><% }) %></tr><% }) %></tbody></table></div>

@@ -62,6 +62,7 @@ for(const textarea of document.querySelectorAll('textarea[data-rich-editor]')) {
  surface.addEventListener('click',event=>{if(event.target.closest('a'))event.preventDefault();});
  surface.addEventListener('paste',event=>{event.preventDefault();restore();document.execCommand('insertText',false,event.clipboardData.getData('text/plain'));remember();sync();});
  surface.addEventListener('drop',event=>event.preventDefault());
+ textarea.form?.addEventListener('admin:preview',event=>{if(!sync())event.preventDefault();});
  textarea.form?.addEventListener('submit',event=>{if(!sync()){event.preventDefault();event.stopImmediatePropagation();surface.hidden=false;preview.hidden=true;surface.focus();}},true);
  wrapper.append(toolbar,surface,preview,feedback,hidden);
  const label=textarea.closest('label');

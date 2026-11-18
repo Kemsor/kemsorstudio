@@ -1,0 +1,82 @@
+/* A quiet header with one consistent group of account controls. */
+html[data-admin-theme] body .cms-header{padding-inline:24px;gap:20px;border-bottom:1px solid #e2e8f0;background:#fff;box-shadow:none;flex-wrap:nowrap}
+html[data-admin-theme] body .cms-header .workspace-label{border-left:1px solid #e2e8f0;padding-left:20px;color:#475569;font-size:12px;letter-spacing:0}
+html[data-admin-theme] body .cms-header .account{display:flex;align-items:center;gap:12px;width:auto;margin-left:auto;flex-shrink:0}
+html[data-admin-theme] body .cms-header .admin-website-link{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:8px 12px;border:1px solid #e2e8f0;font-size:12px;font-weight:400;color:#334155;text-decoration:none;background:#fff}
+html[data-admin-theme] body .cms-header .header-profile-link{display:flex;align-items:center;gap:10px;padding:0 12px 0 16px;border-left:1px solid #e2e8f0;color:#1f2937;min-height:40px;text-decoration:none;max-width:230px}
+html[data-admin-theme] body .cms-header .header-profile-link .account-avatar{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:36px;height:36px;background:#eff6ff;color:#1d4ed8;border:1px solid #dbeafe;font-size:12px;font-weight:500;border-radius:50%}
+html[data-admin-theme] body .cms-header .account-copy{display:block;min-width:0;max-width:160px;line-height:1.4}
+html[data-admin-theme] body .cms-header .account-copy strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:500;color:#1f2937}
+html[data-admin-theme] body .cms-header .account-copy small{display:block;margin-top:2px;font-size:11px;color:#64748b;text-transform:none}
+html[data-admin-theme] body .cms-header :is(.sign-out,.admin-menu-toggle){display:inline-flex;align-items:center;justify-content:center;width:38px;min-width:38px;height:38px;min-height:38px;padding:0;border:1px solid #e2e8f0;background:#fff;color:#475569}
+html[data-admin-theme] body .cms-header .admin-menu-toggle{display:none}
+html[data-admin-theme] body .cms-header .notification-dropdown{position:relative;margin:0}
+html[data-admin-theme] body .cms-header .notification-dropdown>summary{position:relative;display:flex;align-items:center;justify-content:center;list-style:none;width:38px;min-width:38px;height:38px;min-height:38px;border:1px solid #e2e8f0;border-radius:50%;padding:0;background:#fff;color:#475569;cursor:pointer}
+html[data-admin-theme] body .cms-header .notification-dropdown>summary::-webkit-details-marker{display:none}
+html[data-admin-theme] body .cms-header .notification-dropdown[open]>summary{border-color:#2563eb;color:#1d4ed8;background:#eff6ff}
+html[data-admin-theme] body .cms-header .notification-count{position:absolute;top:-5px;right:-5px;display:flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;border:2px solid #fff;border-radius:999px;background:#dc2626;color:#fff;font-size:10px;font-weight:500;line-height:1}
+html[data-admin-theme] body .cms-header [data-notification-count][hidden]{display:none}
+html[data-admin-theme] body .cms-header .notification-popover{position:absolute;inset:calc(100% + 14px) 0 auto auto;display:flex;flex-direction:column;width:410px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 95px);margin:0;padding:0;border:1px solid #dbe3ee;border-radius:16px;background:#fff;color:#1f2937;box-shadow:0 16px 44px #0f172a1a;overflow:hidden;text-align:left;z-index:120}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 20px 14px;margin:0;border:0;background:#fff}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading strong{font-size:18px;font-weight:500;letter-spacing:-.02em;color:#1f2937}
+html[data-admin-theme] body .cms-header .notification-dropdown-heading small{font-size:12px;margin-top:4px;color:#64748b}
+html[data-admin-theme] body .cms-header .notification-close{width:32px;height:32px;min-height:32px;padding:0;border-color:#e2e8f0;flex-shrink:0}
+html[data-admin-theme] body .cms-header .notification-filter-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 20px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-size:12px}
+html[data-admin-theme] body .cms-header .notification-unread-toggle{min-height:30px;padding:4px 10px;font-size:11px;font-weight:400;border:1px solid #cbd5e1;background:#fff;color:#334155}
+html[data-admin-theme] body .cms-header .notification-unread-toggle[aria-pressed=true]{background:#fff;border-color:#2563eb;color:#1d4ed8}
+html[data-admin-theme] body .cms-header .notification-dropdown-list{overflow-y:auto;min-height:0;max-height:none;overscroll-behavior:contain;flex:1 1 auto;padding:0;margin:0}
+html[data-admin-theme] body .cms-header .notification-items{padding:0;margin:0}
+html[data-admin-theme] body .cms-header .notification-item{display:flex;align-items:flex-start;gap:12px;margin:0;padding:16px 20px;border:0;border-bottom:1px solid #eef2f6;border-radius:0;background:#fff}
+html[data-admin-theme] body .cms-header .notification-item:last-child{border-bottom:0}
+html[data-admin-theme] body .cms-header .notification-item:hover{background:#f8fafc}
+html[data-admin-theme] body .cms-header .notification-indicator{display:flex;align-items:center;justify-content:center;width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:#eff6ff;color:#2563eb}
+html[data-admin-theme] body .cms-header .notification-item.is-read .notification-indicator{background:#00ab84;color:#fff}
+html[data-admin-theme] body .cms-header .notification-content{flex:1;min-width:0}
+html[data-admin-theme] body .cms-header .notification-content>a{display:block;padding:0;min-height:0;color:#1f2937;text-decoration:none}
+html[data-admin-theme] body .cms-header .notification-content>a strong{display:block;font-size:13px;font-weight:500;line-height:1.5;overflow-wrap:anywhere}
+html[data-admin-theme] body .cms-header .notification-content>a span{display:block;font-size:12px;line-height:1.6;color:#475569;margin-top:3px;overflow-wrap:anywhere}
+html[data-admin-theme] body .cms-header .notification-content>small{font-size:10px;color:#64748b;margin-top:7px}
+html[data-admin-theme] body .cms-header .notification-status{display:inline-flex;margin-top:8px;padding:2px 7px;border-radius:999px;font-size:10px;line-height:1.5}
+html[data-admin-theme] body .cms-header .notification-status.is-unread{background:#dc2626;color:#fff}
+html[data-admin-theme] body .cms-header .notification-status.is-read{background:#00ab84;color:#fff}
+html[data-admin-theme] body .cms-header .notification-content form{margin:10px 0 0}
+html[data-admin-theme] body .cms-header .notification-popover button.notification-read{min-height:28px;padding:4px 10px;font-size:10px;font-weight:400}
+html[data-admin-theme] body .cms-header .notification-item .unread-dot{display:none}
+html[data-admin-theme] body .cms-header .notification-dropdown-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;border-top:1px solid #e2e8f0;padding:14px 16px;background:#fff;margin:0}
+html[data-admin-theme] body .cms-header .notification-dropdown-footer form{margin:0}
+html[data-admin-theme] body .cms-header .notification-dropdown-footer :is(.notification-mark-all,.notification-view){min-height:34px;padding:7px 11px;font-size:11px;font-weight:400;white-space:nowrap}
+html[data-admin-theme] body .cms-header .notification-dropdown-footer .notification-mark-all:disabled{opacity:.45;cursor:default}
+html[data-admin-theme] body .cms-header .notification-empty{padding:36px 24px;text-align:center;background:#fff}
+html[data-admin-theme] body .cms-header .notification-empty strong{display:block;font-size:14px;font-weight:500;margin-bottom:6px}
+html[data-admin-theme] body .cms-header .notification-empty p{font-size:12px;color:#64748b;margin:0;line-height:1.6}
+html[data-admin-theme] body .cms-header .notification-dropdown-error{flex-shrink:0;margin:0;padding:12px 20px;color:#991b1b;background:#fff;font-size:12px;border-top:1px solid #fecaca}
+@media(max-width:1039px){html[data-admin-theme] body .cms-header .admin-menu-toggle{display:inline-flex}html[data-admin-theme] body .cms-header .workspace-label{display:none}}
+@media(max-width:900px){html[data-admin-theme] body .cms-header .account-copy{display:none}html[data-admin-theme] body .cms-header .header-profile-link{padding-inline:8px;max-width:none}}
+@media(max-width:700px){
+ html[data-admin-theme] body .cms-header{padding-inline:14px;gap:12px}
+ html[data-admin-theme] body .cms-header .account{gap:8px}
+ html[data-admin-theme] body .cms-header .admin-website-link{width:36px;min-width:36px;min-height:36px;height:36px;padding:0;justify-content:center}
+ html[data-admin-theme] body .cms-header .admin-website-link span{display:none}
+ html[data-admin-theme] body .cms-header .header-profile-link{padding:0;border:0}
+ html[data-admin-theme] body .cms-header .notification-popover{position:fixed;inset:76px 12px auto;width:auto;max-width:none;max-height:calc(100dvh - 90px)}
+ html[data-admin-theme] body .cms-header .notification-dropdown-heading{padding:16px 16px 12px}
+ html[data-admin-theme] body .cms-header .notification-filter-bar{padding-inline:16px}
+ html[data-admin-theme] body .cms-header .notification-item{padding:14px 16px}
+}
+@media(max-width:380px){html[data-admin-theme] body .cms-header .admin-website-link{display:none}html[data-admin-theme] body .cms-header .account{gap:7px}html[data-admin-theme] body .cms-header .notification-dropdown-footer{flex-wrap:wrap}html[data-admin-theme] body .cms-header .notification-dropdown-footer>a{flex:1}}
+
+/* Keep inherited legacy header colours out of the notification surface. */
+html[data-admin-theme] body .cms-header .notification-popover{--studio-panel:#fff;--studio-raised:#f8fafc;--studio-ink:#1f2937;--studio-muted:#64748b;--studio-accent:#2563eb;--studio-accent-soft:#eff6ff;--studio-line:#e2e8f0}
+html[data-admin-theme] body .cms-header .notification-dropdown .notification-count{background:#dc2626;color:#fff;min-width:18px;height:18px;font-size:10px;font-weight:500;right:-5px;box-shadow:none;border-color:#fff}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item.is-unread{background:#fff}
+html[data-admin-theme] body .cms-header .notification-popover .notification-indicator{background:#eff6ff;color:#2563eb}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item.is-read .notification-indicator{background:#00ab84;color:#fff}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item a strong{color:#1f2937}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item a span{color:#475569}
+html[data-admin-theme] body .cms-header .notification-popover .notification-item small{color:#64748b;font-size:11px}
+html[data-admin-theme] body .cms-header .notification-popover .notification-content{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px}
+html[data-admin-theme] body .cms-header .notification-popover .notification-content>a{grid-column:1/-1}
+html[data-admin-theme] body .cms-header .notification-popover .notification-content>.notification-status{grid-column:2;grid-row:2;justify-self:end;align-self:center}
+html[data-admin-theme] body .cms-header .notification-popover .notification-content>small{grid-column:1;grid-row:2;align-self:center}
+html[data-admin-theme] body .cms-header .notification-popover .notification-content>form{grid-column:1/-1;margin-top:8px}
+html[data-admin-theme] body .cms-header .notification-popover button.notification-read{margin-top:0;font-size:11px;min-height:30px}

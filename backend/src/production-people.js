@@ -32,7 +32,7 @@ export function publicPeopleRouter(db,directory=websiteDirectory){
 }
 export function productionPeopleRouter(db){
  const router=Router();router.use('/admin/people',(req,res,next)=>canEdit(req.user)?next():next(Object.assign(new Error('Publishing access required.'),{status:403})));
- const media=()=>rows(db,"SELECT m.id,m.original_name FROM cms_media m WHERE m.mime LIKE 'image/%' AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC");
+ const media=()=>rows(db,"SELECT m.id,m.original_name,m.alt FROM cms_media m WHERE m.mime LIKE 'image/%' AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC");
  router.get('/admin/people',async(req,res)=>{const page=Math.max(1,Math.min(10000,Number.parseInt(req.query.page,10)||1));const people=await rows(db,'SELECT id,name,profession,status,slug FROM production_people ORDER BY id DESC LIMIT 31 OFFSET ?',[(page-1)*30]);res.render('production-people',{people:people.slice(0,30),page,hasMore:people.length>30});});
  router.get('/admin/people/new',async(req,res)=>res.render('production-person-edit',{person:{status:'draft'},media:await media()}));
  router.get('/admin/people/:id',async(req,res)=>{const person=(await rows(db,'SELECT * FROM production_people WHERE id=?',[req.params.id]))[0];ensure(person,'Person not found.',404);res.render('production-person-edit',{person,media:await media()});});

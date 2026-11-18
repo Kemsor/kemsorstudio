@@ -49,7 +49,7 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
      xhr.onload=()=>{let body;try{body=JSON.parse(xhr.responseText);}catch{reject(new Error('Upload could not be confirmed. Sign in again if needed, then retry.'));return;}if(xhr.status!==201){reject(new Error(body.error||'Upload failed. Please retry.'));return;}resolve(body);};
      xhr.onerror=()=>reject(new Error('Connection failed. Your form is kept; retry the upload.'));xhr.ontimeout=()=>reject(new Error('Upload timed out. Please retry.'));xhr.onabort=()=>reject(new Error('Upload cancelled.'));xhr.send(data);
     });
-    if(target.tagName==='SELECT'){const option=new Option(`${result.name} · ${result.alt}`,String(result.id),true,true);target.append(option);target.value=String(result.id);}else target.value=result.url;
+    if(target.tagName==='SELECT'){const option=new Option(`${result.name} · ${result.alt}`,String(result.id),true,true);option.dataset.mediaAlt=result.alt;option.dataset.mediaName=result.name;target.append(option);target.value=String(result.id);}else target.value=result.url;
     target.dispatchEvent(new Event('change',{bubbles:true}));target.dispatchEvent(new Event('input',{bubbles:true}));
     file.value='';state.pending=false;if(alt)alt.required=false;progress.value=100;status.textContent='Uploaded successfully. You can now save the rest of the form.';cancel.hidden=true;if(['captions','document'].includes(kind))preview.href=result.url;else preview.src=result.url;preview.hidden=false;
    }catch(error){status.textContent=error.message;}

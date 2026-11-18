@@ -919,3 +919,23 @@ Verify with `tests/casting-mail.test.js`, `tests/production-records.test.js`, an
 the isolated integration tests `Talent casting applications` and `Structured EPKs
 enforce`. Browser checks cover the editor, protected uploads, structured kit view /
 HTML download, private-link controls and email-delivery status on desktop/mobile.
+
+## Admin workspace release — 18 November 2026
+
+The admin now includes compact searchable tables, follow-up ownership and queues,
+responsive publishing previews, media usage protection, saved content revisions,
+optimistic save guards, staff role management, and a searchable activity log.
+The shared interface uses the approved charcoal/orange reference, Pantone Green C
+Save buttons with white text, white form fields, and a compact notification preview.
+
+Apply migrations `031_follow_up_workflow.sql`, `032_content_revision_safety.sql`,
+and `033_audit_change_details.sql` before starting this release. They add workflow
+fields, content revision snapshots, audit details, and indexes; existing content
+is preserved. The root `npm start` already runs setup before starting the server.
+Existing installations must provide the configured migration account for schema
+changes; never replace the live database or upload local `.env`/storage files.
+
+Validation: `cd backend && npm test` (158 tests), plus the `check:admin-ui`,
+`check:workflow`, `check:publishing`, `check:publishing-safety`, `check:staff-access`,
+`check:audit-log`, `check:accessibility`, and `check:header` browser commands.
+Browser checks use isolated fixtures, not production content or accounts.

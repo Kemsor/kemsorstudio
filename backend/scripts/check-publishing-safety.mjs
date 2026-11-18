@@ -1,0 +1,54 @@
+// Two browser tabs use real publishing templates and scripts against an isolated fixture server.
+import assert from 'node:assert/strict';
+import express from 'express';
+import multer from 'multer';
+import ejs from 'ejs';
+import {chromium} from 'playwright';
+import {mkdtemp,readFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {adminIcon} from '../src/icons.js';
+import {entrySnapshot,requireEntryRevision,revisionComparison,revisionBody} from '../src/content-revisions.js';
+import {richTextPlain,richTextHtml,plainRichText} from '../public/rich-text-core.js';
+const backend=path.resolve(import.meta.dirname,'..'),app=express(),writes=[];
+const stamp=()=>new Date().toISOString().slice(0,19).replace('T',' ');
+let entry={id:1,type:'blog',title:'Original saved story',slug:'original-story',summary:'An editorial summary',body:'Original content',image_id:1,metadata:{category:'Studio notes',rich_text:plainRichText('Original content')},status:'draft',revision:1,updated_at:stamp(),last_editor:'First editor'};
+const snapshots=[{id:1,revision:1,action:'save-draft',snapshot:entrySnapshot(entry),created_at:stamp(),editor:'First editor'}];
+const locals={title:'Publishing safety check',user:{id:1,name:'Test Editor',role:'editor'},csrf:'fixture-token',unreadCount:0,notifications:[],websiteUrl:'/',currentPath:'/admin/content',currentType:'blog',types:{blog:'Blog'},saved:false,adminIcon,richTextHtml};
+const media=[{id:1,original_name:'scene.webp',alt:'A scene on the film set'},{id:2,original_name:'missing-description.webp',alt:''}];
+const render=(name,data)=>ejs.renderFile(path.join(backend,'views',name+'.ejs'),{...locals,...data});
+const record=action=>snapshots.push({id:entry.revision,revision:entry.revision,action,snapshot:entrySnapshot(entry),created_at:stamp(),editor:entry.last_editor});
+const conflict=(res,error)=>res.status(error.status||500).json({error:error.message,code:error.code,conflict:error.conflict,fields:{}});
+app.use(express.static(path.join(backend,'public')));app.use(express.urlencoded({extended:false}));
+app.get('/api/csrf',(_req,res)=>res.json({token:'fixture-token'}));
+app.get('/admin/content/1/version',(_req,res)=>res.json({revision:entry.revision,updatedAt:entry.updated_at,editor:entry.last_editor,editorUrl:'/admin/content/1',historyUrl:'/admin/content/1/revisions'}));
+app.get('/admin/content/1',async(req,res,next)=>{try{res.send(await render('blog-edit',{entry,media,saved:req.query.saved==='1'}));}catch(error){next(error);}});
+app.get('/admin/content',async(req,res)=>res.send(await render('head',{saved:true})+'<h1>Saved content</h1><a href="/admin/content/1">Open editor</a>'+await render('foot',{})));
+app.post('/admin/blog/save',multer().none(),(req,res)=>{try{
+ requireEntryRevision(entry,req.body.revision);writes.push('save');const values=req.body;
+ entry={...entry,title:values.title,summary:values.summary,body:values.rich_text?richTextPlain(values.rich_text):values.body,image_id:values.image_id?Number(values.image_id):null,metadata:{category:values.category,rich_text:values.rich_text?JSON.parse(values.rich_text):plainRichText(values.body)},status:values.publish_action||values.status,revision:entry.revision+1,updated_at:stamp(),last_editor:'Another editor'};record(entry.status==='published'?'publish':'save-draft');res.redirect('/admin/content?type=blog&saved=1');
+}catch(error){conflict(res,error);}});
+app.get('/admin/content/1/revisions',async(req,res,next)=>{try{const selected=snapshots.find(snapshot=>String(snapshot.id)===String(req.query.revision||req.query.version||1)),previous=selected.snapshot,current=entrySnapshot(entry);res.send(await render('content-revisions',{entry,revisions:[...snapshots].reverse(),selected,previous,current,comparison:revisionComparison(previous,current),revisionBody}));}catch(error){next(error);}});
+app.post('/admin/content/1/revisions/restore',multer().none(),(req,res)=>{try{requireEntryRevision(entry,req.body.revision);assert.equal(req.body.confirm_restore,'draft');const selected=snapshots.find(snapshot=>snapshot.id===Number(req.body.snapshot_id));writes.push('restore');entry={...entry,...selected.snapshot,slug:entry.slug,status:'draft',published_at:null,revision:entry.revision+1,updated_at:stamp(),last_editor:'Test Editor'};record('restore-draft');res.redirect('/admin/content/1?saved=1');}catch(error){conflict(res,error);}});
+app.get('/media/:id',(_req,res)=>res.type('png').send(Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWN4O83kPwgzwBgAYgIK2V6WzBUAAAAASUVORK5CYII=','base64')));
+const server=app.listen(0,'127.0.0.1');await new Promise(resolve=>server.once('listening',resolve));const base=`http://127.0.0.1:${server.address().port}`,screenshots=await mkdtemp(path.join(tmpdir(),'kemsor-publishing-safety-'));let browser;
+try{
+ browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true}),errors=[];await context.route(/fonts\.(googleapis|gstatic)\.com/,route=>route.abort());
+ const first=await context.newPage(),second=await context.newPage();for(const page of [first,second])page.on('pageerror',error=>errors.push(error.message));
+ await first.goto(base+'/admin/content/1');await first.locator('.rich-editor-surface').waitFor();await first.locator('input[name=title]').fill('My unsaved working title');
+ await second.goto(base+'/admin/content/1');await second.locator('.rich-editor-surface').waitFor();await second.locator('input[name=title]').fill('Saved by another editor');
+ await second.getByRole('button',{name:'Publish blog post',exact:true}).click();const review=second.getByRole('dialog',{name:'Review publication'});await review.waitFor();assert.deepEqual(writes,[]);assert.equal(await review.getByText('Saved by another editor',{exact:true}).count(),1);
+ for(const width of [1440,390]){await second.setViewportSize({width,height:1000});for(const theme of ['light','dark']){await second.evaluate(theme=>document.documentElement.dataset.adminTheme=theme,theme);assert.equal(await review.getByRole('button',{name:'Publish now',exact:true}).evaluate(n=>getComputedStyle(n).backgroundColor),'rgb(255, 255, 255)');}await second.screenshot({path:path.join(screenshots,`publish-review-${width}.png`)});}
+ await review.getByRole('button',{name:'Keep editing',exact:true}).click();assert.deepEqual(writes,[]);await second.getByRole('button',{name:'Publish blog post',exact:true}).click();await second.getByRole('button',{name:'Publish now',exact:true}).click();await second.waitForURL('**/admin/content?**saved=1');assert.equal(entry.status,'published');assert.equal(entry.revision,2);
+ await first.bringToFront();await first.evaluate(()=>dispatchEvent(new Event('focus')));await first.locator('[data-newer-version]').waitFor();assert.equal(await first.locator('input[name=title]').inputValue(),'My unsaved working title');assert.equal(await first.locator('input[name=revision]').inputValue(),'1');
+ await first.getByRole('button',{name:'Save draft',exact:true}).click();await first.getByText('Newer saved version detected.',{exact:true}).waitFor();assert.equal(entry.title,'Saved by another editor');assert.equal(writes.length,1);assert.equal(await first.locator('input[name=title]').inputValue(),'My unsaved working title');
+ const downloadEvent=first.waitForEvent('download');await first.getByRole('button',{name:'Download my unsaved copy',exact:true}).click();const download=await downloadEvent;const copy=JSON.parse(await readFile(await download.path(),'utf8'));assert.equal(copy.fields.title,'My unsaved working title');assert.ok(!('_csrf' in copy.fields));assert.ok(copy.fields.rich_text);
+ await first.screenshot({path:path.join(screenshots,'conflict-keeps-draft.png'),fullPage:true});
+ const history=await context.newPage();history.on('pageerror',error=>errors.push(error.message));await history.goto(base+'/admin/content/1/revisions?version=1');await history.getByRole('heading',{name:'Saved revisions',exact:true}).waitFor();assert.equal(await history.locator('.revision-field.is-changed').count()>0,true);assert.equal(await history.locator('.revision-field.is-unchanged:visible').count(),0);await history.getByLabel('Show changed fields only').uncheck();assert.ok(await history.locator('.revision-field.is-unchanged:visible').count()>0);
+ for(const width of [1440,390]){await history.setViewportSize({width,height:1000});await history.waitForFunction(()=>innerWidth>1039||document.querySelector('.cms-nav').getBoundingClientRect().right<=1);assert.equal(await history.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await history.evaluate(()=>scrollTo(0,0));await history.screenshot({path:path.join(screenshots,`revision-compare-${width}.png`),fullPage:true});}
+ await history.getByRole('button',{name:'Restore as draft',exact:true}).click();assert.equal(writes.length,1);await history.locator('input[name=confirm_restore]').check();await history.getByRole('button',{name:'Restore as draft',exact:true}).click();await history.waitForURL('**/admin/content/1?saved=1');assert.equal(entry.title,'Original saved story');assert.equal(entry.status,'draft');assert.equal(entry.revision,3);assert.equal(snapshots.length,3);
+ const fresh=await context.newPage();fresh.on('pageerror',error=>errors.push(error.message));await fresh.goto(base+'/admin/content/1');await fresh.locator('.rich-editor-surface').waitFor();await fresh.locator('input[name=title]').fill('');await fresh.getByRole('button',{name:'Publish blog post',exact:true}).click();await fresh.getByText('Complete the required publishing details.',{exact:true}).waitFor();assert.equal(await fresh.getByRole('dialog',{name:'Review publication'}).count(),0);assert.equal(writes.length,2);
+ await fresh.locator('input[name=title]').fill('A title');await fresh.locator('select[name=image_id]').selectOption('2');await fresh.getByRole('button',{name:'Publish blog post',exact:true}).click();await fresh.getByRole('button',{name:/This image has no description/}).waitFor();assert.equal(writes.length,2);
+ await fresh.locator('select[name=image_id]').selectOption('1');await fresh.getByRole('button',{name:'Save draft',exact:true}).click();await fresh.waitForURL('**/admin/content?**saved=1');assert.equal(entry.status,'draft');assert.equal(entry.revision,4);
+ assert.deepEqual(errors,[]);console.log('Passed: two-tab version warnings, stale-save rejection, unsaved-copy download without CSRF, publish review/cancel, required-field checks, direct draft saving, revision comparison and confirmed draft restoration; desktop and mobile layouts.');console.log(`Screenshots: ${screenshots}`);
+}finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
