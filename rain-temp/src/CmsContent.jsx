@@ -13,7 +13,16 @@ export const cmsApi = api;
 export function CmsProvider({ children }) {
   const [content, setContent] = useState({ entries: [], settings: {}, connected: false });
   useEffect(() => {
-    let current;
+    let current, publishedModules={}, previewValues=null;
+    const previewKey=new URLSearchParams(location.search).get('admin_preview');
+    const applyModules=()=>setSiteModules(previewValues?{...publishedModules,[previewKey]:previewValues}:publishedModules);
+    const previewMessage=event=>{
+      if(previewKey!=='copy:BudgetingSchedulingPage'||window.parent===window||event.origin!==location.origin||event.source!==window.parent||event.data?.type!=='kemsor-copy-preview'||event.data.moduleKey!==previewKey)return;
+      const values=event.data.values;if(!values||typeof values!=='object'||Array.isArray(values))return;
+      previewValues=Object.fromEntries(Object.entries(values).filter(([key,value])=>/^[a-f0-9]{16}$/.test(key)&&typeof value==='string'&&value.length<=12000));applyModules();setContent(previous=>({...previous}));
+    };
+    window.addEventListener('message',previewMessage);
+    if(previewKey==='copy:BudgetingSchedulingPage'&&window.parent!==window)window.parent.postMessage({type:'kemsor-preview-ready'},location.origin);
     const refresh = async () => {
       if (document.hidden) return;
       current?.abort(); const controller=new AbortController();current=controller;
@@ -26,14 +35,14 @@ export function CmsProvider({ children }) {
         while(next){if(cursors.has(next))throw new Error('Repeated content cursor');cursors.add(next);const batchResponse=await fetch(`${api}/site?cursor=${encodeURIComponent(next)}`,{signal:controller.signal,credentials:'same-origin'});if(!batchResponse.ok)throw new Error('Content batch unavailable');const batch=await batchResponse.json();all.push(...batch.entries);next=batch.nextCursor;}
         data.entries=[...new Map(all.map(entry=>[entry.id,entry])).values()];
 
-        if(current===controller&&Array.isArray(data.entries)){setSiteModules(data.siteModules);setContent({ ...data, connected: true });}
+        if(current===controller&&Array.isArray(data.entries)){publishedModules=data.siteModules||{};applyModules();setContent({ ...data, connected: true });}
       } catch { /* Keep the supplied website content available if the API is offline. */ }
       finally { clearTimeout(timeout); }
     };
     const onVisible=()=>{if(!document.hidden)refresh();};
     const timer=setInterval(onVisible,30000);
     refresh(); window.addEventListener('focus', refresh);document.addEventListener('visibilitychange',onVisible);
-    return () => { current?.abort();clearInterval(timer);window.removeEventListener('focus',refresh);document.removeEventListener('visibilitychange',onVisible); };
+    return () => { window.removeEventListener('message',previewMessage);current?.abort();clearInterval(timer);window.removeEventListener('focus',refresh);document.removeEventListener('visibilitychange',onVisible); };
   }, []);
   return <ContentContext.Provider value={content}>{children}</ContentContext.Provider>;
 }

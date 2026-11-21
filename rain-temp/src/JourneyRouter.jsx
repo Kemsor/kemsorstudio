@@ -3,9 +3,9 @@ import SiteIcon from './SiteIcon';
 import './journey-router.css';
 
 const routes = [
- {theme:'idea',icon:'script',title:'I have a script or idea',action:'Script to Production',href:'/script-to-production/'},
+ {theme:'idea',icon:'script',title:'I have a script or idea',action:'FilmDesk',href:'/filmdesk/'},
  {theme:'production',icon:'film',title:'I need a production partner',action:'Production services',href:'#services'},
- {theme:'partnership',icon:'partnership',title:'I’m a financier or platform',action:'Business & Partnerships',href:'/contact/?partner=co-producers'},
+ {theme:'partnership',icon:'partnership',title:'I’m a financier or platform',action:'Business & Partnerships',href:'/contact/?category=financing#project-brief'},
  {theme:'india',icon:'location',title:'I’m filming in India',action:'India Production Services',href:'/india-production-services/'},
 ];
 export default function JourneyRouter(){

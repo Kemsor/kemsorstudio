@@ -5,8 +5,9 @@
 <%- include('publishing-toolbar') %><div class="field-grid">
 <label>Opportunity title<input name="title" value="<%= entry.title || '' %>" required maxlength="200"></label>
 <label>Slug (automatic)<input data-auto-slug data-existing-slug="<%= entry.slug || '' %>" value="<%= entry.slug || '' %>" readonly placeholder="Generated from the title"><small><%= entry.id?'Kept unchanged to preserve existing links.':'Generated automatically when saved.' %></small></label>
-<label>Employment / engagement type<input name="role" value="<%= entry.metadata.role || '' %>" maxlength="200" placeholder="e.g. Full-time, freelance, project-based"></label>
-<label>Location<input name="location" value="<%= entry.metadata.location || '' %>" maxlength="200" placeholder="e.g. Mumbai or remote"></label>
+<label>Employment / engagement type<select name="role"><option value="">Choose employment type</option><% if(entry.metadata.role&&!careerOptions.employmentTypes.includes(entry.metadata.role)){ %><option value="<%= entry.metadata.role %>" selected><%= entry.metadata.role %> (existing value)</option><% } %><% careerOptions.employmentTypes.forEach(value=>{ %><option value="<%= value %>" <%= entry.metadata.role===value?'selected':'' %>><%= value %></option><% }) %></select></label>
+<label>Work arrangement<select name="work_arrangement"><option value="">Choose work arrangement</option><% careerOptions.workArrangements.forEach(value=>{ %><option value="<%= value %>" <%= entry.metadata.work_arrangement===value?'selected':'' %>><%= value %></option><% }) %></select><small>On-site, hybrid or remote—separate from the employment type.</small></label>
+<label>Location<input name="location" value="<%= entry.metadata.location || '' %>" maxlength="200" placeholder="e.g. Mumbai, Dehradun or India"></label>
 <label>Department / listing label<input name="category" value="<%= entry.metadata.category || '' %>" maxlength="200" placeholder="e.g. Production, post-production"></label>
 <label>Publishing status<select name="status"><% ['draft','published','archived'].forEach(status=>{ %><option value="<%= status %>" <%= entry.status===status?'selected':'' %>><%= status %></option><% }) %></select></label>
 <label class="wide">Short description<textarea name="summary" rows="3" maxlength="2000"><%= entry.summary || '' %></textarea></label>

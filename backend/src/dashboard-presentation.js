@@ -35,6 +35,7 @@ export function activityTarget(event,user){
  const type={enquiries:'enquiry',applications:'career_application',members:'talent'}[event.target_type]||event.target_type;
  const target=targets[type];
  if(target?.allowed&&valid)return {...target,id,href:/^delete/.test(event.action)?target.list:(target.detail?target.detail+id:target.list)};
+ if(['blog_category','news_category'].includes(type)&&canEdit(user))return {label:type==='blog_category'?'Blog category':'News category',href:`/admin/${type==='blog_category'?'blog':'news'}-categories/manage`};
  if(type==='settings'&&user.role==='admin')return {label:'Site settings',href:'/admin/settings'};
  if(type==='site_content'&&canEdit(user))return {label:'Website content',href:'/admin/site-content'};
  if(type==='user'&&valid&&(id===user.id||user.role==='admin'))return {label:'Admin account',href:id===user.id?'/admin/profile':'/admin/users'};

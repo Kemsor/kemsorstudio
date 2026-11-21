@@ -1,3 +1,4 @@
+import {pageInfo} from './pageInfo';
 import {personSeo} from './personSeo';
 import {productionSeo} from './productionSeo';
 import {legalHref,legalSlug} from './LegalDocument';
@@ -11,8 +12,8 @@ export default function SeoMetadata({ page }) {
  const slug=page==='privacy-policy'?'privacy-policy':page==='legal'?legalSlug(location.pathname):null;
  const documentInfo=legalDocuments?.find(item=>item.slug===slug);
  const sections = entries.filter(entry => entry.type === 'page' && (entry.metadata?.page==='news'?'press-media':entry.metadata?.page) === page);
- const title = documentInfo?.title ? `${documentInfo.title} | Kemsor Studios` : sections.find(entry => entry.metadata?.seo_title)?.metadata.seo_title;
- const description = documentInfo?.description || sections.find(entry => entry.metadata?.seo_description)?.metadata.seo_description;
+ const title = page==='privacy-policy' ? pageInfo[page].title : documentInfo?.title ? `${documentInfo.title} | Kemsor Studios` : sections.find(entry => entry.metadata?.seo_title)?.metadata.seo_title;
+ const description = (page==='privacy-policy' ? pageInfo[page].description : documentInfo?.description) || sections.find(entry => entry.metadata?.seo_description)?.metadata.seo_description;
  useEffect(() => {
   const production=page==='production-detail'?JSON.parse(document.getElementById('production-record')?.textContent||'null'):null;
   const person=page==='person-detail'?JSON.parse(document.getElementById('person-record')?.textContent||'null'):null;

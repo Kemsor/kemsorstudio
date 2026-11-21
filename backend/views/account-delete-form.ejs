@@ -1,0 +1,5 @@
+<form action="<%= deleteUrl %>" method="post" class="account-delete-form">
+<input type="hidden" name="_csrf" value="<%= csrf %>"><% Object.entries(confirmationFields).forEach(([key,value])=>{ %><input type="hidden" name="<%= key %>" value="<%= value %>"><% }) %>
+<label class="check"><input type="checkbox" name="confirm_delete" value="delete" required> I understand that <%= accountName %> will be permanently deleted.</label>
+<button class="delete-blog"><%= deleteLabel %></button>
+</form>

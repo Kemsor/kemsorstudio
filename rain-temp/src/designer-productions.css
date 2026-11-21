@@ -82,3 +82,5 @@ html body #top.creative-site #main #productions.motion-work p{font:400 14px/1.7 
 
 #productions.motion-work .mw-card.mw-poster{background:#100e0b}
 #productions.motion-work .mw-card.mw-poster>img{object-fit:contain;object-position:center;filter:none}
+
+#productions.motion-work .mw-release-title{margin:0 0 12px;color:#e5b765;text-align:center;font:500 clamp(14px,1.2vw,18px)/1.5 Inter,sans-serif;letter-spacing:0;text-transform:none}

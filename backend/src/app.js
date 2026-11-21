@@ -1,3 +1,4 @@
+import {adminBreadcrumbs} from './admin-breadcrumbs.js';
 import {publicEpkRouter,epkAdminRouter} from './production-epk.js';
 import {productionExtraHtml} from './production-extra-html.js';
 import {publicPeopleRouter,productionPeopleRouter} from './production-people.js';
@@ -38,6 +39,9 @@ import {contentRevisionsRouter,requireEntryRevision,captureEntryRevision} from '
 import {tableView,bulkRouter} from './admin-tables.js';
 import {workflowFilters,followUpOrder,followUpState,workflowReturn,workflowRecordUrl,workflowDetails,workflowChanges,workflowSummary,recordTimeline} from './follow-up.js';
 import {auditLogRouter,contentAuditDetails} from './audit-log.js';
+import {publishingCategoriesRouter,categoryChoices,categoryMetadata,lockCategorySelection} from './publishing-categories.js';
+import {careerOptions,careerFields} from './career-fields.js';
+import {accountDeletionRouter} from './account-deletion.js';
 import { adminIcon } from './icons.js';
 import {staffAccessRouter,staffRoles,permissionGuide} from './staff-access.js';
 
@@ -68,6 +72,7 @@ async function fileSave(file, extension) {
 export function createApp(db, options={}) {
   const app=express();
   app.locals.adminIcon = adminIcon;
+  app.locals.careerOptions=careerOptions;
   app.locals.workflowRecordUrl=workflowRecordUrl;
   app.locals.productionExtraHtml=productionExtraHtml;
   app.locals.richTextHtml=richTextHtml;
@@ -92,7 +97,7 @@ export function createApp(db, options={}) {
     try {
       req.user=req.session.userId ? (await rows(db,'SELECT id,name,email,role,active FROM cms_users WHERE id=? AND active=1',[req.session.userId]))[0] : null;
       if(req.path.startsWith('/admin') || req.path==='/api/csrf')req.session.csrf ||= token();
-      res.locals={...res.locals,user:req.user,csrf:req.session.csrf,types,categories,statuses,contentPages,websiteUrl:process.env.WEBSITE_URL || 'http://127.0.0.1:3007',title:'Kemsor CMS',saved:req.query.saved==='1',currentPath:req.path,currentType:req.query.type || '',notifications:[],unreadCount:0};
+      res.locals={...res.locals,user:req.user,csrf:req.session.csrf,types,categories,statuses,contentPages,websiteUrl:process.env.WEBSITE_URL || 'http://127.0.0.1:3007',title:'Kemsor CMS',saved:req.query.saved==='1',adminBreadcrumbs:context=>adminBreadcrumbs(req.path,req.query,context),currentPath:req.path,currentType:req.query.type || '',notifications:[],unreadCount:0};
       if(req.path.startsWith('/admin') && !['/admin/login','/admin/mfa'].includes(req.path) && !req.user)return res.redirect('/admin/login');
       if(req.user && req.path.startsWith('/admin') && req.method==='GET'){
         res.locals.notifications=await notifications(db,req.user);
@@ -101,7 +106,7 @@ export function createApp(db, options={}) {
       next();
     }catch(error){next(error);}
   });
-  const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:50*1024*1024,files:1,fields:25,fieldSize:70000}}).fields([{name:'image',maxCount:1},{name:'attachment',maxCount:1}]);
+  const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:50*1024*1024,files:1,fields:64,fieldSize:70000}}).fields([{name:'image',maxCount:1},{name:'attachment',maxCount:1}]);
   const siteUpload=multer({storage:multer.memoryStorage(),limits:{fileSize:50*1024*1024,files:1,fields:2000,fieldSize:70000}}).fields([{name:'image',maxCount:1},{name:'attachment',maxCount:1}]);
   const kpiUpload=multer({limits:{files:0,fields:100,fieldSize:70000}}).none();
   app.use((req,res,next)=>req.is('multipart/form-data') ? (req.path==='/admin/site-content/save'?siteUpload:req.path.startsWith('/admin/kpi/')||req.path==='/admin/settings'?kpiUpload:upload)(req,res,next) : next());
@@ -188,7 +193,8 @@ export function createApp(db, options={}) {
     }next();
   });
   app.use(contentRevisionsRouter(db));
-  app.get('/admin/content/new',editor,(req,res,next)=>{if(req.query.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);return res.redirect('/admin/manage/legal');}next();},async(req,res)=>res.render(req.query.type==='blog'?'blog-edit':req.query.type==='news'?'news-edit':req.query.type==='career'?'career-edit':'edit',{entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{page:req.query.type==='page'&&contentPageKeys.includes(req.query.page)?req.query.page:''}},media:await rows(db,'SELECT m.* FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')}));
+  app.use(publishingCategoriesRouter(db));
+  app.get('/admin/content/new',editor,(req,res,next)=>{if(req.query.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);return res.redirect('/admin/manage/legal');}next();},async(req,res)=>res.render(req.query.type==='blog'?'blog-edit':req.query.type==='news'?'news-edit':req.query.type==='career'?'career-edit':'edit',{blogCategories:['blog','news'].includes(req.query.type)?await categoryChoices(db,req.query.type):[],entry:{type:Object.hasOwn(types,req.query.type)?req.query.type:'news',status:'draft',metadata:{page:req.query.type==='page'&&contentPageKeys.includes(req.query.page)?req.query.page:''}},media:await rows(db,'SELECT m.* FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')}));
   app.get('/admin/content/:id/preview',editor,async(req,res)=>{
     const entry=(await rows(db,'SELECT * FROM cms_entries WHERE id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
     if(entry.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);const managed=(await rows(db,"SELECT id FROM cms_managed_content WHERE kind='legal' AND slug=?",[entry.slug]))[0];return res.redirect(managed?`/admin/manage/legal/${managed.id}${req.path.endsWith('/preview')?'/preview':''}`:'/admin/manage/legal');}
@@ -199,7 +205,7 @@ export function createApp(db, options={}) {
   app.get('/admin/content/:id',editor,async(req,res)=>{
     const entry=(await rows(db,'SELECT e.*,u.name AS last_editor FROM cms_entries e LEFT JOIN cms_users u ON u.id=e.updated_by WHERE e.id=?',[req.params.id]))[0];ensure(entry,'Content not found.',404);entry.metadata=json(entry.metadata);
     if(entry.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);const managed=(await rows(db,"SELECT id FROM cms_managed_content WHERE kind='legal' AND slug=?",[entry.slug]))[0];return res.redirect(managed?`/admin/manage/legal/${managed.id}${req.path.endsWith('/preview')?'/preview':''}`:'/admin/manage/legal');}
-    res.render(entry.type==='blog'?'blog-edit':entry.type==='news'?'news-edit':entry.type==='career'?'career-edit':'edit',{entry,media:await rows(db,'SELECT m.* FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')});
+    res.render(entry.type==='blog'?'blog-edit':entry.type==='news'?'news-edit':entry.type==='career'?'career-edit':'edit',{entry,blogCategories:['blog','news'].includes(entry.type)?await categoryChoices(db,entry.type,entry.metadata):[],media:await rows(db,'SELECT m.* FROM cms_media m WHERE m.mime LIKE "image/%" AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id) ORDER BY m.id DESC')});
   });
   app.post(['/admin/content/save','/admin/blog/save','/admin/career/save','/admin/news/save'],editor,async(req,res)=>{
     const b=req.body,type=b.type;
@@ -225,15 +231,14 @@ export function createApp(db, options={}) {
     const summary=text(b.summary,2000,'Summary'),body=text(richText?richTextPlain(richText):b.body,60000,'Body');ensure(['draft','published','archived'].includes(b.status),'Choose a valid publishing status.');
     const metadata={};for(const key of (['blog','news'].includes(type)?['seo_title','seo_description']:type==='career'?['category','role','location']:['category','role','location','page','seo_title','seo_description']))metadata[key]=text(b[key],key==='seo_description'?300:200,key);
     if(richText)metadata.rich_text=richText;
-    if(type==='blog')metadata.category=text(b.category,100,'Blog category')||'Studio notes';
+    if(type==='career')Object.assign(metadata,careerFields(b,previousEntry?json(previousEntry.metadata):{}));
+    if(['blog','news'].includes(type))Object.assign(metadata,await categoryMetadata(db,type,b,previousEntry));
     if(type==='home'){ensure(!b.home_slot||['hero','section'].includes(b.home_slot),'Choose a homepage placement.');metadata.home_slot=b.home_slot||'section';}
     if(type==='news'){
-      metadata.category=text(b.category,100,'News category')||'General';
-      ensure(['General','Productions','Slate','Partnerships','Festivals and Awards','People','Press Releases'].includes(metadata.category),'Choose a valid news category.');
       metadata.featured=b.featured==='on';
       metadata.pdf_url=text(b.pdf_url,1500,'Press release PDF');
       if(metadata.pdf_url){let url;try{url=new URL(metadata.pdf_url)}catch{}ensure((/^\/media\/\d+\/document\.pdf$/.test(metadata.pdf_url))||(url?.protocol==='https:'&&!url.username&&!url.password&&url.pathname.toLowerCase().endsWith('.pdf')),'Use a direct HTTPS PDF URL.');}
-      if(metadata.category==='Press Releases'&&b.status==='published')ensure(metadata.pdf_url,'Add the approved PDF before publishing a press release.');
+      if(metadata.categories.some(name=>['pressrelease','pressreleases'].includes(name.toLowerCase().replace(/[^a-z]/g,'')))&&b.status==='published')ensure(metadata.pdf_url,'Add the approved PDF before publishing a press release.');
     }
     if(type==='production'){
       Object.assign(metadata,productionMetadata(b,previousEntry?json(previousEntry.metadata):{}));
@@ -298,6 +303,7 @@ export function createApp(db, options={}) {
       try{
         await connection.beginTransaction();
         const locked=id?(await rows(connection,'SELECT * FROM cms_entries WHERE id=? FOR UPDATE',[id]))[0]:null;
+        if(['blog','news'].includes(type))await lockCategorySelection(connection,type,metadata);
         if(id){ensure(locked,'Content not found.',404);requireEntryRevision(locked,b.revision);await captureEntryRevision(connection,locked,'before-change',locked.updated_by,{initial:true});}
         if(uploaded){const media=await rows(connection,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by) VALUES(?,?,?,?,?,?)',[uploaded.filename,path.basename(uploaded.file.originalname).slice(0,255),'image/webp',uploaded.file.size,uploaded.alt,req.user.id]);imageId=media.insertId;}
         const values=[title,slug,summary,body,imageId,JSON.stringify(metadata),b.status,b.status==='published'?new Date():null,req.user.id];
@@ -523,7 +529,8 @@ export function createApp(db, options={}) {
     res.redirect('/admin/settings?saved=1');
   });
   app.use(staffAccessRouter(db));
-  app.get('/admin/users',admin,async(req,res)=>res.render('users',{staffRoles,permissionGuide,users:await rows(db,'SELECT id,name,email,role,active FROM cms_users ORDER BY id')}));
+  app.use(accountDeletionRouter(db));
+  app.get('/admin/users',admin,async(req,res)=>res.render('users',{staffRoles,permissionGuide,users:await rows(db,'SELECT id,name,email,role,active,is_default_admin FROM cms_users ORDER BY id')}));
   app.post('/admin/users',admin,async(req,res)=>{
     const b=req.body;const name=text(b.name,100,'Name',true),email=text(b.email,254,'Email',true).toLowerCase();ensure(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),'Enter a valid email.');ensure(['admin','editor','enquiry_manager'].includes(b.role),'Choose a valid role.');const password=text(b.password,200,'Password',true);ensure(password.length>=12,'Use a password of at least 12 characters.');
     const result=await rows(db,'INSERT INTO cms_users(name,email,role,password_hash) VALUES(?,?,?,?)',[name,email,b.role,await hashPassword(password)]);await audit(db,req.user,'create','user',result.insertId);res.redirect('/admin/users?saved=1');
@@ -595,7 +602,7 @@ export function createApp(db, options={}) {
       if(error instanceof multer.MulterError)fields[error.field || (['/admin/blog/save','/admin/news/save'].includes(req.path)?'image':'attachment')]=message;
       return res.status(status).json({error:message,fields,...(error.code==='CONTENT_CONFLICT'?{code:error.code,conflict:error.conflict}:{})});
     }
-    res.status(status).render('error',{message,status,title:`Error ${status} — Kemsor CMS`,user:req.user||null,unreadCount:res.locals.unreadCount||0,csrf:res.locals.csrf||'',saved:false,currentPath:req.path,currentType:'',notifications:[],websiteUrl:process.env.WEBSITE_URL || '/',types});
+    res.status(status).render('error',{message,status,title:`Error ${status} — Kemsor CMS`,user:req.user||null,unreadCount:res.locals.unreadCount||0,csrf:res.locals.csrf||'',saved:false,adminBreadcrumbs:context=>adminBreadcrumbs(req.path,req.query,context),currentPath:req.path,currentType:'',notifications:[],websiteUrl:process.env.WEBSITE_URL || '/',types});
   });
   return app;
 }

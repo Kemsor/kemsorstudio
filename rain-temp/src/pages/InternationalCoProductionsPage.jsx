@@ -11,7 +11,7 @@ import './finance-page.css';
 import './international-co-productions.css';
 import './international-refinement.css';
 
-const contact = '/contact/?partner=international-productions';
+const contact = '/contact/?category=international#project-brief';
 const directions = cmsData(()=>([
   [cmsText("InternationalCoProductionsPage","bba261c2887b7d1a","Into India"), cmsText("InternationalCoProductionsPage","abceb28236313a85","International producers and platforms looking for an Indian partner"), cmsText("InternationalCoProductionsPage","7c3d1983738a7c00","A local production partner, with locations, crew, casting and line production on the ground")],
   [cmsText("InternationalCoProductionsPage","3f02a187730fcd88","Out to the world"), cmsText("InternationalCoProductionsPage","b27770530e02174b","Indian creators and producers seeking international partners"), cmsText("InternationalCoProductionsPage","fbe8d61fc863d028","A project packaged with a clear budget and plan international partners can assess")],

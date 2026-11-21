@@ -8,7 +8,7 @@ import MotionHeading, { MotionCopy } from '../TextMotion';
 import { CTA, TextLink } from '../PageUI';
 import './india-production-services.css';
 
-const enquiry = '/contact/?partner=international-productions';
+const enquiry = '/contact/?category=international#project-brief';
 const benefits = cmsData(()=>([
   [cmsText("IndiaProductionServicesPage","b0c286155305ec83","Range of locations"), cmsText("IndiaProductionServicesPage","4e1c93d8fa8665f6","Many looks from one production base, which can simplify travel and planning")],
   [cmsText("IndiaProductionServicesPage","9582f42e3315909b","Experienced crews"), cmsText("IndiaProductionServicesPage","a7b091f65f8ae100","Departments staffed by people who work on features, series and documentaries")],

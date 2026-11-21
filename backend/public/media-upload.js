@@ -1,6 +1,6 @@
 // Stage media first; content saves contain only the completed asset reference.
-for(const form of document.querySelectorAll('main form[method="post"],main form[method="POST"]')){
- if(new URL(form.getAttribute('action')||location.href,location.href).pathname==='/admin/media')continue;
+const initializeMediaUploads=form=>{
+ if(new URL(form.getAttribute('action')||location.href,location.href).pathname==='/admin/media')return;
  const image=form.querySelector('select[name="image_id"]');
  const existingFile=form.querySelector('input[type="file"][name="image"]');
  const targets=[];
@@ -13,10 +13,12 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
  for(const target of form.querySelectorAll('[data-document-upload]'))targets.push({target,kind:'document'});
  const pageMedia=form.querySelector('[data-page-video-fields]'),page=form.querySelector('select[name="page"]');
  if(pageMedia&&page){const toggle=()=>{const enabled=['feature-films','series-ott','documentaries','productions'].includes(page.value);pageMedia.hidden=!enabled;pageMedia.querySelectorAll('input').forEach(input=>input.disabled=!enabled);};page.addEventListener('change',toggle);toggle();}
- if(!targets.length)continue;
- const stages=[];
+ for(const target of form.querySelectorAll('[data-gallery-field=media_id]'))targets.push({target,kind:'image'});
+ if(!targets.length)return;
+ const stages=form._mediaUploadStages||(form._mediaUploadStages=[]);
  for(const {target,file:provided,kind}of targets){
-  const box=document.createElement('div');box.className='media-upload-stage';
+  if(target.dataset['uploadReady'+kind])continue;target.dataset['uploadReady'+kind]='true';
+  const box=document.createElement('div');box.className='media-upload-stage';if(target.name)box.dataset.mediaFor=target.name;
   const file=provided||document.createElement('input');
   if(!provided){file.type='file';file.accept=kind==='video'?'video/mp4':kind==='captions'?'.vtt,text/vtt':kind==='document'?'application/pdf':'image/jpeg,image/png,image/webp,image/avif';const label=document.createElement('label');label.textContent=kind==='video'?'Upload an MP4 video (up to 50 MB)':kind==='captions'?'Upload WebVTT subtitles':kind==='document'?'Upload a PDF document (up to 10 MB)':'Upload a new image';label.append(file);box.append(label);}
   const alt=provided?form.querySelector('[data-banner-alt]'):null;
@@ -29,6 +31,7 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
   const actions=document.createElement('div');actions.className='button-row';actions.append(upload,cancel);box.append(actions,progress,status);
   const preview=document.createElement(kind==='video'?'video':kind==='image'?'img':'a');if(['captions','document'].includes(kind)){preview.textContent='Open uploaded file';preview.target='_blank';preview.rel='noopener';}preview.className='media-upload-preview';preview.hidden=true;if(kind==='video'){preview.controls=true;preview.preload='metadata';}else preview.alt='Uploaded image preview';box.append(preview);
   if(provided)provided.closest('label').after(box);else target.closest('label').after(box);
+  if(target.tagName==='SELECT')target.closest('label').hidden=true;
   const state={file,status,busy:false,pending:false};stages.push(state);let xhr;
   file.addEventListener('change',()=>{state.pending=Boolean(file.files.length);upload.disabled=!state.pending;cancel.hidden=!state.pending;status.textContent=state.pending?'Ready to upload. Upload this file before saving the form.':'';progress.hidden=true;});
   cancel.addEventListener('click',()=>{xhr?.abort();file.value='';state.pending=false;upload.disabled=true;cancel.hidden=true;progress.hidden=true;status.textContent='Selection cancelled. The previous media is kept.';if(alt)alt.required=false;});
@@ -56,9 +59,14 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
    finally{state.busy=false;if(page)page.disabled=pageWasDisabled;delete form.dataset.mediaUploading;cancel.disabled=false;file.disabled=false;upload.disabled=!state.pending;buttons.forEach(([button,disabled])=>button.disabled=disabled);xhr=null;}
   });
  }
+ if(form.dataset.uploadHandlers==='true')return;form.dataset.uploadHandlers='true';
  if(pageMedia&&page)page.addEventListener('change',()=>{if(pageMedia.hidden)for(const state of stages){if(state.file.closest('[data-page-video-fields]')){state.file.value='';state.pending=false;state.status.textContent='';}}});
  form.addEventListener('submit',event=>{
-  const blocked=stages.find(state=>state.busy||state.pending);if(!blocked)return;
+  const blocked=stages.find(state=>state.file.isConnected&&(state.busy||state.pending));if(!blocked)return;
   event.preventDefault();event.stopImmediatePropagation();blocked.status.textContent=blocked.busy?'Wait for the upload to finish before saving.':'Upload the selected file or cancel its selection before saving.';blocked.status.focus();blocked.status.scrollIntoView({block:'center'});
  },true);
+};
+for(const form of document.querySelectorAll('main form[method="post"],main form[method="POST"]')){
+ initializeMediaUploads(form);
+ if(form.querySelector('[data-production-gallery],[data-production-collection]'))new MutationObserver(()=>initializeMediaUploads(form)).observe(form,{childList:true,subtree:true});
 }

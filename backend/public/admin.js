@@ -1,3 +1,5 @@
+window.adminRevealField = field => { for (let node=field?.parentElement; node; node=node.parentElement) { if(node.tagName==='DETAILS')node.open=true; } };
+document.addEventListener('invalid',event=>window.adminRevealField(event.target),true);
 // A single progress surface for navigation, upload transfer, and server processing.
 const adminProgress=(()=>{
  const box=document.createElement('div');box.className='admin-loading-progress';box.hidden=true;
@@ -110,7 +112,7 @@ document.querySelectorAll('input[type="password"]').forEach(input=>{
 let adminFormSequence=0;
 // Progressive form handling: failed saves leave the actual form and uploads in place.
 for(const form of document.querySelectorAll('main form[method="post"],main form[method="POST"]')){
- if(form.closest('.notification-dropdown'))continue;
+ if(form.closest('.notification-dropdown')||form.matches('[data-blog-category-form]'))continue;
  const formNumber=++adminFormSequence,errorIds=new WeakMap();let errorSequence=0;
  const errorId=field=>{if(!errorIds.has(field))errorIds.set(field,`admin-error-${formNumber}-${++errorSequence}`);return errorIds.get(field);};
  form.noValidate=true;
@@ -124,7 +126,7 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
    const note=document.createElement('small');note.className='admin-field-error';note.dataset.formFieldError='true';note.id=errorId(field);note.textContent=text;
    field.setAttribute('aria-invalid','true');field.setAttribute('aria-describedby',`${field.getAttribute('aria-describedby')||''} ${note.id}`.trim());
    (field.closest('label')||field.closest('.password-control')||field).after(note);
-   const row=document.createElement('li'),link=document.createElement('a');link.href='#';link.textContent=text;link.addEventListener('click',event=>{event.preventDefault();field.focus();field.scrollIntoView({block:'center',behavior:'instant'});});row.append(link);list.append(row);
+   const row=document.createElement('li'),link=document.createElement('a');link.href='#';link.textContent=text;link.addEventListener('click',event=>{event.preventDefault();window.adminRevealField?.(field);field.focus();field.scrollIntoView({block:'center',behavior:'instant'});});row.append(link);list.append(row);
   }
   if(list.childNodes.length)box.append(list);form.prepend(box);box.focus({preventScroll:true});box.scrollIntoView({block:'nearest',behavior:'instant'});return box;
  };

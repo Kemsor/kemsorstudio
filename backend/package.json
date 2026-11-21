@@ -19,7 +19,9 @@
     "check:staff-access": "node scripts/check-staff-access.mjs",
     "check:audit-log": "node scripts/check-audit-log.mjs",
     "check:accessibility": "node scripts/check-admin-accessibility.mjs",
-    "check:header": "node scripts/check-admin-header.mjs"
+    "check:header": "node scripts/check-admin-header.mjs",
+    "check:blog-categories": "node scripts/check-blog-categories.mjs",
+    "check:filmdesk": "node scripts/check-filmdesk.mjs"
   },
   "engines": {
     "node": ">=22"

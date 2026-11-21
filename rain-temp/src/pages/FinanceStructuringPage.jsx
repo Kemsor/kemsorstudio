@@ -11,7 +11,7 @@ import './finance-page.css';
 import './finance-structuring.css';
 import './structuring-refinement.css';
 
-const contact = '/contact/?partner=filmmakers';
+const contact = '/contact/?category=creative#project-brief';
 const questionsPlan = cmsData(()=>([
   [cmsText("FinanceStructuringPage","4fc1a3d86156f977","How much?"), cmsText("FinanceStructuringPage","e2ee3aeff76075df","The true cost of the story, not a hopeful one"), cmsText("FinanceStructuringPage","ecf217b22c4cca77","A budget grounded in production realities, with contingency built in")],
   [cmsText("FinanceStructuringPage","29cd37252c96ca96","From whom?"), cmsText("FinanceStructuringPage","82658555070e336c","Which partners fund which part of the project"), cmsText("FinanceStructuringPage","e591fb25c383bccc","A sources plan covering investors, co-production partners, platforms and in-kind contributions")],

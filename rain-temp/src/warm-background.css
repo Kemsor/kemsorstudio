@@ -431,7 +431,7 @@ html body #top.creative-site.site-page-home #main .collaboration-editorial :is(h
   gap:12px!important;color:#e5b765!important;text-decoration:none!important;
  }
  html body #top.creative-site .footer-grid .footer-grid-brand img{
-  width:180px!important;height:180px!important;object-fit:contain!important;
+  width:clamp(200px,18vw,250px)!important;max-width:100%!important;height:auto!important;aspect-ratio:1;object-fit:contain!important;
  }
 }
 

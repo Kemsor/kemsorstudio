@@ -26,7 +26,7 @@ export default function JourneyLinks(){
        style={panel ? {'--panel-x':`${panel.x}px`,'--panel-y':`${panel.y}px`,'--panel-width':`${panel.width}px`,'--panel-height':`${panel.height}px`} : undefined}
        onPointerLeave={() => { const focused=grid.current.querySelector('a:focus-visible'); if(focused) positionPanel(focused); else clearPanel(); }}
        onBlur={event => {if(!event.currentTarget.contains(event.relatedTarget)) clearPanel();}}>{[
-        [cmsText("JourneyLinks","b5fe8376135aa1e6","I have a script or idea"),'/script-to-production/','script',cmsText("JourneyLinks","b34ccacd1612fed7","Develop your story")],
+        [cmsText("JourneyLinks","b5fe8376135aa1e6","I have a script or idea"),'/filmdesk/','script',cmsText("JourneyLinks","b34ccacd1612fed7","Develop your story")],
         [cmsText("JourneyLinks","8b86f971c150e0b9","I need a production partner"),'/partner-with-us/?route=filmmakers','film',cmsText("JourneyLinks","05afd7517594d13a","Build the production")],
         [cmsText("JourneyLinks","351e667ef7a2ca24","I’m a financier or platform"),'/partner-with-us/?route=co-producers','partnership',cmsText("JourneyLinks","ccc873c29a1b198e","Explore a partnership")],
         [cmsText("JourneyLinks","1d8be3e5c7c3cadd","I’m filming in India"),'/india-production-services/','location',cmsText("JourneyLinks","6e5dd1e5ef7e673e","Plan your India shoot")],

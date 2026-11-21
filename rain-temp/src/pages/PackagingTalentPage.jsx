@@ -11,7 +11,7 @@ import './develop-refinement.css';
 import './finance-page.css';
 import './packaging-talent.css';
 
-const contact = '/contact/?partner=filmmakers';
+const contact = '/contact/?category=creative#project-brief';
 const packageExample = cmsData(()=>([
   [cmsText("PackagingTalentPage","80ce8674a4b89cb3","Logline & synopsis"),cmsText("PackagingTalentPage","5dc35b796fe22cf9","Ready")], [cmsText("PackagingTalentPage","a7acaaaa1e190fbf","Director"),cmsText("PackagingTalentPage","ed7f74ab2affc6fc","Attached")], [cmsText("PackagingTalentPage","1613aed06a855a9c","Lead cast"),cmsText("PackagingTalentPage","a7b15cd2d066a406","Approached")],
   [cmsText("PackagingTalentPage","274d0f4b89d5af3f","Lookbook & tone"),cmsText("PackagingTalentPage","a20b481d47628156","Ready")], [cmsText("PackagingTalentPage","33707bd33a552c0d","Budget & schedule"),cmsText("PackagingTalentPage","71a699d0473d5ac5","In progress")], [cmsText("PackagingTalentPage","33dd786cdb73ca2f","Supporting cast"),cmsText("PackagingTalentPage","913e1dc80ec26c61","Wishlist")],

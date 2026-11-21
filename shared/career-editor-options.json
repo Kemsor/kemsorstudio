@@ -1,0 +1,4 @@
+{
+  "employmentTypes": ["Full-time", "Part-time", "Freelance", "Contract", "Project-based", "Temporary", "Internship", "Apprenticeship", "Consultancy"],
+  "workArrangements": ["On-site", "Hybrid", "Remote"]
+}

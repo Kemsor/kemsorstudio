@@ -1,4 +1,4 @@
-import {previewBody,publishingChecks} from './publishing-preview-model.js';
+import {previewBody,publishingChecks,publishingValues} from './publishing-preview-model.js?v=3';
 
 const node=(tag,className,text)=>{const element=document.createElement(tag);if(className)element.className=className;if(text!==undefined)element.textContent=text;return element;};
 function viewport(article){
@@ -36,18 +36,18 @@ for(const editor of document.querySelectorAll('form.editor')){
   if(!editor.dispatchEvent(new Event('admin:preview',{cancelable:true})))return;
   trigger.disabled=true;
   try{
-   const values=Object.fromEntries(new FormData(editor)),image=await readImage(editor),body=previewBody(values),checks=publishingChecks(values,{hasImage:Boolean(image.src),imageAlt:image.alt,pendingUpload:image.pendingUpload});
+   const values=publishingValues(editor),image=await readImage(editor),body=previewBody(values),checks=publishingChecks(values,{hasImage:Boolean(image.src),imageAlt:image.alt,pendingUpload:image.pendingUpload});
    for(const field of editor.elements){if(field.required&&!field.disabled&&field.willValidate&&!field.checkValidity()&&!checks.some(check=>check.field===field.name))checks.push({field:field.name,message:field.validationMessage,level:'required'});}
    const dialog=node('dialog','publishing-preview-dialog publishing-preview-expanded');dialog.setAttribute('aria-label','Unsaved publishing preview');
    const heading=node('div','publishing-preview-heading'),title=node('strong','','Unsaved publishing preview'),close=node('button','quiet','Close preview');close.type='button';heading.append(title,close);
    const note=node('p','preview-notice','Current form values • Not saved or published. Close this preview to keep editing.');
    const checklist=node('details','publishing-readiness'),summary=node('summary','',checks.length?`${checks.length} ${checks.length===1?'item':'items'} to review before publishing`:'Publishing checks complete');checklist.open=checks.length>0;checklist.append(summary);
-   if(checks.length){const list=node('ul');for(const check of checks){const item=node('li',check.level==='required'?'needs-detail':'suggestion'),button=node('button','quiet',check.message);button.type='button';button.addEventListener('click',()=>{dialog.close();const field=editor.elements.namedItem(check.field);const visible=check.field==='body'?editor.querySelector('.rich-editor-surface'):field;visible?.focus?.();visible?.scrollIntoView({block:'center',behavior:'instant'});});item.append(button);list.append(item);}checklist.append(list);if(image.src&&!image.alt&&!image.pendingUpload){const library=node('a','', 'Edit the image description in Media library');library.href='/admin/media?q='+encodeURIComponent(image.name);library.target='_blank';library.rel='noopener noreferrer';checklist.append(library);}}
+   if(checks.length){const list=node('ul');for(const check of checks){const item=node('li',check.level==='required'?'needs-detail':'suggestion'),button=node('button','quiet',check.message);button.type='button';button.addEventListener('click',()=>{dialog.close();const field=editor.elements.namedItem(check.field);const visible=check.field==='body'?editor.querySelector('.rich-editor-surface'):field;window.adminRevealField?.(visible);visible?.focus?.();visible?.scrollIntoView({block:'center',behavior:'instant'});});item.append(button);list.append(item);}checklist.append(list);if(image.src&&!image.alt&&!image.pendingUpload){const library=node('a','', 'Edit the image description in Media library');library.href='/admin/media?q='+encodeURIComponent(image.name);library.target='_blank';library.rel='noopener noreferrer';checklist.append(library);}}
    else checklist.append(node('p','','The title, content and publishing details checked here are filled in.'));
    const article=node('article','content-preview');article.append(node('p','preview-kicker',values.type||'Content'));
    if(image.src){const img=node('img');img.src=image.src;img.alt=image.alt;article.append(img);}
    article.append(node('h1','',values.title?.trim()||'Untitled draft'));
-   const metadata=[values.category,values.role,values.location].filter(Boolean).join(' · ');if(metadata)article.append(node('p','preview-metadata',metadata));
+   const metadata=[values.category,values.role,values.work_arrangement,values.location].filter(Boolean).join(' · ');if(metadata)article.append(node('p','preview-metadata',metadata));
    if(values.summary)article.append(node('p','preview-summary',values.summary));
    const content=node('div','preview-body');content.innerHTML=body;article.append(content);
    dialog.append(heading,note,checklist,viewport(article));document.body.append(dialog);

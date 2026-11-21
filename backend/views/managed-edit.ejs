@@ -22,8 +22,8 @@
 <% }else{ %>
 <label class="wide">Slide name<input name="label" maxlength="100" value="<%= data.label||'' %>" required></label>
 <label class="wide">Direct MP4 video URL<input name="src" maxlength="1500" value="<%= data.src||'' %>" required><small>Use an existing /assets/ path or a direct HTTPS MP4 URL. YouTube page links cannot play here.</small></label>
-<label class="wide">Poster image<input name="poster" list="hero-poster-images" maxlength="1500" value="<%= data.poster||'' %>" required><small>Choose an image-library URL below, paste an existing /assets/ path, or use an approved HTTPS image URL.</small></label>
-<datalist id="hero-poster-images"><% media.forEach(image=>{ %><option value="/media/<%= image.id %>"><%= image.alt %></option><% }) %></datalist>
+<label class="wide">Poster image<input name="poster" maxlength="1500" value="<%= data.poster||'' %>" required><small>Upload a poster below, paste an existing /assets/ path, or use an approved HTTPS image URL.</small></label>
+
 <label>Slide duration (seconds)<input type="number" name="duration" min="3" max="30" step="0.5" value="<%= data.duration||5 %>" required></label><label>Video start time (seconds)<input type="number" name="startAt" min="0" max="3600" step="0.1" value="<%= data.startAt||0 %>"></label>
 <label class="wide">Heading override<input name="title" maxlength="200" value="<%= data.title||'' %>"><small>Leave blank to keep the current shared heading.</small></label>
 <label class="wide">Description override<textarea name="description" rows="3" maxlength="2000"><%= data.description||'' %></textarea></label>

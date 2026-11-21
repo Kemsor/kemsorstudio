@@ -43,16 +43,21 @@ function SocialIcons() {
 export default function Footer({ reduced, page = 'home' }) {
   const {openPreferences}=useCookieConsent();
   const {settings,legalDocuments}=useCms();
-  const groups=applyNavigation(footerNavigation,'footer').map(group=>({...group,links:group.links.map(link=>[link.label,link.page,link.href])})).map(group=>({...group,links:group.links.flatMap(link=>link[1]==='privacy-policy'&&Array.isArray(legalDocuments)?legalDocuments.filter(document=>document.footer).map(document=>[document.footerLabel||document.title,document.slug,legalHref(document.slug)]):[link])}));
+  const groups=applyNavigation(footerNavigation,'footer').map(group=>({...group,links:group.links.map(link=>link.page==='script-to-production'?['FilmDesk',link.page,'/filmdesk/']:[link.label,link.page,link.href])})).map(group=>({...group,links:group.links.flatMap(link=>link[1]==='privacy-policy'&&Array.isArray(legalDocuments)?legalDocuments.filter(document=>document.footer).map(document=>[document.footerLabel||document.title,document.slug,legalHref(document.slug)]):[link])}));
+  if(!groups.some(group=>group.links.some(link=>link[1]==='script-to-production'))){
+    const involved=groups.find(group=>group.id==='explore');
+    if(involved)involved.links.push(['FilmDesk','script-to-production','/filmdesk/']);
+    else groups.push({id:'explore',title:'Get involved',links:[['FilmDesk','script-to-production','/filmdesk/']]});
+  }
   const {email,phone,phoneHref,landline,landlineHref}=getStudioContacts(settings);
   const address = settings.contact_address && !/sample|example/i.test(settings.contact_address) ? settings.contact_address : studioAddress;
   const branding=getSiteModule('branding',{});
   const orderedGroups=[...groups].sort((a,b)=>['studio','explore','connected'].indexOf(a.id)-['studio','explore','connected'].indexOf(b.id));
-  return <footer className="creative-footer footer-grid">
+  return <footer id="studio-footer" className="creative-footer footer-grid">
     <div className="footer-grid-layout">
       <div className="footer-grid-brand-column">
         <a className="footer-grid-brand" href="/" aria-label="Kemsor Studios home">
-          <img src={branding.logo||'/assets/kemsor-logo.webp'} alt="" width="180" height="180" loading="lazy" decoding="async"/>
+          <img src={branding.logo||'/assets/kemsor-logo.webp'} alt="" width="250" height="250" loading="lazy" decoding="async"/>
         </a>
         <div className="footer-grid-social-group"><p>{settings.footer_social_label||'Follow the frame'}</p><SocialIcons/></div>
       </div>

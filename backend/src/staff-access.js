@@ -11,7 +11,7 @@ export const permissionGuide = [
  {area:'Members and private production projects',admin:'Review and manage',editor:'No access',enquiry_manager:'No access'},
  {area:'Legal documents, hero slides and protected page areas',admin:'Edit, publish and restore',editor:'No access',enquiry_manager:'No access'},
  {area:'Settings, campaigns, email delivery, activity and backups',admin:'Manage',editor:'No access',enquiry_manager:'No access'},
- {area:'Staff accounts and roles',admin:'Create accounts, change roles and enable or disable access',editor:'No access',enquiry_manager:'No access'},
+ {area:'Staff accounts and roles',admin:'Create accounts, change roles, enable or disable access and delete non-default accounts',editor:'No access',enquiry_manager:'No access'},
  {area:'Own profile, password and notifications',admin:'Manage own account',editor:'Manage own account',enquiry_manager:'Manage own account'},
 ];
 const fail=(ok,message,status=422)=>{if(!ok)throw Object.assign(new Error(message),{status});};
@@ -32,9 +32,10 @@ export function staffAccessRouter(db){
    // Serialize access changes, and recheck the acting administrator under the same lock.
    const admins=await rows(conn,"SELECT id FROM cms_users WHERE role='admin' AND active=1 ORDER BY id FOR UPDATE");
    fail(admins.some(account=>account.id===req.user.id),'Administrator access required. Sign in again.',403);
-   const target=(await rows(conn,'SELECT id,role,active FROM cms_users WHERE id=? FOR UPDATE',[id]))[0];
+   const target=(await rows(conn,'SELECT id,role,active,is_default_admin FROM cms_users WHERE id=? FOR UPDATE',[id]))[0];
    fail(target,'Staff account not found.',404);
    if(legacy)Object.assign(b,{role:target.role,active:target.active?'0':'1',previous_role:target.role,previous_active:String(target.active)});
+   fail(!target.is_default_admin||(b.role==='admin'&&b.active==='1'),'The default administrator must remain an active administrator.');
    fail(target.role===b.previous_role&&String(target.active)===b.previous_active,'This account’s access changed. Reload the users page before saving.',409);
    fail(!(target.role==='admin'&&target.active&&(b.role!=='admin'||b.active==='0')&&admins.length<=1),'Keep at least one active administrator.');
    if(target.role!==b.role||String(target.active)!==b.active){

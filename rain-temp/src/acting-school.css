@@ -1,0 +1,39 @@
+html body #top.creative-site .home-acting-school{padding:0 var(--page-gutter);margin:0;scroll-margin-top:100px;background:#e5b765}
+html body #top.creative-site .acting-school-card{position:relative;isolation:isolate;max-width:1440px;margin:auto;min-height:400px;border-radius:0;overflow:hidden;background:transparent;border:0}
+html body #top.creative-site .acting-school-portrait{position:absolute;inset:0 auto 0 0;width:46%;z-index:-1}
+html body #top.creative-site .acting-school-portrait>img{display:block;height:100%;width:100%;object-fit:contain;object-position:center bottom}
+html body #top.creative-site .acting-school-copy{position:relative;width:54%;margin-left:auto;padding:32px clamp(24px,3vw,44px) 32px 12px;min-width:0}
+html body #top.creative-site .acting-school-kicker{font:500 10px/1.6 Inter,sans-serif;letter-spacing:.12em;margin:0 0 14px;text-transform:uppercase}
+html body #top.creative-site .acting-school-copy h2{font:400 clamp(28px,3vw,42px)/1.15 Georgia,serif;margin:0 0 16px;letter-spacing:-.02em}
+html body #top.creative-site .acting-school-copy h2 em{display:block;font:italic 400 clamp(21px,2.1vw,30px)/1.2 Georgia,serif;margin-top:8px;letter-spacing:-.015em}
+html body #top.creative-site .acting-school-copy>p:not(.acting-school-kicker){font:400 14px/1.8 Inter,sans-serif;max-width:440px;margin:0}
+html body #top.creative-site .acting-school-copy>p.acting-school-disciplines{padding-top:12px;margin:0 0 18px;font-size:11px}
+html body #top.creative-site .acting-school-disciplines span{margin:0 8px;opacity:.5}
+@layer warm-surfaces{
+ html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy :is(h2,em,p,.acting-school-disciplines span){color:#251c12!important;-webkit-text-fill-color:#251c12!important;text-shadow:none!important}
+}
+@media(max-width:700px){html body #top.creative-site .acting-school-card{padding-top:250px}html body #top.creative-site .acting-school-portrait{inset:0 0 auto;width:100%;height:250px}html body #top.creative-site .acting-school-portrait>img{object-fit:contain;object-position:center bottom}html body #top.creative-site .acting-school-copy{width:100%;padding:10px 24px 28px}html body #top.creative-site .acting-school-kicker{font-size:9px}}
+@layer warm-surfaces{
+ html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(105deg,#35200d 0%,#966126 25%,#cf9a4d 48%,#dda95b 72%,#e5b765 100%)!important;margin-top:0!important;margin-bottom:0!important}
+ html body #top.creative-site.site-page-home #main #acting-school .acting-school-card{background:transparent!important;background-image:none!important}
+}
+
+@layer warm-surfaces{@media(max-width:700px){html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(160deg,#6f441b 0%,#cf9a4d 35%,#e5b765 70%)!important}}}
+@layer warm-surfaces{
+ html body #top.creative-site.site-page-home #main #acting-school .creative-cta{background:#251c12!important;background-image:none!important;color:#fff4df!important;-webkit-text-fill-color:#fff4df!important;border:1px solid #251c12!important}
+ html body #top.creative-site.site-page-home #main #acting-school .creative-cta :is(span,svg){color:#fff4df!important;-webkit-text-fill-color:#fff4df!important}
+ html body #top.creative-site.site-page-home #main #acting-school .creative-cta:hover{background:#392a19!important}
+}
+/* Two-tone text with the original full-width shaded gold background. */
+@layer warm-surfaces{
+ html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(105deg,#35200d 0%,#966126 25%,#cf9a4d 48%,#dda95b 72%,#e5b765 100%)!important}
+ html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy h2{color:#171109!important;-webkit-text-fill-color:#171109!important}
+ html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy h2 em,
+ html body #top.creative-site.site-page-home #main #acting-school .acting-school-kicker{color:#976124!important;-webkit-text-fill-color:#976124!important}
+ html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy>p:not(.acting-school-kicker){color:#554b3b!important;-webkit-text-fill-color:#554b3b!important}
+ @media(max-width:700px){html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(160deg,#6f441b 0%,#cf9a4d 35%,#e5b765 70%)!important}}
+}
+
+@layer warm-surfaces{
+ html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy h2 .acting-school-title-accent{color:#fff8eb!important;-webkit-text-fill-color:#fff8eb!important;text-shadow:0 1px 3px #56341399!important}
+}

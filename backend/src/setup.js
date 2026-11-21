@@ -22,7 +22,7 @@ try{
   let admin=(await rows(db,'SELECT id FROM cms_users WHERE role="admin" LIMIT 1'))[0];
   if(!admin){
     const password=randomBytes(18).toString('base64url');
-    const result=await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',['Kemsor Administrator','admin@kemsor.local',await hashPassword(password),'admin']);admin={id:result.insertId};
+    const result=await rows(db,'INSERT INTO cms_users(name,email,password_hash,role,is_default_admin) VALUES(?,?,?,?,TRUE)',['Kemsor Administrator','admin@kemsor.local',await hashPassword(password),'admin']);admin={id:result.insertId};
     await mkdir(new URL('../storage/',import.meta.url),{recursive:true});
     await writeFile(new URL('../storage/local-admin.txt',import.meta.url),`Local Kemsor CMS\nhttp://127.0.0.1:8100/admin\nEmail: admin@kemsor.local\nPassword: ${password}\n\nChange the password from the CMS after signing in. This file is ignored by Git.\n`,{mode:0o600});console.log('Local admin created. Credentials: backend/storage/local-admin.txt');
   }

@@ -157,9 +157,8 @@ function App() {
  const requested=document.body.dataset.page||location.pathname.slice(import.meta.env.BASE_URL.length).split('/').filter(Boolean)[0]||'home';
  const page=routes[requested]?requested:'home';
  const Page=routes[page];
- const formOnly=page==='contact' && ['filmmakers','studios','co-producers','international-productions'].includes(new URLSearchParams(location.search).get('partner'));
  const reduced=useReducedMotion();
- const [opening,setOpening]=useState(()=>!formOnly && shouldShowOpening());
+ const [opening,setOpening]=useState(()=>!new URLSearchParams(location.search).has('admin_preview') && shouldShowOpening());
  const [ready,setReady]=useState(false);
  const [switching,setSwitching]=useState(false);
  const onReady=useCallback(()=>setReady(true),[]);
@@ -185,9 +184,9 @@ function App() {
  return <><SeoMetadata page={page}/><PageProgress ready={ready} onActiveChange={setSwitching}/><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening||switching?true:undefined} aria-hidden={opening||switching?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
-  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{!formOnly && contentPages.some(item=>item.key===page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>
+  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{contentPages.some(item=>item.key===page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>
   <Footer page={page} reduced={reduced}/>
-  {!formOnly && <ExperienceTools page={page}/>}
+  {<ExperienceTools page={page}/>}
  </div><CookiePreferences hidden={opening||switching}/></>;
 }
 createRoot(document.getElementById('root')).render(<CookieConsentProvider><CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider></CookieConsentProvider>);

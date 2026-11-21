@@ -6,18 +6,19 @@ import React, { useState } from 'react';
 import { CTA, TextLink } from '../PageUI';
 import { CmsText, useCms } from '../CmsContent';
 import '../blog.css';
+import {blogCategoryNames} from '../blogCategories.js';
 
 const storyImages = ['office-scene', 'action-scene', 'detective-scene'];
 
 
 export default function BlogPage() {
   const { entries, connected } = useCms();
-  const notes = connected ? entries.filter(entry => entry.type === 'blog').map(entry => ({ ...entry, id: entry.slug, category: entry.metadata?.category || cmsText("BlogPage","a35d78cddafdbec1","STUDIO NOTES"), introduction: entry.body, sections: [], cms: true })) : [];
+  const notes = connected ? entries.filter(entry => entry.type === 'blog').map(entry => ({ ...entry, id: entry.slug, categories:blogCategoryNames(entry.metadata), category:blogCategoryNames(entry.metadata).join(' · '), introduction: entry.body, sections: [], cms: true })) : [];
   const [search,setSearch] = useState('');
   const [category,setCategory] = useState('all');
   const [sort,setSort] = useState('newest');
-  const categories = [...new Set(notes.map(note => note.category))].sort();
-  const filtered = notes.filter(note => (category === 'all' || note.category === category) && `${note.title} ${note.summary} ${note.category}`.toLowerCase().includes(search.trim().toLowerCase())).sort((a,b) => sort === 'title' ? a.title.localeCompare(b.title) : sort === 'oldest' ? String(a.published_at || '').localeCompare(String(b.published_at || '')) : String(b.published_at || '').localeCompare(String(a.published_at || '')));
+  const categories = [...new Set(notes.flatMap(note => note.categories))].sort();
+  const filtered = notes.filter(note => (category === 'all' || note.categories.includes(category)) && `${note.title} ${note.summary} ${note.category}`.toLowerCase().includes(search.trim().toLowerCase())).sort((a,b) => sort === 'title' ? a.title.localeCompare(b.title) : sort === 'oldest' ? String(a.published_at || '').localeCompare(String(b.published_at || '')) : String(b.published_at || '').localeCompare(String(a.published_at || '')));
   const reset = () => {setSearch('');setCategory('all');setSort('newest');};
   const requestedPost = new URLSearchParams(location.search).get('post');
   if (requestedPost) {

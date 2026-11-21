@@ -6,4 +6,4 @@ export async function api(path,body){
  if(body!==undefined){const response=await fetch('/api/csrf',{credentials:'same-origin'});if(!response.ok)throw new Error('The studio workspace is unavailable. Please try again.');const {token}=await response.json();options.method='POST';options.headers['X-CSRF-Token']=token;if(body instanceof FormData)options.body=body;else{options.headers['Content-Type']='application/json';options.body=JSON.stringify(body);}}
  const res=await fetch(path,options);let data;try{data=await res.json();}catch{throw new Error('The studio workspace is unavailable. Please try again.');}if(!res.ok)throw new Error(data.error||'Please try again.');return data;
 }
-export const siteLink=page=>`${import.meta.env.BASE_URL}${page}/`;
+export const siteLink=page=>`${import.meta.env.BASE_URL}${page==='script-to-production'?'filmdesk':page}/`;

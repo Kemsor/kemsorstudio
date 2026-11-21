@@ -939,3 +939,96 @@ Validation: `cd backend && npm test` (158 tests), plus the `check:admin-ui`,
 `check:workflow`, `check:publishing`, `check:publishing-safety`, `check:staff-access`,
 `check:audit-log`, `check:accessibility`, and `check:header` browser commands.
 Browser checks use isolated fixtures, not production content or accounts.
+
+### Saved blog categories
+
+Migration `034_blog_categories.sql` adds the saved category catalog and imports
+category names already used by blog posts. No generic categories are seeded.
+The blog editor chooses saved categories using checkboxes; the Create category
+popup saves and selects a reusable category without saving the blog. Editors and
+administrators can create categories. Case-insensitive duplicates reuse the saved
+category, and posts reject arbitrary category text or unknown category IDs.
+
+Posts store `category_ids` and category names in metadata, retaining the first
+name as `category` for older consumers. Public blog filters include all selected
+categories. An explicit empty selection clears categories; non-editor integrations
+that omit category fields preserve the previous saved selection.
+
+Verify with `npm test`, `npm run check:blog-categories`, and the frontend build.
+
+### Blog and news category management
+
+Migration `035_news_categories.sql` adds an independent news category catalog,
+importing names already used by news posts. Both publishing editors use saved
+category checkboxes and a quick-add popup. Manage categories in the sidebar or at
+`/admin/blog-categories/manage` and `/admin/news-categories/manage` to search,
+add, inspect usage, and delete unused categories. The editor's management link
+opens a new tab to preserve unsaved post edits.
+
+Administrators and editors can manage both catalogs. Deletion is confirmed and
+rejects categories used by any current draft, published, or archived post. Saved
+revision snapshots retain their historical labels. Post saves lock selected
+category rows until commit, so a concurrent delete cannot leave a newly saved
+post referencing a missing category. Unknown/deleted selections and free-text
+category submissions are rejected. Categories remain optional on posts.
+
+Newsroom filters include every selected category from published stories. Selecting
+Press Releases requires an approved PDF when publishing, including when it is a
+secondary category. Newsletter subscription topics remain the separate opt-in
+choices already offered to subscribers.
+
+### Career engagement choices
+
+The career editor uses dropdowns backed by `shared/career-editor-options.json`.
+Employment / engagement type offers Full-time, Part-time, Freelance, Contract,
+Project-based, Temporary, Internship, Apprenticeship, and Consultancy. Work
+arrangement is separate: On-site, Hybrid, or Remote. For example, a role can be
+Full-time and Hybrid, with Mumbai as its location.
+
+The API validates the choices and stores `role` and `work_arrangement` in entry
+metadata; no database migration is required. Existing custom employment labels
+remain available as the current value until changed. Public listings and saved /
+unsaved previews include the work arrangement, and public engagement filters use
+actual published role types rather than a fixed three-type list.
+
+### Staff and member deletion
+
+Migration `036_account_deletion.sql` marks the oldest existing administrator as
+the protected default administrator. Fresh setup marks the bootstrap admin the
+same way. The flag is not writable through account-management requests; this
+account cannot be deleted, demoted or disabled.
+
+Administrators can permanently delete other staff accounts from Users & roles
+and member accounts from the member detail page. Each action requires a separate
+confirmation checkbox, authentication and CSRF. Staff deletion signs out the
+account, keeps published content and audit events, and transfers enquiry,
+application and KPI assignments to the acting administrator (or another active
+admin when deleting one's own non-default account). The last active administrator
+cannot delete their own account.
+
+Member deletion removes the profile and its linked shortlists, member enquiries,
+casting applications and production projects. Associated casting mail is removed;
+in-flight delivery blocks deletion until it completes. Sessions lose member
+access immediately. Private scripts and unshared portraits use the durable file
+cleanup queue. Media referenced elsewhere in CMS content or another member is
+retained. Existing independent enquiry/career-application records are not matched
+and deleted merely because they share an email address.
+
+Validation includes confirmed deletion controls on desktop/mobile, default-admin
+protection, session revocation, work reassignment, cascade cleanup and shared-media
+preservation, using disposable databases and browser fixtures only.
+
+
+### FilmDesk
+
+FilmDesk is the private filmmaking workspace at `/filmdesk/`; `/script-to-production/` remains a redirect. Apply migration `037_filmdesk.sql` before serving the new workspace. Existing production projects and their original seven plan fields are preserved; story, post-production and pitch fields are added when saved.
+
+The five setup steps select department/role, goal, available material, goal-specific questions, and confirmed constraints/assumptions. Scripts are optional. Artist and film-professional accounts can own private workspaces. Direct document uploads use explicit private-storage consent, ownership checks and a 5 MB limit. Uploaded documents are not submitted automatically.
+
+Workspace revisions prevent stale saves. Saving or replacing a document clears review approval. CSV export and studio submission require approval of the current saved version. CSV cells are escaped against spreadsheet formula injection. Print/PDF output is a browser print view of the approved plan.
+
+Studio submission requires current published studio terms, explicit confirmation and selection of plan sections or the attached document. `filmdesk_submissions` stores an immutable selected snapshot and, when selected, a separate copy of the uploaded document. Admin `/admin/filmdesk` and the projects report contain submissions only, not private projects. Studio review notes/status are visible to the project owner. Member deletion queues both private and shared document copies for deletion.
+
+GPT assistance and licensed IMDb research are not connected. The interface identifies those capabilities as unavailable and does not transmit material to either provider. Manual planning and source records remain available.
+
+Validation: `npm test` covers workspace ownership, setup validation, revisions, private uploads, review/export, selected snapshots, document-copy isolation, studio tracking and account cleanup. `npm run check:filmdesk` exercises all six goals, five material choices, private creation and review/submission using isolated browser fixture responses.

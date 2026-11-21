@@ -190,7 +190,7 @@ export function ServicesPage() {
             <article><h3>{cmsText("ServicesPage","a035f383d5e8ed0a","Before the shoot")}</h3><MotionCopy>{cmsText("ServicesPage","1aaca2e435c2a010","Bring location plans, crew requirements and the proposed schedule into one practical production brief.")}</MotionCopy></article>
             <article><h3>{cmsText("ServicesPage","7640593a86a8e18a","On the ground")}</h3><MotionCopy>{cmsText("ServicesPage","368e20ae12e14e78","Coordinate the people, resources and logistics needed to support the production plan.")}</MotionCopy></article>
           </div>
-          <CTA href="/contact/#international-productions">{cmsText("ServicesPage","574dd959486502a4","Plan your production in India")}</CTA>
+          <CTA href="/contact/?category=international#project-brief">{cmsText("ServicesPage","574dd959486502a4","Plan your production in India")}</CTA>
           <TextLink href="/india-production-services/">{cmsText("ServicesPage","76dbd2aa589a0290","Explore India Production Services")}</TextLink>
         </div>
         <figure className="page-image" data-reveal>

@@ -30,6 +30,21 @@ for(const {key,href,indexable} of sitePages) {
  if(indexable) {
   const schema=JSON.parse(schemas[0][1]);
   const page=schema['@graph'].find(item=>item['@id']===`${expected.canonical}#webpage`);
+  const businesses=schema['@graph'].filter(item=>item['@type']==='LocalBusiness');
+  assert.equal(businesses.length,key==='home'?1:0,`${href}: homepage LocalBusiness`);
+  if(key==='home'){
+   const business=businesses[0];
+   assert.equal(business.name,'Kemsor Studios');
+   assert.equal(business.alternateName,'Kemsor Studios Dehradun');
+   assert.equal(business.url,'https://kemsorstudio.com/');
+   assert.equal(business.email,'info@kemsorstudio.com');
+   assert.equal(business.telephone,'+91-135-4097742');
+   assert.deepEqual(business.address,{'@type':'PostalAddress',streetAddress:'Indraprasth Colony, Lane No. 6, Ring Road, Nathanpur',addressLocality:'Dehradun',addressRegion:'Uttarakhand',postalCode:'248001',addressCountry:'IN'});
+   assert.deepEqual(business.areaServed,['Dehradun','Uttarakhand','India']);
+   assert.deepEqual(business.sameAs,[]);
+   assert.equal(page.about['@id'],business['@id']);
+   assert.equal(schema['@graph'].find(item=>item['@type']==='WebSite').publisher['@id'],business['@id']);
+  }
   assert.equal(page.url,expected.canonical);
   assert.equal(page.name,expected.title);
   assert.equal(schema['@graph'].filter(item=>item['@type']==='BreadcrumbList').length,key==='home'?0:1);

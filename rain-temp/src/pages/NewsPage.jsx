@@ -1,3 +1,4 @@
+import {blogCategoryNames} from '../blogCategories.js';
 import {cmsText,cmsData} from "../siteContent.js";
 import React,{useEffect,useRef,useState} from 'react';
 import StudioImage from '../StudioImage';
@@ -11,10 +12,11 @@ import './news-page.css';
 import './newsroom-content.css';
 import './press-media-refinement.css';
 
-const categories=['All','Productions','Slate','Partnerships','Festivals and Awards','People','Press Releases'];
+
 const stages=cmsData(()=>([['in_development',cmsText("NewsPage","15df2df005da0780","Development")],['in_pre_production',cmsText("NewsPage","cea14036e75768e8","Pre-Production")],['in_production',cmsText("NewsPage","ee3c604cb7ffbdd2","Filming")],['in_post_production',cmsText("NewsPage","863941d9ccb5428d","Post-Production")],['released',cmsText("NewsPage","aeae1933a97921cc","Released")]]));
 const clean=value=>String(value||'').toLowerCase().replace(/[^a-z]/g,'');
-const categoryOf=entry=>clean(entry.metadata?.category)==='pressrelease'?'Press Releases':entry.metadata?.category||'News';
+const categoriesOf=entry=>blogCategoryNames(entry.metadata);
+const categoryOf=entry=>categoriesOf(entry).join(' · ')||'News';
 const date=value=>{if(!value)return '';const time=new Date(value.includes('T')?value:value.replace(' ','T')+'Z');return Number.isNaN(time.getTime())?'':new Intl.DateTimeFormat('en-IN',{day:'numeric',month:'short',year:'numeric',timeZone:cmsText("NewsPage","dc472cff8d8e6ed9","Asia/Kolkata")}).format(time);};
 const clock=value=>{if(!value)return '';const time=new Date(value.includes('T')?value:value.replace(' ','T')+'Z');return Number.isNaN(time.getTime())?'':new Intl.DateTimeFormat('en-IN',{hour:'numeric',minute:'2-digit',timeZone:cmsText("NewsPage","8da560d1d972e170","Asia/Kolkata")}).format(time)+' IST';};
 const about='KEMSOR Studios is an independent film and content studio based in Dehradun, India. It develops, finances, produces and releases feature films, series, documentaries and short films for cinema and streaming audiences, and offers full production services in India for international productions.';
@@ -29,8 +31,9 @@ export function NewsPage() {
  const [category,setCategory]=useState('All'),[search,setSearch]=useState(''),[count,setCount]=useState(6),[stage,setStage]=useState('all'),[story,setStory]=useState(null),[copyState,setCopyState]=useState('');
  const handledHash=useRef(false);
  const news=entries.filter(entry=>entry.type==='news').sort((a,b)=>String(b.published_at||'').localeCompare(String(a.published_at||''))||b.id-a.id);
+ const categories=['All',...new Set(news.flatMap(categoriesOf))];
  const lead=news.find(entry=>entry.metadata?.featured)||news[0];
- const filtered=news.filter(entry=>(category==='All'||clean(categoryOf(entry))===clean(category))&&`${entry.title} ${entry.summary} ${entry.body}`.toLowerCase().includes(search.trim().toLowerCase()));
+ const filtered=news.filter(entry=>(category==='All'||categoriesOf(entry).some(name=>clean(name)===clean(category)))&&`${entry.title} ${entry.summary} ${entry.body}`.toLowerCase().includes(search.trim().toLowerCase()));
  const productions=entries.filter(entry=>entry.type==='production'&&(stage==='all'||entry.metadata?.production_stage===stage));
  const assets=entries.filter(entry=>entry.type==='press_asset');
  const kit=assets.find(entry=>['mediakit','fullmediakit'].includes(clean(entry.metadata?.category)));

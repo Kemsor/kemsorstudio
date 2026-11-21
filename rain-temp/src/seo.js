@@ -24,6 +24,26 @@ export function pageSeo(page, { origin = defaultSiteUrl, base = '/', title, desc
   {'@type':'WebSite','@id':website,url:home,name:'Kemsor Studios',publisher:{'@id':organization},inLanguage:'en'},
   {'@type':page==='contact'?'ContactPage':page==='about'?'AboutPage':'WebPage','@id':`${url}#webpage`,url,name,description:summary,isPartOf:{'@id':website},about:{'@id':organization},inLanguage:'en',...(page!=='home'?{breadcrumb:{'@id':`${url}#breadcrumb`}}:{})},
  ];
+ // The homepage describes the studio as a local business using the same entity
+ // referenced by the WebSite publisher and WebPage about properties.
+ if(page==='home') Object.assign(graph[0],{
+  '@type':'LocalBusiness',
+  alternateName:'Kemsor Studios Dehradun',
+  description:'Film production house in Dehradun and film production company in Uttarakhand for films, web series and documentaries.',
+  url:'https://kemsorstudio.com/',
+  email:'info@kemsorstudio.com',
+  telephone:'+91-135-4097742',
+  address:{
+   '@type':'PostalAddress',
+   streetAddress:'Indraprasth Colony, Lane No. 6, Ring Road, Nathanpur',
+   addressLocality:'Dehradun',
+   addressRegion:'Uttarakhand',
+   postalCode:'248001',
+   addressCountry:'IN',
+  },
+  areaServed:['Dehradun','Uttarakhand','India'],
+  sameAs:[],
+ });
  if(page!=='home') graph.push({'@type':'BreadcrumbList','@id':`${url}#breadcrumb`,itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:home},{'@type':'ListItem',position:2,name:label||info.label,item:url}]});
  return {title:name,description:summary,canonical:url,image,imageAlt:'Cinematic production visual for Kemsor Studios',robots:indexable?'index, follow':'noindex, follow',schema:indexable?{'@context':'https://schema.org','@graph':graph}:null};
 }

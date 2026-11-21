@@ -11,7 +11,7 @@ import './finance-page.css';
 import './co-production.css';
 import './coproduction-refinement.css';
 
-const contact = '/contact/?partner=co-producers';
+const contact = '/contact/?category=financing#project-brief';
 const benefits = cmsData(()=>([
   [cmsText("CoProductionPage","35f9beac3a23a045","Shared cost"), cmsText("CoProductionPage","e3ede02c39e5508e","No single partner carries the full budget.")],
   [cmsText("CoProductionPage","aecbeb64e5985bee","Shared risk"), cmsText("CoProductionPage","b16cba50cffb6b64","Exposure is spread across partners who all want the project to succeed.")],

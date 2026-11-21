@@ -8,7 +8,7 @@ import SectionSubmenu from '../SectionSubmenu';
 import { CTA, TextLink } from '../PageUI';
 import './short-films.css';
 
-const enquiry = '/contact/?partner=filmmakers';
+const enquiry = '/contact/?category=creative#project-brief';
 const jobs = cmsData(()=>([
   [cmsText("ShortFilmsPage","3c561e91f5b126ff","Calling card"), cmsText("ShortFilmsPage","c1248679ee25b3e5","To show who you are as a writer or director."), cmsText("ShortFilmsPage","2cfba3a905d01079","Plan for: a distinct voice, strong performances, a clean finish.")],
   [cmsText("ShortFilmsPage","42512a52e35313ff","Proof of concept"), cmsText("ShortFilmsPage","bca041db18cc5993","To show a world from a feature or series you want financed."), cmsText("ShortFilmsPage","5169f53ba044f480","Plan for: one key sequence that sells the bigger idea.")],
