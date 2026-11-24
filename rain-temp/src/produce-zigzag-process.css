@@ -1,0 +1,59 @@
+/* Shared full-bleed zigzag process used by every Produce workflow. */
+html body #top.creative-site #main.inner-page .production-layout .pl-process:has(.produce-process-zigzag):has(+ .pl-section .audience-collage) {
+ border-bottom:0;
+}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag.produce-process-zigzag{
+ width:100vw!important;max-width:none!important;margin-left:calc(50% - 50vw)!important;
+ padding:clamp(54px,6vw,86px) var(--produce-band-gutter) clamp(62px,7vw,96px)!important;
+ box-sizing:border-box;background:radial-gradient(circle at 12% 22%,#e5b76526 0 46px,transparent 47px),radial-gradient(circle at 88% 76%,#6b3d2220 0 72px,transparent 73px),linear-gradient(135deg,#fffaf1 0%,#f6ead6 58%,#ecd5b1 100%)!important;
+ border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag:before,
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag:after{display:none!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>.produce-label,
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>h2,
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>.produce-zigzag{width:100%!important;max-width:var(--inner-content-width)!important;margin-left:auto!important;margin-right:auto!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>.produce-label{justify-content:center!important;text-align:center!important;margin-bottom:14px!important;color:#8a5423!important;-webkit-text-fill-color:#8a5423!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>.produce-label *{color:inherit!important;-webkit-text-fill-color:inherit!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>h2{text-align:center!important;font-size:clamp(36px,4.6vw,68px)!important;line-height:1!important;color:#321b10!important;-webkit-text-fill-color:#321b10!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>h2 .heading-accent,
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>h2 .heading-accent .text-flow-word{background:linear-gradient(110deg,#9b5a20,#d39b42)!important;background-clip:text!important;-webkit-background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag{position:relative!important;height:350px!important;margin-top:clamp(52px,6vw,78px)!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-graph{display:block!important;position:absolute!important;z-index:0!important;inset:0!important;width:100%!important;height:330px!important;overflow:visible!important;pointer-events:none!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-graph>path{fill:none!important;stroke:#9b632b!important;stroke-width:2!important;stroke-linecap:round!important;stroke-dasharray:7 9!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-graph marker path{fill:#9b632b!important;stroke:none!important}
+
+@media(min-width:901px){
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps{position:absolute!important;z-index:1!important;inset:0!important;height:330px!important;display:grid!important;grid-template-columns:repeat(var(--process-count),minmax(0,1fr))!important;gap:clamp(28px,4vw,60px)!important;margin:0!important;padding:0!important;border:0!important;background:none!important;align-items:stretch!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps:before{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps>li:nth-child(n){position:relative!important;display:block!important;height:330px!important;margin:0!important;padding:0 12px!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;text-align:center!important;overflow:visible!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps>li:before,
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps>li:after{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .shooting-stage-icon{position:absolute!important;z-index:1!important;left:50%!important;transform:translateX(-50%)!important;top:auto!important;bottom:auto!important;display:grid!important;place-items:center!important;width:78px!important;height:78px!important;margin:0!important;border:7px solid #efc36f!important;border-radius:50%!important;background:#6b3d22!important;color:#fff7e8!important;box-shadow:0 10px 24px #6b3d2226!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag li:nth-child(odd) .shooting-stage-icon{top:27px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag li:nth-child(even) .shooting-stage-icon{bottom:27px!important;background:#dda747!important;color:#321b10!important;border-color:#6b3d22!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .shooting-stage-icon svg{width:25px!important;height:25px!important;color:currentColor!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-copy{position:absolute!important;left:0!important;width:100%!important;box-sizing:border-box;padding:0 12px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag li:nth-child(odd) .produce-zigzag-copy{bottom:3px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag li:nth-child(even) .produce-zigzag-copy{top:3px!important}
+}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-copy>span{display:block;margin-bottom:8px;color:#a36425!important;-webkit-text-fill-color:#a36425!important;font:700 12px/1 Manrope,sans-serif!important;letter-spacing:.16em!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-copy h3{margin:0!important;color:#321b10!important;-webkit-text-fill-color:#321b10!important;font-size:17px!important;line-height:1.35!important}
+html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-copy p{max-width:245px!important;margin:9px auto 0!important;color:#76583d!important;-webkit-text-fill-color:#76583d!important;font-size:12px!important;line-height:1.6!important}
+
+@media(max-width:900px){
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag.produce-process-zigzag{padding-block:48px 56px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>.produce-label{justify-content:flex-start!important;text-align:left!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag>h2{text-align:left!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag{height:auto!important;margin-top:38px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-graph{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps{position:relative!important;display:grid!important;grid-template-columns:1fr!important;gap:30px!important;margin:0!important;padding:0 0 0 64px!important;border:0!important;background:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps:before{content:""!important;display:block!important;position:absolute!important;top:24px!important;bottom:24px!important;left:22px!important;width:2px!important;background:repeating-linear-gradient(180deg,#9c652c 0 7px,transparent 7px 15px)!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps>li:nth-child(n){position:relative!important;display:block!important;margin:0!important;padding:0 0 28px!important;background:transparent!important;border:0!important;border-bottom:1px solid #6b3d2226!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps>li:before,
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .line-production-steps>li:after{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .shooting-stage-icon{position:absolute!important;left:-64px!important;top:0!important;width:44px!important;height:44px!important;margin:0!important;background:#6b3d22!important;border:5px solid #efc36f!important;border-radius:50%!important;color:#fff7e8!important;box-shadow:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .shooting-stage-icon svg{width:18px!important;height:18px!important;color:currentColor!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-copy>span{font-size:10px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag .produce-zigzag-copy p{margin:8px 0 0!important;max-width:none!important}
+}

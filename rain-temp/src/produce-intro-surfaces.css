@@ -50,3 +50,70 @@ html body #top.creative-site #main#main.inner-page .production-layout:is([data-s
 }
 @media(max-width:700px){html body #top.creative-site #main#main.inner-page .production-layout:is([data-service-page="produce"],[data-service-page="line-production"],[data-service-page="casting"],[data-service-page="locations-logistics"],[data-service-page="crew-equipment"],[data-service-page="set-production-design"],[data-service-page="shooting-on-location"]) .produce-audiences>ul>li{padding:20px!important}}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site #main#main.inner-page .production-layout:is([data-service-page="produce"],[data-service-page="line-production"],[data-service-page="casting"],[data-service-page="locations-logistics"],[data-service-page="crew-equipment"],[data-service-page="set-production-design"],[data-service-page="shooting-on-location"]) .produce-audiences>ul>li,html body #top.creative-site #main#main.inner-page .production-layout:is([data-service-page="produce"],[data-service-page="line-production"],[data-service-page="casting"],[data-service-page="locations-logistics"],[data-service-page="crew-equipment"],[data-service-page="set-production-design"],[data-service-page="shooting-on-location"]) .produce-audiences>ul>li:after{transition:none!important}}
+
+/* Casting audience chapter: an editorial roster rather than another card grid. */
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences{
+ display:grid!important;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr)!important;
+ gap:clamp(52px,7vw,120px)!important;padding:clamp(42px,5vw,76px)!important;
+ background:linear-gradient(125deg,#1f120d 0%,#3b2015 52%,#6b3b22 100%)!important;
+ border:0!important;border-radius:0!important;box-shadow:0 24px 54px #2b160f26!important;
+ color:#fff7e8!important;overflow:hidden;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>div{
+ display:flex;min-width:0;flex-direction:column;background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences .produce-label,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences .produce-label *{
+ color:#e8b85f!important;-webkit-text-fill-color:#e8b85f!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences h2,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences h2 *{
+ color:#fff7e8!important;-webkit-text-fill-color:#fff7e8!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .casting-network{
+ max-width:none!important;margin-top:auto!important;padding:28px 0 0!important;
+ background:transparent!important;border:0!important;border-top:1px solid #f0c77b61!important;border-radius:0!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .casting-network>span{
+ display:block;color:#d7b989!important;-webkit-text-fill-color:#d7b989!important;font-size:10px!important;letter-spacing:.14em!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .casting-network>div{
+ display:flex!important;gap:28px!important;margin-top:18px!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .casting-network .line-link{
+ color:#fff7e8!important;-webkit-text-fill-color:#fff7e8!important;font-size:13px!important;border-color:#e8b85f!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul{
+ display:grid!important;grid-template-columns:1fr!important;gap:0!important;margin:0!important;padding:0!important;
+ counter-reset:casting-audience;background:transparent!important;border-top:1px solid #f0c77b61!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul>li{
+ counter-increment:casting-audience;display:grid!important;grid-template-columns:54px minmax(0,1fr)!important;
+ gap:22px!important;align-items:start!important;padding:28px 0!important;
+ background:transparent!important;border:0!important;border-bottom:1px solid #f0c77b61!important;border-radius:0!important;
+ box-shadow:none!important;overflow:visible!important;transition:padding-left .25s ease!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul>li:before{
+ content:counter(casting-audience,decimal-leading-zero)!important;display:block!important;position:static!important;
+ color:#e8b85f!important;-webkit-text-fill-color:#e8b85f!important;font:600 11px/1.5 Manrope,sans-serif!important;
+ letter-spacing:.12em!important;background:transparent!important;border:0!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul>li:after{display:none!important}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul>li h3{
+ margin:0!important;color:#fff7e8!important;-webkit-text-fill-color:#fff7e8!important;font-size:clamp(17px,1.35vw,22px)!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul>li p{
+ margin:9px 0 0!important;max-width:560px;color:#dbcbb8!important;-webkit-text-fill-color:#dbcbb8!important;font-size:13px!important;line-height:1.75!important;
+}
+@media(hover:hover){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul>li:hover{
+  padding-left:12px!important;background:linear-gradient(90deg,#e8b85f0d,transparent 72%)!important;
+ }
+}
+@media(max-width:800px){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences{
+  grid-template-columns:1fr!important;gap:38px!important;padding:34px 24px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .casting-network{margin-top:32px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="casting"] .casting-page .produce-audiences>ul>li{grid-template-columns:38px minmax(0,1fr)!important;gap:14px!important;padding:24px 0!important}
+}

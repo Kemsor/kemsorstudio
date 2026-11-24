@@ -1,4 +1,6 @@
 import PageBreadcrumbs from '../PageBreadcrumbs';
+import SiteIcon from '../SiteIcon';
+import StudioImage from '../StudioImage';
 import {useCms} from '../CmsContent';
 import React,{useEffect,useState} from 'react';
 import {api,siteLink,publicPreview,previewMessage} from '../talent-api';
@@ -10,10 +12,20 @@ import './filmdesk.css';
 export default function ProductionTool(){
  const {settings}=useCms(),{user,loading}=useMember();
  const [projects,setProjects]=useState([]),[project,setProject]=useState(null),[submissions,setSubmissions]=useState([]),[active,setActive]=useState('story'),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[dirty,setDirty]=useState(false),[mode,setMode]=useState('list'),[approved,setApproved]=useState(false),[shareSections,setShareSections]=useState([]),[includeScript,setIncludeScript]=useState(false);
+ const [listedUser,setListedUser]=useState(null);
  const hasUnsaved=dirty||mode==='setup';
  useEffect(()=>{const warn=event=>{if(hasUnsaved){event.preventDefault();event.returnValue='';}};addEventListener('beforeunload',warn);return()=>removeEventListener('beforeunload',warn);},[hasUnsaved]);
  const list=async()=>setProjects((await api('/api/production/projects')).projects);
- useEffect(()=>{if(user)list().catch(reason=>setError(reason.message));},[user?.id]);
+ useEffect(()=>{
+  if(!user?.id)return;
+  const id=user.id;
+  let cancelled=false;
+  api('/api/production/projects')
+   .then(result=>{if(!cancelled)setProjects(result.projects);})
+   .catch(reason=>{if(!cancelled)setError(reason.message);})
+   .finally(()=>{if(!cancelled)setListedUser(id);});
+  return()=>{cancelled=true;};
+ },[user?.id]);
  const act=async action=>{if(busy)return;setBusy(true);setError('');setMessage('');try{await action();}catch(reason){setError(reason.message);}finally{setBusy(false);}};
  const load=async(id)=>{const result=await api(`/api/production/projects/${id}`);setProject(result.project);setSubmissions(result.submissions||[]);setDirty(false);setApproved(false);setShareSections([]);setIncludeScript(false);setMode('edit');const goal=filmDeskGoals.find(item=>item.id===result.project.onboarding?.objective);setActive(goal?.tools[0]||'story');};
  const leave=()=>!hasUnsaved||window.confirm('Leave these unsaved changes? Your last saved version is kept.');
@@ -25,16 +37,63 @@ export default function ProductionTool(){
  const review=()=>act(async()=>{await api(`/api/production/projects/${project.id}/review`,{revision:project.revision,approved});await load(project.id);setMode('next');setMessage('This saved version is reviewed. Choose what happens next.');});
  const submit=event=>{event.preventDefault();act(async()=>{const result=await api(`/api/production/projects/${project.id}/submit`,{revision:project.revision,sections:shareSections,include_script:includeScript,terms_accepted:true,terms_version:settings.script_terms_version,share_confirmed:true});await load(project.id);setMode('next');setMessage(`Kemsor has received your selected material. Reference ${result.reference}. Track the studio review below.`);});};
  const goal=filmDeskGoals.find(item=>item.id===project?.onboarding?.objective),tool=filmDeskTools.find(([key])=>key===active),reviewed=project&&project.reviewed_revision===project.revision&&!dirty,nonempty=filmDeskTools.filter(([key])=>project?.plan?.[key]?.trim());
- return <div className="filmdesk-page">
-  <header className="fd-header"><a href={siteLink('script-to-production')} className="fd-wordmark">Film<span>Desk</span><small>BY KEMSOR STUDIOS</small></a><p>A workspace for every stage of filmmaking.<br/>With or without a script.</p><a href={siteLink('profile')}>My profile</a></header>
+ return <div className={user ? "filmdesk-page fd-member" : "filmdesk-page"}>
   <PageBreadcrumbs page="script-to-production"/>
   <div className="fd-main">
-   <div className="fd-intro"><div><p className="fd-eyebrow">YOUR PROJECT. YOUR WORKSPACE.</p><h1>From the next idea<br/>to the next decision.</h1><p>Choose your role, goal and starting material. Build your plan, review it, then save privately, export or explicitly share selected work with Kemsor.</p></div><aside className="fd-privacy"><strong>A script is optional.</strong><p>Your workspace stays private. Saving or exporting never submits your project to the studio.</p></aside></div>
+   {user ? <header className="fd-member-header">
+    <div>
+     <h1 id="fd-title">FilmDesk</h1>
+     <p><SiteIcon name="lock" size={16}/> Private production workspace</p>
+    </div>
+    <a className="fd-profile-link" href={siteLink('profile')}>My profile <SiteIcon name="arrow" size={16}/></a>
+   </header> : !loading && <section className="fd-intro" aria-labelledby="fd-title">
+    <div className="fd-intro-copy">
+     <p className="fd-eyebrow">Private production workspace</p>
+     <h1 id="fd-title">FilmDesk</h1>
+     <p className="fd-intro-title">From first idea to production plan.</p>
+     <p className="fd-intro-description">Develop your story, organise the work across departments, and review what’s ready to share.</p>
+     <div className="fd-actions fd-intro-actions">
+      <a className="fd-primary" href={siteLink('login')}>Sign in to FilmDesk <SiteIcon name="arrow" size={18}/></a>
+      <a className="fd-profile-link" href={siteLink('join')}>Create an account</a>
+     </div>
+    </div>
+    <div className="fd-intro-image">
+     <StudioImage src="/assets/supplied/page-refresh/creative-project-planning-960.webp" alt="" width="960" height="640" fetchPriority="high"/>
+    </div>
+   </section>}
    {publicPreview&&<p role="status">{previewMessage}</p>}{error&&<p className="fd-notice fd-error" role="alert">{error}</p>}{message&&<p className="fd-notice" role="status">{message}</p>}
-   {loading?<p role="status">Opening FilmDesk…</p>:!user?<section className="fd-panel"><h2>Open your workspace</h2><ol className="fd-public-flow"><li>Choose your department and role</li><li>Choose your goal and available material</li><li>Confirm your brief and build your plan</li><li>Review, export or choose what to submit</li></ol><div className="fd-actions"><a className="fd-primary" href={siteLink('login')}>Sign in to FilmDesk</a><a href={siteLink('join')}>Create an account</a></div></section>:<>
-    <div className="fd-project-bar"><h2>Your private workspaces</h2><button className="fd-primary" disabled={busy} onClick={start}>New workspace</button></div>
-    <div className="fd-project-list" aria-label="Choose a workspace">{projects.map(item=><button disabled={busy} key={item.id} onClick={()=>open(item.id)} aria-pressed={project?.id===item.id}>{item.title}<small>Version {item.revision} · {item.reviewed_revision===item.revision?'Reviewed':'Working draft'}</small></button>)}</div>
-    {mode==='setup'?<section className="fd-panel"><FilmDeskOnboarding key={project?.id||'new'} initial={project} user={user} onComplete={create} busy={busy} onCancel={()=>{if(leave())setMode(project?'edit':'list');}}/></section>:!project?<section className="fd-panel fd-empty"><h2>{projects.length?'Choose a workspace or start a new one.':'What do you want to achieve?'}</h2><p>Develop a story, plan production, prepare department work, research people, plan post or build a pitch.</p><button onClick={start} className="fd-primary">Open the tool</button></section>:<section className="fd-workspace" aria-label="Personalised workspace">
+   {loading?<p role="status">Opening FilmDesk…</p>:!user?<section className="fd-public-guide" aria-labelledby="fd-guide-title">
+    <div className="fd-guide-heading">
+     <h2 id="fd-guide-title">How FilmDesk works</h2>
+     <p><SiteIcon name="lock" size={17}/> A script is optional. Your work stays private until you choose to share it.</p>
+    </div>
+    <ol className="fd-public-flow" role="list">
+     <li><SiteIcon name="people"/><h3>Choose your role</h3><p>Start with your department and what you want to achieve.</p></li>
+     <li><SiteIcon name="script"/><h3>Set your brief</h3><p>Bring an idea, a draft, or the material you already have.</p></li>
+     <li><SiteIcon name="film"/><h3>Build your plan</h3><p>Work through the tools that fit your project.</p></li>
+     <li><SiteIcon name="check"/><h3>Review and export</h3><p>Save privately, export, or select material to share with Kemsor.</p></li>
+    </ol>
+   </section>:<>
+    <div className="fd-project-bar">
+     <h2>Your workspaces</h2>
+     <button className="fd-primary" disabled={busy||mode==='setup'} onClick={start}>New workspace</button>
+    </div>
+    {listedUser!==user.id && <p role="status">Loading workspaces…</p>}
+    {projects.length>0 && <ul className="fd-project-list">
+     {projects.map(item=><li key={item.id}>
+      <button disabled={busy} onClick={()=>open(item.id)} aria-pressed={project?.id===item.id}>
+       <strong>{item.title}</strong>
+       <small>Version {item.revision} · {item.reviewed_revision===item.revision?'Reviewed':'Working draft'}</small>
+      </button>
+     </li>)}
+    </ul>}
+    {mode==='setup'?<section className="fd-panel fd-setup-panel"><FilmDeskOnboarding key={project?.id||'new'} initial={project} user={user} onComplete={create} busy={busy} onCancel={()=>{if(leave())setMode(project?'edit':'list');}}/></section>:!project?
+     listedUser===user.id && !error && <section className="fd-panel fd-empty">
+      <SiteIcon name={projects.length?'film':'script'} size={24}/>
+      <h2>{projects.length?'Choose a workspace':'Start a private workspace'}</h2>
+      <p>{projects.length?'Select a saved project above to continue working.':'Set your role and goal, build your plan, and decide what to export or share.'}</p>
+     </section>
+     :<section className="fd-workspace" aria-label="Personalised workspace">
      <div className="fd-workspace-heading"><div><p className="fd-eyebrow">{reviewed?'REVIEWED VERSION':'PRIVATE WORKING DRAFT'} · VERSION {project.revision}{dirty?' · UNSAVED CHANGES':''}</p><h2>{project.title}</h2><p>{goal?.label||'Production planning'}{project.onboarding?.professional_role?` · ${project.onboarding.professional_role}`:''}</p></div><button disabled={busy} onClick={()=>{if(leave()){setMode('setup');setDirty(false);}}}>Edit setup</button></div>
      <details className="fd-brief"><summary>Your confirmed brief</summary><dl className="fd-summary"><div><dt>Department</dt><dd>{project.onboarding?.department||'Not yet selected'}</dd></div><div><dt>Starting material</dt><dd>{filmDeskMaterials.find(item=>item.id===project.onboarding?.material)?.label||'Not specified'}</dd></div><div><dt>Constraints</dt><dd>{project.onboarding?.constraints||'Not yet recorded'}</dd></div><div><dt>Assumptions</dt><dd>{project.onboarding?.assumptions||'Not yet recorded'}</dd></div>{Object.entries(project.onboarding?.answers||{}).filter(([,value])=>value).map(([key,value])=><div key={key}><dt>{goal?.questions.find(([id])=>id===key)?.[1]||'Material notes'}</dt><dd>{value}</dd></div>)}</dl></details>
      <div className="fd-mode-tabs" role="group" aria-label="Workspace stages">{[['edit','Build your plan'],['review','Review & approve'],['next','Save, export & submit']].map(([key,label])=><button key={key} aria-pressed={mode===key} disabled={busy} onClick={()=>{setMode(key);setApproved(false);}}>{label}</button>)}</div>

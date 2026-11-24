@@ -114,8 +114,14 @@ html body #top.creative-site #main.inner-page .studio-stage-tabs button[aria-sel
 html body #top.creative-site #main.inner-page .studio-stage-panel {padding:clamp(24px,3vw,40px)}
 /* Keep the format panel on the same left edge as the rest of the page. */
 html body #top.creative-site #main.inner-page :is(#by-format,#structure-by-format).ep-chapter.inner-content-section {padding-inline:0!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 {
+ --studio-journey-background:#f2e8d7;
+ background:var(--studio-journey-background)!important;
+ box-shadow:0 0 0 100vmax var(--studio-journey-background)!important;
+ clip-path:inset(0 -100vmax);
+}
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 :is(.studio-stage-tabs,.studio-stage-panels,.studio-stage-panel,.studio-stage-copy,.studio-ground) {
- --ink:#212121;--muted:#53504b;--line:#e6dfd4;background:#f8f6f2!important;color:#454545!important;
+ --ink:#212121;--muted:#53504b;--line:#e6dfd4;background:transparent!important;color:#454545!important;
 }
 html body #top.creative-site:not(.site-page-home) #main.inner-page #about-chapter-3 .studio-stage-tabs button {
  background:transparent!important;color:#645b4d!important;-webkit-text-fill-color:currentColor;
@@ -166,7 +172,7 @@ html body #top.creative-site #main.inner-page .productions-page .productions-pro
 }
 /* Inset the India process content within its existing background band. */
 html body #top.creative-site #main.inner-page .india-services-page #india-process.india-process-section {
- box-sizing:border-box;padding:clamp(32px,4vw,56px) clamp(24px,3vw,44px)!important;
+ box-sizing:border-box;padding:clamp(32px,4vw,56px) 0!important;
 }
 html body #top.creative-site #main.inner-page .india-process-section.india-process-section>.india-width {padding:0!important;width:100%}
 html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-label {margin:0 0 20px;padding:0;border-top:0}
@@ -174,16 +180,17 @@ html body #top.creative-site #main.inner-page .india-process-section.india-proce
 html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding {margin:32px 0 0;gap:16px}
 html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding>li:nth-child(n) {padding:26px 24px}
 @media(max-width:600px){
- html body #top.creative-site #main.inner-page .india-services-page #india-process.india-process-section {padding:32px 24px!important}
+ html body #top.creative-site #main.inner-page .india-services-page #india-process.india-process-section {padding-block:32px!important}
  html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding {margin-top:26px;gap:14px}
  html body #top.creative-site #main.inner-page .india-process-section.india-process-section .india-process-sliding>li:nth-child(n) {padding:24px 20px}
 }
 /* Background bands share an inset so their images and copy never touch the edge. */
 html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby] {
- box-sizing:border-box;padding:clamp(32px,4vw,56px) clamp(24px,3vw,44px)!important;
+ box-sizing:border-box;padding:clamp(32px,4vw,56px) 0!important;
 }
 html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby]>.india-width {
- padding:0!important;width:100%;max-width:none;
+ padding:0!important;width:min(100%,calc(100vw - var(--inner-content-gutter)*2));
+ max-width:var(--inner-content-width);margin-inline:auto;
 }
 html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby] .india-label {
  padding:0;border-top:0;margin:0 0 24px;
@@ -192,7 +199,7 @@ html body #top.creative-site #main.inner-page .india-respect .india-editorial-im
  flex-wrap:wrap;gap:4px 16px;margin-top:14px;
 }
 @media(max-width:600px){
- html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby] {padding:32px 24px!important}
+ html body #top.creative-site #main.inner-page .india-services-page .india-section.india-band[aria-labelledby] {padding-block:32px!important}
  html body #top.creative-site #main.inner-page .india-respect .india-story-split {gap:28px}
 }
 /* About formats: inset every row inside the shared paper panel. */

@@ -1,3 +1,7 @@
+.production-layout {
+  --produce-band-gutter: max(var(--inner-content-gutter), calc((100vw - var(--inner-content-width)) / 2));
+}
+
 /* A separate Produce design, scoped away from Develop and Finance. */
 .production-layout.production-layout{--pl-ink:#282828;--pl-muted:#5c5c5c;--pl-line:#28282829;--pl-gold:#d2d2d2;--pl-paper:#fff;--pl-warm:#ffffff;--ink:var(--pl-ink);--muted:var(--pl-muted);--line:var(--pl-line);--produce-paper:var(--pl-paper);--produce-warm:var(--pl-warm);--produce-accent:#6a6a6a;background:var(--pl-paper);color:var(--pl-ink);padding-top:0}
 .pl-width{width:100%;max-width:1520px;margin-inline:auto;padding-inline:clamp(20px,5vw,80px)}

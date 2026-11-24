@@ -14,7 +14,8 @@ const localAsset=value=>value?.startsWith('/')&&!value.startsWith('//')&&!(impor
 export default function HeroSequence(props) {
  const {heroSlides}=useCms();
  const {preferences,openPreferences}=useCookieConsent();
- const slides=Array.isArray(heroSlides)?heroSlides:originalSlides;
+ const availableSlides=Array.isArray(heroSlides)&&heroSlides.length?heroSlides:originalSlides;
+ const slides=availableSlides.slice(-2);
  const external=value=>value&&new URL(value,location.origin).origin!==location.origin;
  const films=(slides.length?slides:[{...originalSlides[0],src:''}]).map(slide=>{
   const requiresConsent=Boolean((external(slide.src)||external(slide.poster))&&!preferences?.externalMedia);

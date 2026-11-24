@@ -79,3 +79,6 @@ html body #top.creative-site #main#main.inner-page .structuring-page .finance-st
 @media(prefers-reduced-motion:reduce){
  html body #top.creative-site #main#main.inner-page .structuring-page :is(.structuring-rows>article,.structuring-formats>article){transition:none}
 }
+
+html body #top.creative-site #main#main.inner-page .structuring-page .structuring-section-intro:has(> figure:empty){grid-template-columns:minmax(0,1fr)}
+.structuring-section-intro > figure:empty{display:none}

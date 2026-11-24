@@ -4,11 +4,13 @@ import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import ProduceLayout from '../ProduceLayout';
+import ProduceZigzagProcess from '../ProduceZigzagProcess';
+import AudienceCollage from '../AudienceCollage';
+import RelatedServicesShowcase from '../RelatedServicesShowcase';
 import React from 'react';
 import { Arrow, CTA, TextLink } from '../PageUI';
 import './produce-page.css';
 import './produce-refinement.css';
-import './shooting-process.css';
 import './line-production-page.css';
 import './casting-page.css';
 
@@ -59,14 +61,14 @@ export default function CastingPage() {
 
     <section className="produce-section line-production-included" id="casting-included" aria-labelledby="casting-included-title"><Label>{cmsText("CastingPage","8f3978ad34f92879","WHAT’S INCLUDED")}</Label><MotionHeading as="h2" id="casting-included-title">{cmsText("CastingPage","7d3cb874bda62dd8","What’s included.")}</MotionHeading><div className="line-production-scope"><dl className="line-production-deliverables studio-ledger studio-ledger-pairs">{included.map(([title, description], index) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl><figure className="line-production-planning casting-preparation"><StudioImage mediaSlot="CastingPage-2" src="/assets/stills/pre-production-casting-960.webp" alt={"Illustrative production scene showing collaborators preparing for a shoot"} width="960" height="540" loading="lazy" decoding="async"/><figcaption><span>{cmsText("CastingPage","05d3f9e65b63ea4c","TALENT AS PARTNERS IN THE WORK")}</span><MotionCopy>{cmsText("CastingPage","6dec4567ecb91e1d","The availability, schedules, and on-set care that let them do their best work.")}</MotionCopy></figcaption></figure></div></section>
 
-    <section className="produce-section produce-process" aria-labelledby="casting-process-title"><Label>{cmsText("CastingPage","47264b5e99a400d5","HOW WE WORK")}</Label><MotionHeading as="h2" id="casting-process-title">{cmsText("CastingPage","d2fee24c1e37aeca","How we work.")}</MotionHeading><div className="shooting-growth-map"><svg className="shooting-growth-graph" viewBox="0 0 1000 300" preserveAspectRatio="none" fill="none" aria-hidden="true"><path className="shooting-graph-grid" d="M0 28H1000M0 108H1000M0 188H1000M0 258H1000"/><path className="shooting-graph-area" d="M125 258C225 258 275 188 375 188S525 108 625 108S775 28 875 28V300H125Z"/><path className="shooting-graph-line" d="M125 258C225 258 275 188 375 188S525 108 625 108S775 28 875 28"/></svg><ol className="produce-steps line-production-steps">{steps.map(([title, description], index) => <li key={title}><span className="shooting-stage-icon" aria-hidden="true"><SiteIcon name={["script","people","check","guide"][index]} size={22}/></span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
+    <section className="produce-section produce-process produce-process-zigzag" aria-labelledby="casting-process-title"><Label>{cmsText("CastingPage","47264b5e99a400d5","HOW WE WORK")}</Label><MotionHeading as="h2" id="casting-process-title">{cmsText("CastingPage","d2fee24c1e37aeca","How we work.")}</MotionHeading><ProduceZigzagProcess steps={steps} icons={["script","people","check","guide"]}/></section>
 
-    <section className="produce-section produce-audiences" aria-labelledby="casting-audiences-title"><div><Label>{cmsText("CastingPage","4cfbd2dfac695c39","WHO IT’S FOR")}</Label><MotionHeading as="h2" id="casting-audiences-title">{cmsText("CastingPage","e2e842f52dda6984","Who it’s for.")}</MotionHeading><div className="casting-network"><span>{cmsText("CastingPage","82bff7c566a84d8c","KEMSOR TALENT NETWORK")}</span><div><TextLink href="/find-talent/">{cmsText("CastingPage","4264c1ef25a49993","Find talent")}</TextLink><TextLink href="/join/">{cmsText("CastingPage","1529d913457b6a2d","Join KEMSOR")}</TextLink></div></div></div><ul>{audiences.map(([title, description], index) => <li key={title}><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul></section>
+    <AudienceCollage id="casting-audiences-title" label={cmsText("CastingPage","4cfbd2dfac695c39","WHO IT’S FOR")} heading={cmsText("CastingPage","e2e842f52dda6984","Who it’s for.")} audiences={audiences} images={["/assets/stills/daylight-interior-production-960.webp","/assets/stills/courtyard-dance-production-960.webp"]} eyebrow="CHARACTER · TALENT · CARE"/>
 
     {/* No cleared project title, format, year or casting credit was supplied. */}
     <section className="produce-section produce-work" id="casting-work" aria-labelledby="casting-work-title"><Label>{cmsText("CastingPage","a18d5e8568660bf0","RELATED WORK")}</Label><div><MotionHeading as="h2" id="casting-work-title">{cmsText("CastingPage","6c3320916722e2da","Related work.")}</MotionHeading><TextLink href="/productions/">{cmsText("CastingPage","9fc1e7805c220253","Explore productions")}</TextLink></div></section>
 
-    <section className="produce-section produce-related line-production-related" aria-labelledby="casting-related-title"><Label>{cmsText("CastingPage","c1b01cc471d9be58","RELATED SERVICES")}</Label><MotionHeading as="h2" id="casting-related-title">{cmsText("CastingPage","424ac1b7d32bfaab","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, href, action]) => <a href={href} key={title}><h3>{title}</h3><span className="line-production-related-link">{action}<Arrow /></span></a>)}</div></section>
+    <RelatedServicesShowcase id="casting-related-title" label={cmsText("CastingPage","c1b01cc471d9be58","RELATED SERVICES")} heading={cmsText("CastingPage","424ac1b7d32bfaab","Related services.")} intro="Casting works best when talent, scheduling, production management and on-set coordination move as one system." items={related}/>
 
     <section className="produce-section produce-questions" aria-labelledby="casting-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("CastingPage","1c1abd5a613422ab","QUESTIONS")}</Label><MotionHeading as="h2" id="casting-questions-title">{cmsText("CastingPage","cf7f18fae9943e5e","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
   </div></ProduceLayout>;

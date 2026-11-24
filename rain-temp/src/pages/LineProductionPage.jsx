@@ -4,7 +4,9 @@ import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import ProduceLayout from '../ProduceLayout';
-import ProcessSteps from '../ProcessSteps';
+import ProduceZigzagProcess from '../ProduceZigzagProcess';
+import AudienceCollage from '../AudienceCollage';
+import RelatedServicesShowcase from '../RelatedServicesShowcase';
 import React from 'react';
 import { Arrow, CTA, TextLink } from '../PageUI';
 import './produce-page.css';
@@ -63,15 +65,17 @@ export default function LineProductionPage() {
 
     <section className="produce-section line-production-included" id="line-production-included" aria-labelledby="line-production-included-title"><Label>{cmsText("LineProductionPage","7ef30b656cbff168","WHAT’S INCLUDED")}</Label><MotionHeading as="h2" id="line-production-included-title">{cmsText("LineProductionPage","5a82f02310d4b171","What’s included.")}</MotionHeading><div className="line-production-scope"><dl className="line-production-deliverables studio-ledger studio-ledger-pairs">{included.map(([title, description], index) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl><figure className="line-production-planning"><StudioImage mediaSlot="LineProductionPage-2" src="/assets/services/planning.webp" alt={"Production collaborators reviewing plans on a filming location"} width="1672" height="941" loading="lazy" decoding="async"/><figcaption><span>{cmsText("LineProductionPage","a81c6ae396123ca0","PRODUCTION MANAGEMENT")}</span><MotionCopy>{cmsText("LineProductionPage","0653e053b35a5845","Every department working from the same plan and the same information.")}</MotionCopy></figcaption></figure></div></section>
 
-    <section className="produce-section produce-process" aria-labelledby="line-production-process-title"><Label>{cmsText("LineProductionPage","e8af8de0ae803f44","HOW WE WORK")}</Label><MotionHeading as="h2" id="line-production-process-title">{cmsText("LineProductionPage","b214ce67821e74f0","From script to post.")}</MotionHeading><ProcessSteps steps={steps} label={cmsText("LineProductionPage","e8af8de0ae803f44","HOW WE WORK")} /></section>
+    <section className="produce-section produce-process produce-process-zigzag" aria-labelledby="line-production-process-title"><Label>{cmsText("LineProductionPage","e8af8de0ae803f44","HOW WE WORK")}</Label><MotionHeading as="h2" id="line-production-process-title">{cmsText("LineProductionPage","b214ce67821e74f0","From script to post.")}</MotionHeading><ProduceZigzagProcess steps={steps} icons={["script","guide","film","check"]}/></section>
 
-    <section className="produce-section produce-audiences" aria-labelledby="line-production-audiences-title"><div><Label>{cmsText("LineProductionPage","d54038a34fd342d9","WHO IT’S FOR")}</Label><MotionHeading as="h2" id="line-production-audiences-title">{cmsText("LineProductionPage","66cf895570ffdc90","Who it’s for.")}</MotionHeading><div className="produce-audience-mark" aria-hidden="true"><span>{cmsText("LineProductionPage","b63de16e15e32a3b","ON SET")}</span><i>+</i><span>{cmsText("LineProductionPage","1e322b21f3e2ebb6","IN THE OFFICE")}</span></div></div><ul>{audiences.map(([title, description], index) => <li key={title}><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul></section>
+    <AudienceCollage id="line-production-audiences-title" label={cmsText("LineProductionPage","d54038a34fd342d9","WHO IT’S FOR")} heading={cmsText("LineProductionPage","66cf895570ffdc90","Who it’s for.")} audiences={audiences} images={["/assets/stills/work-camera-crew-960.webp","/assets/stills/daylight-snow-production-960.webp"]} eyebrow="ON SET · IN THE OFFICE"/>
 
     {/* No cleared project title, format, year or line-production credit supplied. */}
     <section className="produce-section produce-work" id="line-production-work" aria-labelledby="line-production-work-title"><Label>{cmsText("LineProductionPage","f1924c57a35eff60","RELATED WORK")}</Label><div><MotionHeading as="h2" id="line-production-work-title">{cmsText("LineProductionPage","d56ece982a2c7b7f","Related work.")}</MotionHeading><TextLink href="/productions/">{cmsText("LineProductionPage","084a13445376b39a","Explore productions")}</TextLink></div></section>
 
-    <section className="produce-section produce-related line-production-related" aria-labelledby="line-production-related-title"><Label>{cmsText("LineProductionPage","89752a0dad1dada6","RELATED SERVICES")}</Label><MotionHeading as="h2" id="line-production-related-title">{cmsText("LineProductionPage","f714438f19867a89","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, href]) => <a href={href} key={title}><h3>{title}</h3><span className="line-production-related-link">{cmsText("LineProductionPage","ee24ae979468c4f5","Explore service ")}<Arrow /></span></a>)}</div></section>
+    <div className="produce-related-faq-group">
+    <RelatedServicesShowcase id="line-production-related-title" label={cmsText("LineProductionPage","89752a0dad1dada6","RELATED SERVICES")} heading={cmsText("LineProductionPage","f714438f19867a89","Related services.")} intro="The strongest productions connect planning, people, locations and the shoot through one clear operational approach." items={related} actionLabel={cmsText("LineProductionPage","ee24ae979468c4f5","Explore service")}/>
 
     <section className="produce-section produce-questions" aria-labelledby="line-production-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("LineProductionPage","7253ebb20e0c0882","QUESTIONS")}</Label><MotionHeading as="h2" id="line-production-questions-title">{cmsText("LineProductionPage","c05e5d3825bb9393","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
+    </div>
   </div></ProduceLayout>;
 }

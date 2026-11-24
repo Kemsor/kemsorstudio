@@ -1,0 +1,191 @@
+/* Editorial photographs on inner pages share a square paper-print treatment. */
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page{
+ --paper-fold:38px;
+ --paper-shadow:0 18px 32px #2d180d29;
+ --paper-shadow-left:-12px 18px 24px #2d180d52;
+ --paper-shadow-right:12px 18px 24px #2d180d52;
+}
+
+/* Keep the India-page shadow on the unclipped figure so it can extend past the paper edge. */
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .india-story-split:not(.india-image-first)>.india-editorial-image{
+ filter:drop-shadow(var(--paper-shadow-right));
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .india-story-split.india-image-first>.india-editorial-image{
+ filter:drop-shadow(var(--paper-shadow-left));
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .india-story-split>.india-editorial-image .india-editorial-image-window{
+ filter:none!important;
+}
+
+/* Produce service image panels sit on the right of their comparison copy. */
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .line-production-page,
+ .casting-page,
+ .locations-logistics-page,
+ .crew-equipment-page,
+ .set-production-design-page,
+ .shooting-on-location-page
+) .line-production-planning{
+ position:relative!important;
+ top:auto;
+ overflow:visible!important;
+ border:0!important;
+ border-radius:0!important;
+ box-shadow:12px 18px 28px #2d180d42!important;
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .line-production-page,
+ .casting-page,
+ .locations-logistics-page,
+ .crew-equipment-page,
+ .set-production-design-page,
+ .shooting-on-location-page
+) .line-production-planning>img{
+ border-radius:0!important;
+ clip-path:polygon(0 0,calc(100% - var(--paper-fold)) 0,100% var(--paper-fold),100% 100%,0 100%);
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .line-production-page,
+ .casting-page,
+ .locations-logistics-page,
+ .crew-equipment-page,
+ .set-production-design-page,
+ .shooting-on-location-page
+) .line-production-planning::before{
+ content:''!important;
+ position:absolute!important;
+ z-index:4!important;
+ top:0!important;
+ right:0!important;
+ bottom:auto!important;
+ left:auto!important;
+ width:var(--paper-fold)!important;
+ height:var(--paper-fold)!important;
+ border:0!important;
+ background:linear-gradient(225deg,#fff8e8 0 45%,#d2a252 49% 68%,#6b3c1d 100%)!important;
+ clip-path:polygon(0 0,100% 100%,0 100%)!important;
+ box-shadow:-5px 6px 9px #2b160d4d!important;
+ pointer-events:none!important;
+}
+
+/* Right-column photographs: fold and shadow point from the top-right. */
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .visual-chapter-layout:not(.visual-image-left)>.visual-chapter-image>div,
+ .page-hero-image,
+ .fl-hero-image,
+ .produce-hero-light .produce-hero-image,
+ .india-story-split:not(.india-image-first)>.india-editorial-image .india-editorial-image-window,
+ .india-hero-visual,
+ .studio-frame-location
+){
+ position:relative!important;
+ overflow:hidden!important;
+ border-radius:0!important;
+ clip-path:polygon(0 0,calc(100% - var(--paper-fold)) 0,100% var(--paper-fold),100% 100%,0 100%);
+ filter:drop-shadow(var(--paper-shadow-right));
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .visual-chapter-layout:not(.visual-image-left)>.visual-chapter-image>div,
+ .page-hero-image,
+ .fl-hero-image,
+ .produce-hero-light .produce-hero-image,
+ .india-story-split:not(.india-image-first)>.india-editorial-image .india-editorial-image-window,
+ .india-hero-visual,
+ .studio-frame-location
+)::before{
+ content:''!important;
+ position:absolute!important;
+ z-index:4!important;
+ top:0!important;
+ right:0!important;
+ bottom:auto!important;
+ left:auto!important;
+ width:var(--paper-fold)!important;
+ height:var(--paper-fold)!important;
+ border:0!important;
+ background:linear-gradient(225deg,#fff8e8 0 45%,#c99a4e 49% 66%,#6b3c1d 100%)!important;
+ clip-path:polygon(0 0,100% 100%,0 100%)!important;
+ box-shadow:-4px 5px 8px #2b160d40!important;
+ pointer-events:none!important;
+}
+
+/* Left-column photographs: mirror the fold and cast the shadow to the left. */
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .visual-image-left>.visual-chapter-image>div,
+ .service-chapter:not(.is-reversed)>.page-image,
+ .ep-hero-photo .ep-image-window,
+ .leadership-page .leadership-portrait,
+ .production-detail-grid>figure:first-child,
+ .india-story-split.india-image-first>.india-editorial-image .india-editorial-image-window,
+ .studio-frame-main
+){
+ position:relative!important;
+ overflow:hidden!important;
+ border-radius:0!important;
+ clip-path:polygon(var(--paper-fold) 0,100% 0,100% 100%,0 100%,0 var(--paper-fold));
+ filter:drop-shadow(var(--paper-shadow-left));
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .visual-image-left>.visual-chapter-image>div,
+ .service-chapter:not(.is-reversed)>.page-image,
+ .ep-hero-photo .ep-image-window,
+ .leadership-page .leadership-portrait,
+ .production-detail-grid>figure:first-child,
+ .india-story-split.india-image-first>.india-editorial-image .india-editorial-image-window,
+ .studio-frame-main
+)::before{
+ content:''!important;
+ position:absolute!important;
+ z-index:4!important;
+ top:0!important;
+ right:auto!important;
+ bottom:auto!important;
+ left:0!important;
+ width:var(--paper-fold)!important;
+ height:var(--paper-fold)!important;
+ border:0!important;
+ background:linear-gradient(135deg,#fff8e8 0 45%,#c99a4e 49% 66%,#6b3c1d 100%)!important;
+ clip-path:polygon(100% 0,100% 100%,0 100%)!important;
+ box-shadow:4px 5px 8px #2b160d40!important;
+ pointer-events:none!important;
+}
+
+/* Reversed split sections place their photograph on the right. */
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .service-chapter.is-reversed>.page-image{
+ position:relative!important;
+ overflow:hidden!important;
+ border-radius:0!important;
+ clip-path:polygon(0 0,calc(100% - var(--paper-fold)) 0,100% var(--paper-fold),100% 100%,0 100%);
+ filter:drop-shadow(var(--paper-shadow-right));
+}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .service-chapter.is-reversed>.page-image::before{
+ content:'';position:absolute;z-index:4;top:0;right:0;width:var(--paper-fold);height:var(--paper-fold);
+ background:linear-gradient(225deg,#fff8e8 0 45%,#c99a4e 49% 66%,#6b3c1d 100%);
+ clip-path:polygon(0 0,100% 100%,0 100%);box-shadow:-4px 5px 8px #2b160d40;pointer-events:none;
+}
+
+/* The photograph itself never introduces a second rounded edge. */
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(
+ .visual-chapter-image,
+ .page-hero-image,
+ .page-image,
+ .fl-hero-image,
+ .produce-hero-image,
+ .ep-image-window,
+ .india-editorial-image-window,
+ .india-hero-visual,
+ .leadership-portrait,
+ .production-detail-grid>figure,
+ .studio-frame-main,
+ .studio-frame-location
+) img{border-radius:0!important}
+
+@media(max-width:700px){
+ html body #top.creative-site:not(.site-page-home) #main#main.inner-page{--paper-fold:28px;--paper-shadow-left:-7px 12px 17px #2d180d47;--paper-shadow-right:7px 12px 17px #2d180d47}
+ html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.line-production-page,.casting-page,.locations-logistics-page,.crew-equipment-page,.set-production-design-page,.shooting-on-location-page) .line-production-planning{
+  box-shadow:7px 12px 20px #2d180d38!important;
+ }
+}
+@media(forced-colors:active){
+ html body #top.creative-site:not(.site-page-home) #main#main.inner-page :is(.visual-chapter-image>div,.page-hero-image,.page-image,.fl-hero-image,.produce-hero-image,.ep-image-window,.india-editorial-image-window,.india-hero-visual,.leadership-portrait,.production-detail-grid>figure,.studio-frame-main,.studio-frame-location){clip-path:none;filter:none}
+}

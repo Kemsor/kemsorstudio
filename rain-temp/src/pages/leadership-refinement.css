@@ -1,11 +1,12 @@
 /* Leadership aligns to the shared inner rails and groups the founder credentials. */
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-width{box-sizing:border-box;width:calc(100% - var(--inner-content-gutter)*2)!important;max-width:var(--inner-content-width,1200px)!important;margin-inline:auto;padding-inline:0!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-width>.page-breadcrumb-row{width:100%!important;max-width:none!important;margin-inline:0!important;padding-inline:0!important}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-heading{border:0!important;padding:24px 0!important;margin-bottom:20px}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-profile{grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:clamp(32px,5vw,64px);align-items:center;padding-bottom:48px}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-portrait{padding:12px!important;background:#f2e8d7!important;border:1px solid #dfceb4!important;border-radius:22px;box-shadow:0 14px 40px #57351f0b;overflow:hidden}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-portrait>img{display:block;width:100%;height:530px!important;aspect-ratio:auto!important;object-fit:cover;object-position:center 30%;border-radius:13px;background:#b5ada2}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-portrait figcaption{padding:18px 10px 8px!important;border:0!important;align-items:center;flex-wrap:wrap;color:#725434!important;font-size:10px;letter-spacing:.08em}
-html body #top.creative-site #main#main.inner-page .leadership-page .leadership-biography h2{font-size:clamp(30px,3.4vw,44px)!important;line-height:1.2!important;margin-bottom:18px!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-biography h2{font-size:clamp(26px,2.8vw,36px)!important;line-height:1.2!important;margin-bottom:18px!important}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-tagline{font-size:19px!important;margin-bottom:22px!important;max-width:none}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-biography-copy p{font-size:13px!important;line-height:1.9!important;color:#62584c!important;margin-bottom:18px}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-highlights{padding:40px!important;background:#f2e8d7!important;border:1px solid #e1d0b7!important;border-radius:22px;overflow:hidden}
@@ -52,3 +53,93 @@ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-highlights .leadership-work-icon{background:#4a3520!important;color:#e5b765!important}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-highlights .leadership-work-icon svg{color:#e5b765!important}
 html body #top.creative-site #main#main.inner-page .leadership-page .leadership-highlights .leadership-work-list>li:hover{background:#4a3520!important;border-color:#e5b765!important}
+
+/* Screen work and recognition are independent editorial sections. */
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work.leadership-width{margin-top:clamp(40px,6vw,72px);padding:clamp(32px,4vw,52px)!important;background:#faf6ef;border:1px solid #e4d6c1;border-radius:22px}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work>h2{margin:8px 0 28px!important;color:#57351f!important;-webkit-text-fill-color:#57351f!important;font-size:clamp(27px,3vw,38px)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li{background:#fff!important;border-color:#dfceb4!important;min-height:145px}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:hover{background:#f8edcf!important;border-color:#c5a15e!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list h3{color:#57351f!important;-webkit-text-fill-color:#57351f!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-icon{background:#f2e8d7!important;color:#89632d!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-icon svg{color:#89632d!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition.leadership-width{margin-top:clamp(24px,3vw,36px);padding:0!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours{display:grid;grid-template-columns:58px minmax(0,1fr);column-gap:22px;padding:clamp(30px,4vw,46px)!important;margin:0!important;background:#e5b765!important;border:1px solid #c9943d!important;border-radius:22px!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours>svg{width:42px;height:42px;color:#57351f!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-kicker{color:#57351f!important;-webkit-text-fill-color:#57351f!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours>h2{color:#251c12!important;-webkit-text-fill-color:#251c12!important;font-size:clamp(26px,3vw,36px)!important;margin:4px 0 12px!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours li{color:#57351f!important;-webkit-text-fill-color:#57351f!important;font-size:14px!important;font-weight:600}
+@media(max-width:760px){
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work.leadership-width{padding:26px 20px!important}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours{grid-template-columns:36px minmax(0,1fr);gap:0 14px;padding:26px 20px!important}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours>svg{width:30px;height:30px}
+}
+
+/* Cinematic filmstrip and award-plaque treatments. */
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work.leadership-width{position:relative;overflow:hidden;background:#e8d4ad;border-color:#c79a55;padding:clamp(34px,4.5vw,60px)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-camera{position:absolute;right:clamp(-90px,-3vw,-30px);top:clamp(-110px,-6vw,-40px);width:clamp(270px,31vw,450px);height:auto;color:#5c3e20;opacity:.14;transform:rotate(-7deg);pointer-events:none}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work>.leadership-kicker,html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work>h2,html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work>.leadership-work-list{position:relative;z-index:1}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work:after{content:'K / SCREEN ARCHIVE';position:absolute;right:clamp(26px,4vw,58px);top:clamp(38px,4.5vw,58px);font-size:9px;letter-spacing:.18em;color:#76552d}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work>h2{max-width:620px;margin-bottom:34px!important;font-family:'Cinzel Decorative',Georgia,serif!important;font-weight:400!important;font-size:clamp(26px,2.8vw,36px)!important;line-height:1.2!important;letter-spacing:0!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list{position:relative;counter-reset:screen-work;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0!important;background:transparent;border:0!important;border-radius:0;overflow:visible}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list:before,html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list:after{display:none}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list:before{top:9px}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list:after{bottom:9px}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li{counter-increment:screen-work;isolation:isolate;overflow:hidden;min-height:220px;padding:32px 42px!important;background:radial-gradient(circle,#d2a85f 0 2px,transparent 2.7px) 8px 5px/10px 22px repeat-y,radial-gradient(circle,#d2a85f 0 2px,transparent 2.7px) calc(100% - 8px) 5px/10px 22px repeat-y,linear-gradient(145deg,#382718,#211810)!important;border:1px solid #8b6537!important;border-radius:12px;box-shadow:inset 0 0 0 8px #17110c55,0 10px 24px #55341612;justify-content:space-between;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:before{content:'0' counter(screen-work);display:block!important;position:absolute;right:14px;bottom:-20px;z-index:-1;color:#e5b76512;font:400 108px/1 Georgia,serif}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:hover{transform:translateY(-4px);background:radial-gradient(circle,#e5b765 0 2px,transparent 2.7px) 8px 5px/10px 22px repeat-y,radial-gradient(circle,#e5b765 0 2px,transparent 2.7px) calc(100% - 8px) 5px/10px 22px repeat-y,linear-gradient(145deg,#44301e,#261b11)!important;border-color:#c99a51!important;box-shadow:inset 0 0 0 8px #17110c55,0 14px 28px #55341625}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list h3{max-width:14ch;color:#fff7e9!important;-webkit-text-fill-color:#fff7e9!important;font:500 clamp(17px,1.6vw,22px)/1.35 Manrope,sans-serif!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-icon{width:50px;height:50px;border-radius:50%;background:#e5b765!important;color:#251c12!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-icon svg{color:#251c12!important}
+
+/* Asymmetric screen-credit composition */
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work.leadership-width{overflow:visible;padding:clamp(28px,4vw,52px) 0!important;background:transparent;border:0;border-radius:0}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-camera{opacity:.07}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:repeat(2,minmax(150px,1fr));gap:16px}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li{position:relative;display:block;min-height:0;padding:0!important;background:linear-gradient(135deg,#130b05,#4a250c 58%,#9b591b)!important;border:0!important;border-radius:4px;box-shadow:none;transform:none!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child{grid-row:1/3;min-height:316px;padding:42px!important;background:linear-gradient(145deg,#0d0805 0%,#3b1e0c 52%,#a96522 100%)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:nth-child(2){background:linear-gradient(135deg,#211006 0%,#6d350e 62%,#c27b28 100%)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:nth-child(3){background:linear-gradient(135deg,#160b05 0%,#52250b 58%,#a8611d 100%)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:before{display:none!important;content:none!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:after{content:'';position:absolute;left:34px;right:34px;bottom:27px;height:1px;background:linear-gradient(90deg,#e5b765,transparent);opacity:.65}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child:after{left:42px;right:42px;bottom:38px}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:hover{border:0!important;box-shadow:0 16px 32px #5c2d112e;filter:brightness(1.08);transform:translateY(-3px)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child:hover{background:linear-gradient(145deg,#120b06 0%,#48250e 52%,#bb7829 100%)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:nth-child(2):hover{background:linear-gradient(135deg,#291407 0%,#7d3f12 62%,#d48d35 100%)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:nth-child(3):hover{background:linear-gradient(135deg,#1d0e06 0%,#632e0d 58%,#bd7428 100%)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list h3{position:absolute;left:34px;right:30%;bottom:42px;z-index:2;max-width:17ch;margin:0!important;font-family:'Cinzel Decorative',Georgia,serif!important;font-weight:400!important;font-size:clamp(18px,1.7vw,25px)!important;line-height:1.2!important;letter-spacing:0!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child h3{font-size:clamp(24px,2.6vw,34px)!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-icon{position:absolute;left:auto;right:24px;top:50%;z-index:0;width:auto;height:auto;border:0;border-radius:0;background:transparent!important;color:#e5b765!important;transform:translateY(-50%);opacity:.13}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child .leadership-work-icon{left:auto;right:38px;top:50%;width:auto;height:auto}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-icon svg{width:clamp(110px,12vw,180px);height:clamp(110px,12vw,180px);color:#e5b765!important;stroke-width:.7}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child .leadership-work-icon svg{width:clamp(180px,20vw,300px);height:clamp(180px,20vw,300px)}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours{position:relative;isolation:isolate;overflow:hidden;grid-template-columns:110px minmax(0,1fr);column-gap:34px;padding:clamp(38px,5vw,64px)!important;background:linear-gradient(120deg,#4a160f 0%,#6d281a 54%,#27150f 100%)!important;border-color:#c99543!important;box-shadow:0 18px 45px #3d1b0e16}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours:before{content:'K';position:absolute;right:3%;top:50%;z-index:-1;transform:translateY(-52%);font:400 clamp(180px,25vw,360px)/1 Georgia,serif;color:#e5b7650d}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours:after{content:'';position:absolute;inset:12px;border:1px solid #e5b76540;border-radius:14px;pointer-events:none}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours>svg{grid-row:1/4;align-self:center;width:88px;height:88px;padding:23px;color:#251c12!important;background:#e5b765;border-radius:50%;box-shadow:0 0 0 8px #e5b7651f}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-kicker{color:#e5b765!important;-webkit-text-fill-color:#e5b765!important;letter-spacing:.18em}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours>h2{color:#fff7e9!important;-webkit-text-fill-color:#fff7e9!important;font-family:'Cinzel Decorative',Georgia,serif!important;font-weight:400!important;font-size:clamp(24px,2.5vw,32px)!important;letter-spacing:0!important}
+html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours li{color:#f0d6b5!important;-webkit-text-fill-color:#f0d6b5!important;font-size:clamp(14px,1.25vw,17px)!important;letter-spacing:.015em}
+@media(max-width:760px){
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work:after{display:none}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-camera{right:-90px;top:-45px;width:260px;opacity:.1}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list{grid-template-columns:1fr;padding:0!important}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li{min-height:125px;flex-direction:row;align-items:center}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list{grid-template-columns:1fr;grid-template-rows:auto;gap:12px}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li,html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child{grid-row:auto;min-height:150px;padding:0!important}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child{min-height:210px}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-icon,html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list>li:first-child .leadership-work-icon{left:auto;right:18px;top:50%;width:auto;height:auto}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-screen-work .leadership-work-list h3{left:26px;right:32%;bottom:30px;margin:0!important}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours{grid-template-columns:64px minmax(0,1fr);gap:0 20px;padding:34px 26px!important}
+ html body #top.creative-site #main#main.inner-page .leadership-page .leadership-recognition .leadership-honours>svg{width:58px;height:58px;padding:15px}
+}
+
+.leadership-work-band{
+ display:flow-root;
+ margin-top:clamp(24px,4vw,56px);
+ padding-bottom:clamp(28px,4vw,52px);
+ background:#f2e8d7;
+}
+
+html body #top.creative-site #main#main.inner-page .leadership-work-band > :is(.leadership-screen-work,.leadership-recognition){
+ background:transparent!important;
+}

@@ -38,6 +38,8 @@ html body #top.creative-site #main.inner-page :is(.fl-nav,.pl-services){border-b
 
 /* Rounded white section links, shared across all inner pages. */
 html body #top.creative-site #main.inner-page .section-submenu{border:0;box-shadow:none;background:#fff}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .section-submenu[data-stuck=true]{box-sizing:border-box;width:100vw!important;max-width:none!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .section-submenu[data-stuck=true]>.section-submenu-width{box-sizing:border-box;width:calc(100% - var(--inner-content-gutter,clamp(20px,5vw,80px))*2)!important;max-width:var(--inner-content-width,1440px)!important;margin-inline:auto!important;padding-inline:0!important}
 html body #top.creative-site #main.inner-page .section-submenu-width{padding-block:16px}
 html body #top.creative-site #main.inner-page .section-submenu-links{gap:10px;padding:4px;align-items:center}
 html body #top.creative-site #main.inner-page .section-submenu-links>a{
@@ -59,4 +61,35 @@ html body #top.creative-site #main.inner-page .section-submenu-links>a[aria-curr
 }
 @media(prefers-reduced-motion:reduce){
  html body #top.creative-site #main.inner-page .section-submenu-links>a{transition:none}
+}
+
+@media(max-width:600px){
+ html body #top.creative-site:has(.production-layout) > .creative-header{
+  --header-hide-distance:var(--inner-nav-bottom,var(--site-header-height,72px));
+ }
+ html body #top.creative-site #main.inner-page .production-layout > .section-submenu{
+  position:sticky;
+  top:var(--inner-nav-bottom,var(--site-header-height,72px));
+ }
+ html body #top.creative-site:has(> .creative-header[data-hidden=true]):not(:has(> .creative-header :focus-visible)) #main.inner-page .production-layout > .section-submenu{
+  top:0;
+ }
+ html body #top.creative-site #main.inner-page .production-layout > .section-submenu .section-submenu-width{
+  padding-block:6px;
+ }
+ html body #top.creative-site #main.inner-page .production-layout > .section-submenu .section-submenu-links{
+  flex-wrap:nowrap;
+  min-width:0;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+ }
+ html body #top.creative-site #main.inner-page .production-layout > .section-submenu .section-submenu-links > a{
+  flex:none;
+  white-space:nowrap;
+ }
+}
+@media(max-width:600px) and (prefers-reduced-motion:no-preference){
+ html body #top.creative-site #main.inner-page .production-layout > .section-submenu{
+  transition:top 360ms cubic-bezier(.22,.61,.36,1);
+ }
 }

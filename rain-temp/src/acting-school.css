@@ -12,13 +12,22 @@ html body #top.creative-site .acting-school-disciplines span{margin:0 8px;opacit
 @layer warm-surfaces{
  html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy :is(h2,em,p,.acting-school-disciplines span){color:#251c12!important;-webkit-text-fill-color:#251c12!important;text-shadow:none!important}
 }
-@media(max-width:700px){html body #top.creative-site .acting-school-card{padding-top:250px}html body #top.creative-site .acting-school-portrait{inset:0 0 auto;width:100%;height:250px}html body #top.creative-site .acting-school-portrait>img{object-fit:contain;object-position:center bottom}html body #top.creative-site .acting-school-copy{width:100%;padding:10px 24px 28px}html body #top.creative-site .acting-school-kicker{font-size:9px}}
+@media(max-width:700px){
+ html body #top.creative-site .home-acting-school{padding:0}
+ html body #top.creative-site .acting-school-card{min-height:420px}
+ html body #top.creative-site .acting-school-portrait{inset:0 auto 0 clamp(-58px,-11vw,-32px);width:54%;height:auto}
+ html body #top.creative-site .acting-school-portrait>img{object-fit:cover;object-position:left bottom}
+ html body #top.creative-site .acting-school-copy{width:64%;min-height:420px;padding:28px 20px 28px 42px;background:transparent}
+ html body #top.creative-site .acting-school-copy h2{font-size:clamp(24px,6.7vw,30px)}
+ html body #top.creative-site .acting-school-copy h2 em{font-size:clamp(18px,5vw,23px)}
+ html body #top.creative-site .acting-school-copy>p:not(.acting-school-kicker){font-size:12px;line-height:1.6}
+ html body #top.creative-site .acting-school-kicker{font-size:9px}
+}
 @layer warm-surfaces{
  html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(105deg,#35200d 0%,#966126 25%,#cf9a4d 48%,#dda95b 72%,#e5b765 100%)!important;margin-top:0!important;margin-bottom:0!important}
  html body #top.creative-site.site-page-home #main #acting-school .acting-school-card{background:transparent!important;background-image:none!important}
 }
 
-@layer warm-surfaces{@media(max-width:700px){html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(160deg,#6f441b 0%,#cf9a4d 35%,#e5b765 70%)!important}}}
 @layer warm-surfaces{
  html body #top.creative-site.site-page-home #main #acting-school .creative-cta{background:#251c12!important;background-image:none!important;color:#fff4df!important;-webkit-text-fill-color:#fff4df!important;border:1px solid #251c12!important}
  html body #top.creative-site.site-page-home #main #acting-school .creative-cta :is(span,svg){color:#fff4df!important;-webkit-text-fill-color:#fff4df!important}
@@ -31,7 +40,7 @@ html body #top.creative-site .acting-school-disciplines span{margin:0 8px;opacit
  html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy h2 em,
  html body #top.creative-site.site-page-home #main #acting-school .acting-school-kicker{color:#976124!important;-webkit-text-fill-color:#976124!important}
  html body #top.creative-site.site-page-home #main #acting-school .acting-school-copy>p:not(.acting-school-kicker){color:#554b3b!important;-webkit-text-fill-color:#554b3b!important}
- @media(max-width:700px){html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(160deg,#6f441b 0%,#cf9a4d 35%,#e5b765 70%)!important}}
+ @media(max-width:700px){html body #top.creative-site.site-page-home #main #acting-school{background:linear-gradient(105deg,#6f441b 0%,#cf9a4d 28%,#f2d8a9 50%,#f9e5bd 100%)!important}}
 }
 
 @layer warm-surfaces{

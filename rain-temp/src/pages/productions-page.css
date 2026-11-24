@@ -46,6 +46,12 @@ html body #top.creative-site #main.inner-page .productions-page .productions-fil
  html body #top.creative-site #main.inner-page .productions-page .productions-filters button{min-height:44px;padding:10px 14px!important}
 }
 .productions-page .productions-section{max-width:1440px;margin:auto;padding:70px var(--page-gutter);border-top:1px solid #28282826;position:relative;scroll-margin-top:110px}
+html body #top.creative-site #main.inner-page .productions-page #what-we-make{
+ --formats-background:#f2e8d7;
+ background:var(--formats-background)!important;
+ box-shadow:0 0 0 100vmax var(--formats-background)!important;
+ clip-path:inset(0 -100vmax);
+}
 html .creative-site #main .productions-page h2{font:500 clamp(27px,3vw,40px)/1.2 Manrope,sans-serif;letter-spacing:-.035em;margin-bottom:28px}
 html .creative-site #main .productions-page h3{font:500 20px/1.4 Manrope,sans-serif;letter-spacing:-.025em}
 html .creative-site #main .productions-page p{font-size:13px;line-height:1.85;color:#676767}
@@ -89,7 +95,7 @@ html .creative-site #main .productions-page .productions-intro h2{font-size:clam
 .productions-empty{border:1px dashed #c8bcaa;border-radius:16px;background:radial-gradient(ellipse at top,#c8ac7417,transparent 70%);padding:65px 24px}.productions-empty>svg{margin:0 auto 24px;color:#9c7844}.productions-empty>span{font-size:9px;letter-spacing:.18em;color:#8c704a;margin-bottom:18px}.productions-empty button{border-radius:24px;margin-top:18px}.productions-empty p{margin:14px auto 0;max-width:360px}.productions-empty h3{margin:0}
 .productions-cards{gap:22px}.productions-cards>article{border:1px solid var(--production-line);border-radius:14px;overflow:hidden;min-width:0;scroll-margin-top:110px}.productions-cards>article>img{width:100%;height:auto;aspect-ratio:4/3;object-fit:contain}.production-card-copy{padding:23px}.production-status{display:inline-block;border:1px solid #b4986550;border-radius:24px;color:#775d33;padding:5px 10px;font-size:9px;margin-bottom:16px}.productions-page .production-card-copy h3{font-size:24px;margin:0}.productions-page .production-card-meta{font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin:10px 0}.productions-cards summary{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;border-bottom:0;padding:16px 0 0;margin-top:20px;list-style:none}.productions-cards summary::-webkit-details-marker{display:none}.productions-cards .cms-video{margin:0}.productions-cards .cms-video video{border-radius:0;max-height:none;aspect-ratio:16/9}.productions-cards .cms-video figcaption{padding:10px 20px 0;font-size:10px}.production-poster-empty{aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:linear-gradient(145deg,#28272c,#453c30);color:#dbbd88}.production-poster-empty span{font-size:9px;letter-spacing:.18em}
 .productions-strengths{gap:18px}.productions-strengths article{padding:26px 22px;border:1px solid var(--production-line);border-radius:12px}.productions-strengths article>span{font:400 27px/1 Manrope,sans-serif;color:#ad8855;margin-bottom:24px}.productions-page .productions-strengths h3{font-size:18px;line-height:1.45}.productions-strengths article p{font-size:12px;margin-bottom:0}
-html body #top.creative-site #main.inner-page .productions-page .productions-process-section{background:radial-gradient(ellipse at 100% 0,#8c704632,transparent 60%),#222225!important;border-radius:20px;max-width:1264px;width:calc(100% - clamp(40px,11vw,176px));padding:clamp(28px,4vw,54px);margin:15px auto 30px;color:#fff}
+html body #top.creative-site #main.inner-page .productions-page .productions-process-section{background:radial-gradient(ellipse at 100% 0,#8c704632,transparent 60%),#222225!important;border-radius:20px;margin:15px auto 30px;color:#fff}
 html body #top.creative-site #main.inner-page .productions-page .productions-process-section :is(h2,h3){color:#fff!important}html body #top.creative-site #main.inner-page .productions-page .productions-process-section p{color:#d2cfc9!important}html body #top.creative-site #main.inner-page .productions-page .productions-process-section>.produce-label{color:#dfbb7c!important}.productions-process{gap:22px;margin-top:40px}.productions-process li{border-color:#ffffff35}.productions-process a{color:#fff}.productions-process a>span:first-child{color:#dfbb7c;margin-bottom:24px}.productions-process h3{font-size:20px!important}.productions-process p{font-size:12px!important}.productions-process .line-link{color:#dfbb7c!important;font-size:10px;border-color:#dfbb7c55!important;display:inline-flex;gap:12px;align-items:center}
 .productions-audiences{gap:18px}.productions-audiences article{border:1px solid var(--production-line);padding:25px 22px;border-radius:12px}.productions-page .productions-audiences h3{font-size:19px}.productions-audiences article p{font-size:12px}.productions-audiences .line-link{font-size:10px!important;line-height:1.6}
 .productions-questions{border-top:1px solid var(--production-line)!important}.productions-questions .produce-faqs details{border-top:1px solid var(--production-line);padding:20px 0}.productions-questions .produce-faqs summary{font-size:13px;line-height:1.6;cursor:pointer}.productions-questions .produce-faqs summary>span{color:#a17a43}
@@ -117,3 +123,60 @@ html body #top.creative-site #main.inner-page .productions-page .productions-aud
 html body #top.creative-site #main.inner-page .productions-page .productions-audiences .line-link:focus-visible{outline:2px solid #966622;outline-offset:5px;border-radius:2px}
 @media(max-width:480px){html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article{padding:24px}}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article,html body #top.creative-site #main.inner-page .productions-page .productions-audiences>article::before{transition:none}}
+
+/* Match the simple closing FAQ used across the Produce pages. */
+html body #top.creative-site #main#main.inner-page .productions-page section.productions-questions:has(> .standard-faq-panel){
+ display:block!important;box-sizing:border-box;width:100vw!important;max-width:none!important;
+ margin:0 calc(50% - 50vw)!important;
+ padding:clamp(58px,5vw,78px) max(var(--inner-content-gutter),calc((100vw - var(--inner-content-width))/2)) clamp(76px,7vw,112px)!important;
+ background:#181512!important;border:0!important;color:#f7edde!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-panel{
+ --inner-heading-ink:#f7edde;--inner-heading-accent:#f7edde;display:block!important;overflow:visible;
+ width:100%!important;max-width:var(--inner-content-width)!important;margin:0 auto!important;padding:0!important;
+ background:transparent!important;border:0!important;color:#f7edde!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-panel::before{
+ background:#181512!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-image{
+ display:none!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-heading{
+ margin:0 0 clamp(30px,4vw,52px)!important;padding:0!important;border:0!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-heading :is(.produce-label,p){
+ margin:0 0 14px!important;color:#e9b755!important;-webkit-text-fill-color:#e9b755!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-heading h2,
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word),
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word) *{
+ margin:0!important;font-family:var(--inner-serif,"Cormorant Garamond",Georgia,serif)!important;
+ font-size:clamp(42px,5vw,72px)!important;font-weight:400!important;line-height:1!important;letter-spacing:-.035em!important;
+ color:#f7edde!important;-webkit-text-fill-color:#f7edde!important;text-shadow:none!important;opacity:1!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list{
+ margin:0!important;padding:0!important;border-top:1px solid #f7edde42!important;background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list details{
+ border:0!important;border-bottom:1px solid #f7edde42!important;background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list summary{
+ flex-direction:row-reverse!important;justify-content:flex-end!important;gap:24px!important;padding:24px 0!important;
+ font-size:clamp(16px,1.35vw,20px)!important;font-weight:400!important;color:#f7edde!important;-webkit-text-fill-color:#f7edde!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list summary>span{
+ width:24px!important;height:24px!important;border:0!important;border-radius:0!important;background:transparent!important;
+ color:#e9b755!important;-webkit-text-fill-color:#e9b755!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list details[open] summary>span{
+ background:transparent!important;color:#e9b755!important;-webkit-text-fill-color:#e9b755!important;
+}
+html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list details p{
+ max-width:880px!important;margin:0!important;padding:0 0 24px 48px!important;
+ font-size:14px!important;line-height:1.85!important;color:#c9bcae!important;-webkit-text-fill-color:#c9bcae!important;
+}
+@media(max-width:600px){
+ html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list summary{gap:14px!important;padding:20px 0!important}
+ html body #top.creative-site #main#main.inner-page .productions-page .productions-questions .standard-faq-list details p{padding-left:38px!important}
+}

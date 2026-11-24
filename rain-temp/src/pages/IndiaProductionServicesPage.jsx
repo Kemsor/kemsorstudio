@@ -17,16 +17,16 @@ const benefits = cmsData(()=>([
   [cmsText("IndiaProductionServicesPage","579840b47a236848","Value"), cmsText("IndiaProductionServicesPage","8ee4601cf5f13a64","Strong production value for the budget, when the shoot is planned well")],
 ]));
 const services = cmsData(()=>([
-  [cmsText("IndiaProductionServicesPage","5e8d0d1afd7fca35","Line production"), cmsText("IndiaProductionServicesPage","eacce8bb6e76e64c","Day-to-day management of the shoot in India, covering budget, schedule, people and problem-solving")],
-  [cmsText("IndiaProductionServicesPage","9f38678bf9d93f5e","Locations"), cmsText("IndiaProductionServicesPage","bd0cfcce2758ea5b","Scouting, recces, location agreements and on-the-day location management")],
-  [cmsText("IndiaProductionServicesPage","689d61706e999165","Permissions"), cmsText("IndiaProductionServicesPage","45476309796a4915","Coordinating the permissions a shoot needs with location owners and the relevant authorities")],
-  [cmsText("IndiaProductionServicesPage","069aaf1bcbf6f683","Crew"), cmsText("IndiaProductionServicesPage","78b71995769aa8f8","Experienced local crew across departments, working alongside your heads of department")],
-  [cmsText("IndiaProductionServicesPage","94e3c0380ce8c6aa","Equipment"), cmsText("IndiaProductionServicesPage","bc106e37e1858dcf","Camera, lighting, grip and sound packages sourced to your specification")],
-  [cmsText("IndiaProductionServicesPage","94bdb74e918f1034","Casting & talent"), cmsText("IndiaProductionServicesPage","c25be0a841fd305d","Local cast, specialist performers and background artists, coordinated through the Kemsor Talent Network")],
-  [cmsText("IndiaProductionServicesPage","36cd9ef1da6039ff","Logistics"), cmsText("IndiaProductionServicesPage","00ffd9a079dae489","Travel within India, accommodation, transport, catering and unit facilities")],
-  [cmsText("IndiaProductionServicesPage","652ad996cf5608fa","Production design"), cmsText("IndiaProductionServicesPage","f939bc7a7554e4ec","Set builds, art department, props and location dressing")],
-  [cmsText("IndiaProductionServicesPage","b592b990724d93ab","Budgets & cost reports"), cmsText("IndiaProductionServicesPage","135deb888a3583ec","Budgets and regular cost reports in the currency and format you agree with us")],
-  [cmsText("IndiaProductionServicesPage","c3fed38b08cf5df7","Post & delivery"), cmsText("IndiaProductionServicesPage","2904a52ef91d8b18","Post-production supervision and deliverables, if you want to finish here too")],
+  [cmsText("IndiaProductionServicesPage","5e8d0d1afd7fca35","Line production"), cmsText("IndiaProductionServicesPage","eacce8bb6e76e64c","Day-to-day management of the shoot in India, covering budget, schedule, people and problem-solving"), "film"],
+  [cmsText("IndiaProductionServicesPage","9f38678bf9d93f5e","Locations"), cmsText("IndiaProductionServicesPage","bd0cfcce2758ea5b","Scouting, recces, location agreements and on-the-day location management"), "location"],
+  [cmsText("IndiaProductionServicesPage","689d61706e999165","Permissions"), cmsText("IndiaProductionServicesPage","45476309796a4915","Coordinating the permissions a shoot needs with location owners and the relevant authorities"), "script"],
+  [cmsText("IndiaProductionServicesPage","069aaf1bcbf6f683","Crew"), cmsText("IndiaProductionServicesPage","78b71995769aa8f8","Experienced local crew across departments, working alongside your heads of department"), "people"],
+  [cmsText("IndiaProductionServicesPage","94e3c0380ce8c6aa","Equipment"), cmsText("IndiaProductionServicesPage","bc106e37e1858dcf","Camera, lighting, grip and sound packages sourced to your specification"), "video"],
+  [cmsText("IndiaProductionServicesPage","94bdb74e918f1034","Casting & talent"), cmsText("IndiaProductionServicesPage","c25be0a841fd305d","Local cast, specialist performers and background artists, coordinated through the Kemsor Talent Network"), "scan"],
+  [cmsText("IndiaProductionServicesPage","36cd9ef1da6039ff","Logistics"), cmsText("IndiaProductionServicesPage","00ffd9a079dae489","Travel within India, accommodation, transport, catering and unit facilities"), "guide"],
+  [cmsText("IndiaProductionServicesPage","652ad996cf5608fa","Production design"), cmsText("IndiaProductionServicesPage","f939bc7a7554e4ec","Set builds, art department, props and location dressing"), "target"],
+  [cmsText("IndiaProductionServicesPage","b592b990724d93ab","Budgets & cost reports"), cmsText("IndiaProductionServicesPage","135deb888a3583ec","Budgets and regular cost reports in the currency and format you agree with us"), "briefcase"],
+  [cmsText("IndiaProductionServicesPage","c3fed38b08cf5df7","Post & delivery"), cmsText("IndiaProductionServicesPage","2904a52ef91d8b18","Post-production supervision and deliverables, if you want to finish here too"), "check"],
 ]));
 const steps = cmsData(()=>([
   [cmsText("IndiaProductionServicesPage","d3e2e8c701e398f7","Brief"), cmsText("IndiaProductionServicesPage","9ba22d056d111286","Tell us about the story, the locations you have in mind, your dates, and your budget range. We come back with honest feedback on what is possible.")],
@@ -58,11 +58,11 @@ const international = cmsData(()=>([
   [cmsText("IndiaProductionServicesPage","7026975b392545c8","Clear communication on set"), cmsText("IndiaProductionServicesPage","b09e48afd6f1e900","Our team works in English and bridges local languages with crew, cast and communities.")],
 ]));
 const formats = cmsData(()=>([
-  [cmsText("IndiaProductionServicesPage","1e95182335530185","Feature films"), cmsText("IndiaProductionServicesPage","0545718cb64d27e2","Full shoots or specific blocks, from a single location to multi-city schedules")],
-  [cmsText("IndiaProductionServicesPage","5031fdf0fb63bcc0","Series & OTT"), cmsText("IndiaProductionServicesPage","74cc368661372adc","Episodic shoots with consistent crews and schedules across blocks")],
-  [cmsText("IndiaProductionServicesPage","d7e293f94174d1df","Documentaries"), cmsText("IndiaProductionServicesPage","6e01739ce084137a","Small, mobile units, access planning and sensitive work with communities")],
-  [cmsText("IndiaProductionServicesPage","d616f3006d9d350e","Short films"), cmsText("IndiaProductionServicesPage","aaca3591788fcaac","Compact, efficient shoots that make every day count")],
-  [cmsText("IndiaProductionServicesPage","8a463057a7bbbd2f","International co-productions"), cmsText("IndiaProductionServicesPage","2ff7960b533fd081","A local production partner for the India part of the project")],
+  [cmsText("IndiaProductionServicesPage","1e95182335530185","Feature films"), cmsText("IndiaProductionServicesPage","0545718cb64d27e2","Full shoots or specific blocks, from a single location to multi-city schedules"), "film"],
+  [cmsText("IndiaProductionServicesPage","5031fdf0fb63bcc0","Series & OTT"), cmsText("IndiaProductionServicesPage","74cc368661372adc","Episodic shoots with consistent crews and schedules across blocks"), "video"],
+  [cmsText("IndiaProductionServicesPage","d7e293f94174d1df","Documentaries"), cmsText("IndiaProductionServicesPage","6e01739ce084137a","Small, mobile units, access planning and sensitive work with communities"), "eye"],
+  [cmsText("IndiaProductionServicesPage","d616f3006d9d350e","Short films"), cmsText("IndiaProductionServicesPage","aaca3591788fcaac","Compact, efficient shoots that make every day count"), "scan"],
+  [cmsText("IndiaProductionServicesPage","8a463057a7bbbd2f","International co-productions"), cmsText("IndiaProductionServicesPage","2ff7960b533fd081","A local production partner for the India part of the project"), "partnership"],
 ]));
 const questions = cmsData(()=>([
   [cmsText("IndiaProductionServicesPage","bd71d55e1ea196a2","How far ahead should we start planning?"), cmsText("IndiaProductionServicesPage","d16097bcac51d539","As early as you can. Permissions, locations, and key crew all take time to secure, and earlier planning gives you more choice. If your timeline is short, tell us anyway, and we’ll be honest about what is realistic.")],
@@ -80,7 +80,7 @@ function Label({ children, number }) {
   return <div className="india-label"><span>{children}</span></div>;
 }
 function RowList({ rows, headings }) {
-  return <><div className="india-row-head studio-ledger-head" aria-hidden="true"><span>{headings[0]}</span><span>{headings[1]}</span></div><dl className="india-row-list studio-ledger studio-ledger-pairs">{rows.map(([title, copy]) => <div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl></>;
+  return <><div className="india-row-head studio-ledger-head" aria-hidden="true"><span>{headings[0]}</span><span>{headings[1]}</span></div><dl className="india-row-list studio-ledger studio-ledger-pairs">{rows.map(([title, copy, icon]) => <div key={title}><dt>{icon && <SiteIcon className="india-service-icon" name={icon} size={19}/>}{title}</dt><dd>{copy}</dd></div>)}</dl></>;
 }
 
 function IndiaImage({image,alt,caption,number}){
@@ -100,10 +100,10 @@ export default function IndiaProductionServicesPage() {
     <section className="india-section india-width india-backdrops-editorial" aria-labelledby="india-backdrops-title">
       <Label number="01">{cmsText("IndiaProductionServicesPage","8797b8fe0fe5e874","WHY INDIA")}</Label>
       <div className="india-story-split"><div className="india-story-copy"><div className="india-intro-grid"><MotionHeading as="h2" id="india-backdrops-title">{cmsText("IndiaProductionServicesPage","16b5991ddf10953a","One country. ")}<em>{cmsText("IndiaProductionServicesPage","bbc27cfb6a64b748","Almost every backdrop.")}</em></MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","4ab7c2c00ef25960","India offers high mountains and open desert, tropical coast and dense forest, historic architecture and busy cities. We help you find locations that suit the story and plan the travel between them.")}</MotionCopy><MotionCopy>{cmsText("IndiaProductionServicesPage","7d38dac04f7aaec0","India also has one of the world’s most active film industries, working across many languages and regions. That means experienced crews, skilled craftspeople and a deep pool of acting talent, in more places than most visiting productions expect.")}</MotionCopy></div></div></div><IndiaImage image="daylight-snow-production" alt={"Illustrative film production in a snow-covered Indian mountain landscape"} caption={cmsText("IndiaProductionServicesPage","8a62d5d3c88d550a","MANY LANDSCAPES. ONE PRODUCTION BASE.")} number="01"/></div>
-      <RowList rows={benefits} headings={['What India offers', 'What it means for your production']}/>
+      <div className="india-benefits"><RowList rows={benefits} headings={['What India offers', 'What it means for your production']}/></div>
     </section>
 
-    <section className="india-section india-band india-band-dark" aria-labelledby="india-preparation-title"><div className="india-width">
+    <section className="india-section india-band india-preparation" aria-labelledby="india-preparation-title"><div className="india-width">
       <Label number="02">{cmsText("IndiaProductionServicesPage","a7e725d017aa3373","THE HONEST PART")}</Label>
       <div className="india-story-split india-image-first"><IndiaImage image="development-packaging" alt={"Illustrative creative development and production planning scene"} caption={cmsText("IndiaProductionServicesPage","8e131ae96aa1b70c","THE WORK STARTS BEFORE THE FIRST SHOT.")} number="02"/><div className="india-story-copy"><div className="india-intro-grid"><MotionHeading as="h2" id="india-preparation-title">{cmsText("IndiaProductionServicesPage","b5eb1d681597bcba","India ")}<em>{cmsText("IndiaProductionServicesPage","e2f9113387d1b199","rewards preparation.")}</em></MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","be1182c0f50f23a8","Filming here is very rewarding, but it is not something to improvise. Distances are large, permissions involve more than one authority, languages change from region to region, and the way a set runs can differ from what an international team is used to.")}</MotionCopy><MotionCopy>{cmsText("IndiaProductionServicesPage","345a7d20f33fb29a","A good local partner closes that gap. We understand what international productions expect: clear budgets, reliable schedules, safe sets, and regular reporting, and we understand how things work on the ground here. Our job is to make those two worlds fit together.")}</MotionCopy></div></div></div></div></div></section>
 
@@ -114,7 +114,7 @@ export default function IndiaProductionServicesPage() {
       <p className="india-partnership-note">{cmsText("IndiaProductionServicesPage","07206ba59d8fb225","Need a partner on the project itself? See ")}<PartnershipLinks/>.</p>
     </section>
 
-    <section className="india-section india-band india-band-soft india-process-section" id="india-process" aria-labelledby="india-process-title"><div className="india-width">
+    <section className="india-section india-band india-process-section" id="india-process" aria-labelledby="india-process-title"><div className="india-width">
       <Label number="04">{cmsText("IndiaProductionServicesPage","e5b300cfa699e020","HOW IT WORKS")}</Label>
       <MotionHeading as="h2" id="india-process-title">{cmsText("IndiaProductionServicesPage","df9e60ba8206f857","From first email ")}<em>{cmsText("IndiaProductionServicesPage","78bad5526b6ac562","to final wrap.")}</em></MotionHeading>
       <JourneyProcess/>
@@ -130,7 +130,7 @@ export default function IndiaProductionServicesPage() {
       <RowList rows={formats} headings={['Format', 'How we support it']}/>
     </section>
 
-    <section className="india-section india-band india-band-warm india-respect" aria-labelledby="india-respect-title"><div className="india-width">
+    <section className="india-section india-band india-respect" aria-labelledby="india-respect-title"><div className="india-width">
       <Label number="07">{cmsText("IndiaProductionServicesPage","f800b7db982aa7bb","HOW WE FILM")}</Label>
       <div className="india-story-split india-image-first"><IndiaImage image="daylight-park-production" alt={"Illustrative crew filming on location in a green outdoor setting"} caption={cmsText("IndiaProductionServicesPage","f0bec129557e710d","GOOD PRODUCTIONS LEAVE GOOD RELATIONSHIPS.")} number="07"/><div className="india-story-copy"><div className="india-intro-grid"><MotionHeading as="h2" id="india-respect-title">{cmsText("IndiaProductionServicesPage","82e45220169b00b4","We film ")}<em>{cmsText("IndiaProductionServicesPage","e621ad085d3dab1b","as guests.")}</em></MotionHeading><MotionCopy>{cmsText("IndiaProductionServicesPage","8bafc7e40de568cb","Every location belongs to a family, a community or a city. We speak to people before the cameras arrive, keep our promises and leave places as we found them.")}</MotionCopy></div></div></div></div></section>
 
@@ -139,7 +139,7 @@ export default function IndiaProductionServicesPage() {
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-paperwork-title">{cmsText("IndiaProductionServicesPage","60fcbcdfba4e4768","The fine print, handled carefully.")}</MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","2a631772075fd7dc","India offers national and state-level support for some productions filming here. Whether a project qualifies depends on its details and the rules in force at the time. We prepare the production information that applications need, and work alongside your legal and financial advisors, who confirm eligibility with the relevant authorities.")}</MotionCopy><MotionCopy>{cmsText("IndiaProductionServicesPage","b6da89215846c73f","The same applies to visas and other formal requirements for visiting cast and crew: we provide the production documentation, and your advisors confirm the right route for each person.")}</MotionCopy></div></div>
     </section>
 
-    <section className="india-section india-width" aria-labelledby="india-questions-title"><FaqPanel heading={<> <Label number="09">{cmsText("IndiaProductionServicesPage","7c58a64618825f38","QUESTIONS")}</Label><MotionHeading as="h2" id="india-questions-title">{cmsText("IndiaProductionServicesPage","d334cc3d9b1e13a5","Before you book the flights.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
+    <section className="india-section india-width india-questions" aria-labelledby="india-questions-title"><FaqPanel heading={<> <Label number="09">{cmsText("IndiaProductionServicesPage","7c58a64618825f38","QUESTIONS")}</Label><MotionHeading as="h2" id="india-questions-title">{cmsText("IndiaProductionServicesPage","d334cc3d9b1e13a5","Before you book the flights.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
     <section className="india-section india-width india-closing inner-closing" aria-labelledby="india-closing-title">
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-closing-title">{cmsText("IndiaProductionServicesPage","a1896c78dab97432","Tell us where the story ")}<em>{cmsText("IndiaProductionServicesPage","6936956288409969","needs to go.")}</em></MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","e2eb1694ec6fe756","Share the script, the locations you’re imagining and your dates. We’ll come back with a clear, honest view of how to make it happen in India.")}</MotionCopy><div className="india-actions"><CTA href={enquiry}>{cmsText("IndiaProductionServicesPage","449fcedeb488a22a","Plan a shoot in India")}</CTA><TextLink href="/contact/">{cmsText("IndiaProductionServicesPage","2fb315b0630513c0","Talk to the studio")}</TextLink></div></div></div>

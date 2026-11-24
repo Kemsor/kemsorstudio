@@ -1,5 +1,20 @@
 .india-services-page{background:#fff;color:#282828;--india-line:#28282826;--india-accent:#686868}
 .india-width{width:min(1440px,100%);margin-inline:auto;padding-inline:clamp(20px,5vw,80px)}
+html body #top.creative-site #main.inner-page .india-services-page :is(.india-benefits,.india-preparation,.india-process-section,.india-respect){
+ --india-cream-background:#f2e8d7;
+ background:var(--india-cream-background)!important;
+ box-shadow:0 0 0 100vmax var(--india-cream-background)!important;
+ clip-path:inset(0 -100vmax);
+}
+html body #top.creative-site #main.inner-page .india-services-page #india-process .india-process-sliding{
+ gap:clamp(14px,1.6vw,24px);
+}
+html body #top.creative-site #main.inner-page .india-services-page #india-process .india-process-sliding > li:not([data-active="true"]){
+ background:#e8d5b6!important;
+ border-color:#cbb08a;
+}
+html body #top.creative-site #main.inner-page .india-services-page .india-backdrops-editorial{padding-bottom:0!important}
+.india-benefits{display:flow-root;margin-top:clamp(24px,4vw,56px);padding-bottom:var(--inner-section-space)}
 .india-hero{padding-top:clamp(28px,4vw,60px);padding-bottom:clamp(20px,3vw,40px)}
 .india-hero-top{display:flex;justify-content:space-between;gap:20px;padding-bottom:18px;border-bottom:1px solid var(--india-line);font-size:10px;letter-spacing:.1em}
 .india-hero-top a{color:inherit;text-decoration:none}.india-hero-top>span{color:var(--india-accent)}
@@ -84,8 +99,137 @@ html body #top.creative-site #main.inner-page .india-band .india-label{margin-bo
 @media(max-width:480px){.india-backdrops-editorial .india-row-list{grid-template-columns:1fr}.india-editorial-image-window{border-radius:14px}.india-editorial-image figcaption{flex-direction:column;gap:3px}.india-image-index{left:12px;bottom:12px}.india-backdrops-editorial .india-row-head{display:none}}
 @media(prefers-reduced-motion:reduce){.india-editorial-image-window img{transition:none}.india-editorial-image:hover img{transform:none}}
 
+/* India service comparisons read as an open editorial table, not a card. */
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-head.studio-ledger-head{
+ display:grid;
+ grid-template-columns:minmax(0,.8fr) minmax(0,1.8fr);
+ gap:0;
+ margin:36px 0 0;
+ padding:0!important;
+ background:transparent!important;
+ border:0!important;
+ border-bottom:1px solid rgba(20,20,20,.2)!important;
+ border-radius:0!important;
+ color:#514638!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-head.studio-ledger-head>span{
+ padding:14px 24px;
+ color:#514638!important;
+ -webkit-text-fill-color:#514638!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-head.studio-ledger-head>span:first-child{
+ border-right:1px solid rgba(20,20,20,.16);
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger{
+ display:block!important;
+ margin:0;
+ padding:0!important;
+ overflow:visible;
+ background:transparent!important;
+ border:0!important;
+ border-radius:0!important;
+ box-shadow:none!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div{
+ display:grid!important;
+ grid-template-columns:minmax(0,.8fr) minmax(0,1.8fr)!important;
+ gap:0!important;
+ margin:0!important;
+ padding:0!important;
+ background:transparent!important;
+ border:0!important;
+ border-bottom:1px solid rgba(20,20,20,.16)!important;
+ border-radius:0!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div:is(:hover,:focus-within){
+ background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div>dt,
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div>dd{
+ box-sizing:border-box;
+ padding:20px 24px!important;
+ background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div>dt{
+ border-right:1px solid rgba(20,20,20,.16)!important;
+}
+@media(max-width:480px){
+ html body #top.creative-site #main#main.inner-page .india-services-page .india-row-head.studio-ledger-head{display:none}
+ html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger{border-top:1px solid rgba(20,20,20,.2)!important}
+ html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div{grid-template-columns:1fr!important}
+ html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div>dt{padding-bottom:7px!important;border-right:0!important}
+ html body #top.creative-site #main#main.inner-page .india-services-page .india-row-list.studio-ledger>div>dd{padding-top:0!important}
+}
+
 /* Dark India chapters own their text fill as well as their colour. */
 html body #top.creative-site #main.inner-page .india-band-dark{--inner-heading-ink:#f5efe5;--inner-heading-accent:#f0b858}
 html body #top.creative-site #main.inner-page .india-band-dark :is(h2,h3){-webkit-text-fill-color:#f5efe5!important}
 html body #top.creative-site #main.inner-page .india-band-dark :is(h2,h3) :is(em,.heading-accent){color:#f0b858!important;-webkit-text-fill-color:#f0b858!important}
 html body #top.creative-site #main.inner-page .india-band-dark :is(p,li){-webkit-text-fill-color:#c3b8a8!important}
+
+/* Use the same restrained closing FAQ treatment as the Produce pages. */
+html body #top.creative-site #main#main.inner-page .india-services-page section.india-questions:has(> .standard-faq-panel){
+ display:block!important;box-sizing:border-box;width:100vw!important;max-width:none!important;
+ margin:0 calc(50% - 50vw)!important;
+ padding:clamp(58px,5vw,78px) max(var(--inner-content-gutter),calc((100vw - var(--inner-content-width))/2)) clamp(76px,7vw,112px)!important;
+ background:#181512!important;border:0!important;color:#f7edde!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-panel{
+ --inner-heading-ink:#f7edde;--inner-heading-accent:#f7edde;display:block!important;overflow:visible;
+ width:100%!important;max-width:var(--inner-content-width)!important;margin:0 auto!important;padding:0!important;
+ background:transparent!important;border:0!important;color:#f7edde!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-panel::before{background:#181512!important}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-image{display:none!important}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-heading{
+ margin:0 0 clamp(30px,4vw,52px)!important;padding:0!important;border:0!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-heading .india-label{
+ margin:0 0 14px!important;padding:0!important;border:0!important;color:#e9b755!important;-webkit-text-fill-color:#e9b755!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-heading .india-label span{
+ color:#e9b755!important;-webkit-text-fill-color:#e9b755!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-heading h2,
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word),
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word) *{
+ margin:0!important;max-width:none!important;font-family:var(--inner-serif,"Cormorant Garamond",Georgia,serif)!important;
+ font-size:clamp(42px,5vw,72px)!important;font-weight:400!important;line-height:1!important;letter-spacing:-.035em!important;
+ color:#f7edde!important;-webkit-text-fill-color:#f7edde!important;text-shadow:none!important;opacity:1!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list{
+ margin:0!important;padding:0!important;border:0!important;border-top:1px solid #f7edde42!important;background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list details{
+ margin:0!important;padding:0!important;border:0!important;border-bottom:1px solid #f7edde42!important;background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list summary{
+ flex-direction:row-reverse!important;justify-content:flex-end!important;gap:24px!important;min-height:0!important;padding:24px 0!important;
+ font-size:clamp(16px,1.35vw,20px)!important;font-weight:400!important;color:#f7edde!important;-webkit-text-fill-color:#f7edde!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list summary>span{
+ display:grid!important;place-items:center!important;width:24px!important;height:24px!important;flex-shrink:0;
+ border:0!important;border-radius:0!important;background:transparent!important;color:#e9b755!important;-webkit-text-fill-color:#e9b755!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list details[open] summary>span{
+ transform:rotate(180deg)!important;background:transparent!important;color:#e9b755!important;-webkit-text-fill-color:#e9b755!important;
+}
+html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list details p{
+ max-width:880px!important;margin:0!important;padding:0 0 24px 48px!important;
+ font-size:14px!important;line-height:1.85!important;color:#c9bcae!important;-webkit-text-fill-color:#c9bcae!important;
+}
+@media(max-width:600px){
+ html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list summary{gap:14px!important;padding:20px 0!important}
+ html body #top.creative-site #main#main.inner-page .india-services-page .india-questions .standard-faq-list details p{padding-left:38px!important}
+}
+
+.india-services-page .india-row-list dt:has(> .india-service-icon){
+ display:flex;
+ align-items:flex-start;
+ gap:12px;
+}
+.india-services-page .india-service-icon{
+ flex:none;
+ margin-top:3px;
+ color:#965715;
+}

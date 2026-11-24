@@ -98,7 +98,7 @@
   .reference-navigation .creative-header-brand{gap:8px!important}
   .reference-navigation .creative-header-brand img{width:32px!important;height:38px!important}
   .reference-navigation .header-wordmark{font-size:15px!important;letter-spacing:2px!important}
-  .reference-navigation .header-script-tool{padding:9px 12px!important;min-height:36px!important;font-size:9px!important}
+  .reference-navigation .header-script-tool{--cta-size:36px;height:36px!important;min-height:36px!important;padding:6px 12px!important;font-size:9px!important}
   .reference-navigation .header-script-tool>.site-icon,.reference-navigation .header-script-tool>span,.reference-navigation .header-account-links{display:none!important}
   .reference-navigation .creative-nav-toggle{font-size:11px!important;padding:8px 10px!important;min-height:36px!important}
   .reference-navigation[data-scrolled=true] .creative-header-inner{height:54px!important;min-height:54px!important}

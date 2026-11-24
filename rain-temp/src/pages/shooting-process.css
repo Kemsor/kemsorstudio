@@ -29,3 +29,256 @@ html body #top.creative-site #main#main.inner-page .production-layout:is([data-s
 /* The Produce overview has three authored stages. */
 @media(min-width:901px){html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="produce"] .produce-process .line-production-steps{grid-template-columns:repeat(3,minmax(0,1fr))!important}html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="produce"] .produce-process .line-production-steps>li:nth-child(2){margin-top:190px!important}html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="produce"] .produce-process .line-production-steps>li:nth-child(3){margin-top:70px!important}}
 html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="produce"] .produce-process .line-production-steps>li{display:block!important}
+
+/* Locations & Logistics: retain the rising route, but keep it as a compact process strip. */
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process{
+ background:#f3e5cb!important;border:0!important;border-radius:0!important;box-shadow:0 20px 48px #4f2b151c!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process:before{
+ background:linear-gradient(100deg,#fffaf08a 0%,#f4dfbf72 48%,#d8a85f4a 100%),url("/assets/generated/location-scouting-process.webp") center/cover no-repeat!important;
+ filter:saturate(1.06) contrast(1.04);
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process:after{
+ inset:16px!important;border:1px solid #7d4b242e!important;border-radius:0!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .produce-label,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .produce-label *{
+ color:#8a5423!important;-webkit-text-fill-color:#8a5423!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .produce-label>span:last-child:not(:first-child){
+ color:#3b2417!important;-webkit-text-fill-color:#3b2417!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process h2,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process h2 *{
+ color:#3a2115!important;-webkit-text-fill-color:#3a2115!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process h2{
+ background:linear-gradient(90deg,#321b10 0 55%,#a36628 55% 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process h2 .heading-accent,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process h2 .heading-accent .text-flow-word{
+ background:linear-gradient(110deg,#9b5a20,#d39b42)!important;background-clip:text!important;-webkit-background-clip:text!important;
+ color:transparent!important;-webkit-text-fill-color:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-graph-grid{
+ stroke:#5a342a20!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-graph-area{
+ fill:#b97a2c13!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-graph-line{
+ stroke:#74401e!important;filter:drop-shadow(0 2px 4px #fff8e8)!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li{
+ background:#fffaf0dc!important;border:1px solid #70401f52!important;border-radius:0!important;backdrop-filter:blur(5px);box-shadow:8px 10px 0 #8f5c2817!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:after{
+ background:#74401e!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon{
+ background:#dca953!important;border-color:#74401e!important;border-radius:0!important;color:#2d190f!important;box-shadow:5px 5px 0 #74401e24!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon svg{
+ color:#2d190f!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps h3{
+ color:#3b2115!important;-webkit-text-fill-color:#3b2115!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li>p{
+ color:#79512f!important;-webkit-text-fill-color:#79512f!important;
+}
+@media(hover:hover){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:hover{
+  background:#fff5dfed!important;border-color:#8c5524!important;
+ }
+}
+@media(min-width:901px){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process{
+  padding:32px 40px 34px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .produce-label{
+  margin-bottom:12px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-growth-map{
+  margin-top:24px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-growth-graph{
+  height:140px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li{
+  margin-top:140px!important;padding:17px 18px!important;border-radius:10px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:nth-child(2){margin-top:108px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:nth-child(3){margin-top:76px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:nth-child(4){margin-top:44px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:after{
+  top:-13px!important;height:12px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon{
+  left:calc(50% - 20px)!important;top:-52px!important;width:40px!important;height:40px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon svg{
+  width:18px!important;height:18px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps h3{
+  font-size:15px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li>p{
+  margin-top:8px!important;font-size:12px!important;line-height:1.6!important;
+ }
+}
+
+/* Locations & Logistics reference layout: full-bleed infographic with centered content. */
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process{
+ width:100vw!important;max-width:none!important;margin-left:calc(50% - 50vw)!important;
+ padding:clamp(54px,6vw,86px) max(24px,calc((100vw - 1240px)/2)) clamp(62px,7vw,96px)!important;
+ box-sizing:border-box;background:
+  radial-gradient(circle at 12% 22%,#e5b76526 0 46px,transparent 47px),
+  radial-gradient(circle at 88% 76%,#6b3d2220 0 72px,transparent 73px),
+  linear-gradient(135deg,#fffaf1 0%,#f6ead6 58%,#ecd5b1 100%)!important;
+ border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process:before,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process:after{
+ display:none!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process>.produce-label,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process>h2,
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process>.shooting-growth-map{
+ width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process>.produce-label{
+ justify-content:center!important;text-align:center!important;margin-bottom:14px!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process>h2{
+ text-align:center!important;font-size:clamp(36px,4.6vw,68px)!important;line-height:1!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-growth-map{
+ margin-top:clamp(48px,6vw,76px)!important;
+}
+html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-growth-graph{
+ display:none!important;
+}
+@media(min-width:901px){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps{
+  position:relative!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:clamp(28px,4vw,60px)!important;margin:0!important;padding:0!important;counter-reset:location-step;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps:before{
+  content:""!important;display:block!important;position:absolute!important;z-index:0;
+  top:38px!important;left:9%!important;right:9%!important;height:2px!important;
+  background:repeating-linear-gradient(90deg,#9c652c 0 7px,transparent 7px 15px)!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:nth-child(n){
+  counter-increment:location-step;position:relative!important;display:block!important;margin:0!important;padding:0 8px!important;
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;
+  text-align:center!important;overflow:visible!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:before{
+  content:"0" counter(location-step)!important;display:block!important;position:absolute!important;
+  top:104px!important;left:0!important;right:0!important;width:auto!important;height:auto!important;margin:0!important;
+  background:transparent!important;border:0!important;border-radius:0!important;color:#a36425!important;-webkit-text-fill-color:#a36425!important;
+  font:700 11px/1 Manrope,sans-serif!important;letter-spacing:.16em!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:after{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon{
+  position:relative!important;z-index:1!important;left:auto!important;top:auto!important;display:grid!important;
+  width:76px!important;height:76px!important;margin:0 auto 52px!important;border:7px solid #efc36f!important;border-radius:50%!important;
+  background:#6b3d22!important;color:#fff7e8!important;box-shadow:0 10px 24px #6b3d2226!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:nth-child(even) .shooting-stage-icon{
+  background:#dda747!important;color:#321b10!important;border-color:#6b3d22!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon svg{
+  width:25px!important;height:25px!important;color:currentColor!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps h3{
+  margin:0!important;color:#321b10!important;-webkit-text-fill-color:#321b10!important;font-size:17px!important;line-height:1.35!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li>p{
+  max-width:245px;margin:10px auto 0!important;color:#76583d!important;-webkit-text-fill-color:#76583d!important;font-size:12px!important;line-height:1.65!important;
+ }
+}
+@media(max-width:900px){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process{
+  padding:48px 24px 56px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process>h2{text-align:left!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process>.produce-label{justify-content:flex-start!important;text-align:left!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-growth-map{margin-top:38px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps{
+  position:relative!important;display:grid!important;grid-template-columns:1fr!important;gap:30px!important;
+  padding:0 0 0 64px!important;counter-reset:location-step;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps:before{
+  content:""!important;display:block!important;position:absolute!important;top:24px!important;bottom:24px!important;left:22px!important;width:2px!important;
+  background:repeating-linear-gradient(180deg,#9c652c 0 7px,transparent 7px 15px)!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:nth-child(n){
+  counter-increment:location-step;position:relative!important;display:block!important;margin:0!important;padding:0 0 28px!important;
+  background:transparent!important;border:0!important;border-bottom:1px solid #6b3d2226!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:before{
+  content:"0" counter(location-step)!important;display:block!important;position:static!important;width:auto!important;height:auto!important;margin:0 0 8px!important;
+  background:transparent!important;border:0!important;color:#a36425!important;-webkit-text-fill-color:#a36425!important;font:700 10px/1 Manrope,sans-serif!important;letter-spacing:.15em!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li:after{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon{
+  position:absolute!important;left:-64px!important;top:0!important;width:44px!important;height:44px!important;margin:0!important;
+  background:#6b3d22!important;border:5px solid #efc36f!important;border-radius:50%!important;color:#fff7e8!important;box-shadow:none!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .shooting-stage-icon svg{width:18px!important;height:18px!important;color:currentColor!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps h3{margin:0!important;color:#321b10!important;-webkit-text-fill-color:#321b10!important;font-size:16px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .line-production-steps>li>p{margin:8px 0 0!important;color:#76583d!important;-webkit-text-fill-color:#76583d!important;font-size:12px!important;line-height:1.65!important}
+}
+
+/* Alternate high/low steps to match the supplied zigzag process reference. */
+@media(min-width:901px){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag{
+  position:relative!important;height:350px!important;margin-top:clamp(52px,6vw,78px)!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag-graph{
+  display:block!important;position:absolute!important;z-index:0!important;inset:0!important;
+  width:100%!important;height:330px!important;overflow:visible!important;color:#9b632b!important;pointer-events:none!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag-graph>path{
+  fill:none!important;stroke:#9b632b!important;stroke-width:2!important;stroke-linecap:round!important;stroke-dasharray:7 9!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag .line-production-steps{
+  position:absolute!important;z-index:1!important;inset:0!important;height:330px!important;align-items:stretch!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag .line-production-steps:before{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag .line-production-steps>li:nth-child(n){
+  position:relative!important;height:330px!important;padding:0 12px!important;text-align:center!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag .line-production-steps>li:before,
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag .line-production-steps>li:after{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag .shooting-stage-icon{
+  position:absolute!important;left:50%!important;transform:translateX(-50%)!important;top:auto!important;bottom:auto!important;
+  width:78px!important;height:78px!important;margin:0!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag li:nth-child(odd) .shooting-stage-icon{top:27px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag li:nth-child(even) .shooting-stage-icon{bottom:27px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-step-copy{
+  position:absolute!important;left:0!important;width:100%!important;box-sizing:border-box;padding:0 12px!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag li:nth-child(odd) .locations-step-copy{bottom:3px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag li:nth-child(even) .locations-step-copy{top:3px!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-step-copy>span{
+  display:block;margin-bottom:8px;color:#a36425!important;-webkit-text-fill-color:#a36425!important;
+  font:700 12px/1 Manrope,sans-serif!important;letter-spacing:.16em!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-step-copy h3{
+  margin:0!important;font-size:17px!important;color:#321b10!important;-webkit-text-fill-color:#321b10!important;
+ }
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-step-copy p{
+  max-width:245px!important;margin:9px auto 0!important;font-size:12px!important;line-height:1.6!important;color:#76583d!important;-webkit-text-fill-color:#76583d!important;
+ }
+}
+@media(max-width:900px){
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag{height:auto!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-zigzag-graph{display:none!important}
+ html body #top.creative-site #main#main.inner-page .production-layout[data-service-page="locations-logistics"] .produce-process .locations-step-copy>span{
+  display:block;margin-bottom:8px;color:#a36425!important;-webkit-text-fill-color:#a36425!important;font:700 10px/1 Manrope,sans-serif!important;letter-spacing:.15em!important;
+ }
+}

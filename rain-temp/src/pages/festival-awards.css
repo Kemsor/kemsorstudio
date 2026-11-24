@@ -57,3 +57,8 @@ html .creative-site #main .release-honesty h2{font-size:30px}
 @media(prefers-reduced-motion:reduce){.release-faq summary>span{transition:none}}
 
 .release-criteria article>h3{min-width:0;word-break:normal;overflow-wrap:normal}
+
+/* Keep the closing FAQ visually separate from the honesty block above it. */
+html body #top.creative-site #main#main.inner-page .festival-strategy-page section.standard-faq-simple{
+ margin-top:clamp(46px,5vw,72px)!important;
+}

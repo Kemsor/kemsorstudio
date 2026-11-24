@@ -1,0 +1,20 @@
+.related-showcase-count {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--related-gold) !important;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(88px, 10vw, 154px);
+  font-weight: 400;
+  line-height: .72;
+  letter-spacing: -.06em;
+  -webkit-text-fill-color: var(--related-gold) !important;
+}
+
+:is(.production-layout, .finance-layout) {
+  --related-gold: #965715;
+}
+
+:is(.production-layout, .finance-layout) .standard-faq-heading,
+.production-layout .set-related-showcase {
+  --related-gold: #e9b755;
+}

@@ -134,3 +134,5 @@ html .creative-site #main .finance-layout .finance-disclaimer{font-size:12px;lin
 @media(min-width:601px){
  html body #top.creative-site:not(.site-page-home) .fl-nav{top:var(--inner-nav-bottom,var(--site-header-height,72px))}
 }
+
+.finance-layout .fl-section-heading:has(> .related-showcase-count){display:block}

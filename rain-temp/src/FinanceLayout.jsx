@@ -4,7 +4,9 @@ import {chapterStyler} from './VisualChapters';
 import { isTextElement } from './TextMotion';
 import React, { Children, cloneElement, isValidElement } from 'react';
 import SectionSubmenu from './SectionSubmenu';
+import FaqPanel from './FaqPanel';
 import './finance-layout.css';
+import './section-number.css';
 
 const hasClass = (node, name) => isValidElement(node) && (node.props.className || '').split(/\s+/).includes(name);
 const nodes = children => Children.toArray(children).flatMap(node => isValidElement(node) && node.type === React.Fragment ? nodes(node.props.children) : [node]);
@@ -43,6 +45,7 @@ export default function FinanceLayout({ page, children }) {
   const breadcrumb = all.find(node => hasClass(node, 'produce-breadcrumb'));
   const body = all.filter(node => node !== hero && node !== breadcrumb);
   if (pack) body.unshift(cloneElement(pack, { key: 'finance-ready-pack', id: 'finance-ready-pack' }));
+  let sectionNumber = 0;
   return <div className={`${root.props.className || ''} finance-layout service-page-layout`} data-service-page={page}>
     <header className="inner-hero fl-hero">
       <div className="fl-width">
@@ -57,17 +60,26 @@ export default function FinanceLayout({ page, children }) {
     <SectionSubmenu section="finance" page={page}/>
     <div className="fl-body">{body.map((node, index) => {
       if (!isValidElement(node) || hasClass(node, 'finance-subnav')) return null;
+      const number = <div className="related-showcase-count">{String(++sectionNumber).padStart(2, '0')}</div>;
       const isPack = hasClass(node, 'finance-pack');
       const label = find(node, child => child.type?.displayName === 'EditorialLabel' || hasClass(child, 'produce-label'));
       const sectionTitle = find(node, child => isTextElement(child,'h2'));
       const id = node.props.id || `${page}-chapter-${index + 1}`;
       const sectionChildren = isPack ? cloneElement(node, { id: undefined }) : nodes(node.props.children).map(stripLabels);
       const sectionLabel = isPack ? 'FINANCE-READY PACK' : label ? label.props.children : node.props['aria-label'] || words(sectionTitle);
+      if (hasClass(node, 'standard-faq-simple')) {
+        const faq = Children.map(node.props.children, child => (
+          isValidElement(child) && child.type === FaqPanel
+            ? cloneElement(child, { heading: <>{number}{child.props.heading}</> })
+            : child
+        ));
+        return styleChapter(cloneElement(node, { key: id, id }, faq), index);
+      }
       if (hasClass(node, 'produce-work')) return styleChapter(<section id={id} className="fl-section" aria-labelledby={node.props['aria-labelledby']} key={id}>
-        <div className="fl-width"><div className={`fl-section-content ${node.props.className}`}><div className="produce-label"><span>{sectionLabel}</span></div>{sectionChildren}</div></div>
+        <div className="fl-width"><div className={`fl-section-content ${node.props.className}`}>{number}<div className="produce-label"><span>{sectionLabel}</span></div>{sectionChildren}</div></div>
       </section>,index);
       return styleChapter(<section id={id} className={`fl-section ${isPack ? 'fl-pack-section' : ''} ${hasClass(node, 'produce-process') ? 'fl-process-section' : ''} ${hasClass(node, 'produce-closing') ? 'fl-closing-section' : ''}`} aria-labelledby={node.props['aria-labelledby']} aria-label={node.props['aria-label']} key={id}>
-        <div className="fl-width fl-section-grid"><div className="fl-section-heading"><p>{sectionLabel}</p></div><div className={`fl-section-content ${isPack ? 'fl-pack-content' : node.props.className || ''}`}>{sectionChildren}</div></div>
+        <div className="fl-width fl-section-grid">{isPack ? number : <div className="fl-section-heading">{number}<p>{sectionLabel}</p></div>}<div className={`fl-section-content ${isPack ? 'fl-pack-content' : node.props.className || ''}`}>{sectionChildren}</div></div>
       </section>,index);
     })}</div>
   </div>;

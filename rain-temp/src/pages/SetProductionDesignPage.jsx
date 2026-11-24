@@ -4,12 +4,14 @@ import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import ProduceLayout from '../ProduceLayout';
+import ProduceZigzagProcess from '../ProduceZigzagProcess';
+import AudienceCollage from '../AudienceCollage';
 import React from 'react';
 import { Arrow, CTA, TextLink } from '../PageUI';
 import './produce-page.css';
 import './produce-refinement.css';
-import './shooting-process.css';
 import './line-production-page.css';
+import './set-production-related.css';
 
 // Copy: Kemsor_Produce_05_Set_and_Production_Design.docx.pdf.
 // Local draft: confirm direct construction versus construction-partner coordination before publishing.
@@ -33,10 +35,10 @@ const audiences = cmsData(()=>([
   [cmsText("SetProductionDesignPage","e68e3980690433b0","Series"), cmsText("SetProductionDesignPage","75e731bfae2bb26a","Series that need consistent sets across many episodes")],
 ]));
 const related = cmsData(()=>([
-  ['01', cmsText("SetProductionDesignPage","e9c63afe96ba24df","Locations & Logistics"), '/produce/locations-logistics/'],
-  ['02', cmsText("SetProductionDesignPage","99db828495ba0c5b","Shooting & On-Location Production"), '/produce/shooting-on-location/'],
-  ['03', cmsText("SetProductionDesignPage","e06b80fcc3a2c86f","Line Production & Production Management"), '/produce/line-production/'],
-  ['04', cmsText("SetProductionDesignPage","98185305c7e21ae0","Post-Production Supervision"), '/services/#capability-post'],
+  ['01', cmsText("SetProductionDesignPage","e9c63afe96ba24df","Locations & Logistics"), '/produce/locations-logistics/', '/assets/stills/daylight-valley-production-960.webp'],
+  ['02', cmsText("SetProductionDesignPage","99db828495ba0c5b","Shooting & On-Location Production"), '/produce/shooting-on-location/', '/assets/stills/fort-action-production-960.webp'],
+  ['03', cmsText("SetProductionDesignPage","e06b80fcc3a2c86f","Line Production & Production Management"), '/produce/line-production/', '/assets/stills/work-camera-crew-960.webp'],
+  ['04', cmsText("SetProductionDesignPage","98185305c7e21ae0","Post-Production Supervision"), '/services/#capability-post', '/assets/stills/work-period-camera-960.webp'],
 ]));
 const questions = cmsData(()=>([
   [cmsText("SetProductionDesignPage","6a3632bec2624464","Do you work with our own production designer?"), cmsText("SetProductionDesignPage","57f85f04a3d5186f","Yes. We can support your designer with planning, builds and art department coordination.")],
@@ -59,17 +61,29 @@ export default function SetProductionDesignPage() {
 
     <section className="produce-section line-production-included" id="set-production-design-included" aria-labelledby="set-production-design-included-title"><Label end="FROM SCRIPT TO SCREEN">{cmsText("SetProductionDesignPage","b3cea96b1a69c95e","WHAT’S INCLUDED")}</Label><MotionHeading as="h2" id="set-production-design-included-title">{cmsText("SetProductionDesignPage","33070fac30440f31","What’s included.")}</MotionHeading><div className="line-production-scope"><dl className="line-production-deliverables studio-ledger studio-ledger-pairs">{included.map(([title, description], index) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl><figure className="line-production-planning"><StudioImage mediaSlot="SetProductionDesignPage-2" src="/assets/stills/work-period-set-960.webp" alt={"Illustrative period film set with performers, crew and production design"} width="1672" height="941" loading="lazy" decoding="async"/><figcaption><span>{cmsText("SetProductionDesignPage","7d405bad42a0812f","THE WORLD ON SCREEN")}</span><MotionCopy>{cmsText("SetProductionDesignPage","fe8292b7b4b9b8ea","Every wall, prop and surface either supports that belief or breaks it.")}</MotionCopy></figcaption></figure></div></section>
 
-    <section className="produce-section produce-process" aria-labelledby="set-production-design-process-title"><Label end="DESIGN → BUILD → SHOOT">{cmsText("SetProductionDesignPage","185f8c6d6f7a9fe3","HOW WE WORK")}</Label><MotionHeading as="h2" id="set-production-design-process-title">{cmsText("SetProductionDesignPage","c1f29ba3a9729fa4","How we work.")}</MotionHeading><div className="shooting-growth-map"><svg className="shooting-growth-graph" viewBox="0 0 1000 300" preserveAspectRatio="none" fill="none" aria-hidden="true"><path className="shooting-graph-grid" d="M0 28H1000M0 108H1000M0 188H1000M0 258H1000"/><path className="shooting-graph-area" d="M125 258C225 258 275 188 375 188S525 108 625 108S775 28 875 28V300H125Z"/><path className="shooting-graph-line" d="M125 258C225 258 275 188 375 188S525 108 625 108S775 28 875 28"/></svg><ol className="produce-steps line-production-steps">{steps.map(([title, description], index) => <li key={title}><span className="shooting-stage-icon" aria-hidden="true"><SiteIcon name={["script","eye","guide","film"][index]} size={22}/></span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
+    <section className="produce-section produce-process produce-process-zigzag" aria-labelledby="set-production-design-process-title"><Label end="DESIGN → BUILD → SHOOT">{cmsText("SetProductionDesignPage","185f8c6d6f7a9fe3","HOW WE WORK")}</Label><MotionHeading as="h2" id="set-production-design-process-title">{cmsText("SetProductionDesignPage","c1f29ba3a9729fa4","How we work.")}</MotionHeading><ProduceZigzagProcess steps={steps} icons={["script","eye","guide","film"]}/></section>
 
-    <section className="produce-section produce-audiences" aria-labelledby="set-production-design-audiences-title"><div><Label>{cmsText("SetProductionDesignPage","d9bfcbec3aa8fa07","WHO IT’S FOR")}</Label><MotionHeading as="h2" id="set-production-design-audiences-title">{cmsText("SetProductionDesignPage","14c0a75dfd2fafbd","Who it’s for.")}</MotionHeading><div className="produce-audience-mark" aria-hidden="true"><span>{cmsText("SetProductionDesignPage","f5fed81481184c6b","THE VISION")}</span><i>+</i><span>{cmsText("SetProductionDesignPage","c49c2e732306b14b","THE WORLD")}</span><i>+</i><span>{cmsText("SetProductionDesignPage","2ba30f9ef5467dd4","THE BUILD")}</span></div></div><ul>{audiences.map(([title, description], index) => <li key={title}><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul></section>
+    <AudienceCollage id="set-production-design-audiences-title" label={cmsText("SetProductionDesignPage","d9bfcbec3aa8fa07","WHO IT’S FOR")} heading={cmsText("SetProductionDesignPage","14c0a75dfd2fafbd","Who it’s for.")} audiences={audiences} images={["/assets/stills/work-period-camera-960.webp","/assets/stills/courtyard-dance-production-960.webp"]} eyebrow="VISION · WORLD · BUILD"/>
 
     {/* No confirmed project title, format, year or set/production-design credit supplied. */}
     <section className="produce-section produce-work" id="set-production-design-work" aria-labelledby="set-production-design-work-title"><Label>{cmsText("SetProductionDesignPage","042d6a93ec602465","RELATED WORK")}</Label><div><MotionHeading as="h2" id="set-production-design-work-title">{cmsText("SetProductionDesignPage","8f258f56bd0b26cd","Related work.")}</MotionHeading><TextLink href="/productions/">{cmsText("SetProductionDesignPage","0b3d0346edbea52a","Explore productions")}</TextLink></div></section>
 
-    <section className="produce-section produce-related line-production-related" aria-labelledby="set-production-design-related-title"><Label>{cmsText("SetProductionDesignPage","25d213562dcf4ee5","CONNECTED PRODUCTION SUPPORT")}</Label><MotionHeading as="h2" id="set-production-design-related-title">{cmsText("SetProductionDesignPage","e7ba183db793543a","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, href]) => <a href={href} key={title}><h3>{title}</h3><span className="line-production-related-link">{cmsText("SetProductionDesignPage","bad37cd6a639ca60","Explore service ")}<Arrow/></span></a>)}</div></section>
+    <section className="produce-section produce-related line-production-related set-related-showcase" aria-labelledby="set-production-design-related-title">
+      <div className="set-related-heading">
+        <div className="set-related-heading-title">
+          <span className="set-related-count" aria-hidden="true">04</span>
+          <Label>{cmsText("SetProductionDesignPage","25d213562dcf4ee5","CONNECTED PRODUCTION SUPPORT")}</Label>
+          <MotionHeading as="h2" id="set-production-design-related-title">{cmsText("SetProductionDesignPage","e7ba183db793543a","Related services.")}</MotionHeading>
+        </div>
+        <MotionCopy>{cmsText("SetProductionDesignPage","a2258f53f58f841c","Production design works best when locations, logistics, the shoot and finishing all carry the same visual intention.")}</MotionCopy>
+      </div>
+      <div className="produce-related-grid set-related-grid">{related.map(([number, title, href, image]) => <a href={href} key={title}>
+        <figure><StudioImage src={image} alt="" width="960" height="1200" loading="lazy" decoding="async"/></figure>
+        <div className="set-related-card-copy"><span className="set-related-card-number">{number}</span><h3>{title}</h3><span className="line-production-related-link">{cmsText("SetProductionDesignPage","bad37cd6a639ca60","Explore service ")}<Arrow/></span></div>
+      </a>)}</div>
+    </section>
 
     <section className="produce-section produce-questions" aria-labelledby="set-production-design-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("SetProductionDesignPage","d4a2ee65a8fc5955","A FEW THINGS TO KNOW")}</Label><MotionHeading as="h2" id="set-production-design-questions-title">{cmsText("SetProductionDesignPage","fc229f26c2d0a00a","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
-    <section className="produce-section produce-closing inner-closing" aria-labelledby="set-production-design-closing-title"><Label>{cmsText("SetProductionDesignPage","5f573be5f2ca65fb","YOUR NEXT PRODUCTION")}</Label><div><MotionHeading as="h2" id="set-production-design-closing-title">{cmsText("SetProductionDesignPage","174fe079cc017f89","Building")}<br/><em>{cmsText("SetProductionDesignPage","c556647e0120edfd","a world?")}</em></MotionHeading><div><MotionCopy>{cmsText("SetProductionDesignPage","70b419c445b96c8f","Tell us about the story and its setting. We’ll help bring it to the screen.")}</MotionCopy><CTA href="/contact/?category=creative#project-brief">{cmsText("SetProductionDesignPage","364904d00c8092bd","Start a conversation")}</CTA></div></div></section>
   </div></ProduceLayout>;
 }

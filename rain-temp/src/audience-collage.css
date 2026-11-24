@@ -1,0 +1,199 @@
+html body #top.creative-site #main#main.inner-page section.audience-collage {
+  width: 100vw !important;
+  max-width: none !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-left: calc(50% - 50vw) !important;
+  padding: clamp(56px, 5.5vw, 84px) var(--produce-band-gutter, max(24px, calc((100vw - 1320px) / 2))) clamp(52px, 5vw, 76px) !important;
+  color: #23180e !important;
+  background: #eab54f !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.audience-collage-inner {
+  display: grid;
+  grid-template-columns: minmax(340px, .82fr) minmax(480px, 1.18fr);
+  gap: clamp(32px, 5vw, 72px);
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
+.audience-collage-heading {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  padding-top: 54px;
+}
+
+html body #top.creative-site #main#main.inner-page .audience-collage .produce-label,
+html body #top.creative-site #main#main.inner-page .audience-collage .produce-label span {
+  color: #5d381c !important;
+  -webkit-text-fill-color: #5d381c !important;
+}
+
+html body #top.creative-site #main#main.inner-page .audience-collage h2,
+html body #top.creative-site #main#main.inner-page .audience-collage h2 * {
+  display: inline !important;
+  max-width: none !important;
+  margin: 16px 0 0;
+  color: #1c140d !important;
+  background: none !important;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(48px, 5vw, 78px) !important;
+  font-weight: 400 !important;
+  line-height: .96 !important;
+  letter-spacing: -.045em !important;
+  white-space: nowrap !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  -webkit-text-fill-color: #1c140d !important;
+}
+
+html body #top.creative-site #main#main.inner-page .audience-collage h2 {
+  display: block !important;
+  width: max-content !important;
+}
+
+.audience-collage-eyebrow {
+  max-width: none;
+  margin: clamp(26px, 3vw, 44px) 0 0;
+  color: #3d2918;
+  font-size: clamp(13px, 1.05vw, 17px);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+.audience-collage-art {
+  position: relative;
+  min-height: clamp(380px, 31vw, 456px);
+}
+
+.audience-collage-lines {
+  position: absolute;
+  top: -42px;
+  left: 4px;
+  width: 74px;
+  aspect-ratio: 1.08;
+  opacity: .52;
+  border: 2px solid #5a3921;
+  transform: rotate(28deg) skew(-8deg);
+  transform-origin: center;
+}
+
+.audience-collage-lines::before,
+.audience-collage-lines::after {
+  position: absolute;
+  content: "";
+  border: 2px solid #5a3921;
+}
+
+.audience-collage-lines::before {
+  inset: 18% -34% -18% 34%;
+  transform: rotate(31deg) skew(7deg);
+}
+
+.audience-collage-lines::after {
+  inset: -24% 30% 38% -29%;
+  transform: rotate(-18deg) skew(-5deg);
+}
+
+.audience-collage-photo {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #fff8e8;
+  filter: drop-shadow(8px 13px 18px rgba(70, 39, 13, .16));
+}
+
+.audience-collage-photo img {
+  position: absolute;
+  display: block;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  object-fit: cover;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.audience-collage-photo-small {
+  z-index: 2;
+  left: 8%;
+  bottom: 17%;
+  width: 40%;
+  height: 46%;
+  clip-path: polygon(100% 0, 80% 100%, 21% 79%, 0 38%);
+}
+
+.audience-collage-photo-small img {
+  clip-path: polygon(100% 0, 80% 100%, 21% 79%, 0 38%);
+}
+
+.audience-collage-photo-large {
+  z-index: 1;
+  right: 0;
+  top: 4%;
+  width: 54%;
+  height: 88%;
+  clip-path: polygon(25% 0, 100% 14%, 100% 82%, 52% 100%, 0 90%, 15% 37.5%);
+}
+
+.audience-collage-photo-large img {
+  clip-path: polygon(25% 0, 100% 14%, 100% 82%, 52% 100%, 0 90%, 15% 37.5%);
+}
+
+.audience-collage-list {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(75, 45, 19, .45);
+}
+
+html body #top.creative-site #main#main.inner-page .audience-collage-list > li {
+  display: grid !important;
+  grid-template-columns: auto 1fr;
+  gap: 13px;
+  min-width: 0;
+  padding: 22px 22px 0 !important;
+  color: #23180e !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 1px solid rgba(75, 45, 19, .3) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+html body #top.creative-site #main#main.inner-page .audience-collage-list > li:first-child { padding-left: 0 !important; border-left: 0 !important; }
+.audience-collage-list > li > span { padding-top: 4px; color: #70431d; font-size: 11px; font-weight: 750; letter-spacing: .14em; }
+html body #top.creative-site #main#main.inner-page .audience-collage-list h3 { margin: 0 !important; color: #23180e !important; font-size: clamp(17px, 1.25vw, 21px) !important; line-height: 1.25 !important; -webkit-text-fill-color: #23180e !important; }
+html body #top.creative-site #main#main.inner-page .audience-collage-list p { margin: 8px 0 0 !important; color: #543821 !important; font-size: 13px !important; line-height: 1.55 !important; -webkit-text-fill-color: #543821 !important; }
+
+@media (max-width: 980px) {
+  .audience-collage-inner { grid-template-columns: .85fr 1.15fr; gap: 30px; }
+  html body #top.creative-site #main#main.inner-page .audience-collage h2,
+  html body #top.creative-site #main#main.inner-page .audience-collage h2 * { white-space: normal !important; }
+  html body #top.creative-site #main#main.inner-page .audience-collage h2 { width: auto !important; }
+  .audience-collage-eyebrow { white-space: normal; }
+  .audience-collage-list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+  html body #top.creative-site #main#main.inner-page .audience-collage-list > li:nth-child(odd) { padding-left: 0 !important; border-left: 0 !important; }
+}
+
+@media (max-width: 700px) {
+  html body #top.creative-site #main#main.inner-page section.audience-collage { padding-block: 52px !important; }
+  .audience-collage-inner { grid-template-columns: 1fr; gap: 28px; }
+  .audience-collage-heading { display: grid; grid-template-columns: 1fr auto; align-items: end; }
+  .audience-collage-heading .produce-label { grid-column: 1 / -1; }
+  .audience-collage-eyebrow { margin: 0 0 5px; font-size: 13px; text-align: right; }
+  html body #top.creative-site #main#main.inner-page .audience-collage h2 { width: auto !important; }
+  .audience-collage-art { min-height: 360px; }
+  .audience-collage-list { grid-template-columns: 1fr; margin-top: 0; }
+  html body #top.creative-site #main#main.inner-page .audience-collage-list > li { padding: 20px 0 !important; border-left: 0 !important; border-bottom: 1px solid rgba(75, 45, 19, .25) !important; }
+}

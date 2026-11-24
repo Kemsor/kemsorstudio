@@ -48,15 +48,27 @@ html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-scri
 @media(max-width:700px){html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .story-stages,html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .story-notes,html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .story-reads,html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .packaging-statuses,html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .packaging-elements.studio-ledger,html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .packaging-readers,html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .budgeting-scenarios{grid-template-columns:1fr!important}html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .packaging-elements>li:last-child{grid-column:auto!important}}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) *{transition:none!important}}
 
-/* Develop FAQ: independent native disclosures with clear chevron controls. */
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list{display:grid;gap:12px}
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list details{border:1px solid #e3d6be!important;border-radius:12px;background:#fdfbf8!important;overflow:hidden}
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list summary{padding:18px 20px!important;font-weight:600!important;gap:18px}
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list summary>span{background:#f2e8d7;border:0!important;width:32px;height:32px}
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list details[open]{background:#faf1df!important;border-color:#c5a15e!important}
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list details[open] summary>span{background:#e5b765;transform:rotate(180deg)}
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list details p{padding:0 20px 20px!important}
-html body #top.creative-site #main#main.inner-page .develop-page .standard-faq-list details p a{color:#725123!important;text-decoration:underline;text-underline-offset:3px}
+html body #top.creative-site #main#main.inner-page :is(.develop-page #cost-of-change,.story-script-page #two-tests,.packaging-page #whats-in-a-package,.budgeting-page #script-breakdown){
+ --develop-section-background:#f2e8d7;
+ background:var(--develop-section-background)!important;
+ box-shadow:0 0 0 100vmax var(--develop-section-background)!important;
+ clip-path:inset(0 -100vmax);
+}
+html body #top.creative-site #main#main.inner-page .develop-page #cost-of-change :is(.develop-costs,.develop-cost-head,.develop-costs > article),
+html body #top.creative-site #main#main.inner-page .story-script-page #two-tests .story-reads,
+html body #top.creative-site #main#main.inner-page .packaging-page #whats-in-a-package .packaging-elements{
+ background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .story-script-page #two-tests .story-reads > article,
+html body #top.creative-site #main#main.inner-page .packaging-page #whats-in-a-package .packaging-elements > li,
+html body #top.creative-site #main#main.inner-page .budgeting-page #script-breakdown .budgeting-breakdown{
+ background:#e8d5b6!important;
+ border-color:#cbb08a!important;
+}
+
+html body #top.creative-site #main#main.inner-page :is(.develop-page,.story-script-page,.packaging-page,.budgeting-page) .ep-chapters > section.standard-faq-simple:has(> .standard-faq-panel) {
+ margin-block-start:clamp(24px,4vw,64px)!important;
+}
 
 /* Exit checklist follows the FAQ's independent click-to-toggle pattern. */
 html body #top.creative-site #main#main.inner-page .develop-page #ready-checklist .ep-accordion{display:grid!important;gap:12px!important;padding:0!important;border:0!important;background:none!important;margin-top:28px}

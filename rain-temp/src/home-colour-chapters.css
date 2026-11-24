@@ -105,7 +105,10 @@ html body #top.creative-site.site-page-home[data-home-colors] .creative-header[d
 
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle){background:transparent!important;border-color:var(--nav-line)!important;}
 
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle):is(:hover,:focus-visible,[aria-expanded=true]){background:var(--nav-panel)!important;}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] :is(.creative-nav-trigger,.creative-nav-direct,.creative-nav-toggle):is(:hover,:focus-visible,[aria-expanded=true]){background:var(--nav-panel)!important;}
+
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible,[aria-expanded=true]),
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible,[aria-expanded=true]) span{background:transparent!important;}
 
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open=true] .creative-nav-trigger[aria-expanded=true],
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open=true] .creative-nav-mobile-login{background:var(--nav-panel)!important;border-color:var(--nav-line)!important;}

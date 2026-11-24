@@ -1,24 +1,179 @@
 /* One FAQ treatment across inner pages; native details keep keyboard and touch support. */
-html body #top.creative-site:not(.site-page-home) #main.inner-page section:has(>.standard-faq-panel){display:block!important;min-width:0}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.15fr);align-items:start;gap:clamp(24px,3vw,44px);width:100%;padding:clamp(24px,3vw,40px);margin:0;background:#f8f4ec;border:1px solid #e6dccb;border-radius:18px;color:#30251a;box-sizing:border-box}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-image{display:block;min-width:0;width:100%;margin:0;padding:0;overflow:hidden;border-radius:12px;background:#352519;align-self:start}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-image img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center;margin:0;filter:none;transform:none}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page section:has(>.standard-faq-panel){display:block!important;box-sizing:border-box;min-width:0;width:100vw!important;max-width:none!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;padding-left:0!important;padding-right:0!important;background:linear-gradient(135deg,#150b05 0%,#5b2b0d 55%,#b66d22 100%)!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel{--inner-heading-ink:#fffaf0;--inner-heading-accent:#fffaf0;position:relative;isolation:isolate;overflow:visible;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.15fr);align-items:start;gap:clamp(24px,3vw,44px);box-sizing:border-box;width:calc(100% - var(--inner-content-gutter,clamp(20px,5vw,80px))*2);max-width:var(--inner-content-width,1440px);padding:clamp(28px,3.5vw,52px) 0;margin-inline:auto;background:transparent!important;border:0;border-radius:0;color:#fff7e9;box-shadow:none}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel::before{content:'';position:absolute;z-index:0;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);background:linear-gradient(135deg,#150b05 0%,#5b2b0d 55%,#b66d22 100%);pointer-events:none}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel>*{position:relative;z-index:1}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-image{display:block;min-width:0;width:100%;margin:0;padding:0;overflow:hidden;border:0;border-radius:0;background:transparent;align-self:start;mask-image:linear-gradient(90deg,#000 0%,#000 82%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 82%,transparent 100%)}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-image img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center;margin:0;filter:saturate(.9) sepia(.08);transform:none}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-content{min-width:0;width:100%;padding:0;margin:0}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading{margin:0 0 26px;padding:0}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading h2{font-size:clamp(25px,2.3vw,34px)!important;line-height:1.25!important;letter-spacing:-.025em!important;color:#30251a!important;-webkit-text-fill-color:#30251a!important;margin:0!important;max-width:none}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading h2 :is(span,em){color:#956122!important;-webkit-text-fill-color:#956122!important}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading :is(.produce-label,.finance-label,p){color:#785625!important;-webkit-text-fill-color:#785625!important;border:0;padding:0;margin:0 0 16px;font-size:10px!important;line-height:1.6;letter-spacing:.09em}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading h2{position:relative;z-index:1;font-size:clamp(25px,2.3vw,34px)!important;line-height:1.25!important;letter-spacing:0!important;color:#fffaf0!important;-webkit-text-fill-color:#fffaf0!important;margin:0!important;max-width:none;text-shadow:0 2px 14px #140603cc}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading h2 :is(span,em){color:#fffaf0!important;-webkit-text-fill-color:#fffaf0!important;opacity:1!important;text-shadow:0 1px 12px #1b090780}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading h2 .text-flow-word{opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important}
+html body #top.creative-site:not(.site-page-home) #main#main.inner-page .standard-faq-panel .standard-faq-content .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word),html body #top.creative-site:not(.site-page-home) #main#main.inner-page .standard-faq-panel .standard-faq-content .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word) *{color:#fffaf0!important;-webkit-text-fill-color:#fffaf0!important;opacity:1!important;text-shadow:0 2px 14px #140603cc!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading :is(.produce-label,.finance-label,p){color:#f2c36d!important;-webkit-text-fill-color:#f2c36d!important;border:0;padding:0;margin:0 0 16px;font-size:10px!important;line-height:1.6;letter-spacing:.09em}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list{display:block;min-width:0;margin:0;padding:0;border:0;background:transparent}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details{display:block;margin:0;padding:0;border:0;border-top:1px solid #ddcfb8;background:transparent;color:#30251a}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details:last-child{border-bottom:1px solid #ddcfb8}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;padding:20px 0;margin:0;font-size:15px!important;font-weight:500;line-height:1.55!important;color:#30251a!important;-webkit-text-fill-color:#30251a!important;transition:color .2s}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details{display:block;margin:0;padding:0;border:0;border-top:1px solid #f2c36d55;background:transparent;color:#fff7e9}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details:last-child{border-bottom:1px solid #f2c36d55}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;padding:20px 0;margin:0;font-size:15px!important;font-weight:500;line-height:1.55!important;color:#fff7e9!important;-webkit-text-fill-color:#fff7e9!important;transition:color .2s}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary::-webkit-details-marker{display:none}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary::marker{content:''}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary>span{display:grid;place-items:center;flex-shrink:0;width:30px;height:30px;border:1px solid #d6bd8d;border-radius:50%;font-size:20px!important;line-height:1;color:#866024!important;-webkit-text-fill-color:#866024!important;transition:transform .2s,background .2s}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details[open] summary>span{transform:rotate(180deg);background:#f1d58e}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary:is(:hover,:focus-visible){color:#956122!important;-webkit-text-fill-color:#956122!important}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary:focus-visible{outline:2px solid #966622;outline-offset:4px;border-radius:3px}
-html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details p{display:block;margin:0;padding:0 44px 22px 0;font-size:13px!important;line-height:1.85!important;color:#514638!important;-webkit-text-fill-color:#514638!important;max-width:none}
-@media(max-width:800px){html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel{grid-template-columns:minmax(0,1fr);gap:26px}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-image{max-width:520px}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading{margin-bottom:22px}}
-@media(max-width:480px){html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel{padding:20px;border-radius:14px}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary{gap:12px;padding:18px 0;font-size:14px!important}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details p{padding-right:0}}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary>span{display:grid;place-items:center;flex-shrink:0;width:30px;height:30px;border:1px solid #f2c36d99;border-radius:50%;font-size:20px!important;line-height:1;color:#f2c36d!important;-webkit-text-fill-color:#f2c36d!important;transition:transform .2s,background .2s}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details[open] summary>span{transform:rotate(180deg);background:#f2c36d;color:#241207!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary:is(:hover,:focus-visible){color:#f2c36d!important;-webkit-text-fill-color:#f2c36d!important}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary:focus-visible{outline:2px solid #f2c36d;outline-offset:4px;border-radius:3px}
+html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details p{display:block;margin:0;padding:0 44px 22px 0;font-size:13px!important;line-height:1.85!important;color:#f4dfbd!important;-webkit-text-fill-color:#f4dfbd!important;max-width:none}
+@media(max-width:800px){html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel{grid-template-columns:minmax(0,1fr);gap:26px}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-image{max-width:520px;mask-image:linear-gradient(180deg,#000 0%,#000 82%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 82%,transparent 100%)}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-heading{margin-bottom:22px}}
+@media(max-width:480px){html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-panel{padding:20px;border-radius:0}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary{gap:12px;padding:18px 0;font-size:14px!important}html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list details p{padding-right:0}}
 @media(prefers-reduced-motion:reduce){html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary,html body #top.creative-site:not(.site-page-home) #main.inner-page .standard-faq-list summary>span{transition:none}}
+
+/* A related-services showcase and its FAQ form one uninterrupted closing
+   chapter on every Produce page. Keep the seam free of gaps and rules. */
+html body #top.creative-site #main#main.inner-page .production-layout .pl-section:has(.produce-related-faq-group) {
+  padding-block: 0 !important;
+  background: #181512 !important;
+  border: 0 !important;
+}
+
+html body #top.creative-site #main#main.inner-page .production-layout .pl-section > .pl-width:has(> .produce-related-faq-group) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-related-faq-group {
+  display: flow-root;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #181512 !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase):has(+ section.produce-questions) {
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase) + section.produce-questions:has(> .standard-faq-panel) {
+  --related-ink: #181512;
+  --related-cream: #f7edde;
+  --related-muted: #c9bcae;
+  --related-gold: #e9b755;
+  display: block !important;
+  width: 100vw !important;
+  max-width: none !important;
+  margin: 0 calc(50% - 50vw) !important;
+  padding: clamp(58px, 5vw, 78px) var(--produce-band-gutter, max(24px, calc((100vw - 1320px) / 2))) clamp(76px, 7vw, 112px) !important;
+  color: var(--related-cream) !important;
+  background: var(--related-ink) !important;
+  border: 0 !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase) + .produce-questions .standard-faq-panel {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1320px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase) + .produce-questions .standard-faq-panel::before {
+  background: var(--related-ink) !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase) + .produce-questions .standard-faq-image {
+  display: none !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase) + .produce-questions .standard-faq-heading {
+  margin: 0 0 clamp(30px, 4vw, 52px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase) + .produce-questions .standard-faq-list summary {
+  flex-direction: row-reverse !important;
+  justify-content: flex-end !important;
+}
+
+html body #top.creative-site #main#main.inner-page .produce-hub section:is(.related-services-showcase,.set-related-showcase) + .produce-questions .standard-faq-list summary > span {
+  width: 24px !important;
+  height: 24px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Reusable simple variant for inner pages outside the Produce layout. */
+html body #top.creative-site #main#main.inner-page section.standard-faq-simple:has(> .standard-faq-panel){
+ --simple-faq-ink:#181512;--simple-faq-cream:#f7edde;--simple-faq-muted:#c9bcae;--simple-faq-gold:#e9b755;
+ display:block!important;box-sizing:border-box;width:100vw!important;max-width:none!important;
+ margin:0 calc(50% - 50vw)!important;
+ padding:clamp(58px,5vw,78px) max(24px,calc((100vw - 1320px)/2)) clamp(76px,7vw,112px)!important;
+ background:var(--simple-faq-ink)!important;border:0!important;color:var(--simple-faq-cream)!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-panel{
+ --inner-heading-ink:var(--simple-faq-cream);--inner-heading-accent:var(--simple-faq-cream);
+ display:block!important;overflow:visible;width:100%!important;max-width:1320px!important;
+ margin:0 auto!important;padding:0!important;background:transparent!important;border:0!important;color:var(--simple-faq-cream)!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-panel::before{background:var(--simple-faq-ink)!important}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-image{display:none!important}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-heading{
+ margin:0 0 clamp(30px,4vw,52px)!important;padding:0!important;border:0!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-heading :is(.produce-label,.finance-label,.release-label,.india-label,p):not(h2 *){
+ margin:0 0 14px!important;padding:0!important;border:0!important;color:var(--simple-faq-gold)!important;-webkit-text-fill-color:var(--simple-faq-gold)!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-heading .produce-label>span{
+ color:var(--simple-faq-gold)!important;-webkit-text-fill-color:var(--simple-faq-gold)!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-heading h2,
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word),
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-heading h2 :is(span,em,.heading-accent,.text-flow-word) *{
+ margin:0!important;max-width:none!important;font-family:var(--inner-serif,"Cormorant Garamond",Georgia,serif)!important;
+ font-size:clamp(42px,5vw,72px)!important;font-weight:400!important;font-style:normal!important;line-height:1!important;letter-spacing:-.035em!important;
+ color:var(--simple-faq-cream)!important;-webkit-text-fill-color:var(--simple-faq-cream)!important;text-shadow:none!important;opacity:1!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list{
+ margin:0!important;padding:0!important;border:0!important;border-top:1px solid #f7edde42!important;background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list details{
+ margin:0!important;padding:0!important;border:0!important;border-bottom:1px solid #f7edde42!important;background:transparent!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list summary{
+ flex-direction:row-reverse!important;justify-content:flex-end!important;gap:24px!important;min-height:0!important;padding:24px 0!important;
+ font-size:clamp(16px,1.35vw,20px)!important;font-weight:400!important;color:var(--simple-faq-cream)!important;-webkit-text-fill-color:var(--simple-faq-cream)!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list summary>span{
+ display:grid!important;place-items:center!important;width:24px!important;height:24px!important;flex-shrink:0;
+ border:0!important;border-radius:0!important;background:transparent!important;color:var(--simple-faq-gold)!important;-webkit-text-fill-color:var(--simple-faq-gold)!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list details[open] summary>span{
+ transform:rotate(180deg)!important;background:transparent!important;color:var(--simple-faq-gold)!important;-webkit-text-fill-color:var(--simple-faq-gold)!important;
+}
+html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list details p{
+ max-width:880px!important;margin:0!important;padding:0 0 24px 48px!important;
+ font-size:14px!important;line-height:1.85!important;color:var(--simple-faq-muted)!important;-webkit-text-fill-color:var(--simple-faq-muted)!important;
+}
+@media(max-width:600px){
+ html body #top.creative-site #main#main.inner-page section.standard-faq-simple:has(> .standard-faq-panel){padding-inline:20px!important}
+ html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list summary{gap:14px!important;padding:20px 0!important}
+ html body #top.creative-site #main#main.inner-page .standard-faq-simple .standard-faq-list details p{padding-left:38px!important}
+}
+
+/* The FAQ panel supplies the full-bleed background while its content follows the page frame. */
+html body #top.creative-site #main#main.inner-page :is(.finance-layout,.ep-chapters,.release-overview,[data-service-page="distribution-release"],[data-service-page="festival-awards"]) section.standard-faq-simple:has(> .standard-faq-panel){
+ width:calc(100% - var(--inner-content-gutter)*2)!important;
+ max-width:var(--inner-content-width)!important;
+ margin-inline:auto!important;
+ padding-inline:0!important;
+ box-shadow:0 0 0 100vmax var(--simple-faq-ink)!important;
+ clip-path:inset(0 -100vmax);
+}
+html body #top.creative-site #main#main.inner-page :is(.finance-layout .fl-body,.ep-body .ep-chapters) > section.standard-faq-simple:has(> .standard-faq-panel){
+ width:100%!important;
+}

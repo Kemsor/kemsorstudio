@@ -4,10 +4,12 @@ import StudioImage from '../StudioImage';
 import SiteIcon from '../SiteIcon';
 import MotionHeading, { MotionCopy } from '../TextMotion';
 import ProduceLayout from '../ProduceLayout';
+import ProduceZigzagProcess from '../ProduceZigzagProcess';
+import AudienceCollage from '../AudienceCollage';
+import RelatedServicesShowcase from '../RelatedServicesShowcase';
 import React from 'react';
 import { Arrow, CTA, TextLink } from '../PageUI';
 import './produce-page.css';
-import './shooting-process.css';
 import './produce-hero-background.css';
 
 // Copy follows Kemsor_Produce_00_Produce_Hub.docx.pdf.
@@ -79,23 +81,29 @@ export default function ProducePage() {
       </a>)}</div>
     </section>
 
-    <section className="produce-section produce-process" id="produce-process" aria-labelledby="produce-process-title">
+    <section className="produce-section produce-process produce-process-zigzag" id="produce-process" aria-labelledby="produce-process-title">
       <Label>{cmsText("ProducePage","59c5015334c26484","HOW WE WORK")}</Label>
       <MotionHeading as="h2" id="produce-process-title">{cmsText("ProducePage","3cb85b423a4cd273","How we work.")}</MotionHeading>
-      <div className="shooting-growth-map"><svg className="shooting-growth-graph" viewBox="0 0 1000 300" preserveAspectRatio="none" fill="none" aria-hidden="true"><path className="shooting-graph-grid" d="M0 28H1000M0 108H1000M0 188H1000M0 258H1000"/><path className="shooting-graph-area" d="M166.667 258C300 258 366.667 148 500 148S700 28 833.333 28V300H166.667Z"/><path className="shooting-graph-line" d="M166.667 258C300 258 366.667 148 500 148S700 28 833.333 28"/></svg><ol className="produce-steps line-production-steps">{steps.map(([title, description], index) => <li key={title}><span className="shooting-stage-icon" aria-hidden="true"><SiteIcon name={["script","guide","check"][index]} size={22}/></span><h3>{title}</h3><p>{description}</p></li>)}</ol></div>
+      <ProduceZigzagProcess steps={steps} icons={["script","guide","check"]}/>
     </section>
 
-    <section className="produce-section produce-audiences" aria-labelledby="produce-audiences-title">
-      <div><Label>{cmsText("ProducePage","47804cf4de4a66ea","WHO IT’S FOR")}</Label><MotionHeading as="h2" id="produce-audiences-title">{cmsText("ProducePage","05e2d55bbb495b0d","Who it’s for.")}</MotionHeading><div className="produce-audience-mark" aria-hidden="true"><span>{cmsText("ProducePage","4f59d82bc66dc86d","THE STORY")}</span><i>+</i><span>{cmsText("ProducePage","1eda40071be2326d","THE PEOPLE")}</span><i>+</i><span>{cmsText("ProducePage","c9d03c95ed15ca43","THE PLAN")}</span></div></div>
-      <ul>{audiences.map(([title, description], index) => <li key={title}><div><h3>{title}</h3><p>{description}</p></div></li>)}</ul>
-    </section>
+    <AudienceCollage id="produce-audiences-title" label={cmsText("ProducePage","47804cf4de4a66ea","WHO IT’S FOR")} heading={cmsText("ProducePage","05e2d55bbb495b0d","Who it’s for.")} audiences={audiences} images={["/assets/stills/work-period-camera-960.webp","/assets/stills/daylight-valley-production-960.webp"]} eyebrow="STORY · PEOPLE · PLAN"/>
 
     {/* No project title, year or production credit was supplied. Keep unverified
         project cards out of the page; the productions archive remains accessible. */}
     <section className="produce-section produce-work" aria-labelledby="produce-work-title"><Label>{cmsText("ProducePage","4ea2710d72e958a6","RELATED WORK")}</Label><div><MotionHeading as="h2" id="produce-work-title">{cmsText("ProducePage","187e4f4d58007084","Related work.")}</MotionHeading><TextLink href="/productions/">{cmsText("ProducePage","7ebf781895b1f8ce","Explore productions")}</TextLink></div></section>
 
-    <section className="produce-section produce-related" aria-labelledby="produce-related-title"><Label>{cmsText("ProducePage","b29fbe5967528721","RELATED SERVICES")}</Label><MotionHeading as="h2" id="produce-related-title">{cmsText("ProducePage","018bcd75038dcdf7","Related services.")}</MotionHeading><div className="produce-related-grid">{related.map(([number, title, description, href]) => <a href={href} key={title}><h3>{title}</h3><p>{description}</p><Arrow /></a>)}</div></section>
+    <div className="produce-related-faq-group">
+    <RelatedServicesShowcase
+      id="produce-related-title"
+      label={cmsText("ProducePage","b29fbe5967528721","CONNECTED CAPABILITIES")}
+      heading={cmsText("ProducePage","018bcd75038dcdf7","Related services.")}
+      intro="Production works best when development, finance, on-set delivery and India production support stay connected from the same plan."
+      items={related.map(([number, title, , href]) => [number, title, href])}
+      actionLabel={cmsText("ProducePage","790112deede67562","Explore service")}
+    />
 
     <section className="produce-section produce-questions" aria-labelledby="produce-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("ProducePage","b8a88556bf67af8f","QUESTIONS")}</Label><MotionHeading as="h2" id="produce-questions-title">{cmsText("ProducePage","f0fe56481faa7faf","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
+    </div>
   </div></ProduceLayout>;
 }

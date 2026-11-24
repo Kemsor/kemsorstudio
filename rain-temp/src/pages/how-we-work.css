@@ -87,3 +87,10 @@ html body #top.creative-site #main.inner-page .engagement-ground-cards .call-she
 @media(prefers-reduced-motion:reduce){.engagement-ground-image{transition:none}.engagement-ground-cards>article:hover .engagement-ground-image{transform:none}}
 
 .call-sheet-schedule h3{min-width:0;word-break:normal;overflow-wrap:normal;align-self:start}
+
+html body #top.creative-site #main.inner-page section.call-sheet-section[aria-labelledby="call-sheet-schedule-title"]{
+ --schedule-background:#f2e8d7;
+ background:var(--schedule-background)!important;
+ box-shadow:0 0 0 100vmax var(--schedule-background)!important;
+ clip-path:inset(0 -100vmax);
+}

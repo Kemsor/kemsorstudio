@@ -60,6 +60,7 @@ import './mobile-navigation.css';
 import '../../backend/public/form-controls.css';
 import './reference-navigation.css';
 import './warm-background.css';
+import './inner-paper-images.css';
 import { OpeningLoader, TaskLoader } from './Loading';
 
 if (location.hash === '#home') history.replaceState(history.state, '', `${location.pathname}${location.search}`);

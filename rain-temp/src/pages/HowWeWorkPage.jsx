@@ -122,8 +122,6 @@ export default function HowWeWorkPage() {
     <section className="call-sheet-section call-sheet-closing call-sheet-width inner-closing" aria-labelledby="call-sheet-closing-title">
       <SheetLabel index="06 / 06">{cmsText("HowWeWorkPage","8a3f3b11141cdf6e","END OF CALL SHEET")}</SheetLabel>
       <div className="call-sheet-closing-grid"><MotionHeading as="h2" id="call-sheet-closing-title">{cmsText("HowWeWorkPage","4e6f3488124b6e93","That’s the call sheet. ")}<em>{cmsText("HowWeWorkPage","0c984b50bf044745","Ready for day one?")}</em></MotionHeading><div><MotionCopy>{cmsText("HowWeWorkPage","9aa140d5e97b2a1d","Start with a conversation. We’ll show you how your project would run.")}</MotionCopy><div className="call-sheet-actions"><CTA href="/contact/">{cmsText("HowWeWorkPage","d89a8ff94c8a31dd","Start a conversation")}</CTA><TextLink href="/about/#leadership">{cmsText("HowWeWorkPage","3bb08d9a429e88a3","Meet the leadership")}</TextLink></div></div></div>
-      <dl className="call-sheet-signoff"><div><dt>{cmsText("HowWeWorkPage","095bd5cf2be387d0","PREPARED BY")}</dt><dd>{cmsText("HowWeWorkPage","2099c49944cce344","Kemsor Studios")}</dd></div><div><dt>{cmsText("HowWeWorkPage","f3c6bba4d0ec9aaa","APPROVED BY")}</dt><dd>{cmsText("HowWeWorkPage","24132530ecc8dfd2","You")}</dd></div><div><dt>{cmsText("HowWeWorkPage","eee579d54dc22cc0","DATE")}</dt><dd>{cmsText("HowWeWorkPage","f0b8d5f0e1eec482","Day one")}</dd></div></dl>
-      <p className="call-sheet-end">{cmsText("HowWeWorkPage","494d35093c37d10c","CLEAR PLAN. NO SURPRISES.")}</p>
     </section>
   </div></PageVisuals>;
 }

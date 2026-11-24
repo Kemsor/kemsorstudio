@@ -114,7 +114,7 @@ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav 
 
 html body #top.creative-site .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible),
 html body #top.creative-site .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible) span{
- background:#fff!important;color:#111!important;-webkit-text-fill-color:#111!important;
+ background:transparent!important;color:#fff!important;-webkit-text-fill-color:#fff!important;
 }
 
 html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-toggle,

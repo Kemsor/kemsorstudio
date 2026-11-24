@@ -9,7 +9,14 @@ html body #top.creative-site #main#main.inner-page .post-page .post-track-2 i{ba
 html body #top.creative-site #main#main.inner-page .post-page .post-track-3 i{background:#f0e1c4}
 html body #top.creative-site #main#main.inner-page .post-page .post-playhead{border-color:#8c5728}
 html body #top.creative-site #main#main.inner-page .post-page .post-playhead:before{background:#8c5728}
-html body #top.creative-site #main#main.inner-page .post-page .post-lifecycle{gap:10px;border:0!important;padding-block:20px}
+html body #top.creative-site #main#main.inner-page .post-page .post-lifecycle{
+ width:calc(100% - var(--inner-content-gutter)*2);
+ max-width:var(--inner-content-width);
+ margin-inline:auto;
+ gap:10px;
+ border:0!important;
+ padding-block:20px;
+}
 html body #top.creative-site #main#main.inner-page .post-page .post-lifecycle a{border:1px solid #e9e0d2;border-radius:30px;padding:8px 20px;font-size:12px;text-decoration:none!important;transition:background .2s,border-color .2s}
 html body #top.creative-site #main#main.inner-page .post-page .post-lifecycle a[aria-current]{background:#f8edcf;border-color:#c5a15e;color:#57351f!important}
 html body #top.creative-site #main#main.inner-page .post-page #the-gap .release-section-intro{align-items:start;gap:40px}
