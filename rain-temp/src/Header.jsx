@@ -34,13 +34,13 @@ export default function Header({ page = 'home' } = {}) {
     setHidden(false);
     const update=()=>{
       frame=null;
-      const blocked=drawerOpen||Boolean(activePanel)||accountOpen||(headerRef.current?.contains(document.activeElement)&&document.activeElement?.matches(':focus-visible'));
+      const blocked=drawerOpen||(!drawerMode&&Boolean(activePanel))||accountOpen||(headerRef.current?.contains(document.activeElement)&&document.activeElement?.matches(':focus-visible'));
       setHidden(decide(measureScroll(),performance.now(),blocked));
     };
     const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};
     window.addEventListener('scroll',scroll,{passive:true});
     return()=>{window.removeEventListener('scroll',scroll);cancelAnimationFrame(frame)};
-  },[drawerOpen,activePanel,accountOpen]);
+  },[drawerMode,drawerOpen,activePanel,accountOpen]);
   const [currentHash, setCurrentHash] = useState(() => typeof window !== 'undefined' ? window.location?.hash || '' : '');
   const headerRef = useRef(null);
   const navRef = useRef(null);
@@ -107,8 +107,8 @@ export default function Header({ page = 'home' } = {}) {
   const closeDrawer = (restoreFocus = true) => {
     clearHoverTimer();
     setDrawerOpen(false);
-    setActivePanel(null);
-    setActiveGroup(null);
+    // Keep expanded links in place while the drawer slides out.
+    if (!drawerMode) setActivePanel(null);
     if (restoreFocus) toggleRef.current?.focus({preventScroll:true});
   };
 
@@ -170,14 +170,14 @@ export default function Header({ page = 'home' } = {}) {
     const onKeyDown = event => {
       if (event.key !== 'Escape') return;
       if (drawerOpen) closeDrawer();
-      else if (activePanel) {
+      else if (!drawerMode && activePanel) {
         clearHoverTimer();
         setActivePanel(null);
         triggerRefs.current[activePanel]?.focus();
       }
     };
     const onOutsidePointer = event => {
-      if (!headerRef.current?.contains(event.target) && !navRef.current?.contains(event.target)) {
+      if (!drawerMode && !headerRef.current?.contains(event.target) && !navRef.current?.contains(event.target)) {
         clearHoverTimer();
         setActivePanel(null);
       }
@@ -188,7 +188,7 @@ export default function Header({ page = 'home' } = {}) {
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('pointerdown', onOutsidePointer);
     };
-  }, [drawerOpen, activePanel]);
+  }, [drawerMode, drawerOpen, activePanel]);
 
   useEffect(() => {
     if (!drawerOpen) return;
@@ -234,7 +234,7 @@ export default function Header({ page = 'home' } = {}) {
     });
   };
 
-  const navigation = <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerOpen} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
+  const navigation = <nav ref={navRef} id="creative-navigation" className="creative-nav" aria-label="Main navigation" aria-hidden={drawerMode && !drawerOpen ? true : undefined} inert={drawerMode && !drawerOpen} data-open={drawerMode ? drawerOpen : undefined} onBlur={event => { if (!drawerMode && !event.currentTarget.contains(event.relatedTarget)) setActivePanel(null); }}>
           <div className="creative-nav-drawer-head"><span>{cmsText("Header","bb1ee5567870d5af","THE STUDIO INDEX")}</span><button ref={closeRef} type="button" onClick={() => closeDrawer()} aria-label="Close navigation">{cmsText("Header","6b80cfee72cc8502","Close ")}<span aria-hidden="true"><SiteIcon name="close" size={16} /></span></button></div>
           <div ref={drawerBodyRef} className="creative-nav-drawer-body" data-lenis-prevent>
           <div className="creative-nav-list">
@@ -274,7 +274,7 @@ export default function Header({ page = 'home' } = {}) {
         </nav>;
 
   return <>
-    <header ref={headerRef} className="creative-header reference-navigation" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && !activePanel && !accountOpen} onFocusCapture={() => setHidden(false)}>
+    <header ref={headerRef} className="creative-header reference-navigation" data-page={page} data-overlay="true" data-scrolled={scrolled} data-panel-open={!drawerMode && Boolean(activePanel)} data-drawer-open={drawerOpen} data-hidden={hidden && !drawerOpen && (drawerMode || !activePanel) && !accountOpen} onFocusCapture={() => setHidden(false)}>
       <div className="creative-header-inner">
         <a className="creative-header-brand" href="/" onClick={event => followLink('/', event)} aria-label="Kemsor Studios home">
           <picture>{!getSiteModule('branding',{}).logo&&<source srcSet="/assets/kemsor-logo.webp" type="image/webp" />}<StudioImage mediaSlot="Header-1" src={getSiteModule('branding',{}).logo||'/assets/kemsor-logo.svg'} alt={getSiteModule('branding',{}).alt||'Kemsor Studios'} width="3650" height="3300" loading="eager" decoding="async" /></picture><span className="header-wordmark">KEMSOR</span>
@@ -283,7 +283,7 @@ export default function Header({ page = 'home' } = {}) {
         <div className="creative-header-controls">
           {!loading&&user?.role!=='artist'&&<a href="/contact/" className="header-script-tool" aria-current={page==='contact'?'page':undefined}><b className="cta-label">Talk to studio</b> <span aria-hidden="true"><SiteIcon name="arrow-right" size={16} /></span></a>}
           <div className="header-account-links" aria-label="Account links"><AccountDropdown onOpenChange={setAccountOpen}/></div>
-          <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { clearHoverTimer(); setDrawerOpen(!drawerOpen); setActivePanel(null); }}>
+          <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { if (drawerOpen) closeDrawer(); else { clearHoverTimer(); setActivePanel(null); setActiveGroup(null); setDrawerOpen(true); } }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true"><SiteIcon name={drawerOpen?'close':'menu'} size={23} /></span>
           </button>
         </div>

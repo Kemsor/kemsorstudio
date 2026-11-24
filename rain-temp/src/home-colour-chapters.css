@@ -86,11 +86,11 @@ html body #top.creative-site.site-page-home[data-home-colors] .creative-header{-
 
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner{background:var(--nav-bg)!important;background-image:none!important;color:var(--nav-ink)!important;border-color:var(--nav-line)!important;box-shadow:none!important;transition:box-shadow .2s ease!important;}
 
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]){background:var(--nav-bg)!important;background-image:none!important;color:var(--nav-ink)!important;border-color:var(--nav-line)!important;transition:none!important;}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open]){background:var(--nav-bg)!important;background-image:none!important;color:var(--nav-ink)!important;border-color:var(--nav-line)!important;transition:none!important;}
 
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown-groups,.creative-nav-group,.account-dropdown-intro,.account-dropdown-registration,.creative-nav-drawer-head){background:transparent!important;background-image:none!important;border-color:var(--nav-line)!important;}
 
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button,p,span,b,small,strong){color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;text-shadow:none!important;}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open]) :is(a,button,p,span,b,small,strong){color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;text-shadow:none!important;}
 
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel) a,
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel) a:is(:hover,:focus-visible,[aria-current]){background:transparent!important;background-image:none!important;color:var(--nav-ink)!important;-webkit-text-fill-color:var(--nav-ink)!important;transition:none!important;}
@@ -110,10 +110,10 @@ html body #top.creative-site.site-page-home[data-home-colors] .creative-header[d
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible,[aria-expanded=true]),
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .header-account-links .header-login:is(:hover,:focus-visible,[aria-expanded=true]) span{background:transparent!important;}
 
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open=true] .creative-nav-trigger[aria-expanded=true],
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open=true] .creative-nav-mobile-login{background:var(--nav-panel)!important;border-color:var(--nav-line)!important;}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open] .creative-nav-trigger[aria-expanded=true],
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header .creative-nav[data-open] .creative-nav-mobile-login{background:var(--nav-panel)!important;border-color:var(--nav-line)!important;}
 
-html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button):focus-visible{outline-color:var(--nav-ink)!important;}
+html body #top.creative-site.site-page-home[data-home-colors] .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open]) :is(a,button):focus-visible{outline-color:var(--nav-ink)!important;}
 
 /* Explicit state selectors outrank the former white hover treatment. */
 html body #top.creative-site.site-page-home[data-home-colors] .creative-header[data-scrolled=true] .creative-header-inner .creative-nav :is(.creative-nav-trigger,.creative-nav-direct):is(:hover,:focus-visible,[aria-expanded=true]),
@@ -306,10 +306,10 @@ html body #top.creative-site .creative-header :is(.creative-nav-trigger,.creativ
 html body #top.creative-site .creative-header :is(.creative-nav-trigger,.creative-nav-direct,.header-login,.creative-nav-toggle) *{
  color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
 }
-html body #top.creative-site .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]){
+html body #top.creative-site .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open]){
  background:#fff!important;background-image:none!important;color:#171717!important;border-color:#dedede!important;
 }
-html body #top.creative-site .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open=true]) :is(a,button,p,span,b,small,strong){
+html body #top.creative-site .creative-header :is(.creative-dropdown,.account-dropdown-panel,.creative-nav[data-open]) :is(a,button,p,span,b,small,strong){
  color:#171717!important;-webkit-text-fill-color:#171717!important;text-shadow:none!important;
 }
 

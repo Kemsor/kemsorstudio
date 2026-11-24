@@ -132,7 +132,7 @@ html[data-theme=dark] .creative-header:not([data-overlay=true]) .creative-header
 
 @media(max-width:760px){
   .creative-site .creative-header-controls .header-account-links{display:none!important}
-  .creative-site .creative-nav[data-open=true] .creative-nav-mobile-account{display:block!important}
+  .creative-site .creative-nav[data-open] .creative-nav-mobile-account{display:block!important}
 }
 
 @keyframes duna-dropdown-enter{from{opacity:0;transform:translate(-50%,-8px) scale(.98)}to{opacity:1;transform:translate(-50%,0) scale(1)}}

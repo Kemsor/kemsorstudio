@@ -224,7 +224,7 @@ html[data-theme=dark] :is(.screenplay-copy>p:not(.page-eyebrow),.screenplay-cue,
 .creative-header .creative-nav-group a:hover,.creative-header .creative-nav-group a:focus-visible{background:color-mix(in srgb,var(--brand-gold) 22%,transparent);color:var(--ink);text-decoration:none;transform:translateX(3px)}
 .creative-header .creative-nav-group a:hover::after,.creative-header .creative-nav-group a:focus-visible::after,.creative-header .creative-nav-group a[aria-current]::after{opacity:1;transform:translate(0,-50%)}
 .creative-header .creative-nav-group a[aria-current]{background:color-mix(in srgb,var(--brand-gold) 16%,transparent);color:var(--brand-bronze);text-decoration:none}
-.creative-nav-backdrop{background:#0f0f0f70;backdrop-filter:blur(5px)}
+.creative-nav-backdrop{background:#0f0f0f70}
 @keyframes creative-menu-arrive{from{opacity:0;transform:translateY(-9px) scale(.985);filter:blur(2px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 @media(min-width:1441px){
  .creative-header .creative-nav-item:has(>.creative-nav-trigger[aria-expanded=true]){background:transparent}

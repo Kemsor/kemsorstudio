@@ -126,13 +126,13 @@ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-
 
 /* The mobile drawer is a separate white surface, including after scrolling. */
 @media(max-width:1440px){
- html body #top.creative-site .creative-header .creative-nav[data-open=true]{background:#fff!important;color:#171717!important}
- html body #top.creative-site .creative-header .creative-nav[data-open=true] :is(a,button,.creative-nav-trigger,.creative-nav-direct,.creative-nav-mobile-login),
- html body #top.creative-site .creative-header .creative-nav[data-open=true] :is(a,button,.creative-nav-trigger,.creative-nav-direct) span{
+ html body #top.creative-site .creative-header .creative-nav[data-open]{background:#fff!important;color:#171717!important}
+ html body #top.creative-site .creative-header .creative-nav[data-open] :is(a,button,.creative-nav-trigger,.creative-nav-direct,.creative-nav-mobile-login),
+ html body #top.creative-site .creative-header .creative-nav[data-open] :is(a,button,.creative-nav-trigger,.creative-nav-direct) span{
   color:#171717!important;-webkit-text-fill-color:#171717!important;opacity:1!important;
  }
- html body #top.creative-site .creative-header .creative-nav[data-open=true] .creative-nav-chevron{border-color:#171717!important}
- html body #top.creative-site .creative-header .creative-nav[data-open=true] .creative-nav-mobile-cta{background:var(--cta-gradient)!important;color:#111!important;-webkit-text-fill-color:#111!important}
+ html body #top.creative-site .creative-header .creative-nav[data-open] .creative-nav-chevron{border-color:#171717!important}
+ html body #top.creative-site .creative-header .creative-nav[data-open] .creative-nav-mobile-cta{background:var(--cta-gradient)!important;color:#111!important;-webkit-text-fill-color:#111!important}
 }
 
 /* Follow scroll direction without moving page content. */
