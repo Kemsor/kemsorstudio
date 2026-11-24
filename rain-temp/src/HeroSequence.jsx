@@ -17,7 +17,13 @@ export default function HeroSequence(props) {
  const availableSlides=Array.isArray(heroSlides)&&heroSlides.length?heroSlides:originalSlides;
  const slides=availableSlides.slice(-2);
  const external=value=>value&&new URL(value,location.origin).origin!==location.origin;
- const films=(slides.length?slides:[{...originalSlides[0],src:''}]).map(slide=>{
+ const films=slides.map(record=>{
+  // A published CMS record may still reference the earlier bundled films.
+  const replacement=originalSlides.find(item=>item.previousSrc && localAsset(item.previousSrc)===localAsset(record.src));
+  const previousPoster=replacement?.previousSrc.replace('.mp4','-960.webp');
+  const slide=replacement && localAsset(previousPoster)===localAsset(record.poster)
+   ? {...record,src:replacement.src,poster:replacement.poster,posterSrcSet:replacement.posterSrcSet}
+   : record;
   const requiresConsent=Boolean((external(slide.src)||external(slide.poster))&&!preferences?.externalMedia);
   const poster=requiresConsent&&external(slide.poster)?originalSlides[0].poster:slide.poster;
   const original = originalSlides.find(item => localAsset(item.src) === localAsset(slide.src));

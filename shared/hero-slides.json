@@ -1,10 +1,10 @@
 [
   {
-    "label": "Story in motion",
-    "src": "/assets/hero-films/studio-8089122.mp4",
-    "preview": "/assets/hero-films/studio-8089122-preview.mp4",
-    "poster": "/assets/hero-films/studio-8089122-960.webp",
-    "posterSrcSet": "/assets/hero-films/studio-8089122-640.webp 640w, /assets/hero-films/studio-8089122-960.webp 960w, /assets/hero-films/studio-8089122-1600.webp 1600w",
+    "label": "On set",
+    "src": "/assets/hero-films/studio-9810147.mp4",
+    "preview": "/assets/hero-films/studio-9810147-preview.mp4",
+    "poster": "/assets/hero-films/studio-9810147-960.webp",
+    "posterSrcSet": "/assets/hero-films/studio-9810147-640.webp 640w, /assets/hero-films/studio-9810147-960.webp 960w, /assets/hero-films/studio-9810147-1280.webp 1280w, /assets/hero-films/studio-9810147-1600.webp 1600w",
     "duration": 5,
     "position": 4,
     "title": "",
@@ -12,14 +12,15 @@
     "eyebrow": "",
     "buttonLabel": "",
     "buttonHref": "",
-    "startAt": 0
+    "startAt": 0,
+    "previousSrc": "/assets/hero-films/studio-8089122.mp4"
   },
   {
-    "label": "Behind the frame",
-    "src": "/assets/hero-films/studio-9810700.mp4",
-    "preview": "/assets/hero-films/studio-9810700-preview.mp4",
-    "poster": "/assets/hero-films/studio-9810700-960.webp",
-    "posterSrcSet": "/assets/hero-films/studio-9810700-640.webp 640w, /assets/hero-films/studio-9810700-960.webp 960w, /assets/hero-films/studio-9810700-1600.webp 1600w",
+    "label": "In the studio",
+    "src": "/assets/hero-films/studio-5499091.mp4",
+    "preview": "/assets/hero-films/studio-5499091-preview.mp4",
+    "poster": "/assets/hero-films/studio-5499091-960.webp",
+    "posterSrcSet": "/assets/hero-films/studio-5499091-640.webp 640w, /assets/hero-films/studio-5499091-960.webp 960w, /assets/hero-films/studio-5499091-1280.webp 1280w, /assets/hero-films/studio-5499091-1600.webp 1600w",
     "duration": 5,
     "position": 5,
     "title": "",
@@ -27,6 +28,7 @@
     "eyebrow": "",
     "buttonLabel": "",
     "buttonHref": "",
-    "startAt": 0
+    "startAt": 0,
+    "previousSrc": "/assets/hero-films/studio-9810700.mp4"
   }
 ]

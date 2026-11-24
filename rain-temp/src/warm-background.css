@@ -298,15 +298,15 @@ html body #top.creative-site.site-page-home #main .final-process .text-flow-word
  }
 }
 
-/* Match the reference hero's warm directional overlay and caption palette. */
+/* Keep the footage bright above the lower-left captions. */
 @layer warm-surfaces {
  html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-film :is(img,video){
-  filter:saturate(.72)!important;
+  filter:none!important;
  }
  html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-shade{
-  background:linear-gradient(90deg,rgba(20,13,6,.87) 0%,rgba(24,15,7,.63) 37%,rgba(29,17,8,.1) 76%),linear-gradient(0deg,rgba(20,13,6,.86),transparent 65%)!important;
+  background:linear-gradient(15deg,#140d06e6 0%,#140d06b8 23%,#140d0659 43%,transparent 65%)!important;
  }
- html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-copy{text-shadow:none!important}
+ html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-copy{text-shadow:0 2px 12px #140d0699!important}
  html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-eyebrow{
   color:#e5b765!important;-webkit-text-fill-color:#e5b765!important;letter-spacing:.18em!important;
  }
@@ -338,7 +338,7 @@ html body #top.creative-site.site-page-home #main .final-process .text-flow-word
 @media(max-width:760px){
  @layer warm-surfaces {
   html body #top.creative-site.site-page-home #main #home.immersive-opening .opening-shade{
-   background:linear-gradient(90deg,#130c06d9,#130c0650),linear-gradient(0deg,#130c06e8,transparent)!important;
+   background:linear-gradient(0deg,#130c06ed 0%,#130c06b8 32%,#130c0661 54%,transparent 76%)!important;
   }
  }
 }

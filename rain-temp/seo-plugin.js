@@ -18,8 +18,9 @@ export function frontendSeo(origin) {
     // Legacy redirect documents have their own canonical destination.
     if (!page) return html;
     const seo = pageSeo(page,{origin,base});
-    const poster = page === 'home' ? optimizedImage(heroSlides.slice(-2)[0]?.poster, optimizedImages, base) : null;
-    const preload = poster ? `<link rel="preload" as="image" type="image/webp" imagesrcset="${escapeHtml(poster.srcSet)}" imagesizes="100vw" fetchpriority="high" />` : '';
+    const hero = page === 'home' ? heroSlides.slice(-2)[0] : null;
+    const posterSet = hero && (optimizedImage(hero.poster, optimizedImages, base)?.srcSet || hero.posterSrcSet?.split(', ').map(source => base + source.slice(1)).join(', '));
+    const preload = posterSet ? `<link rel="preload" as="image" type="image/webp" imagesrcset="${escapeHtml(posterSet)}" imagesizes="100vw" fetchpriority="high" />` : '';
     const cleaned = html.replace('<!-- home-hero-preload -->', preload).replace('assets/fonts/manrope.ttf" as="font" type="font/ttf"', 'assets/fonts/manrope.woff2" as="font" type="font/woff2"').replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi,'').replace(/<meta\b(?=[^>]*\bname=["'](?:description|robots)["'])[^>]*>/gi,'');
     return {html:cleaned,tags:[
      {tag:'title',children:escapeHtml(seo.title),injectTo:'head'},
