@@ -30,7 +30,7 @@
 .blog-page .blog-card-image{aspect-ratio:1.6;background:#eeeae4}
 .blog-page .blog-card-image img{height:100%;object-fit:cover}
 .blog-page .blog-no-results{border-radius:0;padding:clamp(28px,5vw,64px);background:#f7f5f1;border:0;text-align:center}
-.blog-page .blog-no-results h2{font-size:clamp(26px,3vw,40px);margin-bottom:14px}
+.blog-page .blog-no-results h3{font-size:clamp(26px,3vw,40px);margin-bottom:14px}
 .blog-page .blog-no-results p{color:var(--muted);line-height:1.7}
 .blog-article-page .editorial-note{display:grid;grid-template-columns:minmax(0, .85fr) minmax(0,1.15fr);gap:clamp(32px,6vw,88px);margin-top:48px}
 .blog-article-page .page-copy{min-width:0;overflow-wrap:anywhere}
