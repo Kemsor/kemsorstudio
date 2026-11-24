@@ -20,7 +20,9 @@ export default function HeroSequence(props) {
  const films=(slides.length?slides:[{...originalSlides[0],src:''}]).map(slide=>{
   const requiresConsent=Boolean((external(slide.src)||external(slide.poster))&&!preferences?.externalMedia);
   const poster=requiresConsent&&external(slide.poster)?originalSlides[0].poster:slide.poster;
-  return {...slide,requiresConsent,src:requiresConsent?'':localAsset(slide.src),poster:localAsset(poster),posterSrcSet:requiresConsent?'':(slide.posterSrcSet||'').split(', ').filter(Boolean).map(source=>{const [url,width]=source.split(' ');return `${localAsset(url)} ${width}`;}).join(', ')};
+  const original = originalSlides.find(item => localAsset(item.src) === localAsset(slide.src));
+  const preview = !requiresConsent && original?.preview && (slide.startAt || 0) === 0 && (slide.duration || 5) <= 5 ? localAsset(original.preview) : undefined;
+  return {...slide,requiresConsent,preview,src:requiresConsent?'':localAsset(slide.src),poster:localAsset(poster),posterSrcSet:requiresConsent?'':(slide.posterSrcSet||'').split(', ').filter(Boolean).map(source=>{const [url,width]=source.split(' ');return `${localAsset(url)} ${width}`;}).join(', ')};
  });
  return <HeroPlayback key={JSON.stringify(films)} {...props} films={films} openPreferences={openPreferences}/>;
 }
@@ -39,8 +41,10 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
   const [dragging,setDragging]=useState(false);
   const advance = useCallback((direction=1) => {
     if(films.length<2)return;
+    const next = (active + direction + films.length) % films.length;
+    setReady(previous => previous.map((value, index) => index === next ? false : value));
     setOutgoing(active);
-    setActive((active + direction + films.length) % films.length);
+    setActive(next);
   }, [active,films.length]);
   useEffect(() => {
     if (outgoing === null) return;
@@ -48,10 +52,11 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
     return () => clearTimeout(timer);
   }, [outgoing, active]);
   const [requestedPosters, setRequestedPosters] = useState(() => films.map((_, index) => index === 0));
-  useEffect(() => {
-    setRequestedPosters(previous => previous.map((value, index) => value || index === active || index === (active + 1) % films.length));
-  }, [active,films.length]);
+  const [firstPosterSettled, setFirstPosterSettled] = useState(false);
   const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    setRequestedPosters(previous => previous.map((value, index) => value || index === active || (enabled && index === (active + 1) % films.length)));
+  }, [active, enabled, films.length]);
   const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(true);
   const [tabVisible, setTabVisible] = useState(true);
@@ -99,10 +104,10 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
     return () => connection?.removeEventListener?.('change', update);
   }, []);
   useEffect(() => {
-    if (blocked) return;
-    const timer = setTimeout(() => setEnabled(true), 600);
+    if (blocked || (!firstPosterSettled && films[0].poster)) return;
+    const timer = setTimeout(() => setEnabled(true), 1500);
     return () => clearTimeout(timer);
-  }, [blocked]);
+  }, [blocked, firstPosterSettled, films[0].poster]);
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .08 });
     observer.observe(section.current);
@@ -122,17 +127,18 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
     return () => { cancelled = true; videos.current.forEach(film => film?.pause()); };
   }, [active, outgoing, playing, failed]);
   useEffect(() => {
-    if (!playing || failed[active]) return;
+    if (!playing || !ready[active] || failed[active]) return;
     const timer = setTimeout(advance, (films[active].duration||5)*1000);
     return () => clearTimeout(timer);
-  }, [advance, active, playing, failed]);
+  }, [advance, active, playing, failed, ready, films]);
 
   return <><section id="home" ref={section} className="cinema-opening immersive-opening" data-in-view={visible} data-dragging={dragging} aria-labelledby="opening-title"
     onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={resetDrag} onLostPointerCapture={event=>{if(event.target===event.currentTarget)resetDrag();}}>
     <div className="opening-screen">
     <div className="opening-films" aria-hidden="true">{films.map((film, index) => <div className="opening-film" key={film.id||film.slug||index} data-active={active === index} data-outgoing={outgoing === index} data-entering={active === index && outgoing !== null} data-ready={!blocked && ready[index] && !failed[index]}>
-      <StudioImage mediaSlot="HeroSequence-1" src={(requestedPosters[index] || index===active) ? film.poster : undefined} srcSet={(requestedPosters[index] || index===active) ? `${film.poster.replace('.jpg','-640.webp')} 640w, ${film.poster} 960w, ${film.poster.replace('.jpg','-1600.webp')} 1600w` : undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} decoding="async" />
-      <video ref={element => { videos.current[index] = element; }} src={film.src && enabled && !blocked && (index === 0 || active === index || outgoing === index || index === (active + 1) % films.length) ? film.src : undefined} autoPlay muted loop playsInline preload="none"
+      {(requestedPosters[index] || index === active) && <StudioImage mediaSlot="HeroSequence-1" src={film.poster} srcSet={film.posterSrcSet || undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'low'} decoding="async"
+        onLoad={index === 0 ? () => setFirstPosterSettled(true) : undefined} onError={index === 0 ? () => setFirstPosterSettled(true) : undefined} />}
+      <video ref={element => { videos.current[index] = element; }} src={film.src && enabled && !blocked && (active === index || outgoing === index) ? (film.preview || film.src) : undefined} muted loop playsInline preload="none"
         onLoadedMetadata={event => { if (film.startAt && event.currentTarget.currentTime < film.startAt) event.currentTarget.currentTime = film.startAt; }}
         onTimeUpdate={event => {
           if (film.startAt && event.currentTarget.currentTime < film.startAt) event.currentTarget.currentTime = film.startAt;

@@ -153,13 +153,13 @@ function ReadyPage({children,paused,reduced,onReady}) {
  },[]);
  return children;
 }
-function App() {
+function App({ homePage }) {
  useCms(); // Refresh source-backed page content without remounting page state.
  const requested=document.body.dataset.page||location.pathname.slice(import.meta.env.BASE_URL.length).split('/').filter(Boolean)[0]||'home';
  const page=routes[requested]?requested:'home';
- const Page=routes[page];
+ const Page=page==='home' && homePage ? homePage : routes[page];
  const reduced=useReducedMotion();
- const [opening,setOpening]=useState(()=>!new URLSearchParams(location.search).has('admin_preview') && shouldShowOpening());
+ const [opening,setOpening]=useState(()=>page!=='home' && !new URLSearchParams(location.search).has('admin_preview') && shouldShowOpening());
  const [ready,setReady]=useState(false);
  const [switching,setSwitching]=useState(false);
  const onReady=useCallback(()=>setReady(true),[]);
@@ -190,7 +190,10 @@ function App() {
   {<ExperienceTools page={page}/>}
  </div><CookiePreferences hidden={opening||switching}/></>;
 }
-createRoot(document.getElementById('root')).render(<CookieConsentProvider><CmsProvider><MemberSessionProvider><App/></MemberSessionProvider></CmsProvider></CookieConsentProvider>);
+export function mountSite(homePage) {
+ createRoot(document.getElementById('root')).render(<CookieConsentProvider><CmsProvider><MemberSessionProvider><App homePage={homePage}/></MemberSessionProvider></CmsProvider></CookieConsentProvider>);
+}
+if (document.body.dataset.page !== 'home') mountSite();
 
 import './icons.css';
 

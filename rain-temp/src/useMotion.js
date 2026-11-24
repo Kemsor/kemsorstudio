@@ -23,8 +23,9 @@ export function useReveals(disabled) {
         if (entry.isIntersecting) { entry.target.classList.remove('reveal-waiting'); observer.unobserve(entry.target); }
       });
     }, { threshold: 0, rootMargin: '0px 0px 160px 0px' });
+    const belowViewport = new Set(nodes.filter(node => node.getBoundingClientRect().top > window.innerHeight));
     nodes.forEach(node => {
-      if (node.getBoundingClientRect().top > window.innerHeight) node.classList.add('reveal-waiting');
+      if (belowViewport.has(node)) node.classList.add('reveal-waiting');
       observer.observe(node);
     });
     return () => { observer.disconnect(); nodes.forEach(node => node.classList.remove('reveal-waiting')); };

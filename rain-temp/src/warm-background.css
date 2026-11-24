@@ -40,6 +40,9 @@ html body #top.creative-site.site-page-home #main :is(.final-process,.collaborat
 html body #top.creative-site.site-page-home #main .final-process ol>li:not(:nth-child(2)){background:#302419!important;color:#f2e8d7!important}
 html body #top.creative-site.site-page-home #main .final-process ol>li:not(:nth-child(2)) :is(h3,p){color:#f2e8d7!important;-webkit-text-fill-color:#f2e8d7!important}
 html body #top.creative-site.site-page-home #main .collaboration-editorial :is(h2,p,nav a,.collaboration-path-arrow){color:#f2e8d7!important}
+html body #top.creative-site.site-page-home #main .collaboration-editorial>.index-label span{color:#cbbda7!important;-webkit-text-fill-color:#cbbda7!important}
+html body #top.creative-site.site-page-home #main .final-process .text-flow-word{opacity:1!important}
+
 
 }
 

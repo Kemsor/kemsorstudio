@@ -13,11 +13,12 @@ export default function useThemeMotion(enabled) {
     observer.unobserve(target);
    });
   },{threshold:.08,rootMargin:'0px 0px 40px 0px'});
+  const belowViewport=new Set(nodes.filter(node=>node.getBoundingClientRect().top>window.innerHeight));
   nodes.forEach(node=>{
    const siblings=[...node.parentElement.children];
    node.style.setProperty('--theme-reveal-delay',`${Math.min(siblings.indexOf(node),3)*85}ms`);
    node.classList.add('theme-motion-reveal');
-   if(node.getBoundingClientRect().top>window.innerHeight)node.classList.add('theme-motion-pending');
+   if(belowViewport.has(node))node.classList.add('theme-motion-pending');
    observer.observe(node);
   });
   return()=>{observer.disconnect();nodes.forEach(node=>{node.classList.remove('theme-motion-reveal','theme-motion-pending');node.style.removeProperty('--theme-reveal-delay')})};
