@@ -1,0 +1,14 @@
+<%- include('head') %>
+<p class="eyebrow">Website content</p>
+<h1><%= module.label %></h1>
+<p>Choose a section to edit. Each section has its own draft and publishing controls.</p>
+<p><% if(typeof pageDirectory!=='undefined' && pageDirectory){ %><a href="/admin/pages">All website pages</a><% }else{ %><a href="/admin/site-content">All website areas</a><% } %><% if(module.href){ %> · <a href="<%= module.href %>" target="_blank" rel="noopener">View published page</a><% } %></p>
+<div class="admin-page-grid">
+  <% sections.forEach(section=>{ %>
+    <a class="panel admin-page-card" href="<%= section.href %>">
+      <h2><%= section.label %></h2>
+      <span>Edit section</span>
+    </a>
+  <% }); %>
+</div>
+<%- include('foot') %>

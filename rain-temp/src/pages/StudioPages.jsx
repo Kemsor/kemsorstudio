@@ -1,3 +1,5 @@
+import SectionSubmenu from '../SectionSubmenu';
+import ManagedHero from '../ManagedHero';
 import PageBreadcrumbs from '../PageBreadcrumbs';
 import {cmsText,cmsData} from '../siteContent';
 import StudioImage from '../StudioImage';
@@ -60,12 +62,13 @@ export function AboutPage(){
  const {entries}=useCms();
  const hasTeam=entries.some(entry=>entry.type==='team');
  return <div className="studio-about">
-  <section className="inner-hero studio-opening" aria-labelledby="about-title">
+  <ManagedHero><section className="inner-hero studio-opening" aria-labelledby="about-title">
    <div className="studio-width"><div className="studio-docket"><a href="/">{cmsText("StudioPages","a58878213c8330b9","KEMSOR STUDIOS")}</a><span>{cmsText("StudioPages","b01d557b09a68d63","ABOUT KEMSOR")}</span></div>
     <div className="studio-opening-copy"><div><p className="studio-label">{cmsText("StudioPages","341c6fc3016654bf","THE STUDIO")}</p><MotionHeading as="h1" id="about-title">{cmsText("StudioPages","419c616730812615","Creative ambition,")}<br/><span>{cmsText("StudioPages","d7f39b82d70a4ed1","grounded in production.")}</span></MotionHeading></div><div><MotionCopy>{cmsText("StudioPages","2f411a35080d684b","Kemsor works with filmmakers, studios and platforms on development, financing, production, post and release.")}</MotionCopy><div className="studio-actions"><CTA href="/contact/">{cmsText("StudioPages","04182f2aa6dbe330","Start a conversation")}</CTA><TextLink href="/services/">{cmsText("StudioPages","d42df2e1b33feb00","Explore our capabilities")}</TextLink></div></div></div>
     <div className="studio-contact-sheet"><figure className="studio-frame-main"><StudioImage mediaSlot="StudioPages-1" src="/assets/services/filming-1600.webp" srcSet={[640,960,1600].map(w=>`/assets/services/filming-${w}.webp ${w}w`).join(', ')} sizes="(max-width:650px) 90vw, 57vw" width="1600" height="900" alt={"A cinematographer working with a cinema camera on a film set"} fetchPriority="high" decoding="async"/><figcaption><span>{cmsText("StudioPages","22126e09b5465afb","STORY. CRAFT. CINEMA.")}</span><span aria-hidden="true">{cmsText("StudioPages","0e1971b68e757205","01 / THE FRAME")}</span></figcaption></figure><figure className="studio-frame-location"><StudioImage mediaSlot="StudioPages-2" src="/assets/stills/daylight-valley-production-960.webp" srcSet={[640,960,1600].map(w=>`/assets/stills/daylight-valley-production-${w}.webp ${w}w`).join(', ')} sizes="(max-width:650px) 60vw, 33vw" width="960" height="407" alt={"Supplied illustration of a production crew filming in a mountain valley"} decoding="async"/><figcaption>{cmsText("StudioPages","e1bfc8f23bad04d0","FROM FIRST IDEA")}<br/><strong>{cmsText("StudioPages","f766406ec1e1fbd7","TO FINAL SCREEN")}</strong><span>{cmsText("StudioPages","a7de166495c47077","ILLUSTRATIVE ARTWORK")}</span></figcaption></figure><span className="studio-sheet-line" aria-hidden="true"/></div>
    </div>
-  </section><PageBreadcrumbs page="about"/>
+  </section></ManagedHero><PageBreadcrumbs page="about"/>
+  <SectionSubmenu section="studio" page="about"/>
 
   <section className="studio-mission" id="about-chapter-1" aria-label="Our mission"><div className="studio-width"><span className="studio-label">{cmsText("StudioPages","cacb4b7b6582734f","OUR MISSION")}</span><MotionCopy>{cmsText("StudioPages","fd38aa8a95165495","To help stories travel from first idea to final screen, with the planning, people, and production discipline they need to get there.")}</MotionCopy><SiteIcon name="video" size={100} /></div></section>
 

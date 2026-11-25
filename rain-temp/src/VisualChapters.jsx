@@ -1,3 +1,4 @@
+import ManagedHero from './ManagedHero';
 import PageBreadcrumbs from './PageBreadcrumbs';
 import React,{Children,cloneElement,isValidElement} from 'react';
 const classes=node=>String(node?.props?.className||'');
@@ -12,7 +13,7 @@ export function chapterStyler(){return visualChapter;}
 export default function PageVisuals({page,children}){
  let index=0;const styleChapter=chapterStyler(page);
  function walk(node){
-  if(!isValidElement(node))return node;
+  if(!isValidElement(node)||node.type===ManagedHero)return node;
   if(classes(node).split(/\s/).includes('inner-hero'))return node;
   if(node.type==='section')return styleChapter(node,index++);
   if(!node.props.children)return node;
@@ -23,6 +24,6 @@ export default function PageVisuals({page,children}){
  const breadcrumb=childrenList.find(node=>isValidElement(node)&&node.props['aria-label']==='Breadcrumb');
  const arranged=childrenList.filter(node=>node!==breadcrumb).flatMap(node=>
   isValidElement(node)&&classes(node).split(/\s/).includes('inner-hero')
-   ? [node,<PageBreadcrumbs key="page-breadcrumbs" page={page}>{breadcrumb}</PageBreadcrumbs>] : [node]);
+   ? [<ManagedHero key="managed-hero">{node}</ManagedHero>,<PageBreadcrumbs key="page-breadcrumbs" page={page}>{breadcrumb}</PageBreadcrumbs>] : [node]);
  return walk(cloneElement(root,{className:`${classes(root)} service-page-layout`,'data-service-page':page},arranged));
 }

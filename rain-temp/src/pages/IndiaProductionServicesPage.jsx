@@ -1,3 +1,4 @@
+import ManagedHero from '../ManagedHero';
 import FaqPanel from '../FaqPanel';
 import PageBreadcrumbs from '../PageBreadcrumbs';
 import {cmsText,cmsData} from '../siteContent';
@@ -88,14 +89,14 @@ function IndiaImage({image,alt,caption,number}){
 }
 export default function IndiaProductionServicesPage() {
   return <div className="india-services-page">
-    <section className="inner-hero india-hero india-width" aria-labelledby="india-title">
+    <ManagedHero><section className="inner-hero india-hero india-width" aria-labelledby="india-title">
       <div className="india-hero-top"><a href="/">{cmsText("IndiaProductionServicesPage","b5072bfdf63df855","KEMSOR STUDIOS")}</a><span>{cmsText("IndiaProductionServicesPage","8afdd981d5deca23","INDIA PRODUCTION SERVICES")}</span></div>
       <div className="india-hero-grid">
         <div><p className="india-kicker">{cmsText("IndiaProductionServicesPage","9105c24212ec0e60","INDIA PRODUCTION SERVICES")}</p><MotionHeading as="h1" id="india-title">{cmsText("IndiaProductionServicesPage","3e2038878e5d41ab","Filming in India? ")}<em>{cmsText("IndiaProductionServicesPage","c961787424dada37","Work with people who know the ground.")}</em></MotionHeading></div>
         <div className="india-hero-copy"><MotionCopy>{cmsText("IndiaProductionServicesPage","a816a31eb5edf6a9","India offers deserts and snowlines, coastlines and megacities, palaces and village lanes. Kemsor plans, staffs and runs your shoot here so you can focus on the work.")}</MotionCopy><div className="india-actions"><CTA href={enquiry}>{cmsText("IndiaProductionServicesPage","e3f9280b3a77399b","Plan a shoot in India")}</CTA><TextLink href="#what-we-handle">{cmsText("IndiaProductionServicesPage","a126a41195987786","See what we handle")}</TextLink></div></div>
       </div>
       <figure className="india-hero-visual"><StudioImage mediaSlot="IndiaProductionServicesPage-2" src="/assets/stills/daylight-valley-production-1600.webp" srcSet="/assets/stills/daylight-valley-production-640.webp 640w, /assets/stills/daylight-valley-production-960.webp 960w, /assets/stills/daylight-valley-production-1600.webp 1600w" sizes="(max-width: 1440px) 90vw, 1280px" width="1600" height="679" alt={"Supplied illustrative artwork of a film crew working beside a river in a mountain valley"} fetchPriority="high" decoding="async"/><figcaption>{cmsText("IndiaProductionServicesPage","6dd0b26f8becc7ce","VISUAL STUDY / SUPPLIED ARTWORK")}</figcaption></figure>
-    </section><PageBreadcrumbs page="india-production-services"/>
+    </section></ManagedHero><PageBreadcrumbs page="india-production-services"/>
 
     <section className="india-section india-width india-backdrops-editorial" aria-labelledby="india-backdrops-title">
       <Label number="01">{cmsText("IndiaProductionServicesPage","8797b8fe0fe5e874","WHY INDIA")}</Label>
@@ -139,7 +140,7 @@ export default function IndiaProductionServicesPage() {
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-paperwork-title">{cmsText("IndiaProductionServicesPage","60fcbcdfba4e4768","The fine print, handled carefully.")}</MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","2a631772075fd7dc","India offers national and state-level support for some productions filming here. Whether a project qualifies depends on its details and the rules in force at the time. We prepare the production information that applications need, and work alongside your legal and financial advisors, who confirm eligibility with the relevant authorities.")}</MotionCopy><MotionCopy>{cmsText("IndiaProductionServicesPage","b6da89215846c73f","The same applies to visas and other formal requirements for visiting cast and crew: we provide the production documentation, and your advisors confirm the right route for each person.")}</MotionCopy></div></div>
     </section>
 
-    <section className="india-section india-width india-questions" aria-labelledby="india-questions-title"><FaqPanel heading={<> <Label number="09">{cmsText("IndiaProductionServicesPage","7c58a64618825f38","QUESTIONS")}</Label><MotionHeading as="h2" id="india-questions-title">{cmsText("IndiaProductionServicesPage","d334cc3d9b1e13a5","Before you book the flights.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
+    <section data-managed-faq className="india-section india-width india-questions" aria-labelledby="india-questions-title"><FaqPanel heading={<> <Label number="09">{cmsText("IndiaProductionServicesPage","7c58a64618825f38","QUESTIONS")}</Label><MotionHeading as="h2" id="india-questions-title">{cmsText("IndiaProductionServicesPage","d334cc3d9b1e13a5","Before you book the flights.")}</MotionHeading> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
     <section className="india-section india-width india-closing inner-closing" aria-labelledby="india-closing-title">
       <div className="india-intro-grid"><MotionHeading as="h2" id="india-closing-title">{cmsText("IndiaProductionServicesPage","a1896c78dab97432","Tell us where the story ")}<em>{cmsText("IndiaProductionServicesPage","6936956288409969","needs to go.")}</em></MotionHeading><div><MotionCopy>{cmsText("IndiaProductionServicesPage","e2eb1694ec6fe756","Share the script, the locations you’re imagining and your dates. We’ll come back with a clear, honest view of how to make it happen in India.")}</MotionCopy><div className="india-actions"><CTA href={enquiry}>{cmsText("IndiaProductionServicesPage","449fcedeb488a22a","Plan a shoot in India")}</CTA><TextLink href="/contact/">{cmsText("IndiaProductionServicesPage","2fb315b0630513c0","Talk to the studio")}</TextLink></div></div></div>

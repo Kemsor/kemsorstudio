@@ -1,6 +1,6 @@
 import {getSiteVideo} from './siteVideo';
 import {useCookieConsent} from './CookieConsent';
-import {cmsText,cmsData} from './siteContent';
+import {cmsText,cmsData,getSiteModule} from './siteContent';
 import {CmsEntries,useCms} from './CmsContent';
 import JourneyLinks from './JourneyLinks';
 import StudioImage from './StudioImage';
@@ -34,6 +34,7 @@ const studioClips=cmsData(()=>([
 ]));
 function StudioClipRail({paused,reduced}){
  const {preferences,openPreferences}=useCookieConsent();
+ const showreel=getSiteModule('videos',{});
  const clips=studioClips.map((fallback,index)=>getSiteVideo(`showreel-${index+1}`,fallback)).filter(clip=>clip.enabled).sort((a,b)=>a.position-b.position);
  const clipSignature=clips.map(clip=>clip.id+clip.src).join('|'),loop=clips.length>1;
  const panels=loop?[...clips,...clips,...clips]:clips;
@@ -110,19 +111,20 @@ function StudioClipRail({paused,reduced}){
    onPointerDown={noteInteraction} onWheel={noteInteraction}
    onFocusCapture={event=>{if(event.target.matches(':focus-visible'))setFocusPaused(true);}}
    onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocusPaused(false);}}>
-   <div className="showreel-gallery-head"><div><span>{cmsText("HomePage","36d6762f01807930","SHOWREEL")}</span><MotionHeading as="h2" id="showreel-title">{cmsText("HomePage","6223a66561407607","Kemsor ")}<span className="heading-accent">{cmsText("HomePage","da44fb72cab10d28","showreel")}</span></MotionHeading></div></div>
-   <div className="showreel-carousel-toolbar"><div className="showreel-progress" role="progressbar" aria-label="Showreel browsing progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(railState.progress*100)}><span style={{width:`${railState.progress*100}%`}}/></div><div className="compact-rail-controls" role="group" aria-label="Navigate showreel">
+   <div className="showreel-gallery-head"><div><span>{showreel['showreel.eyebrow']||cmsText("HomePage","36d6762f01807930","SHOWREEL")}</span><MotionHeading as="h2" id="showreel-title">{showreel['showreel.title']||<>{cmsText("HomePage","6223a66561407607","Kemsor ")}<span className="heading-accent">{cmsText("HomePage","da44fb72cab10d28","showreel")}</span></>}</MotionHeading></div></div>
+   {clips.length>0 && <div className="showreel-carousel-toolbar"><div className="showreel-progress" role="progressbar" aria-label="Showreel browsing progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(railState.progress*100)}><span style={{width:`${railState.progress*100}%`}}/></div><div className="compact-rail-controls" role="group" aria-label="Navigate showreel">
 
     <button type="button" onClick={()=>move(-1)} disabled={!loop} aria-label="Previous showreel films"><SiteIcon name="arrow-left" size={22}/></button><button type="button" onClick={()=>move(1)} disabled={!loop} aria-label="Next showreel films"><SiteIcon name="arrow" size={22}/></button>
-   </div></div>
-   <div className="showreel-viewport" ref={viewport} role="region" aria-roledescription="carousel" tabIndex="0" onKeyDown={event=>{
+   </div></div>}
+   {clips.length===0 && <p className="showreel-empty">No showreel clips are currently published.</p>}
+   <div className="showreel-viewport" ref={viewport} role="region" aria-roledescription="carousel" tabIndex={clips.length?0:undefined} hidden={!clips.length} onKeyDown={event=>{
     if(event.target!==event.currentTarget)return;
     if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();move(event.key==='ArrowRight'?1:-1);}
     if(event.key==='Home'||event.key==='End'){event.preventDefault();jump(event.key==='Home'?0:clips.length-1);}
    }} aria-label="Kemsor showreel films. Use arrows or swipe to explore.">
     <div className="showreel-track" ref={track}>{panels.map((clip,index)=><figure className="showreel-card" key={`${Math.floor(index/Math.max(1,clips.length))}-${clip.id}`} data-panel={index} data-clip={index%clips.length} aria-hidden={!visible[index]} inert={!visible[index]}>
      <div className="showreel-card-screen"><video ref={node=>{videos.current[index]=node;}} src={near&&visible[index]&&!reduced&&!saveData&&(!external(clip)||preferences?.externalMedia)?clip.src:undefined} poster={clip.poster} autoPlay muted loop playsInline preload="none" aria-hidden="true"/>
-      <span className="showreel-take" aria-hidden="true"><i/>{String(index%clips.length+1).padStart(2,'0')}</span><figcaption><strong>{clip.label}</strong></figcaption>
+      <span className="showreel-take" aria-hidden="true"><i/>{String(index%clips.length+1).padStart(2,'0')}</span><figcaption><strong>{clip.label}</strong>{clip.description&&<p>{clip.description}</p>}</figcaption>
       <button type="button" className="showreel-card-expand" aria-label={`Watch ${clip.label} fullscreen`} onClick={()=>{if(external(clip)&&!preferences?.externalMedia){openPreferences();return;}viewer.current.open(clip,videos.current[index]?.currentTime||0);}}><span className="showreel-play-icon" aria-hidden="true"><SiteIcon name="play" size={14}/></span></button>
      </div>
     </figure>)}</div>

@@ -1,6 +1,6 @@
 import PageBreadcrumbs from '../PageBreadcrumbs';
 import SiteIcon from '../SiteIcon';
-import StudioImage from '../StudioImage';
+import ManagedHero from '../ManagedHero';
 import {useCms} from '../CmsContent';
 import React,{useEffect,useState} from 'react';
 import {api,siteLink,publicPreview,previewMessage} from '../talent-api';
@@ -38,29 +38,15 @@ export default function ProductionTool(){
  const submit=event=>{event.preventDefault();act(async()=>{const result=await api(`/api/production/projects/${project.id}/submit`,{revision:project.revision,sections:shareSections,include_script:includeScript,terms_accepted:true,terms_version:settings.script_terms_version,share_confirmed:true});await load(project.id);setMode('next');setMessage(`Kemsor has received your selected material. Reference ${result.reference}. Track the studio review below.`);});};
  const goal=filmDeskGoals.find(item=>item.id===project?.onboarding?.objective),tool=filmDeskTools.find(([key])=>key===active),reviewed=project&&project.reviewed_revision===project.revision&&!dirty,nonempty=filmDeskTools.filter(([key])=>project?.plan?.[key]?.trim());
  return <div className={user ? "filmdesk-page fd-member" : "filmdesk-page"}>
+  <ManagedHero title="FilmDesk" description="Develop your story, organise the work across departments, and review what’s ready to share." image="/assets/supplied/page-refresh/creative-project-planning-960.webp" id="fd-title"/>
   <PageBreadcrumbs page="script-to-production"/>
   <div className="fd-main">
-   {user ? <header className="fd-member-header">
-    <div>
-     <h1 id="fd-title">FilmDesk</h1>
-     <p><SiteIcon name="lock" size={16}/> Private production workspace</p>
-    </div>
-    <a className="fd-profile-link" href={siteLink('profile')}>My profile <SiteIcon name="arrow" size={16}/></a>
-   </header> : !loading && <section className="fd-intro" aria-labelledby="fd-title">
-    <div className="fd-intro-copy">
-     <p className="fd-eyebrow">Private production workspace</p>
-     <h1 id="fd-title">FilmDesk</h1>
-     <p className="fd-intro-title">From first idea to production plan.</p>
-     <p className="fd-intro-description">Develop your story, organise the work across departments, and review what’s ready to share.</p>
-     <div className="fd-actions fd-intro-actions">
-      <a className="fd-primary" href={siteLink('login')}>Sign in to FilmDesk <SiteIcon name="arrow" size={18}/></a>
-      <a className="fd-profile-link" href={siteLink('join')}>Create an account</a>
-     </div>
-    </div>
-    <div className="fd-intro-image">
-     <StudioImage src="/assets/supplied/page-refresh/creative-project-planning-960.webp" alt="" width="960" height="640" fetchPriority="high"/>
-    </div>
-   </section>}
+   {!loading&&<div className="fd-actions fd-banner-actions">
+    {user?<a className="fd-profile-link" href={siteLink('profile')}>My profile <SiteIcon name="arrow" size={16}/></a>:<>
+     <a className="fd-primary" href={siteLink('login')}>Sign in to FilmDesk <SiteIcon name="arrow" size={18}/></a>
+     <a className="fd-profile-link" href={siteLink('join')}>Create an account</a>
+    </>}
+   </div>}
    {publicPreview&&<p role="status">{previewMessage}</p>}{error&&<p className="fd-notice fd-error" role="alert">{error}</p>}{message&&<p className="fd-notice" role="status">{message}</p>}
    {loading?<p role="status">Opening FilmDesk…</p>:!user?<section className="fd-public-guide" aria-labelledby="fd-guide-title">
     <div className="fd-guide-heading">

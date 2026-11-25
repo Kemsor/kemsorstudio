@@ -1,0 +1,27 @@
+const supplied = '/assets/supplied';
+
+export const defaultHeroImages = {
+  leadership: `${supplied}/collection/directors-chair-1600.webp`,
+  'how-we-work': `${supplied}/collection/monitoring-the-shot-1600.webp`,
+  'partner-with-us': `${supplied}/refresh/creative-collaboration-1600.webp`,
+  careers: `${supplied}/collection/crew-at-work-1600.webp`,
+  'career-application': `${supplied}/collection/slate-and-workspace-1600.webp`,
+  contact: `${supplied}/collection/interview-set-1600.webp`,
+  'press-media': `${supplied}/collection/field-interview-1600.webp`,
+  blog: `${supplied}/collection/vintage-film-camera-1600.webp`,
+  'what-we-make': `${supplied}/collection/film-collection-1600.webp`,
+  'feature-films': `${supplied}/format-refresh/feature-camera-team-1600.webp`,
+  'series-ott': `${supplied}/format-refresh/series-location-filming-1600.webp`,
+  documentaries: `${supplied}/format-refresh/documentary-camera-study-1600.webp`,
+  'short-films': `${supplied}/format-refresh/short-film-lighting-1600.webp`,
+  'post-production': `${supplied}/page-refresh/sound-production-workspace-1600.webp`,
+  release: `${supplied}/page-refresh/cinema-projection-room-1600.webp`,
+  'distribution-release': `${supplied}/collection/streaming-library-1600.webp`,
+  'festival-awards': `${supplied}/collection/open-air-screening-1600.webp`,
+  join: `${supplied}/collection/ensemble-rehearsal-1600.webp`,
+  login: `${supplied}/collection/empty-camera-studio-1600.webp`,
+  profile: `${supplied}/collection/camera-table-1600.webp`,
+  sitemap: `${supplied}/collection/film-posters-1600.webp`,
+  legal: `${supplied}/collection/script-reading-1600.webp`,
+  'privacy-policy': `${supplied}/collection/stacked-film-reels-1600.webp`,
+};

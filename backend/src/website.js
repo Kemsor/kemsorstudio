@@ -18,7 +18,9 @@ export function website(directory=websiteDirectory) {
     if(/^\/(?:api|admin|media|health)(?:\/|$)/.test(req.path))return next();
     if(['GET','HEAD'].includes(req.method)){
       const query=req.originalUrl.includes('?')?req.originalUrl.slice(req.originalUrl.indexOf('?')):'';
-      const legacy=req.path.match(/^\/(projects|news|script-to-production)(?:\/|\/index\.html)?$/);
+      if(/^\/post(?:\/|\/index\.html)?$/.test(req.path))return res.redirect(301,`/post-production/${query}`);
+      const legacy=req.path.match(/^\/(projects|news|script-to-production|latest-openings)(?:\/|\/index\.html)?$/);
+      if(legacy?.[1]==='latest-openings')return res.redirect(301,`/careers/${query}#openings`);
       if(legacy)return res.redirect(301,`/${legacy[1]==='projects'?'productions':legacy[1]==='news'?'press-media':'filmdesk'}/${query}`);
       if(req.path.endsWith('/index.html')){
         const destination=req.path.slice(0,-'index.html'.length);

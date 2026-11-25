@@ -31,5 +31,5 @@
  }};
  let pending;const schedule=()=>{cancelAnimationFrame(pending);pending=requestAnimationFrame(update);};
  if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(schedule);for(const {region} of regions){observer.observe(region);for(const table of region.querySelectorAll('table'))observer.observe(table);}}
- addEventListener('resize',schedule);addEventListener('load',schedule);document.fonts?.ready.then(schedule);schedule();
+ addEventListener('resize',schedule);addEventListener('load',schedule);document.fonts?.ready.then(schedule);update();
 })();

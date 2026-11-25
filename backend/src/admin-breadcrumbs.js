@@ -16,7 +16,8 @@ export function adminBreadcrumbs(path,query={},context={}){
   if(parts[3]){add(parts[3]==='new'?'Add '+(kind==='legal'?'legal document':'hero slide'):(context.record?.draft?.title||'Edit '+(kind==='legal'?'legal document':'hero slide')),'/admin/manage/'+kind+'/'+encodeURIComponent(parts[3]));if(parts[4])add('Preview');}
  }else{
   add(sections[section]||'Admin',base);
-  if(section==='site-content'&&parts[2])add(context.module?.label||'Edit website content');
+  if(section==='pages'&&parts[2])add(context.module?.label||'Website page');
+  else if(section==='site-content'&&parts[2])add(context.module?.label||'Edit website content');
   else if(section==='talent'&&parts[2]){add(({enquiries:'Talent enquiries',projects:'Member projects'})[parts[2]]||context.member?.name||'Member details',base+'/'+encodeURIComponent(parts[2]));}
   else if(section==='reports'&&parts[2])add(({enquiries:'Enquiry reports',applications:'Career reports',content:'Publishing reports',registrations:'Registration reports',talent:'Talent enquiry reports',projects:'FilmDesk reports',activity:'Activity reports'})[parts[2]]||'Report');
   else if(section==='kpi'&&parts[2])add(({settings:'Report settings',reports:'Saved report',actions:'Corrective actions',inputs:'Period inputs',snapshots:'Report snapshots'})[parts[2]]||'Details');

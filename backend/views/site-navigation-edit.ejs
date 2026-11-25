@@ -1,0 +1,64 @@
+<%- include('head') %>
+<p class="eyebrow">Navigation</p>
+<h1><%= module.label %></h1>
+<p><a href="/admin/site-content/edit?key=navigation">Header &amp; footer navigation</a></p>
+<% const valueFor=field=>Object.hasOwn(draft,field.key)?draft[field.key]:field.default; %>
+<form method="post" action="/admin/site-content/save" class="menu-editor">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <input type="hidden" name="module_key" value="<%= key %>">
+  <input type="hidden" name="revision" value="<%= revision %>">
+  <input type="hidden" name="section" value="<%= sectionId %>">
+  <input type="hidden" name="menu_editor" value="1">
+  <% if(sectionId==='header'){ %>
+    <section class="panel menu-editor-card" aria-labelledby="menu-cta-title">
+      <h2 id="menu-cta-title">Header CTA</h2>
+      <div class="menu-editor-cta">
+        <% module.fields.filter(field=>field.key.startsWith('header.cta.')).forEach(field=>{ %>
+          <label><%= field.label %><input name="value:<%= field.key %>" value="<%= valueFor(field) %>" maxlength="<%= field.type==='text'?80:1500 %>" required></label>
+        <% }); %>
+      </div>
+    </section>
+  <% } %>
+
+  <section class="panel menu-editor-card" aria-labelledby="menu-pages-title">
+    <h2 id="menu-pages-title">Pages in the <%= sectionId %> menu</h2>
+    <p>Check the pages you want to show. Lower order numbers move items earlier within their group.</p>
+    <div class="menu-editor-column-head"><span>Show page or category</span><% if(sectionId==='header'){ %><span>Order</span><% } %></div>
+    <%- include('site-navigation-items',{items:menu,prefix:sectionId,showOrder:sectionId==='header'}) %>
+  </section>
+
+  <section class="panel menu-editor-card" aria-labelledby="menu-custom-title" data-menu-custom data-limit="12">
+    <h2 id="menu-custom-title">Custom page links</h2>
+    <p>Use a live website path, then choose where the link appears.</p>
+    <input type="hidden" name="menu_custom_links" value="1">
+    <div data-menu-links>
+      <% (draft[sectionId+'.customLinks']||[]).forEach(link=>{ %>
+        <%- include('site-navigation-link',{link}) %>
+      <% }); %>
+    </div>
+    <template><%- include('site-navigation-link',{link:{label:'',href:'',placement:defaultPlacement,position:'last'}}) %></template>
+    <button type="button" class="quiet" data-menu-add>Add page link</button>
+  </section>
+
+  <% if(sectionId==='footer'){ %>
+    <section class="panel menu-editor-card" aria-labelledby="menu-social-title">
+      <h2 id="menu-social-title">Social links</h2>
+      <ul class="menu-editor-socials">
+        <% socials.forEach(profile=>{ const name='value:footer.social.'+profile.id+'.enabled';
+           const checked=draft['footer.social.'+profile.id+'.enabled']!==false; %>
+          <li>
+            <label><input type="checkbox" name="<%= name %>" <%= checked?'checked':'' %> <%= profile.href?'':'disabled' %>><%= profile.label %></label>
+            <% if(!profile.href){ %>
+              <small>No link configured</small>
+              <% if(checked){ %><input type="hidden" name="<%= name %>" value="on"><% } %>
+            <% } %>
+          </li>
+        <% }); %>
+      </ul>
+      <p><a href="/admin/settings">Manage social profile links in Site settings</a></p>
+    </section>
+  <% } %>
+  <%- include('site-module-editor-actions') %>
+</form>
+<script src="/menu-editor.js?v=2" defer></script>
+<%- include('foot') %>

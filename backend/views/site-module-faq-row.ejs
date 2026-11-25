@@ -1,0 +1,9 @@
+<fieldset class="panel field-grid" data-faq-row>
+  <label class="wide">Question<input name="faq_question" maxlength="300" value="<%= question %>"></label>
+  <label class="wide">Answer<textarea name="faq_answer" maxlength="4000" rows="3"><%= answer %></textarea></label>
+  <div class="wide button-row">
+    <button class="quiet" type="button" data-faq-action="up">Move up</button>
+    <button class="quiet" type="button" data-faq-action="down">Move down</button>
+    <button class="quiet" type="button" data-faq-action="remove">Remove question</button>
+  </div>
+</fieldset>

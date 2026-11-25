@@ -48,7 +48,7 @@ before(async()=>{
  const trackingSql=await readFile(new URL('../migrations/011_email_message_tracking.sql',import.meta.url),'utf8');
  for(const statement of trackingSql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  for(const role of ['admin','editor','enquiry_manager'])await rows(db,'INSERT INTO cms_users(name,email,password_hash,role) VALUES(?,?,?,?)',[role,`${role}@test.local`,await hashPassword('A-secure-test-password'),role]);
- for(const name of ['013_phase_one_workflows.sql','014_admin_mfa.sql','015_submission_terms.sql','016_professional_registration.sql','017_operations.sql','018_managed_content.sql','020_careers_intake.sql','021_news_alerts.sql','022_site_modules_campaigns.sql','024_kpi_reporting.sql','027_casting_calls.sql','028_casting_applications.sql','029_production_people.sql','030_casting_mail_epk_access.sql','031_follow_up_workflow.sql','032_content_revision_safety.sql','033_audit_change_details.sql','034_blog_categories.sql','035_news_categories.sql','036_account_deletion.sql','037_filmdesk.sql']){
+ for(const name of ['013_phase_one_workflows.sql','014_admin_mfa.sql','015_submission_terms.sql','016_professional_registration.sql','017_operations.sql','018_managed_content.sql','020_careers_intake.sql','021_news_alerts.sql','022_site_modules_campaigns.sql','024_kpi_reporting.sql','027_casting_calls.sql','028_casting_applications.sql','029_production_people.sql','030_casting_mail_epk_access.sql','031_follow_up_workflow.sql','032_content_revision_safety.sql','033_audit_change_details.sql','034_blog_categories.sql','035_news_categories.sql','036_account_deletion.sql','037_filmdesk.sql','038_careers_freelance.sql']){
   const sql=await readFile(new URL(`../migrations/${name}`,import.meta.url),'utf8');
   for(const statement of sql.split(';').map(s=>s.trim()).filter(Boolean))await db.query(statement);
  }
@@ -56,6 +56,64 @@ before(async()=>{
  [admin,csrfAdmin]=await login('admin');[editor,csrfEditor]=await login('editor');[manager,csrfManager]=await login('enquiry_manager');
 });
 after(async()=>{if(db){const resumes=await rows(db,'SELECT resume_filename FROM career_applications');for(const file of resumes)await unlink(new URL(`../storage/career-resumes/${file.resume_filename}`,import.meta.url)).catch(()=>{});const files=await rows(db,'SELECT filename FROM cms_media');for(const file of files)await unlink(new URL(`../storage/uploads/${file.filename}`,import.meta.url)).catch(()=>{});}await db?.end();if(root){assert.match(database,/^kemsor_cms_test_\d+$/);await root.query(`DROP DATABASE IF EXISTS \`${database}\``);await root.end();}});
+test('Manage pages groups homepage editors under Homepage',async()=>{
+ const home=(await admin.get('/admin/pages/home').expect(200)).text;
+ assert.match(home,/\/admin\/pages\/home\/sections/);
+ assert.match(home,/\/admin\/manage\/hero/);
+ assert.match(home,/section=showreel/);
+ assert.match(home,/key=home-work-in-frame/);
+ await editor.get('/admin/content?type=home&q=Hero').expect(302)
+  .expect('Location','/admin/pages/home/sections?q=Hero');
+ assert.match((await editor.get('/admin/pages/home/sections').expect(200)).text,/Additional homepage content/);
+ const content=(await admin.get('/admin/site-content').expect(200)).text;
+ assert.doesNotMatch(content,/key=(?:copy%3AHomePage|home-work-in-frame|images%3A%252F)"/);
+ const videos=(await admin.get('/admin/site-content/edit?key=videos').expect(200)).text;
+ assert.doesNotMatch(videos,/name="value:showreel[.-]/);
+ const showreel=(await admin.get('/admin/site-content/edit?key=videos&section=showreel').expect(200)).text;
+ assert.match(showreel,/name="value:showreel[.-]/);
+ const saveVideos=(section,revision,action,fields={})=>admin.post('/admin/site-content/save')
+  .type('form').send({_csrf:csrfAdmin,module_key:'videos',section,revision,action,...fields});
+ await saveVideos('showreel',0,'publish',{'value:showreel.title':'Homepage reel'}).expect(302);
+ const publishedVideos=async()=>json((await rows(db,'SELECT published FROM cms_site_modules WHERE module_key="videos"'))[0].published);
+ const before=await publishedVideos();
+ assert.equal(before['showreel.title'],'Homepage reel');
+ await saveVideos(undefined,1,'reset').expect(302);
+ assert.deepEqual(await publishedVideos(),before);
+});
+
+test('Existing page content highlights throughout its editors',async()=>{
+ for(const url of ['/admin/site-content','/admin/site-content/edit?key=copy%3ABudgetingSchedulingPage','/admin/site-content/edit?key=copy%3ABudgetingSchedulingPage&section=budget']){
+  const {text}=await editor.get(url).expect(200);
+  assert.match(text,/<a href="\/admin\/site-content" aria-current="page"/);
+  assert.doesNotMatch(text,/<a href="\/admin\/pages" aria-current="page"/);
+ }
+});
+
+test('News campaigns highlights on its list and campaign routes',async()=>{
+ for(const [url,status] of [['/admin/news-campaigns',200],['/admin/news-campaigns/999999',404]]){
+  const {text}=await admin.get(url).expect(status);
+  assert.match(text,/<a href="\/admin\/news-campaigns" aria-current="page"/);
+ }
+});
+
+test('Casting screens highlight their own menu link',async()=>{
+ for(const url of ['/admin/casting','/admin/casting-applications','/admin/casting-application-settings']){
+  const {text}=await admin.get(url).expect(200);
+  const active=[...text.matchAll(/<a href="(\/admin\/casting(?:-applications|-application-settings)?)" aria-current="page"/g)].map(match=>match[1]);
+  assert.deepEqual(active,[url]);
+ }
+});
+
+test('Member list links open and identify the active role filter',async()=>{
+ const destinations=['/admin/talent','/admin/talent?role=artist','/admin/talent?role=hirer'];
+ for(const url of [...destinations,'/admin/talent?role=artist&status=pending','/admin/talent?role=unknown']){
+  const {text}=await admin.get(url).expect(200);
+  const active=[...text.matchAll(/<a href="(\/admin\/talent(?:\?role=\w+)?)" aria-current="page"/g)].map(match=>match[1]);
+  const expected=url.includes('role=artist')?destinations[1]:url.includes('role=hirer')?destinations[2]:destinations[0];
+  assert.deepEqual(active,[expected]);
+ }
+});
+
 test('CSRF comparison rejects missing or mismatched values',()=>{assert.equal(csrfValid('abc','abd'),false);assert.equal(csrfValid('abc',undefined),false);assert.equal(csrfValid('abc','abc'),true);});
 test('Footer copy migration replaces old defaults and preserves custom content',async()=>{
  const sql=await readFile(new URL('../migrations/012_footer_enquiry_copy.sql',import.meta.url),'utf8');
@@ -270,7 +328,10 @@ test('Talent registration, review, directory privacy, enquiries and private proj
 
 test('Every publishing module saves and publishes through the shared editor',async()=>{
  for(const type of ['news','blog','career','team','home','page','media_partner']){
-  await admin.get(`/admin/content?type=${type}`).expect(200);
+  if(type==='home') {
+   await admin.get('/admin/content?type=home').expect(302).expect('Location','/admin/pages/home/sections');
+   await admin.get('/admin/pages/home/sections').expect(200);
+  } else await admin.get(`/admin/content?type=${type}`).expect(200);
   await admin.get(`/admin/content/new?type=${type}`).expect(200);
   await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type,title:`Module ${type}`,slug:`module-${type.replaceAll("_","-")}`,summary:'Module verification',body:'Test content',status:'published',page:type==='legal'?'legal':'about'})).expect(302);
   const entry=(await request(app).get('/api/site')).body.entries.find(e=>e.slug===`module-${type.replaceAll("_","-")}`);assert.ok(entry);assert.equal(entry.type,type);
@@ -324,6 +385,29 @@ test('Dedicated blog editor uploads banners and cannot publish other content typ
  const post=(await request(app).get('/api/site')).body.entries.find(entry=>entry.slug==='banner-upload-post');
  assert.ok(post.image_url);assert.equal(post.image_alt,'Test banner description');assert.equal(post.type,'blog');
  await request(app).get(post.image_url).expect(200);
+ const staged=await admin.post('/admin/media/upload').field('_csrf',csrfAdmin).field('kind','image')
+  .attach('image',image,{filename:'optional-banner.png',contentType:'image/png'}).expect(201);
+ assert.equal(staged.body.alt,'');
+ await admin.post('/admin/news/save').type('form').send({
+  _csrf:csrfAdmin,type:'news',title:'News banner without description',status:'published',image_id:staged.body.id,
+ }).expect(302);
+ await admin.post('/admin/blog/save').field('_csrf',csrfAdmin).field('type','blog').field('title','Optional blog banner')
+  .field('status','published').attach('image',image,{filename:'optional-blog-banner.png',contentType:'image/png'}).expect(302);
+ const entries=(await request(app).get('/api/site')).body.entries;
+ assert.equal(entries.find(entry=>entry.slug==='news-banner-without-description').image_url,staged.body.url);
+ assert.equal(entries.find(entry=>entry.slug==='optional-blog-banner').image_alt,'');
+ await admin.post('/admin/media').field('_csrf',csrfAdmin)
+  .attach('image',image,{filename:'library-image.png',contentType:'image/png'}).expect(302);
+ const libraryImage=(await rows(db,'SELECT id,alt FROM cms_media WHERE original_name=?',['library-image.png']))[0];
+ assert.equal(libraryImage.alt,'');
+ await admin.post(`/admin/media/${libraryImage.id}/description`).type('form')
+  .send({_csrf:csrfAdmin,alt:'Test description'}).expect(302);
+ await admin.post(`/admin/media/${libraryImage.id}/description`).type('form')
+  .send({_csrf:csrfAdmin,alt:''}).expect(302);
+ await admin.post('/admin/content/save').type('form').send({
+  _csrf:csrfAdmin,type:'media_partner',title:'Media partner without logo description',status:'published',image_id:libraryImage.id,
+ }).expect(302);
+ assert.equal((await request(app).get('/api/site')).body.entries.find(entry=>entry.slug==='media-partner-without-logo-description').image_alt,'');
  await admin.post('/admin/blog/save').field('_csrf',csrfAdmin).field('type','blog').field('title','Invalid banner post').field('status','draft').field('banner_alt','Bad banner').attach('image',Buffer.from('<html>fake</html>'),{filename:'fake.png',contentType:'image/png'}).expect(422);
 });
 
@@ -338,28 +422,28 @@ test('Career editor is dedicated and page management respects publishing permiss
  await manager.get('/admin/pages').expect(403);
  const pageForm=await admin.get('/admin/content/new?type=page&page=services').expect(200);assert.match(pageForm.text,/<option value="services" selected>/);
  await admin.get('/admin/content?type=page&page=services').expect(200);
- assert.match(hub.text,/page=how-we-work/);
+ assert.ok(hub.text.includes('href="/admin/pages/how-we-work"'));
  const workForm=await admin.get('/admin/content/new?type=page&page=how-we-work').expect(200);assert.match(workForm.text,/<option value="how-we-work" selected>/);
  await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'How We Work test section',body:'Additional client-approved content',page:'how-we-work',status:'draft'})).expect(302);
  const workList=await admin.get('/admin/content?type=page&page=how-we-work').expect(200);assert.match(workList.text,/How We Work test section/);
  const serviceList=await admin.get('/admin/content?type=page&page=services').expect(200);assert.ok(!(serviceList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('How We Work test section'));
- assert.match(hub.text,/page=india-production-services/);
+ assert.ok(hub.text.includes('href="/admin/pages/india-production-services"'));
  const indiaForm=await admin.get('/admin/content/new?type=page&page=india-production-services').expect(200);assert.match(indiaForm.text,/<option value="india-production-services" selected>/);
  await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'India Production Services test section',body:'Additional client-approved India content',page:'india-production-services',status:'draft'})).expect(302);
  const indiaList=await admin.get('/admin/content?type=page&page=india-production-services').expect(200);assert.match(indiaList.text,/India Production Services test section/);assert.ok(!(indiaList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('How We Work test section'));
- assert.match(hub.text,/page=feature-films/);
+ assert.ok(hub.text.includes('href="/admin/pages/feature-films"'));
  const featureForm=await admin.get('/admin/content/new?type=page&page=feature-films').expect(200);assert.match(featureForm.text,/<option value="feature-films" selected>/);
  await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Feature Films test section',body:'Additional client-approved feature content',page:'feature-films',status:'draft'})).expect(302);
  const featureList=await admin.get('/admin/content?type=page&page=feature-films').expect(200);assert.match(featureList.text,/Feature Films test section/);assert.ok(!(featureList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('India Production Services test section'));
- assert.match(hub.text,/page=short-films/);
+ assert.ok(hub.text.includes('href="/admin/pages/short-films"'));
  const shortForm=await admin.get('/admin/content/new?type=page&page=short-films').expect(200);assert.match(shortForm.text,/<option value="short-films" selected>/);
  await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Short Films test section',body:'Additional client-approved short film content',page:'short-films',status:'draft'})).expect(302);
  const shortList=await admin.get('/admin/content?type=page&page=short-films').expect(200);assert.match(shortList.text,/Short Films test section/);assert.ok(!(shortList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Feature Films test section'));
- assert.match(hub.text,/page=series-ott/);
+ assert.ok(hub.text.includes('href="/admin/pages/series-ott"'));
  const seriesForm=await admin.get('/admin/content/new?type=page&page=series-ott').expect(200);assert.match(seriesForm.text,/<option value="series-ott" selected>/);
  await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Series OTT test section',body:'Additional client-approved series content',page:'series-ott',status:'draft'})).expect(302);
  const seriesList=await admin.get('/admin/content?type=page&page=series-ott').expect(200);assert.match(seriesList.text,/Series OTT test section/);assert.ok(!(seriesList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Short Films test section'));
- assert.match(hub.text,/page=documentaries/);
+ assert.ok(hub.text.includes('href="/admin/pages/documentaries"'));
  const documentaryForm=await admin.get('/admin/content/new?type=page&page=documentaries').expect(200);assert.match(documentaryForm.text,/<option value="documentaries" selected>/);
  await admin.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrfAdmin,type:'page',title:'Documentaries test section',body:'Additional client-approved documentary content',page:'documentaries',status:'draft'})).expect(302);
  const documentaryList=await admin.get('/admin/content?type=page&page=documentaries').expect(200);assert.match(documentaryList.text,/Documentaries test section/);assert.ok(!(documentaryList.text.match(/<tbody[\s\S]*?<\/tbody>/)?.[0]||'').includes('Series OTT test section'));
@@ -786,7 +870,7 @@ test('Legal management preserves original policy, isolates drafts, publishes pag
  await request(app).get('/sitemap.xml').expect(200).then(response=>assert.ok(!response.text.includes('legal/synthetic-terms/')));
 });
 
-test('Hero management preserves five videos and exposes only published slides and order',async()=>{
+test('Hero management preserves the supplied videos and exposes only published slides and order',async()=>{
  // Reset only this isolated fixture's login counters after the preceding authentication tests.
  await rows(db,'DELETE FROM cms_rate_limits');
  const {seedManagedContent}=await import('../src/managed-content.js');
@@ -794,7 +878,7 @@ test('Hero management preserves five videos and exposes only published slides an
  await seedManagedContent(db);
  const originals=JSON.parse(await readFile(new URL('../../shared/hero-slides.json',import.meta.url),'utf8'));
  let feed=(await request(app).get('/api/site')).body;
- assert.equal(feed.heroSlides.length,5);assert.deepEqual(feed.heroSlides.map(slide=>slide.src),originals.map(slide=>slide.src));
+ assert.equal(feed.heroSlides.length,originals.length);assert.deepEqual(feed.heroSlides.map(slide=>slide.src),originals.map(slide=>slide.src));
  const record=(await rows(db,'SELECT * FROM cms_managed_content WHERE kind="hero" ORDER BY id LIMIT 1'))[0];
  const fields={...JSON.parse(record.draft),_csrf:csrf,id:record.id,slug:record.slug,revision:record.revision,label:'Synthetic hero draft',position:'9',duration:'7',action:'draft'};
  await admin.get('/admin/manage/hero').expect(200);
@@ -806,7 +890,7 @@ test('Hero management preserves five videos and exposes only published slides an
  feed=(await request(app).get('/api/site')).body;assert.equal(feed.heroSlides.at(-1).label,'Synthetic hero draft');assert.equal(feed.heroSlides.at(-1).duration,7);
  assert.ok(feed.heroSlides.at(-1).posterSrcSet.includes('1600w'));
  await admin.post('/admin/manage/hero/save').type('form').send({...fields,revision:record.revision+2,action:'unpublish'}).expect(302);
- feed=(await request(app).get('/api/site')).body;assert.equal(feed.heroSlides.length,4);assert.ok(!feed.heroSlides.some(slide=>slide.id===record.id));
+ feed=(await request(app).get('/api/site')).body;assert.equal(feed.heroSlides.length,originals.length-1);assert.ok(!feed.heroSlides.some(slide=>slide.id===record.id));
  await request(app).get(`/admin/manage/hero/${record.id}/preview`).expect(302);
  await admin.get(`/admin/manage/hero/${record.id}/preview`).expect(200);
 });
@@ -865,17 +949,21 @@ test('Managed legal content supports formatting without losing numbered sections
  const published=(await request(app).get('/api/site')).body.legalDocuments.find(document=>document.slug===fields.slug);assert.deepEqual(published.richText,rich);
 });
 
-test('General and internship applications accept private CVs without an open vacancy and validate team and consent',async()=>{
+test('Studio, internship and freelance applications accept private CVs without an open vacancy and validate team and consent',async()=>{
  await rows(db,'DELETE FROM cms_rate_limits');
  const guest=request.agent(app),csrf=(await guest.get('/api/csrf')).body.token;
- const send=(kind,{team='Production',consent='true',cv=Buffer.from('%PDF-1.4\nSynthetic application CV')}={})=>guest.post(`/api/careers/${kind}/applications`).set('X-CSRF-Token',csrf).field('name','Synthetic general applicant').field('email',`${kind}@example.test`).field('phone','1234567890').field('city','Dehradun').field('experience','2').field('role_title',kind==='internship'?'Development intern':'Production assistant').field('team',team).field('consent',consent).attach('attachment',cv,{filename:'synthetic-cv.pdf',contentType:'application/pdf'});
+ const send=(kind,{team='Production',consent='true',cv=Buffer.from('%PDF-1.4\nSynthetic application CV')}={})=>guest.post(`/api/careers/${kind}/applications`).set('X-CSRF-Token',csrf).field('name','Synthetic general applicant').field('email',`${kind}@example.test`).field('phone','1234567890').field('city','Dehradun').field('experience','2').field('role_title',kind==='internship'?'Development intern':kind==='freelance'?'Gaffer':'Production assistant').field('team',team).field('consent',consent).attach('attachment',cv,{filename:'synthetic-cv.pdf',contentType:'application/pdf'});
  const general=await send('general').expect(201);assert.match(general.body.reference,/^APP-/);
  const record=(await rows(db,'SELECT * FROM career_applications WHERE email="general@example.test"'))[0];
  assert.equal(record.career_id,null);assert.equal(record.application_type,'general');assert.equal(record.team,'Production');assert.equal(record.consent_version,'career-application-v2');assert.match(record.career_title,/Production assistant/);
  await send('internship',{team:'Development and Writing'}).expect(201);
  const internship=(await rows(db,'SELECT * FROM career_applications WHERE email="internship@example.test"'))[0];assert.equal(internship.application_type,'internship');assert.match(internship.career_title,/Development intern/);
+ await send('freelance',{team:'Camera, Art and Craft'}).expect(201);
+ const freelance=(await rows(db,'SELECT * FROM career_applications WHERE email="freelance@example.test"'))[0];
+ assert.equal(freelance.application_type,'freelance');assert.equal(freelance.career_id,null);assert.equal(freelance.career_title,'Freelance crew — Gaffer');
  await send('general',{team:'Unknown team'}).expect(422);
  await send('general',{consent:'false'}).expect(422);
+ await rows(db,'DELETE FROM cms_rate_limits');
  await send('general',{cv:Buffer.from('not a PDF')}).expect(422);
  const feed=await request(app).get('/api/site').expect(200);assert.ok(!JSON.stringify(feed.body).includes('general@example.test'));
  const [admin]=await login('upload-admin');
@@ -992,7 +1080,7 @@ test('CMS page controls cover the shared frontend page registry and preserve hom
  }
  const publicEntries=(await request(app).get('/api/site')).body.entries;
  for(const page of pages)assert.ok(publicEntries.some(entry=>entry.type==='page'&&entry.metadata.page===page.key&&entry.title===`Registry audit ${page.key}`));
- assert.match(controls.text,/Additional published page sections/);
+ assert.match(controls.text,/href="\/admin\/pages\/budgeting-scheduling"/);
  await editor.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrf,type:'page',page:'not-a-page',title:'Invalid target',status:'published'})).expect(422);
  for(const home_slot of ['hero','section']){
   await editor.post('/admin/content/save').type('form').send(await withContentVersion({_csrf:csrf,type:'home',title:`Homepage audit ${home_slot}`,home_slot,status:'published'})).expect(302);
@@ -1010,7 +1098,203 @@ test('Public contact settings resolve to consistent links and fall back to appro
  assert.equal(getStudioContacts().phone,studioPhone);
  await rows(db,'DELETE FROM cms_rate_limits');const [freshAdmin]=await login('upload-admin');
  const header=await freshAdmin.get('/admin/pages').expect(200);assert.ok(!header.text.includes('href="/admin/content?type=legal"'));
- assert.match(header.text,/\/admin\/manage\/legal/);
+ const legalPage=await freshAdmin.get('/admin/pages/legal').expect(200);
+ assert.match(legalPage.text,/\/admin\/manage\/legal/);
+});
+
+test('Image placements save independently',async()=>{
+ const key='images:%2Fpartner-with-us%2F';
+ const url='/admin/site-content/edit?key='+encodeURIComponent(key);
+ const [{key:first},{key:alt},{key:second}]=(await import('../src/site-modules.js')).siteModuleCatalogue.get(key).fields;
+ const page=await editor.get(url).expect(200);
+ assert.equal([...page.text.matchAll(/<form class="image-placement"/g)].length,5);
+ const save=(field,revision,action,values={})=>editor.post('/admin/site-content/save')
+  .set('Accept','application/json').type('form').send({
+   _csrf:csrfEditor,module_key:key,placement:field.replace(/\.src$/,''),revision,action,...values,
+  });
+ await save(first,0,'publish',{
+  ['value:'+first]:'https://example.test/first.webp',
+  ['value:'+alt]:'First image description',
+  ['value:'+second]:'https://example.test/ignored.webp',
+ }).expect(200);
+ await save(second,1,'publish',{['value:'+second]:'https://example.test/second.webp'}).expect(200);
+ const reset=await save(first,2,'reset').expect(200);
+ assert.equal(reset.body.revision,3);
+ assert.equal(typeof reset.body.values[first],'string');
+ const [record]=await rows(db,'SELECT draft,published FROM cms_site_modules WHERE module_key=?',[key]);
+ assert.deepEqual(json(record.published),{[second]:'https://example.test/second.webp'});
+ assert.deepEqual(json(record.draft),json(record.published));
+});
+
+test('Page section editors publish, reset and restore only their own fields',async()=>{
+ const key='copy:BudgetingSchedulingPage';
+ const url='/admin/site-content/edit?key=copy%3ABudgetingSchedulingPage';
+ const hero='f4af5d1d710b1d01',budget='7f6045b8af131207';
+ const index=await editor.get('/admin/pages').expect(200);
+ const pageLinks=[...index.text.matchAll(/href="\/admin\/pages\/([a-z-]+)"/g)].map(match=>match[1]);
+ assert.deepEqual(pageLinks.slice(pageLinks.indexOf('develop'),pageLinks.indexOf('budgeting-scheduling')+1),
+  ['develop','story-script','packaging-talent','budgeting-scheduling']);
+ const page=await editor.get('/admin/pages/budgeting-scheduling').expect(200);
+ assert.match(page.text,/section=budget/);
+ assert.doesNotMatch(page.text,/site-module-editor/);
+ await editor.get('/admin/pages/unknown').expect(404);
+ const {pageEditorGroups}=await import('../src/site-modules.js');
+ const groups=await pageEditorGroups({execute:async()=>[[{published:{'header.4.position':1,'header.0.position':5}}]]},'editor');
+ assert.equal(groups[1].pages[0].href,'/admin/pages/productions');
+ const directory=await editor.get(url).expect(200);
+ assert.match(directory.text,/section=hero/);
+ assert.match(directory.text,/section=budget/);
+ assert.doesNotMatch(directory.text,/site-module-editor/);
+ const faqLayout=await admin.get(url+'&section=faqs').expect(200);
+ assert.match(faqLayout.text,/<h1>FAQs<\/h1>/);
+ assert.match(faqLayout.text,/<h2>FAQ layout<\/h2>/);
+ assert.match(faqLayout.text,/name="value:sections.questions.enabled"/);
+ assert.match(faqLayout.text,/name="section_visibility" value="1"/);
+ assert.doesNotMatch(faqLayout.text,/name="value:sections.questions.position"/);
+ assert.match(faqLayout.text,/name="value:a7d6f37c4446acb1"/);
+ assert.doesNotMatch(faqLayout.text,/name="value:d5d5b2524908a4ef"/);
+ assert.match(faqLayout.text,/id="faq-questions"/);
+ assert.match(faqLayout.text,/name="faq_question"/);
+ const editorFaq=await editor.get(url+'&section=faqs').expect(200);
+ assert.doesNotMatch(editorFaq.text,/name="faq_question"/);
+ const faqEditor='/admin/site-content/edit?key=faq%3Abudgeting-scheduling';
+ await admin.get(faqEditor).expect(302).expect('Location',url+'&section=faqs#faq-questions');
+ await editor.get(faqEditor).expect(403);
+ await admin.post('/admin/site-content/save').type('form').send({
+  _csrf:csrfAdmin,module_key:'faq:budgeting-scheduling',revision:0,action:'draft',
+  faq_question:'Example FAQ question?',faq_answer:'Example FAQ answer.',
+ }).expect(302).expect('Location',url+'&section=faqs&saved=1#faq-questions');
+ assert.match((await admin.get(url+'&section=faqs').expect(200)).text,/Example FAQ question/);
+ const form=await editor.get(url+'&section=budget').expect(200);
+ assert.ok(form.text.includes(`name="value:${budget}"`));
+ assert.match(form.text,/href="\/admin\/pages\/budgeting-scheduling"/);
+ assert.ok(!form.text.includes(`name="value:${hero}"`));
+ await editor.get(url+'&section=invalid').expect(404);
+
+ const save=(section,revision,action,fields={})=>editor.post('/admin/site-content/save')
+  .type('form').send({_csrf:csrfEditor,module_key:key,section,revision,action,...fields});
+ const state=async()=>{
+  const [record]=await rows(db,'SELECT draft,published FROM cms_site_modules WHERE module_key=?',[key]);
+  return {draft:json(record.draft),published:json(record.published)};
+ };
+ await save('hero',0,'publish',{['value:'+hero]:'Live hero'}).expect(302);
+ await save('hero',1,'draft',{['value:'+hero]:'Private hero draft'}).expect(302);
+ await save('budget',2,'publish',{
+  ['value:'+budget]:'Live budget',
+  ['value:'+hero]:'Outside this section',
+ }).expect(302).expect('Location',url+'&section=budget&saved=1');
+ assert.deepEqual(await state(),{
+  draft:{[hero]:'Private hero draft',[budget]:'Live budget'},
+  published:{[hero]:'Live hero',[budget]:'Live budget'},
+ });
+ await save('budget',2,'reset').expect(409);
+ await save('budget',3,'reset').expect(302);
+ assert.deepEqual(await state(),{
+  draft:{[hero]:'Private hero draft'},published:{[hero]:'Live hero'},
+ });
+ await save('budget',4,'restore',{restore_revision:3}).expect(302);
+ assert.deepEqual(await state(),{
+  draft:{[hero]:'Private hero draft',[budget]:'Live budget'},published:{[hero]:'Live hero'},
+ });
+ await save('faqs',5,'publish',{section_visibility:'1','value:sections.questions.position':'1'}).expect(302);
+ assert.deepEqual((await state()).published,{[hero]:'Live hero','sections.questions.enabled':false});
+});
+
+test('Header and footer navigation open and save independently',async()=>{
+ const key='navigation',url='/admin/site-content/edit?key=navigation';
+ const directory=await admin.get(url).expect(200);
+ assert.match(directory.text,/section=header/);
+ assert.match(directory.text,/section=footer/);
+ assert.doesNotMatch(directory.text,/site-module-editor/);
+ const {siteModuleCatalogue}=await import('../src/site-modules.js');
+ const save=(section,revision,action,label)=>{
+  const fields=siteModuleCatalogue.get(key).fields.filter(field=>field.key.startsWith(section+'.'));
+  const body={_csrf:csrfAdmin,module_key:key,section,revision,action};
+  for(const field of fields){
+   if(field.type!=='boolean')body['value:'+field.key]=field.default;
+   else if(field.default)body['value:'+field.key]='on';
+  }
+  if(label)body['value:'+fields.find(field=>field.key.endsWith('.label')).key]=label;
+  return admin.post('/admin/site-content/save').type('form').send(body);
+ };
+ for(const [section,other] of [['header','footer'],['footer','header']]){
+  const form=await admin.get(url+'&section='+section).expect(200);
+  assert.ok(form.text.includes('name="value:'+section+'.'));
+  assert.ok(!form.text.includes('name="value:'+other+'.'));
+ }
+ await editor.get(url+'&section=header').expect(403);
+ try{
+  await save('header',0,'publish','Test header navigation').expect(302)
+   .expect('Location',url+'&section=header&saved=1');
+  await save('footer',1,'publish','Test footer navigation').expect(302);
+  const published=async()=>json((await rows(db,'SELECT published FROM cms_site_modules WHERE module_key=?',[key]))[0].published);
+  const both=await published();
+  assert.ok(Object.values(both).includes('Test header navigation'));
+  assert.ok(Object.values(both).includes('Test footer navigation'));
+  const header=(await admin.get(url+'&section=header').expect(200)).text;
+  const footer=(await admin.get(url+'&section=footer').expect(200)).text;
+  assert.match(header,/Header CTA/);
+  assert.match(header,/name="value:header.cta.href"/);
+  assert.match(header,/type="checkbox" name="value:header.0.enabled"/);
+  assert.doesNotMatch(header,/name="value:header.0.label"/);
+  assert.match(footer,/name="value:footer.social.facebook.enabled"/);
+  assert.doesNotMatch(footer,/name="value:header.cta.label"/);
+
+  const headerFields=siteModuleCatalogue.get(key).fields.filter(field=>field.key.startsWith('header.'));
+  const optional=headerFields.find(field=>field.type==='boolean'&&!field.default);
+  assert.ok(optional);
+  const form={_csrf:csrfAdmin,module_key:key,section:'header',revision:2,action:'publish',menu_editor:'1'};
+  for(const field of headerFields){
+   if(field.type==='number')form['value:'+field.key]=field.default;
+   if(field.type==='boolean'&&field.default)form['value:'+field.key]='on';
+  }
+  form['value:'+optional.key]='on';
+  form['value:header.0.position']='50';
+  form['value:header.cta.label']='Contact the studio';
+  form['value:header.cta.href']='/contact/';
+  await admin.post('/admin/site-content/save').type('form').send(form).expect(302);
+  const updated=await published();
+  assert.ok(Object.values(updated).includes('Test header navigation'));
+  assert.equal(updated[optional.key],true);
+  assert.equal(updated['header.0.position'],50);
+  assert.equal(updated['header.cta.label'],'Contact the studio');
+  assert.match(header,/Add page link/);
+  const custom={...form,revision:3,menu_custom_links:'1',
+   menu_link_label:'New page',menu_link_href:'/new-page/',
+   menu_link_placement:'header.1.groups.0.links',menu_link_position:'after:0'};
+  await admin.post('/admin/site-content/save').type('form').send({...custom,menu_link_href:'//external.example'}).expect(422);
+  await admin.post('/admin/site-content/save').type('form').send({...custom,menu_link_position:'after:999'}).expect(422);
+  await admin.post('/admin/site-content/save').type('form').send(custom).expect(302);
+  const customPublished=await published();
+  assert.deepEqual(customPublished['header.customLinks'],[{label:'New page',href:'/new-page/',placement:'header.1.groups.0.links',position:'after:0'}]);
+  const {applyNavigation}=await import('../../rain-temp/src/siteContent.js');
+  const {headerMenu,footerMenu}=await import('../../rain-temp/src/menu-catalogue.js');
+  const arranged=applyNavigation(headerMenu,'header',customPublished);
+  const studio=arranged.find(item=>item.id==='studio');
+  assert.deepEqual(studio.groups[0].links.slice(0,2).map(link=>link.href),['/about/','/new-page/']);
+  assert.doesNotMatch(header,/name="menu_link_position" type="number"/);
+  assert.match(header,/name="menu_link_placement"/);
+  await save('header',4,'reset').expect(302);
+  assert.deepEqual(await published(),Object.fromEntries(Object.entries(both).filter(([field])=>field.startsWith('footer.'))));
+
+  assert.match(footer,/name="menu_link_placement"/);
+  assert.match(footer,/name="menu_link_position"/);
+  assert.match(footer,/value="footer.1.links"/);
+  const footerForm={_csrf:csrfAdmin,module_key:key,section:'footer',revision:5,action:'publish',menu_editor:'1',menu_custom_links:'1',
+   menu_link_label:'New footer page',menu_link_href:'/new-footer-page/',menu_link_placement:'footer.1.links',menu_link_position:'after:0'};
+  for(const field of siteModuleCatalogue.get(key).fields.filter(field=>field.key.startsWith('footer.'))){
+   if(field.type==='number')footerForm['value:'+field.key]=field.default;
+   if(field.type==='boolean'&&field.default)footerForm['value:'+field.key]='on';
+  }
+  await admin.post('/admin/site-content/save').type('form').send(footerForm).expect(302);
+  const footerPublished=await published();
+  const footerStudio=applyNavigation(footerMenu,'footer',footerPublished).find(group=>group.id==='studio');
+  assert.deepEqual(footerStudio.links.slice(0,2).map(link=>link.href),['/','/new-footer-page/']);
+  assert.match((await admin.get(url+'&section=footer').expect(200)).text,/value="\/new-footer-page\/"/);
+ }finally{
+  await rows(db,'DELETE FROM cms_site_module_revisions WHERE module_key=?',[key]);
+  await rows(db,'DELETE FROM cms_site_modules WHERE module_key=?',[key]);
+ }
 });
 
 test('Existing website content supports private drafts, optimistic publishing, defaults and restoration',async()=>{
@@ -1348,6 +1632,9 @@ test('Production galleries persist studio images, render safely and protect imag
   const page=await request(app).get(`/productions/${entry.slug}/`).expect(200);assert.match(page.text,/class="production-gallery"/);assert.ok(page.text.includes(`src="/media/${image}"`));assert.match(page.text,/Crew &lt;on set&gt;/);assert.ok(!page.text.includes('<script>alert(1)</script>'));
   const {gallery:omitted,...legacy}=values;await editor.post('/admin/content/save').type('form').send(await withContentVersion({...legacy,id})).expect(302);
   assert.deepEqual(JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[id]))[0].metadata).gallery,gallery);
+  const withoutAlt=[{...gallery[0],alt:''}];
+  await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,gallery:JSON.stringify(withoutAlt)})).expect(302);
+  assert.deepEqual(JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[id]))[0].metadata).gallery,withoutAlt);
   await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,id,gallery:'[]'})).expect(302);
   await editor.post(`/admin/media/${image}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);
  }finally{
@@ -1463,7 +1750,7 @@ test('Four production extensions publish safe rights, linked biographies, typed 
  try{
   await manager.get('/admin/people').expect(403);await editor.get('/admin/people/new').expect(200);await manager.post('/admin/people/save').type('form').send({...personValues,_csrf:csrfManager}).expect(403);
   await editor.post('/admin/people/save').type('form').send(personValues).expect(303);let person=(await rows(db,'SELECT * FROM production_people WHERE name=?',[personValues.name]))[0];personId=person.id;await request(app).get(`/people/${person.slug}/`).expect(404);
-  const values={_csrf:csrfEditor,type:'production',title:'Four extensions fixture',production_stage:'released',status:'published',rights_holder:'Studio rights holder',rights_summary:'Approved rights statement',rights_status:'partially_available',rights_territories:'India',rights_notes:'SECRET CONTRACT TERMS',cast_credits_rows:JSON.stringify([{name:'Credited filmmaker',role:'Lead',person_id:personId}]),contributor_credits_rows:JSON.stringify([{name:'Credited researcher',role:'Research',person_id:personId}]),platform_links:JSON.stringify([{kind:'watch',label:'Official platform',url:'https://example.test/watch',territories:'India'}]),production_media:JSON.stringify([{type:'poster',title:'Official poster',url:`/media/${image}`,alt:'Poster <artwork>'},{type:'trailer',title:'Official trailer',url:`/media/${video}/video.mp4`},{type:'teaser',title:'Teaser',url:'https://example.test/teaser.mp4'},{type:'song',title:'Theme song',url:'https://example.test/theme.mp3'},{type:'behind_the_scenes',title:'Making the film',url:`/media/${video}/video.mp4`}]),awards:JSON.stringify([{event:'Example Film Festival',category:'Feature film',outcome:'official_selection',year:'2026',source_url:'https://example.test/selection'}]),screenings:JSON.stringify([{event:'World premiere',type:'premiere',date:'2026-11-01',venue:'Example Theatre',city:'Dehradun',country:'India',source_url:'https://example.test/premiere'}])};
+  const values={_csrf:csrfEditor,type:'production',title:'Four extensions fixture',production_stage:'released',status:'published',rights_holder:'Studio rights holder',rights_summary:'Approved rights statement',rights_status:'partially_available',rights_territories:'India',rights_notes:'SECRET CONTRACT TERMS',cast_credits_rows:JSON.stringify([{name:'Credited filmmaker',role:'Lead',person_id:personId}]),contributor_credits_rows:JSON.stringify([{name:'Credited researcher',role:'Research',person_id:personId}]),platform_links:JSON.stringify([{kind:'watch',label:'Official platform',url:'https://example.test/watch',territories:'India'}]),production_media:JSON.stringify([{type:'poster',title:'Official poster',url:`/media/${image}`},{type:'trailer',title:'Official trailer',url:`/media/${video}/video.mp4`},{type:'teaser',title:'Teaser',url:'https://example.test/teaser.mp4'},{type:'song',title:'Theme song',url:'https://example.test/theme.mp3'},{type:'behind_the_scenes',title:'Making the film',url:`/media/${video}/video.mp4`}]),awards:JSON.stringify([{event:'Example Film Festival',category:'Feature film',outcome:'official_selection',year:'2026',source_url:'https://example.test/selection'}]),screenings:JSON.stringify([{event:'World premiere',type:'premiere',date:'2026-11-01',venue:'Example Theatre',city:'Dehradun',country:'India',source_url:'https://example.test/premiere'}])};
   await editor.post('/admin/content/save').type('form').send(await withContentVersion({...values,production_media:JSON.stringify([{type:'poster',title:'Wrong format',url:`/media/${video}`,alt:'Poster'}])})).expect(422);
   await editor.post('/admin/content/save').type('form').send(await withContentVersion(values)).expect(302);const entry=(await rows(db,'SELECT * FROM cms_entries WHERE title=?',[values.title]))[0];productionId=entry.id;
   let page=await request(app).get(`/productions/${entry.slug}/`).expect(200);assert.match(page.text,/Studio rights holder/);assert.match(page.text,/Official platform/);assert.match(page.text,/Example Film Festival/);assert.match(page.text,/World premiere/);assert.match(page.text,/Theme song/);assert.ok(!page.text.includes('SECRET CONTRACT TERMS'));assert.ok(!page.text.includes('PRIVATE BIO UNTIL PUBLISHED'));assert.ok(!page.text.includes(`href="/people/${person.slug}/"`));
@@ -1476,7 +1763,7 @@ test('Four production extensions publish safe rights, linked biographies, typed 
   await request(app).get('/sitemap.xml').expect(200).then(r=>assert.ok(r.text.includes(`/people/${person.slug}/`)));
   await editor.post(`/admin/media/${image}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);await editor.post(`/admin/media/${video}/delete`).type('form').send({_csrf:csrfEditor}).expect(409);
   await editor.post('/admin/people/save').type('form').send({...personValues,id:personId,name:'Updated public name',status:'archived'}).expect(303);assert.equal((await rows(db,'SELECT slug FROM production_people WHERE id=?',[personId]))[0].slug,person.slug);await request(app).get(`/people/${person.slug}/`).expect(404);await request(app).get(`/productions/${entry.slug}/`).expect(200).then(r=>assert.ok(!r.text.includes(`href="/people/${person.slug}/"`)));
-  const legacy={_csrf:csrfEditor,id:productionId,type:'production',title:values.title,production_stage:'released',status:'published'};await editor.post('/admin/content/save').type('form').send(await withContentVersion(legacy)).expect(302);const saved=JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[productionId]))[0].metadata);assert.equal(saved.cast_credits[0].person_id,personId);assert.equal(saved.awards.length,1);assert.equal(saved.production_media.length,5);assert.equal(saved.rights_notes,values.rights_notes);
+  const legacy={_csrf:csrfEditor,id:productionId,type:'production',title:values.title,production_stage:'released',status:'published'};await editor.post('/admin/content/save').type('form').send(await withContentVersion(legacy)).expect(302);const saved=JSON.parse((await rows(db,'SELECT metadata FROM cms_entries WHERE id=?',[productionId]))[0].metadata);assert.equal(saved.cast_credits[0].person_id,personId);assert.equal(saved.awards.length,1);assert.equal(saved.production_media.length,5);assert.equal(saved.production_media[0].alt,'');assert.equal(saved.rights_notes,values.rights_notes);
  }finally{if(productionId)await rows(db,'DELETE FROM cms_entries WHERE id=?',[productionId]);if(personId)await rows(db,'DELETE FROM production_people WHERE id=?',[personId]);await rows(db,'DELETE FROM cms_media WHERE id IN (?,?)',[image,video]);}
 });
 
@@ -1549,7 +1836,8 @@ test('Media type filters, gallery and portrait usage, and descriptions stay accu
   for(const [index,kind] of [[1,'video'],[2,'document'],[3,'captions']]){const page=await editor.get(`/admin/media?kind=${kind}&q=media-check`).expect(200);assert.ok(page.text.includes('data-media-id="'+ids[index]+'"'));assert.ok(!page.text.includes('data-media-id="'+ids[0]+'"'));}
   await manager.post(`/admin/media/${ids[0]}/description`).type('form').send({_csrf:csrfManager,alt:'Not allowed'}).expect(403);
   await editor.post(`/admin/media/${ids[0]}/description`).type('form').send({alt:'Missing CSRF'}).expect(403);
-  await editor.post(`/admin/media/${ids[0]}/description`).type('form').send({_csrf:csrfEditor,alt:''}).expect(422);
+  await editor.post(`/admin/media/${ids[0]}/description`).type('form').send({_csrf:csrfEditor,alt:''}).expect(302);
+  assert.equal((await rows(db,'SELECT alt FROM cms_media WHERE id=?',[ids[0]]))[0].alt,'');
   await editor.post(`/admin/media/${ids[0]}/description`).type('form').send({_csrf:csrfEditor,alt:'Sunlight over the production set'}).expect(302);
   assert.equal((await rows(db,'SELECT alt FROM cms_media WHERE id=?',[ids[0]]))[0].alt,'Sunlight over the production set');
   const selector=await editor.get('/admin/content/new?type=blog').expect(200);assert.match(selector.text,/data-media-alt="Sunlight over the production set"/);

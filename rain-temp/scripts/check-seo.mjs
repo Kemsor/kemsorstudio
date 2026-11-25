@@ -55,7 +55,7 @@ const xml=readFileSync(resolve(directory,'sitemap.xml'),'utf8');
 const locations=[...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(([,url])=>decode(url));
 assert.deepEqual(new Set(locations),new Set(sitePages.filter(page=>page.indexable).map(page=>pageSeo(page.key,{origin,base}).canonical)));
 assert.ok(readFileSync(resolve(directory,'robots.txt'),'utf8').includes(new URL(`${base}sitemap.xml`,origin).href));
-for(const [route,destination] of [['projects','productions'],['news','press-media']]) {
+for(const [route,destination] of [['projects','productions'],['news','press-media'],['post','post-production'],['latest-openings','careers']]) {
  const html=readFileSync(resolve(directory,route,'index.html'),'utf8');
  assert.equal(tags(html,'meta').find(tag=>tag.name==='robots')?.content.includes('noindex'),true);
  assert.ok(html.includes(`../${destination}/`));

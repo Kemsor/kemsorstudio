@@ -2,25 +2,7 @@
 html body #top.creative-site #main.inner-page .directory-discovery{
  --line:#dedbd5;--ink:#242424;--muted:#626262;background:#fff!important;color:var(--ink);overflow:hidden;
 }
-html body #top.creative-site #main.inner-page .directory-discovery-header{
- display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,.65fr);gap:clamp(40px,8vw,120px);align-items:center;
- /* Use the same content container as the other public inner pages. */
- width:calc(100% - var(--inner-content-gutter) * 2);max-width:var(--inner-content-width);margin:0 auto 32px;
- min-height:320px;padding:48px clamp(24px,5vw,80px)!important;border:0;background:#212121!important;position:relative;
-}
-.directory-discovery-header::before{content:none}
-html body #top.creative-site #main.inner-page .discovery-hero-copy>.discovery-eyebrow{font-size:11px!important;letter-spacing:.09em;color:#e2c288!important;margin:0 0 24px}
-html body #top.creative-site #main.inner-page .directory-discovery-header h1{font:600 clamp(32px,3vw,44px)/1.2 Manrope,sans-serif!important;color:#fff!important;letter-spacing:-.025em!important;margin:0 0 20px;max-width:none}
-html body #top.creative-site #main.inner-page .discovery-hero-copy>p:not(.discovery-eyebrow){font-size:15px!important;line-height:1.8;color:#e0e0e0!important;max-width:520px;margin:0 0 26px}
-html body #top.creative-site #main.inner-page .directory-discovery .directory-join{display:inline-flex;align-items:center;gap:12px;min-height:44px;background:#edc675!important;color:#212121!important;-webkit-text-fill-color:#212121;border:0;border-radius:24px;padding:12px 20px;text-decoration:none;font-size:13px}
-.discovery-hero-guide{border-left:1px solid #ffffff35;padding-left:30px;color:#fff}
-.discovery-hero-guide>p{font-size:10px;letter-spacing:.09em;color:#c4b08e;margin-bottom:24px}
-.discovery-hero-guide>div{margin-bottom:22px}
-.discovery-hero-guide strong,.discovery-hero-guide span{display:block}
-.discovery-hero-guide strong{font:500 19px/1.4 Manrope,sans-serif;color:#fff}
-.discovery-hero-guide span{font-size:12px;line-height:1.7;color:#c7c7c7;margin-top:4px}
-.discovery-hero-guide>a{display:inline-flex;align-items:center;gap:16px;color:#edc675;min-height:44px;font-size:12px}
-html body #top.creative-site #main.inner-page .directory-discovery .directory-content{width:calc(100% - var(--inner-content-gutter) * 2);max-width:var(--inner-content-width);margin:auto;padding:12px 0 64px!important;background:#fff!important}
+html body #top.creative-site #main.inner-page .directory-discovery .directory-content{width:calc(100% - var(--inner-content-gutter) * 2);max-width:var(--inner-content-width);margin-inline:auto;padding:12px 0 64px!important;background:#fff!important}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-toolbar{background:none!important;border:0!important;box-shadow:none;padding:0 0 22px!important;margin:0;gap:18px}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-tabs{background:none!important;border:0;border-bottom:1px solid #dedbd5;border-radius:0;padding:0;gap:24px}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-tabs button{border-radius:0;background:none!important;border-bottom:2px solid transparent;font-size:13px;padding:10px 0!important;color:#666!important;min-height:44px}
@@ -62,9 +44,6 @@ html body #top.creative-site #main.inner-page .directory-discovery .directory-bo
 .discovery-loading{padding:24px 0;color:#666;font-size:12px}.discovery-loading>div{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:18px}.discovery-loading i{display:block;height:250px;border-radius:12px;background:#f2f1ee}
 @media(max-width:950px){.discovery-loading>div{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){
- html body #top.creative-site #main.inner-page .directory-discovery-header{grid-template-columns:1fr;gap:32px;padding:32px 24px!important;min-height:0}
- .discovery-hero-guide{padding:24px 0 0;border-left:0;border-top:1px solid #ffffff35;display:grid;grid-template-columns:1fr 1fr;gap:16px}
- .discovery-hero-guide>p{grid-column:1/-1;margin:0}.discovery-hero-guide>div{margin:0}.discovery-hero-guide>a{grid-column:1/-1}
  html body #top.creative-site #main.inner-page .directory-discovery .directory-content{padding-top:0!important}
  .directory-discovery .directory-toolbar{align-items:flex-start;flex-wrap:wrap}
  html body #top.creative-site #main.inner-page .directory-discovery .directory-filters{padding:18px!important;gap:16px 12px}
@@ -72,22 +51,8 @@ html body #top.creative-site #main.inner-page .directory-discovery .directory-bo
  html body #top.creative-site #main.inner-page .directory-discovery .directory-bottom-cta{padding:24px!important}
 }
 @media(prefers-reduced-motion:reduce){.directory-discovery *{transition:none!important}}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide{background:transparent!important;box-shadow:none!important}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide strong{color:#fff!important;-webkit-text-fill-color:#fff!important}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide>p{color:#e2c288!important}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide span{color:#d0d0d0!important}
 /* Warm studio colours give the directory a brighter, more welcoming finish. */
 html body #top.creative-site #main.inner-page .directory-discovery{background:#fffdf9!important}
-html body #top.creative-site #main.inner-page .directory-discovery-header{
- background:linear-gradient(90deg,#070b13d9 0%,#070b138c 48%,#070b1326 100%),url('/assets/stills/find-talent-team-1920.webp') center 58% / cover no-repeat!important;
-}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide{
- background:#fff0d4!important;border:0;border-radius:16px;padding:28px;
-}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide strong{color:#503418!important;-webkit-text-fill-color:#503418!important}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide>p{color:#755221!important}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide span{color:#65513c!important}
-html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide>a{color:#684319!important}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-content{background:transparent!important}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-filters{background:#edf3fa!important;border-color:#d9e3ef!important}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-card{--card-soft:#f7ecd7;--card-accent:#81602d;border-color:#e7ddcc}
@@ -98,9 +63,6 @@ html body #top.creative-site #main.inner-page .directory-discovery .directory-ca
 html body #top.creative-site #main.inner-page .directory-discovery .directory-discipline{color:var(--card-accent)!important}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-tags span{background:var(--card-soft)!important;color:var(--card-accent)}
 html body #top.creative-site #main.inner-page .directory-discovery .directory-bottom-cta{background:#f5e6c8!important}
-@media(max-width:760px){
- html body #top.creative-site #main.inner-page .directory-discovery-header .discovery-hero-guide{padding:22px}
-}
 
 /* Use the shared dark closing panel within the directory's existing content width. */
 html body #top.creative-site #main.inner-page .directory-discovery .directory-bottom-cta.inner-closing.inner-closing{width:100%;max-width:none;margin:44px 0 0!important;gap:28px}

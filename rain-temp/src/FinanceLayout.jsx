@@ -1,3 +1,4 @@
+import ManagedHero from './ManagedHero';
 import PageBreadcrumbs from './PageBreadcrumbs';
 import StudioImage from './StudioImage';
 import {chapterStyler} from './VisualChapters';
@@ -47,7 +48,7 @@ export default function FinanceLayout({ page, children }) {
   if (pack) body.unshift(cloneElement(pack, { key: 'finance-ready-pack', id: 'finance-ready-pack' }));
   let sectionNumber = 0;
   return <div className={`${root.props.className || ''} finance-layout service-page-layout`} data-service-page={page}>
-    <header className="inner-hero fl-hero">
+    <ManagedHero><header className="inner-hero fl-hero">
       <div className="fl-width">
 
         <div className="fl-hero-grid">
@@ -55,7 +56,7 @@ export default function FinanceLayout({ page, children }) {
           <figure className="fl-hero-image">{image && cloneElement(image, { alt: image.props.alt || 'Illustrative production image', sizes: '(max-width: 700px) 90vw, 44vw' })}</figure>
         </div>
       </div>
-    </header>
+    </header></ManagedHero>
     <PageBreadcrumbs page={page}>{breadcrumb}</PageBreadcrumbs>
     <SectionSubmenu section="finance" page={page}/>
     <div className="fl-body">{body.map((node, index) => {

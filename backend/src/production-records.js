@@ -41,7 +41,7 @@ function gallery(body,previous){
   if(!Number.isSafeInteger(id)||id<=0||ids.has(id))fail('Choose distinct valid gallery images.');
   ids.add(id);
   if(!['still','behind_the_scenes'].includes(item.kind))fail('Choose a gallery image type.');
-  const alt=text(item.alt,300,'Gallery alt text');if(!alt)fail('Add alt text for every gallery image.');
+  const alt=text(item.alt,300,'Gallery alt text');
   return {media_id:id,kind:item.kind,alt,caption:text(item.caption,500,'Gallery caption')};
  });
 }

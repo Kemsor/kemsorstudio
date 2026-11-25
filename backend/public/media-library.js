@@ -5,7 +5,7 @@ for(const button of document.querySelectorAll('[data-copy-media]'))button.addEve
  catch{input.focus();input.select();feedback.textContent='URL selected. Copy it with your keyboard.';}
 });
 for(const select of document.querySelectorAll('form select[name="image_id"]')){
- const label=select.closest('label');const controls=make('div','image-picker-controls'),remove=make('button','quiet','Remove image'),thumb=make('img','image-picker-thumb');remove.type='button';controls.append(remove,thumb);label.after(controls);label.hidden=true;
- const update=()=>{const option=select.selectedOptions[0];thumb.hidden=!select.value;remove.disabled=!select.value;if(select.value){thumb.src='/media/'+encodeURIComponent(select.value);thumb.alt=option?.dataset.mediaAlt||'';}};select.addEventListener('change',update);update();
+ const label=select.closest('label');const controls=make('div','image-picker-controls'),remove=make('button','quiet','Remove image'),thumb=make('img','image-picker-thumb');remove.type='button';controls.append(remove,thumb);label.after(controls);const keepSelect=select.hasAttribute('data-keep-image-select');label.hidden=!keepSelect;
+ const update=()=>{const option=select.selectedOptions[0];thumb.hidden=!select.value;remove.disabled=!select.value;if(keepSelect)controls.hidden=!select.value;if(select.value){thumb.src='/media/'+encodeURIComponent(select.value);thumb.alt=option?.dataset.mediaAlt||'';}else{thumb.removeAttribute('src');thumb.alt='';}};select.addEventListener('change',update);update();
  remove.addEventListener('click',()=>{select.value='';select.dispatchEvent(new Event('input',{bubbles:true}));select.dispatchEvent(new Event('change',{bubbles:true}));});
 }

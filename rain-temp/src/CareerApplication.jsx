@@ -3,10 +3,28 @@ import {cmsApi} from './CmsContent';
 import EnquirySuccess from './EnquirySuccess';
 import careerContent from '../../shared/careers-content.json';
 import './career-application.css';
+const applicationFields={
+ general:{
+  role:'Role you are applying for',roleHint:'e.g. Line Producer, or “general application”',
+  experience:'Years of experience',about:'What you have worked on, and what you would like to do here.',
+  submit:'Send application',
+ },
+ internship:{
+  role:'What would you like to learn?',roleHint:'e.g. Editing, script research, production',
+  experience:'College and course',about:'Why film, what you have made so far, and when you can start.',
+  submit:'Apply for an internship',
+ },
+ freelance:{
+  role:'Your craft',roleHint:'e.g. Gaffer, Sound recordist, Colourist',
+  experience:'Years in the industry',about:'Key credits, the kit you own, languages and the cities you can work in.',
+  submit:'Join the crew network',
+ },
+};
 export default function CareerApplication({role,onClose,inline=false,onBusyChange,titleAs:Title='h2'}){
  const dialog=useRef(null),request=useRef(null),titleId=useId();
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[result,setResult]=useState(null);
- const general=['general','internship'].includes(role.id);
+ const intake=Object.hasOwn(applicationFields,role.id);
+ const fields=intake?applicationFields[role.id]:applicationFields.general;
  useEffect(()=>{onBusyChange?.(busy);},[busy,onBusyChange]);
  useEffect(()=>{const opener=document.activeElement;if(!inline)dialog.current.showModal();return()=>{request.current?.abort();if(!inline&&opener?.isConnected)opener.focus();};},[inline]);
  async function submit(event){
@@ -27,16 +45,15 @@ export default function CareerApplication({role,onClose,inline=false,onBusyChang
    <fieldset disabled={busy}><div className="career-application-fields">
     <label>Full name<input name="name" autoComplete="name" required maxLength="100"/></label><label>Email address<input name="email" type="email" autoComplete="email" required maxLength="254"/></label>
     <label>Phone number<input name="phone" type="tel" autoComplete="tel" required maxLength="40"/></label><label>City<input name="city" autoComplete="address-level2" maxLength="100"/></label>
-    {general&&<label className="full">Role you are applying for<input name="role_title" required maxLength="150" defaultValue={role.id==='internship'?'Internship':''} placeholder="Role or area of interest"/></label>}
-    <label>Team you are interested in<select name="team" required={general} defaultValue={careerContent.teams.some(([team])=>team===role.metadata?.category)?role.metadata.category:''}><option value="">Select a team</option>{careerContent.teams.map(([team])=><option key={team}>{team}</option>)}</select></label>
-    <label>Years of experience<input type="number" name="experience" min="0" max="70" step="0.5" placeholder="e.g. 2"/></label>
-    <label className="full">Portfolio or showreel link<input type="url" name="portfolio_url" maxLength="1000" placeholder="https://…"/><small>Optional HTTPS link to your work.</small></label><label className="full">Tell us about yourself<textarea name="message" rows="4" maxLength="8000"/></label>
+    {intake&&<label className="full">{fields.role}<input name="role_title" required maxLength="150" placeholder={fields.roleHint}/></label>}
+    <label>Team you are interested in<select name="team" required={intake} defaultValue={careerContent.teams.some(([team])=>team===role.metadata?.category)?role.metadata.category:''}><option value="">Select a team</option>{careerContent.teams.map(([team])=><option key={team}>{team}</option>)}</select></label>
+    <label>{fields.experience}{role.id==='internship'?<input name="experience" maxLength="200"/>:<input type="number" name="experience" min="0" max="70" step="0.5" placeholder="e.g. 2"/>}</label>
+    <label className="full">Portfolio or showreel link<input type="url" name="portfolio_url" maxLength="1000" placeholder="https://…"/><small>Optional HTTPS link to your work.</small></label><label className="full">Tell us about yourself<textarea name="message" rows="4" maxLength="8000" placeholder={fields.about}/></label>
     <label className="full">Upload CV<input type="file" name="attachment" accept=".pdf,application/pdf" required/><small>PDF only · Maximum 5 MB</small></label>
    </div><label className="enquiry-honeypot" aria-hidden="true">Website<input name="website" tabIndex="-1" autoComplete="off"/></label>
-   <p className="career-privacy">KEMSOR Studios will use your contact details, application and CV to assess your suitability and contact you about relevant opportunities. Your application is stored privately and is available to authorised recruitment staff.</p>
-   <label className="career-consent"><input type="checkbox" name="consent" value="true" required/><span>I agree that KEMSOR may use my details to assess my application, as explained in the <a href="/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</span></label>
+   <label className="career-consent"><input type="checkbox" name="consent" value="true" required/><span>I agree that KEMSOR Studios may use my details and CV to assess my application and contact me about suitable work, as set out in the <a href="/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. Only authorised recruitment staff can see it.</span></label>
    {error&&<p className="career-application-error" role="alert">{error}</p>}
-   <button type="submit" className="creative-cta">{busy?'Submitting application…':'Submit application'}</button></fieldset>
+   <button type="submit" className="creative-cta">{busy?'Submitting application…':fields.submit}</button></fieldset>
   </form>}
  </Container>;
 }

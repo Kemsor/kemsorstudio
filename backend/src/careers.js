@@ -11,12 +11,13 @@ import path from 'node:path';
 const storage=new URL('../storage/career-resumes/',import.meta.url);
 const fail=(ok,message,status=422)=>{if(!ok)throw Object.assign(new Error(message),{status});};
 const text=(value,max,required=false)=>{fail(value===undefined||typeof value==='string','Invalid application details.');const result=(value||'').trim();fail(result.length<=max&&(!required||result),'Complete the required application fields.');return result;};
+const intakeLabels={general:'General application',internship:'Internship',freelance:'Freelance crew'};
 const states=['new','reviewing','shortlisted','rejected'];
 export function careersRouter(db){
  const router=Router();
  const staff=(req,res,next)=>canEnquire(req.user)?next():next(Object.assign(new Error('Enquiry staff access required.'),{status:403}));
  router.post('/api/careers/:id/applications',async(req,res)=>{
-  const kind=['general','internship'].includes(req.params.id)?req.params.id:'role';
+  const kind=Object.hasOwn(intakeLabels,req.params.id)?req.params.id:'role';
   const b=req.body;
   let role;
   if(kind==='role') {
@@ -26,7 +27,7 @@ export function careersRouter(db){
    fail(role&&!/^sample\b/i.test(role.title)&&!/sample|example/i.test(metadata?.category||''),'This opportunity is no longer available.',404);
   } else {
    const title=text(b.role_title,150,true);
-   role={id:null,title:kind==='internship'?`Internship — ${title}`:`General application — ${title}`};
+   role={id:null,title:`${intakeLabels[kind]} — ${title}`};
   }
   const team=text(b.team,100,kind!=='role');
   fail(!team||careerContent.teams.some(([name])=>name===team),'Choose a team from the list.');

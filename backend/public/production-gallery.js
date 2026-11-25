@@ -16,6 +16,6 @@ for(const editor of document.querySelectorAll('[data-production-gallery]')){
   rows.append(row);sync();return row;
  };
  const saved=JSON.parse(input.value||'[]');saved.forEach(append);
- add.onclick=()=>{if(rows.children.length<24){append({}).querySelector('[data-gallery-field=alt]').focus();status.textContent='Image added. Upload an image and enter alt text.';}};
+ add.onclick=()=>{if(rows.children.length<24){append({}).querySelector('[data-gallery-field=media_id]').focus();status.textContent='Image added. Upload an image to continue.';}};
  editor.closest('form').addEventListener('submit',sync);
 }

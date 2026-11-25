@@ -1,3 +1,4 @@
+import {resolveBundledHeroSlide} from '../../shared/hero-slide-media.js';
 import {parseRichText,richTextPlain} from '../public/rich-text-core.js';
 import {Router} from 'express';
 import {readFile} from 'node:fs/promises';
@@ -57,7 +58,10 @@ export async function publicManagedContent(db) {
  const ordered=kind=>records.filter(row=>row.kind===kind).map(row=>({id:row.id,slug:row.slug,...json(row.published)})).sort((a,b)=>a.position-b.position||a.id-b.id);
  return {legalDocuments:ordered('legal'),heroSlides:ordered('hero')};
 }
-const view=row=>({...row,draft:json(row.draft),published:row.published?json(row.published):null});
+const view=row=>{
+ const draft=json(row.draft),published=row.published?json(row.published):null;
+ return {...row,draft:row.kind==='hero'?resolveBundledHeroSlide(draft):draft,published:row.kind==='hero'?resolveBundledHeroSlide(published):published};
+};
 export function managedContentRouter(db) {
  const router=Router();
  router.use('/admin/manage',(req,res,next)=>req.user?.role==='admin'?next():next(Object.assign(new Error('Administrator access required.'),{status:403})));
@@ -82,7 +86,10 @@ export function managedContentRouter(db) {
    const previous=id?(await rows(connection,'SELECT * FROM cms_managed_content WHERE id=? AND kind=? FOR UPDATE',[id,kind]))[0]:null;
    fail(!id||previous,'Content not found.',404);fail(!previous||Number(b.revision)===previous.revision,'This content changed in another window. Reload before saving.',409);
    fail(!previous||previous.slug===slug,'Published URL keys cannot be changed.');
-   if(kind==='hero'&&previous&&json(previous.draft).poster===draft.poster)draft.posterSrcSet=json(previous.draft).posterSrcSet||'';
+   if(kind==='hero'&&previous){
+    const previousSlide=resolveBundledHeroSlide(json(previous.draft));
+    if(previousSlide.poster===draft.poster)draft.posterSrcSet=previousSlide.posterSrcSet||'';
+   }
    const published=action==='publish'?draft:action==='unpublish'?null:previous?.published?json(previous.published):null;
    const revision=(previous?.revision||0)+1;
    if(previous){contentId=id;await rows(connection,'UPDATE cms_managed_content SET draft=?,published=?,revision=?,updated_by=? WHERE id=?',[JSON.stringify(draft),published?JSON.stringify(published):null,revision,req.user.id,id]);}

@@ -114,3 +114,14 @@ html .creative-site #main .production-layout h3{font:500 clamp(20px,1.6vw,23px)/
 
 .production-layout .produce-audiences>ul>li>div{min-width:0;width:100%}
 .production-layout .produce-audiences h3{word-break:normal;overflow-wrap:normal}
+
+/* Full-width sections supply their own padding inside their colored backgrounds. */
+html body #top.creative-site #main#main.inner-page .production-layout .pl-body > .pl-section:has(
+  > .pl-width > :is(
+    .produce-process-zigzag,.audience-collage,.produce-related-faq-group,
+    .related-services-showcase,.set-related-showcase,section:has(> .standard-faq-panel)
+  )
+) {
+  padding-block:0!important;
+  border-bottom:0;
+}

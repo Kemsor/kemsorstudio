@@ -1,3 +1,8 @@
+:root {
+ --hero-description-font-size:clamp(.95rem,1.25vw,1.125rem);
+ --main-nav-font-size:calc(var(--hero-description-font-size) - 4px);
+}
+
 /* Keep the current page visible in both the primary navigation and dropdowns. */
 @layer reference-navigation {
  .reference-navigation #creative-navigation .creative-dropdown .creative-nav-group a::after{
@@ -11,7 +16,7 @@
  .reference-navigation #creative-navigation .creative-dropdown .creative-nav-group a:is(:hover,:focus-visible,[aria-current]){padding-right:32px!important}
  .reference-navigation #creative-navigation .creative-nav-item[data-current=true]>:is(a,button){
   color:#e5b765!important;-webkit-text-fill-color:#e5b765!important;
-  box-shadow:inset 0 -2px 0 #e5b765!important;
+  box-shadow:none!important;text-decoration:none!important;
  }
  .reference-navigation #creative-navigation .creative-nav-group a[aria-current]{
   background:#e5b765!important;color:#21180e!important;-webkit-text-fill-color:#21180e!important;
@@ -19,7 +24,7 @@
  }
 }
 
-/* Reference-style navigation: an unboxed brand, a link capsule and a gold CTA.
+/* Reference-style navigation: an unboxed brand and links with a gold CTA.
    This first important layer takes priority over the older white-strip rules. */
 @layer reference-navigation {
  .reference-navigation:not(.creative-drawer-layer){padding:0!important;background:transparent!important;border:0!important}
@@ -50,15 +55,15 @@
    position:relative!important;inset:auto!important;transform:none!important;visibility:visible!important;
    display:flex!important;flex-direction:row!important;align-items:center!important;flex:0 0 auto!important;pointer-events:auto!important;
    width:auto!important;max-width:none!important;height:46px!important;min-height:0!important;
-   padding:0 15px!important;overflow:visible!important;background:#171109!important;
-   color:#f2e8d7!important;border:1px solid #503b24!important;border-radius:999px!important;box-shadow:none!important;
+   padding:0 15px!important;overflow:visible!important;background:transparent!important;
+   color:#f2e8d7!important;border:0!important;border-radius:0!important;box-shadow:none!important;
   }
   .reference-navigation .creative-nav-drawer-body{display:contents!important;overflow:visible!important}
   .reference-navigation :is(.creative-nav-drawer-head,.creative-nav-drawer-foot,.creative-nav-mobile-account,.creative-nav-toggle){display:none!important}
   .reference-navigation .creative-nav-list{display:flex!important;flex-direction:row!important;align-items:center!important;gap:16px!important;height:100%!important;padding:0!important}
   .reference-navigation .creative-nav-item{display:flex!important;position:relative!important;align-items:center!important;min-height:0!important;height:100%!important;padding:0!important;border:0!important;margin:0!important}
   .reference-navigation .creative-nav-item-capabilities{position:static!important}
-  .reference-navigation .creative-nav-item>:is(a,button){display:flex!important;align-items:center!important;width:auto!important;height:100%!important;min-height:0!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;font:600 12px/1.4 Manrope,Arial,sans-serif!important;color:#e7dcc8!important;-webkit-text-fill-color:#e7dcc8!important;white-space:nowrap!important;border-radius:0!important;gap:5px!important}
+  .reference-navigation .creative-nav-item>:is(a,button){display:flex!important;align-items:center!important;width:auto!important;height:100%!important;min-height:0!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;font:600 var(--main-nav-font-size)/1.4 Manrope,Arial,sans-serif!important;color:#e7dcc8!important;-webkit-text-fill-color:#e7dcc8!important;white-space:nowrap!important;border-radius:0!important;gap:5px!important}
   .reference-navigation .creative-nav-item>:is(a,button) *{color:inherit!important;-webkit-text-fill-color:inherit!important}
   .reference-navigation .creative-nav-item>:is(a,button):is(:hover,:focus-visible,[aria-expanded=true]){color:#e5b765!important;-webkit-text-fill-color:#e5b765!important;background:transparent!important}
   .reference-navigation .creative-nav-chevron{width:12px!important;height:12px!important;border:0!important;display:grid!important;margin:0!important}
@@ -80,7 +85,6 @@
   .reference-navigation .header-wordmark{font-size:17px!important;letter-spacing:3px!important}
   .reference-navigation .creative-header-brand{gap:9px!important}
   .reference-navigation .creative-nav-list{gap:12px!important}
-  .reference-navigation .creative-nav-item>:is(a,button){font-size:11px!important}
   .reference-navigation .header-script-tool{font-size:11px!important;padding-inline:14px!important}
   .reference-navigation .creative-header-controls{gap:8px!important}
  }
@@ -90,6 +94,12 @@
   .reference-navigation .creative-header-inner{height:68px!important;min-height:68px!important;gap:14px!important;padding-inline:20px!important}
   .reference-navigation .creative-header-controls{margin-left:auto!important;gap:10px!important}
   .reference-navigation .creative-nav-toggle{display:flex!important}
+  .reference-navigation.creative-drawer-layer #creative-navigation .creative-nav-item[data-current=true]>:is(a,button){
+   background:#fff4df!important;
+   color:#57351f!important;-webkit-text-fill-color:#57351f!important;
+   box-shadow:inset 0 0 0 1.5px #b28726!important;
+  }
+
  }
 }
 @media(max-width:600px){

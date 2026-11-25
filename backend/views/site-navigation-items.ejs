@@ -1,0 +1,24 @@
+<ul class="menu-editor-items">
+  <% items.forEach((item,index)=>{
+    const id=prefix+'.'+index;
+    const label=draft[id+'.label']||draft[id+'.title']||item.label||item.title||'Studio pages';
+    const selected=(draft[id+'.enabled']??item.enabled)!==false;
+    const subsections=item.groups||item.links;
+  %>
+    <li class="menu-editor-item">
+      <div class="menu-editor-row">
+        <input type="checkbox" name="value:<%= id %>.enabled" id="menu-<%= id %>" <%= selected?'checked':'' %>>
+        <label for="menu-<%= id %>"><%= label %></label>
+        <% if(showOrder){ %>
+          <input class="menu-editor-order" type="number" name="value:<%= id %>.position" value="<%= draft[id+'.position']??index+1 %>" min="1" max="1000" aria-label="<%= label %> order">
+        <% } %>
+      </div>
+      <% if(subsections?.length){ %>
+        <details class="menu-editor-children">
+          <summary><%= item.groups?.length>1?'Browse categories':'Choose pages' %></summary>
+          <%- include('site-navigation-items',{items:subsections,prefix:id+(item.groups?'.groups':'.links'),showOrder:true}) %>
+        </details>
+      <% } %>
+    </li>
+  <% }); %>
+</ul>

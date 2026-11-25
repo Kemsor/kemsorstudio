@@ -1,3 +1,4 @@
+import SectionSubmenu from '../SectionSubmenu';
 import {cmsText} from '../siteContent';
 import StudioImage from '../StudioImage';
 import PageVisuals from '../VisualChapters';
@@ -19,6 +20,7 @@ export default function PartnerWithUsPage(){
  const selectedIndex=partnerRoutes.findIndex(item=>item.id===active);
  return <PageVisuals page="partner-with-us"><div className="partner-page">
   <section className="inner-hero partner-page-hero partner-width"><p className="partner-page-eyebrow">{cmsText("PartnerWithUsPage","6b12f79334b87c46","PARTNER WITH US")}</p><h1>{cmsText("PartnerWithUsPage","cbe8a0231f5c169d","Partner with us.")}</h1><h2>{cmsText("PartnerWithUsPage","4312a5ad1dafa0e7","Four ways in.")}<br/><span>{cmsText("PartnerWithUsPage","02b4a7daf8e8b7f6","One team behind every one.")}</span></h2><p>{cmsText("PartnerWithUsPage","cfa090add84f0987","Choose the option that fits your role and project. Each route explains how Kemsor can help and what to include in your enquiry.")}</p></section>
+  <SectionSubmenu section="studio" page="partner-with-us"/>
   <section className="partner-route-picker partner-width" aria-labelledby="partner-route-label">
    <p className="partner-page-eyebrow" id="partner-route-label">{cmsText("PartnerWithUsPage","0270484c5651c92a","CHOOSE YOUR ROUTE")}</p>
    <div className="partner-connected-tabs" role="tablist" aria-label="Choose your partnership route">{partnerRoutes.map((item,index)=><button ref={node=>{routeTabs.current[index]=node}} key={item.id} id={`partner-tab-${item.id}`} type="button" role="tab" className="partner-route-tab" aria-selected={active===item.id} tabIndex={active===item.id?0:-1} aria-controls="partner-route-panel" onClick={()=>choose(item.id)} onKeyDown={event=>selectTabWithKey(event,index)}>{item.tag.replace(/^For /,'')}<SiteIcon name={active===item.id?'check':'arrow-right'} size={17}/></button>)}</div>

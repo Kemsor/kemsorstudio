@@ -17,7 +17,7 @@ export function getImagePlacement(mediaSlot,src){
  const key=placementKey(page,mediaSlot,src);
  return placements[key];
 }
-export default function StudioImage({mediaSlot,src,srcSet,alt,...props}){
+export default function StudioImage({mediaSlot,src,srcSet,alt,altOverride,...props}){
  let replacement=getImagePlacement(mediaSlot,src);
  const pathname=typeof location==='undefined'?'/':location.pathname;
  const page=pathname==='/'?'/':`${pathname.replace(/\/$/,'')}/`;
@@ -37,5 +37,5 @@ export default function StudioImage({mediaSlot,src,srcSet,alt,...props}){
   src={optimized?.src||resolvedSrc} srcSet={resolvedSrcSet}
   sizes={props.sizes||(resolvedSrcSet?(props.fetchPriority==='high'?'100vw':'(max-width: 600px) calc(100vw - 32px), (max-width: 1000px) 70vw, 800px'):undefined)}
   width={props.width||(!props.height?optimized?.width:undefined)} height={props.height||(!props.width?optimized?.height:undefined)}
-  alt={replacement?.alt??alt}/>;
+  alt={altOverride??replacement?.alt??alt}/>;
 }

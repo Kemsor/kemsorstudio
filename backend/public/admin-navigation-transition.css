@@ -1,0 +1,12 @@
+/* Commit same-origin admin pages together, without fading either document. */
+@view-transition {
+ navigation:auto;
+}
+::view-transition-group(root),
+::view-transition-new(root) {
+ animation:none;
+}
+::view-transition-old(root) {
+ display:none;
+ animation:none;
+}

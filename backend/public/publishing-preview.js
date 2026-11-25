@@ -1,4 +1,4 @@
-import {previewBody,publishingChecks,publishingValues} from './publishing-preview-model.js?v=3';
+import {previewBody,publishingChecks,publishingValues} from './publishing-preview-model.js?v=4';
 
 const node=(tag,className,text)=>{const element=document.createElement(tag);if(className)element.className=className;if(text!==undefined)element.textContent=text;return element;};
 function viewport(article){

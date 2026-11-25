@@ -1,0 +1,10 @@
+<% const items=Object.hasOwn(draft,'items')?draft.items:module.faq; %>
+<div class="page-faq-editor" data-faq-editor data-limit="<%= module.faqLimit %>">
+  <div data-faq-rows>
+    <% (items.length?items:[['','']]).forEach(([question,answer])=>{ %>
+      <%- include('site-module-faq-row',{question,answer}) %>
+    <% }); %>
+  </div>
+  <template data-faq-template><%- include('site-module-faq-row',{question:'',answer:''}) %></template>
+  <button type="button" class="quiet" data-faq-action="add">Add question</button>
+</div>

@@ -1,0 +1,77 @@
+html body #top.creative-site #main#main.inner-page:has(.inner-page-banner) {
+  padding-top:var(--inner-nav-bottom,var(--site-header-height,72px)) !important;
+  padding-inline:0;
+}
+html body #top.creative-site #main.inner-page .inner-page-banner {
+  --inner-type-page:min(34px, calc(max(2rem, 4vw) - 12px));
+  position:relative;
+  isolation:isolate;
+  display:grid;
+  align-items:end;
+  width:100%;
+  max-width:none;
+  min-height:clamp(18rem,27vw,26rem);
+  margin:0;
+  padding:3rem 0 clamp(1.75rem,3.2vw,3rem);
+  overflow:hidden;
+  background-color:#1d2027!important;
+  color:#fffaf0;
+}
+.inner-page-banner-media,.inner-page-banner-media::after {
+  position:absolute;
+  inset:0;
+}
+.inner-page-banner-media {
+  z-index:-1;
+  pointer-events:none;
+}
+.inner-page-banner-media::after {
+  content:"";
+  background:linear-gradient(180deg,#10131a24,#10131ad9);
+}
+html body #top.creative-site #main.inner-page .inner-page-banner-media img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.inner-page-banner-copy {
+  width:calc(100% - var(--inner-content-gutter,24px) * 2);
+  max-width:var(--inner-content-width,1280px);
+  margin-inline:auto;
+  text-align:start;
+}
+html body #top.creative-site #main#main.inner-page .inner-page-banner h1 {
+  max-width:26ch;
+  margin:0;
+  color:#fffaf0!important;
+  -webkit-text-fill-color:#fffaf0!important;
+  line-height:1.08!important;
+  text-wrap:balance;
+}
+html body #top.creative-site #main#main.inner-page .inner-page-banner p {
+  max-width:60ch;
+  margin:1rem 0 0;
+  color:#fffaf0!important;
+  -webkit-text-fill-color:#fffaf0!important;
+  font-size:var(--hero-description-font-size)!important;
+  line-height:1.55!important;
+  text-wrap:pretty;
+}
+@media(max-width:600px) {
+  html body #top.creative-site #main.inner-page .inner-page-banner {
+    min-height:15rem;
+    padding-block:2rem 1.75rem;
+  }
+}
+
+html body #top.creative-site #main.inner-page .inner-page-banner :is(h1,p) {
+  text-align:start;
+}
+.inner-page-banner + .production-detail,
+.inner-page-banner + .privacy-policy-page {
+  padding-top:2rem;
+}
+.fd-banner-actions {
+  margin-block:1.5rem;
+}

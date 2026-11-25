@@ -1,0 +1,104 @@
+/* Admin form surfaces share spacing without changing compact table controls. */
+html[data-admin-theme] #main {
+  --admin-form-padding:clamp(1.125rem,2.3vw,1.75rem);
+  --admin-field-padding:clamp(.875rem,1.6vw,1.25rem);
+  --admin-form-gap:clamp(.85rem,1.5vw,1.25rem);
+}
+html[data-admin-theme] body #main :is(form.panel,.panel:has(> form:only-child),form fieldset) {
+  min-inline-size:0;
+  padding:var(--admin-form-padding);
+  border-radius:.875rem;
+}
+html[data-admin-theme] body #main form fieldset > legend {
+  padding-inline:.45rem;
+  font-weight:600;
+}
+html[data-admin-theme] body #main form .field-grid {
+  gap:var(--admin-form-gap);
+}
+html[data-admin-theme] body #main .site-module-editor .site-content-field {
+  min-width:0;
+  padding:var(--admin-field-padding);
+  border-radius:.625rem;
+}
+html[data-admin-theme] body #main .site-editor-group {
+  border-radius:.875rem;
+}
+html[data-admin-theme] body #main .site-editor-group > summary {
+  padding:var(--admin-field-padding) var(--admin-form-padding);
+}
+html[data-admin-theme] body #main .site-editor-group[open] > summary {
+  border-bottom:1px solid var(--studio-line,#dce1e6);
+}
+html[data-admin-theme] body #main .site-editor-group-content {
+  padding:var(--admin-form-padding);
+}
+html[data-admin-theme] body #main .site-module-editor .site-editor-group-content .site-content-field {
+  padding:0 0 var(--admin-form-gap);
+  border:0;
+  border-bottom:1px solid var(--studio-line,#dce1e6);
+  border-radius:0;
+  background:transparent;
+}
+html[data-admin-theme] body #main .site-module-editor .site-editor-group-content .site-content-field:last-child {
+  padding-bottom:0;
+  border-bottom:0;
+}
+html[data-admin-theme] body #main .site-content-field > label,
+html[data-admin-theme] body #main form .media-upload-stage > label {
+  margin:0;
+}
+html[data-admin-theme] body #main .site-content-field[data-field-type=boolean] > label {
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  width:fit-content;
+}
+html[data-admin-theme] body #main .site-content-field[data-field-type=boolean] input {
+  order:-1;
+  margin:0;
+}
+html[data-admin-theme] body #main .site-content-field textarea {
+  min-height:4.75rem!important;
+  border-radius:.75rem!important;
+}
+html[data-admin-theme] body #main form :is(.media-upload-stage,[data-faq-row]) {
+  min-width:0;
+  padding:var(--admin-field-padding);
+  border-radius:.75rem;
+}
+html[data-admin-theme] body #main form .media-upload-stage {
+  background:#f8fafc;
+  margin-block:.85rem 0;
+  gap:.85rem;
+}
+html[data-admin-theme] body #main form .media-upload-stage .button-row {
+  gap:.5rem;
+  margin:0;
+}
+html[data-admin-theme] body #main form input[type=file]:not([hidden]) {
+  height:auto!important;
+  min-height:44px!important;
+  padding:.45rem .6rem!important;
+  border-radius:.625rem!important;
+}
+html[data-admin-theme] body #main form input[type=file]:not([hidden])::file-selector-button {
+  padding:.5rem .75rem!important;
+  border:1px solid #94a3b8;
+  border-radius:.4rem;
+}
+html[data-admin-theme] body #main form :is(.form-actions,.site-editor-actions) {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.65rem;
+}
+html[data-admin-theme] body #main .site-editor-actions {
+  margin-top:var(--admin-form-gap);
+  padding-block:.85rem;
+}
+@media(max-width:600px) {
+  html[data-admin-theme] body #main form :is(.site-editor-actions,.form-actions) {
+    position:static;
+  }
+}

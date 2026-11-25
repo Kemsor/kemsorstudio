@@ -177,3 +177,5 @@ html body #top.creative-site #main#main.inner-page :is(.finance-layout,.ep-chapt
 html body #top.creative-site #main#main.inner-page :is(.finance-layout .fl-body,.ep-body .ep-chapters) > section.standard-faq-simple:has(> .standard-faq-panel){
  width:100%!important;
 }
+
+section[data-managed-faq]:not(:has(.standard-faq-panel)) { display: none !important; }

@@ -7,7 +7,7 @@ html .creative-site #main.inner-page{
  background:#fff!important;color:#282828;
 }
 html .creative-site #main.inner-page :is(
- section,article,aside,header,form,fieldset,table,thead,tbody,tr,th,td,
+ section:not(:where(.inner-page-banner)),article,aside,header,form,fieldset,table,thead,tbody,tr,th,td,
  .ep-page,.finance-layout,.production-layout,.produce-hub,.studio-about,
  .newsroom-page,.blog-page,.contact-simple,.partner-enquiry-page,
  .auth-page,.auth-panel,.talent-directory,.production-tool-page,

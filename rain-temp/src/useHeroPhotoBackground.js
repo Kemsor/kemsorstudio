@@ -9,7 +9,7 @@ export default function useHeroPhotoBackground(enabled){
   if(!main)return;
   function update(){
    for(const hero of main.querySelectorAll('.inner-hero,.page-hero')){
-    const image=hero.querySelector('img');
+    const image=hero.querySelector('img:not(.cms-hero-image-source)');
     if(!image)continue;
     const src=image.getAttribute('src');
     if(!src)continue;
@@ -18,7 +18,7 @@ export default function useHeroPhotoBackground(enabled){
     hero.classList.add('inner-hero-photo-background');
     // Contact sheets remain authored illustrations; single-photo layouts become backgrounds.
     if(hero.querySelector('.post-overview-sheet,.make-contact-sheet'))continue;
-    const photographs=hero.classList.contains('studio-opening')?[...hero.querySelectorAll('img')]:[image];
+    const photographs=hero.classList.contains('studio-opening')?[...hero.querySelectorAll('img:not(.cms-hero-image-source)')]:[image];
     for(const photograph of photographs){
     photograph.classList.add('hero-background-source');
     for(let node=photograph.parentElement;node&&node!==hero;node=node.parentElement){

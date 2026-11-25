@@ -10,7 +10,7 @@ export function publishingChecks(values,{hasImage=false,imageAlt='',pendingUploa
  if(!['draft','published','archived'].includes(values.status))add('status','Choose a publishing status.','required');
  if(!String(values.summary||'').trim())add('summary','Add a short summary so readers know what to expect.');
  if(!String(values.body||'').trim())add('body','Add the main content before publishing.');
- if(hasImage&&!imageAlt.trim())add('image_id','This image has no description. Add one in the media library, or describe the selected upload.','required');
+ if(hasImage&&!imageAlt.trim())add('image_id','Consider adding a description for this image.','recommended');
  if(pendingUpload)add('image','Upload the selected image, or cancel its selection, before saving.','required');
  if(values.type==='career'){
   if(!String(values.role||'').trim())add('role','Add the employment or engagement type.');

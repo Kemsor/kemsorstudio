@@ -1,4 +1,4 @@
-import {publishingChecks,publishingValues} from './publishing-preview-model.js?v=3';
+import {publishingChecks,publishingValues} from './publishing-preview-model.js?v=4';
 const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;};
 function publicationErrors(form,checks){
  form.querySelector('[data-publication-errors]')?.remove();

@@ -8,7 +8,7 @@
 <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="id" value="<%= record.id||'' %>"><input type="hidden" name="revision" value="<%= record.revision %>">
 <div class="field-grid">
 <label>URL key<input name="slug" value="<%= record.slug||'' %>" required maxlength="190" pattern="[a-z0-9]+(-[a-z0-9]+)*" <%= record.id?'readonly':'' %>><small>Use lowercase words with hyphens. This stays fixed after creation.</small></label>
-<label>Display order<input type="number" name="position" value="<%= data.position||1 %>" min="1" max="1000" required><small>Lower numbers appear first after publishing.</small></label>
+<label>Display order<input type="number" name="position" value="<%= data.position||1 %>" min="1" max="1000" required><small><%= legal?'Lower numbers appear first after publishing.':'The homepage selects the two highest values and plays those slides in ascending order.' %></small></label>
 <% if(legal){ %>
 <label class="wide">Document title<input name="title" maxlength="200" value="<%= data.title||'' %>" required></label>
 <label class="wide">Short description<textarea name="description" rows="2" maxlength="2000"><%= data.description||'' %></textarea></label>
@@ -22,7 +22,7 @@
 <% }else{ %>
 <label class="wide">Slide name<input name="label" maxlength="100" value="<%= data.label||'' %>" required></label>
 <label class="wide">Direct MP4 video URL<input name="src" maxlength="1500" value="<%= data.src||'' %>" required><small>Use an existing /assets/ path or a direct HTTPS MP4 URL. YouTube page links cannot play here.</small></label>
-<label class="wide">Poster image<input name="poster" maxlength="1500" value="<%= data.poster||'' %>" required><small>Upload a poster below, paste an existing /assets/ path, or use an approved HTTPS image URL.</small></label>
+<label class="wide">Poster image<input name="poster" maxlength="1500" value="<%= data.poster||'' %>" required><small>Upload a poster, paste an existing /assets/ path, or use an approved HTTPS image URL.</small></label>
 
 <label>Slide duration (seconds)<input type="number" name="duration" min="3" max="30" step="0.5" value="<%= data.duration||5 %>" required></label><label>Video start time (seconds)<input type="number" name="startAt" min="0" max="3600" step="0.1" value="<%= data.startAt||0 %>"></label>
 <label class="wide">Heading override<input name="title" maxlength="200" value="<%= data.title||'' %>"><small>Leave blank to keep the current shared heading.</small></label>

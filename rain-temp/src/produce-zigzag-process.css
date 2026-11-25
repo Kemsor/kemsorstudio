@@ -1,7 +1,4 @@
 /* Shared full-bleed zigzag process used by every Produce workflow. */
-html body #top.creative-site #main.inner-page .production-layout .pl-process:has(.produce-process-zigzag):has(+ .pl-section .audience-collage) {
- border-bottom:0;
-}
 html body #top.creative-site #main#main.inner-page .production-layout .produce-process.produce-process-zigzag.produce-process-zigzag{
  width:100vw!important;max-width:none!important;margin-left:calc(50% - 50vw)!important;
  padding:clamp(54px,6vw,86px) var(--produce-band-gutter) clamp(62px,7vw,96px)!important;

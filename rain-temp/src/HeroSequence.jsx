@@ -1,3 +1,4 @@
+import {resolveBundledHeroSlide} from '../../shared/hero-slide-media.js';
 import originalSlides from '../../shared/hero-slides.json';
 import {useCookieConsent} from './CookieConsent';
 import StudioImage from './StudioImage';
@@ -8,29 +9,25 @@ import { useCms } from './CmsContent';
 import { CTA } from './PageUI';
 import StudioClipViewer from './StudioClipViewer';
 import {heroSwipeDirection} from './hero-swipe';
+import {removeTrailingTitlePeriods} from './hero-title';
 import './hero-swipe.css';
 
 const localAsset=value=>value?.startsWith('/')&&!value.startsWith('//')&&!(import.meta.env.BASE_URL!=='/'&&value.startsWith(import.meta.env.BASE_URL))?`${import.meta.env.BASE_URL}${value.slice(1)}`:value;
 export default function HeroSequence(props) {
  const {heroSlides}=useCms();
  const {preferences,openPreferences}=useCookieConsent();
- const availableSlides=Array.isArray(heroSlides)&&heroSlides.length?heroSlides:originalSlides;
- const slides=availableSlides.slice(-2);
+ const slides=Array.isArray(heroSlides)?heroSlides.slice(-2):originalSlides.slice(-2);
  const external=value=>value&&new URL(value,location.origin).origin!==location.origin;
  const films=slides.map(record=>{
-  // A published CMS record may still reference the earlier bundled films.
-  const replacement=originalSlides.find(item=>item.previousSrc && localAsset(item.previousSrc)===localAsset(record.src));
-  const previousPoster=replacement?.previousSrc.replace('.mp4','-960.webp');
-  const slide=replacement && localAsset(previousPoster)===localAsset(record.poster)
-   ? {...record,src:replacement.src,poster:replacement.poster,posterSrcSet:replacement.posterSrcSet}
-   : record;
+  const slide=resolveBundledHeroSlide(record,localAsset);
   const requiresConsent=Boolean((external(slide.src)||external(slide.poster))&&!preferences?.externalMedia);
   const poster=requiresConsent&&external(slide.poster)?originalSlides[0].poster:slide.poster;
   const original = originalSlides.find(item => localAsset(item.src) === localAsset(slide.src));
   const preview = !requiresConsent && original?.preview && (slide.startAt || 0) === 0 && (slide.duration || 5) <= 5 ? localAsset(original.preview) : undefined;
   return {...slide,requiresConsent,preview,src:requiresConsent?'':localAsset(slide.src),poster:localAsset(poster),posterSrcSet:requiresConsent?'':(slide.posterSrcSet||'').split(', ').filter(Boolean).map(source=>{const [url,width]=source.split(' ');return `${localAsset(url)} ${width}`;}).join(', ')};
  });
- return <HeroPlayback key={JSON.stringify(films)} {...props} films={films} openPreferences={openPreferences}/>;
+ const visibleFilms=films.length?films:[{label:'Kemsor Studios',src:'',poster:''}];
+ return <HeroPlayback key={JSON.stringify(visibleFilms)} {...props} films={visibleFilms} openPreferences={openPreferences}/>;
 }
 function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferences }) {
   const { entries } = useCms();
@@ -42,6 +39,7 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
   const viewer = useRef(null);
   const [expanded, setExpanded] = useState(false);
   const [active, setActive] = useState(0);
+  const mainTitle = films[active].title || (customTitle ? hero.title : '');
   const [outgoing, setOutgoing] = useState(null);
   const gesture=useRef(null);
   const [dragging,setDragging]=useState(false);
@@ -142,7 +140,7 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
     onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={resetDrag} onLostPointerCapture={event=>{if(event.target===event.currentTarget)resetDrag();}}>
     <div className="opening-screen">
     <div className="opening-films" aria-hidden="true">{films.map((film, index) => <div className="opening-film" key={film.id||film.slug||index} data-active={active === index} data-outgoing={outgoing === index} data-entering={active === index && outgoing !== null} data-ready={!blocked && ready[index] && !failed[index]}>
-      {(requestedPosters[index] || index === active) && <StudioImage mediaSlot="HeroSequence-1" src={film.poster} srcSet={film.posterSrcSet || undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'low'} decoding="async"
+      {film.poster && (requestedPosters[index] || index === active) && <StudioImage mediaSlot="HeroSequence-1" src={film.poster} srcSet={film.posterSrcSet || undefined} sizes="100vw" alt="" width="1280" height="720" loading={index === 0 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'low'} decoding="async"
         onLoad={index === 0 ? () => setFirstPosterSettled(true) : undefined} onError={index === 0 ? () => setFirstPosterSettled(true) : undefined} />}
       <video ref={element => { videos.current[index] = element; }} src={film.src && enabled && !blocked && (active === index || outgoing === index) ? (film.preview || film.src) : undefined} muted loop playsInline preload="none"
         onLoadedMetadata={event => { if (film.startAt && event.currentTarget.currentTime < film.startAt) event.currentTarget.currentTime = film.startAt; }}
@@ -155,12 +153,12 @@ function HeroPlayback({ motionPaused = false, reduced = false,films,openPreferen
     <div className="opening-shade" aria-hidden="true" />
     <div className="opening-copy">
       <p className="opening-eyebrow">{films[active].eyebrow||'FILM & PRODUCTION PARTNER'}</p>
-      <h1 id="opening-title">{films[active].title || (customTitle ? hero.title : <><span>From your first page.</span><span className="heading-accent">To the <em>big screen.</em></span></>)}</h1>
+      <h1 id="opening-title">{mainTitle ? removeTrailingTitlePeriods(mainTitle) : <><span>From your first page</span><span className="heading-accent">To the <em>big screen</em></span></>}</h1>
       <p className="opening-description">{films[active].description || (customSummary ? hero.summary : 'Creative ambition. Practical production. Kemsor is the studio for the journey in between, from development and financing to the shoot, post and release.')}</p>
       <div className="opening-actions"><CTA href={localAsset(films[active].buttonHref)||"/partner-with-us/"}>{films[active].buttonLabel||'Partner with us'}</CTA><a className="opening-watch" href="#showreel"><RollingLabel>Watch the showreel</RollingLabel></a></div>
     </div>
       <div className="opening-playback-tools" role="group" aria-label="Hero video controls">
-        <button type="button" className="opening-next" disabled={films.length<2} onClick={() => { advance(); setPaused(false); }} aria-label={`Play next hero film: ${films[(active + 1) % films.length].label}`}><span>Next</span><SiteIcon name="arrow" size={17} /></button>
+        {films.length>1&&<button type="button" className="opening-next" onClick={() => { advance(); setPaused(false); }} aria-label={`Play next hero film: ${films[(active + 1) % films.length].label}`}><span>Next</span><SiteIcon name="arrow" size={17} /></button>}
         {films[active].src&&<button type="button" className="opening-fullscreen" onClick={() => viewer.current.open(films[active], videos.current[active]?.currentTime || 0)} aria-label={`View ${films[active].label} fullscreen`} title="Fullscreen video"><SiteIcon name="expand" size={16} /></button>}
         {films[active].requiresConsent&&<button type="button" onClick={openPreferences}>Video preferences</button>}
       </div>

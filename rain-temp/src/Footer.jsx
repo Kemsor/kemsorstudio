@@ -1,4 +1,4 @@
-import footerNavigation from '../../shared/footer-navigation.json';
+import {footerMenu,footerSocialProfiles} from './menu-catalogue';
 import {applyNavigation,cmsText,getSiteModule} from './siteContent';
 import {legalHref} from './LegalDocument';
 import { useCookieConsent } from './CookieConsent';
@@ -15,51 +15,40 @@ import './footer-grid.css';
 import { useCms } from './CmsContent';
 
 // Official brand artwork; Lucide intentionally excludes social brand logos.
-const socials = [
- {name:'Facebook',href:'https://www.facebook.com/kemsorstudio',icon:faFacebookF},
- {name:'Instagram',href:'https://www.instagram.com/kemsorstudio/',icon:faInstagram},
- {name:'YouTube',href:null,icon:faYoutube},
- {name:'LinkedIn',href:null,icon:faLinkedinIn},
-];
+const socialIcons={facebook:faFacebookF,instagram:faInstagram,youtube:faYoutube,linkedin:faLinkedinIn,whatsapp:faWhatsapp};
 
-function SocialIcons() {
-  const { settings } = useCms();
-  const {whatsapp,whatsappHref}=getStudioContacts(settings);
-  const links=[...socials,...(whatsapp?[{name:'WhatsApp',href:whatsappHref,icon:faWhatsapp}]:[])];
-  return <div className="footer-socials" role="group" aria-label="Kemsor social media">
-    {links.map(({ name, href: fallback, icon }) => {
-      const configured = name==='WhatsApp'?whatsappHref:settings[name.toLowerCase()];
-      const href = typeof configured === 'string' ? configured : fallback;
-      const [width,height,,,path] = icon.icon;
-      const graphic = <svg viewBox={`0 0 ${width} ${height}`} fill="currentColor" aria-hidden="true" focusable="false"><path d={path} /></svg>;
-      const className = `footer-social-icon footer-social-${name.toLowerCase()}`;
-      return href ? <a key={name} className={className} href={href} target="_blank" rel="noopener noreferrer" aria-label={name==='WhatsApp'?`WhatsApp only: ${whatsapp}`:`Kemsor on ${name}`} title={name==='WhatsApp'?`WhatsApp: ${whatsapp}`:name}>{graphic}</a> : <span key={name} className={className} role="img" aria-label={`${name}: profile link coming soon`} title={`${name}: profile link coming soon`}>{graphic}</span>;
-    })}
+function SocialIcons({settings}) {
+  const menu=getSiteModule('navigation',{});
+  const links=footerSocialProfiles(settings).filter(({id,href})=>href&&menu[`footer.social.${id}.enabled`]!==false);
+  if(!links.length)return null;
+  return <div className="footer-grid-social-group">
+    <p>{settings.footer_social_label||'Follow the frame'}</p>
+    <div className="footer-socials" role="group" aria-label="Kemsor social media">
+      {links.map(({id,label,href})=>{
+        const [width,height,,,path]=socialIcons[id].icon;
+        return <a key={id} className={`footer-social-icon footer-social-${id}`} href={href} target="_blank" rel="noopener noreferrer" aria-label={`Kemsor on ${label}`} title={label}>
+          <svg viewBox={`0 0 ${width} ${height}`} fill="currentColor" aria-hidden="true" focusable="false"><path d={path}/></svg>
+        </a>;
+      })}
+    </div>
   </div>;
 }
-
-
 
 export default function Footer({ reduced, page = 'home' }) {
   const {openPreferences}=useCookieConsent();
   const {settings,legalDocuments}=useCms();
-  const groups=applyNavigation(footerNavigation,'footer').map(group=>({...group,links:group.links.map(link=>link.page==='script-to-production'?['FilmDesk',link.page,'/filmdesk/']:[link.label,link.page,link.href])})).map(group=>({...group,links:group.links.flatMap(link=>link[1]==='privacy-policy'&&Array.isArray(legalDocuments)?legalDocuments.filter(document=>document.footer).map(document=>[document.footerLabel||document.title,document.slug,legalHref(document.slug)]):[link])}));
-  if(!groups.some(group=>group.links.some(link=>link[1]==='script-to-production'))){
-    const involved=groups.find(group=>group.id==='explore');
-    if(involved)involved.links.push(['FilmDesk','script-to-production','/filmdesk/']);
-    else groups.push({id:'explore',title:'Get involved',links:[['FilmDesk','script-to-production','/filmdesk/']]});
-  }
+  const groups=applyNavigation(footerMenu,'footer').map(group=>({...group,links:group.links.map(link=>[link.label,link.page,link.href])})).map(group=>({...group,links:group.links.flatMap(link=>link[1]==='privacy-policy'&&Array.isArray(legalDocuments)?legalDocuments.filter(document=>document.footer).map(document=>[document.footerLabel||document.title,document.slug,legalHref(document.slug)]):[link])}));
   const {email,phone,phoneHref,landline,landlineHref}=getStudioContacts(settings);
   const address = settings.contact_address && !/sample|example/i.test(settings.contact_address) ? settings.contact_address : studioAddress;
   const branding=getSiteModule('branding',{});
-  const orderedGroups=[...groups].sort((a,b)=>['studio','explore','connected'].indexOf(a.id)-['studio','explore','connected'].indexOf(b.id));
+  const orderedGroups=[...groups].sort((a,b)=>['studio','explore','connected','custom'].indexOf(a.id)-['studio','explore','connected','custom'].indexOf(b.id));
   return <footer id="studio-footer" className="creative-footer footer-grid">
     <div className="footer-grid-layout">
       <div className="footer-grid-brand-column">
         <a className="footer-grid-brand" href="/" aria-label="Kemsor Studios home">
           <img src={branding.logo||'/assets/kemsor-logo.webp'} alt="" width="250" height="250" loading="lazy" decoding="async"/>
         </a>
-        <div className="footer-grid-social-group"><p>{settings.footer_social_label||'Follow the frame'}</p><SocialIcons/></div>
+        <SocialIcons settings={settings}/>
       </div>
       <div className="footer-grid-information">
         <nav className="footer-grid-navigation" aria-label="Footer navigation">{orderedGroups.map(group=><div className="footer-grid-link-group" key={group.id}>

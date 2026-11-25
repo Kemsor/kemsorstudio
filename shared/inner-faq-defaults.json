@@ -1,0 +1,486 @@
+{
+  "budgeting-scheduling": [
+    [
+      "How accurate is a development budget?",
+      "As accurate as the script and assumptions behind it. We log every assumption and update the budget as the project firms up."
+    ],
+    [
+      "Can you budget from a treatment?",
+      "Yes, as an early estimate range. A detailed budget needs a script."
+    ],
+    [
+      "Is the budget used once production starts?",
+      "Yes. It becomes the baseline that Line Production manages against."
+    ],
+    [
+      "Can you re-budget an existing budget?",
+      "Yes. We review it against the script and production realities, and show you where it holds and where it doesn’t."
+    ]
+  ],
+  "casting": [
+    [
+      "Can actors apply to work with Kemsor?",
+      "Yes. Performers can join the Kemsor Talent Network."
+    ],
+    [
+      "Can you coordinate talent we have already cast?",
+      "Yes. We can take on scheduling and on-set coordination for talent you have already confirmed."
+    ]
+  ],
+  "co-production": [
+    [
+      "We already have a partner. Can you still help?",
+      "Yes. We can align an existing partnership, prepare the Partner Alignment Brief, or run the production for it."
+    ],
+    [
+      "Do you draft co-production agreements?",
+      "No. Your lawyers draft the agreement. We prepare the production-side terms they work from: budget, schedule, contributions and responsibilities."
+    ],
+    [
+      "Can Kemsor be our co-production partner?",
+      "Yes, depending on the project. Tell us about it, and we’ll discuss the role that fits."
+    ],
+    [
+      "Is this for international partners too?",
+      "For partners in different countries, see International Co-Productions."
+    ]
+  ],
+  "crew-equipment": [
+    [
+      "Can you crew just one department?",
+      "Yes. We can provide a full crew or specific roles to suit the project."
+    ],
+    [
+      "Do you supply equipment directly?",
+      "We plan and source equipment to suit the shoot and budget, and manage it through to return."
+    ],
+    [
+      "Can crew members join Kemsor’s network?",
+      "Yes. Crew can join the Kemsor Talent Network to be considered for future productions."
+    ]
+  ],
+  "develop": [
+    [
+      "Do I need a finished script?",
+      "No. An idea, a treatment or an early draft is enough to start a conversation."
+    ],
+    [
+      "Which service do I start with?",
+      "Still shaping the story? Story & Script Development. Script ready, need people and a pitch? Packaging & Talent Attachment. Need to know what it costs? Budgeting & Scheduling."
+    ],
+    [
+      "How do I share my work safely?",
+      "Send it through FilmDesk, where terms are accepted before any submission is reviewed."
+    ],
+    [
+      "What happens after development?",
+      "Projects move into 02 Finance to secure funding, or straight into 03 Produce with the same Kemsor team."
+    ]
+  ],
+  "distribution-release": [
+    [
+      "Do you negotiate distribution deals?",
+      "We coordinate with platforms and distributors and prepare everything they need. Rights holders and buyers agree on commercial terms, with their own legal advisors."
+    ],
+    [
+      "Can you deliver to a platform’s specification?",
+      "Yes. We build and check deliverables against the specification each platform or distributor provides."
+    ],
+    [
+      "Do you make the trailer and poster?",
+      "We plan and coordinate marketing materials with the right creative teams, so they’re ready on time and to spec."
+    ],
+    [
+      "What if a delivery fails QC?",
+      "We work through the QC notes, fix what’s needed, and redeliver."
+    ]
+  ],
+  "documentaries": [
+    [
+      "I’ve already shot footage. Can you help?",
+      "Yes. We review what you have, find the story in it, and plan what’s still needed."
+    ],
+    [
+      "How long does a documentary take?",
+      "Often longer than a fiction film of the same length, because the story is found as you film. We plan and budget in phases."
+    ],
+    [
+      "Can you help with archive footage?",
+      "We coordinate sourcing and clearance of archive, working with your legal advisors."
+    ],
+    [
+      "Do you make corporate or brand documentaries?",
+      "This page covers independent documentaries. Talk to us about other projects, and we’ll tell you honestly if we’re the right fit."
+    ]
+  ],
+  "feature-films": [
+    [
+      "Do I have to use Kemsor for every stage?",
+      "No. Pick the stage you need. Many features use us for one stage only."
+    ],
+    [
+      "Do I need a star attached to get financed?",
+      "It can help, but it isn’t the only thing financiers look at. A strong script, an honest package and a budget that holds up often matter as much."
+    ],
+    [
+      "Can a feature be made well on a modest budget?",
+      "Yes, if it’s planned for that budget from the start. We show scenario budgets and what each one changes on screen."
+    ],
+    [
+      "Can you step in when a feature has stalled?",
+      "Yes. We look at where it’s stuck, what’s already in place, and re-plan from there."
+    ]
+  ],
+  "festival-awards": [
+    [
+      "Can you get my film into a festival?",
+      "No one honestly can. We give the film its best chance: the right targets, strong materials, and on-time submissions."
+    ],
+    [
+      "Should a short film do festivals?",
+      "Often, yes. Festivals are one of the main ways short films find audiences and recognition. We’ll help you choose the right ones."
+    ],
+    [
+      "My film has already screened. Is it too late?",
+      "Not necessarily. Many festivals accept regional or other premiere status. We check each one."
+    ],
+    [
+      "How much does a festival run cost?",
+      "It depends on the number of festivals, fees, and travel. We plan a festival budget with you before submissions begin."
+    ]
+  ],
+  "finance": [
+    [
+      "Do you guarantee funding for my project?",
+      "No. Financing depends on the project and the decisions of potential partners. We help prepare the materials and production plan for those discussions."
+    ],
+    [
+      "What do I need before we talk?",
+      "A script or a strong treatment is enough to start. We help build the rest: the creative package, budget, schedule and production plan."
+    ],
+    [
+      "Can investors approach Kemsor looking for projects?",
+      "Yes. Financiers and investors are welcome to start a conversation about projects in development across features, series, documentaries and short films."
+    ],
+    [
+      "Which finance service do I need?",
+      "Need a plan for how the project is funded? Start with Finance Structuring. Making it with another company? Co-Production. Partners in other countries? International Co-Productions. Not sure? Start a conversation and we’ll point you to the right one."
+    ],
+    [
+      "Does Kemsor give investment advice?",
+      "No. We coordinate financing and production planning. Investors and creators should take their own financial, legal and tax advice."
+    ]
+  ],
+  "finance-structuring": [
+    [
+      "Is finance structuring the same as investment advice?",
+      "No. We build the production-side finance plan, covering budget, sources, timing and reporting. Investors and producers agree terms with their own financial, legal and tax advisors."
+    ],
+    [
+      "Can you structure a project that is already part-funded?",
+      "Yes. We map what is committed, then plan how to close the gap without changing what the story needs."
+    ],
+    [
+      "Do you work with our lawyers and accountants?",
+      "Yes. They handle agreements and tax; we give them clear production numbers and plans to work from."
+    ],
+    [
+      "Do I need a finished script?",
+      "A script or strong treatment is enough to start. A first budget can be built early and refined as the project develops."
+    ]
+  ],
+  "india-production-services": [
+    [
+      "How far ahead should we start planning?",
+      "As early as you can. Permissions, locations, and key crew all take time to secure, and earlier planning gives you more choice. If your timeline is short, tell us anyway, and we’ll be honest about what is realistic."
+    ],
+    [
+      "Can you handle just one part of our shoot?",
+      "Yes. Many productions use us for locations, crew, or line production only. We fit around your team."
+    ],
+    [
+      "Will we work with one person or many?",
+      "You will have one named Kemsor lead, supported by department heads as the shoot needs them."
+    ],
+    [
+      "How will costs be reported?",
+      "In the currency and format we agree on at the start, with regular cost reports during preparation and the shoot."
+    ],
+    [
+      "Can Kemsor co-produce, not just service the shoot?",
+      "Yes, depending on the project. See ."
+    ],
+    [
+      "Do you help with incentives and visas?",
+      "We prepare the production documentation those processes need. Eligibility and individual visa routes are confirmed by your advisors and the relevant authorities."
+    ]
+  ],
+  "international-co-productions": [
+    [
+      "Do you handle official treaty co-production applications?",
+      "We prepare the production-side documents. Eligibility and applications are handled with partners’ legal advisors and the relevant authorities."
+    ],
+    [
+      "Can international crews film in India with your support?",
+      "Yes. Our India Production Services cover line production, locations and logistics, crew and equipment, and casting coordination."
+    ],
+    [
+      "Which countries do you work with?",
+      "We welcome conversations with partners from any market."
+    ],
+    [
+      "Can you help an Indian project find international partners?",
+      "Yes. We package the project with a clear budget and plan, and bring international partners into the conversation."
+    ]
+  ],
+  "line-production": [
+    [
+      "Can you come on board for just the shoot?",
+      "Yes. We provide focused line production on a single shoot, or partnership across the full production lifecycle."
+    ],
+    [
+      "Can you work alongside our existing producer?",
+      "Yes. We work with the producers already on the project, taking on the day-to-day running of the production."
+    ],
+    [
+      "How do you handle budget pressure during a shoot?",
+      "We flag risks and changes early and offer options, giving you time to decide before the money is spent."
+    ]
+  ],
+  "locations-logistics": [
+    [
+      "Can you scout before we finalise the budget?",
+      "Yes. Early scouting helps shape a budget and schedule grounded in production realities."
+    ],
+    [
+      "Do you support international productions filming in India?",
+      "Yes. Our India Production Services cover locations and logistics for visiting productions."
+    ],
+    [
+      "Can you manage locations we have already found?",
+      "Yes. We can take on agreements, permissions coordination and shoot-day management for locations you’ve chosen."
+    ]
+  ],
+  "packaging-talent": [
+    [
+      "Can you guarantee a star will attach?",
+      "No. Talent attachments depend on availability and agreement. We prepare the project package, approach suitable people and report the status of each conversation."
+    ],
+    [
+      "Do you only use the Kemsor Talent Network?",
+      "No. The Talent Network is one source; we also draw on wider industry relationships."
+    ],
+    [
+      "How long does packaging take?",
+      "It depends on the project and on talent availability. We agree a plan and timeline at the start."
+    ],
+    [
+      "Who handles talent agreements?",
+      "Your legal team handles agreements. We coordinate the conversations and the paperwork flow."
+    ]
+  ],
+  "post-production": [
+    [
+      "What is post-production in film?",
+      "Post-production is everything that happens after the shoot: editing, sound, colour grading, VFX, music and delivery. It’s the stage where footage becomes a finished film."
+    ],
+    [
+      "What does a post-production supervisor do?",
+      "A post-production supervisor plans and runs the whole post pipeline. That means the schedule, the budget, the teams, the review rounds and the final deliverables, so every department stays in sync until the master is delivered."
+    ],
+    [
+      "I already have an editor. Do I need post-production supervision?",
+      "Your editor shapes the cut. Supervision keeps the sound, colour, VFX, music and delivery teams working to the same schedule and budget around that cut. The two roles work best together."
+    ],
+    [
+      "When should post-production supervision start?",
+      "Ideally before the shoot, so workflow, data handling and delivery requirements are planned from day one. Most projects come to us after wrap, and that works well too."
+    ],
+    [
+      "Can you finish a film shot by another company?",
+      "Yes. We regularly take over projects that were shot elsewhere, check the footage and records, and plan the post-production workflow from there."
+    ],
+    [
+      "Is it too late if we’re already deep in post?",
+      "No. We can take over a stalled film edit, re-plan the schedule and budget, and get the film delivered."
+    ],
+    [
+      "What happens if we need changes after picture lock?",
+      "Changes are possible, but each one can affect sound, VFX, colour and music. We show you the time and cost before anything is committed, so you can decide with full information."
+    ],
+    [
+      "What deliverables do OTT platforms require?",
+      "Usually a picture master, a final mix and stems, subtitles and captions, delivery paperwork and a QC report. The exact list comes from each platform’s own spec, such as Netflix or Amazon Prime delivery specs, and we build to that."
+    ],
+    [
+      "Which formats do you finish?",
+      "Feature films, web series and OTT projects, documentaries and short films."
+    ],
+    [
+      "Do you edit, mix and grade in-house?",
+      "We supervise the full post pipeline and bring in the right editorial, sound, colour and VFX teams for each project."
+    ]
+  ],
+  "produce": [
+    [
+      "Can we use just one of these services?",
+      "Yes. Scope is shaped to the project, never imposed as a fixed package. Bring us in for a single service, a single shoot, or the full production."
+    ],
+    [
+      "Which formats do you produce?",
+      "Feature films, series and OTT content, documentaries and short films, including regional cinema and international co-productions."
+    ],
+    [
+      "Can you join a project already in progress?",
+      "Yes. Bring us in at the start, or at the stage where you need us most."
+    ]
+  ],
+  "productions": [
+    [
+      "What does KEMSOR Studios produce?",
+      "Feature films, series for OTT platforms, documentaries and short films. Each project is developed, financed and produced in-house."
+    ],
+    [
+      "Do you accept scripts from new writers and directors?",
+      "Yes. Use Start a Project to share a logline and a short synopsis. Full scripts are reviewed only after you accept our submission terms."
+    ],
+    [
+      "Do you produce web series for OTT platforms?",
+      "Yes. We develop and produce scripted and unscripted series and deliver them to each platform’s technical specifications."
+    ],
+    [
+      "Can international producers shoot in India with KEMSOR?",
+      "Yes. Our India Production Services team handles line production, permits, locations, crew and equipment."
+    ],
+    [
+      "Where is KEMSOR Studios based?",
+      "In Dehradun, India, with productions across the country."
+    ]
+  ],
+  "release": [
+    [
+      "When should we start planning the release?",
+      "Ideally in development, and no later than post-production. Festival deadlines and platform requirements shape decisions long before delivery."
+    ],
+    [
+      "Do you negotiate distribution deals?",
+      "We coordinate with platforms and distributors and prepare everything they need. Commercial terms are agreed between rights holders and buyers, with their own legal advisors."
+    ],
+    [
+      "Can you help release a film you didn’t produce?",
+      "Yes. Bring us the finished film, and we’ll plan its release."
+    ],
+    [
+      "Festivals first, or straight to a platform?",
+      "It depends on the film, its audience, and its premiere value. We’ll help you weigh it; see Festival & Awards Strategy."
+    ]
+  ],
+  "series-ott": [
+    [
+      "Do I need the whole season written?",
+      "Usually not. A pilot script, a season arc and a series bible are often enough to start conversations."
+    ],
+    [
+      "Do you take series to platforms?",
+      "We prepare and package the series with you, and coordinate conversations with platforms where it’s the right fit."
+    ],
+    [
+      "Can you produce a series that’s already commissioned?",
+      "Yes. We can plan and run production for a commissioned season, or the parts you need."
+    ],
+    [
+      "Do you make docuseries?",
+      "Yes. We plan research, access and an episodic story shape that can adapt as filming unfolds."
+    ]
+  ],
+  "set-production-design": [
+    [
+      "Do you work with our own production designer?",
+      "Yes. We can support your designer with planning, builds and art department coordination."
+    ],
+    [
+      "Can you design for both studio sets and real locations?",
+      "Yes. We build sets and dress real locations, depending on what the story needs."
+    ],
+    [
+      "How do you keep design within budget?",
+      "Design costs and build timelines are planned alongside the production budget from the start."
+    ]
+  ],
+  "shooting-on-location": [
+    [
+      "Can you run a single shoot day or a short shoot?",
+      "Yes. From a single day to a long series schedule, scope is shaped to the project."
+    ],
+    [
+      "How do you handle changes on the day?",
+      "We flag issues early with options, so the director and producers can decide quickly and keep shooting."
+    ],
+    [
+      "Do you hand footage directly to post-production?",
+      "Yes. Footage and production records are handed to post in order, ready for the edit."
+    ]
+  ],
+  "short-films": [
+    [
+      "How long should a short film be?",
+      "As long as the story needs, and no longer. Many festivals set their own maximum running times, so check before you shoot."
+    ],
+    [
+      "Can a short become a feature or series?",
+      "Yes. A proof of concept can help a project move into feature or series development, and we can support that next stage."
+    ],
+    [
+      "Can I find cast and crew through Kemsor?",
+      "Yes, through the Kemsor Talent Network."
+    ],
+    [
+      "Do you fund short films?",
+      "We help plan and produce shorts. Talk to us about how yours is funded and we’ll help you build the plan."
+    ]
+  ],
+  "story-script": [
+    [
+      "Will you rewrite my script?",
+      "No. You lead the rewrite. We give notes, talk them through and support each draft."
+    ],
+    [
+      "Is my work safe when I share it?",
+      "Scripts are shared through FilmDesk, where terms are accepted before any review."
+    ],
+    [
+      "Can you develop documentaries?",
+      "Yes. For documentaries, we develop the research, access plan, and story outline, knowing the story will evolve during the shoot."
+    ],
+    [
+      "What if the script isn’t ready yet?",
+      "That’s what development is for. An idea or treatment is enough to begin."
+    ]
+  ],
+  "artist-digital-media-studio": [
+    [
+      "I’m new to acting. What should my first portfolio include?",
+      "A headshot, a profile shot, a full-length shot, and a short intro video. Two or three looks is enough. We’ll plan them with you on the brief call."
+    ],
+    [
+      "Will a Kemsor portfolio get me into a Kemsor production?",
+      "No portfolio guarantees a role. With your consent, your profile can be added to the Kemsor Talent Network that our casting team searches."
+    ],
+    [
+      "Do I need experience in front of the camera?",
+      "No. A director guides you through every frame, the same way we work with actors on set."
+    ],
+    [
+      "Can you shoot in my language?",
+      "Yes. We shoot in Hindi, English, or regional languages, with captions."
+    ],
+    [
+      "What should I bring to the shoot?",
+      "The outfits agreed in prep, any props or instruments, and references you love. We send a checklist before the day."
+    ],
+    [
+      "Who owns the photos and videos?",
+      "You can use them for your portfolio, social media, and promotion. Commercial and paid-ad use is agreed in your quote."
+    ]
+  ]
+}

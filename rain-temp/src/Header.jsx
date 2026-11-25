@@ -5,7 +5,7 @@ import AccountDropdown from './AccountDropdown';
 import SiteIcon from './SiteIcon';
 import React, { useEffect, useRef, useState } from 'react';
 import {createPortal} from 'react-dom';
-import { navigation as defaultNavigation } from './navigation';
+import { headerMenu, headerCta } from './menu-catalogue';
 import './header.css';
 import {createHeaderScroll} from './header-scroll';
 import {useMember} from './MemberSession';
@@ -86,11 +86,14 @@ export default function Header({ page = 'home' } = {}) {
       cancelAnimationFrame(frame);
     };
   }, []);
-  let currentItem = { 'documentaries':'capabilities', 'series-ott':'capabilities', 'short-films':'capabilities', 'feature-films':'capabilities', 'india-production-services':'india', post:'capabilities', 'post-production':'capabilities', release:'capabilities', 'distribution-release':'capabilities', 'festival-awards':'capabilities', 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', 'how-we-work':'studio', careers: 'studio', 'shooting-on-location': 'capabilities', 'set-production-design': 'capabilities', 'locations-logistics': 'capabilities', 'crew-equipment': 'capabilities', 'story-script': 'capabilities', 'packaging-talent': 'capabilities', 'budgeting-scheduling': 'capabilities', develop: 'capabilities', finance: 'capabilities', 'co-production': 'capabilities', 'finance-structuring': 'capabilities', 'international-co-productions': 'capabilities', 'what-we-make': 'capabilities', casting: 'capabilities', 'line-production': 'capabilities', produce: 'capabilities', services: 'capabilities', 'person-detail':'productions','production-detail':'productions', productions: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
+  let currentItem = { 'documentaries':'capabilities', 'series-ott':'capabilities', 'short-films':'capabilities', 'feature-films':'capabilities', 'india-production-services':'india', 'post-production':'capabilities','artist-digital-media-studio':'capabilities', release:'capabilities', 'distribution-release':'capabilities', 'festival-awards':'capabilities', 'find-talent':'talent',join:'talent',login:'talent',profile:'talent','script-to-production':'script-tool', about: 'studio', 'how-we-work':'studio', careers: 'studio', 'shooting-on-location': 'capabilities', 'set-production-design': 'capabilities', 'locations-logistics': 'capabilities', 'crew-equipment': 'capabilities', 'story-script': 'capabilities', 'packaging-talent': 'capabilities', 'budgeting-scheduling': 'capabilities', develop: 'capabilities', finance: 'capabilities', 'co-production': 'capabilities', 'finance-structuring': 'capabilities', 'international-co-productions': 'capabilities', 'what-we-make': 'capabilities', casting: 'capabilities', 'line-production': 'capabilities', produce: 'capabilities', services: 'capabilities', 'person-detail':'productions','production-detail':'productions', productions: 'productions', news: 'newsroom', blog: 'blog', contact: 'project' }[page];
   if (page === 'services' && currentHash === '#india-production-services') currentItem = 'india';
   if (page === 'services' && currentHash === '#production-process') currentItem = 'studio';
   if (page === 'contact' && ['#filmmakers', '#studios', '#co-producers', '#international-productions'].includes(currentHash)) currentItem = 'partners';
-  const navigationItems = applyNavigation(defaultNavigation);
+  const navigationItems = applyNavigation(headerMenu);
+  const navSettings=getSiteModule('navigation',{});
+  const ctaLabel=navSettings['header.cta.label']||headerCta.label;
+  const ctaHref=navSettings['header.cta.href']||headerCta.href;
   const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
   const matchesPath = href => new URL(href, window.location.href).pathname.replace(/\/+$/, '') === currentPath;
   const dropdownLinks = navigationItems.flatMap(item => item.groups?.flatMap(group => group.links) || []);
@@ -281,7 +284,7 @@ export default function Header({ page = 'home' } = {}) {
         </a>
         {!drawerMode&&navigation}
         <div className="creative-header-controls">
-          {!loading&&user?.role!=='artist'&&<a href="/contact/" className="header-script-tool" aria-current={page==='contact'?'page':undefined}><b className="cta-label">Talk to studio</b> <span aria-hidden="true"><SiteIcon name="arrow-right" size={16} /></span></a>}
+          {!loading&&user?.role!=='artist'&&<a href={ctaHref} className="header-script-tool" aria-current={matchesPath(ctaHref)?'page':undefined}><b className="cta-label">{ctaLabel}</b> <span aria-hidden="true"><SiteIcon name="arrow-right" size={16} /></span></a>}
           <div className="header-account-links" aria-label="Account links"><AccountDropdown onOpenChange={setAccountOpen}/></div>
           <button ref={toggleRef} type="button" className="creative-nav-toggle" aria-expanded={drawerOpen} aria-controls="creative-navigation" onClick={() => { if (drawerOpen) closeDrawer(); else { clearHoverTimer(); setActivePanel(null); setActiveGroup(null); setDrawerOpen(true); } }}>
             <span>{drawerOpen ? 'Close' : 'Menu'}</span><span className="creative-nav-toggle-icon" aria-hidden="true"><SiteIcon name={drawerOpen?'close':'menu'} size={23} /></span>

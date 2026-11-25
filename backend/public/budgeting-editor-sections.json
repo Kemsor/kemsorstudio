@@ -11,6 +11,21 @@
     "FAQs",
     "Contact"
   ],
+  "sections": {
+    "script-breakdown": "Script breakdown",
+    "the-budget": "Budget",
+    "the-schedule": "Schedule",
+    "scenario-budgets": "Budget scenarios",
+    "deliverables": "Deliverables",
+    "related-work": "Related work",
+    "questions": "FAQs",
+    "budget-your-project": "Contact"
+  },
+  "faqLayoutLabels": {
+    "a7d6f37c4446acb1": "Section label",
+    "c7bfffb01dd2946c": "Heading",
+    "0c4df4d7ffe07728": "Heading accent"
+  },
   "fields": {
     "7fc56cef2db71059": "Navigation",
     "c6394c806477dd7c": "Navigation",

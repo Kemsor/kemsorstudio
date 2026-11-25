@@ -43,11 +43,11 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-he
  html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.inner-hero.inner-hero,.page-hero.page-hero){border-radius:20px!important;margin-bottom:20px!important}
 }
 /* Bespoke directory and leadership introductions retain their own composition. */
-html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.sitemap-header,.directory-discovery-header,.leadership-page>.leadership-width:first-child){
+html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.sitemap-header,.leadership-page>.leadership-width:first-child){
  border-radius:clamp(20px,2vw,32px)!important;overflow:hidden;
 }
 @media(max-width:600px){
- html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.sitemap-header,.directory-discovery-header,.leadership-page>.leadership-width:first-child){border-radius:20px!important}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page :is(.sitemap-header,.leadership-page>.leadership-width:first-child){border-radius:20px!important}
 }
 html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] .creative-header-inner .header-account-links .header-login,
 html body #top.creative-site:not(.site-page-home) .creative-header[data-overlay=true] .creative-header-inner .header-account-links .header-login span{
@@ -85,7 +85,7 @@ html body #top.creative-site .creative-header[data-scrolled=true] .creative-nav-
 /* A quiet, shared breadcrumb row below the hero, without a coloured strip. */
 html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row{
  box-sizing:border-box;width:100%;max-width:1600px;margin:0 auto;
- padding:4px clamp(20px,5vw,80px) 24px;background:transparent;
+ padding:clamp(20px,2.5vw,36px) clamp(20px,5vw,80px) 24px;background:transparent;
 }
 html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row>nav[aria-label="Breadcrumb"]{
  width:auto!important;max-width:none!important;min-height:0!important;
@@ -97,5 +97,5 @@ html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcr
 html body #top.creative-site:not(.site-page-home) #main.inner-page .ep-docket{justify-content:flex-end}
 html body #top.creative-site:not(.site-page-home) #main.inner-page .ep-docket:empty{display:none}
 @media(max-width:600px){
- html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row{padding:0 20px 20px}
+ html body #top.creative-site:not(.site-page-home) #main.inner-page .page-breadcrumb-row{padding-inline:20px;padding-bottom:20px}
 }

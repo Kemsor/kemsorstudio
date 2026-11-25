@@ -1,3 +1,4 @@
+import ManagedHero from './ManagedHero';
 import PageBreadcrumbs from './PageBreadcrumbs';
 import StudioImage from './StudioImage';
 import {chapterStyler} from './VisualChapters';
@@ -94,13 +95,13 @@ export default function ProduceLayout({page,children}) {
   let sectionNumber = 0;
   const nextNumber = () => String(++sectionNumber).padStart(2, '0');
   return <div className={`${root.props.className || ''} production-layout service-page-layout`} data-service-page={page}>
-    <header className="inner-hero pl-hero"><div className="pl-width">
+    <ManagedHero><header className="inner-hero pl-hero"><div className="pl-width">
 
       <div className="pl-hero-heading"><div>{kicker}{heading}</div></div>
       <figure className="pl-panorama">{image&&cloneElement(image,{alt:image.props.alt||'Illustrative production image',sizes:'(max-width: 600px) 90vw, 92vw'})}<span className="pl-frame pl-frame-a" aria-hidden="true"/><span className="pl-frame pl-frame-b" aria-hidden="true"/></figure>
       <div className="pl-hero-brief"><div>{description}</div>{actions}</div>
       {foot&&<div className="pl-hero-foot">{foot.props.children}</div>}
-    </div></header>
+    </div></header></ManagedHero>
     <PageBreadcrumbs page={page}>{breadcrumb}</PageBreadcrumbs>
     <SectionSubmenu section="produce" page={page}/>
     <div className="pl-body">{sections.map((node,index)=>{

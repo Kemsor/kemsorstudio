@@ -36,12 +36,12 @@
     "label": "How We Work"
   },
   {
-    "key": "post",
-    "label": "Post"
-  },
-  {
     "key": "post-production",
     "label": "Post-Production Supervision"
+  },
+  {
+    "key": "artist-digital-media-studio",
+    "label": "Artist & Digital Media Studio"
   },
   {
     "key": "release",

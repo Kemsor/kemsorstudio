@@ -28,11 +28,6 @@ try{
   }
   const entries=[];
   entries.push({type:'home',title:'Cinematic production.',slug:'home-hero',summary:'Creative vision. From idea to screen.',body:'',metadata:{}});
-  entries.push(
-    {type:'career',title:'Sample opportunity: Production Coordinator',slug:'sample-production-coordinator',summary:'Dummy listing for preview only. This is not an active vacancy.',body:'Example responsibilities\nCoordinate schedules, maintain production documents and support communication between crew and production teams.\nExample requirements\nOrganisation, clear communication and familiarity with production workflows.\nApplications are not being accepted for this sample role.',metadata:{category:'Sample listing',role:'Project-based',location:'Mumbai (sample location)'}},
-    {type:'career',title:'Sample opportunity: Assistant Video Editor',slug:'sample-assistant-video-editor',summary:'Dummy listing for preview only. This is not an active vacancy.',body:'Example responsibilities\nOrganise footage, prepare editing projects and support the post-production team with exports and version tracking.\nExample requirements\nFamiliarity with editing software, media organisation and attention to detail.\nApplications are not being accepted for this sample role.',metadata:{category:'Sample listing',role:'Project-based',location:'Mumbai (sample location)'}}
-  );
-  entries.push(...['Frame Daily','Screenwire','Cinema Journal','Studio Post','The Film Edit','Motion Review'].map((title,index)=>({type:'media_partner',title,slug:`sample-media-partner-${index+1}`,summary:'Sample media partner. Replace before publishing the confirmed partner list.',body:'',metadata:{category:'sample'}})));
   for(const e of entries){
     if(process.env.NODE_ENV==='production'&&/^(sample-|test-)/.test(e.slug))continue;
     await rows(db,'INSERT IGNORE INTO cms_entries(type,title,slug,summary,body,metadata,status,published_at,created_by,updated_by) VALUES(?,?,?,?,?,?,"published",UTC_TIMESTAMP(),?,?)',[e.type,e.title,e.slug,e.summary,e.body,JSON.stringify(e.metadata),admin.id,admin.id]);

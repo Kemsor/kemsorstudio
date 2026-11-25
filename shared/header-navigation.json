@@ -120,10 +120,6 @@
         "title": "04 Post",
         "links": [
           {
-            "label": "Overview",
-            "href": "/post/"
-          },
-          {
             "label": "Post-Production Supervision",
             "href": "/post-production/"
           }
@@ -143,6 +139,15 @@
           {
             "label": "Festival & Awards Strategy",
             "href": "/release/festival-awards-strategy/"
+          }
+        ]
+      },
+      {
+        "title": "Artist & Digital Media",
+        "links": [
+          {
+            "label": "Artist & Digital Media Studio",
+            "href": "/artist-digital-media-studio/"
           }
         ]
       }

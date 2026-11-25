@@ -1,0 +1,64 @@
+<form action="/admin/content/save" method="post" class="editor media-partner-editor" data-media-partner-editor>
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <input type="hidden" name="id" value="<%= entry.id || '' %>">
+  <input type="hidden" name="type" value="media_partner">
+  <%- include('publishing-toolbar') %>
+
+  <div class="media-partner-columns">
+    <section class="panel media-partner-card" aria-labelledby="partner-details-title">
+      <h2 id="partner-details-title">Partner details</h2>
+      <label>Partner name
+        <input name="title" value="<%= entry.title || '' %>" required maxlength="200">
+      </label>
+      <label>Summary
+        <textarea name="summary" rows="3" maxlength="2000"><%= entry.summary || '' %></textarea>
+      </label>
+      <details class="media-partner-extra" <%= entry.body?'open':'' %>>
+        <summary>Additional details</summary>
+        <label>Slug
+          <input data-auto-slug data-existing-slug="<%= entry.slug || '' %>" value="<%= entry.slug || '' %>" readonly placeholder="Generated from the partner name">
+        </label>
+        <label>Category / label
+          <input name="category" value="<%= entry.metadata.category || '' %>" maxlength="200">
+        </label>
+        <label>Role / job title
+          <input name="role" value="<%= entry.metadata.role || '' %>" maxlength="200">
+        </label>
+        <label>Location
+          <input name="location" value="<%= entry.metadata.location || '' %>" maxlength="200">
+        </label>
+        <label>Content
+          <textarea data-rich-editor data-editor-label="Content" data-rich-document="<%= entry.metadata.rich_text?JSON.stringify(entry.metadata.rich_text):'' %>" name="body" rows="6" maxlength="60000"><%= entry.body || '' %></textarea>
+        </label>
+      </details>
+    </section>
+
+    <section class="panel media-partner-card" aria-labelledby="partner-logo-title">
+      <h2 id="partner-logo-title">Partner logo</h2>
+      <label>Media library
+        <select name="image_id" data-keep-image-select>
+          <option value="">No logo selected</option>
+          <% media.forEach(image=>{ %>
+            <option data-media-alt="<%= image.alt %>" data-media-name="<%= image.original_name %>" value="<%= image.id %>" <%= entry.image_id===image.id?'selected':'' %>><%= image.original_name %> · <%= image.alt %></option>
+          <% }); %>
+        </select>
+      </label>
+    </section>
+  </div>
+
+  <footer class="panel media-partner-footer">
+    <label>Publishing status
+      <select name="status">
+        <% ['draft','published','archived'].forEach(status=>{ %>
+          <option value="<%= status %>" <%= entry.status===status?'selected':'' %>><%= status[0].toUpperCase()+status.slice(1) %></option>
+        <% }); %>
+      </select>
+    </label>
+    <div class="form-actions">
+      <button class="admin-save quiet" name="publish_action" value="draft">Save draft</button>
+      <button name="publish_action" value="published">Publish partner</button>
+      <% if(entry.id){ %><button class="quiet">Save selected status</button><% } %>
+    </div>
+  </footer>
+</form>
+<p><a href="/admin/content?type=media_partner">Back to media partners</a></p>

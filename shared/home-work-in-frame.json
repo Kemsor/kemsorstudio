@@ -1,0 +1,66 @@
+{
+  "eyebrow": "STORIES, SEEN IN MOTION",
+  "title": "The work.",
+  "accent": "In frame.",
+  "description": "A selection of the formats and production settings at the heart of our work.",
+  "buttonLabel": "View all productions",
+  "buttonHref": "/productions/",
+  "referenceLabel": "Production reference",
+  "slides": [
+    {
+      "id": "featured",
+      "title": "The Uttarakhand Story",
+      "category": "Feature film",
+      "image": "/assets/supplied/uttarakhand-story-poster.jpeg",
+      "alt": "The Uttarakhand Story film poster",
+      "href": "/productions/",
+      "note": "Releasing in first half of 2027",
+      "poster": true
+    },
+    {
+      "id": "location",
+      "title": "On the road",
+      "titleKey": "4afa617eb976e8e2",
+      "category": "Short Films",
+      "categoryKey": "465b02cf18e5cf16",
+      "image": "/assets/designer-productions/location.webp",
+      "href": "/what-we-make/short-films/"
+    },
+    {
+      "id": "finance",
+      "title": "Behind the production",
+      "titleKey": "a0aa3bce010dd7f4",
+      "category": "Co-Productions",
+      "categoryKey": "c5db7c155e3e63b9",
+      "image": "/assets/designer-productions/finance.webp",
+      "href": "/finance/co-production/"
+    },
+    {
+      "id": "performance",
+      "title": "Performance in motion",
+      "titleKey": "64bb7d732cd01ec9",
+      "category": "Web Series & OTT",
+      "categoryKey": "6020d421bee6f6b7",
+      "image": "/assets/designer-productions/dance.webp",
+      "href": "/what-we-make/series-ott/"
+    },
+    {
+      "id": "post",
+      "title": "The finishing frame",
+      "titleKey": "29c6c1aa6cdb6e91",
+      "category": "Post-Production",
+      "categoryKey": "d370e979c4845031",
+      "image": "/assets/designer-productions/post.webp",
+      "href": "/post-production/"
+    },
+    {
+      "id": "international",
+      "title": "Stories across borders",
+      "titleKey": "f8f9ec957d4603e7",
+      "category": "International",
+      "categoryKey": "63fb112b5d57beed",
+      "image": "/assets/designer-productions/valley.webp",
+      "href": "/finance/international-co-productions/"
+    }
+  ]
+}

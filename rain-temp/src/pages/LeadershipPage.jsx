@@ -1,3 +1,5 @@
+import SectionSubmenu from '../SectionSubmenu';
+import ManagedHero from '../ManagedHero';
 import PageBreadcrumbs from '../PageBreadcrumbs';
 import React from 'react';
 import {ArrowRight,Award,Quote,Clapperboard,Film,Video} from 'lucide-react';
@@ -10,9 +12,10 @@ const content=cmsDocument('leadership',defaults);
 export default function LeadershipPage(){
  const suppliedPortrait=content.portrait===defaults.portrait;
  return <div className="leadership-page">
+  <ManagedHero title={content.pageTitle} description={content.tagline}/>
+  <PageBreadcrumbs page="leadership"><nav className="leadership-breadcrumb" aria-label="Breadcrumb"><a href="/">KEMSOR Studios</a><span aria-hidden="true">/</span><a href="/about/">Studio</a><span aria-hidden="true">/</span><span aria-current="page">{content.pageTitle}</span></nav></PageBreadcrumbs>
+  <SectionSubmenu section="studio" page="leadership"/>
   <div className="leadership-width">
-
-   <header className="leadership-heading"><p className="leadership-kicker">{content.eyebrow}</p><h1>{content.pageTitle}</h1><span className="leadership-heading-mark" aria-hidden="true">K / STUDIO</span></header><PageBreadcrumbs page="leadership"><nav className="leadership-breadcrumb" aria-label="Breadcrumb"><a href="/">KEMSOR Studios</a><span aria-hidden="true">/</span><a href="/about/">Studio</a><span aria-hidden="true">/</span><span aria-current="page">{content.pageTitle}</span></nav></PageBreadcrumbs>
    <section className="leadership-profile" aria-labelledby="founder-name">
     <figure className="leadership-portrait"><StudioImage mediaSlot="LeadershipPortrait" src={content.portrait} srcSet={suppliedPortrait?[480,768,1023].map(width=>`/assets/leadership/dev-raturi-${width}.webp ${width}w`).join(', '):undefined} sizes="(max-width:760px) 90vw, 43vw" alt={content.portraitAlt} width="1023" height="1537" fetchPriority="high" decoding="async"/><figcaption><span>MR. {content.name.toUpperCase()}</span><span>{content.role}</span></figcaption></figure>
     <div className="leadership-biography"><p className="leadership-kicker leadership-role"><span/>{content.role}</p><h2 id="founder-name">{content.name}</h2><p className="leadership-tagline">{content.tagline}</p><div className="leadership-biography-copy">{content.paragraphs.map((paragraph,index)=><p key={index}>{paragraph}</p>)}</div><a className="leadership-text-link" href="#screen-work">Selected screen work <ArrowRight size={17} aria-hidden="true"/></a></div>

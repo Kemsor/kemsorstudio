@@ -1,0 +1,29 @@
+<% const placement=link.placement||defaultPlacement;
+   const selected=placements.find(option=>option.id===placement);
+   const position=link.position??'last'; %>
+<div class="menu-custom-link" data-menu-link>
+  <label>Page name
+    <input name="menu_link_label" value="<%= link.label %>" maxlength="100" required>
+  </label>
+  <label>Website path
+    <input name="menu_link_href" value="<%= link.href %>" placeholder="/example/" maxlength="500" required>
+  </label>
+  <label>Placement
+    <select name="menu_link_placement" data-menu-placement>
+      <% placements.forEach(option=>{ %>
+        <option value="<%= option.id %>" data-positions="<%= JSON.stringify(option.positions) %>" <%= placement===option.id?'selected':'' %>><%= option.label %></option>
+      <% }); %>
+    </select>
+  </label>
+  <label>Position
+    <select name="menu_link_position" data-menu-position>
+      <% if(typeof position==='number'){ %><option value="<%= position %>" selected>Keep current position</option><% } %>
+      <option value="first" <%= position==='first'?'selected':'' %>>First</option>
+      <% (selected?.positions||[]).forEach(option=>{ %>
+        <option value="<%= option.value %>" <%= position===option.value?'selected':'' %>><%= option.label %></option>
+      <% }); %>
+      <option value="last" <%= position==='last'?'selected':'' %>>Last</option>
+    </select>
+  </label>
+  <button type="button" class="quiet" data-menu-remove>Remove</button>
+</div>

@@ -1,3 +1,4 @@
+import budgetingEditor from '../../backend/public/budgeting-editor-sections.json';
 import {setSiteModules} from './siteContent';
 import CmsVideo from './CmsVideo';
 import RichText from './RichText';
@@ -15,11 +16,17 @@ export function CmsProvider({ children }) {
   useEffect(() => {
     let current, publishedModules={}, previewValues=null;
     const previewKey=new URLSearchParams(location.search).get('admin_preview');
-    const applyModules=()=>setSiteModules(previewValues?{...publishedModules,[previewKey]:previewValues}:publishedModules);
+    const applyModules=()=>setSiteModules(previewValues?{...publishedModules,[previewKey]:{...publishedModules[previewKey],...previewValues}}:publishedModules);
     const previewMessage=event=>{
       if(previewKey!=='copy:BudgetingSchedulingPage'||window.parent===window||event.origin!==location.origin||event.source!==window.parent||event.data?.type!=='kemsor-copy-preview'||event.data.moduleKey!==previewKey)return;
       const values=event.data.values;if(!values||typeof values!=='object'||Array.isArray(values))return;
-      previewValues=Object.fromEntries(Object.entries(values).filter(([key,value])=>/^[a-f0-9]{16}$/.test(key)&&typeof value==='string'&&value.length<=12000));applyModules();setContent(previous=>({...previous}));
+      previewValues=Object.fromEntries(Object.entries(values).filter(([key,value])=>{
+        if(/^[a-f0-9]{16}$/.test(key))return typeof value==='string'&&value.length<=12000;
+        const [scope,id,setting]=key.split('.');
+        if(scope!=='sections'||!Object.hasOwn(budgetingEditor.sections,id)||key!==`sections.${id}.${setting}`)return false;
+        return setting==='enabled'&&typeof value==='boolean';
+      }));
+      applyModules();setContent(previous=>({...previous}));
     };
     window.addEventListener('message',previewMessage);
     if(previewKey==='copy:BudgetingSchedulingPage'&&window.parent!==window)window.parent.postMessage({type:'kemsor-preview-ready'},location.origin);

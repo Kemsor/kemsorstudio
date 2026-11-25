@@ -10805,606 +10805,6 @@
       }
     ]
   },
-  "PostOverviewPage": {
-    "label": "Post Overview",
-    "source": "pages/PostOverviewPage.jsx",
-    "fields": [
-      {
-        "key": "88b762256070980d",
-        "label": "frames: Action scene at a fort",
-        "default": "Action scene at a fort",
-        "type": "text"
-      },
-      {
-        "key": "ae95c4c526b9d692",
-        "label": "frames: Dance sequence in a courtyard",
-        "default": "Dance sequence in a courtyard",
-        "type": "text"
-      },
-      {
-        "key": "52b290c314c84176",
-        "label": "frames: Motorcycle chase on a coastal road",
-        "default": "Motorcycle chase on a coastal road",
-        "type": "text"
-      },
-      {
-        "key": "2599d3a404e4d66a",
-        "label": "frames: Romantic scene on a lake",
-        "default": "Romantic scene on a lake",
-        "type": "text"
-      },
-      {
-        "key": "91a73424c11b1d7b",
-        "label": "frames: Action scene in a forest",
-        "default": "Action scene in a forest",
-        "type": "text"
-      },
-      {
-        "key": "93cf05f6a747a375",
-        "label": "frames: Helicopter action sequence",
-        "default": "Helicopter action sequence",
-        "type": "text"
-      },
-      {
-        "key": "b21a48d6a240542a",
-        "label": "frames: Family drama in an interior",
-        "default": "Family drama in an interior",
-        "type": "text"
-      },
-      {
-        "key": "47b2288208f9627e",
-        "label": "frames: Period production set",
-        "default": "Period production set",
-        "type": "text"
-      },
-      {
-        "key": "b7af1a800315b74c",
-        "label": "frames: Production in a snowy landscape",
-        "default": "Production in a snowy landscape",
-        "type": "text"
-      },
-      {
-        "key": "e624d4755204ae48",
-        "label": "frames: Celebration sequence",
-        "default": "Celebration sequence",
-        "type": "text"
-      },
-      {
-        "key": "885c966c2f8d750b",
-        "label": "frames: Film crew on a forest set",
-        "default": "Film crew on a forest set",
-        "type": "text"
-      },
-      {
-        "key": "6a900caf8ef2c07d",
-        "label": "frames: Post-production finishing suite",
-        "default": "Post-production finishing suite",
-        "type": "text"
-      },
-      {
-        "key": "fb7f8384821dc82d",
-        "label": "crafts: Edit",
-        "default": "Edit",
-        "type": "text"
-      },
-      {
-        "key": "d47227079629e2f8",
-        "label": "crafts: Decides what the audience sees and when.",
-        "default": "Decides what the audience sees and when.",
-        "type": "text"
-      },
-      {
-        "key": "425e86a79090a506",
-        "label": "crafts: Sound",
-        "default": "Sound",
-        "type": "text"
-      },
-      {
-        "key": "0d85910258dbd0bf",
-        "label": "crafts: Decides what they hear, and so what they feel.",
-        "default": "Decides what they hear, and so what they feel.",
-        "type": "text"
-      },
-      {
-        "key": "7480d8ffe9495983",
-        "label": "crafts: Colour",
-        "default": "Colour",
-        "type": "text"
-      },
-      {
-        "key": "808075a0a71a26a0",
-        "label": "crafts: Decides how the world on screen looks and feels.",
-        "default": "Decides how the world on screen looks and feels.",
-        "type": "text"
-      },
-      {
-        "key": "83301c59491e4eaf",
-        "label": "crafts: VFX",
-        "default": "VFX",
-        "type": "text"
-      },
-      {
-        "key": "6cf20335f11ed688",
-        "label": "crafts: Makes the impossible shot possible, and the visible fix invisible.",
-        "default": "Makes the impossible shot possible, and the visible fix invisible.",
-        "type": "text"
-      },
-      {
-        "key": "aa610a2333800b51",
-        "label": "crafts: Music",
-        "default": "Music",
-        "type": "text"
-      },
-      {
-        "key": "ec816fbeba346df9",
-        "label": "crafts: Carries the emotion the pictures can’t say alone.",
-        "default": "Carries the emotion the pictures can’t say alone.",
-        "type": "text"
-      },
-      {
-        "key": "c0f922690a3cffbc",
-        "label": "crafts: Delivery",
-        "default": "Delivery",
-        "type": "text"
-      },
-      {
-        "key": "9efc5fe8374b6a1a",
-        "label": "crafts: Gets the finished film onto every screen it’s meant for.",
-        "default": "Gets the finished film onto every screen it’s meant for.",
-        "type": "text"
-      },
-      {
-        "key": "65391ade738f3509",
-        "label": "promises: On time.",
-        "default": "On time.",
-        "type": "text"
-      },
-      {
-        "key": "117e0ebcadce361a",
-        "label": "promises: Planned back from your delivery date.",
-        "default": "Planned back from your delivery date.",
-        "type": "text"
-      },
-      {
-        "key": "e54b9dde0a502a0a",
-        "label": "promises: On budget.",
-        "default": "On budget.",
-        "type": "text"
-      },
-      {
-        "key": "b9206a983656681c",
-        "label": "promises: Spend tracked, changes flagged early.",
-        "default": "Spend tracked, changes flagged early.",
-        "type": "text"
-      },
-      {
-        "key": "e936b130b3c0681e",
-        "label": "promises: On spec.",
-        "default": "On spec.",
-        "type": "text"
-      },
-      {
-        "key": "5632365ffe8eecf6",
-        "label": "promises: Built to each platform’s requirements.",
-        "default": "Built to each platform’s requirements.",
-        "type": "text"
-      },
-      {
-        "key": "9a448a9e66ca0362",
-        "label": "promises: On story.",
-        "default": "On story.",
-        "type": "text"
-      },
-      {
-        "key": "51e2d7193a10626e",
-        "label": "promises: Every decision measured against the story.",
-        "default": "Every decision measured against the story.",
-        "type": "text"
-      },
-      {
-        "key": "ff23f48c3a41f0b2",
-        "label": "moments: Before the shoot",
-        "default": "Before the shoot",
-        "type": "text"
-      },
-      {
-        "key": "a1cf7c26bf46587a",
-        "label": "moments: Plan the workflow, data handling and delivery requirements from day one.",
-        "default": "Plan the workflow, data handling and delivery requirements from day one.",
-        "type": "text"
-      },
-      {
-        "key": "a082d5dc48e15b79",
-        "label": "moments: Best",
-        "default": "Best",
-        "type": "text"
-      },
-      {
-        "key": "c56c9ed1bc59b64a",
-        "label": "moments: During the shoot",
-        "default": "During the shoot",
-        "type": "text"
-      },
-      {
-        "key": "7b3ecba919be7b63",
-        "label": "moments: Footage checked and organised as it arrives, so the edit can start fast.",
-        "default": "Footage checked and organised as it arrives, so the edit can start fast.",
-        "type": "text"
-      },
-      {
-        "key": "0eb01af81c740224",
-        "label": "moments: Good",
-        "default": "Good",
-        "type": "text"
-      },
-      {
-        "key": "038a39069d0b20e8",
-        "label": "moments: After wrap",
-        "default": "After wrap",
-        "type": "text"
-      },
-      {
-        "key": "2d30909eb0fe03b7",
-        "label": "moments: Post supervised from the first cut to the final master.",
-        "default": "Post supervised from the first cut to the final master.",
-        "type": "text"
-      },
-      {
-        "key": "f9c28e01810ca13c",
-        "label": "moments: Common",
-        "default": "Common",
-        "type": "text"
-      },
-      {
-        "key": "80b3c7c0d28b5abe",
-        "label": "moments: Stuck in post",
-        "default": "Stuck in post",
-        "type": "text"
-      },
-      {
-        "key": "55824fc2acd6f31e",
-        "label": "moments: Take over a stalled edit, re-plan the schedule and get it delivered.",
-        "default": "Take over a stalled edit, re-plan the schedule and get it delivered.",
-        "type": "text"
-      },
-      {
-        "key": "8f02798c35022dc0",
-        "label": "moments: We can help",
-        "default": "We can help",
-        "type": "text"
-      },
-      {
-        "key": "dc54ce0079e94e5e",
-        "label": "stages: BEFORE",
-        "default": "BEFORE",
-        "type": "text"
-      },
-      {
-        "key": "dbf107eee4c5f8dd",
-        "label": "stages: 03 Produce",
-        "default": "03 Produce",
-        "type": "text"
-      },
-      {
-        "key": "832dde40a5b90409",
-        "label": "stages: Footage and production records handed over in order by the same team that r",
-        "default": "Footage and production records handed over in order by the same team that ran the shoot.",
-        "type": "text"
-      },
-      {
-        "key": "868b18a51f2aaffe",
-        "label": "stages: YOU ARE HERE",
-        "default": "YOU ARE HERE",
-        "type": "text"
-      },
-      {
-        "key": "b0927042978d56db",
-        "label": "stages: 04 Post",
-        "default": "04 Post",
-        "type": "text"
-      },
-      {
-        "key": "7f9f9999344b4303",
-        "label": "stages: Edit, sound, colour, VFX and deliverables supervised to the final master.",
-        "default": "Edit, sound, colour, VFX and deliverables supervised to the final master.",
-        "type": "text"
-      },
-      {
-        "key": "4be775731182dc44",
-        "label": "stages: NEXT",
-        "default": "NEXT",
-        "type": "text"
-      },
-      {
-        "key": "824621254a4d21c2",
-        "label": "stages: Release",
-        "default": "Release",
-        "type": "text"
-      },
-      {
-        "key": "c0bb78a1ac453662",
-        "label": "stages: Deliverables prepared and coordination with platforms and distributors for ",
-        "default": "Deliverables prepared and coordination with platforms and distributors for release.",
-        "type": "text"
-      },
-      {
-        "key": "40a3b52c9f803935",
-        "label": "questions: I already have an editor. Do I need post supervision?",
-        "default": "I already have an editor. Do I need post supervision?",
-        "type": "text"
-      },
-      {
-        "key": "b680c28ac2b913e4",
-        "label": "questions: Your editor shapes the cut. Supervision keeps the edit, sound, colour, VFX ",
-        "default": "Your editor shapes the cut. Supervision keeps the edit, sound, colour, VFX and delivery moving together on schedule and on budget.",
-        "type": "text"
-      },
-      {
-        "key": "bec005bd89adab6c",
-        "label": "questions: Can you finish a project another company shot?",
-        "default": "Can you finish a project another company shot?",
-        "type": "text"
-      },
-      {
-        "key": "0789a5521ccad43e",
-        "label": "questions: Yes. We check what you have, plan the remaining post and supervise it throu",
-        "default": "Yes. We check what you have, plan the remaining post and supervise it through to delivery.",
-        "type": "text"
-      },
-      {
-        "key": "8f29abe89f4763d2",
-        "label": "questions: Which formats do you finish?",
-        "default": "Which formats do you finish?",
-        "type": "text"
-      },
-      {
-        "key": "69733ba79c2f3f68",
-        "label": "questions: Feature films, series and OTT, documentaries and short films.",
-        "default": "Feature films, series and OTT, documentaries and short films.",
-        "type": "text"
-      },
-      {
-        "key": "3932430cdd7ecedb",
-        "label": "questions: Is it too late if we’re already deep in post?",
-        "default": "Is it too late if we’re already deep in post?",
-        "type": "text"
-      },
-      {
-        "key": "38a9a61be91f0bfc",
-        "label": "questions: No. We can step in at any point and re-plan what’s left.",
-        "default": "No. We can step in at any point and re-plan what’s left.",
-        "type": "text"
-      },
-      {
-        "key": "a540c32ab6a53fe1",
-        "label": "CONTACT SHEET · ROLL 01. Circled frames are selects.",
-        "default": "CONTACT SHEET · ROLL 01. Circled frames are selects.",
-        "type": "text"
-      },
-      {
-        "key": "32440d04b0a6d689",
-        "label": "Kemsor Studios",
-        "default": "Kemsor Studios",
-        "type": "text"
-      },
-      {
-        "key": "461d6209eae80a36",
-        "label": "Capabilities",
-        "default": "Capabilities",
-        "type": "text"
-      },
-      {
-        "key": "f41256b1c05cdc83",
-        "label": "Post",
-        "default": "Post",
-        "type": "text"
-      },
-      {
-        "key": "8721ceac03fc3291",
-        "label": "04 · POST",
-        "default": "04 · POST",
-        "type": "text"
-      },
-      {
-        "key": "6fe8f6fc67d6f12d",
-        "label": "Post.",
-        "default": "Post.",
-        "type": "text"
-      },
-      {
-        "key": "0232d654371471d6",
-        "label": "Every frame, finished.",
-        "default": "Every frame, finished.",
-        "type": "text"
-      },
-      {
-        "key": "ef55baee79aa3355",
-        "label": "Edit, sound, colour, VFX and delivery turn footage into the finished film. This is ho",
-        "default": "Edit, sound, colour, VFX and delivery turn footage into the finished film. This is how Kemsor approaches post and where we come in.",
-        "type": "text"
-      },
-      {
-        "key": "0ba68979d0c9096a",
-        "label": "Talk to us about post",
-        "default": "Talk to us about post",
-        "type": "text"
-      },
-      {
-        "key": "4c7dea6112f93f8d",
-        "label": "Post-Production Supervision",
-        "default": "Post-Production Supervision",
-        "type": "text"
-      },
-      {
-        "key": "e31e449ea93f072b",
-        "label": "THE CRAFTS OF POST",
-        "default": "THE CRAFTS OF POST",
-        "type": "text"
-      },
-      {
-        "key": "9e5fcd5b3514e4d4",
-        "label": "Six crafts.",
-        "default": "Six crafts. ",
-        "type": "text"
-      },
-      {
-        "key": "0ff8732263e21fc3",
-        "label": "Each one changes what the audience feels.",
-        "default": "Each one changes what the audience feels.",
-        "type": "text"
-      },
-      {
-        "key": "262a3cffb92f9b91",
-        "label": "WHAT GOOD POST GIVES YOU",
-        "default": "WHAT GOOD POST GIVES YOU",
-        "type": "text"
-      },
-      {
-        "key": "ed38bd95db7072ba",
-        "label": "Four promises",
-        "default": "Four promises ",
-        "type": "text"
-      },
-      {
-        "key": "6469ab15763b8b0d",
-        "label": "a post process should keep.",
-        "default": "a post process should keep.",
-        "type": "text"
-      },
-      {
-        "key": "a78db4014798193d",
-        "label": "WHEN TO CALL US",
-        "default": "WHEN TO CALL US",
-        "type": "text"
-      },
-      {
-        "key": "3c8f62562fbf3c44",
-        "label": "The best time is early.",
-        "default": "The best time is early. ",
-        "type": "text"
-      },
-      {
-        "key": "59c8c177d73e07be",
-        "label": "The second-best time is now.",
-        "default": "The second-best time is now.",
-        "type": "text"
-      },
-      {
-        "key": "81d37940c299c1a1",
-        "label": "OUR POST SERVICE",
-        "default": "OUR POST SERVICE",
-        "type": "text"
-      },
-      {
-        "key": "891be04c49f50e3a",
-        "label": "Post-Production Supervision",
-        "default": "Post-Production Supervision",
-        "type": "text"
-      },
-      {
-        "key": "c05396fb067c3974",
-        "label": "One supervisor coordinates seven stages, from ingest to final master.",
-        "default": "One supervisor coordinates seven stages, from ingest to final master.",
-        "type": "text"
-      },
-      {
-        "key": "21d4c82f88f27b0a",
-        "label": "Explore Post-Production Supervision",
-        "default": "Explore Post-Production Supervision",
-        "type": "text"
-      },
-      {
-        "key": "49ef118e1d5ed9ea",
-        "label": "BEFORE AND AFTER POST",
-        "default": "BEFORE AND AFTER POST",
-        "type": "text"
-      },
-      {
-        "key": "714b55453237049f",
-        "label": "Post doesn’t start cold.",
-        "default": "Post doesn’t start cold. ",
-        "type": "text"
-      },
-      {
-        "key": "2dffd7ae0ff58675",
-        "label": "Or end at the master.",
-        "default": "Or end at the master.",
-        "type": "text"
-      },
-      {
-        "key": "6b9b289a32928e8d",
-        "label": "QUICK ANSWERS",
-        "default": "QUICK ANSWERS",
-        "type": "text"
-      },
-      {
-        "key": "e8cee2fb995ae230",
-        "label": "Quick answers",
-        "default": "Quick answers ",
-        "type": "text"
-      },
-      {
-        "key": "5e3956cd05eedc7f",
-        "label": "about post.",
-        "default": "about post.",
-        "type": "text"
-      },
-      {
-        "key": "83800687aff37d88",
-        "label": "04 · POST · LAST LOOK",
-        "default": "04 · POST · LAST LOOK",
-        "type": "text"
-      },
-      {
-        "key": "b7097b3bf42288f6",
-        "label": "Finish what",
-        "default": "Finish what ",
-        "type": "text"
-      },
-      {
-        "key": "064418f466cfcda9",
-        "label": "you started.",
-        "default": "you started.",
-        "type": "text"
-      },
-      {
-        "key": "b29ead0a918e8fca",
-        "label": "Tell us where the project stands, whether it’s not yet shot, just wrapped or stuck in",
-        "default": "Tell us where the project stands, whether it’s not yet shot, just wrapped or stuck in the edit. We’ll help plan the work needed to finish it.",
-        "type": "text"
-      },
-      {
-        "key": "d26fa0166bb0b420",
-        "label": "Talk to us about post",
-        "default": "Talk to us about post",
-        "type": "text"
-      },
-      {
-        "key": "c7756f696a965292",
-        "label": "Post-Production Supervision",
-        "default": "Post-Production Supervision",
-        "type": "text"
-      },
-      {
-        "key": "87c2a8777a0a22c4",
-        "label": "Seven-stage pipeline, planned before the first cut",
-        "default": "Seven-stage pipeline, planned before the first cut",
-        "type": "text"
-      },
-      {
-        "key": "00a6e9bbf0c19b69",
-        "label": "Picture lock protected, late changes costed",
-        "default": "Picture lock protected, late changes costed",
-        "type": "text"
-      },
-      {
-        "key": "5400052917a71a6c",
-        "label": "Deliverables built to each platform’s specification",
-        "default": "Deliverables built to each platform’s specification",
-        "type": "text"
-      }
-    ]
-  },
   "PostProductionPage": {
     "label": "Post Production",
     "source": "pages/PostProductionPage.jsx",
@@ -11454,13 +10854,13 @@
       {
         "key": "83f16cd37027e240",
         "label": "pipeline: Ingest & organise",
-        "default": "Ingest & organise",
+        "default": "Ingest and organise",
         "type": "text"
       },
       {
         "key": "ec3f87dfe72f5da4",
         "label": "pipeline: Footage, sound and data checked, backed up and organised for the edit.",
-        "default": "Footage, sound and data checked, backed up and organised for the edit.",
+        "default": "Footage, sound and data are checked, backed up and organised for the edit.",
         "type": "text"
       },
       {
@@ -11472,7 +10872,7 @@
       {
         "key": "ce40933ba3e8932c",
         "label": "pipeline: Assembly, rough cut, fine cut until the story works.",
-        "default": "Assembly, rough cut, fine cut until the story works.",
+        "default": "Assembly, rough cut and fine cut, until the story works.",
         "type": "text"
       },
       {
@@ -11484,7 +10884,7 @@
       {
         "key": "d802328c394e4c80",
         "label": "pipeline: The cut is final. Everything after builds on it.",
-        "default": "The cut is final. Everything after builds on it.",
+        "default": "The cut is final. Everything after it builds on this timeline.",
         "type": "text"
       },
       {
@@ -11496,7 +10896,7 @@
       {
         "key": "2c80a26be44b01fd",
         "label": "pipeline: Shots turned over, tracked and reviewed to final.",
-        "default": "Shots turned over, tracked and reviewed to final.",
+        "default": "Shots turned over, tracked and reviewed through to final.",
         "type": "text"
       },
       {
@@ -11526,7 +10926,7 @@
       {
         "key": "5626c9de8ce9886a",
         "label": "pipeline: Deliverables & QC",
-        "default": "Deliverables & QC",
+        "default": "Deliverables and QC",
         "type": "text"
       },
       {
@@ -11538,19 +10938,19 @@
       {
         "key": "439292cda8ace8b7",
         "label": "responsibilities: The post schedule",
-        "default": "The post schedule",
+        "default": "Post-production schedule",
         "type": "text"
       },
       {
         "key": "82084e52131448ac",
         "label": "responsibilities: Every stage planned back from your delivery date, so deadlines don’t surpri",
-        "default": "Every stage planned back from your delivery date, so deadlines don’t surprise anyone.",
+        "default": "Every stage planned back from your delivery date, so no deadline surprises anyone.",
         "type": "text"
       },
       {
         "key": "1c132a6b980623cf",
         "label": "responsibilities: Teams & facilities",
-        "default": "Teams & facilities",
+        "default": "Teams and facilities",
         "type": "text"
       },
       {
@@ -11562,19 +10962,19 @@
       {
         "key": "33800c24306a5496",
         "label": "responsibilities: Reviews & approvals",
-        "default": "Reviews & approvals",
+        "default": "Reviews and approvals",
         "type": "text"
       },
       {
         "key": "c9bb7eb6c009ed9f",
         "label": "responsibilities: Cuts and versions reviewed on time, with notes consolidated and decisions r",
-        "default": "Cuts and versions reviewed on time, with notes consolidated and decisions recorded.",
+        "default": "Cuts reviewed on time, notes consolidated and decisions recorded.",
         "type": "text"
       },
       {
         "key": "8117c4fc9f9e55f5",
         "label": "responsibilities: The post budget",
-        "default": "The post budget",
+        "default": "Post-production budget",
         "type": "text"
       },
       {
@@ -11592,19 +10992,19 @@
       {
         "key": "dbc36dbd32455c11",
         "label": "responsibilities: Formats, frame rates and specifications kept consistent from ingest to mast",
-        "default": "Formats, frame rates and specifications kept consistent from ingest to master.",
+        "default": "Formats, frame rates and specs kept consistent from ingest to master.",
         "type": "text"
       },
       {
         "key": "827daecabd74e5b3",
         "label": "responsibilities: Delivery & QC",
-        "default": "Delivery & QC",
+        "default": "Delivery and QC",
         "type": "text"
       },
       {
         "key": "ec5fb2f00de697c1",
         "label": "responsibilities: Deliverables built to each platform’s or distributor’s specification, and c",
-        "default": "Deliverables built to each platform’s or distributor’s specification, and checked before they ship.",
+        "default": "Files built to each platform’s or distributor’s spec and checked before they ship.",
         "type": "text"
       },
       {
@@ -11616,7 +11016,7 @@
       {
         "key": "125445d244ca7e2f",
         "label": "reviews: Director, producers and partners see each cut at agreed points.",
-        "default": "Director, producers and partners see each cut at agreed points.",
+        "default": "The director, producers and partners see each cut at agreed points.",
         "type": "text"
       },
       {
@@ -11640,7 +11040,7 @@
       {
         "key": "da11281ec9556aaa",
         "label": "reviews: Every cut, mix and grade labelled, so everyone reviews the same thing.",
-        "default": "Every cut, mix and grade labelled, so everyone reviews the same thing.",
+        "default": "Every cut, mix and grade is labelled, so everyone reviews the same thing.",
         "type": "text"
       },
       {
@@ -11652,7 +11052,7 @@
       {
         "key": "aa45f17118e42ef7",
         "label": "reviews: What was approved, by whom and when no going back over settled ground.",
-        "default": "What was approved, by whom and when no going back over settled ground.",
+        "default": "What was approved, by whom and when, so nobody goes back over settled ground.",
         "type": "text"
       },
       {
@@ -11682,7 +11082,7 @@
       {
         "key": "8ffcc6d328cdfa9a",
         "label": "deliverables: Final mix & stems",
-        "default": "Final mix & stems",
+        "default": "Final mix and stems",
         "type": "text"
       },
       {
@@ -11700,7 +11100,7 @@
       {
         "key": "b49ca71228c5a09a",
         "label": "deliverables: Subtitles & captions",
-        "default": "Subtitles & captions",
+        "default": "Subtitles and captions",
         "type": "text"
       },
       {
@@ -11718,13 +11118,13 @@
       {
         "key": "ff42380e112e0ad8",
         "label": "deliverables: Stills & promo materials",
-        "default": "Stills & promo materials",
+        "default": "Stills and promo materials",
         "type": "text"
       },
       {
         "key": "e8f333d349e07e57",
         "label": "deliverables: Approved images and materials for release, as required",
-        "default": "Approved images and materials for release, as required",
+        "default": "Approved images and materials for release",
         "type": "text"
       },
       {
@@ -11742,7 +11142,7 @@
       {
         "key": "cb8682b2bf73918e",
         "label": "deliverables: Credits, music cue sheets and other paperwork the recipient requests",
-        "default": "Credits, music cue sheets and other paperwork the recipient requests",
+        "default": "Credits, music cue sheets and other paperwork requested",
         "type": "text"
       },
       {
@@ -11760,67 +11160,67 @@
       {
         "key": "04ac1df15ae05f3f",
         "label": "deliverables: Technical checks confirming the files meet specification",
-        "default": "Technical checks confirming the files meet specification",
+        "default": "Technical checks confirming the files meet the OTT delivery specifications",
         "type": "text"
       },
       {
         "key": "9c76d20344a34bd9",
         "label": "formats: Feature Films",
-        "default": "Feature Films",
+        "default": "Feature film post-production",
         "type": "text"
       },
       {
         "key": "1f89304f6680bd0b",
         "label": "formats: A single long timeline, with a mix and grade built for the big screen and e",
-        "default": "A single long timeline, with a mix and grade built for the big screen and every platform after it.",
+        "default": "One long timeline, with a mix and grade built for the big screen and every platform after it.",
         "type": "text"
       },
       {
         "key": "e7d4f1559d607398",
         "label": "formats: Series & OTT",
-        "default": "Series & OTT",
+        "default": "Web series and OTT post-production",
         "type": "text"
       },
       {
         "key": "72a4b1880eb14975",
         "label": "formats: Many episodes in parallel, keeping look, sound, and quality consistent from",
-        "default": "Many episodes in parallel, keeping look, sound, and quality consistent from episode one to the finale.",
+        "default": "Many episodes in parallel, with look, sound and quality consistent from episode one to the finale.",
         "type": "text"
       },
       {
         "key": "90f4ba5c25fcaf03",
         "label": "formats: Documentaries",
-        "default": "Documentaries",
+        "default": "Documentary post-production",
         "type": "text"
       },
       {
         "key": "c4185488d0c007d2",
         "label": "formats: Often the edit is where the story is truly written, shaped from large volum",
-        "default": "Often the edit is where the story is truly written, shaped from large volumes of footage.",
+        "default": "Often the edit is where the story is truly written, shaped from hours of footage.",
         "type": "text"
       },
       {
         "key": "4517cb5235989483",
         "label": "formats: Short Films",
-        "default": "Short Films",
+        "default": "Short film post-production",
         "type": "text"
       },
       {
         "key": "958caaf9c8133391",
         "label": "formats: Small budgets, high standards; every finishing rupee placed where it shows.",
-        "default": "Small budgets, high standards; every finishing rupee placed where it shows.",
+        "default": "Small budgets, high standards. Every finishing rupee goes where it shows on screen.",
         "type": "text"
       },
       {
         "key": "efb70542aafe38e5",
         "label": "audiences: Producers with a shot project to finish",
-        "default": "Producers with a shot project to finish",
+        "default": "Producers with a finished shoot who need the film completed",
         "type": "text"
       },
       {
         "key": "8fab8a8f30fb1749",
         "label": "audiences: Directors who want the cut protected through post",
-        "default": "Directors who want the cut protected through post",
+        "default": "Directors who want their cut protected all the way through post",
         "type": "text"
       },
       {
@@ -11832,433 +11232,301 @@
       {
         "key": "6e6bf813bcb75162",
         "label": "audiences: Productions that shot elsewhere and need post supervised",
-        "default": "Productions that shot elsewhere and need post supervised",
+        "default": "Productions that shot elsewhere and want to outsource film post-production to one accountable team",
         "type": "text"
       },
       {
-        "key": "1d58042087430a20",
-        "label": "questions: Can you take over post on a project we shot ourselves?",
-        "default": "Can you take over post on a project we shot ourselves?",
-        "type": "text"
+        "key": "ad67cebec3279a9f",
+        "label": "Edit",
+        "type": "text",
+        "default": "Edit"
       },
       {
-        "key": "aed0f68c019460fb",
-        "label": "questions: Yes. Bring us the footage and we’ll check what you have, plan the post sche",
-        "default": "Yes. Bring us the footage and we’ll check what you have, plan the post schedule and supervise it through to delivery.",
-        "type": "text"
+        "key": "f20f818634dded11",
+        "label": "Our film editing services decide what the audience sees and when. Assembly, rough cut",
+        "type": "text",
+        "default": "Our film editing services decide what the audience sees and when. Assembly, rough cut and fine cut, until the story works."
       },
       {
-        "key": "a2cc6436776a3f74",
-        "label": "questions: Do you edit, mix and grade in-house?",
-        "default": "Do you edit, mix and grade in-house?",
-        "type": "text"
+        "key": "2e8038613d66df2f",
+        "label": "Sound",
+        "type": "text",
+        "default": "Sound"
       },
       {
-        "key": "4071de18ef94e2e0",
-        "label": "questions: We supervise the full post pipeline and bring in the right editorial, sound",
-        "default": "We supervise the full post pipeline and bring in the right editorial, sound, colour and VFX teams for each project.",
-        "type": "text"
+        "key": "999451cbdbe9ad5c",
+        "label": "Dialogue edit, sound design and mixing decide what the audience hears, and so what th",
+        "type": "text",
+        "default": "Dialogue edit, sound design and mixing decide what the audience hears, and so what they feel."
       },
       {
-        "key": "f5203d333f000755",
-        "label": "questions: When should post supervision start?",
-        "default": "When should post supervision start?",
-        "type": "text"
+        "key": "11e9b332e6abd026",
+        "label": "Colour",
+        "type": "text",
+        "default": "Colour"
       },
       {
-        "key": "049ef2f478df5d22",
-        "label": "questions: Ideally before the shoot, so the workflow, data handling and delivery requi",
-        "default": "Ideally before the shoot, so the workflow, data handling and delivery requirements are planned from day one. But we can join at any point.",
-        "type": "text"
+        "key": "894368a54952c219",
+        "label": "Our colour grading services, including DI (digital intermediate), decide how the worl",
+        "type": "text",
+        "default": "Our colour grading services, including DI (digital intermediate), decide how the world on screen looks and feels."
       },
       {
-        "key": "2fcf5c84a7adf006",
-        "label": "questions: Can you deliver to a specific platform’s requirements?",
-        "default": "Can you deliver to a specific platform’s requirements?",
-        "type": "text"
+        "key": "8c2bc0d445c19aab",
+        "label": "VFX",
+        "type": "text",
+        "default": "VFX"
       },
       {
-        "key": "dd59ee77cc1e9853",
-        "label": "questions: Yes. We build deliverables to the specification each platform or distributo",
-        "default": "Yes. We build deliverables to the specification each platform or distributor provides, and check them before delivery.",
-        "type": "text"
+        "key": "a20873895e80a910",
+        "label": "Through VFX supervision, visual effects post-production makes the impossible shot pos",
+        "type": "text",
+        "default": "Through VFX supervision, visual effects post-production makes the impossible shot possible and the visible fix invisible."
       },
       {
-        "key": "47ae51e368a4377c",
-        "label": "questions: What happens if we need changes after picture lock?",
-        "default": "What happens if we need changes after picture lock?",
-        "type": "text"
+        "key": "771ac82be8a9442d",
+        "label": "Music",
+        "type": "text",
+        "default": "Music"
       },
       {
-        "key": "eedec3ef541a90b5",
-        "label": "questions: We show you exactly what the change will affect in time and money, so you c",
-        "default": "We show you exactly what the change will affect in time and money, so you can decide with the full picture.",
-        "type": "text"
+        "key": "6e1b5216b31f1896",
+        "label": "Film music and score carry the emotion the pictures can’t say alone.",
+        "type": "text",
+        "default": "Film music and score carry the emotion the pictures can’t say alone."
       },
       {
-        "key": "89658d060c63675a",
-        "label": "· REEL",
-        "default": " · REEL ",
-        "type": "text"
+        "key": "c080aec2824924fa",
+        "label": "Delivery",
+        "type": "text",
+        "default": "Delivery"
+      },
+      {
+        "key": "0d1ddbb46a39d7cd",
+        "label": "Deliverables and QC (quality control) get the finished film onto every screen it’s me",
+        "type": "text",
+        "default": "Deliverables and QC (quality control) get the finished film onto every screen it’s meant for."
+      },
+      {
+        "key": "2926b547ee93f6c7",
+        "label": "On time",
+        "type": "text",
+        "default": "On time"
+      },
+      {
+        "key": "a48c7a2eec3b5b68",
+        "label": "Your post-production schedule is planned back from your delivery date.",
+        "type": "text",
+        "default": "Your post-production schedule is planned back from your delivery date."
+      },
+      {
+        "key": "6c6007be27b645be",
+        "label": "On budget",
+        "type": "text",
+        "default": "On budget"
+      },
+      {
+        "key": "8e768b4f7d54863c",
+        "label": "Spend is tracked and changes are flagged early.",
+        "type": "text",
+        "default": "Spend is tracked and changes are flagged early."
+      },
+      {
+        "key": "2b21e7c1958e7c82",
+        "label": "On spec",
+        "type": "text",
+        "default": "On spec"
+      },
+      {
+        "key": "9a593c70a6252903",
+        "label": "Everything is built to each platform’s requirements.",
+        "type": "text",
+        "default": "Everything is built to each platform’s requirements."
+      },
+      {
+        "key": "06493113b5c7eaf6",
+        "label": "On story",
+        "type": "text",
+        "default": "On story"
+      },
+      {
+        "key": "140ae51ff580db08",
+        "label": "Every decision is measured against the story you set out to tell.",
+        "type": "text",
+        "default": "Every decision is measured against the story you set out to tell."
+      },
+      {
+        "key": "d59f54432e6a03de",
+        "label": "Before the shoot (best)",
+        "type": "text",
+        "default": "Before the shoot (best)"
+      },
+      {
+        "key": "5be6384842c84910",
+        "label": "We plan the workflow, data handling and delivery requirements from day one.",
+        "type": "text",
+        "default": "We plan the workflow, data handling and delivery requirements from day one."
+      },
+      {
+        "key": "450a9dc79cae5d1d",
+        "label": "During the shoot (good)",
+        "type": "text",
+        "default": "During the shoot (good)"
+      },
+      {
+        "key": "69b3a2413f76c445",
+        "label": "Footage is checked and organised as it arrives, so the edit can start fast.",
+        "type": "text",
+        "default": "Footage is checked and organised as it arrives, so the edit can start fast."
+      },
+      {
+        "key": "d38df5e9142416fb",
+        "label": "After wrap (most common)",
+        "type": "text",
+        "default": "After wrap (most common)"
+      },
+      {
+        "key": "af78b4bafc05f492",
+        "label": "Post is supervised from the first cut to the final master.",
+        "type": "text",
+        "default": "Post is supervised from the first cut to the final master."
+      },
+      {
+        "key": "2b7871efc282c964",
+        "label": "Stuck in post (we can help)",
+        "type": "text",
+        "default": "Stuck in post (we can help)"
+      },
+      {
+        "key": "d67b6c885667050b",
+        "label": "We take over a stalled film edit, re-plan the schedule and get it delivered.",
+        "type": "text",
+        "default": "We take over a stalled film edit, re-plan the schedule and get it delivered."
+      },
+      {
+        "key": "6a240191f27b3584",
+        "label": "What is post-production in film?",
+        "type": "text",
+        "default": "What is post-production in film?"
+      },
+      {
+        "key": "cd7cc1a424996ff6",
+        "label": "Post-production is everything that happens after the shoot: editing, sound, colour gr",
+        "type": "text",
+        "default": "Post-production is everything that happens after the shoot: editing, sound, colour grading, VFX, music and delivery. It’s the stage where footage becomes a finished film."
+      },
+      {
+        "key": "758cdbb2706dd775",
+        "label": "What does a post-production supervisor do?",
+        "type": "text",
+        "default": "What does a post-production supervisor do?"
+      },
+      {
+        "key": "be80bc5f4c574c87",
+        "label": "A post-production supervisor plans and runs the whole post pipeline. That means the s",
+        "type": "text",
+        "default": "A post-production supervisor plans and runs the whole post pipeline. That means the schedule, the budget, the teams, the review rounds and the final deliverables, so every department stays in sync until the master is delivered."
+      },
+      {
+        "key": "bfe92c16502c0624",
+        "label": "I already have an editor. Do I need post-production supervision?",
+        "type": "text",
+        "default": "I already have an editor. Do I need post-production supervision?"
+      },
+      {
+        "key": "5ef9d2580567a03a",
+        "label": "Your editor shapes the cut. Supervision keeps the sound, colour, VFX, music and deliv",
+        "type": "text",
+        "default": "Your editor shapes the cut. Supervision keeps the sound, colour, VFX, music and delivery teams working to the same schedule and budget around that cut. The two roles work best together."
+      },
+      {
+        "key": "17f3f2dbff73bfca",
+        "label": "When should post-production supervision start?",
+        "type": "text",
+        "default": "When should post-production supervision start?"
+      },
+      {
+        "key": "c324bdc825224536",
+        "label": "Ideally before the shoot, so workflow, data handling and delivery requirements are pl",
+        "type": "text",
+        "default": "Ideally before the shoot, so workflow, data handling and delivery requirements are planned from day one. Most projects come to us after wrap, and that works well too."
+      },
+      {
+        "key": "a879a8799b885304",
+        "label": "Can you finish a film shot by another company?",
+        "type": "text",
+        "default": "Can you finish a film shot by another company?"
+      },
+      {
+        "key": "48681c4ec4ad9ab6",
+        "label": "Yes. We regularly take over projects that were shot elsewhere, check the footage and ",
+        "type": "text",
+        "default": "Yes. We regularly take over projects that were shot elsewhere, check the footage and records, and plan the post-production workflow from there."
+      },
+      {
+        "key": "fd08adfc52fa000e",
+        "label": "Is it too late if we’re already deep in post?",
+        "type": "text",
+        "default": "Is it too late if we’re already deep in post?"
+      },
+      {
+        "key": "edcc4847e546f07e",
+        "label": "No. We can take over a stalled film edit, re-plan the schedule and budget, and get th",
+        "type": "text",
+        "default": "No. We can take over a stalled film edit, re-plan the schedule and budget, and get the film delivered."
+      },
+      {
+        "key": "32332b75c98f4a9a",
+        "label": "What happens if we need changes after picture lock?",
+        "type": "text",
+        "default": "What happens if we need changes after picture lock?"
+      },
+      {
+        "key": "b106646d8e2c3770",
+        "label": "Changes are possible, but each one can affect sound, VFX, colour and music. We show y",
+        "type": "text",
+        "default": "Changes are possible, but each one can affect sound, VFX, colour and music. We show you the time and cost before anything is committed, so you can decide with full information."
+      },
+      {
+        "key": "cdcb9b78d9f42644",
+        "label": "What deliverables do OTT platforms require?",
+        "type": "text",
+        "default": "What deliverables do OTT platforms require?"
+      },
+      {
+        "key": "e287fa001d2e4af3",
+        "label": "Usually a picture master, a final mix and stems, subtitles and captions, delivery pap",
+        "type": "text",
+        "default": "Usually a picture master, a final mix and stems, subtitles and captions, delivery paperwork and a QC report. The exact list comes from each platform’s own spec, such as Netflix or Amazon Prime delivery specs, and we build to that."
+      },
+      {
+        "key": "04bb8d4b4cabbe61",
+        "label": "Which formats do you finish?",
+        "type": "text",
+        "default": "Which formats do you finish?"
+      },
+      {
+        "key": "ffec479c2cb191e9",
+        "label": "Feature films, web series and OTT projects, documentaries and short films.",
+        "type": "text",
+        "default": "Feature films, web series and OTT projects, documentaries and short films."
+      },
+      {
+        "key": "b22f7a21810e3df1",
+        "label": "Do you edit, mix and grade in-house?",
+        "type": "text",
+        "default": "Do you edit, mix and grade in-house?"
+      },
+      {
+        "key": "0b55eb085cd3098a",
+        "label": "We supervise the full post pipeline and bring in the right editorial, sound, colour a",
+        "type": "text",
+        "default": "We supervise the full post pipeline and bring in the right editorial, sound, colour and VFX teams for each project."
       },
       {
         "key": "a501e1547fd89873",
         "label": "EDIT TIMELINE",
         "default": "EDIT TIMELINE",
-        "type": "text"
-      },
-      {
-        "key": "99de50a026c2702a",
-        "label": "Kemsor Studios",
-        "default": "Kemsor Studios",
-        "type": "text"
-      },
-      {
-        "key": "97f485a94ae4765d",
-        "label": "Post",
-        "default": "Post",
-        "type": "text"
-      },
-      {
-        "key": "05049cd7adaf7f08",
-        "label": "Post-Production Supervision",
-        "default": "Post-Production Supervision",
-        "type": "text"
-      },
-      {
-        "key": "7f45d4570ce5dbd7",
-        "label": "04 · POST · 01:00:00:00",
-        "default": "04 · POST · 01:00:00:00",
-        "type": "text"
-      },
-      {
-        "key": "9ad1149291492821",
-        "label": "Post-Production Supervision.",
-        "default": "Post-Production Supervision.",
-        "type": "text"
-      },
-      {
-        "key": "4536799f6b61a394",
-        "label": "Where the film is finally made.",
-        "default": "Where the film is finally made.",
-        "type": "text"
-      },
-      {
-        "key": "26f1b0f65e0332b4",
-        "label": "The shoot gives you footage. Post gives you a film. Kemsor supervises the edit, sound",
-        "default": "The shoot gives you footage. Post gives you a film. Kemsor supervises the edit, sound, colour, VFX, and deliverables, keeping every department in sync with the story, the schedule, and the budget, all the way to the final master.",
-        "type": "text"
-      },
-      {
-        "key": "71f35f94c6e86a41",
-        "label": "Bring us the footage",
-        "default": "Bring us the footage",
-        "type": "text"
-      },
-      {
-        "key": "a5126072593bc006",
-        "label": "See the pipeline",
-        "default": "See the pipeline",
-        "type": "text"
-      },
-      {
-        "key": "bac4bf43dcfc2ccb",
-        "label": "01 Develop",
-        "default": "01 Develop",
-        "type": "text"
-      },
-      {
-        "key": "5e9102d02f640c12",
-        "label": "02 Finance",
-        "default": "02 Finance",
-        "type": "text"
-      },
-      {
-        "key": "b252745fadb970f5",
-        "label": "03 Produce",
-        "default": "03 Produce",
-        "type": "text"
-      },
-      {
-        "key": "abcba43e5674e507",
-        "label": "04 Post",
-        "default": "04 Post",
-        "type": "text"
-      },
-      {
-        "key": "3bbd2e98fd79084f",
-        "label": "THE GAP",
-        "default": "THE GAP",
-        "type": "text"
-      },
-      {
-        "key": "380b9f51e7bc0432",
-        "label": "Wrap is not the finish line.",
-        "default": "Wrap is not the finish line. ",
-        "type": "text"
-      },
-      {
-        "key": "268937b1a8d4c539",
-        "label": "It’s halfway.",
-        "default": "It’s halfway.",
-        "type": "text"
-      },
-      {
-        "key": "3d3ad5bbf3f9c682",
-        "label": "On the last shoot day, everyone celebrates. Then the footage goes quiet on a drive an",
-        "default": "After the shoot, the footage moves into editing, sound, colour and visual effects. Each department needs a clear handover and an agreed schedule.",
-        "type": "text"
-      },
-      {
-        "key": "12992c807d3dbd98",
-        "label": "After wrap, a project passes through more hands than at any other point: editors, sou",
-        "default": "Editors, sound teams, colourists, VFX artists and composers often work in parallel. Post-production supervision keeps their schedules, versions and approvals coordinated through delivery.",
-        "type": "text"
-      },
-      {
-        "key": "e641b16949b6d454",
-        "label": "That’s the job. Kemsor keeps every department working from the same cut, the same sch",
-        "default": "Kemsor coordinates the cut, schedule and budget across departments, and records the decisions needed to finish the film.",
-        "type": "text"
-      },
-      {
-        "key": "a70083482a480d73",
-        "label": "THE PIPELINE",
-        "default": "THE PIPELINE",
-        "type": "text"
-      },
-      {
-        "key": "4a630404f862f22f",
-        "label": "Seven stages.",
-        "default": "Seven stages. ",
-        "type": "text"
-      },
-      {
-        "key": "910e943f36141a85",
-        "label": "One person watching all of them.",
-        "default": "One person watching all of them.",
-        "type": "text"
-      },
-      {
-        "key": "31dc6a4cedae68c3",
-        "label": "Post runs in a set order, with stages overlapping as the film comes together. We plan",
-        "default": "Post runs in a set order, with stages overlapping as the film comes together. We plan the whole pipeline before the first frame is cut.",
-        "type": "text"
-      },
-      {
-        "key": "3ead902902f5197a",
-        "label": "PICTURE LOCK",
-        "default": "PICTURE LOCK",
-        "type": "text"
-      },
-      {
-        "key": "b646d80b1cf91758",
-        "label": "Picture lock is a promise.",
-        "default": "Picture lock is a promise. ",
-        "type": "text"
-      },
-      {
-        "key": "8e3e80badd8775e5",
-        "label": "We help everyone keep it.",
-        "default": "We help everyone keep it.",
-        "type": "text"
-      },
-      {
-        "key": "b63eda90994ed3f4",
-        "label": "Once the cut is locked, sound, VFX, colour and music all build on that exact timeline",
-        "default": "Once the cut is locked, sound, VFX, colour and music all build on that exact timeline. Change one shot after lock, and the change ripples through every department working on it.",
-        "type": "text"
-      },
-      {
-        "key": "91f6f39137963969",
-        "label": "So we protect the lock: clear review rounds before it, a firm decision point, and an ",
-        "default": "So we protect the lock: clear review rounds before it, a firm decision point, and an honest view of what any later change will cost in time and money.",
-        "type": "text"
-      },
-      {
-        "key": "981f4640e72940aa",
-        "label": "One shot changes after lock",
-        "default": "One shot changes after lock",
-        "type": "text"
-      },
-      {
-        "key": "4cb1753b815cb49e",
-        "label": "Every change after lock costs time in four places.",
-        "default": "Every change after lock costs time in four places.",
-        "type": "text"
-      },
-      {
-        "key": "b47beec5fd318664",
-        "label": "WHAT WE SUPERVISE",
-        "default": "WHAT WE SUPERVISE",
-        "type": "text"
-      },
-      {
-        "key": "52b7261b4b3a9b07",
-        "label": "What we manage.",
-        "default": "What we manage. ",
-        "type": "text"
-      },
-      {
-        "key": "e6059c598e448ed8",
-        "label": "And why it matters to you.",
-        "default": "And why it matters to you.",
-        "type": "text"
-      },
-      {
-        "key": "332a2047d571c5c8",
-        "label": "NOTES & REVIEWS",
-        "default": "NOTES & REVIEWS",
-        "type": "text"
-      },
-      {
-        "key": "ce752f37cebdede3",
-        "label": "One set of notes.",
-        "default": "One set of notes. ",
-        "type": "text"
-      },
-      {
-        "key": "bcf5fcd7b07fca50",
-        "label": "One version of the truth.",
-        "default": "One version of the truth.",
-        "type": "text"
-      },
-      {
-        "key": "388be82c97b2d92b",
-        "label": "Post goes wrong when notes arrive from five people in five places. We run reviews so ",
-        "default": "We combine review notes into one agreed list, resolve conflicting feedback and track the decisions for each department.",
-        "type": "text"
-      },
-      {
-        "key": "98316e431996fd8f",
-        "label": "v",
-        "default": "v",
-        "type": "text"
-      },
-      {
-        "key": "e23726795eab9afc",
-        "label": "DELIVERABLES",
-        "default": "DELIVERABLES",
-        "type": "text"
-      },
-      {
-        "key": "bfdec6726495d8ab",
-        "label": "The last mile",
-        "default": "The last mile ",
-        "type": "text"
-      },
-      {
-        "key": "03adf9b8d87b0497",
-        "label": "is the longest list.",
-        "default": "is the longest list.",
-        "type": "text"
-      },
-      {
-        "key": "3eaa1422f4ec151e",
-        "label": "Platforms and distributors don’t accept “the film”. They accept a precise set of file",
-        "default": "Platforms and distributors specify the files and supporting materials they need. Typical deliverables include:",
-        "type": "text"
-      },
-      {
-        "key": "e05fc299fa5c8389",
-        "label": "Exact deliverables come from each platform or distributor. We work from their specifi",
-        "default": "Exact deliverables come from each platform or distributor. We work from their specification, not a template.",
-        "type": "text"
-      },
-      {
-        "key": "9acea32635e7d6ec",
-        "label": "BY FORMAT",
-        "default": "BY FORMAT",
-        "type": "text"
-      },
-      {
-        "key": "fec4d92b39dea665",
-        "label": "Every format finishes",
-        "default": "Every format finishes ",
-        "type": "text"
-      },
-      {
-        "key": "8873656982ab3ee3",
-        "label": "differently.",
-        "default": "differently.",
-        "type": "text"
-      },
-      {
-        "key": "ff485587341aa0f6",
-        "label": "END CREDITS",
-        "default": "END CREDITS",
-        "type": "text"
-      },
-      {
-        "key": "db250cabb77f1c65",
-        "label": "Who it’s for",
-        "default": "Who it’s for ",
-        "type": "text"
-      },
-      {
-        "key": "0fc1a244eabd09d1",
-        "label": "& the work behind it.",
-        "default": "& the work behind it.",
-        "type": "text"
-      },
-      {
-        "key": "114dfc46aec77fa2",
-        "label": "Made for",
-        "default": "Made for",
-        "type": "text"
-      },
-      {
-        "key": "5d4c354462df9aa7",
-        "label": "NOTES FROM THE EDIT SUITE",
-        "default": "NOTES FROM THE EDIT SUITE",
-        "type": "text"
-      },
-      {
-        "key": "e0b0c447687977a0",
-        "label": "Questions",
-        "default": "Questions ",
-        "type": "text"
-      },
-      {
-        "key": "d2f865c2da63458e",
-        "label": "before you hand over the drives.",
-        "default": "before you hand over the drives.",
-        "type": "text"
-      },
-      {
-        "key": "5370556b18a47fc5",
-        "label": "04 · POST · FINAL REEL",
-        "default": "04 · POST · FINAL REEL",
-        "type": "text"
-      },
-      {
-        "key": "8ae247150f247a18",
-        "label": "Bring us the footage.",
-        "default": "Bring us the footage. ",
-        "type": "text"
-      },
-      {
-        "key": "42aef7e176d076db",
-        "label": "We’ll bring you the film.",
-        "default": "We’ll bring you the film.",
-        "type": "text"
-      },
-      {
-        "key": "86c81965260a248b",
-        "label": "Wherever your project is fresh off the shoot or stuck in the edit let’s talk about ge",
-        "default": "Whether you have just wrapped filming or need help with an ongoing edit, we can discuss the work required to finish your project.",
-        "type": "text"
-      },
-      {
-        "key": "23c8301aaa835507",
-        "label": "Bring us the footage",
-        "default": "Bring us the footage",
-        "type": "text"
-      },
-      {
-        "key": "fce7747820d9a2e4",
-        "label": "Talk to the studio",
-        "default": "Talk to the studio",
         "type": "text"
       },
       {
@@ -12322,6 +11590,186 @@
         "type": "text"
       },
       {
+        "key": "99de50a026c2702a",
+        "label": "Kemsor Studios",
+        "default": "Kemsor Studios",
+        "type": "text"
+      },
+      {
+        "key": "05049cd7adaf7f08",
+        "label": "Post-Production Supervision",
+        "default": "Post-Production Supervision",
+        "type": "text"
+      },
+      {
+        "key": "7f45d4570ce5dbd7",
+        "label": "04 · POST · 01:00:00:00",
+        "default": "POST · 01:00:00:00",
+        "type": "text"
+      },
+      {
+        "key": "9ad1149291492821",
+        "label": "Post-Production Supervision.",
+        "default": "Film Post-Production, ",
+        "type": "text"
+      },
+      {
+        "key": "4536799f6b61a394",
+        "label": "Where the film is finally made.",
+        "default": "Supervised from First Cut to Final Master",
+        "type": "text"
+      },
+      {
+        "key": "26f1b0f65e0332b4",
+        "label": "The shoot gives you footage. Post gives you a film. Kemsor supervises the edit, sound",
+        "default": "The shoot gives you footage. Post gives you a film. Kemsor Studios supervises every stage of film post-production, from the edit, sound, colour and VFX through to music and delivery. We keep each department working to the same story, the same schedule and the same budget, right up to the final master.",
+        "type": "text"
+      },
+      {
+        "key": "71f35f94c6e86a41",
+        "label": "Bring us the footage",
+        "default": "Bring us the footage",
+        "type": "text"
+      },
+      {
+        "key": "a5126072593bc006",
+        "label": "See the pipeline",
+        "default": "See the pipeline",
+        "type": "text"
+      },
+      {
+        "key": "bac4bf43dcfc2ccb",
+        "label": "01 Develop",
+        "default": "01 Develop",
+        "type": "text"
+      },
+      {
+        "key": "5e9102d02f640c12",
+        "label": "02 Finance",
+        "default": "02 Finance",
+        "type": "text"
+      },
+      {
+        "key": "b252745fadb970f5",
+        "label": "03 Produce",
+        "default": "03 Produce",
+        "type": "text"
+      },
+      {
+        "key": "abcba43e5674e507",
+        "label": "04 Post",
+        "default": "04 Post",
+        "type": "text"
+      },
+      {
+        "key": "7ac1f8a52eb91d4c",
+        "label": "The six crafts of film post-production",
+        "type": "text",
+        "default": "The six crafts of film post-production"
+      },
+      {
+        "key": "d8fdcf5ff6185908",
+        "label": "Every craft in post changes what the audience feels. Our post-production services bri",
+        "type": "text",
+        "default": "Every craft in post changes what the audience feels. Our post-production services bring all six together under one plan."
+      },
+      {
+        "key": "3bbd2e98fd79084f",
+        "label": "THE GAP",
+        "default": "THE GAP",
+        "type": "text"
+      },
+      {
+        "key": "380b9f51e7bc0432",
+        "label": "Wrap is not the finish line.",
+        "default": "Wrap is not the finish line. ",
+        "type": "text"
+      },
+      {
+        "key": "268937b1a8d4c539",
+        "label": "It’s halfway.",
+        "default": "It’s halfway.",
+        "type": "text"
+      },
+      {
+        "key": "3d3ad5bbf3f9c682",
+        "label": "On the last shoot day, everyone celebrates. Then the footage goes quiet on a drive an",
+        "default": "After the shoot, your footage moves into editing, sound, colour and visual effects. Each department needs a clean handover and a schedule everyone has agreed to.",
+        "type": "text"
+      },
+      {
+        "key": "12992c807d3dbd98",
+        "label": "After wrap, a project passes through more hands than at any other point: editors, sou",
+        "default": "Editors, sound teams, colourists, VFX artists and composers often work in parallel. Without someone watching all of them, versions drift, notes conflict and deadlines slip.",
+        "type": "text"
+      },
+      {
+        "key": "e641b16949b6d454",
+        "label": "That’s the job. Kemsor keeps every department working from the same cut, the same sch",
+        "default": "That’s the job of a post-production supervisor. Kemsor coordinates the cut, the schedule and the budget across every department, and keeps a record of each decision needed to finish the film.",
+        "type": "text"
+      },
+      {
+        "key": "a70083482a480d73",
+        "label": "THE PIPELINE",
+        "default": "THE PIPELINE",
+        "type": "text"
+      },
+      {
+        "key": "4a630404f862f22f",
+        "label": "Seven stages.",
+        "default": "The post-production pipeline: ",
+        "type": "text"
+      },
+      {
+        "key": "910e943f36141a85",
+        "label": "One person watching all of them.",
+        "default": "seven stages, one supervisor",
+        "type": "text"
+      },
+      {
+        "key": "31dc6a4cedae68c3",
+        "label": "Post runs in a set order, with stages overlapping as the film comes together. We plan",
+        "default": "Post runs in a set order, with stages overlapping as the film comes together. We plan the whole post-production workflow for your film before the first frame is cut.",
+        "type": "text"
+      },
+      {
+        "key": "3ead902902f5197a",
+        "label": "PICTURE LOCK",
+        "default": "PICTURE LOCK",
+        "type": "text"
+      },
+      {
+        "key": "b646d80b1cf91758",
+        "label": "Picture lock is a promise.",
+        "default": "Picture lock is a promise. ",
+        "type": "text"
+      },
+      {
+        "key": "8e3e80badd8775e5",
+        "label": "We help everyone keep it.",
+        "default": "We help everyone keep it.",
+        "type": "text"
+      },
+      {
+        "key": "b63eda90994ed3f4",
+        "label": "Once the cut is locked, sound, VFX, colour and music all build on that exact timeline",
+        "default": "Once the cut is locked, sound, VFX, colour and music all build on that exact timeline. Change one shot after picture lock and the change ripples through every department touching it.",
+        "type": "text"
+      },
+      {
+        "key": "91f6f39137963969",
+        "label": "So we protect the lock: clear review rounds before it, a firm decision point, and an ",
+        "default": "So we protect the lock. You get clear review rounds before it, a firm decision point, and an honest view of what any later change will cost in time and money.",
+        "type": "text"
+      },
+      {
+        "key": "981f4640e72940aa",
+        "label": "One shot changes after lock",
+        "default": "One shot changes after lock",
+        "type": "text"
+      },
+      {
         "key": "52a36f8f1239e81e",
         "label": "Sound re-edits the scene",
         "default": "Sound re-edits the scene",
@@ -12343,6 +11791,240 @@
         "key": "93b43f11fe79369a",
         "label": "Music re-timed",
         "default": "Music re-timed",
+        "type": "text"
+      },
+      {
+        "key": "4cb1753b815cb49e",
+        "label": "Every change after lock costs time in four places.",
+        "default": "Every change after lock costs time in four places.",
+        "type": "text"
+      },
+      {
+        "key": "b47beec5fd318664",
+        "label": "WHAT WE SUPERVISE",
+        "default": "WHAT WE SUPERVISE",
+        "type": "text"
+      },
+      {
+        "key": "52b7261b4b3a9b07",
+        "label": "What we manage.",
+        "default": "What a post-production supervisor manages for you",
+        "type": "text"
+      },
+      {
+        "key": "332a2047d571c5c8",
+        "label": "NOTES & REVIEWS",
+        "default": "NOTES & REVIEWS",
+        "type": "text"
+      },
+      {
+        "key": "ce752f37cebdede3",
+        "label": "One set of notes.",
+        "default": "One set of notes. ",
+        "type": "text"
+      },
+      {
+        "key": "bcf5fcd7b07fca50",
+        "label": "One version of the truth.",
+        "default": "One version of the truth.",
+        "type": "text"
+      },
+      {
+        "key": "388be82c97b2d92b",
+        "label": "Post goes wrong when notes arrive from five people in five places. We run reviews so ",
+        "default": "Too many voices in the review room can stall a film. We combine everyone’s feedback into one agreed list, settle conflicting notes and track decisions for each department.",
+        "type": "text"
+      },
+      {
+        "key": "98316e431996fd8f",
+        "label": "v",
+        "default": "v",
+        "type": "text"
+      },
+      {
+        "key": "e23726795eab9afc",
+        "label": "DELIVERABLES",
+        "default": "DELIVERABLES",
+        "type": "text"
+      },
+      {
+        "key": "bfdec6726495d8ab",
+        "label": "The last mile",
+        "default": "Film delivery requirements ",
+        "type": "text"
+      },
+      {
+        "key": "03adf9b8d87b0497",
+        "label": "is the longest list.",
+        "default": "for OTT platforms and distributors",
+        "type": "text"
+      },
+      {
+        "key": "3eaa1422f4ec151e",
+        "label": "Platforms and distributors don’t accept “the film”. They accept a precise set of file",
+        "default": "The last mile is the longest list. Every platform and distributor sets out its own film delivery requirements, from Netflix and Amazon Prime delivery specs to broadcaster and festival formats. Typical deliverables include:",
+        "type": "text"
+      },
+      {
+        "key": "e05fc299fa5c8389",
+        "label": "Exact deliverables come from each platform or distributor. We work from their specifi",
+        "default": "We work from each platform’s actual specification, not a template.",
+        "type": "text"
+      },
+      {
+        "key": "9acea32635e7d6ec",
+        "label": "BY FORMAT",
+        "default": "BY FORMAT",
+        "type": "text"
+      },
+      {
+        "key": "fec4d92b39dea665",
+        "label": "Every format finishes",
+        "default": "Post-production for every format",
+        "type": "text"
+      },
+      {
+        "key": "cbcc9ca5266916b2",
+        "label": "Every format finishes differently, so we plan each one on its own terms.",
+        "type": "text",
+        "default": "Every format finishes differently, so we plan each one on its own terms."
+      },
+      {
+        "key": "69ccc924b99f3b8d",
+        "label": "Four promises good post should keep",
+        "type": "text",
+        "default": "Four promises good post should keep"
+      },
+      {
+        "key": "0545b3ff542184b5",
+        "label": "When to bring in post-production supervision",
+        "type": "text",
+        "default": "When to bring in post-production supervision"
+      },
+      {
+        "key": "a7c4b1857f071e19",
+        "label": "The best time is early. The second-best time is now.",
+        "type": "text",
+        "default": "The best time is early. The second-best time is now."
+      },
+      {
+        "key": "b65e9b0eafdb51c7",
+        "label": "End-to-end film post-production, from set to screen",
+        "type": "text",
+        "default": "End-to-end film post-production, from set to screen"
+      },
+      {
+        "key": "63e9f7968a935654",
+        "label": "Post doesn’t start cold, and it doesn’t end at the master.",
+        "type": "text",
+        "default": "Post doesn’t start cold, and it doesn’t end at the master."
+      },
+      {
+        "key": "2785d5f4e1d72087",
+        "label": "Before: Produce",
+        "type": "text",
+        "default": "Before: Produce"
+      },
+      {
+        "key": "316b078814eae8c5",
+        "label": "Footage and production records are handed over in order by the team that ran the shoo",
+        "type": "text",
+        "default": "Footage and production records are handed over in order by the team that ran the shoot."
+      },
+      {
+        "key": "46bcaeeaeaaaed4d",
+        "label": "Now: Post",
+        "type": "text",
+        "default": "Now: Post"
+      },
+      {
+        "key": "2984a39aeea05f4f",
+        "label": "Edit, sound, colour, VFX and deliverables supervised to the final master.",
+        "type": "text",
+        "default": "Edit, sound, colour, VFX and deliverables supervised to the final master."
+      },
+      {
+        "key": "2c28a76483452942",
+        "label": "Next: Release",
+        "type": "text",
+        "default": "Next: Release"
+      },
+      {
+        "key": "917b9a9b45936a7f",
+        "label": "Deliverables prepared, with coordination alongside platforms and distributors for rel",
+        "type": "text",
+        "default": "Deliverables prepared, with coordination alongside platforms and distributors for release."
+      },
+      {
+        "key": "db250cabb77f1c65",
+        "label": "Who it’s for",
+        "default": "Who our post-production services are for",
+        "type": "text"
+      },
+      {
+        "key": "c029fdf8f395024b",
+        "label": "A film post-production studio in India",
+        "type": "text",
+        "default": "A film post-production studio in India"
+      },
+      {
+        "key": "9b4e75ced011f4d6",
+        "label": "Kemsor Studios is a post-production company based in Dehradun, offering film post-pro",
+        "type": "text",
+        "default": "Kemsor Studios is a post-production company based in Dehradun, offering film post-production services in India to filmmakers across the country. Whether you’re finishing a feature, a series or a documentary, our post-production supervisor plans the work, the people and the budget needed to get your film finished well. From the first assembly to the final master, our film finishing services cover every step."
+      },
+      {
+        "key": "5d4c354462df9aa7",
+        "label": "NOTES FROM THE EDIT SUITE",
+        "default": "NOTES FROM THE EDIT SUITE",
+        "type": "text"
+      },
+      {
+        "key": "e0b0c447687977a0",
+        "label": "Questions",
+        "default": "Questions ",
+        "type": "text"
+      },
+      {
+        "key": "d2f865c2da63458e",
+        "label": "before you hand over the drives.",
+        "default": "before you hand over the drives",
+        "type": "text"
+      },
+      {
+        "key": "5370556b18a47fc5",
+        "label": "04 · POST · FINAL REEL",
+        "default": "04 · POST · FINAL REEL",
+        "type": "text"
+      },
+      {
+        "key": "8ae247150f247a18",
+        "label": "Bring us the footage.",
+        "default": "Bring us the footage. ",
+        "type": "text"
+      },
+      {
+        "key": "42aef7e176d076db",
+        "label": "We’ll bring you the film.",
+        "default": "We’ll bring you the film.",
+        "type": "text"
+      },
+      {
+        "key": "86c81965260a248b",
+        "label": "Wherever your project is fresh off the shoot or stuck in the edit let’s talk about ge",
+        "default": "Whether your film isn’t shot yet, has just wrapped or is stuck in the edit, tell us where it stands. We’ll plan the post-production work needed to finish it properly.",
+        "type": "text"
+      },
+      {
+        "key": "23c8301aaa835507",
+        "label": "Bring us the footage",
+        "default": "Bring us the footage",
+        "type": "text"
+      },
+      {
+        "key": "fce7747820d9a2e4",
+        "label": "Talk to the studio",
+        "default": "Talk to the studio",
         "type": "text"
       }
     ]
@@ -21959,8 +21641,8 @@
       },
       {
         "key": "9e7fda1af7e01254",
-        "label": "Pre-Production, Casting & Talent",
-        "default": "Pre-Production, Casting & Talent",
+        "label": "Casting & Talent",
+        "default": "Casting & Talent",
         "type": "text"
       },
       {

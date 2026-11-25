@@ -5,24 +5,37 @@ const adminProgress=(()=>{
  const box=document.createElement('div');box.className='admin-loading-progress';box.hidden=true;
  const label=document.createElement('span');label.setAttribute('role','status');label.setAttribute('aria-live','polite');
  const track=document.createElement('div');track.className='admin-loading-track';track.setAttribute('role','progressbar');track.setAttribute('aria-label','Request progress');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');
- const fill=document.createElement('i');track.append(fill);box.append(track,label);document.body.append(box);
+ const fill=document.createElement('i');track.append(fill);const uploadRing=window.createAdminUploadProgress?.();box.append(track,label);if(uploadRing)box.prepend(uploadRing.element);document.body.append(box);
  let delay,hideTimer,slowTimer;
- const show=(message,percent)=>{clearTimeout(hideTimer);box.hidden=false;label.textContent=message;const measured=Number.isFinite(percent);box.classList.toggle('is-indeterminate',!measured);if(measured){const value=Math.max(0,Math.min(100,percent));fill.style.width=`${value}%`;track.setAttribute('aria-valuenow',String(Math.round(value)))}else{fill.style.width='';track.removeAttribute('aria-valuenow')}};
+ const show=(message,percent)=>{box.classList.remove('is-upload');uploadRing?.update('idle');clearTimeout(hideTimer);box.hidden=false;label.textContent=message;const measured=Number.isFinite(percent);box.classList.toggle('is-indeterminate',!measured);if(measured){const value=Math.max(0,Math.min(100,percent));fill.style.width=`${value}%`;track.setAttribute('aria-valuenow',String(Math.round(value)))}else{fill.style.width='';track.removeAttribute('aria-valuenow')}};
+ const showUpload=(message,state,percent)=>{
+  if(!uploadRing){show(message,percent);return;}
+  clearTimeout(hideTimer);
+  box.hidden=false;
+  box.classList.add('is-upload');
+  label.textContent=message;
+  uploadRing.update(state,percent);
+ };
  const finish=()=>{clearTimeout(delay);clearTimeout(slowTimer);if(box.hidden)return;show('Complete',100);hideTimer=setTimeout(()=>{box.hidden=true},250)};
- const navigation=()=>{clearTimeout(delay);delay=setTimeout(()=>show('Opening page…'),120);clearTimeout(slowTimer);slowTimer=setTimeout(()=>show('Still loading. Please wait…'),4500)};
+ const navigation=({sidebar=false}={})=>{
+  clearTimeout(delay);
+  delay=setTimeout(()=>show('Opening page…'),sidebar?900:120);
+  clearTimeout(slowTimer);
+  slowTimer=setTimeout(()=>show('Still loading. Please wait…'),4500);
+ };
  const cancel=()=>{clearTimeout(delay);clearTimeout(slowTimer);clearTimeout(hideTimer);box.hidden=true};
- addEventListener('pageshow',cancel);addEventListener('offline',cancel);
- document.addEventListener('click',event=>{const link=event.target.closest?.('a[href]');if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||!link||link.hasAttribute('download')||link.target==='_blank')return;const url=new URL(link.href,location.href);if(url.origin===location.origin&&!/\.csv$/.test(url.pathname)&&(url.pathname!==location.pathname||url.search!==location.search))navigation()});
+ addEventListener('pageshow',cancel);addEventListener('pagehide',cancel);addEventListener('offline',cancel);
+ document.addEventListener('click',event=>{const link=event.target.closest?.('a[href]');if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||!link||link.hasAttribute('download')||link.target==='_blank')return;const url=new URL(link.href,location.href);if(url.origin===location.origin&&!/\.csv$/.test(url.pathname)&&(url.pathname!==location.pathname||url.search!==location.search))navigation({sidebar:Boolean(link.closest('.cms-nav'))})});
  document.addEventListener('submit',event=>{if(!event.defaultPrevented&&(event.target.method||'get').toLowerCase()==='get')navigation()});
- return {show,finish,navigation,cancel};
+ return {show,showUpload,finish,navigation,cancel};
 })();
-function adminUpload(action,data,signal,onProgress){
+function adminUpload(action,data,signal,onProgress,onProcessing){
  return new Promise((resolve,reject)=>{
   if(signal.aborted){reject(new DOMException('Cancelled','AbortError'));return;}
   const xhr=new XMLHttpRequest();xhr.open('POST',action);xhr.setRequestHeader('Accept','application/json');
   const aborted=()=>xhr.abort();signal.addEventListener('abort',aborted,{once:true});
   xhr.upload.onprogress=event=>{if(event.lengthComputable)onProgress(event.loaded/event.total*100)};
-  xhr.upload.onload=()=>adminProgress.show([...data.values()].some(value=>value instanceof File&&value.size)?'Upload received. Optimizing and saving…':'Saving…');
+  xhr.upload.onload=onProcessing;
   xhr.onload=()=>{signal.removeEventListener('abort',aborted);resolve({ok:xhr.status>=200&&xhr.status<300,redirected:xhr.responseURL!==new URL(action,location.href).href,url:xhr.responseURL,headers:{get:name=>xhr.getResponseHeader(name)},json:async()=>JSON.parse(xhr.responseText)})};
   xhr.onerror=()=>{signal.removeEventListener('abort',aborted);reject(new Error('Connection failed'))};xhr.onabort=()=>{signal.removeEventListener('abort',aborted);reject(new DOMException('Cancelled','AbortError'))};
   xhr.send(data);
@@ -31,7 +44,7 @@ function adminUpload(action,data,signal,onProgress){
 async function optimizeAdminImages(data,form){
  for(const field of form.querySelectorAll('input[type="file"][name="image"]')){
   const file=data.get(field.name);if(!(file instanceof File)||!file.size)continue;
-  adminProgress.show('Preparing your image…');
+  adminProgress.showUpload('Preparing image…','processing');
   // Original files remain selected if validation or the network fails.
   let bitmap;
   try{
@@ -98,10 +111,6 @@ if(slugPreview && contentTitle && !slugPreview.dataset.existingSlug){
  contentTitle.addEventListener('input',preview);preview();
 }
 
-const blogBanner=document.querySelector('[data-blog-banner]');
-const bannerAlt=document.querySelector('[data-banner-alt]');
-if(blogBanner&&bannerAlt)blogBanner.addEventListener('change',()=>{bannerAlt.required=Boolean(blogBanner.files.length);});
-
 document.querySelectorAll('input[type="password"]').forEach(input=>{
  const wrapper=document.createElement('span');wrapper.className='password-control';input.replaceWith(wrapper);wrapper.append(input);
  const button=document.createElement('button');button.type='button';button.className='password-eye';button.setAttribute('aria-label','Show password');button.setAttribute('aria-pressed','false');
@@ -156,20 +165,28 @@ for(const form of document.querySelectorAll('main form[method="post"],main form[
   const submitter=event.submitter,submitContent=submitter?[...submitter.childNodes]:[];
   form.dataset.saving='true';form.setAttribute('aria-busy','true');buttons.forEach(({button})=>button.disabled=true);fields.forEach(({field})=>field.disabled=true);editors.forEach(({surface})=>{surface.contentEditable='false';surface.setAttribute('aria-readonly','true');});if(submitter)submitter.textContent='Saving…';
   let requestSucceeded=false;
+  const hasFiles=[...data.values()].some(value=>value instanceof File&&value.size);
+  const confirmUpload=async()=>{
+   if(!hasFiles)return;
+   adminProgress.showUpload('Upload complete.','complete');
+   await new Promise(resolve=>setTimeout(resolve,650));
+  };
   const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),180000);
   adminProgress.show('Preparing request…');
   try{
    await optimizeAdminImages(data,form);
    const session=await fetch('/api/csrf',{headers:{Accept:'application/json'},credentials:'same-origin',signal:controller.signal});
    if(session.ok){const fresh=await session.json();data.set('_csrf',fresh.token);const input=form.querySelector('input[name="_csrf"]');if(input)input.value=fresh.token;}
-   const hasFiles=[...data.values()].some(value=>value instanceof File&&value.size);
-   adminProgress.show(hasFiles?'Uploading…':'Saving…',hasFiles?0:undefined);
-   const response=await adminUpload(form.getAttribute('action')||location.href,data,controller.signal,percent=>adminProgress.show(percent>=100?'Upload received. Processing…':`Uploading ${Math.round(percent)}%`,percent<100?percent:undefined));
-   if(response.headers.get('content-type')?.includes('application/json')){const result=await response.json();if(!response.ok){const box=feedback(result.error||'Unable to save these details.',result.fields||{});if(result.code==='CONTENT_CONFLICT'&&result.conflict){box.querySelector('strong').textContent='Newer saved version detected.';const actions=document.createElement('div');actions.className='publishing-conflict-actions';for(const [label,url]of [['Open latest saved version',result.conflict.editorUrl],['Compare saved versions',result.conflict.historyUrl]]){const link=document.createElement('a');link.className='button quiet';link.textContent=label;link.href=url;link.target='_blank';link.rel='noopener noreferrer';actions.append(link);}if(form.matches('.editor')){const download=document.createElement('button');download.type='button';download.className='quiet';download.textContent='Download my unsaved copy';download.addEventListener('click',()=>{const fields={};for(const [key,value]of new FormData(form)){if(key==='_csrf'||/password/i.test(key))continue;const entry=value instanceof File?{name:value.name,size:value.size,type:value.type,note:'Selected files are not included in this copy.'}:value;if(key in fields)fields[key]=Array.isArray(fields[key])?[...fields[key],entry]:[fields[key],entry];else fields[key]=entry;}const url=URL.createObjectURL(new Blob([JSON.stringify({format:'kemsor-unsaved-content-v1',exportedAt:new Date().toISOString(),fields},null,2)],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='kemsor-unsaved-content.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});actions.append(download);}box.append(actions);}return;}if(result.redirect){requestSucceeded=true;window.adminSaveCompleted=true;location.assign(result.redirect);return;}requestSucceeded=true;feedback(typeof result.message==='string'?result.message:'Your changes have been saved.',{},true);form.dispatchEvent(new CustomEvent('admin:saved'));return;}
-   if(response.redirected&&response.ok){if(new URL(response.url).pathname==='/admin/login'){feedback('Your session has expired. Open the admin login in another tab, sign in, then retry. Your entries are still here.');return;}requestSucceeded=true;window.adminSaveCompleted=true;location.assign(response.url);return;}
+   if(hasFiles)adminProgress.showUpload('Uploading…','uploading');
+   else adminProgress.show('Saving…');
+   const response=await adminUpload(form.getAttribute('action')||location.href,data,controller.signal,
+    percent=>{if(hasFiles&&percent<100)adminProgress.showUpload('Uploading…','uploading',Math.min(99,Math.round(percent)));},
+    ()=>{if(hasFiles)adminProgress.showUpload('Processing upload…','processing');});
+   if(response.headers.get('content-type')?.includes('application/json')){const result=await response.json();if(!response.ok){const box=feedback(result.error||'Unable to save these details.',result.fields||{});if(result.code==='CONTENT_CONFLICT'&&result.conflict){box.querySelector('strong').textContent='Newer saved version detected.';const actions=document.createElement('div');actions.className='publishing-conflict-actions';for(const [label,url]of [['Open latest saved version',result.conflict.editorUrl],['Compare saved versions',result.conflict.historyUrl]]){const link=document.createElement('a');link.className='button quiet';link.textContent=label;link.href=url;link.target='_blank';link.rel='noopener noreferrer';actions.append(link);}if(form.matches('.editor')){const download=document.createElement('button');download.type='button';download.className='quiet';download.textContent='Download my unsaved copy';download.addEventListener('click',()=>{const fields={};for(const [key,value]of new FormData(form)){if(key==='_csrf'||/password/i.test(key))continue;const entry=value instanceof File?{name:value.name,size:value.size,type:value.type,note:'Selected files are not included in this copy.'}:value;if(key in fields)fields[key]=Array.isArray(fields[key])?[...fields[key],entry]:[fields[key],entry];else fields[key]=entry;}const url=URL.createObjectURL(new Blob([JSON.stringify({format:'kemsor-unsaved-content-v1',exportedAt:new Date().toISOString(),fields},null,2)],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='kemsor-unsaved-content.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});actions.append(download);}box.append(actions);}return;}if(result.redirect){requestSucceeded=true;window.adminSaveCompleted=true;await confirmUpload();location.assign(result.redirect);return;}requestSucceeded=true;await confirmUpload();feedback(typeof result.message==='string'?result.message:'Your changes have been saved.',{},true);form.dispatchEvent(new CustomEvent('admin:saved'));return;}
+   if(response.redirected&&response.ok){if(new URL(response.url).pathname==='/admin/login'){feedback('Your session has expired. Open the admin login in another tab, sign in, then retry. Your entries are still here.');return;}requestSucceeded=true;window.adminSaveCompleted=true;await confirmUpload();location.assign(response.url);return;}
    feedback('Unable to save right now. Your entries are still here; please try again.');
   }catch(error){feedback(error.name==='AbortError'?'The request timed out. Your entries are still here. Check the list before trying again to avoid duplicate submissions.':'Unable to connect. Your entries are still here; please try again.');}
-  finally{clearTimeout(timeout);if(requestSucceeded)adminProgress.finish();else adminProgress.cancel();delete form.dataset.saving;form.removeAttribute('aria-busy');buttons.forEach(({button,disabled})=>button.disabled=disabled);fields.forEach(({field,disabled})=>field.disabled=disabled);editors.forEach(({surface,editable,readonly})=>{surface.setAttribute('contenteditable',editable);if(readonly===null)surface.removeAttribute('aria-readonly');else surface.setAttribute('aria-readonly',readonly);});if(submitter)submitter.replaceChildren(...submitContent);}
+  finally{clearTimeout(timeout);if(requestSucceeded&&!hasFiles)adminProgress.finish();else adminProgress.cancel();delete form.dataset.saving;form.removeAttribute('aria-busy');buttons.forEach(({button,disabled})=>button.disabled=disabled);fields.forEach(({field,disabled})=>field.disabled=disabled);editors.forEach(({surface,editable,readonly})=>{surface.setAttribute('contenteditable',editable);if(readonly===null)surface.removeAttribute('aria-readonly');else surface.setAttribute('aria-readonly',readonly);});if(submitter)submitter.replaceChildren(...submitContent);}
  });
 }
 

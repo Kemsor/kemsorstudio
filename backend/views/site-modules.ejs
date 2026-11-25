@@ -1,1 +1,36 @@
-<%- include('head') %><p class="eyebrow">WEBSITE CONTENT</p><h1>Existing page content</h1><p>Edit the copy, image placements, videos and navigation already used by the website. Supplied defaults remain in place until you publish changes. Layouts and form identifiers are preserved.</p><label>Find an area<input type="search" data-site-search placeholder="Search page names…"></label><div class="admin-page-grid"><% modules.forEach(([key,module])=>{const record=records.find(row=>row.module_key===key); %><a class="panel admin-page-card" data-site-search-item href="/admin/site-content/edit?key=<%= encodeURIComponent(key) %>"><small><%= module.area %></small><h2><%= module.label %></h2><p><%= module.fields.length %> controls · <%= record?.published?'Published overrides':record?'Draft / supplied defaults':'Supplied defaults' %></p><span>Edit existing content</span></a><% }); %></div><script src="/site-editor.js?v=1" defer></script><%- include('foot') %>
+<%- include('head') %>
+<h1>Existing page content</h1>
+<p>Edit the copy, images, videos, and navigation used on the website.</p>
+<% const areas=new Map(), recordsByKey=new Map(records.map(record=>[record.module_key,record])); %>
+<% modules.forEach(([key,module])=>{
+  if(!areas.has(module.area))areas.set(module.area,[]);
+  areas.get(module.area).push([key,module]);
+}); %>
+<div data-site-area-list>
+  <div data-site-tabs hidden>
+    <div class="button-row" role="tablist" aria-label="Content areas">
+      <% [...areas.keys()].forEach((area,index)=>{ %>
+        <button type="button" class="quiet" role="tab" id="content-area-tab-<%= index %>" aria-controls="content-area-<%= index %>" aria-selected="false" tabindex="-1"><%= area %></button>
+      <% }); %>
+    </div>
+    <label>Search this tab
+      <input type="search" data-site-search placeholder="Search items">
+    </label>
+  </div>
+  <% [...areas].forEach(([area,items],index)=>{ %>
+    <section class="panel" id="content-area-<%= index %>" data-site-area-group>
+      <h2><%= area %></h2>
+      <ul>
+        <% items.forEach(([key,module])=>{ const record=recordsByKey.get(key); %>
+          <li data-site-search-item>
+            <a href="/admin/site-content/edit?key=<%= encodeURIComponent(key) %>"><%= module.label %></a>
+            <small> · <%= record?.published?'Published overrides':record?'Draft / supplied defaults':'Supplied defaults' %></small>
+          </li>
+        <% }); %>
+      </ul>
+      <p data-site-search-empty role="status" hidden>No items in this tab match your search.</p>
+    </section>
+  <% }); %>
+</div>
+<script src="/site-editor.js?v=7" defer></script>
+<%- include('foot') %>

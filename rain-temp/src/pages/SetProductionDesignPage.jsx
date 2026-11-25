@@ -83,7 +83,7 @@ export default function SetProductionDesignPage() {
       </a>)}</div>
     </section>
 
-    <section className="produce-section produce-questions" aria-labelledby="set-production-design-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("SetProductionDesignPage","d4a2ee65a8fc5955","A FEW THINGS TO KNOW")}</Label><MotionHeading as="h2" id="set-production-design-questions-title">{cmsText("SetProductionDesignPage","fc229f26c2d0a00a","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
+    <section data-managed-faq className="produce-section produce-questions" aria-labelledby="set-production-design-questions-title"><FaqPanel heading={<> <div><Label>{cmsText("SetProductionDesignPage","d4a2ee65a8fc5955","A FEW THINGS TO KNOW")}</Label><MotionHeading as="h2" id="set-production-design-questions-title">{cmsText("SetProductionDesignPage","fc229f26c2d0a00a","Questions.")}</MotionHeading></div> </>}> <div className="standard-faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true"><SiteIcon name="chevron" size={16} /></span></summary><p>{answer}</p></details>)}</div> </FaqPanel></section>
 
   </div></ProduceLayout>;
 }

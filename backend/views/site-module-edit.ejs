@@ -1,11 +1,32 @@
-<%- include('head') %><p class="eyebrow"><%= module.area %></p><h1><%= module.label %></h1><p>These controls update existing website content. Save a draft to review it later, or publish to apply changes. Reset returns this area to its supplied defaults. Public pages refresh CMS content within 30 seconds.</p><p><a href="/admin/site-content">All website areas</a> · <span class="badge"><%= live?'Published overrides':'Supplied defaults are live' %></span></p>
-<label>Find a field<input type="search" data-site-search placeholder="Search existing copy or field labels…"></label>
-<form method="post" action="/admin/site-content/save" class="panel editor site-module-editor"><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="module_key" value="<%= key %>"><input type="hidden" name="revision" value="<%= revision %>"><div class="field-grid">
-<% module.fields.forEach(field=>{const value=Object.hasOwn(draft,field.key)?draft[field.key]:field.default; %><div class="wide site-content-field" data-site-search-item><label><%= field.label %>
+<% const combinedFaq=typeof budgetingFaqLayout!=='undefined'&&budgetingFaqLayout; const imagePlacements=key.startsWith('images:'); const editingSection=typeof sectionId!=='undefined'&&sectionId; %><%- include('head') %><p class="eyebrow"><%= module.area %></p><h1><%= imagePlacements && typeof sectionsLabel!=='undefined' ? sectionsLabel+' images' : combinedFaq?'FAQs':module.label %></h1><% if(!imagePlacements){ %><p>These controls update existing website content. Save a draft to review it later, or publish to apply changes. Reset returns this area to its supplied defaults. Public pages refresh CMS content within 30 seconds.</p><% } %><p><% if(typeof sectionsUrl!=='undefined' && sectionsUrl){ %><a href="<%= sectionsUrl %>">All sections for <%= sectionsLabel %></a><% }else{ %><a href="/admin/site-content">All website areas</a><% } %> · <span class="badge"><%= live?'Published overrides':'Supplied defaults are live' %></span></p>
+<% if(module.href){ %><p><a href="/admin/pages">Website pages</a> · <a href="<%= module.href %>" target="_blank" rel="noopener">View published page</a></p><% } %>
+<% if(key.startsWith('hero:')){ %><p>Leave a field blank to use the page’s current default.</p><% } %>
+<% if(!module.faq&&!combinedFaq){ %><label<%- imagePlacements?' class="image-placement-search"':'' %>><%= imagePlacements?'Find an image':'Find a field' %><input type="search" <%- imagePlacements?'data-image-placement-search':'data-site-search' %> placeholder="<%= imagePlacements?'Search image placements':'Search existing copy or field labels…' %>"></label><% } %>
+<% if(imagePlacements){ %>
+  <div class="image-placement-editor" data-image-placement-list>
+    <%- include('site-image-placements',{fields:module.fields,draft}) %>
+  </div>
+<% }else{ %>
+<form method="post" action="/admin/site-content/save" class="panel editor site-module-editor"><% if(combinedFaq){ %><h2>FAQ layout</h2><% } %><input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="module_key" value="<%= key %>"><input type="hidden" name="revision" value="<%= revision %>"><% if(editingSection || (typeof showreel !== 'undefined' && showreel)){ %><input type="hidden" name="section" value="<%= editingSection||'showreel' %>"><% } %><% if(module.fields.some(field=>field.section&&field.type==='boolean')){ %><input type="hidden" name="section_visibility" value="1"><% } %><div class="field-grid">
+<% module.fields.forEach(field=>{const value=Object.hasOwn(draft,field.key)?draft[field.key]:field.default;
+ const descriptionKey=field.type==='image'&&[field.key+'Alt',field.key.replace(/\.image$/,'.alt'),'alt']
+  .find(candidate=>candidate!==field.key&&module.fields.some(other=>other.key===candidate&&other.type==='text'));
+%><div class="wide site-content-field" data-site-search-item data-field-type="<%= field.type %>" data-section="<%= field.section || '' %>"><label><%= field.label %>
 <% if(field.type==='boolean'){ %><input type="checkbox" name="value:<%= field.key %>" <%= value?'checked':'' %>>
 <% }else if(field.type==='number'){ %><input type="number" name="value:<%= field.key %>" min="1" max="1000" value="<%= value %>">
 <% }else if(field.type==='text'){ %><textarea name="value:<%= field.key %>" maxlength="12000" rows="<%= value.length>160?4:2 %>"><%= value %></textarea>
-<% }else{ %><input name="value:<%= field.key %>" value="<%= value %>" maxlength="1500" <%- field.type==='image'?'data-image-url':field.type==='video'?'data-content-video':field.type==='captions'?'data-caption-upload':'' %>>
+<% }else{ %><input name="value:<%= field.key %>" value="<%= value %>" maxlength="1500" <%- field.type==='image'?'data-image-url':field.type==='video'?'data-content-video':field.type==='captions'?'data-caption-upload':'' %><% if(descriptionKey){ %> data-image-description-field="value:<%= descriptionKey %>"<% } %>>
 <% } %></label><% if(field.type==='image'&&value){ %><img class="media-upload-preview" src="<%= value %>" alt="Current image"><% } %></div><% }); %></div>
-<div class="button-row site-editor-actions"><button class="admin-save" name="action" value="draft">Save draft</button><button name="action" value="publish">Publish changes</button><button class="quiet" name="action" value="reset">Reset to supplied defaults</button></div>
-<% if(history.length){ %><hr><label>Restore earlier draft<select name="restore_revision"><% history.forEach(item=>{ %><option value="<%= item.revision %>">Revision <%= item.revision %> · <%= item.action %> · <%= item.created_at %></option><% }); %></select></label><button class="quiet" name="action" value="restore">Restore as draft</button><% } %></form><script src="/site-editor.js?v=2" defer></script><%- include('foot') %>
+<% if(module.faq){ %><%- include('site-module-faq-fields') %><% } %>
+<%- include('site-module-editor-actions') %></form>
+<% if(combinedFaq&&faqEditor){ %>
+  <form id="faq-questions" method="post" action="/admin/site-content/save" class="panel editor" aria-labelledby="faq-questions-title">
+    <h2 id="faq-questions-title">FAQ questions and answers</h2>
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <input type="hidden" name="module_key" value="<%= faqEditor.key %>">
+    <input type="hidden" name="revision" value="<%= faqEditor.revision %>">
+    <%- include('site-module-faq-fields',faqEditor) %>
+    <%- include('site-module-editor-actions',faqEditor) %>
+  </form>
+<% } %>
+<% } %><script src="/site-editor.js?v=10" defer></script><%- include('foot') %>

@@ -12,7 +12,7 @@ test('Plain text is escaped and unsafe rich links are rejected',()=>{
 test('Readiness distinguishes missing details from optional improvements',()=>{
  const values={title:'Story',body:'Details',summary:'Summary',status:'draft',type:'blog'};
  assert.deepEqual(publishingChecks(values),[]);
- const checks=publishingChecks({...values,title:''},{hasImage:true,imageAlt:'',pendingUpload:true});assert.ok(checks.some(check=>check.field==='title'&&check.level==='required'));assert.ok(checks.some(check=>check.field==='image_id'));assert.ok(checks.some(check=>check.field==='image'));
+ const checks=publishingChecks({...values,title:''},{hasImage:true,imageAlt:'',pendingUpload:true});assert.ok(checks.some(check=>check.field==='title'&&check.level==='required'));assert.ok(checks.some(check=>check.field==='image_id'&&check.level!=='required'));assert.ok(checks.some(check=>check.field==='image'));
  const press=publishingChecks({...values,type:'news',category:'Press Releases'});assert.ok(press.some(check=>check.field==='pdf_url'));
  const career=publishingChecks({...values,type:'career'});assert.ok(career.some(check=>check.field==='role'));assert.ok(career.some(check=>check.field==='location'));
  const video=publishingChecks({...values,video_url:'/media/2/video.mp4'});assert.ok(video.some(check=>check.field==='image_id'));assert.ok(video.some(check=>check.field==='video_caption'));

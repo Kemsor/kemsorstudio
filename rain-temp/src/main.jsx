@@ -1,3 +1,5 @@
+import {currentPageContentKey,getSiteModule} from './siteContent';
+import {pagesWithAuthoredFaqs} from '../../shared/inner-page-content.js';
 import useHeroPhotoBackground from './useHeroPhotoBackground';
 import contentPages from '../../shared/content-pages.json';
 import { CookieConsentProvider, CookiePreferences } from './CookieConsent';
@@ -67,6 +69,8 @@ if (location.hash === '#home') history.replaceState(history.state, '', `${locati
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
+const ManagedPageFaq=lazy(()=>import('./FaqPanel').then(module=>({default:module.ManagedPageFaq})));
+
 const routes={
  'person-detail':lazy(()=>import('./pages/ProductionPersonPage')),
  'production-detail':lazy(()=>import('./pages/ProductionDetailPage')),
@@ -86,8 +90,8 @@ const routes={
  'profile':lazy(()=>import('./pages/TalentPages').then(m=>({default:m.ProfilePage}))),
  'script-to-production':lazy(()=>import('./pages/ProductionTool')),
 
- post:lazy(()=>import('./pages/PostOverviewPage')),
  'post-production':lazy(()=>import('./pages/PostProductionPage')),
+ 'artist-digital-media-studio':lazy(()=>import('./pages/ArtistMediaStudioPage')),
  release:lazy(()=>import('./pages/ReleaseOverviewPage')),
  'distribution-release':lazy(()=>import('./pages/DistributionReleasePage')),
  'festival-awards':lazy(()=>import('./pages/FestivalAwardsPage')),
@@ -116,7 +120,6 @@ const routes={
  blog:lazy(()=>import('./pages/BlogPage')),
  legal:lazy(()=>import('./pages/LegalPage')),
  'career-application':lazy(()=>import('./pages/CareersPage').then(module=>({default:module.CareerApplicationPage}))),
- 'latest-openings':lazy(()=>import('./pages/CareersPage').then(module=>({default:module.LatestOpeningsPage}))),
  careers:lazy(()=>import('./pages/CareersPage').then(module=>({default:module.CareersPage}))),
  contact:lazy(()=>import('./pages/ContactPage').then(module=>({default:module.ContactPage}))),
 };
@@ -157,6 +160,8 @@ function App({ homePage }) {
  useCms(); // Refresh source-backed page content without remounting page state.
  const requested=document.body.dataset.page||location.pathname.slice(import.meta.env.BASE_URL.length).split('/').filter(Boolean)[0]||'home';
  const page=routes[requested]?requested:'home';
+ const faqPage = currentPageContentKey();
+ const addFaq = faqPage && !pagesWithAuthoredFaqs.includes(faqPage) && getSiteModule(`faq:${faqPage}`,{}).items?.length;
  const Page=page==='home' && homePage ? homePage : routes[page];
  const reduced=useReducedMotion();
  const [opening,setOpening]=useState(()=>page!=='home' && !new URLSearchParams(location.search).has('admin_preview') && shouldShowOpening());
@@ -185,7 +190,8 @@ function App({ homePage }) {
  return <><SeoMetadata page={page}/><PageProgress ready={ready} onActiveChange={setSwitching}/><CursorDot/>{opening&&<OpeningLoader ready={ready} reduced={reduced} onComplete={finishOpening}/>}<div id="top" className={`creative-site site-page-${page}`} data-motion={paused?'paused':'playing'} inert={opening||switching?true:undefined} aria-hidden={opening||switching?true:undefined}>
   <a className="skip-link" href="#main">Skip to content</a>
   <Header page={page}/>
-  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{contentPages.some(item=>item.key===page) && <CmsPageSections page={page}/>}</ReadyPage></Suspense></TextMotionProvider></main>
+  <main id="main" tabIndex="-1" className={page==='home'?'':'inner-page editorial-inner'}><TextMotionProvider disabled={reduced||paused} suspended={opening}><Suspense fallback={<PendingPage/>}><ReadyPage paused={paused} reduced={reduced} onReady={onReady}><Page paused={paused||opening} reduced={reduced}/>{page!=='artist-digital-media-studio' && contentPages.some(item=>item.key===page) && <CmsPageSections page={page}/>}
+  {Boolean(addFaq) && <Suspense fallback={null}><ManagedPageFaq page={faqPage}/></Suspense>}</ReadyPage></Suspense></TextMotionProvider></main>
   <Footer page={page} reduced={reduced}/>
   {<ExperienceTools page={page}/>}
  </div><CookiePreferences hidden={opening||switching}/></>;

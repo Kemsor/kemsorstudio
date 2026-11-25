@@ -80,3 +80,11 @@ html[data-admin-theme] body .cms-header .notification-popover .notification-cont
 html[data-admin-theme] body .cms-header .notification-popover .notification-content>small{grid-column:1;grid-row:2;align-self:center}
 html[data-admin-theme] body .cms-header .notification-popover .notification-content>form{grid-column:1/-1;margin-top:8px}
 html[data-admin-theme] body .cms-header .notification-popover button.notification-read{margin-top:0;font-size:11px;min-height:30px}
+
+
+@media screen and (min-width:1040px){
+ html[data-admin-theme] body.cms-authenticated .cms-header .admin-menu-toggle{display:inline-flex;flex-shrink:0}
+ html[data-admin-theme][data-admin-sidebar-hidden=true] body.cms-authenticated .cms-nav{display:none}
+ html[data-admin-theme][data-admin-sidebar-hidden=true] body.cms-authenticated main{margin-inline:0;width:100%;max-width:none}
+ html[data-admin-theme][data-admin-sidebar-hidden=true] body.cms-authenticated .cms-footer{margin-left:0}
+}

@@ -56,3 +56,13 @@ html body #top.creative-site #main#main.inner-page .post-page .post-pipeline li:
 @media(prefers-reduced-motion:reduce){html body #top.creative-site #main#main.inner-page .post-page *{transition:none!important}}
 html body #top.creative-site #main#main.inner-page .post-page .post-pipeline{padding:0!important;border:0!important;background:none!important}
 @media(max-width:650px){html body #top.creative-site #main#main.inner-page .post-page #what-we-supervise table,html body #top.creative-site #main#main.inner-page .post-page #by-format table{min-width:0!important;table-layout:fixed}html body #top.creative-site #main#main.inner-page .post-page #what-we-supervise tbody th,html body #top.creative-site #main#main.inner-page .post-page #by-format tbody th{width:38%;min-width:0!important}}
+
+html body #top.creative-site.site-page-post-production #main#main.inner-page .post-page > section.standard-faq-simple:has(> .standard-faq-panel) {
+  width: calc(100% - 2 * var(--inner-content-gutter)) !important;
+  max-width: var(--inner-content-width) !important;
+  margin-inline: auto !important;
+  padding-inline: 0 !important;
+  box-shadow: 0 0 0 100vmax var(--simple-faq-ink) !important;
+  clip-path: inset(0 -100vmax);
+}
+.post-page > .standard-faq-simple > .standard-faq-panel::before { content: none !important; }

@@ -1,3 +1,4 @@
+import ManagedHero from '../ManagedHero';
 import {cmsText} from "../siteContent.js";
 import StudioImage from '../StudioImage';
 import MotionHeading, { MotionCopy } from '../TextMotion';
@@ -23,7 +24,7 @@ export default function BlogPage() {
   const requestedPost = new URLSearchParams(location.search).get('post');
   if (requestedPost) {
     const note = notes.find(item => item.id === requestedPost);
-    return <section className="page-section blog-article-page"><TextLink href="/blog/">{cmsText("BlogPage","d11e117defee9217","All stories")}</TextLink>{note ? <article className="editorial-note page-split"><div className="page-copy"><p className="page-eyebrow">{note.category}</p><MotionHeading as="h1">{note.title}</MotionHeading>{note.summary && <p className="page-lead">{note.summary}</p>}</div><div className="page-copy">{note.cms ? <CmsText richText={note.metadata?.rich_text} text={note.introduction}/> : <p className="page-lead">{note.introduction}</p>}{note.sections.map(([title,copy])=><section key={title}><MotionHeading as="h2">{title}</MotionHeading><p>{copy}</p></section>)}</div></article> : <MotionCopy role="status">{connected ? 'This post is unavailable.' : 'Loading the story…'}</MotionCopy>}</section>;
+    return <><ManagedHero title={note?.title||"Blog"} description={note?.summary||"Stories and updates from Kemsor Studios."} image={note?.image_url} usePageSettings={false}/><section className="page-section blog-article-page"><TextLink href="/blog/">{cmsText("BlogPage","d11e117defee9217","All stories")}</TextLink>{note ? <article className="editorial-note"><div className="page-copy">{note.cms ? <CmsText richText={note.metadata?.rich_text} text={note.introduction}/> : <p className="page-lead">{note.introduction}</p>}{note.sections.map(([title,copy])=><section key={title}><MotionHeading as="h2">{title}</MotionHeading><p>{copy}</p></section>)}</div></article> : <MotionCopy role="status">{connected ? 'This post is unavailable.' : 'Loading the story…'}</MotionCopy>}</section></>;
   }
   return <div className="blog-page">
     <EditorialHero compact page="blog" eyebrow={cmsText("BlogPage","6741e3a71727c395","STUDIO NOTES")} title={cmsText("BlogPage","af1cd61f6115bfa5","Blog")} caption="FROM THE STUDIO" description="Stories, perspectives and updates from Kemsor Studios. Follow the people, ideas and work behind our films." actions={<>{notes.length > 0 && <CTA href="#blog-posts">Explore stories</CTA>}<TextLink href="/about/">Meet the studio</TextLink></>} foot={<div className="blog-hero-foot"><span>People and craft</span><span>Production stories</span><span>Studio updates</span></div>}/>

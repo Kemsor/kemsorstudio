@@ -8,7 +8,7 @@ import {publicProductionsRouter} from './public-productions.js';
 import {productionMetadata,publicProductionMetadata} from './production-records.js';
 import {enquiryRepliesRouter} from './enquiry-replies.js';
 import {newsCampaignsRouter} from './news-campaigns.js';
-import {siteModulesRouter,publishedSiteModules} from './site-modules.js';
+import {siteModulesRouter,publishedSiteModules,pageEditors,pageEditorGroups} from './site-modules.js';
 import contentPages from '../../shared/content-pages.json' with {type:'json'};
 const contentPageKeys=contentPages.map(page=>page.key);
 import {newsAlertsRouter} from './news-alerts.js';
@@ -169,21 +169,31 @@ export function createApp(db, options={}) {
     res.redirect('/admin/notifications');
   });
   app.get('/admin/pages',editor,async(req,res)=>{
-    const counts=await rows(db,'SELECT type,COUNT(*) AS total FROM cms_entries GROUP BY type');
-    res.render('pages',{counts});
+    res.render('pages',{groups:await pageEditorGroups(db,req.user.role)});
   });
-  app.get('/admin/content',editor,async(req,res)=>{
-    if(req.query.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);return res.redirect('/admin/manage/legal');}
-    const type=req.query.type==='all' ? 'all' : Object.hasOwn(types,req.query.type) ? req.query.type : 'news';
+  app.get('/admin/pages/:page',editor,(req,res)=>{
+    const page=pageEditors(req.params.page,req.user.role);
+    ensure(page?.sections.length,'Unknown website page.',404);
+    res.render('site-module-sections',{...page,pageDirectory:true});
+  });
+  app.get(['/admin/content','/admin/pages/home/sections'],editor,async(req,res)=>{
+    const homepageSections=req.path==='/admin/pages/home/sections';
+    if(!homepageSections&&req.query.type==='home'){
+      const query=new URLSearchParams(req.originalUrl.split('?')[1]||'');
+      query.delete('type');
+      return res.redirect('/admin/pages/home/sections'+(query.size?'?'+query:''));
+    }
+    if(!homepageSections&&req.query.type==='legal'){ensure(req.user.role==='admin','Use the administrator-managed legal editor.',403);return res.redirect('/admin/manage/legal');}
+    const type=homepageSections?'home':req.query.type==='all' ? 'all' : Object.hasOwn(types,req.query.type) ? req.query.type : 'news';
     const state=['draft','published','archived'].includes(req.query.status) ? req.query.status : '';
     const search=text(req.query.q,100,'Search');
     const pageFilter=type==='page' && contentPageKeys.includes(req.query.page)?req.query.page:'';
-    const where='WHERE type<>"legal" AND (?="all" OR type=?) AND (?="" OR status=?) AND title LIKE ? AND (?="" OR JSON_UNQUOTE(JSON_EXTRACT(metadata,"$.page"))=?)';
+    const where='WHERE type<>"legal" AND ((?="all" AND type<>"home") OR type=?) AND (?="" OR status=?) AND title LIKE ? AND (?="" OR JSON_UNQUOTE(JSON_EXTRACT(metadata,"$.page"))=?)';
     const params=[type,type,state,state,`%${search}%`,pageFilter,pageFilter];
     const total=Number((await rows(db,`SELECT COUNT(*) AS total FROM cms_entries ${where}`,params))[0].total);
     const table=tableView(req,total,{title:'title',status:'status',updated:'updated_at'},'updated',{type,status:state,q:search,page:pageFilter});
     const entries=await rows(db,`SELECT id,type,title,slug,status,updated_at FROM cms_entries ${where} ORDER BY ${table.order} LIMIT ${table.limit} OFFSET ${table.offset}`,params);
-    res.render('content',{entries,type,state,search,pageFilter,table});
+    res.render('content',{entries,type,state,search,pageFilter,table,homepageSections});
   });
   app.use('/admin/content',editor,async(req,res,next)=>{
     res.locals.productionPeople=[];res.locals.productionAssets=[];
@@ -270,6 +280,11 @@ export function createApp(db, options={}) {
       metadata.asset_url=assetUrl;metadata.usage=text(b.usage,300,'Asset usage',true);
     }
     if(type==='page'){if(metadata.page==='news')metadata.page='press-media';ensure(contentPageKeys.includes(metadata.page),'Choose a valid page.');}
+    if(type==='page'&&metadata.page==='artist-digital-media-studio'){
+      const year=text(b.year,4,'Shoot year');
+      ensure(!year||/^[1-9][0-9]{3}$/.test(year),'Enter a four-digit shoot year.');
+      if(year)metadata.year=year;
+    }
     if(type==='legal')ensure(metadata.page==='legal'||contentPageKeys.includes(metadata.page),'Choose a valid page.');
     const videoPages=['feature-films','series-ott','documentaries','productions'];
     if(type==='production'||type==='page'){
@@ -294,11 +309,10 @@ export function createApp(db, options={}) {
     if(banner){
       ensure(['blog','news'].includes(type),'Upload content images from the image library.');
       banner=await optimizeImage(banner);
-      const alt=text(b.banner_alt,300,'Banner description',true),filename=await fileSave(banner,'webp');
+      const alt=text(b.banner_alt,300,'Banner description'),filename=await fileSave(banner,'webp');
       uploaded={filename,alt,file:banner};
     }
     try {
-      if(b.status==='published'&&imageId&&!uploaded){const image=(await rows(db,'SELECT alt FROM cms_media WHERE id=?',[imageId]))[0];ensure(image?.alt?.trim(),'Add an image description in Media library before publishing this image.');}
       const connection=await db.getConnection();let contentId;
       try{
         await connection.beginTransaction();
@@ -358,8 +372,8 @@ export function createApp(db, options={}) {
     res.render('media',{media,search,format,usage,kind});
   });
   app.post('/admin/media/:id/description',editor,async(req,res)=>{
-    const alt=text(req.body.alt,300,'Description',true);
-    const file=(await rows(db,'SELECT m.id FROM cms_media m WHERE m.id=? AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[req.params.id]))[0];ensure(file,'Media not found.',404);
+    const file=(await rows(db,'SELECT m.id,m.mime FROM cms_media m WHERE m.id=? AND NOT EXISTS(SELECT 1 FROM talent_accounts t WHERE t.image_id=m.id)',[req.params.id]))[0];ensure(file,'Media not found.',404);
+    const alt=text(req.body.alt,300,'Description',!file.mime.startsWith('image/'));
     await rows(db,'UPDATE cms_media SET alt=? WHERE id=?',[alt,file.id]);await audit(db,req.user,'update','media',file.id);
     res.redirect('/admin/media?saved=1');
   });
@@ -403,7 +417,7 @@ export function createApp(db, options={}) {
     }else if(captions){
       let value;try{value=new TextDecoder('utf-8',{fatal:true}).decode(original.buffer)}catch{}ensure(original.size<=1024*1024&&typeof value==='string'&&/^WEBVTT(?:[ \t][^\r\n]*)?\r?\n/.test(value)&&!value.includes('\0')&&/\d{2}:\d{2}\.\d{3} --> (?:\d{2}:)?\d{2}:\d{2}\.\d{3}/.test(value),'Choose a valid UTF-8 WebVTT subtitle file up to 1 MB.');file=original;extension='vtt';mime='text/vtt';
     }else{file=await optimizeImage(original);extension='webp';mime='image/webp';}
-    const alt=text(req.body.alt,300,video?'Video description':'Alternative text',true),filename=await fileSave(file,extension);
+    const alt=text(req.body.alt,300,video?'Video description':extension==='webp'?'Image description':'File description',extension!=='webp'),filename=await fileSave(file,extension);
     let id;
     try{const result=await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by,private_epk) VALUES(?,?,?,?,?,?,?)',[filename,path.basename(original.originalname).slice(0,255),mime,file.size,alt,req.user.id,document&&req.body.epk_private==='true']);id=result.insertId;}
     catch(error){await unlink(path.join(root,'storage/uploads',filename)).catch(()=>{});throw error;}
@@ -412,7 +426,7 @@ export function createApp(db, options={}) {
   });
   app.post('/admin/media',editor,async(req,res)=>{
     const original=req.files?.image?.[0];ensure(original,'Choose an image.');const file=await optimizeImage(original),kind=['webp','image/webp'];
-    const alt=text(req.body.alt,300,'Alternative text',true),filename=await fileSave(file,kind[0]);
+    const alt=text(req.body.alt,300,'Alternative text'),filename=await fileSave(file,kind[0]);
     try{const result=await rows(db,'INSERT INTO cms_media(filename,original_name,mime,size,alt,created_by) VALUES(?,?,?,?,?,?)',[filename,path.basename(file.originalname).slice(0,255),kind[1],file.size,alt,req.user.id]);await audit(db,req.user,'upload','media',result.insertId);}catch(error){await unlink(path.join(root,'storage/uploads',filename));throw error;}
     res.redirect('/admin/media?saved=1');
   });

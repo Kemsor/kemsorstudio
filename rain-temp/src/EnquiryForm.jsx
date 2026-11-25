@@ -3,7 +3,7 @@ import { cmsApi, useCms } from './CmsContent';
 import { TaskLoader } from './Loading';
 import EnquirySuccess from './EnquirySuccess';
 import categories from '../../shared/enquiry-categories.json';
-export default function EnquiryForm({ standalone = false, title = 'Studio enquiry', initialCategory = 'business', initialSubject = '', showHeading = true }) {
+export default function EnquiryForm({ standalone = false, title = 'Studio enquiry', initialCategory = 'business', initialSubject = '', showHeading = true, artistBrief }) {
   const { settings, connected } = useCms();
   const request = useRef(null);
   const mounted = useRef(true);
@@ -22,6 +22,11 @@ export default function EnquiryForm({ standalone = false, title = 'Studio enquir
   const submit = async event => {
     event.preventDefault(); if (busy) return;
     const form = event.currentTarget, data = new FormData(form);
+    if (artistBrief) {
+      data.set('message', `Phone: ${data.get('phone')}\nShoot goal: ${data.get('shoot_goal')}\n\n${data.get('message')}`);
+      data.delete('phone');
+      data.delete('shoot_goal');
+    }
     setBusy(true); setProgress(0); setResult(null); setError('');
     try {
       const csrf = await fetch(`${cmsApi}/csrf`, { credentials: 'same-origin', signal: AbortSignal.timeout(10000) });
@@ -40,7 +45,7 @@ export default function EnquiryForm({ standalone = false, title = 'Studio enquir
         xhr.send(data);
       });
       if (!mounted.current) return;
-      setProgress(100); setResult(response); form.reset();
+      setProgress(100); setResult(response); form.reset(); artistBrief?.setPurpose('');
     } catch (reason) { if (mounted.current) setError(reason.message); }
     finally { request.current = null; if (mounted.current) setBusy(false); }
   };
@@ -50,18 +55,26 @@ export default function EnquiryForm({ standalone = false, title = 'Studio enquir
       {standalone && (!connected || !settings.enquiries_enabled) && <p role="status">Enquiry submissions are currently unavailable. Please try again later.</p>}
       <fieldset className="enquiry-fields" disabled={busy || !connected || !settings.enquiries_enabled}>
       <div className="form-fields">
-        <label>Enquiry category<select name="category" required defaultValue={initialCategory} onChange={event=>setSelectedCategory(event.target.value)}>{Object.entries(categories).map(([key,label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+        {artistBrief ? <input type="hidden" name="category" value={initialCategory}/> : <label>Enquiry category<select name="category" required defaultValue={initialCategory} onChange={event=>setSelectedCategory(event.target.value)}>{Object.entries(categories).map(([key,label]) => <option key={key} value={key}>{label}</option>)}</select></label>}
         <label>Your name<input name="name" required maxLength="100" autoComplete="name" /></label>
         <label>Email<input type="email" name="email" required maxLength="254" autoComplete="email" /></label>
+        {artistBrief ? <>
+          <label>Phone<input name="phone" type="tel" required maxLength="50" autoComplete="tel"/></label>
+          <label>What’s it for?<select name="shoot_goal" required value={artistBrief.purpose} onChange={event=>artistBrief.setPurpose(event.target.value)}>
+            <option value="">Choose a goal</option>{artistBrief.purposes.map(goal=><option key={goal}>{goal}</option>)}
+          </select></label>
+          <input type="hidden" name="subject" value={initialSubject}/>
+        </> : <>
         <label>Organisation<input name="organisation" maxLength="150" autoComplete="organization" /></label>
         <label className="story-field">Subject<input name="subject" defaultValue={initialSubject} required maxLength="200" /></label>
-        {selectedCategory==='copyright'&&<label className="story-field">Evidence / infringing URL<input type="url" name="evidence_url" required maxLength="1000" placeholder="https://…"/></label>}<input type="hidden" name="source" value={location.pathname+location.search}/><label className="story-field">Your enquiry<textarea name="message" rows="6" required maxLength="8000" /></label>
+        </>}
+        {selectedCategory==='copyright'&&<label className="story-field">Evidence / infringing URL<input type="url" name="evidence_url" required maxLength="1000" placeholder="https://…"/></label>}<input type="hidden" name="source" value={location.pathname+location.search}/><label className="story-field">{artistBrief ? 'Tell us about the shoot' : 'Your enquiry'}<textarea name="message" rows="6" required maxLength={artistBrief ? 7800 : 8000} /></label>
         {settings.attachments_enabled && <label className="story-field">Optional attachment<input name="attachment" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" /><span>PDF, JPEG, PNG or WebP. Maximum 5 MB.</span></label>}
       </div>
       <label className="enquiry-honeypot" aria-hidden="true">Website<input name="website" tabIndex="-1" autoComplete="off" /></label>
       <p className="cms-enquiry-notice">{settings.privacy_notice}</p>
       <label className="check"><input type="checkbox" name="consent" value="true" required />I agree to my details being used for this enquiry as described above.</label>
-      <button type="submit" className="creative-cta" disabled={busy}><span>{busy ? 'Sending enquiry…' : 'Send enquiry'}</span></button>
+      <button type="submit" className="creative-cta" disabled={busy}><span>{busy ? 'Sending enquiry…' : artistBrief ? 'Start a conversation' : 'Send enquiry'}</span></button>
       </fieldset>
       {showLoader && <TaskLoader progress={progress} label="Sending your enquiry" />}
       {error && <p className="cms-enquiry-status" role="alert">{error}</p>}

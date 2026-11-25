@@ -1,0 +1,49 @@
+<% const fieldsByKey=new Map(fields.map(field=>[field.key,field]));
+   const valueFor=field=>Object.hasOwn(draft,field.key)?draft[field.key]:field.default; %>
+<% fields.filter(field=>field.type==='image').forEach(field=>{
+  const image=valueFor(field);
+  const id=field.key.replace(/\.src$/,'');
+  const description=fieldsByKey.get(id+'.alt');
+  const title=field.label.split(' · ').at(-1).replace(/[-_]+/g,' ').replace(/^./,character=>character.toUpperCase());
+%>
+  <form class="image-placement" method="post" action="/admin/site-content/save" id="image-<%= id %>" aria-label="<%= title %>" data-image-placement>
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <input type="hidden" name="module_key" value="<%= key %>">
+    <input type="hidden" name="revision" value="<%= revision %>">
+    <input type="hidden" name="placement" value="<%= id %>">
+    <h2><%= title %></h2>
+    <div class="image-placement-media">
+      <button class="quiet image-placement-reset" name="action" value="reset">Reset to default</button>
+      <div class="image-placement-preview">
+        <img data-placement-preview class="media-upload-preview" loading="lazy" alt="" <% if(image){ %>src="<%= image %>"<% }else{ %>hidden<% } %>>
+      </div>
+      <div data-placement-upload hidden></div>
+    </div>
+    <div class="image-placement-fields">
+      <label>Image URL
+        <input name="value:<%= field.key %>" value="<%= image %>" maxlength="1500" data-image-url>
+      </label>
+      <% if(description){ %>
+        <label>Alt text (optional)
+          <textarea name="value:<%= description.key %>" rows="2" maxlength="12000" data-placement-description><%= valueFor(description) %></textarea>
+        </label>
+      <% } %>
+      <div class="button-row image-placement-actions">
+        <button class="admin-save" name="action" value="publish">Save</button>
+        <button class="quiet" name="action" value="draft">Save draft</button>
+      </div>
+      <p data-placement-save-status role="status" hidden></p>
+      <% if(history.length){ %>
+        <details class="image-placement-history">
+          <summary>Version history</summary>
+          <label>Restore earlier draft
+            <select name="restore_revision">
+              <% history.forEach(item=>{ %><option value="<%= item.revision %>">Revision <%= item.revision %> · <%= item.action %></option><% }); %>
+            </select>
+          </label>
+          <button class="quiet" name="action" value="restore">Restore as draft</button>
+        </details>
+      <% } %>
+    </div>
+  </form>
+<% }); %>
